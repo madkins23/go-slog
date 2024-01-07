@@ -5,7 +5,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"regexp/syntax"
 	"sort"
 	"strconv"
 	"strings"
@@ -213,8 +212,8 @@ func (ctr *FieldCounter) parseField(field string) error {
 func (ctr *FieldCounter) parseKeyword(first rune) (string, error) {
 	var builder strings.Builder
 	builder.WriteRune(first)
-	return builder.String(), ctr.readLoop(func(r rune) error {
-		if syntax.IsWordChar(r) {
+	err := ctr.readLoop(func(r rune) error {
+		if unicode.IsLetter(r) {
 			builder.WriteRune(r)
 		} else if err := ctr.unreadRune(); err != nil {
 			return ctr.wrapCallError(err, msgUnreadRune, false, false)
@@ -223,6 +222,7 @@ func (ctr *FieldCounter) parseKeyword(first rune) (string, error) {
 		}
 		return nil
 	})
+	return builder.String(), err
 }
 
 func (ctr *FieldCounter) parseNumber() error {
@@ -328,15 +328,26 @@ var goodKeywords = map[string]bool{
 	"null":  true,
 }
 
+var runeKeywords = map[rune]bool{
+	't': true,
+	'T': true,
+	'f': true,
+	'F': true,
+	'n': true,
+	'N': true,
+}
+
 func (ctr *FieldCounter) parseValue() error {
 	return ctr.readLoop(func(r rune) error {
 		if unicode.IsSpace(r) {
 			return nil
-		} else if unicode.IsLetter(r) {
+		} else if runeKeywords[r] {
 			if keyword, err := ctr.parseKeyword(r); err != nil {
 				return ctr.wrapCallError(err, msgParseKeyword, false, false)
 			} else if !goodKeywords[strings.ToLower(keyword)] {
 				return fmt.Errorf("bad keyword '%s'", keyword)
+			} else {
+				return errFinished
 			}
 		} else if r == '"' {
 			_, err := ctr.parseString()
