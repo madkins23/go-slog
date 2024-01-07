@@ -283,7 +283,7 @@ func (suite *SlogTestSuite) fieldCounter() *testJSON.FieldCounter {
 }
 
 func (suite *SlogTestSuite) logMap() map[string]any {
-	test.Debugf(1, "JSON: %s", suite.Buffer.Bytes())
+	test.Debugf(1, ">>> JSON: %s", suite.Buffer.Bytes())
 	var results map[string]any
 	suite.Require().NoError(json.Unmarshal(suite.Buffer.Bytes(), &results))
 	return results

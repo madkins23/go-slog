@@ -21,6 +21,6 @@ var debug = flag.Uint("debug", 0, "Show debug statements")
 // The debug flag must be greater than or equal to the specified level for printing.
 func Debugf(level uint, format string, args ...interface{}) {
 	if *debug >= level {
-		fmt.Printf(">>> "+format+"\n", args...)
+		fmt.Printf(format, args...)
 	}
 }
