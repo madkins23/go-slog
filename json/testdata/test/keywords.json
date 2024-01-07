@@ -1,0 +1,6 @@
+{
+  "Name": "Keywords",
+  "FldList": ["alpha", "bravo", "charlie"],
+  "Duplicates": {},
+  "Source": "{\"alpha\": true, \"bravo\": false, \"charlie\": null}"
+}
