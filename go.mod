@@ -4,6 +4,7 @@ go 1.21.5
 
 require (
 	github.com/gertd/go-pluralize v0.2.1
+	github.com/phsym/zeroslog v0.1.0
 	github.com/rs/zerolog v1.31.0
 	github.com/samber/slog-zerolog/v2 v2.2.0
 	github.com/stretchr/testify v1.8.4
