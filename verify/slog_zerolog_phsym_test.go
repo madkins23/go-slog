@@ -18,6 +18,10 @@ func Test_slog_zerolog_phsym(t *testing.T) {
 	suite.Run(t, &SlogZerologSamberTestSuite{})
 }
 
-func (suite *SlogZerologPhsymTestSuite) SimpleHandler() slog.Handler {
-	return zeroslog.NewJsonHandler(os.Stderr, nil)
+func (suite *SlogZerologPhsymTestSuite) SimpleLogger() *slog.Logger {
+	return slog.New(zeroslog.NewJsonHandler(os.Stderr, nil))
+}
+
+func (suite *SlogZerologPhsymTestSuite) SourceLogger() *slog.Logger {
+	return slog.New(zeroslog.NewJsonHandler(os.Stderr, &zeroslog.HandlerOptions{AddSource: true}))
 }

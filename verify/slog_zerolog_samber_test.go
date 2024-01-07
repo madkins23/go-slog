@@ -18,7 +18,15 @@ func Test_slog_zerolog_samber(t *testing.T) {
 	suite.Run(t, &SlogZerologSamberTestSuite{})
 }
 
-func (suite *SlogZerologSamberTestSuite) SimpleHandler() slog.Handler {
+func (suite *SlogZerologSamberTestSuite) SimpleLogger() *slog.Logger {
 	zeroLogger := zerolog.New(suite.Buffer)
-	return samber.Option{Logger: &zeroLogger}.NewZerologHandler()
+	return slog.New(samber.Option{Logger: &zeroLogger}.NewZerologHandler())
+}
+
+func (suite *SlogZerologSamberTestSuite) SourceLogger() *slog.Logger {
+	zeroLogger := zerolog.New(suite.Buffer)
+	return slog.New(samber.Option{
+		Logger:    &zeroLogger,
+		AddSource: true,
+	}.NewZerologHandler())
 }
