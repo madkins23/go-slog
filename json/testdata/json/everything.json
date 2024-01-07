@@ -1,0 +1,16 @@
+{
+  "string": "The quick brown fox jumps over the lazy dog",
+  "integer": 23,
+  "float": 3.14159,
+  "object": {
+    "alpha": "omega",
+    "Goober": "Snoofus"
+  },
+  "stringArray": ["alpha", "bravo", "charlie"],
+  "intArray": [1, 1, 2, 3, 5, 8, 13, 21],
+  "objectArray": [
+    {"Goober":"Snoofus","Illuminati":23,"Pi":3.14159},
+    {"one":  1, "two":  2, "three": 3},
+    {"alpha":  "omega", "infinite":  "space"}
+  ]
+}

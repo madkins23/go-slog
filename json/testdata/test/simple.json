@@ -1,0 +1,6 @@
+{
+  "Name": "Simple",
+  "FldList": ["Goober","Illuminati","Pi"],
+  "Duplicates": {},
+  "Source": "{\"Goober\":\"Snoofus\",\"Illuminati\":23,\"Pi\":3.14159}"
+}

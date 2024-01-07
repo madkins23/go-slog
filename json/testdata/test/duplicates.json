@@ -1,0 +1,9 @@
+{
+  "Name": "Duplicates",
+  "FldList": ["float", "intArray", "integer", "object", "objectArray", "string", "stringArray"],
+  "Duplicates": {
+    "stringArray": 3,
+    "float": 2,
+    "object": 2
+  }
+}
