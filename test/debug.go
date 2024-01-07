@@ -8,11 +8,17 @@ import (
 // Set -debug flag to show extra print statements.
 // Command line setting:
 //
-//	go test ./... -args -debug
+//	go test ./... -args -debug=<int>
+//
+// where the <int> is the debug level.
+// If the level specified in the Debugf call is less than or equal the flag value
+// the debug statement will be printed.
 var debug = flag.Uint("debug", 0, "Show debug statements")
 
 // Debugf will only print the specified data if the -debug command flag is set.
 // The format strings will be wrapped with '>>> ' before and '\n' after.
+// The level field determines whether the statement will be printed.
+// The debug flag must be greater than or equal to the specified level for printing.
 func Debugf(level uint, format string, args ...interface{}) {
 	if *debug >= level {
 		fmt.Printf(">>> "+format+"\n", args...)
