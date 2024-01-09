@@ -196,7 +196,7 @@ var suites = make([]*SlogTestSuite, 0)
 // To use, add the following to a '_test' file:
 //
 //	func TestMain(m *testing.M) {
-//	test.WithWarnings(m)
+//	    test.WithWarnings(m)
 //	}
 //
 // This step can be omitted if warnings are being sent to an output file.
