@@ -238,7 +238,7 @@ func (suite *SlogTestSuite) TestSimpleAttributes() {
 	logger := suite.SimpleLogger()
 	logger.Info(message, "first", "one", "second", 2, "pi", math.Pi)
 	logMap := suite.logMap()
-	suite.checkFieldCount(6, logMap)
+	suite.checkFieldCount(6, logMap, 0)
 	suite.Assert().Equal("one", logMap["first"])
 	suite.Assert().Equal(float64(2), logMap["second"])
 	suite.Assert().Equal(math.Pi, logMap["pi"])
@@ -250,7 +250,7 @@ func (suite *SlogTestSuite) TestSimpleAttributeDuplicate() {
 	logger := suite.SimpleLogger()
 	logger.Info(message, "alpha", "one", "alpha", 2)
 	logMap := suite.logMap()
-	suite.checkFieldCount(4, logMap)
+	suite.checkFieldCount(4, logMap, 0)
 }
 
 // TestSimpleAttributeEmpty tests whether attributes with empty names and nil values are logged properly.
@@ -270,7 +270,7 @@ func (suite *SlogTestSuite) TestSimpleAttributeEmptyName() {
 	logger := suite.SimpleLogger()
 	logger.Info(message, "first", "one", "", 2, "pi", math.Pi)
 	logMap := suite.logMap()
-	suite.checkFieldCount(6, logMap)
+	suite.checkFieldCount(6, logMap, 0)
 	suite.Assert().Equal("one", logMap["first"])
 	value, found := logMap[""]
 	suite.Assert().True(found)
@@ -284,7 +284,7 @@ func (suite *SlogTestSuite) TestSimpleAttributeNil() {
 	logger := suite.SimpleLogger()
 	logger.Info(message, "first", "one", "second", nil, "pi", math.Pi)
 	logMap := suite.logMap()
-	suite.checkFieldCount(6, logMap)
+	suite.checkFieldCount(6, logMap, 0)
 	suite.Assert().Equal("one", logMap["first"])
 	suite.Assert().Nil(logMap["second"])
 	suite.Assert().Equal(math.Pi, logMap["pi"])
@@ -295,7 +295,7 @@ func (suite *SlogTestSuite) TestSimpleAttributesWith() {
 	logger := suite.SimpleLogger()
 	logger.With("first", "one", "second", 2).Info(message, "pi", math.Pi)
 	logMap := suite.logMap()
-	suite.checkFieldCount(6, logMap)
+	suite.checkFieldCount(6, logMap, 0)
 	suite.Assert().Equal("one", logMap["first"])
 	suite.Assert().Equal(float64(2), logMap["second"])
 	suite.Assert().Equal(math.Pi, logMap["pi"])
@@ -311,7 +311,7 @@ func (suite *SlogTestSuite) TestSimpleAttributeWithDuplicate() {
 	suite.Assert().Len(logMap, 4)
 	counter := suite.fieldCounter()
 	suite.Require().NoError(counter.Parse())
-	suite.checkFieldCount(4, logMap)
+	suite.checkFieldCount(4, logMap, 0)
 }
 
 // TestSimpleAttributeWithEmpty tests whether attributes with empty names and nil values
@@ -332,7 +332,7 @@ func (suite *SlogTestSuite) TestSimpleAttributeWithEmptyName() {
 	logger := suite.SimpleLogger()
 	logger.With("", 2).Info(message, "first", "one", "pi", math.Pi)
 	logMap := suite.logMap()
-	suite.checkFieldCount(6, logMap)
+	suite.checkFieldCount(6, logMap, 0)
 	suite.Assert().Equal("one", logMap["first"])
 	value, found := logMap[""]
 	suite.Assert().True(found)
@@ -346,7 +346,7 @@ func (suite *SlogTestSuite) TestSimpleAttributeWithNil() {
 	logger := suite.SimpleLogger()
 	logger.With("second", nil).Info(message, "first", "one", "pi", math.Pi)
 	logMap := suite.logMap()
-	suite.checkFieldCount(6, logMap)
+	suite.checkFieldCount(6, logMap, 0)
 	suite.Assert().Equal("one", logMap["first"])
 	suite.Assert().Nil(logMap["second"])
 	suite.Assert().Equal(math.Pi, logMap["pi"])
@@ -366,7 +366,7 @@ func (suite *SlogTestSuite) TestSimpleGroup() {
 		slog.Group("group", "second", 2, slog.String("third", "3"), "fourth", "forth"),
 		"pi", math.Pi)
 	logMap := suite.logMap()
-	suite.checkFieldCount(6, logMap)
+	suite.checkFieldCount(6, logMap, 0)
 	suite.Assert().Equal("one", logMap["first"])
 	if group, ok := logMap["group"].(map[string]any); ok {
 		suite.Assert().Len(group, 3)
@@ -385,7 +385,7 @@ func (suite *SlogTestSuite) TestSimpleGroupEmpty() {
 	logger := suite.SimpleLogger()
 	logger.Info(message, slog.Group("group"))
 	logMap := suite.logMap()
-	suite.checkFieldCount(3, logMap)
+	suite.checkFieldCount(3, logMap, 0)
 	_, found := logMap["group"]
 	suite.Assert().False(found)
 }
@@ -413,7 +413,7 @@ func (suite *SlogTestSuite) TestSimpleGroupWith() {
 	logger := suite.SimpleLogger()
 	logger.WithGroup("group").Info(message, "first", "one", "pi", math.Pi)
 	logMap := suite.logMap()
-	suite.checkFieldCount(4, logMap)
+	suite.checkFieldCount(4, logMap, 0)
 	if group, ok := logMap["group"].(map[string]any); ok {
 		suite.Assert().Len(group, 2)
 		suite.Assert().Equal("one", group["first"])
@@ -430,7 +430,7 @@ func (suite *SlogTestSuite) TestSimpleGroupWithMulti() {
 		WithGroup("group").With("second", 2, "third", "3").
 		WithGroup("subGroup").Info(message, "fourth", "forth", "pi", math.Pi)
 	logMap := suite.logMap()
-	suite.checkFieldCount(5, logMap)
+	suite.checkFieldCount(5, logMap, 0)
 	if group, ok := logMap["group"].(map[string]any); ok {
 		suite.Assert().Len(group, 3)
 		suite.Assert().Equal(float64(2), group["second"])
@@ -455,7 +455,7 @@ func (suite *SlogTestSuite) TestSimpleGroupWithMultiSubEmpty() {
 		WithGroup("group").With("second", 2, "third", "3").
 		WithGroup("subGroup").Info(message)
 	logMap := suite.logMap()
-	suite.checkFieldCount(5, logMap)
+	suite.checkFieldCount(5, logMap, 0)
 	_, found := logMap["subGroup"]
 	suite.Assert().False(found, "subGroup found at top level")
 	if group, ok := logMap["group"].(map[string]any); ok {
@@ -472,7 +472,7 @@ func (suite *SlogTestSuite) TestSimpleKeys() {
 	logger := suite.SimpleLogger()
 	logger.Info(message)
 	logMap := suite.logMap()
-	suite.checkFieldCount(3, logMap)
+	suite.checkFieldCount(3, logMap, 0)
 	suite.checkLevelKey("INFO", logMap)
 	suite.checkMessageKey(message, logMap)
 	suite.Assert().NotNil(logMap[slog.TimeKey])
@@ -494,7 +494,7 @@ func (suite *SlogTestSuite) TestSimpleResolve() {
 	logger := suite.SimpleLogger()
 	logger.Info(message, "hidden", &hiddenValue{v: "value"})
 	logMap := suite.logMap()
-	suite.checkFieldCount(4, logMap)
+	suite.checkFieldCount(4, logMap, 0)
 	suite.checkResolution("value", logMap["hidden"])
 }
 
@@ -504,7 +504,7 @@ func (suite *SlogTestSuite) TestSimpleResolveGroup() {
 	logger.Info(message, slog.Group("group",
 		slog.Float64("pi", math.Pi), slog.Any("hidden", &hiddenValue{v: "value"})))
 	logMap := suite.logMap()
-	suite.checkFieldCount(4, logMap)
+	suite.checkFieldCount(4, logMap, 0)
 	if group, ok := logMap["group"].(map[string]any); ok {
 		suite.Assert().Len(group, 2)
 		suite.Assert().Equal(math.Pi, group["pi"])
@@ -519,7 +519,7 @@ func (suite *SlogTestSuite) TestSimpleResolveWith() {
 	logger := suite.SimpleLogger()
 	logger.With("hidden", &hiddenValue{v: "value"}).Info(message)
 	logMap := suite.logMap()
-	suite.checkFieldCount(4, logMap)
+	suite.checkFieldCount(4, logMap, 0)
 	suite.checkResolution("value", logMap["hidden"])
 }
 
@@ -530,7 +530,7 @@ func (suite *SlogTestSuite) TestSimpleResolveGroupWith() {
 		slog.Float64("pi", math.Pi), slog.Any("hidden", &hiddenValue{v: "value"}))).
 		Info(message)
 	logMap := suite.logMap()
-	suite.checkFieldCount(4, logMap)
+	suite.checkFieldCount(4, logMap, 0)
 	if group, ok := logMap["group"].(map[string]any); ok {
 		suite.Assert().Len(group, 2)
 		suite.Assert().Equal(math.Pi, group["pi"])
@@ -571,15 +571,15 @@ func (suite *SlogTestSuite) TestSimpleZeroTime() {
 // checkFieldCount checks whether the prescribed number of fields exist at the top level.
 // In addition to using the logMap generated by unmarshaling the JSON log data,
 // the custom test.FieldCounter is used to make sure there are no duplicates.
-func (suite *SlogTestSuite) checkFieldCount(fieldCount uint, logMap map[string]any) {
+func (suite *SlogTestSuite) checkFieldCount(fieldCount uint, logMap map[string]any, skip uint) {
 	if suite.warn[WarnDuplicates] {
 		counter := suite.fieldCounter()
 		suite.Require().NoError(counter.Parse())
-		if fieldCount < counter.NumFields() || len(counter.Duplicates()) > 0 {
-			suite.addWarning(WarnDuplicates, fmt.Sprintf("%v", counter.Duplicates()), false)
+		if len(counter.Duplicates()) > 0 {
+			suite.addWarning(WarnDuplicates, fmt.Sprintf("%v", counter.Duplicates()), false, skip)
 			return
 		}
-		suite.addWarning(WarnUnused, WarnDuplicates, false)
+		suite.addWarning(WarnUnused, WarnDuplicates, false, 0)
 	}
 	suite.Assert().Len(logMap, int(fieldCount))
 	// Double check to make sure there are no duplicate fields at the top level.
@@ -595,11 +595,11 @@ func (suite *SlogTestSuite) checkLevelKey(level string, logMap map[string]any) {
 	if suite.warn[WarnLevelCase] {
 		if logLevel, ok := logMap[slog.LevelKey].(string); ok {
 			if suite.Assert().Equal(level, strings.ToUpper(logLevel)) && level != logLevel {
-				suite.addWarning(WarnLevelCase, "'"+logLevel+"'", false)
+				suite.addWarning(WarnLevelCase, "'"+logLevel+"'", false, 0)
 				return
 			}
 		}
-		suite.addWarning(WarnUnused, WarnLevelCase, false)
+		suite.addWarning(WarnUnused, WarnLevelCase, false, 0)
 	}
 	suite.Assert().Equal(level, logMap[slog.LevelKey])
 }
@@ -611,11 +611,11 @@ func (suite *SlogTestSuite) checkMessageKey(message string, logMap map[string]an
 		} else if msg, found := logMap["message"]; found {
 			// Found something on the known alternate key.
 			if message == msg {
-				suite.addWarning(WarnMessageKey, "`message`", false)
+				suite.addWarning(WarnMessageKey, "`message`", false, 0)
 				return
 			}
 		}
-		suite.addWarning(WarnUnused, WarnMessageKey, false)
+		suite.addWarning(WarnUnused, WarnMessageKey, false, 0)
 	}
 	suite.Assert().Equal(message, logMap[slog.MessageKey])
 }
@@ -627,13 +627,13 @@ func (suite *SlogTestSuite) checkNoEmptyAttribute(fieldCount uint, logMap map[st
 		suite.Require().NoError(counter.Parse())
 		if counter.NumFields() == fieldCount+1 {
 			if _, found := logMap[""]; found {
-				suite.addWarning(WarnEmptyAttributes, "", true)
+				suite.addWarning(WarnEmptyAttributes, "", true, 0)
 				return
 			}
 		}
-		suite.addWarning(WarnUnused, WarnEmptyAttributes, false)
+		suite.addWarning(WarnUnused, WarnEmptyAttributes, false, 0)
 	}
-	suite.checkFieldCount(fieldCount, logMap)
+	suite.checkFieldCount(fieldCount, logMap, 1)
 	_, found := logMap[""]
 	suite.Assert().False(found)
 }
@@ -646,23 +646,23 @@ func (suite *SlogTestSuite) checkNoZeroTime(fieldCount uint, logMap map[string]a
 			if _, found := logMap[slog.TimeKey]; found {
 				// Note: Not checking time string for zero.
 				// TODO: Create test for time string format?
-				suite.addWarning(WarnZeroTime, "", true)
+				suite.addWarning(WarnZeroTime, "", true, 0)
 				return
 			}
 		}
-		suite.addWarning(WarnUnused, WarnZeroTime, false)
+		suite.addWarning(WarnUnused, WarnZeroTime, false, 0)
 	}
-	suite.checkFieldCount(fieldCount, logMap)
+	suite.checkFieldCount(fieldCount, logMap, 1)
 	suite.Assert().Nil(logMap[slog.TimeKey])
 }
 
 func (suite *SlogTestSuite) checkResolution(value any, actual any) {
 	if suite.warn[WarnResolver] {
 		if value != actual {
-			suite.addWarning(WarnResolver, "", true)
+			suite.addWarning(WarnResolver, "", true, 0)
 			return
 		}
-		suite.addWarning(WarnUnused, WarnResolver, false)
+		suite.addWarning(WarnUnused, WarnResolver, false, 0)
 	}
 	suite.Assert().Equal(value, actual)
 }
@@ -677,12 +677,12 @@ func (suite *SlogTestSuite) checkSourceKey(fieldCount uint, logMap map[string]an
 	if suite.warn[WarnSourceKey] {
 		sourceData := logMap[slog.SourceKey]
 		if sourceData == nil {
-			suite.addWarning(WarnSourceKey, "no 'source' key", true)
+			suite.addWarning(WarnSourceKey, "no 'source' key", true, 0)
 			return
 		}
 		source, ok := sourceData.(map[string]any)
 		if !ok {
-			suite.addWarning(WarnSourceKey, "'source' key not a group", true)
+			suite.addWarning(WarnSourceKey, "'source' key not a group", true, 0)
 			return
 		}
 		var text strings.Builder
@@ -701,12 +701,12 @@ func (suite *SlogTestSuite) checkSourceKey(fieldCount uint, logMap map[string]an
 			}
 		}
 		if text.Len() > 0 {
-			suite.addWarning(WarnSourceKey, text.String(), true)
+			suite.addWarning(WarnSourceKey, text.String(), true, 0)
 		}
-		suite.addWarning(WarnUnused, WarnSourceKey, false)
+		suite.addWarning(WarnUnused, WarnSourceKey, false, 0)
 	}
 
-	suite.checkFieldCount(fieldCount, logMap)
+	suite.checkFieldCount(fieldCount, logMap, 1)
 	if group, ok := logMap[slog.SourceKey].(map[string]any); ok {
 		suite.Assert().Len(group, 3)
 		for field, exemplar := range sourceKeys {
@@ -723,12 +723,12 @@ func (suite *SlogTestSuite) checkSubGroupEmpty(subFieldCount uint, group map[str
 		if len(group) > int(subFieldCount) {
 			if subGroup, found := group["subGroup"]; found {
 				if sg, ok := subGroup.(map[string]any); ok && len(sg) < 1 {
-					suite.addWarning(WarnSubgroupEmpty, "", true)
+					suite.addWarning(WarnSubgroupEmpty, "", true, 0)
 					return
 				}
 			}
 		}
-		suite.addWarning(WarnUnused, WarnSubgroupEmpty, false)
+		suite.addWarning(WarnUnused, WarnSubgroupEmpty, false, 0)
 	}
 	suite.Assert().Len(group, int(subFieldCount))
 	_, found := group["subGroup"]
@@ -748,18 +748,18 @@ func (suite *SlogTestSuite) checkGroupInline(
 			} else {
 				suite.Fail("Group not map[string]any")
 			}
-			suite.addWarning(WarnGroupInline, "", true)
+			suite.addWarning(WarnGroupInline, "", true, 0)
 			return
 		}
-		suite.addWarning(WarnUnused, WarnGroupInline, false)
+		suite.addWarning(WarnUnused, WarnGroupInline, false, 0)
 	}
-	suite.checkFieldCount(fieldCount, logMap)
+	suite.checkFieldCount(fieldCount, logMap, 1)
 	checkGroupFn(logMap)
 }
 
 // -----------------------------------------------------------------------------
 
-func (suite *SlogTestSuite) addWarning(warning string, text string, addLogRecord bool) {
+func (suite *SlogTestSuite) addWarning(warning string, text string, addLogRecord bool, skip uint) {
 	if suite.warnings == nil {
 		suite.warnings = make(map[string]*Warning)
 	}
@@ -773,7 +773,7 @@ func (suite *SlogTestSuite) addWarning(warning string, text string, addLogRecord
 		record.Data = make([]WarningInstance, 0)
 	}
 	instance := WarningInstance{
-		Function: currentFunctionName(),
+		Function: currentFunctionName(skip),
 		Text:     text,
 	}
 	if addLogRecord {
@@ -809,9 +809,9 @@ func (r *hiddenValue) String() string {
 
 // -----------------------------------------------------------------------------
 
-func currentFunctionName() string {
+func currentFunctionName(skip uint) string {
 	pc := make([]uintptr, 10)
-	n := runtime.Callers(4, pc)
+	n := runtime.Callers(4+int(skip), pc)
 	frames := runtime.CallersFrames(pc[:n])
 	frame, _ := frames.Next()
 	parts := strings.Split(frame.Function, ".")
