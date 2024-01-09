@@ -2,8 +2,9 @@
 
 The `verify` package provides various `log/slog` handler test suites.
 This document discusses simple usage details.
-
-TODO:  Technical details are down a level.
+Technical details for the test suite are provided in
+the [`README.md`](test/README.md) file in
+the [`test`](test) package subdirectory.
 
 ## Simple Example
 
