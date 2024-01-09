@@ -402,11 +402,28 @@ func (suite *SlogTestSuite) TestSimpleGroupInline() {
 	logMap := suite.logMap()
 	suite.Assert().Equal("one", logMap["first"])
 	suite.Assert().Equal(math.Pi, logMap["pi"])
-	suite.checkGroupInline(8, 3, logMap, func(group map[string]any) {
-		suite.Assert().Equal(float64(2), group["second"])
-		suite.Assert().Equal("3", group["third"])
-		suite.Assert().Equal("forth", group["fourth"])
-	})
+	checkFieldFn := func(fieldMap map[string]any) {
+		suite.Assert().Equal(float64(2), fieldMap["second"])
+		suite.Assert().Equal("3", fieldMap["third"])
+		suite.Assert().Equal("forth", fieldMap["fourth"])
+	}
+	if suite.warn[WarnGroupInline] {
+		counter := suite.fieldCounter()
+		suite.Require().NoError(counter.Parse())
+		if counter.NumFields() == 6 {
+			if group, ok := logMap[""].(map[string]any); ok {
+				suite.Assert().Len(group, 3)
+				checkFieldFn(group)
+			} else {
+				suite.Fail("Group not map[string]any")
+			}
+			suite.addWarning(WarnGroupInline, "", true)
+			return
+		}
+		suite.addWarning(WarnUnused, WarnGroupInline, false)
+	}
+	suite.checkFieldCount(8, logMap)
+	checkFieldFn(logMap)
 }
 
 // TestSimpleGroupWith tests the use of a logging group specified using WithGroup.
@@ -462,7 +479,20 @@ func (suite *SlogTestSuite) TestSimpleGroupWithMultiSubEmpty() {
 	if group, ok := logMap["group"].(map[string]any); ok {
 		suite.Assert().Equal(float64(2), group["second"])
 		suite.Assert().Equal("3", group["third"])
-		suite.checkSubGroupEmpty(2, group)
+		if suite.warn[WarnSubgroupEmpty] {
+			if len(group) > 2 {
+				if subGroup, found := group["subGroup"]; found {
+					if sg, ok := subGroup.(map[string]any); ok && len(sg) < 1 {
+						suite.addWarning(WarnSubgroupEmpty, "", true)
+						return
+					}
+				}
+			}
+			suite.addWarning(WarnUnused, WarnSubgroupEmpty, false)
+		}
+		suite.Assert().Len(group, 2)
+		_, found := group["subGroup"]
+		suite.Assert().False(found)
 	} else {
 		suite.Fail("Group not map[string]any")
 	}
@@ -541,6 +571,32 @@ func (suite *SlogTestSuite) TestSimpleResolveGroupWith() {
 	}
 }
 
+// TestSimpleZeroTime tests whether a zero time in a slog.Record is output.
+// Based on the existing behavior of log/slog the field is not logged.
+func (suite *SlogTestSuite) TestSimpleZeroTime() {
+	logger := suite.SimpleLogger()
+	record := slog.NewRecord(time.Time{}, slog.LevelInfo, message, uintptr(0))
+	suite.Require().NoError(logger.Handler().Handle(context.TODO(), record))
+	logMap := suite.logMap()
+	suite.checkLevelKey("INFO", logMap)
+	suite.checkMessageKey(message, logMap)
+	if suite.warn[WarnZeroTime] {
+		counter := suite.fieldCounter()
+		suite.Require().NoError(counter.Parse())
+		if counter.NumFields() == 3 {
+			if timeAny, found := logMap[slog.TimeKey]; found {
+				timeZero := suite.parseTime(timeAny)
+				suite.Assert().Equal(time.Time{}, timeZero, "time should be zero")
+				suite.addWarning(WarnZeroTime, "", true)
+				return
+			}
+		}
+		suite.addWarning(WarnUnused, WarnZeroTime, false)
+	}
+	suite.checkFieldCount(2, logMap)
+	suite.Assert().Nil(logMap[slog.TimeKey])
+}
+
 // TestSourceKey tests generation of a source key.
 func (suite *SlogTestSuite) TestSourceKey() {
 	logger := suite.SourceLogger()
@@ -555,18 +611,6 @@ func (suite *SlogTestSuite) TestSourceKey() {
 	suite.checkSourceKey(4, logMap)
 }
 
-// TestSimpleZeroTime tests whether a zero time in a slog.Record is output.
-// Based on the existing behavior of log/slog the field is not logged.
-func (suite *SlogTestSuite) TestSimpleZeroTime() {
-	logger := suite.SimpleLogger()
-	record := slog.NewRecord(time.Time{}, slog.LevelInfo, message, uintptr(0))
-	suite.Require().NoError(logger.Handler().Handle(context.TODO(), record))
-	logMap := suite.logMap()
-	suite.checkLevelKey("INFO", logMap)
-	suite.checkMessageKey(message, logMap)
-	suite.checkNoZeroTime(2, logMap)
-}
-
 // -----------------------------------------------------------------------------
 // Additional tests.
 
@@ -577,12 +621,7 @@ func (suite *SlogTestSuite) TestSimpleTimestampFormat() {
 	logger.Info(message)
 	logMap := suite.logMap()
 	suite.checkFieldCount(3, logMap)
-	timeAny := logMap[slog.TimeKey]
-	suite.Require().NotNil(timeAny)
-	timeStr, ok := timeAny.(string)
-	suite.Require().True(ok)
-	timeObj, err := time.Parse(time.RFC3339, timeStr)
-	suite.Assert().NoError(err)
+	timeObj := suite.parseTime(logMap[slog.TimeKey])
 	suite.Assert().Equal(time.Now().Year(), timeObj.Year())
 	suite.Assert().Equal(time.Now().Month(), timeObj.Month())
 	suite.Assert().Equal(time.Now().Day(), timeObj.Day())
@@ -660,24 +699,6 @@ func (suite *SlogTestSuite) checkNoEmptyAttribute(fieldCount uint, logMap map[st
 	suite.Assert().False(found)
 }
 
-func (suite *SlogTestSuite) checkNoZeroTime(fieldCount uint, logMap map[string]any) {
-	if suite.warn[WarnZeroTime] {
-		counter := suite.fieldCounter()
-		suite.Require().NoError(counter.Parse())
-		if counter.NumFields() == fieldCount+1 {
-			if _, found := logMap[slog.TimeKey]; found {
-				// Note: Not checking time string for zero.
-				// TODO: Create test for time string format?
-				suite.addWarning(WarnZeroTime, "", true)
-				return
-			}
-		}
-		suite.addWarning(WarnUnused, WarnZeroTime, false)
-	}
-	suite.checkFieldCount(fieldCount, logMap)
-	suite.Assert().Nil(logMap[slog.TimeKey])
-}
-
 func (suite *SlogTestSuite) checkResolution(value any, actual any) {
 	if suite.warn[WarnResolver] {
 		if value != actual {
@@ -740,43 +761,13 @@ func (suite *SlogTestSuite) checkSourceKey(fieldCount uint, logMap map[string]an
 	}
 }
 
-func (suite *SlogTestSuite) checkSubGroupEmpty(subFieldCount uint, group map[string]any) {
-	if suite.warn[WarnSubgroupEmpty] {
-		if len(group) > int(subFieldCount) {
-			if subGroup, found := group["subGroup"]; found {
-				if sg, ok := subGroup.(map[string]any); ok && len(sg) < 1 {
-					suite.addWarning(WarnSubgroupEmpty, "", true)
-					return
-				}
-			}
-		}
-		suite.addWarning(WarnUnused, WarnSubgroupEmpty, false)
-	}
-	suite.Assert().Len(group, int(subFieldCount))
-	_, found := group["subGroup"]
-	suite.Assert().False(found)
-}
-
-func (suite *SlogTestSuite) checkGroupInline(
-	fieldCount uint, subFieldCount uint, logMap map[string]any,
-	checkGroupFn func(group map[string]any)) {
-	if suite.warn[WarnGroupInline] {
-		counter := suite.fieldCounter()
-		suite.Require().NoError(counter.Parse())
-		if counter.NumFields() == fieldCount-subFieldCount+1 {
-			if group, ok := logMap[""].(map[string]any); ok {
-				suite.Assert().Len(group, int(subFieldCount))
-				checkGroupFn(group)
-			} else {
-				suite.Fail("Group not map[string]any")
-			}
-			suite.addWarning(WarnGroupInline, "", true)
-			return
-		}
-		suite.addWarning(WarnUnused, WarnGroupInline, false)
-	}
-	suite.checkFieldCount(fieldCount, logMap)
-	checkGroupFn(logMap)
+func (suite *SlogTestSuite) parseTime(timeAny any) time.Time {
+	suite.Assert().NotNil(timeAny)
+	timeStr, ok := timeAny.(string)
+	suite.Assert().True(ok)
+	timeObj, err := time.Parse(time.RFC3339, timeStr)
+	suite.Assert().NoError(err)
+	return timeObj
 }
 
 // -----------------------------------------------------------------------------
