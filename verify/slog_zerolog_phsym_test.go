@@ -1,27 +1,42 @@
 package verify
 
 import (
+	"io"
 	"log/slog"
-	"os"
 	"testing"
 
 	"github.com/phsym/zeroslog"
 	"github.com/stretchr/testify/suite"
+
+	"github.com/madkins23/go-slog/verify/test"
 )
 
-type SlogZerologPhsymTestSuite struct {
-	SlogTestSuite
-}
-
-// Test_slog_zerolog_samber runs tests for the slog-zerolog handler.
+// Test_slog_zerolog_phsym runs tests for the physym zerolog handler.
 func Test_slog_zerolog_phsym(t *testing.T) {
-	suite.Run(t, &SlogZerologSamberTestSuite{})
+	sLogSuite := &test.SlogTestSuite{
+		Creator: &SlogPhsymCreator{},
+		Name:    "phsym/zeroslog",
+	}
+	if *test.UseWarnings {
+		sLogSuite.WarnOnly(test.WarnMessageKey)
+		sLogSuite.WarnOnly(test.WarnEmptyAttributes)
+		sLogSuite.WarnOnly(test.WarnGroupInline)
+		sLogSuite.WarnOnly(test.WarnLevelCase)
+		sLogSuite.WarnOnly(test.WarnSourceKey)
+		sLogSuite.WarnOnly(test.WarnSubgroupEmpty)
+		sLogSuite.WarnOnly(test.WarnZeroTime)
+	}
+	suite.Run(t, sLogSuite)
 }
 
-func (suite *SlogZerologPhsymTestSuite) SimpleLogger() *slog.Logger {
-	return slog.New(zeroslog.NewJsonHandler(os.Stderr, nil))
+var _ test.LoggerCreator = &SlogPhsymCreator{}
+
+type SlogPhsymCreator struct{}
+
+func (creator *SlogPhsymCreator) SimpleLogger(w io.Writer) *slog.Logger {
+	return slog.New(zeroslog.NewJsonHandler(w, nil))
 }
 
-func (suite *SlogZerologPhsymTestSuite) SourceLogger() *slog.Logger {
-	return slog.New(zeroslog.NewJsonHandler(os.Stderr, &zeroslog.HandlerOptions{AddSource: true}))
+func (creator *SlogPhsymCreator) SourceLogger(w io.Writer) *slog.Logger {
+	return slog.New(zeroslog.NewJsonHandler(w, &zeroslog.HandlerOptions{AddSource: true}))
 }

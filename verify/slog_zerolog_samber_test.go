@@ -1,30 +1,45 @@
 package verify
 
 import (
+	"io"
 	"log/slog"
 	"testing"
 
 	"github.com/rs/zerolog"
 	samber "github.com/samber/slog-zerolog/v2"
 	"github.com/stretchr/testify/suite"
+
+	"github.com/madkins23/go-slog/verify/test"
 )
 
-type SlogZerologSamberTestSuite struct {
-	SlogTestSuite
-}
-
-// Test_slog_zerolog_samber runs tests for the slog-zerolog handler.
+// Test_slog_zerolog_samber runs tests for the samber zerolog handler.
 func Test_slog_zerolog_samber(t *testing.T) {
-	suite.Run(t, &SlogZerologSamberTestSuite{})
+	sLogSuite := &test.SlogTestSuite{
+		Creator: &SlogSamberCreator{},
+		Name:    "samber/slog-zerolog",
+	}
+	if *test.UseWarnings {
+		sLogSuite.WarnOnly(test.WarnMessageKey)
+		sLogSuite.WarnOnly(test.WarnEmptyAttributes)
+		sLogSuite.WarnOnly(test.WarnGroupInline)
+		sLogSuite.WarnOnly(test.WarnLevelCase)
+		sLogSuite.WarnOnly(test.WarnResolver)
+		sLogSuite.WarnOnly(test.WarnZeroTime)
+	}
+	suite.Run(t, sLogSuite)
 }
 
-func (suite *SlogZerologSamberTestSuite) SimpleLogger() *slog.Logger {
-	zeroLogger := zerolog.New(suite.Buffer)
-	return slog.New(samber.Option{Logger: &zeroLogger}.NewZerologHandler())
+var _ test.LoggerCreator = &SlogSamberCreator{}
+
+type SlogSamberCreator struct{}
+
+func (creator *SlogSamberCreator) SimpleLogger(w io.Writer) *slog.Logger {
+	zeroLogger := zerolog.New(w)
+	return slog.New(samber.Option{Logger: &zeroLogger, Level: slog.LevelInfo}.NewZerologHandler())
 }
 
-func (suite *SlogZerologSamberTestSuite) SourceLogger() *slog.Logger {
-	zeroLogger := zerolog.New(suite.Buffer)
+func (creator *SlogSamberCreator) SourceLogger(w io.Writer) *slog.Logger {
+	zeroLogger := zerolog.New(w)
 	return slog.New(samber.Option{
 		Logger:    &zeroLogger,
 		AddSource: true,
