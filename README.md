@@ -11,7 +11,7 @@ Verification of `log/slog` handlers can be done by creating
 simple `_test.go` files that utilize the `verify/test.SlogTestSuite`
 located in this repository.
 Usage details are provided in
-the [`Readme.MD`](verify/README.md) file
+the [`Readme.MD`](verify) file
 located in the `verify` package directory.
 
 The tests implemented herein were inspired by:
@@ -20,6 +20,6 @@ The tests implemented herein were inspired by:
   the [`log/slog.Hander`](https://pkg.go.dev/log/slog@master#Handler)
   documentation,
 * issues I noticed while exploring
-  [`go-logging-benchmark](https://github.com/betterstack-community/go-logging-benchmarks)
+  [`go-logging-benchmark`](https://github.com/betterstack-community/go-logging-benchmarks)
 * as well as some other stuff I thought would be useful.
 
