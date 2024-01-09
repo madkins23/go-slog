@@ -248,9 +248,11 @@ func (suite *SlogTestSuite) TestSimpleAttributes() {
 // Based on the existing behavior of log/slog the second occurrence overrides the first.
 func (suite *SlogTestSuite) TestSimpleAttributeDuplicate() {
 	logger := suite.SimpleLogger()
-	logger.Info(message, "alpha", "one", "alpha", 2)
+	logger.Info(message,
+		"alpha", "one", "alpha", 2, "bravo", "hurrah",
+		"charlie", "brown", "charlie", 3, "charlie", 23.79)
 	logMap := suite.logMap()
-	suite.checkFieldCount(4, logMap)
+	suite.checkFieldCount(6, logMap)
 }
 
 // TestSimpleAttributeEmpty tests whether attributes with empty names and nil values are logged properly.
@@ -306,12 +308,11 @@ func (suite *SlogTestSuite) TestSimpleAttributesWith() {
 // Based on the existing behavior of log/slog the second occurrence overrides the first.
 func (suite *SlogTestSuite) TestSimpleAttributeWithDuplicate() {
 	logger := suite.SimpleLogger()
-	logger.With("alpha", "one").Info(message, "alpha", 2)
+	logger.
+		With("alpha", "one", "bravo", "hurrah", "charlie", "brown", "charlie", "jones").
+		Info(message, "alpha", 2, "charlie", 23.70)
 	logMap := suite.logMap()
-	suite.Assert().Len(logMap, 4)
-	counter := suite.fieldCounter()
-	suite.Require().NoError(counter.Parse())
-	suite.checkFieldCount(4, logMap)
+	suite.checkFieldCount(6, logMap)
 }
 
 // TestSimpleAttributeWithEmpty tests whether attributes with empty names and nil values
