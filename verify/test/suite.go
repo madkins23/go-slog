@@ -63,10 +63,14 @@ type LoggerCreator interface {
 
 // -----------------------------------------------------------------------------
 
+const duplicateFieldsNotError = true
+
 func (suite *SlogTestSuite) SetupSuite() {
 	suites = append(suites, suite)
-	// There doesn't seem to be a rule about this in https://pkg.go.dev/log/slog@master#Handler.
-	suite.WarnOnly(WarnDuplicates)
+	if duplicateFieldsNotError {
+		// There doesn't seem to be a rule about this in https://pkg.go.dev/log/slog@master#Handler.
+		suite.WarnOnly(WarnDuplicates)
+	}
 }
 
 func (suite *SlogTestSuite) SetupTest() {
@@ -640,7 +644,11 @@ func (suite *SlogTestSuite) checkFieldCount(fieldCount uint, logMap map[string]a
 			suite.addWarning(WarnDuplicates, fmt.Sprintf("%v", counter.Duplicates()), false)
 			return
 		}
-		suite.addWarning(WarnUnused, WarnDuplicates, false)
+		//goland:noinspection GoBoolExpressions
+		if !duplicateFieldsNotError {
+			// Don't WarnUnused since WarnDuplicates is currently always set.
+			suite.addWarning(WarnUnused, WarnDuplicates, false)
+		}
 	}
 	suite.Assert().Len(logMap, int(fieldCount))
 	// Double check to make sure there are no duplicate fields at the top level.
