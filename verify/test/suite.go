@@ -57,6 +57,9 @@ type SlogTestSuite struct {
 
 // HandlerCreator is responsible for generating log/slog handler instances.
 // Define one for a given test file and use to instantiate SlogTestSuite.
+// It would be convenient to be able to pass in a slog.HandlerOptions object,
+// for example the SourceHandler method for this interface would be unnecessary,
+// but some handler(s) (e.g. `samber/slog-zerolog`) don't use that option object.
 type HandlerCreator interface {
 	// SimpleHandler creates the simplest possible handler.
 	SimpleHandler(w io.Writer, level slog.Leveler) slog.Handler
@@ -658,6 +661,7 @@ func (suite *SlogTestSuite) TestSimpleDisabled() {
 }
 
 // TestSimpleKeyCase tests whether level keys are properly cased.
+// Based on the existing behavior of log/slog they should be uppercase.
 func (suite *SlogTestSuite) TestSimpleKeyCase() {
 	logger := suite.SimpleLogger(slog.LevelDebug)
 	for name, level := range map[string]slog.Level{
@@ -673,7 +677,7 @@ func (suite *SlogTestSuite) TestSimpleKeyCase() {
 	}
 }
 
-// TestSimpleLevel tests whether the simple logger is created with slog.LevelInfo.
+// TestSimpleLevel tests whether the simple logger is created by default with slog.LevelInfo.
 // Other tests (e.g. TestSimpleDisabled) depend on this.
 func (suite *SlogTestSuite) TestSimpleLevel() {
 	logger := suite.SimpleLogger(nil)
@@ -681,6 +685,19 @@ func (suite *SlogTestSuite) TestSimpleLevel() {
 	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelInfo))
 	suite.Assert().True(logger.Enabled(context.Background(), 1))
 	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelWarn))
+	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelError))
+}
+
+// TestSimpleLevelDifferent tests whether the simple logger is created with slog.LevelWarn.
+// This verifies the test suite can change the level when creating a logger.
+// It also verifies changing the level via the handler.
+func (suite *SlogTestSuite) TestSimpleLevelDifferent() {
+	logger := suite.SimpleLogger(slog.LevelWarn)
+	suite.Assert().False(logger.Enabled(context.Background(), -1))
+	suite.Assert().False(logger.Enabled(context.Background(), slog.LevelInfo))
+	suite.Assert().False(logger.Enabled(context.Background(), 1))
+	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelWarn))
+	suite.Assert().True(logger.Enabled(context.Background(), 5))
 	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelError))
 }
 
@@ -709,6 +726,29 @@ func (suite *SlogTestSuite) TestSourceKey() {
 	suite.checkMessageKey(message, logMap)
 	suite.Assert().NotNil(logMap[slog.TimeKey])
 	suite.checkSourceKey(4, logMap)
+}
+
+// TestSourceLevel tests whether the source logger is created by default with slog.LevelInfo.
+func (suite *SlogTestSuite) TestSourceLevel() {
+	logger := suite.SourceLogger(nil)
+	suite.Assert().False(logger.Enabled(context.Background(), -1))
+	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelInfo))
+	suite.Assert().True(logger.Enabled(context.Background(), 1))
+	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelWarn))
+	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelError))
+}
+
+// TestSourceLevelDifferent tests whether the source logger is created with slog.LevelWarn.
+// This verifies the test suite can change the level when creating a logger.
+// It also verifies changing the level via the handler.
+func (suite *SlogTestSuite) TestSourceLevelDifferent() {
+	logger := suite.SourceLogger(slog.LevelWarn)
+	suite.Assert().False(logger.Enabled(context.Background(), -1))
+	suite.Assert().False(logger.Enabled(context.Background(), slog.LevelInfo))
+	suite.Assert().False(logger.Enabled(context.Background(), 1))
+	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelWarn))
+	suite.Assert().True(logger.Enabled(context.Background(), 5))
+	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelError))
 }
 
 // -----------------------------------------------------------------------------
