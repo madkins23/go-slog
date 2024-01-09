@@ -824,7 +824,7 @@ func (r *hiddenValue) String() string {
 
 func currentFunctionName() string {
 	pc := make([]uintptr, 10)
-	n := runtime.Callers(4, pc)
+	n := runtime.Callers(2, pc)
 	frames := runtime.CallersFrames(pc[:n])
 	more := true
 	for more {
