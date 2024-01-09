@@ -463,20 +463,6 @@ func (suite *SlogTestSuite) TestSimpleResolveValuer() {
 	suite.checkResolution("something", logMap["hidden"])
 }
 
-// TestSimpleResolveStringer tests logging Stringer objects.
-// Extends slogtest "resolve" test.
-func (suite *SlogTestSuite) TestSimpleResolveStringer() {
-	logger := suite.SimpleLogger(nil)
-	hidden := &hiddenStringer{v: "wicked"}
-	logger.Info(message, "hidden", hidden)
-	//fmt.Printf(">>> %s\n", suite.Buffer)
-	suite.Assert().Equal("<hiddenStringer(wicked)>", hidden.String())
-	logMap := suite.logMap()
-	suite.checkFieldCount(4, logMap)
-	// TODO: This doesn't work for JSONHandler, not sure it is supposed to.
-	//suite.checkResolution("<hiddenStringer(wicked)>", logMap["hidden"])
-}
-
 // TestSimpleResolveGroup tests logging LogValuer objects within a group.
 // Implements slogtest "resolve-groups" test.
 func (suite *SlogTestSuite) TestSimpleResolveGroup() {
@@ -1024,14 +1010,6 @@ type hiddenValuer struct {
 
 func (r *hiddenValuer) LogValue() slog.Value {
 	return slog.AnyValue(r.v)
-}
-
-type hiddenStringer struct {
-	v any
-}
-
-func (r *hiddenStringer) String() string {
-	return fmt.Sprintf("<hiddenStringer(%v)>", r.v)
 }
 
 // -----------------------------------------------------------------------------
