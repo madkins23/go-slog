@@ -22,6 +22,10 @@ import (
 	"github.com/madkins23/go-slog/test"
 )
 
+// TODO: Figure out what InfoContext does and test it.
+// TODO: Wrapping output methods
+// TODO: HandlerOptions.ReplaceAttr
+
 // UseWarnings is the flag value for enabling warnings instead of known errors.
 // Command line setting:
 //
@@ -448,14 +452,29 @@ func (suite *SlogTestSuite) TestSimpleKeys() {
 	suite.Assert().NotNil(logMap[slog.TimeKey])
 }
 
-// TestSimpleResolve tests logging LogValuer objects.
+// TestSimpleResolveValuer tests logging LogValuer objects.
 // Implements slogtest "resolve" test.
-func (suite *SlogTestSuite) TestSimpleResolve() {
+func (suite *SlogTestSuite) TestSimpleResolveValuer() {
 	logger := suite.SimpleLogger(nil)
-	logger.Info(message, "hidden", &hiddenValue{v: "value"})
+	hidden := &hiddenValuer{v: "something"}
+	logger.Info(message, "hidden", hidden)
 	logMap := suite.logMap()
 	suite.checkFieldCount(4, logMap)
-	suite.checkResolution("value", logMap["hidden"])
+	suite.checkResolution("something", logMap["hidden"])
+}
+
+// TestSimpleResolveStringer tests logging Stringer objects.
+// Extends slogtest "resolve" test.
+func (suite *SlogTestSuite) TestSimpleResolveStringer() {
+	logger := suite.SimpleLogger(nil)
+	hidden := &hiddenStringer{v: "wicked"}
+	logger.Info(message, "hidden", hidden)
+	//fmt.Printf(">>> %s\n", suite.Buffer)
+	suite.Assert().Equal("<hiddenStringer(wicked)>", hidden.String())
+	logMap := suite.logMap()
+	suite.checkFieldCount(4, logMap)
+	// TODO: This doesn't work for JSONHandler, not sure it is supposed to.
+	//suite.checkResolution("<hiddenStringer(wicked)>", logMap["hidden"])
 }
 
 // TestSimpleResolveGroup tests logging LogValuer objects within a group.
@@ -463,7 +482,7 @@ func (suite *SlogTestSuite) TestSimpleResolve() {
 func (suite *SlogTestSuite) TestSimpleResolveGroup() {
 	logger := suite.SimpleLogger(nil)
 	logger.Info(message, slog.Group("group",
-		slog.Float64("pi", math.Pi), slog.Any("hidden", &hiddenValue{v: "value"})))
+		slog.Float64("pi", math.Pi), slog.Any("hidden", &hiddenValuer{v: "value"})))
 	logMap := suite.logMap()
 	suite.checkFieldCount(4, logMap)
 	if group, ok := logMap["group"].(map[string]any); ok {
@@ -479,7 +498,7 @@ func (suite *SlogTestSuite) TestSimpleResolveGroup() {
 // Implements slogtest "resolve-withAttrs" test.
 func (suite *SlogTestSuite) TestSimpleResolveWith() {
 	logger := suite.SimpleLogger(nil)
-	logger.With("hidden", &hiddenValue{v: "value"}).Info(message)
+	logger.With("hidden", &hiddenValuer{v: "value"}).Info(message)
 	logMap := suite.logMap()
 	suite.checkFieldCount(4, logMap)
 	suite.checkResolution("value", logMap["hidden"])
@@ -490,7 +509,7 @@ func (suite *SlogTestSuite) TestSimpleResolveWith() {
 func (suite *SlogTestSuite) TestSimpleResolveGroupWith() {
 	logger := suite.SimpleLogger(nil)
 	logger.With(slog.Group("group",
-		slog.Float64("pi", math.Pi), slog.Any("hidden", &hiddenValue{v: "value"}))).
+		slog.Float64("pi", math.Pi), slog.Any("hidden", &hiddenValuer{v: "value"}))).
 		Info(message)
 	logMap := suite.logMap()
 	suite.checkFieldCount(4, logMap)
@@ -653,6 +672,46 @@ func (suite *SlogTestSuite) TestSimpleAttributeWithDuplicate() {
 // -----------------------------------------------------------------------------
 // Additional tests.
 
+// TestSimpleLogAttributes tests the LogAttrs call with all attribute objects.
+func (suite *SlogTestSuite) TestSimpleLogAttributes() {
+	logger := suite.SimpleLogger(nil)
+	t := time.Now()
+	logger.LogAttrs(context.Background(), slog.LevelInfo, message,
+		slog.Time("when", t),
+		slog.String("goober", "snoofus"),
+		slog.Bool("boolean", true),
+		slog.Float64("pi", math.Pi),
+		slog.Int("skidoo", 23),
+		slog.Duration("duration", time.Minute),
+		slog.Int64("minus", -64),
+		slog.Uint64("unsigned", 79),
+		slog.Any("any", []string{"alpha", "omega"}))
+	logMap := suite.logMap()
+	suite.checkFieldCount(12, logMap)
+	_, ok := logMap["when"].(string)
+	suite.True(ok)
+	// TODO: log/slog pushes out RFC3339nano but samber and phsym push out RFC339
+	//suite.Equal(t.Format(time.RFC3339), when)
+	suite.Equal("snoofus", logMap["goober"])
+	suite.Equal(true, logMap["boolean"])
+	// All numeric attributes come back as float64 due to JSON formatting and parsing.
+	suite.Equal(math.Pi, logMap["pi"])
+	suite.Equal(float64(23), logMap["skidoo"])
+	// TODO: log/slog pushes out 60000000000 but samber and phsym push out 60000
+	//suite.Equal(float64(6e+10), logMap["duration"])
+	suite.Equal(float64(-64), logMap["minus"])
+	suite.Equal(float64(79), logMap["unsigned"])
+	fixed, ok := logMap["any"].([]any)
+	suite.True(ok)
+	array := make([]string, 0)
+	for _, x := range fixed {
+		str, ok := x.(string)
+		suite.True(ok)
+		array = append(array, str)
+	}
+	suite.Equal([]string{"alpha", "omega"}, array)
+}
+
 // TestSimpleDisabled tests whether logging is disabled by level.
 func (suite *SlogTestSuite) TestSimpleDisabled() {
 	logger := suite.SimpleLogger(nil)
@@ -688,6 +747,23 @@ func (suite *SlogTestSuite) TestSimpleLevel() {
 	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelError))
 }
 
+// TestSimpleLevelVar tests the use of a slog.LevelVar.
+func (suite *SlogTestSuite) TestSimpleLevelVar() {
+	var programLevel = new(slog.LevelVar)
+	logger := suite.SimpleLogger(programLevel)
+	// Should be INFO by default.
+	suite.Assert().Equal(slog.LevelInfo, programLevel.Level())
+	suite.Assert().False(logger.Enabled(context.Background(), -1))
+	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelInfo))
+	suite.Assert().True(logger.Enabled(context.Background(), 1))
+	// Change the level.
+	programLevel.Set(slog.LevelWarn)
+	suite.Assert().Equal(slog.LevelWarn, programLevel.Level())
+	suite.Assert().False(logger.Enabled(context.Background(), 3))
+	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelWarn))
+	suite.Assert().True(logger.Enabled(context.Background(), 5))
+}
+
 // TestSimpleLevelDifferent tests whether the simple logger is created with slog.LevelWarn.
 // This verifies the test suite can change the level when creating a logger.
 // It also verifies changing the level via the handler.
@@ -695,7 +771,7 @@ func (suite *SlogTestSuite) TestSimpleLevelDifferent() {
 	logger := suite.SimpleLogger(slog.LevelWarn)
 	suite.Assert().False(logger.Enabled(context.Background(), -1))
 	suite.Assert().False(logger.Enabled(context.Background(), slog.LevelInfo))
-	suite.Assert().False(logger.Enabled(context.Background(), 1))
+	suite.Assert().False(logger.Enabled(context.Background(), 3))
 	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelWarn))
 	suite.Assert().True(logger.Enabled(context.Background(), 5))
 	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelError))
@@ -942,16 +1018,20 @@ func (suite *SlogTestSuite) logMap() map[string]any {
 
 // -----------------------------------------------------------------------------
 
-type hiddenValue struct {
+type hiddenValuer struct {
 	v any
 }
 
-func (r *hiddenValue) LogValue() slog.Value {
+func (r *hiddenValuer) LogValue() slog.Value {
 	return slog.AnyValue(r.v)
 }
 
-func (r *hiddenValue) String() string {
-	return fmt.Sprintf("<hiddenValue(%v)>", r.v)
+type hiddenStringer struct {
+	v any
+}
+
+func (r *hiddenStringer) String() string {
+	return fmt.Sprintf("<hiddenStringer(%v)>", r.v)
 }
 
 // -----------------------------------------------------------------------------
