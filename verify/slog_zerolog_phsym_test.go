@@ -29,14 +29,19 @@ func Test_slog_zerolog_phsym(t *testing.T) {
 	suite.Run(t, sLogSuite)
 }
 
-var _ test.LoggerCreator = &SlogPhsymCreator{}
+var _ test.HandlerCreator = &SlogPhsymCreator{}
 
 type SlogPhsymCreator struct{}
 
-func (creator *SlogPhsymCreator) SimpleLogger(w io.Writer) *slog.Logger {
-	return slog.New(zeroslog.NewJsonHandler(w, nil))
+func (creator *SlogPhsymCreator) SimpleHandler(w io.Writer, level slog.Leveler) slog.Handler {
+	return zeroslog.NewJsonHandler(w, &zeroslog.HandlerOptions{
+		Level: level,
+	})
 }
 
-func (creator *SlogPhsymCreator) SourceLogger(w io.Writer) *slog.Logger {
-	return slog.New(zeroslog.NewJsonHandler(w, &zeroslog.HandlerOptions{AddSource: true}))
+func (creator *SlogPhsymCreator) SourceHandler(w io.Writer, level slog.Leveler) slog.Handler {
+	return zeroslog.NewJsonHandler(w, &zeroslog.HandlerOptions{
+		Level:     level,
+		AddSource: true,
+	})
 }

@@ -30,19 +30,23 @@ func Test_slog_zerolog_samber(t *testing.T) {
 	suite.Run(t, sLogSuite)
 }
 
-var _ test.LoggerCreator = &SlogSamberCreator{}
+var _ test.HandlerCreator = &SlogSamberCreator{}
 
 type SlogSamberCreator struct{}
 
-func (creator *SlogSamberCreator) SimpleLogger(w io.Writer) *slog.Logger {
+func (creator *SlogSamberCreator) SimpleHandler(w io.Writer, level slog.Leveler) slog.Handler {
 	zeroLogger := zerolog.New(w)
-	return slog.New(samber.Option{Logger: &zeroLogger, Level: slog.LevelInfo}.NewZerologHandler())
+	return samber.Option{
+		Logger: &zeroLogger,
+		Level:  level,
+	}.NewZerologHandler()
 }
 
-func (creator *SlogSamberCreator) SourceLogger(w io.Writer) *slog.Logger {
+func (creator *SlogSamberCreator) SourceHandler(w io.Writer, level slog.Leveler) slog.Handler {
 	zeroLogger := zerolog.New(w)
-	return slog.New(samber.Option{
+	return samber.Option{
+		Level:     level,
 		Logger:    &zeroLogger,
 		AddSource: true,
-	}.NewZerologHandler())
+	}.NewZerologHandler()
 }

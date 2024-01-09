@@ -22,14 +22,19 @@ func Test_slog(t *testing.T) {
 	suite.Run(t, slogSuite)
 }
 
-var _ test.LoggerCreator = &SlogCreator{}
+var _ test.HandlerCreator = &SlogCreator{}
 
 type SlogCreator struct{}
 
-func (creator *SlogCreator) SimpleLogger(w io.Writer) *slog.Logger {
-	return slog.New(slog.NewJSONHandler(w, nil))
+func (creator *SlogCreator) SimpleHandler(w io.Writer, level slog.Leveler) slog.Handler {
+	return slog.NewJSONHandler(w, &slog.HandlerOptions{
+		Level: level,
+	})
 }
 
-func (creator *SlogCreator) SourceLogger(w io.Writer) *slog.Logger {
-	return slog.New(slog.NewJSONHandler(w, &slog.HandlerOptions{AddSource: true}))
+func (creator *SlogCreator) SourceHandler(w io.Writer, level slog.Leveler) slog.Handler {
+	return slog.NewJSONHandler(w, &slog.HandlerOptions{
+		Level:     level,
+		AddSource: true,
+	})
 }
