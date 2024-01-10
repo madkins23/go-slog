@@ -797,53 +797,6 @@ func (suite *SlogTestSuite) TestSimpleLevelDifferent() {
 	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelError))
 }
 
-// TestSimpleReplaceAttr tests the use of HandlerOptions.ReplaceAttr.
-func (suite *SlogTestSuite) TestSimpleReplaceAttr() {
-	logger := suite.SimpleLogger(nil, func(groups []string, a slog.Attr) slog.Attr {
-		switch a.Key {
-		case "alpha":
-			return slog.String(a.Key, "omega")
-		case "change":
-			return slog.String("bravo", a.Value.String())
-		case "remove":
-			return replace.EmptyAttr
-		}
-		return a
-	})
-	logger.Info(message, "alpha", "beta", "change", "my key", "remove", "me")
-	logMap := suite.logMap()
-	if suite.warn[WarnNoReplAttr] {
-		issues := make([]string, 4)
-		if len(logMap) > 5 {
-			issues = append(issues, fmt.Sprintf("too many attributes: %d", len(logMap)))
-		}
-		value, ok := logMap["alpha"].(string)
-		suite.Require().True(ok)
-		if value != "omega" {
-			issues = append(issues, fmt.Sprintf("alpha == %s", value))
-		}
-		if logMap["change"] != nil {
-			issues = append(issues, "change still exists")
-		}
-		if logMap["remove"] != nil {
-			issues = append(issues, "remove still exists")
-		}
-		if len(issues) > 0 {
-			suite.addWarning(WarnNoReplAttr, strings.Join(issues, ", "), false)
-			return
-		}
-		suite.addWarning(WarnUnused, WarnNoReplAttr, true)
-	}
-	if suite.warn[WarnEmptyAttributes] {
-		suite.checkFieldCount(6, logMap)
-	} else {
-		suite.checkFieldCount(5, logMap)
-	}
-	suite.Assert().Equal("omega", logMap["alpha"])
-	suite.Assert().Equal("my key", logMap["bravo"])
-	suite.Assert().Nil(logMap["remove"])
-}
-
 // TestSimpleTimestampFormat tests whether a timestamp can be parsed.
 // Based on the existing behavior of log/slog the timestamp format is RFC3339.
 func (suite *SlogTestSuite) TestSimpleTimestampFormat() {
@@ -892,6 +845,56 @@ func (suite *SlogTestSuite) TestSourceLevelDifferent() {
 	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelWarn))
 	suite.Assert().True(logger.Enabled(context.Background(), 5))
 	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelError))
+}
+
+// -----------------------------------------------------------------------------
+// Tests of slog.HandlerOptions.ReplaceAttr functionality.
+
+// TestSimpleReplaceAttr tests the use of HandlerOptions.ReplaceAttr.
+func (suite *SlogTestSuite) TestSimpleReplaceAttr() {
+	logger := suite.SimpleLogger(nil, func(groups []string, a slog.Attr) slog.Attr {
+		switch a.Key {
+		case "alpha":
+			return slog.String(a.Key, "omega")
+		case "change":
+			return slog.String("bravo", a.Value.String())
+		case "remove":
+			return replace.EmptyAttr
+		}
+		return a
+	})
+	logger.Info(message, "alpha", "beta", "change", "my key", "remove", "me")
+	logMap := suite.logMap()
+	if suite.warn[WarnNoReplAttr] {
+		issues := make([]string, 4)
+		if len(logMap) > 5 {
+			issues = append(issues, fmt.Sprintf("too many attributes: %d", len(logMap)))
+		}
+		value, ok := logMap["alpha"].(string)
+		suite.Require().True(ok)
+		if value != "omega" {
+			issues = append(issues, fmt.Sprintf("alpha == %s", value))
+		}
+		if logMap["change"] != nil {
+			issues = append(issues, "change still exists")
+		}
+		if logMap["remove"] != nil {
+			issues = append(issues, "remove still exists")
+		}
+		if len(issues) > 0 {
+			suite.addWarning(WarnNoReplAttr, strings.Join(issues, ", "), false)
+			return
+		}
+		suite.addWarning(WarnUnused, WarnNoReplAttr, true)
+	}
+	if suite.warn[WarnEmptyAttributes] {
+		suite.checkFieldCount(6, logMap)
+	} else {
+		suite.checkFieldCount(5, logMap)
+	}
+	suite.Assert().Equal("omega", logMap["alpha"])
+	suite.Assert().Equal("my key", logMap["bravo"])
+	suite.Assert().Nil(logMap["remove"])
 }
 
 // TestSourceReplaceAttrBasic tests the use of HandlerOptions.ReplaceAttr
