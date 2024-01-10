@@ -7,6 +7,7 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
+	"github.com/madkins23/go-slog/replace"
 	"github.com/madkins23/go-slog/verify/test"
 )
 
@@ -26,15 +27,17 @@ var _ test.HandlerCreator = &SlogCreator{}
 
 type SlogCreator struct{}
 
-func (creator *SlogCreator) SimpleHandler(w io.Writer, level slog.Leveler) slog.Handler {
+func (creator *SlogCreator) SimpleHandler(w io.Writer, level slog.Leveler, replAttr replace.AttrFn) slog.Handler {
 	return slog.NewJSONHandler(w, &slog.HandlerOptions{
-		Level: level,
+		Level:       level,
+		ReplaceAttr: replAttr,
 	})
 }
 
-func (creator *SlogCreator) SourceHandler(w io.Writer, level slog.Leveler) slog.Handler {
+func (creator *SlogCreator) SourceHandler(w io.Writer, level slog.Leveler, replAttr replace.AttrFn) slog.Handler {
 	return slog.NewJSONHandler(w, &slog.HandlerOptions{
-		Level:     level,
-		AddSource: true,
+		Level:       level,
+		AddSource:   true,
+		ReplaceAttr: replAttr,
 	})
 }

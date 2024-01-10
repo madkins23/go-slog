@@ -13,9 +13,6 @@ import (
 	"github.com/madkins23/go-slog/verify/test"
 )
 
-// Note: This handler only applies ReplaceAttr functions to listed attributes,
-//       not to the basic time/level/message/source attributes.
-
 // Test_slog_zerolog_samber runs tests for the samber zerolog handler.
 func Test_slog_zerolog_samber(t *testing.T) {
 	sLogSuite := &test.SlogTestSuite{
@@ -29,6 +26,7 @@ func Test_slog_zerolog_samber(t *testing.T) {
 		sLogSuite.WarnOnly(test.WarnLevelCase)
 		sLogSuite.WarnOnly(test.WarnNanoDuration)
 		sLogSuite.WarnOnly(test.WarnNanoTime)
+		sLogSuite.WarnOnly(test.WarnNoReplAttrBasic)
 		sLogSuite.WarnOnly(test.WarnResolver)
 		sLogSuite.WarnOnly(test.WarnZeroPC)
 		sLogSuite.WarnOnly(test.WarnZeroTime)
@@ -40,22 +38,26 @@ var _ test.HandlerCreator = &SlogSamberCreator{}
 
 type SlogSamberCreator struct{}
 
-func (creator *SlogSamberCreator) SimpleHandler(w io.Writer, level slog.Leveler) slog.Handler {
+func (creator *SlogSamberCreator) SimpleHandler(w io.Writer, level slog.Leveler, replAttr replace.AttrFn) slog.Handler {
 	zeroLogger := zerolog.New(w)
 	return samber.Option{
-		Logger: &zeroLogger,
-		Level:  level,
+		Logger:      &zeroLogger,
+		Level:       level,
+		ReplaceAttr: replAttr,
 	}.NewZerologHandler()
 }
 
-func (creator *SlogSamberCreator) SourceHandler(w io.Writer, level slog.Leveler) slog.Handler {
+func (creator *SlogSamberCreator) SourceHandler(w io.Writer, level slog.Leveler, replAttr replace.AttrFn) slog.Handler {
 	zeroLogger := zerolog.New(w)
 	return samber.Option{
-		Level:     level,
-		Logger:    &zeroLogger,
-		AddSource: true,
+		Level:       level,
+		Logger:      &zeroLogger,
+		AddSource:   true,
+		ReplaceAttr: replAttr,
 	}.NewZerologHandler()
 }
+
+/*
 
 // Test_slog_zerolog_samber runs tests for the samber zerolog handler.
 // ReplaceAttr functions are used to fix known issues.
@@ -80,7 +82,7 @@ var _ test.HandlerCreator = &SlogSamberCreatorReplace{}
 
 type SlogSamberCreatorReplace struct{}
 
-func (creator *SlogSamberCreatorReplace) SimpleHandler(w io.Writer, level slog.Leveler) slog.Handler {
+func (creator *SlogSamberCreatorReplace) SimpleHandler(w io.Writer, level slog.Leveler, _ replace.AttrFn) slog.Handler {
 	zeroLogger := zerolog.New(w)
 	return samber.Option{
 		Logger:      &zeroLogger,
@@ -89,7 +91,7 @@ func (creator *SlogSamberCreatorReplace) SimpleHandler(w io.Writer, level slog.L
 	}.NewZerologHandler()
 }
 
-func (creator *SlogSamberCreatorReplace) SourceHandler(w io.Writer, level slog.Leveler) slog.Handler {
+func (creator *SlogSamberCreatorReplace) SourceHandler(w io.Writer, level slog.Leveler, _ replace.AttrFn) slog.Handler {
 	zeroLogger := zerolog.New(w)
 	return samber.Option{
 		Level:       level,
@@ -98,3 +100,5 @@ func (creator *SlogSamberCreatorReplace) SourceHandler(w io.Writer, level slog.L
 		ReplaceAttr: replace.MessageToMsg,
 	}.NewZerologHandler()
 }
+
+*/
