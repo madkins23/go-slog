@@ -8,14 +8,13 @@ import (
 	"github.com/phsym/zeroslog"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/madkins23/go-slog/replace"
 	"github.com/madkins23/go-slog/verify/test"
 )
 
 // Test_slog_zerolog_phsym runs tests for the physym zerolog handler.
 func Test_slog_zerolog_phsym(t *testing.T) {
 	sLogSuite := &test.SlogTestSuite{
-		Creator: &SlogPhsymCreator{},
+		Creator: SlogPhsymHandlerCreator,
 		Name:    "phsym/zeroslog",
 	}
 	if *test.UseWarnings {
@@ -33,21 +32,11 @@ func Test_slog_zerolog_phsym(t *testing.T) {
 	suite.Run(t, sLogSuite)
 }
 
-var _ test.HandlerCreator = &SlogPhsymCreator{}
+var _ test.CreateHandlerFn = SlogPhsymHandlerCreator
 
-type SlogPhsymCreator struct{}
-
-// Note: This handler uses its own HandlerOptions which do not support ReplaceAttr.
-
-func (creator *SlogPhsymCreator) SimpleHandler(w io.Writer, level slog.Leveler, _ replace.AttrFn) slog.Handler {
+func SlogPhsymHandlerCreator(w io.Writer, options *slog.HandlerOptions) slog.Handler {
 	return zeroslog.NewJsonHandler(w, &zeroslog.HandlerOptions{
-		Level: level,
-	})
-}
-
-func (creator *SlogPhsymCreator) SourceHandler(w io.Writer, level slog.Leveler, _ replace.AttrFn) slog.Handler {
-	return zeroslog.NewJsonHandler(w, &zeroslog.HandlerOptions{
-		Level:     level,
-		AddSource: true,
+		Level:     options.Level,
+		AddSource: options.AddSource,
 	})
 }

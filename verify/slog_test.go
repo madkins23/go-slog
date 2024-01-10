@@ -7,14 +7,13 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/madkins23/go-slog/replace"
 	"github.com/madkins23/go-slog/verify/test"
 )
 
 // Test_slog runs tests for the log/slog JSON handler.
 func Test_slog(t *testing.T) {
 	slogSuite := &test.SlogTestSuite{
-		Creator: &SlogCreator{},
+		Creator: SlogHandlerCreator,
 		Name:    "log/slog.JSONHandler",
 	}
 	if *test.UseWarnings {
@@ -23,21 +22,8 @@ func Test_slog(t *testing.T) {
 	suite.Run(t, slogSuite)
 }
 
-var _ test.HandlerCreator = &SlogCreator{}
+var _ test.CreateHandlerFn = SlogHandlerCreator
 
-type SlogCreator struct{}
-
-func (creator *SlogCreator) SimpleHandler(w io.Writer, level slog.Leveler, replAttr replace.AttrFn) slog.Handler {
-	return slog.NewJSONHandler(w, &slog.HandlerOptions{
-		Level:       level,
-		ReplaceAttr: replAttr,
-	})
-}
-
-func (creator *SlogCreator) SourceHandler(w io.Writer, level slog.Leveler, replAttr replace.AttrFn) slog.Handler {
-	return slog.NewJSONHandler(w, &slog.HandlerOptions{
-		Level:       level,
-		AddSource:   true,
-		ReplaceAttr: replAttr,
-	})
+func SlogHandlerCreator(w io.Writer, options *slog.HandlerOptions) slog.Handler {
+	return slog.NewJSONHandler(w, options)
 }
