@@ -94,6 +94,8 @@ const (
 	WarnGroupInline     = "Group with empty key does not inline subfields"
 	WarnLevelCase       = "Log level in lowercase"
 	WarnMessageKey      = "Wrong message key (should be 'msg')"
+	WarnNanoDuration    = "slog.Duration() doesn't log nanoseconds"
+	WarnNanoTime        = "slog.Time() doesn't log nanoseconds"
 	WarnResolver        = "LogValuer objects are not resolved"
 	WarnSourceKey       = "Source data not logged when AddSource flag set"
 	WarnSubgroupEmpty   = "Empty subgroup(s) logged"
@@ -680,27 +682,40 @@ func (suite *SlogTestSuite) TestSimpleLogAttributes() {
 	t := time.Now()
 	logger.LogAttrs(context.Background(), slog.LevelInfo, message,
 		slog.Time("when", t),
+		slog.Duration("howLong", time.Minute),
 		slog.String("goober", "snoofus"),
 		slog.Bool("boolean", true),
 		slog.Float64("pi", math.Pi),
 		slog.Int("skidoo", 23),
-		slog.Duration("duration", time.Minute),
 		slog.Int64("minus", -64),
 		slog.Uint64("unsigned", 79),
 		slog.Any("any", []string{"alpha", "omega"}))
 	logMap := suite.logMap()
 	suite.checkFieldCount(12, logMap)
-	_, ok := logMap["when"].(string)
+	when, ok := logMap["when"].(string)
 	suite.True(ok)
-	// TODO: log/slog pushes out RFC3339nano but samber and phsym push out RFC339
-	//suite.Equal(t.Format(time.RFC3339), when)
+	if suite.warn[WarnNanoTime] {
+		// Some handlers log times as RFC3339 instead of RFC3339Nano
+		suite.Equal(t.Format(time.RFC3339), when)
+	} else {
+		// Based on the existing behavior of log/slog it should be RFC3339Nano.
+		suite.Equal(t.Format(time.RFC3339Nano), when)
+	}
+	howLong, ok := logMap["howLong"].(float64)
+	suite.True(ok)
+	if suite.warn[WarnNanoDuration] {
+		// Some handlers push out milliseconds instead of nanoseconds.
+		suite.Equal(float64(60000), howLong)
+	} else {
+		// Based on the existing behavior of log/slog it should be nanoseconds.
+		//goland:noinspection GoRedundantConversion
+		suite.Equal(float64(6e+10), howLong)
+	}
 	suite.Equal("snoofus", logMap["goober"])
 	suite.Equal(true, logMap["boolean"])
 	// All numeric attributes come back as float64 due to JSON formatting and parsing.
 	suite.Equal(math.Pi, logMap["pi"])
 	suite.Equal(float64(23), logMap["skidoo"])
-	// TODO: log/slog pushes out 60000000000 but samber and phsym push out 60000
-	//suite.Equal(float64(6e+10), logMap["duration"])
 	suite.Equal(float64(-64), logMap["minus"])
 	suite.Equal(float64(79), logMap["unsigned"])
 	fixed, ok := logMap["any"].([]any)

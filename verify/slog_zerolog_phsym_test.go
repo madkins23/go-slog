@@ -22,6 +22,8 @@ func Test_slog_zerolog_phsym(t *testing.T) {
 		sLogSuite.WarnOnly(test.WarnEmptyAttributes)
 		sLogSuite.WarnOnly(test.WarnGroupInline)
 		sLogSuite.WarnOnly(test.WarnLevelCase)
+		sLogSuite.WarnOnly(test.WarnNanoDuration)
+		sLogSuite.WarnOnly(test.WarnNanoTime)
 		sLogSuite.WarnOnly(test.WarnSourceKey)
 		sLogSuite.WarnOnly(test.WarnSubgroupEmpty)
 		sLogSuite.WarnOnly(test.WarnZeroTime)
