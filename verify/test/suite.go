@@ -22,10 +22,6 @@ import (
 	"github.com/madkins23/go-slog/test"
 )
 
-// TODO: Figure out what InfoContext does and test it.
-// TODO: Wrapping output methods
-// TODO: HandlerOptions.ReplaceAttr
-
 // UseWarnings is the flag value for enabling warnings instead of known errors.
 // Command line setting:
 //
@@ -657,6 +653,26 @@ func (suite *SlogTestSuite) TestSimpleAttributeWithDuplicate() {
 
 // -----------------------------------------------------------------------------
 // Additional tests.
+
+// TestSimpleContextCancelled verifies that a cancelled context will not affect logging.
+func (suite *SlogTestSuite) TestSimpleContextCancelled() {
+	logger := suite.SimpleLogger(nil)
+	ctx, cancelFn := context.WithCancel(context.Background())
+	logger.InfoContext(ctx, message)
+	logMap := suite.logMap()
+	suite.checkFieldCount(3, logMap)
+	suite.checkLevelKey("INFO", logMap)
+	suite.checkMessageKey(message, logMap)
+	suite.Assert().NotNil(logMap[slog.TimeKey])
+	cancelFn()
+	suite.bufferReset()
+	logger.InfoContext(ctx, message)
+	logMap = suite.logMap()
+	suite.checkFieldCount(3, logMap)
+	suite.checkLevelKey("INFO", logMap)
+	suite.checkMessageKey(message, logMap)
+	suite.Assert().NotNil(logMap[slog.TimeKey])
+}
 
 // TestSimpleLogAttributes tests the LogAttrs call with all attribute objects.
 func (suite *SlogTestSuite) TestSimpleLogAttributes() {
