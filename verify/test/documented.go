@@ -10,7 +10,9 @@ import (
 )
 
 // -----------------------------------------------------------------------------
-// Tests created from reviewing log/slog documentation.
+// Tests created from reviewing log/slog documentation:
+//  https://pkg.go.dev/log/slog@master#Handler
+//  https://github.com/golang/example/blob/master/slog-handler-guide/README.md
 
 // TestCancelledContext verifies that a cancelled context will not affect logging.
 func (suite *SlogTestSuite) TestCancelledContext() {
@@ -89,6 +91,40 @@ func (suite *SlogTestSuite) TestDefaultLevel() {
 		suite.Assert().True(logger.Enabled(ctx, slog.LevelWarn))
 		suite.Assert().True(logger.Enabled(ctx, slog.LevelError))
 	}
+}
+
+// TestDerivedInvariantWith tests to see if
+// deriving another handler via With() changes the original handler.
+func (suite *SlogTestSuite) TestDerivedInvariantWith() {
+	simpleLogger := suite.Logger(SimpleOptions())
+	simpleLogger.Info(message)
+	origLogMap := suite.logMap()
+	delete(origLogMap, slog.TimeKey)
+	suite.bufferReset()
+	withLogger := simpleLogger.With("alpha", "omega")
+	withLogger.Info(message)
+	suite.bufferReset()
+	simpleLogger.Info(message)
+	currLogMap := suite.logMap()
+	delete(currLogMap, slog.TimeKey)
+	suite.Assert().Equal(origLogMap, currLogMap)
+}
+
+// TestDerivedInvariantWithGroup tests to see if
+// deriving another handler via WithGroup() changes the original handler.
+func (suite *SlogTestSuite) TestDerivedInvariantWithGroup() {
+	simpleLogger := suite.Logger(SimpleOptions())
+	simpleLogger.Info(message)
+	origLogMap := suite.logMap()
+	delete(origLogMap, slog.TimeKey)
+	suite.bufferReset()
+	withGroupLogger := simpleLogger.With("alpha", "omega")
+	withGroupLogger.Info(message)
+	suite.bufferReset()
+	simpleLogger.Info(message)
+	currLogMap := suite.logMap()
+	delete(currLogMap, slog.TimeKey)
+	suite.Assert().Equal(origLogMap, currLogMap)
 }
 
 // TestDisabled tests whether logging is disabled by level.

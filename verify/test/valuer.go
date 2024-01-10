@@ -3,6 +3,7 @@ package test
 import "log/slog"
 
 // -----------------------------------------------------------------------------
+// Instance of slog.LogValuer used for testing.
 
 var _ slog.LogValuer = &hiddenValuer{}
 
