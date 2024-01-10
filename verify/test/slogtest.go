@@ -10,9 +10,9 @@ import (
 // -----------------------------------------------------------------------------
 // These tests are intended to mimic: src/testing/slogtest/slogtest.go (2024-01-07).
 
-// TestSimpleAttributes tests whether attributes are logged properly.
+// TestAttributes tests whether attributes are logged properly.
 // Implements slogtest "attrs" test.
-func (suite *SlogTestSuite) TestSimpleAttributes() {
+func (suite *SlogTestSuite) TestAttributes() {
 	logger := suite.Logger(SimpleOptions())
 	logger.Info(message, "first", "one", "second", 2, "pi", math.Pi)
 	logMap := suite.logMap()
@@ -22,10 +22,10 @@ func (suite *SlogTestSuite) TestSimpleAttributes() {
 	suite.Assert().Equal(math.Pi, logMap["pi"])
 }
 
-// TestSimpleAttributeEmpty tests whether attributes with empty names and nil values are logged properly.
+// TestAttributesEmpty tests whether attributes with empty names and nil values are logged properly.
 // Based on the existing behavior of log/slog the field is hot created.
 // Implements slogtest "empty-attr" test.
-func (suite *SlogTestSuite) TestSimpleAttributeEmpty() {
+func (suite *SlogTestSuite) TestAttributesEmpty() {
 	logger := suite.Logger(SimpleOptions())
 	logger.Info(message, "first", "one", "", nil, "pi", math.Pi)
 	logMap := suite.logMap()
@@ -34,9 +34,9 @@ func (suite *SlogTestSuite) TestSimpleAttributeEmpty() {
 	suite.checkNoEmptyAttribute(5, logMap)
 }
 
-// TestSimpleAttributesWith tests whether attributes in With() are logged properly.
+// TestAttributesWith tests whether attributes in With() are logged properly.
 // Implements slogtest "WithAttrs" test.
-func (suite *SlogTestSuite) TestSimpleAttributesWith() {
+func (suite *SlogTestSuite) TestAttributesWith() {
 	logger := suite.Logger(SimpleOptions())
 	logger.With("first", "one", "second", 2).Info(message, "pi", math.Pi)
 	logMap := suite.logMap()
@@ -46,9 +46,9 @@ func (suite *SlogTestSuite) TestSimpleAttributesWith() {
 	suite.Assert().Equal(math.Pi, logMap["pi"])
 }
 
-// TestSimpleGroup tests the use of a logging group.
+// TestGroup tests the use of a logging group.
 // Implements slogtest "groups" test.
-func (suite *SlogTestSuite) TestSimpleGroup() {
+func (suite *SlogTestSuite) TestGroup() {
 	logger := suite.Logger(SimpleOptions())
 	logger.Info(message, "first", "one",
 		slog.Group("group", "second", 2, slog.String("third", "3"), "fourth", "forth"),
@@ -67,10 +67,10 @@ func (suite *SlogTestSuite) TestSimpleGroup() {
 	suite.Assert().Equal(math.Pi, logMap["pi"])
 }
 
-// TestSimpleGroupEmpty tests logging an empty group.
+// TestGroupEmpty tests logging an empty group.
 // Based on the existing behavior of log/slog the group field is not logged.
 // Implements slogtest "empty-group" test.
-func (suite *SlogTestSuite) TestSimpleGroupEmpty() {
+func (suite *SlogTestSuite) TestGroupEmpty() {
 	logger := suite.Logger(SimpleOptions())
 	logger.Info(message, slog.Group("group"))
 	logMap := suite.logMap()
@@ -79,11 +79,11 @@ func (suite *SlogTestSuite) TestSimpleGroupEmpty() {
 	suite.Assert().False(found)
 }
 
-// TestSimpleGroupInline tests the use of a group with an empty name.
+// TestGroupInline tests the use of a group with an empty name.
 // Based on the existing behavior of log/slog the group field is not logged and
 // the fields within the group are moved to the top level.
 // Implements slogtest "inline-group" test.
-func (suite *SlogTestSuite) TestSimpleGroupInline() {
+func (suite *SlogTestSuite) TestGroupInline() {
 	logger := suite.Logger(SimpleOptions())
 	logger.Info(message, "first", "one",
 		slog.Group("", "second", 2, slog.String("third", "3"), "fourth", "forth"),
@@ -115,9 +115,9 @@ func (suite *SlogTestSuite) TestSimpleGroupInline() {
 	checkFieldFn(logMap)
 }
 
-// TestSimpleGroupWith tests the use of a logging group specified using WithGroup.
+// TestGroupWith tests the use of a logging group specified using WithGroup.
 // Implements slogtest "WithGroup" test.
-func (suite *SlogTestSuite) TestSimpleGroupWith() {
+func (suite *SlogTestSuite) TestGroupWith() {
 	logger := suite.Logger(SimpleOptions())
 	logger.WithGroup("group").Info(message, "first", "one", "pi", math.Pi)
 	logMap := suite.logMap()
@@ -131,9 +131,9 @@ func (suite *SlogTestSuite) TestSimpleGroupWith() {
 	}
 }
 
-// TestSimpleGroupWithMulti tests the use of multiple logging groups.
+// TestGroupWithMulti tests the use of multiple logging groups.
 // Implements slogtest "multi-with" test.
-func (suite *SlogTestSuite) TestSimpleGroupWithMulti() {
+func (suite *SlogTestSuite) TestGroupWithMulti() {
 	logger := suite.Logger(SimpleOptions())
 	logger.With("first", "one").
 		WithGroup("group").With("second", 2, "third", "3").
@@ -156,10 +156,10 @@ func (suite *SlogTestSuite) TestSimpleGroupWithMulti() {
 	}
 }
 
-// TestSimpleGroupWithMultiSubEmpty tests the use of multiple logging groups when the subgroup is empty.
+// TestGroupWithMultiSubEmpty tests the use of multiple logging groups when the subgroup is empty.
 // Based on the existing behavior of log/slog the subgroup field is not logged.
 // Implements slogtest "empty-group-record" test.
-func (suite *SlogTestSuite) TestSimpleGroupWithMultiSubEmpty() {
+func (suite *SlogTestSuite) TestGroupWithMultiSubEmpty() {
 	logger := suite.Logger(SimpleOptions())
 	logger.With("first", "one").
 		WithGroup("group").With("second", 2, "third", "3").
@@ -190,9 +190,9 @@ func (suite *SlogTestSuite) TestSimpleGroupWithMultiSubEmpty() {
 	}
 }
 
-// TestSimpleKeys tests whether the three basic keys are present as their defined constants.
+// TestKeys tests whether the three basic keys are present as their defined constants.
 // Implements slogtest "built-ins" test.
-func (suite *SlogTestSuite) TestSimpleKeys() {
+func (suite *SlogTestSuite) TestKeys() {
 	logger := suite.Logger(SimpleOptions())
 	logger.Info(message)
 	logMap := suite.logMap()
@@ -202,20 +202,9 @@ func (suite *SlogTestSuite) TestSimpleKeys() {
 	suite.Assert().NotNil(logMap[slog.TimeKey])
 }
 
-// TestSimpleResolveValuer tests logging LogValuer objects.
-// Implements slogtest "resolve" test.
-func (suite *SlogTestSuite) TestSimpleResolveValuer() {
-	logger := suite.Logger(SimpleOptions())
-	hidden := &hiddenValuer{v: "something"}
-	logger.Info(message, "hidden", hidden)
-	logMap := suite.logMap()
-	suite.checkFieldCount(4, logMap)
-	suite.checkResolution("something", logMap["hidden"])
-}
-
-// TestSimpleResolveGroup tests logging LogValuer objects within a group.
+// TestResolveGroup tests logging LogValuer objects within a group.
 // Implements slogtest "resolve-groups" test.
-func (suite *SlogTestSuite) TestSimpleResolveGroup() {
+func (suite *SlogTestSuite) TestResolveGroup() {
 	logger := suite.Logger(SimpleOptions())
 	logger.Info(message, slog.Group("group",
 		slog.Float64("pi", math.Pi), slog.Any("hidden", &hiddenValuer{v: "value"})))
@@ -230,19 +219,9 @@ func (suite *SlogTestSuite) TestSimpleResolveGroup() {
 	}
 }
 
-// TestSimpleResolveWith tests logging LogValuer objects within a With().
-// Implements slogtest "resolve-withAttrs" test.
-func (suite *SlogTestSuite) TestSimpleResolveWith() {
-	logger := suite.Logger(SimpleOptions())
-	logger.With("hidden", &hiddenValuer{v: "value"}).Info(message)
-	logMap := suite.logMap()
-	suite.checkFieldCount(4, logMap)
-	suite.checkResolution("value", logMap["hidden"])
-}
-
-// TestSimpleResolveGroupWith tests logging LogValuer objects within a group within a With().
+// TestResolveGroupWith tests logging LogValuer objects within a group within a With().
 // Implements slogtest "resolve-WithAttrs-groups" test.
-func (suite *SlogTestSuite) TestSimpleResolveGroupWith() {
+func (suite *SlogTestSuite) TestResolveGroupWith() {
 	logger := suite.Logger(SimpleOptions())
 	logger.With(slog.Group("group",
 		slog.Float64("pi", math.Pi), slog.Any("hidden", &hiddenValuer{v: "value"}))).
@@ -258,10 +237,31 @@ func (suite *SlogTestSuite) TestSimpleResolveGroupWith() {
 	}
 }
 
-// TestSimpleZeroTime tests whether a zero time in a slog.Record is output.
+// TestResolveWith tests logging LogValuer objects within a With().
+// Implements slogtest "resolve-withAttrs" test.
+func (suite *SlogTestSuite) TestResolveWith() {
+	logger := suite.Logger(SimpleOptions())
+	logger.With("hidden", &hiddenValuer{v: "value"}).Info(message)
+	logMap := suite.logMap()
+	suite.checkFieldCount(4, logMap)
+	suite.checkResolution("value", logMap["hidden"])
+}
+
+// TestResolveValuer tests logging LogValuer objects.
+// Implements slogtest "resolve" test.
+func (suite *SlogTestSuite) TestResolveValuer() {
+	logger := suite.Logger(SimpleOptions())
+	hidden := &hiddenValuer{v: "something"}
+	logger.Info(message, "hidden", hidden)
+	logMap := suite.logMap()
+	suite.checkFieldCount(4, logMap)
+	suite.checkResolution("something", logMap["hidden"])
+}
+
+// TestZeroTime tests whether a zero time in a slog.Record is output.
 // Based on the existing behavior of log/slog the field is not logged.
 // Implements slogtest "zero-time" test.
-func (suite *SlogTestSuite) TestSimpleZeroTime() {
+func (suite *SlogTestSuite) TestZeroTime() {
 	logger := suite.Logger(SimpleOptions())
 	record := slog.NewRecord(time.Time{}, slog.LevelInfo, message, uintptr(0))
 	suite.Require().NoError(logger.Handler().Handle(context.Background(), record))
@@ -288,10 +288,10 @@ func (suite *SlogTestSuite) TestSimpleZeroTime() {
 // -----------------------------------------------------------------------------
 // Tests extending slogTest tests.
 
-// TestSimpleAttributeEmptyName tests whether attributes with empty names are logged properly.
+// TestAttributeEmptyName tests whether attributes with empty names are logged properly.
 // Based on the existing behavior of log/slog the field is created with a blank name.
 // Extension of slogtest "empty-attr" test.
-func (suite *SlogTestSuite) TestSimpleAttributeEmptyName() {
+func (suite *SlogTestSuite) TestAttributeEmptyName() {
 	logger := suite.Logger(SimpleOptions())
 	logger.Info(message, "first", "one", "", 2, "pi", math.Pi)
 	logMap := suite.logMap()
@@ -303,11 +303,24 @@ func (suite *SlogTestSuite) TestSimpleAttributeEmptyName() {
 	suite.Assert().Equal(math.Pi, logMap["pi"])
 }
 
-// TestSimpleAttributeWithEmpty tests whether attributes with empty names and nil values
+// TestAttributeNil tests whether attributes with nil values are logged properly.
+// Based on the existing behavior of log/slog the field is created with a nil/null value.
+// Extension of slogtest "empty-attr" test.
+func (suite *SlogTestSuite) TestAttributeNil() {
+	logger := suite.Logger(SimpleOptions())
+	logger.Info(message, "first", "one", "second", nil, "pi", math.Pi)
+	logMap := suite.logMap()
+	suite.checkFieldCount(6, logMap)
+	suite.Assert().Equal("one", logMap["first"])
+	suite.Assert().Nil(logMap["second"])
+	suite.Assert().Equal(math.Pi, logMap["pi"])
+}
+
+// TestAttributeWithEmpty tests whether attributes with empty names and nil values
 // specified in With() are logged properly.
 // Based on the existing behavior of log/slog the field is hot created.
 // Extension of slogtest "WithAttrs" test.
-func (suite *SlogTestSuite) TestSimpleAttributeWithEmpty() {
+func (suite *SlogTestSuite) TestAttributeWithEmpty() {
 	logger := suite.Logger(SimpleOptions())
 	logger.With("", nil).Info(message, "first", "one", "pi", math.Pi)
 	logMap := suite.logMap()
@@ -316,10 +329,10 @@ func (suite *SlogTestSuite) TestSimpleAttributeWithEmpty() {
 	suite.checkNoEmptyAttribute(5, logMap)
 }
 
-// TestSimpleAttributeWithEmptyName tests whether With() attributes with empty names are logged properly.
+// TestAttributeWithEmptyName tests whether With() attributes with empty names are logged properly.
 // Based on the existing behavior of log/slog the field is created with a blank name.
 // Extension of slogtest "WithAttrs" test.
-func (suite *SlogTestSuite) TestSimpleAttributeWithEmptyName() {
+func (suite *SlogTestSuite) TestAttributeWithEmptyName() {
 	logger := suite.Logger(SimpleOptions())
 	logger.With("", 2).Info(message, "first", "one", "pi", math.Pi)
 	logMap := suite.logMap()
@@ -331,23 +344,10 @@ func (suite *SlogTestSuite) TestSimpleAttributeWithEmptyName() {
 	suite.Assert().Equal(math.Pi, logMap["pi"])
 }
 
-// TestSimpleAttributeNil tests whether attributes with nil values are logged properly.
-// Based on the existing behavior of log/slog the field is created with a nil/null value.
-// Extension of slogtest "empty-attr" test.
-func (suite *SlogTestSuite) TestSimpleAttributeNil() {
-	logger := suite.Logger(SimpleOptions())
-	logger.Info(message, "first", "one", "second", nil, "pi", math.Pi)
-	logMap := suite.logMap()
-	suite.checkFieldCount(6, logMap)
-	suite.Assert().Equal("one", logMap["first"])
-	suite.Assert().Nil(logMap["second"])
-	suite.Assert().Equal(math.Pi, logMap["pi"])
-}
-
-// TestSimpleAttributeWithNil tests whether With() attributes with nil values are logged properly.
+// TestAttributeWithNil tests whether With() attributes with nil values are logged properly.
 // Based on the existing behavior of log/slog the field is created with a nil/null value.
 // Extension of slogtest "WithAttrs" test.
-func (suite *SlogTestSuite) TestSimpleAttributeWithNil() {
+func (suite *SlogTestSuite) TestAttributeWithNil() {
 	logger := suite.Logger(SimpleOptions())
 	logger.With("second", nil).Info(message, "first", "one", "pi", math.Pi)
 	logMap := suite.logMap()
@@ -357,9 +357,9 @@ func (suite *SlogTestSuite) TestSimpleAttributeWithNil() {
 	suite.Assert().Equal(math.Pi, logMap["pi"])
 }
 
-// TestSourceZeroPC tests generation of a source key.
+// TestZeroPC tests generation of a source key.
 // Implements slogtest "empty-PC" test.
-func (suite *SlogTestSuite) TestSourceZeroPC() {
+func (suite *SlogTestSuite) TestZeroPC() {
 	logger := suite.Logger(SourceOptions())
 	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)
 	suite.Require().NoError(logger.Handler().Handle(context.Background(), record))

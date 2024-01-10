@@ -11,8 +11,8 @@ import (
 // -----------------------------------------------------------------------------
 // Tests of slog.HandlerOptions.ReplaceAttr functionality.
 
-// TestSimpleReplaceAttr tests the use of HandlerOptions.ReplaceAttr.
-func (suite *SlogTestSuite) TestSimpleReplaceAttr() {
+// TestReplaceAttr tests the use of HandlerOptions.ReplaceAttr.
+func (suite *SlogTestSuite) TestReplaceAttr() {
 	logger := suite.Logger(&slog.HandlerOptions{
 		Level: slog.LevelInfo,
 		ReplaceAttr: func(groups []string, a slog.Attr) slog.Attr {
@@ -61,9 +61,9 @@ func (suite *SlogTestSuite) TestSimpleReplaceAttr() {
 	suite.Assert().Nil(logMap["remove"])
 }
 
-// TestSourceReplaceAttrBasic tests the use of HandlerOptions.ReplaceAttr
+// TestReplaceAttrBasic tests the use of HandlerOptions.ReplaceAttr
 // on basic attributes (time, level, message, source).
-func (suite *SlogTestSuite) TestSourceReplaceAttrBasic() {
+func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 	logger := suite.Logger(&slog.HandlerOptions{
 		Level:     slog.LevelInfo,
 		AddSource: true,

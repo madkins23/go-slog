@@ -4,9 +4,9 @@ package test
 // Duplicate testing, which isn't currently regarded as an error.
 // This issue is under discussion in https://github.com/golang/go/issues/59365.
 
-// TestSimpleAttributeDuplicate tests whether duplicate attributes are logged properly.
+// TestAttributeDuplicate tests whether duplicate attributes are logged properly.
 // Based on the existing behavior of log/slog the second occurrence overrides the first.
-func (suite *SlogTestSuite) TestSimpleAttributeDuplicate() {
+func (suite *SlogTestSuite) TestAttributeDuplicate() {
 	logger := suite.Logger(SimpleOptions())
 	logger.Info(message,
 		"alpha", "one", "alpha", 2, "bravo", "hurrah",
@@ -15,10 +15,10 @@ func (suite *SlogTestSuite) TestSimpleAttributeDuplicate() {
 	suite.checkFieldCount(6, logMap)
 }
 
-// TestSimpleAttributeWithDuplicate tests whether duplicate attributes are logged properly
+// TestAttributeWithDuplicate tests whether duplicate attributes are logged properly
 // when the duplicate is introduced by With() and then the main call.
 // Based on the existing behavior of log/slog the second occurrence overrides the first.
-func (suite *SlogTestSuite) TestSimpleAttributeWithDuplicate() {
+func (suite *SlogTestSuite) TestAttributeWithDuplicate() {
 	logger := suite.Logger(SimpleOptions())
 	logger.
 		With("alpha", "one", "bravo", "hurrah", "charlie", "brown", "charlie", "jones").

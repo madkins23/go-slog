@@ -12,8 +12,8 @@ import (
 // -----------------------------------------------------------------------------
 // Tests created from reviewing log/slog documentation.
 
-// TestSimpleContextCancelled verifies that a cancelled context will not affect logging.
-func (suite *SlogTestSuite) TestSimpleContextCancelled() {
+// TestCancelledContext verifies that a cancelled context will not affect logging.
+func (suite *SlogTestSuite) TestCancelledContext() {
 	logger := suite.Logger(SimpleOptions())
 	ctx, cancelFn := context.WithCancel(context.Background())
 	logger.InfoContext(ctx, message)
@@ -32,41 +32,119 @@ func (suite *SlogTestSuite) TestSimpleContextCancelled() {
 	suite.Assert().NotNil(logMap[slog.TimeKey])
 }
 
-// TestSimpleDefaultLevel tests whether the simple logger is created by default with slog.LevelInfo.
-// Other tests (e.g. TestSimpleDisabled) depend on this.
-func (suite *SlogTestSuite) TestSimpleDefaultLevel() {
-	ctx := context.Background()
-	logger := suite.Logger(&slog.HandlerOptions{})
-	if suite.hasWarning(WarnDefaultLevel) {
-		level := slog.Level(100)
-		name := ""
-
-		for _, logLevel := range logLevels {
-			lvl := logLevel.Level()
-			if logger.Enabled(ctx, lvl) {
-				if lvl < level {
-					level = lvl
-					name = logLevel.String()
-				}
-			}
-		}
-		if name != "" {
-			suite.addWarning(WarnDefaultLevel, fmt.Sprintf("defaultlevel is '%s'", name), false)
-			return
-		}
-		suite.addWarning(WarnUnused, WarnDefaultLevel, false)
+// TestConfiguredLevel tests whether the source logger is created by default in
+// SimpleOptions() and SourceOptions() with slog.LevelInfo.
+// Other tests (e.g. TestDisabled) depend on this.
+func (suite *SlogTestSuite) TestConfiguredLevel() {
+	for _, options := range []*slog.HandlerOptions{
+		SimpleOptions(),
+		SourceOptions(),
+	} {
+		logger := suite.Logger(options)
+		suite.Assert().False(logger.Enabled(context.Background(), -1))
+		suite.Assert().True(logger.Enabled(context.Background(), slog.LevelInfo))
+		suite.Assert().True(logger.Enabled(context.Background(), 1))
+		suite.Assert().True(logger.Enabled(context.Background(), slog.LevelWarn))
+		suite.Assert().True(logger.Enabled(context.Background(), slog.LevelError))
 	}
-	suite.Assert().False(logger.Enabled(ctx, slog.LevelDebug-1))
-	suite.Assert().False(logger.Enabled(ctx, slog.LevelDebug))
-	suite.Assert().False(logger.Enabled(ctx, slog.LevelInfo-1))
-	suite.Assert().True(logger.Enabled(ctx, slog.LevelInfo))
-	suite.Assert().True(logger.Enabled(ctx, slog.LevelInfo+1))
-	suite.Assert().True(logger.Enabled(ctx, slog.LevelWarn))
-	suite.Assert().True(logger.Enabled(ctx, slog.LevelError))
 }
 
-// TestSimpleLogAttributes tests the LogAttrs call with all attribute objects.
-func (suite *SlogTestSuite) TestSimpleLogAttributes() {
+// TestDefaultLevel tests whether the simple logger is created by default with slog.LevelInfo.
+func (suite *SlogTestSuite) TestDefaultLevel() {
+	for _, options := range []*slog.HandlerOptions{
+		{},
+		{AddSource: true},
+	} {
+		ctx := context.Background()
+		logger := suite.Logger(options)
+		if suite.hasWarning(WarnDefaultLevel) {
+			level := slog.Level(100)
+			name := ""
+
+			for _, logLevel := range logLevels {
+				lvl := logLevel.Level()
+				if logger.Enabled(ctx, lvl) {
+					if lvl < level {
+						level = lvl
+						name = logLevel.String()
+					}
+				}
+			}
+			if name != "" {
+				where := ""
+				if options.AddSource {
+					where = " with AddSource"
+				}
+				suite.addWarning(WarnDefaultLevel,
+					fmt.Sprintf("defaultlevel%s is '%s'", where, name), false)
+				continue
+			}
+			suite.addWarning(WarnUnused, WarnDefaultLevel, false)
+		}
+		suite.Assert().False(logger.Enabled(ctx, slog.LevelDebug-1))
+		suite.Assert().False(logger.Enabled(ctx, slog.LevelDebug))
+		suite.Assert().False(logger.Enabled(ctx, slog.LevelInfo-1))
+		suite.Assert().True(logger.Enabled(ctx, slog.LevelInfo))
+		suite.Assert().True(logger.Enabled(ctx, slog.LevelInfo+1))
+		suite.Assert().True(logger.Enabled(ctx, slog.LevelWarn))
+		suite.Assert().True(logger.Enabled(ctx, slog.LevelError))
+	}
+}
+
+// TestDisabled tests whether logging is disabled by level.
+func (suite *SlogTestSuite) TestDisabled() {
+	logger := suite.Logger(SimpleOptions())
+	logger.Debug(message)
+	suite.Assert().Empty(suite.Buffer)
+}
+
+// TestKey tests generation of a source key.
+func (suite *SlogTestSuite) TestKey() {
+	logger := suite.Logger(SourceOptions())
+	var pcs [1]uintptr
+	runtime.Callers(2, pcs[:])
+	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, pcs[0])
+	suite.Require().NoError(logger.Handler().Handle(context.Background(), record))
+	logMap := suite.logMap()
+	suite.checkLevelKey("INFO", logMap)
+	suite.checkMessageKey(message, logMap)
+	suite.Assert().NotNil(logMap[slog.TimeKey])
+	suite.checkSourceKey(4, logMap)
+}
+
+// TestKeyCase tests whether level keys are properly cased.
+// Based on the existing behavior of log/slog they should be uppercase.
+func (suite *SlogTestSuite) TestKeyCase() {
+	ctx := context.Background()
+	logger := suite.Logger(LevelOptions(slog.LevelDebug))
+	for name, level := range logLevels {
+		logger.Log(ctx, level, message)
+		logMap := suite.logMap()
+		suite.checkLevelKey(name, logMap)
+		suite.bufferReset()
+	}
+}
+
+// TestLevelVar tests the use of a slog.LevelVar.
+func (suite *SlogTestSuite) TestLevelVar() {
+	ctx := context.Background()
+	var programLevel = new(slog.LevelVar)
+	logger := suite.Logger(LevelOptions(programLevel))
+	// Should be INFO by default.
+	suite.Assert().Equal(slog.LevelInfo, programLevel.Level())
+	suite.Assert().False(logger.Enabled(ctx, -1))
+	suite.Assert().True(logger.Enabled(ctx, slog.LevelInfo))
+	suite.Assert().True(logger.Enabled(ctx, 1))
+	// Change the level.
+	programLevel.Set(slog.LevelWarn)
+	suite.Assert().Equal(slog.LevelWarn, programLevel.Level())
+	suite.Assert().False(logger.Enabled(ctx, 3))
+	suite.Assert().True(logger.Enabled(ctx, slog.LevelWarn))
+	suite.Assert().True(logger.Enabled(ctx, 5))
+}
+
+// TestLogAttributes tests the LogAttrs call with all attribute objects.
+func (suite *SlogTestSuite) TestLogAttributes() {
 	logger := suite.Logger(SimpleOptions())
 	t := time.Now()
 	logger.LogAttrs(context.Background(), slog.LevelInfo, message,
@@ -116,56 +194,4 @@ func (suite *SlogTestSuite) TestSimpleLogAttributes() {
 		array = append(array, str)
 	}
 	suite.Equal([]string{"alpha", "omega"}, array)
-}
-
-// TestSimpleDisabled tests whether logging is disabled by level.
-func (suite *SlogTestSuite) TestSimpleDisabled() {
-	logger := suite.Logger(SimpleOptions())
-	logger.Debug(message)
-	suite.Assert().Empty(suite.Buffer)
-}
-
-// TestSimpleKeyCase tests whether level keys are properly cased.
-// Based on the existing behavior of log/slog they should be uppercase.
-func (suite *SlogTestSuite) TestSimpleKeyCase() {
-	ctx := context.Background()
-	logger := suite.Logger(LevelOptions(slog.LevelDebug))
-	for name, level := range logLevels {
-		logger.Log(ctx, level, message)
-		logMap := suite.logMap()
-		suite.checkLevelKey(name, logMap)
-		suite.bufferReset()
-	}
-}
-
-// TestSimpleLevelVar tests the use of a slog.LevelVar.
-func (suite *SlogTestSuite) TestSimpleLevelVar() {
-	ctx := context.Background()
-	var programLevel = new(slog.LevelVar)
-	logger := suite.Logger(LevelOptions(programLevel))
-	// Should be INFO by default.
-	suite.Assert().Equal(slog.LevelInfo, programLevel.Level())
-	suite.Assert().False(logger.Enabled(ctx, -1))
-	suite.Assert().True(logger.Enabled(ctx, slog.LevelInfo))
-	suite.Assert().True(logger.Enabled(ctx, 1))
-	// Change the level.
-	programLevel.Set(slog.LevelWarn)
-	suite.Assert().Equal(slog.LevelWarn, programLevel.Level())
-	suite.Assert().False(logger.Enabled(ctx, 3))
-	suite.Assert().True(logger.Enabled(ctx, slog.LevelWarn))
-	suite.Assert().True(logger.Enabled(ctx, 5))
-}
-
-// TestSourceKey tests generation of a source key.
-func (suite *SlogTestSuite) TestSourceKey() {
-	logger := suite.Logger(SourceOptions())
-	var pcs [1]uintptr
-	runtime.Callers(2, pcs[:])
-	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, pcs[0])
-	suite.Require().NoError(logger.Handler().Handle(context.Background(), record))
-	logMap := suite.logMap()
-	suite.checkLevelKey("INFO", logMap)
-	suite.checkMessageKey(message, logMap)
-	suite.Assert().NotNil(logMap[slog.TimeKey])
-	suite.checkSourceKey(4, logMap)
 }
