@@ -25,6 +25,7 @@ const (
 	WarnNoReplAttr      = "HandlerOptions.ReplAttr not available"
 	WarnNoReplAttrBasic = "HandlerOptions.ReplAttr not available for basic fields"
 	WarnResolver        = "LogValuer objects are not resolved"
+	WarnSkippingTest    = "Skipping test"
 	WarnSourceKey       = "Source data not logged when AddSource flag set"
 	WarnSubgroupEmpty   = "Empty subgroup(s) logged"
 	WarnUnused          = "Unused Warning(s)"
@@ -190,6 +191,27 @@ func (suite *SlogTestSuite) addWarning(warning string, text string, addLogRecord
 	record.Data = append(record.Data, instance)
 }
 
-func (suite *SlogTestSuite) hasWarning(warning string) bool {
-	return suite.warn[warning]
+func (suite *SlogTestSuite) hasWarning(warnings ...string) bool {
+	for _, warning := range warnings {
+		if suite.warn[warning] {
+			return true
+		}
+	}
+	return false
+}
+
+func (suite *SlogTestSuite) skipTest(because string) {
+	suite.addWarning(WarnSkippingTest, because, false)
+	suite.addWarning(because, WarnSkippingTest, false)
+}
+
+func (suite *SlogTestSuite) skipTestIf(warnings ...string) bool {
+	for _, warning := range warnings {
+		if suite.warn[warning] {
+			suite.addWarning(WarnSkippingTest, warning, false)
+			suite.addWarning(warning, WarnSkippingTest, false)
+			return true
+		}
+	}
+	return false
 }

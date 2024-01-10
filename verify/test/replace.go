@@ -27,7 +27,7 @@ func (suite *SlogTestSuite) TestReplaceAttr() {
 	logger.Info(message, "alpha", "beta", "change", "my key", "remove", "me")
 	logMap := suite.logMap()
 	if suite.hasWarning(WarnNoReplAttr) {
-		issues := make([]string, 4)
+		issues := make([]string, 0, 4)
 		if len(logMap) > 5 {
 			issues = append(issues, fmt.Sprintf("too many attributes: %d", len(logMap)))
 		}
@@ -80,7 +80,7 @@ func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 	})
 	logger.Info(message)
 	logMap := suite.logMap()
-	if suite.hasWarning(WarnNoReplAttr) || suite.hasWarning(WarnNoReplAttrBasic) {
+	if suite.hasWarning(WarnNoReplAttr, WarnNoReplAttrBasic) {
 		issues := make([]string, 0, 5)
 		if len(logMap) > 3 {
 			issues = append(issues, fmt.Sprintf("too many attributes: %d", len(logMap)))
@@ -113,11 +113,39 @@ func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 // -----------------------------------------------------------------------------
 // Tests of go-slog/replace ReplaceAttr functions.
 
+// TestReplaceAttrFnLevelCase tests the Level[Lower,Upper]Case functions.
+func (suite *SlogTestSuite) TestReplaceAttrFnLevelCase() {
+	if suite.skipTestIf(WarnNoReplAttrBasic, WarnNoReplAttr) {
+		return
+	}
+	start := "INFO"
+	fixed := "info"
+	attrFn := replace.LevelLowerCase
+	if suite.hasWarning(WarnLevelCase) {
+		start = "info"
+		fixed = "INFO"
+		attrFn = replace.LevelUpperCase
+	}
+
+	logger := suite.Logger(SimpleOptions())
+	logger.Info(message)
+	logMap := suite.logMap()
+	level, ok := logMap[slog.LevelKey].(string)
+	suite.Require().True(ok)
+	suite.Assert().Equal(start, level)
+	suite.bufferReset()
+	logger = suite.Logger(ReplaceAttrOptions(attrFn))
+	logger.Info(message)
+	logMap = suite.logMap()
+	level, ok = logMap[slog.LevelKey].(string)
+	suite.Require().True(ok)
+	suite.Assert().Equal(fixed, level)
+}
+
 // TestReplaceAttrFnRemoveEmptyKey tests the RemoveEmptyKey function.
 func (suite *SlogTestSuite) TestReplaceAttrFnRemoveEmptyKey() {
 	logger := suite.Logger(SimpleOptions())
 	logger.Info(message, "", "garbage")
-	suite.showLog()
 	logMap := suite.logMap()
 	value, ok := logMap[""]
 	suite.Require().True(ok)
@@ -125,7 +153,6 @@ func (suite *SlogTestSuite) TestReplaceAttrFnRemoveEmptyKey() {
 	suite.bufferReset()
 	logger = suite.Logger(ReplaceAttrOptions(replace.RemoveEmptyKey))
 	logger.Info(message, "", nil)
-	suite.showLog()
 	logMap = suite.logMap()
 	value, ok = logMap[""]
 	if suite.hasWarning(WarnEmptyAttributes) {

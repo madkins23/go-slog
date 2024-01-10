@@ -318,7 +318,7 @@ func (suite *SlogTestSuite) TestAttributeNil() {
 
 // TestAttributeWithEmpty tests whether attributes with empty names and nil values
 // specified in With() are logged properly.
-// Based on the existing behavior of log/slog the field is hot created.
+// Based on the existing behavior of log/slog the field is not created.
 // Extension of slogtest "WithAttrs" test.
 func (suite *SlogTestSuite) TestAttributeWithEmpty() {
 	logger := suite.Logger(SimpleOptions())

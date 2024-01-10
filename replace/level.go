@@ -5,6 +5,9 @@ import (
 	"strings"
 )
 
+// -----------------------------------------------------------------------------
+// ReplaceAttr functions related to the "level" field.
+
 var _ AttrFn = LvlToLevel
 
 // LvlToLevel replaces attribute keys matching "lvl" with the correct slog.LevelKey.
@@ -15,10 +18,26 @@ func LvlToLevel(groups []string, a slog.Attr) slog.Attr {
 	return a
 }
 
-// LevelCase changes the values of "level" attributes to uppercase.
-func LevelCase(groups []string, a slog.Attr) slog.Attr {
+// -----------------------------------------------------------------------------
+
+var _ AttrFn = LevelLowerCase
+
+// LevelLowerCase changes the values of "level" attributes to lowercase.
+func LevelLowerCase(groups []string, a slog.Attr) slog.Attr {
 	if strings.ToLower(a.Key) == "level" && len(groups) == 0 {
-		return slog.String(a.Key, strings.ToUpper(a.String()))
+		return slog.String(a.Key, strings.ToLower(a.Value.String()))
+	}
+
+	return a
+}
+
+var _ AttrFn = LevelUpperCase
+
+// LevelUpperCase changes the values of "level" attributes to uppercase.
+// Based on the existing behavior of log/slog this is the correct output.
+func LevelUpperCase(groups []string, a slog.Attr) slog.Attr {
+	if strings.ToLower(a.Key) == "level" && len(groups) == 0 {
+		return slog.String(a.Key, strings.ToUpper(a.Value.String()))
 	}
 
 	return a
