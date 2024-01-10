@@ -11,6 +11,8 @@ import (
 	"github.com/madkins23/go-slog/verify/test"
 )
 
+// Note: This handler uses its own HandlerOptions which do not support ReplaceAttr.
+
 // Test_slog_zerolog_phsym runs tests for the physym zerolog handler.
 func Test_slog_zerolog_phsym(t *testing.T) {
 	sLogSuite := &test.SlogTestSuite{
