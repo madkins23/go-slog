@@ -80,7 +80,8 @@ func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 	})
 	logger.Info(message)
 	logMap := suite.logMap()
-	if suite.hasWarning(WarnNoReplAttr, WarnNoReplAttrBasic) {
+	warnings := suite.hasWarnings(WarnNoReplAttr, WarnNoReplAttrBasic)
+	if len(warnings) > 0 {
 		issues := make([]string, 0, 5)
 		if len(logMap) > 3 {
 			issues = append(issues, fmt.Sprintf("too many attributes: %d", len(logMap)))
@@ -98,10 +99,10 @@ func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 			issues = append(issues, fmt.Sprintf("%s == %v", slog.SourceKey, logMap[slog.SourceKey]))
 		}
 		if len(issues) > 0 {
-			suite.addWarning(WarnNoReplAttrBasic, strings.Join(issues, ", "), false)
+			suite.addWarning(warnings[0], strings.Join(issues, ", "), false)
 			return
 		}
-		suite.addWarning(WarnUnused, WarnNoReplAttrBasic, true)
+		suite.addWarning(WarnUnused, warnings[0], true)
 	}
 	suite.checkFieldCount(3, logMap)
 	suite.Assert().Nil(logMap[slog.TimeKey])
@@ -115,9 +116,6 @@ func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 
 // TestReplaceAttrFnLevelCase tests the Level[Lower,Upper]Case functions.
 func (suite *SlogTestSuite) TestReplaceAttrFnLevelCase() {
-	if suite.skipTestIf(WarnNoReplAttrBasic, WarnNoReplAttr) {
-		return
-	}
 	start := "INFO"
 	fixed := "info"
 	attrFn := replace.LevelLowerCase
@@ -139,6 +137,24 @@ func (suite *SlogTestSuite) TestReplaceAttrFnLevelCase() {
 	logMap = suite.logMap()
 	level, ok = logMap[slog.LevelKey].(string)
 	suite.Require().True(ok)
+	warnings := suite.hasWarnings(WarnNoReplAttrBasic, WarnNoReplAttr)
+	if len(warnings) > 0 {
+		issues := make([]string, 0, 3)
+		if len(logMap) < 3 {
+			issues = append(issues, fmt.Sprintf("too few attributes: %d", len(logMap)))
+		}
+		if !ok {
+			issues = append(issues, "no level key")
+		}
+		if level != "" {
+			issues = append(issues, "level value not null")
+		}
+		if len(issues) > 0 {
+			suite.addWarning(warnings[0], strings.Join(issues, ", "), false)
+			return
+		}
+		suite.addWarning(WarnUnused, warnings[0], false)
+	}
 	suite.Assert().Equal(fixed, level)
 }
 
@@ -155,10 +171,71 @@ func (suite *SlogTestSuite) TestReplaceAttrFnRemoveEmptyKey() {
 	logger.Info(message, "", nil)
 	logMap = suite.logMap()
 	value, ok = logMap[""]
+	if suite.hasWarning(WarnNoReplAttr) {
+		issues := make([]string, 0, 3)
+		if len(logMap) < 4 {
+			issues = append(issues, fmt.Sprintf("too few attributes: %d", len(logMap)))
+		}
+		if !ok {
+			issues = append(issues, "no empty key")
+		}
+		if value != nil {
+			issues = append(issues, "empty key value not null")
+		}
+		if len(issues) > 0 {
+			suite.addWarning(WarnNoReplAttr, strings.Join(issues, ", "), false)
+			return
+		}
+		suite.addWarning(WarnUnused, WarnNoReplAttr, false)
+	}
 	if suite.hasWarning(WarnEmptyAttributes) {
+		suite.Assert().Len(logMap, 4)
 		suite.Assert().True(ok)
 		suite.Assert().Nil(value)
 	} else {
+		suite.Assert().Len(logMap, 3)
+		suite.Assert().False(ok)
+	}
+}
+
+// TestReplaceAttrFnRemoveTime tests the RemoveEmptyKey function.
+func (suite *SlogTestSuite) TestReplaceAttrFnRemoveTime() {
+	logger := suite.Logger(SimpleOptions())
+	logger.Info(message)
+	logMap := suite.logMap()
+	suite.Require().Len(logMap, 3)
+	value, ok := logMap[slog.TimeKey]
+	suite.Require().True(ok)
+	suite.NotNil(value)
+	suite.bufferReset()
+	logger = suite.Logger(ReplaceAttrOptions(replace.RemoveTime))
+	logger.Info(message)
+	logMap = suite.logMap()
+	value, ok = logMap[slog.TimeKey].(string)
+	warnings := suite.hasWarnings(WarnNoReplAttrBasic, WarnNoReplAttr)
+	if len(warnings) > 0 {
+		issues := make([]string, 0, 3)
+		if len(logMap) < 3 {
+			issues = append(issues, fmt.Sprintf("too few attributes: %d", len(logMap)))
+		}
+		if !ok {
+			issues = append(issues, "no time key")
+		}
+		if value != "" {
+			issues = append(issues, "time value not empty string")
+		}
+		if len(issues) > 0 {
+			suite.addWarning(warnings[0], strings.Join(issues, ", "), false)
+			return
+		}
+		suite.addWarning(WarnUnused, warnings[0], false)
+	}
+	if suite.hasWarning(WarnEmptyAttributes) {
+		suite.Require().Len(logMap, 3)
+		suite.Assert().True(ok)
+		suite.Assert().Nil(value)
+	} else {
+		suite.Require().Len(logMap, 2)
 		suite.Assert().False(ok)
 	}
 }

@@ -191,13 +191,18 @@ func (suite *SlogTestSuite) addWarning(warning string, text string, addLogRecord
 	record.Data = append(record.Data, instance)
 }
 
-func (suite *SlogTestSuite) hasWarning(warnings ...string) bool {
+func (suite *SlogTestSuite) hasWarning(warning string) bool {
+	return suite.warn[warning]
+}
+
+func (suite *SlogTestSuite) hasWarnings(warnings ...string) []string {
+	found := make([]string, 0, len(warnings))
 	for _, warning := range warnings {
 		if suite.warn[warning] {
-			return true
+			found = append(found, warning)
 		}
 	}
-	return false
+	return found
 }
 
 func (suite *SlogTestSuite) skipTest(because string) {
