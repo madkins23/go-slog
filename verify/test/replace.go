@@ -13,20 +13,17 @@ import (
 
 // TestReplaceAttr tests the use of HandlerOptions.ReplaceAttr.
 func (suite *SlogTestSuite) TestReplaceAttr() {
-	logger := suite.Logger(&slog.HandlerOptions{
-		Level: slog.LevelInfo,
-		ReplaceAttr: func(groups []string, a slog.Attr) slog.Attr {
-			switch a.Key {
-			case "alpha":
-				return slog.String(a.Key, "omega")
-			case "change":
-				return slog.String("bravo", a.Value.String())
-			case "remove":
-				return replace.EmptyAttr
-			}
-			return a
-		},
-	})
+	logger := suite.Logger(ReplaceAttrOptions(func(groups []string, a slog.Attr) slog.Attr {
+		switch a.Key {
+		case "alpha":
+			return slog.String(a.Key, "omega")
+		case "change":
+			return slog.String("bravo", a.Value.String())
+		case "remove":
+			return replace.EmptyAttr()
+		}
+		return a
+	}))
 	logger.Info(message, "alpha", "beta", "change", "my key", "remove", "me")
 	logMap := suite.logMap()
 	if suite.hasWarning(WarnNoReplAttr) {
@@ -70,7 +67,7 @@ func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 		ReplaceAttr: func(groups []string, a slog.Attr) slog.Attr {
 			switch a.Key {
 			case slog.TimeKey:
-				return replace.EmptyAttr
+				return replace.EmptyAttr()
 			case slog.LevelKey:
 				return slog.String(slog.LevelKey, "Tilted")
 			case slog.MessageKey:
@@ -111,4 +108,30 @@ func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 	suite.Assert().Equal("Tilted", logMap[slog.LevelKey])
 	suite.Assert().Equal(message, logMap["Message"])
 	suite.Assert().Equal("all knowledge", logMap[slog.SourceKey])
+}
+
+// -----------------------------------------------------------------------------
+// Tests of go-slog/replace ReplaceAttr functions.
+
+// TestReplaceAttrFnRemoveEmptyKey tests the RemoveEmptyKey function.
+func (suite *SlogTestSuite) TestReplaceAttrFnRemoveEmptyKey() {
+	logger := suite.Logger(SimpleOptions())
+	logger.Info(message, "", "garbage")
+	suite.showLog()
+	logMap := suite.logMap()
+	value, ok := logMap[""]
+	suite.Require().True(ok)
+	suite.Require().Equal("garbage", value)
+	suite.bufferReset()
+	logger = suite.Logger(ReplaceAttrOptions(replace.RemoveEmptyKey))
+	logger.Info(message, "", nil)
+	suite.showLog()
+	logMap = suite.logMap()
+	value, ok = logMap[""]
+	if suite.hasWarning(WarnEmptyAttributes) {
+		suite.Assert().True(ok)
+		suite.Assert().Nil(value)
+	} else {
+		suite.Assert().False(ok)
+	}
 }

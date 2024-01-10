@@ -2,6 +2,7 @@ package test
 
 import (
 	"encoding/json"
+	"fmt"
 	"runtime"
 	"strings"
 
@@ -25,6 +26,10 @@ func (suite *SlogTestSuite) logMap() map[string]any {
 	var results map[string]any
 	suite.Require().NoError(json.Unmarshal(suite.Buffer.Bytes(), &results))
 	return results
+}
+
+func (suite *SlogTestSuite) showLog() {
+	fmt.Printf(">>> %s", suite.Buffer)
 }
 
 // -----------------------------------------------------------------------------

@@ -6,6 +6,8 @@ import (
 	"log/slog"
 
 	"github.com/stretchr/testify/suite"
+
+	"github.com/madkins23/go-slog/replace"
 )
 
 // -----------------------------------------------------------------------------
@@ -74,6 +76,14 @@ func SourceOptions() *slog.HandlerOptions {
 	return &slog.HandlerOptions{
 		Level:     slog.LevelInfo,
 		AddSource: true,
+	}
+}
+
+// ReplaceAttrOptions returns a slog.HandlerOptions with the specified ReplaceAttr function.
+func ReplaceAttrOptions(fn replace.AttrFn) *slog.HandlerOptions {
+	return &slog.HandlerOptions{
+		Level:       slog.LevelInfo,
+		ReplaceAttr: fn,
 	}
 }
 
