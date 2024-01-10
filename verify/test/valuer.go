@@ -4,6 +4,8 @@ import "log/slog"
 
 // -----------------------------------------------------------------------------
 
+var _ slog.LogValuer = &hiddenValuer{}
+
 type hiddenValuer struct {
 	v any
 }

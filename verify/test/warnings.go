@@ -168,6 +168,9 @@ func WithWarnings(m *testing.M) {
 	os.Exit(exitVal)
 }
 
+// addWarning to results list, specifying warning string and optional extra text.
+// If the addLogRecord flag is true the current log record JSON is also stored.
+// The current function name is acquired from the currentFunctionName() and stored.
 func (suite *SlogTestSuite) addWarning(warning string, text string, addLogRecord bool) {
 	if suite.warnings == nil {
 		suite.warnings = make(map[string]*Warning)
@@ -191,10 +194,14 @@ func (suite *SlogTestSuite) addWarning(warning string, text string, addLogRecord
 	record.Data = append(record.Data, instance)
 }
 
+// hasWarning returns true if the specified warning has been set in the test suite.
 func (suite *SlogTestSuite) hasWarning(warning string) bool {
 	return suite.warn[warning]
 }
 
+// hasWarnings checks all specified warnings and returns an array of
+// any that have been set in the test suite in the same order.
+// If none are found an empty array is returned.
 func (suite *SlogTestSuite) hasWarnings(warnings ...string) []string {
 	found := make([]string, 0, len(warnings))
 	for _, warning := range warnings {
@@ -205,11 +212,17 @@ func (suite *SlogTestSuite) hasWarnings(warnings ...string) []string {
 	return found
 }
 
+// skipTest adds warnings for a test that is being skipped.
+// The first warning is for skipping a test with the text set to the 'because' warning argument.
+// The second warning is for the 'because' warning with the text set to skipping the test.
 func (suite *SlogTestSuite) skipTest(because string) {
 	suite.addWarning(WarnSkippingTest, because, false)
 	suite.addWarning(because, WarnSkippingTest, false)
 }
 
+// skipTestIf checks the warnings provided to see if any have been set in the suite,
+// adding skipTest warnings for the first one and returning true.
+// False is returned if none of the warnings are found.
 func (suite *SlogTestSuite) skipTestIf(warnings ...string) bool {
 	for _, warning := range warnings {
 		if suite.warn[warning] {
