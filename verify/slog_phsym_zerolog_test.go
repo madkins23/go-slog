@@ -14,7 +14,7 @@ import (
 // Test_slog_zerolog_phsym runs tests for the physym zerolog handler.
 func Test_slog_zerolog_phsym(t *testing.T) {
 	sLogSuite := &test.SlogTestSuite{
-		Creator: SlogPhsymHandlerCreator,
+		Creator: SlogPhsymZerologHandlerCreator,
 		Name:    "phsym/zeroslog",
 	}
 	if *test.UseWarnings {
@@ -32,9 +32,9 @@ func Test_slog_zerolog_phsym(t *testing.T) {
 	suite.Run(t, sLogSuite)
 }
 
-var _ test.CreateHandlerFn = SlogPhsymHandlerCreator
+var _ test.CreateHandlerFn = SlogPhsymZerologHandlerCreator
 
-func SlogPhsymHandlerCreator(w io.Writer, options *slog.HandlerOptions) slog.Handler {
+func SlogPhsymZerologHandlerCreator(w io.Writer, options *slog.HandlerOptions) slog.Handler {
 	return zeroslog.NewJsonHandler(w, &zeroslog.HandlerOptions{
 		Level:     options.Level,
 		AddSource: options.AddSource,

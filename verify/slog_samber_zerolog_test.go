@@ -12,10 +12,10 @@ import (
 	"github.com/madkins23/go-slog/verify/test"
 )
 
-// Test_slog_zerolog_samber runs tests for the samber zerolog handler.
-func Test_slog_zerolog_samber(t *testing.T) {
+// Test_slog_samber_zerolog runs tests for the samber zerolog handler.
+func Test_slog_samber_zerolog(t *testing.T) {
 	sLogSuite := &test.SlogTestSuite{
-		Creator: SlogSamberHandlerCreator,
+		Creator: SlogSamberZerologHandlerCreator,
 		Name:    "samber/slog-zerolog",
 	}
 	if *test.UseWarnings {
@@ -34,9 +34,9 @@ func Test_slog_zerolog_samber(t *testing.T) {
 	suite.Run(t, sLogSuite)
 }
 
-var _ test.CreateHandlerFn = SlogSamberHandlerCreator
+var _ test.CreateHandlerFn = SlogSamberZerologHandlerCreator
 
-func SlogSamberHandlerCreator(w io.Writer, options *slog.HandlerOptions) slog.Handler {
+func SlogSamberZerologHandlerCreator(w io.Writer, options *slog.HandlerOptions) slog.Handler {
 	zeroLogger := zerolog.New(w)
 	return samber.Option{
 		Logger:      &zeroLogger,
