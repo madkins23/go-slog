@@ -9,17 +9,6 @@ import (
 // -----------------------------------------------------------------------------
 // Other tests.
 
-// TestSimpleLevel tests whether the simple logger is created by default with slog.LevelInfo.
-// Other tests (e.g. TestSimpleDisabled) depend on this.
-func (suite *SlogTestSuite) TestSimpleLevel() {
-	logger := suite.Logger(SimpleOptions())
-	suite.Assert().False(logger.Enabled(context.Background(), -1))
-	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelInfo))
-	suite.Assert().True(logger.Enabled(context.Background(), 1))
-	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelWarn))
-	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelError))
-}
-
 // TestSimpleLevelDifferent tests whether the simple logger is created with slog.LevelWarn.
 // This verifies the test suite can change the level when creating a logger.
 // It also verifies changing the level via the handler.

@@ -19,6 +19,7 @@ func Test_slog_zerolog_samber(t *testing.T) {
 		Name:    "samber/slog-zerolog",
 	}
 	if *test.UseWarnings {
+		sLogSuite.WarnOnly(test.WarnDefaultLevel)
 		sLogSuite.WarnOnly(test.WarnMessageKey)
 		sLogSuite.WarnOnly(test.WarnEmptyAttributes)
 		sLogSuite.WarnOnly(test.WarnGroupInline)

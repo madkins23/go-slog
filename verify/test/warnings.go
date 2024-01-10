@@ -14,6 +14,7 @@ import (
 // Warning mechanism to trade test failure for warning list at end of tests.
 
 const (
+	WarnDefaultLevel    = "Handler doesn't default to slog.LevelInfo"
 	WarnDuplicates      = "Duplicate field(s) found"
 	WarnEmptyAttributes = "Empty attribute(s) logged (\"\":null)"
 	WarnGroupInline     = "Group with empty key does not inline subfields"
