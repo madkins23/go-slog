@@ -35,8 +35,6 @@ type SlogTestSuite struct {
 // -----------------------------------------------------------------------------
 // Suite test configuration.
 
-const duplicateFieldsNotError = false
-
 // suites captures all suites tested together into an array.
 // This array is used when showing warnings.
 var suites = make([]*SlogTestSuite, 0)
