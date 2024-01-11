@@ -14,7 +14,6 @@ Usage details for this facility are provided in
 the [`Readme.MD`](verify/README.md) file
 located in the [`verify`](verify) package directory.
 
-
 The tests implemented herein were inspired by:
 * the [`slogtest`](https://pkg.go.dev/golang.org/x/exp/slog/slogtest) application,
 * rules specified in
@@ -23,5 +22,5 @@ The tests implemented herein were inspired by:
   documentation,
 * issues I noticed while exploring
   [`go-logging-benchmark`](https://github.com/betterstack-community/go-logging-benchmarks)
-* as well as some other stuff I thought would be useful.
+* as well as some other test cases that seemed useful.
 

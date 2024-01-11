@@ -181,6 +181,16 @@ Warnings for samber/slog-zerolog:
          {"level":"info","time":"0001-01-01T00:00:00Z","message":"This is a message"}
 ```
 
+### Warning Specifics
+
+Each of the warnings is intended to represent a feature that might be expected.
+
+#### Required
+
+* **Empty attribute(s) logged ("":null)**
+  test
+
+#### Suggestions
 
 
 
