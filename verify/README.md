@@ -370,13 +370,13 @@ If multiple handler tests are in the same directory it will be necessary to
 move the `TestMain()` definition to a separate file,
 such as the `/main_test.go` in the `verify` directory in this repository.
 
-[^1] Respect to Samuel Berthe, I'm not picking on you, I just need an example here. :wink:
+[^1]: Respect to Samuel Berthe, I'm not picking on you, I just need an example here. :wink:
 
-[^2] The `--debug` flag and `Debugf` function are defined in the `test` package in this repository.
+[^2]: The `--debug` flag and `Debugf` function are defined in the `test` package in this repository.
 
-[^3] I favor more rigorous guidelines and handlers that require fewer warnings.
+[^3]: I favor more rigorous guidelines and handlers that require fewer warnings.
 Most JSON logging will be done to feed downstream log consumers.
 The looser the guidelines the greater the chance that swapping `log/slog` handlers
 will necessitate changes to downstream processes.
 
-[^4] I am lazy.
+[^4]: I am lazy.
