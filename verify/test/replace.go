@@ -12,6 +12,7 @@ import (
 // Tests of slog.HandlerOptions.ReplaceAttr functionality.
 
 // TestReplaceAttr tests the use of HandlerOptions.ReplaceAttr.
+// * https://pkg.go.dev/log/slog@master#HandlerOptions
 func (suite *SlogTestSuite) TestReplaceAttr() {
 	logger := suite.Logger(ReplaceAttrOptions(func(groups []string, a slog.Attr) slog.Attr {
 		switch a.Key {
@@ -60,6 +61,7 @@ func (suite *SlogTestSuite) TestReplaceAttr() {
 
 // TestReplaceAttrBasic tests the use of HandlerOptions.ReplaceAttr
 // on basic attributes (time, level, message, source).
+// * https://pkg.go.dev/log/slog@master#HandlerOptions
 func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 	logger := suite.Logger(&slog.HandlerOptions{
 		Level:     slog.LevelInfo,

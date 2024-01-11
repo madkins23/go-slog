@@ -115,6 +115,7 @@ func (suite *SlogTestSuite) Warnings() []*Warning {
 
 // ShowWarnings prints any warnings to Stdout in a preformatted manner.
 // Use the Warnings method if more control over output is required.
+//
 // Note: Both Stdout and Stderr are captured by the the 'go test' command and
 // shunted into Stdout (see https://pkg.go.dev/cmd/go#hdr-Test_packages).
 // This output stream is only visible when the 'go test -v flag' is used.
@@ -155,6 +156,7 @@ func (suite *SlogTestSuite) ShowWarnings(output io.Writer) {
 //	}
 //
 // This step can be omitted if warnings are being sent to an output file.
+//
 // Note: The TestMain function can only be defined once in a package.
 // If multiple SlogTestSuite instances are created in separate files in
 // the same package, TestMain can be moved into a single main_test.go file
