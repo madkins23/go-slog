@@ -247,29 +247,29 @@ _The following warnings_ relate to tests that I can justify from requirements in
 
 * `WarnZeroTime`: 'Zero time is logged'  
   Handlers should not log the basic `time` field if it is zero.  
-  :point_right: [`If r.Time is the zero time, ignore the time.`](https://pkg.go.dev/log/slog@master#Handler)
+  :point_right: ['- If r.Time is the zero time, ignore the time.'](https://pkg.go.dev/log/slog@master#Handler)
 * `WarnZeroPC`: 'SourceKey logged for zero PC'  
   The `slog.Record.PC` field can be loaded with a program counter (PC).
   If the PC is non-zero and the `slog.HandlerOptions.AddSource` flag is set
   the `source` field will contain a [`slog.Source`](https://pkg.go.dev/log/slog@master#Source) record
   containing the function name, file name, and file line at which the log record was generated.
   If the PC is zero then this field and its associated group should not be logged.  
-  :point_right: [`If r.PC is zero, ignore it.`](https://pkg.go.dev/log/slog@master#Handler)
+  :point_right: ['- If r.PC is zero, ignore it.'](https://pkg.go.dev/log/slog@master#Handler)
 * `WarnResolver`: 'LogValuer objects are not resolved'  
   Handlers should resolve all objects implementing the
   [`LogValuer`](https://pkg.go.dev/log/slog@master#LogValuer) interface.  
   This is a powerful feature which can customize logging of objects and
   [speed up logging by delaying argument resolution until logging time](https://pkg.go.dev/log/slog@master#hdr-Performance_considerations).  
-  :point_right: [`Attr's values should be resolved.`](https://pkg.go.dev/log/slog@master#Handler)
+  :point_right: ['- Attr's values should be resolved.'](https://pkg.go.dev/log/slog@master#Handler)
 * `WarnEmptyAttributes`: 'Empty attribute(s) logged "":null)'  
   Handlers are supposed to avoid logging empty attributes.  
-  :point_right: [`If an Attr's key and value are both the zero value, ignore the Attr.`](https://pkg.go.dev/log/slog@master#Handler)
+  :point_right: ['- If an Attr's key and value are both the zero value, ignore the Attr.'](https://pkg.go.dev/log/slog@master#Handler)
 * `WarnGroupInline`: 'Group with empty key does not inline subfields'  
   Handlers should expand groups named "" (the empty string) into the enclosing log record.  
-  :point_right: [`If a group's key is empty, inline the group's Attrs.`](https://pkg.go.dev/log/slog@master#Handler)
+  :point_right: ['- If a group's key is empty, inline the group's Attrs.'](https://pkg.go.dev/log/slog@master#Handler)
 * `WarnGroupEmpty`: 'Empty (sub)group(s) logged'  
   Handlers should not log groups (or subgroups) without fields.  
-  :point_right: [`If a group has no Attrs (even if it has a non-empty key), ignore it.`](https://pkg.go.dev/log/slog@master#Handler)
+  :point_right: ['- If a group has no Attrs (even if it has a non-empty key), ignore it.'](https://pkg.go.dev/log/slog@master#Handler)
 
 #### Implied
 
@@ -277,7 +277,7 @@ Warnings that seem to be implied by documentation but can't (quite) be considere
 
 * `WarnDefaultLevel`: 'Handler doesn't default to slog.LevelInfo'  
   A new `slog.Handler` should default to `slog.LevelInfo`.  
-  :point_right: [`First, we wanted the default level to be Info, Since Levels are ints, Info is the default value for int, zero.`](https://pkg.go.dev/log/slog@master#Handler)
+  :point_right: ['First, we wanted the default level to be Info, Since Levels are ints, Info is the default value for int, zero.'](https://pkg.go.dev/log/slog@master#Handler)
 * `WarnMessageKey`: 'Wrong message key (should be 'msg')'  
   The field name of the "message" key should be `msg`.  
   :point_right: [Constant values are defined for `slog/log`](https://pkg.go.dev/log/slog@master#pkg-constants)  
@@ -291,7 +291,7 @@ Warnings that seem to be implied by documentation but can't (quite) be considere
   If `HandlerOptions.ReplaceAttr` is provided it should be honored by the handler.
   However, documentation on implementing handler methods seems to suggest it is optional.  
   :point_right: [Behavior defined for `slog.HandlerOptions`](https://pkg.go.dev/log/slog@master#HandlerOptions)  
-  :point_right: [`You might also consider adding a ReplaceAttr option to your handler, like the one for the built-in handlers. Although ReplaceAttr will complicate your implementation, it will also make your handler more generally useful.`](https://github.com/golang/example/tree/master/slog-handler-guide#implementing-handler-methods)
+  :point_right: ['You might also consider adding a ReplaceAttr option to your handler, like the one for the built-in handlers. Although ReplaceAttr will complicate your implementation, it will also make your handler more generally useful.'](https://github.com/golang/example/tree/master/slog-handler-guide#implementing-handler-methods)
 * `WarnNoReplAttrBasic`: 'HandlerOptions.ReplaceAttr not available for basic field'  
   Some handlers (e.g. `samber/slog-zerolog`) support `HandlerOptions.ReplaceAttr`
   except for the four main fields `time`, `level`, `msg`, and `source`.
@@ -367,7 +367,7 @@ func TestMain(m *testing.M) {
 This function may be defined in the same `_test.go` file as the handler test.
 If multiple handler tests are in the same directory it will be necessary to
 move the `TestMain()` definition to a separate file,
-such as the [`verify/main_test.go`](verify/main_test.go).
+such as the [`verify/main_test.go`](main_test.go).
 
 [^1]: Respect to the handler's author, I'm not picking on you, I just need an example here. :wink:
 
