@@ -14,17 +14,14 @@ Usage details for this facility are provided in
 the [`Readme.MD`](verify/README.md) file
 located in the [`verify`](verify) package directory.
 
+
 The tests implemented herein were inspired by:
 * the [`slogtest`](https://pkg.go.dev/golang.org/x/exp/slog/slogtest) application,
 * rules specified in
-  the [`log/slog.Hander`](https://pkg.go.dev/log/slog@master#Handler)
+  the [`log/slog.Hander`](https://pkg.go.dev/log/slog@master#Handler) and
+  [handler writing guide](https://github.com/golang/example/tree/master/slog-handler-guide)
   documentation,
 * issues I noticed while exploring
   [`go-logging-benchmark`](https://github.com/betterstack-community/go-logging-benchmarks)
 * as well as some other stuff I thought would be useful.
 
-The real benefit of `log/slog` is the ability to swap handlers without
-rewriting all the log statements in existing code.
-This only works if the various handlers behave in a similar manner.
-Verification only makes sense for JSON handlers,
-which are generally used to feed log records into downstream processing.
