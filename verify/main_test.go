@@ -3,9 +3,9 @@ package verify
 import (
 	"testing"
 
-	"github.com/madkins23/go-slog/verify/test"
+	"github.com/madkins23/go-slog/verify/tests"
 )
 
 func TestMain(m *testing.M) {
-	test.WithWarnings(m)
+	tests.WithWarnings(m)
 }

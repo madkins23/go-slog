@@ -1,4 +1,4 @@
-package test
+package tests
 
 // -----------------------------------------------------------------------------
 // Duplicate testing, which isn't currently regarded as an error.

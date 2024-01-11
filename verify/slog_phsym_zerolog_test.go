@@ -8,32 +8,32 @@ import (
 	"github.com/phsym/zeroslog"
 	"github.com/stretchr/testify/suite"
 
-	"github.com/madkins23/go-slog/verify/test"
+	"github.com/madkins23/go-slog/verify/tests"
 )
 
 // Test_slog_zerolog_phsym runs tests for the physym zerolog handler.
 func Test_slog_zerolog_phsym(t *testing.T) {
-	sLogSuite := &test.SlogTestSuite{
+	sLogSuite := &tests.SlogTestSuite{
 		Creator: SlogPhsymZerologHandlerCreator,
 		Name:    "phsym/zeroslog",
 	}
-	if *test.UseWarnings {
-		sLogSuite.WarnOnly(test.WarnDuplicates)
-		sLogSuite.WarnOnly(test.WarnEmptyAttributes)
-		sLogSuite.WarnOnly(test.WarnGroupInline)
-		sLogSuite.WarnOnly(test.WarnLevelCase)
-		sLogSuite.WarnOnly(test.WarnMessageKey)
-		sLogSuite.WarnOnly(test.WarnNanoDuration)
-		sLogSuite.WarnOnly(test.WarnNanoTime)
-		sLogSuite.WarnOnly(test.WarnNoReplAttr)
-		sLogSuite.WarnOnly(test.WarnSourceKey)
-		sLogSuite.WarnOnly(test.WarnGroupEmpty)
-		sLogSuite.WarnOnly(test.WarnZeroTime)
+	if *tests.UseWarnings {
+		sLogSuite.WarnOnly(tests.WarnDuplicates)
+		sLogSuite.WarnOnly(tests.WarnEmptyAttributes)
+		sLogSuite.WarnOnly(tests.WarnGroupInline)
+		sLogSuite.WarnOnly(tests.WarnLevelCase)
+		sLogSuite.WarnOnly(tests.WarnMessageKey)
+		sLogSuite.WarnOnly(tests.WarnNanoDuration)
+		sLogSuite.WarnOnly(tests.WarnNanoTime)
+		sLogSuite.WarnOnly(tests.WarnNoReplAttr)
+		sLogSuite.WarnOnly(tests.WarnSourceKey)
+		sLogSuite.WarnOnly(tests.WarnGroupEmpty)
+		sLogSuite.WarnOnly(tests.WarnZeroTime)
 	}
 	suite.Run(t, sLogSuite)
 }
 
-var _ test.CreateHandlerFn = SlogPhsymZerologHandlerCreator
+var _ tests.CreateHandlerFn = SlogPhsymZerologHandlerCreator
 
 func SlogPhsymZerologHandlerCreator(w io.Writer, options *slog.HandlerOptions) slog.Handler {
 	return zeroslog.NewJsonHandler(w, &zeroslog.HandlerOptions{
