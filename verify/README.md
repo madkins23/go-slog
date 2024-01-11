@@ -1,10 +1,10 @@
 # Verifying `log/slog` Handlers
 
-The `verify` package provides various `log/slog` handler test suites.
+The `verify` package provides various `log/slog` (henceforth just `slog`) handler test suites.
 This document discusses simple usage details.
 Technical details for the test suite are provided in
 the [`README.md`](test/README.md) file in
-the [`test`](test) package subdirectory.
+the [`tests`](tests) package subdirectory.
 
 The real benefit of `log/slog` is the ability to swap handlers without
 rewriting all the log statements in existing code.
@@ -12,8 +12,8 @@ This only works if the various handlers behave in a similar manner.
 
 ## Simple Example
 
-Verification of a `log/slog` handler has been made fairly simple.
-The following application runs the test suite on `log/slog.JSONHandler`:
+Verification of a `slog` handler has been made fairly simple.
+The following application runs the test suite on `slog.JSONHandler`:
 
 ```go
 import (
@@ -23,26 +23,26 @@ import (
 
     "github.com/stretchr/testify/suite"
 
-    "github.com/madkins23/go-slog/verify/test"
+    "github.com/madkins23/go-slog/verify/tests"
 )
 
 func TestMain(m *testing.M) {
-    test.WithWarnings(m)
+    tests.WithWarnings(m)
 }
 
 // Test_slog runs tests for the log/slog JSON handler.
 func Test_slog(t *testing.T) {
-    slogSuite := &test.SlogTestSuite{
+    slogSuite := &tests.SlogTestSuite{
         Creator: &SlogCreator{},
         Name:    "log/slog.JSONHandler",
     }
-    if *test.UseWarnings {
-        slogSuite.WarnOnly(test.WarnDuplicates)
+    if *tests.UseWarnings {
+        slogSuite.WarnOnly(tests.WarnDuplicates)
     }
     suite.Run(t, slogSuite)
 }
 
-var _ test.LoggerCreator = &SlogCreator{}
+var _ tests.LoggerCreator = &SlogCreator{}
 
 type SlogCreator struct{}
 
@@ -61,15 +61,15 @@ The file itself must have the `_test.go` suffix in order to be executed as a tes
 ### More Examples
 
 This package contains several examples, including the one above:
-* `slog_test.go`
-  Verifies the standard `log/slog.JSONHandler`.
-* `slog_zerolog_phsym_test.go`
+* [`slog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_test.go)
+  Verifies the standard `slog.JSONHandler`.
+* [`slog_zerolog_phsym_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_phsym_zerolog_test.go)
   Verifies the `zeroslog` handler.
-* `slog_zerolog_samber_test.go`
+* [`slog_zerolog_samber_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
   Verifies the `slog-zerolog` handler.
 
-In addition, there is a `main_test.go` file which exists to provide
-a global resource to the other tests.
+In addition, there is a [`main_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/main_test.go) file which exists to provide
+a global resource to the other tests ([described below](#testmain)).
 
 ## Running Tests
 
@@ -79,7 +79,7 @@ go test -v ./verify -args -useWarnings
 ```
 
 On an operating system that supports `bash` scripts you can use
-the `scripts/verify` script.
+the [`scripts/verify`](https://github.com/madkins23/go-slog/blob/main/scripts/verify) script.
 
 **Note**:  running `go test ./... -args -useWarnings` will fail as
 the other tests in the repository don't recognize the `-useWarnings` flag.
@@ -107,10 +107,10 @@ Text and console handlers don't have a consistent format.
 While it might be useful to test those handlers as well,
 the difficulty of parsing various output formats argues against it.
 
-_The test suite interface to `log/slog` logging is via `slog.Handler`_.
+_The test suite interface to `slog` logging is via `slog.Handler`_.
 This is a well-defined interface and the obvious place to swap in
 a different logging backend.
-This makes loggers that directly implement `log/slog`-like behavior
+This makes loggers that directly implement `slog`-like behavior
 without instantiating a `slog.Handler`
 (e.g. the [darvaza loggers](https://github.com/darvaza-proxy/slog))
 inappropriate for this test suite.
@@ -124,27 +124,28 @@ A "warning" facility is built into many of the tests to provide a way to:
 
 ### Example
 
-Compare the simple example [above](#simple-example) with the current (2024-01-10) test suite for
+Compare the simple example [above](#simple-example) with the following excerpt from
+the current (2024-01-10) test suite for
 [`samber/slog-zerolog`](https://github.com/samber/slog-zerolog):[^1]
 ```go
 // Test_slog_samber_zerolog runs tests for the samber zerolog handler.
 func Test_slog_samber_zerolog(t *testing.T) {
-	sLogSuite := &test.SlogTestSuite{
+	sLogSuite := &tests.SlogTestSuite{
 		Creator: SlogSamberZerologHandlerCreator,
 		Name:    "samber/slog-zerolog",
 	}
-	if *test.UseWarnings {
-		sLogSuite.WarnOnly(test.WarnDefaultLevel)
-		sLogSuite.WarnOnly(test.WarnMessageKey)
-		sLogSuite.WarnOnly(test.WarnEmptyAttributes)
-		sLogSuite.WarnOnly(test.WarnGroupInline)
-		sLogSuite.WarnOnly(test.WarnLevelCase)
-		sLogSuite.WarnOnly(test.WarnNanoDuration)
-		sLogSuite.WarnOnly(test.WarnNanoTime)
-		sLogSuite.WarnOnly(test.WarnNoReplAttrBasic)
-		sLogSuite.WarnOnly(test.WarnResolver)
-		sLogSuite.WarnOnly(test.WarnZeroPC)
-		sLogSuite.WarnOnly(test.WarnZeroTime)
+	if *tests.UseWarnings {
+		sLogSuite.WarnOnly(tests.WarnDefaultLevel)
+		sLogSuite.WarnOnly(tests.WarnMessageKey)
+		sLogSuite.WarnOnly(tests.WarnEmptyAttributes)
+		sLogSuite.WarnOnly(tests.WarnGroupInline)
+		sLogSuite.WarnOnly(tests.WarnLevelCase)
+		sLogSuite.WarnOnly(tests.WarnNanoDuration)
+		sLogSuite.WarnOnly(tests.WarnNanoTime)
+		sLogSuite.WarnOnly(tests.WarnNoReplAttrBasic)
+		sLogSuite.WarnOnly(tests.WarnResolver)
+		sLogSuite.WarnOnly(tests.WarnZeroPC)
+		sLogSuite.WarnOnly(tests.WarnZeroTime)
 	}
 	suite.Run(t, sLogSuite)
 }
@@ -230,7 +231,7 @@ There may also be a colon followed by `<optional-text>`
 further describing the specific instance of the warning.
 
 The optional second line shows the `<optional-log-record>`
-which is the JSON log record generated by the `log/slog` handler.
+which is the JSON log record generated by the `slog` handler.
 It is often, but not always, the case that `<optional-text>`
 makes an `<optional-log-record>` redundant.
 
@@ -241,86 +242,84 @@ might be expected, or provides administrative information.
 
 #### Required
 
-_The following warnings_ relate to tests that I can justify from
+_The following warnings_ relate to tests that I can justify from requirements in the
 [`slog.Handler`](https://pkg.go.dev/log/slog@master#Handler) documentation.
 
-* **Zero time is logged**  
+* `WarnZeroTime`: 'Zero time is logged'  
   Handlers should not log the basic `time` field if it is zero.  
-  :point_right: [If r.Time is the zero time, ignore the time.](https://pkg.go.dev/log/slog@master#Handler)
-* **SourceKey logged for zero PC**  
+  :point_right: [`If r.Time is the zero time, ignore the time.`](https://pkg.go.dev/log/slog@master#Handler)
+* `WarnZeroPC`: 'SourceKey logged for zero PC'  
   The `slog.Record.PC` field can be loaded with a program counter (PC).
   If the PC is non-zero and the `slog.HandlerOptions.AddSource` flag is set
   the `source` field will contain a [`slog.Source`](https://pkg.go.dev/log/slog@master#Source) record
   containing the function name, file name, and file line at which the log record was generated.
   If the PC is zero then this field and its associated group should not be logged.  
-  :point_right: [If r.PC is zero, ignore it.](https://pkg.go.dev/log/slog@master#Handler)
-* **LogValuer objects are not resolved**  
+  :point_right: [`If r.PC is zero, ignore it.`](https://pkg.go.dev/log/slog@master#Handler)
+* `WarnResolver`: 'LogValuer objects are not resolved'  
   Handlers should resolve all objects implementing the
   [`LogValuer`](https://pkg.go.dev/log/slog@master#LogValuer) interface.  
   This is a powerful feature which can customize logging of objects and
   [speed up logging by delaying argument resolution until logging time](https://pkg.go.dev/log/slog@master#hdr-Performance_considerations).  
-  :point_right: [Attr's values should be resolved.](https://pkg.go.dev/log/slog@master#Handler)
-* **Empty attribute(s) logged ("":null)**  
+  :point_right: [`Attr's values should be resolved.`](https://pkg.go.dev/log/slog@master#Handler)
+* `WarnEmptyAttributes`: 'Empty attribute(s) logged "":null)'  
   Handlers are supposed to avoid logging empty attributes.  
-  :point_right: [If an Attr's key and value are both the zero value, ignore the Attr.](https://pkg.go.dev/log/slog@master#Handler)
-* **Group with empty key does not inline subfields**  
+  :point_right: [`If an Attr's key and value are both the zero value, ignore the Attr.`](https://pkg.go.dev/log/slog@master#Handler)
+* `WarnGroupInline`: 'Group with empty key does not inline subfields'  
   Handlers should expand groups named "" (the empty string) into the enclosing log record.  
-  :point_right: [If a group's key is empty, inline the group's Attrs.](https://pkg.go.dev/log/slog@master#Handler)
-* **Empty (sub)group(s) logged**  
+  :point_right: [`If a group's key is empty, inline the group's Attrs.`](https://pkg.go.dev/log/slog@master#Handler)
+* `WarnGroupEmpty`: 'Empty (sub)group(s) logged'  
   Handlers should not log groups (or subgroups) without fields.  
-  :point_right: [If a group has no Attrs (even if it has a non-empty key), ignore it.](https://pkg.go.dev/log/slog@master#Handler)
-
-_These warnings_ are related to tests in
-[`slogtest/slogtest`](https://cs.opensource.google/go/x/exp/+/0dcbfd60:slog/slogtest/slogtest.go).
+  :point_right: [`If a group has no Attrs (even if it has a non-empty key), ignore it.`](https://pkg.go.dev/log/slog@master#Handler)
 
 #### Implied
 
-Warnings that seem to be implied by documentation but can't be considered required.
+Warnings that seem to be implied by documentation but can't (quite) be considered required.
 
-* **Handler doesn't default to slog.LevelInfo**  
+* `WarnDefaultLevel`: 'Handler doesn't default to slog.LevelInfo'  
   A new `slog.Handler` should default to `slog.LevelInfo`.  
-  :point_right: [First, we wanted the default level to be Info, Since Levels are ints, Info is the default value for int, zero.](https://pkg.go.dev/log/slog@master#Handler)
-* **Wrong message key (should be 'msg')**  
+  :point_right: [`First, we wanted the default level to be Info, Since Levels are ints, Info is the default value for int, zero.`](https://pkg.go.dev/log/slog@master#Handler)
+* `WarnMessageKey`: 'Wrong message key (should be 'msg')'  
   The field name of the "message" key should be `msg`.  
   :point_right: [Constant values are defined for `slog/log`](https://pkg.go.dev/log/slog@master#pkg-constants)  
   :point_right: [Field values are defined for the `JSONHandler.Handle()` implementation](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)
-* **Source data not logged when AddSource flag set**  
-  If the `slog.HandlerOptions.AddSource` flag is set source data should be logged.  
-  :point_right: [Flag declaration](https://pkg.go.dev/log/slog@master#HandlerOptions)  
+* `WarnSourceKey`: 'Source data not logged when AddSource flag set'  
+  Handlers should log source data when the `slog.HandlerOptions.AddSource` flag is set.  
+  :point_right: [Flag declaration as `slog.HandlerOptions` field](https://pkg.go.dev/log/slog@master#HandlerOptions)  
   :point_right: [Behavior defined for `JSONHandler.Handle()`](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)  
   :point_right: [Definition of source data record](https://pkg.go.dev/log/slog@master#Source)
-* **HandlerOptions.ReplaceAttr not available**  
+* `WarnNoReplAttr`: 'HandlerOptions.ReplaceAttr not available'  
   If `HandlerOptions.ReplaceAttr` is provided it should be honored by the handler.
   However, documentation on implementing handler methods seems to suggest it is optional.  
   :point_right: [Behavior defined for `slog.HandlerOptions`](https://pkg.go.dev/log/slog@master#HandlerOptions)  
-  :point_right: [You might also consider adding a ReplaceAttr option to your handler, like the one for the built-in handlers. Although ReplaceAttr will complicate your implementation, it will also make your handler more generally useful.](https://github.com/golang/example/tree/master/slog-handler-guide#implementing-handler-methods)
-* **HandlerOptions.ReplaceAttr not available for basic field**  
+  :point_right: [`You might also consider adding a ReplaceAttr option to your handler, like the one for the built-in handlers. Although ReplaceAttr will complicate your implementation, it will also make your handler more generally useful.`](https://github.com/golang/example/tree/master/slog-handler-guide#implementing-handler-methods)
+* `WarnNoReplAttrBasic`: 'HandlerOptions.ReplaceAttr not available for basic field'  
   Some handlers (e.g. `samber/slog-zerolog`) support `HandlerOptions.ReplaceAttr`
   except for the four main fields `time`, `level`, `msg`, and `source`.
+  When that is the case it is better to use this (`WarnNoReplAttrBasic`) warning.
 
 #### Suggestions
 
 These warnings are not AFAIK mandated by any documentation or requirements.[^3]
 
-* **Duplicate field(s) found**  
-  Some handlers (e.g. `log/slog.JSONHandler`)
+* `WarnDuplicates`: 'Duplicate field(s) found'  
+  Some handlers (e.g. `slog.JSONHandler`)
   will output multiple occurrences of the same field name
   if the logger is called with multiple instances of the same field.
   This behavior is currently [under debate](https://github.com/golang/go/issues/59365)
   with no resolution at this time (2024-01-11) and a
-  [release milestone of 1.23](https://github.com/golang/go/milestone/212),
-  (whereas [Release 1.22](https://tip.golang.org/doc/go1.22)
+  [release milestone of (currently unscheduled) Go 1.23](https://github.com/golang/go/milestone/212),
+  (whereas [Go Release 1.22](https://tip.golang.org/doc/go1.22)
   is currently expected in February 2024).
-* **Log level in lowercase**  
+* `WarnLevelCaseLog`: 'level in lowercase'  
   Each JSON log record contains the logging level of the log statement as a string.
   Different handlers provide that string in uppercase or lowercase.
   Documentation for [`slog.Level`](https://pkg.go.dev/log/slog@master#Level)
   says that its `String()` and `MarshalJSON()` methods will return uppercase
   but `UnmarshalJSON()` will parse in a case-insensitive manner.
-* **slog.Duration() doesn't log nanoseconds**  
+* `WarnNanoDuration`: 'slog.Duration() doesn't log nanoseconds'  
   The `slog.JSONHandler` uses nanoseconds for `time.Duration` but some other handlers use seconds.  
-  :point_right: [Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)
-* **slog.Time() doesn't log nanoseconds**  
+  :point_right: [Go issue 59345: Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)
+* `WarnNanoTime`: 'slog.Time() doesn't log nanoseconds'  
   The `slog.JSONHandler` uses nanoseconds for `time.Time` but some other handlers use seconds.
   I can't find any supporting documentation or bug on this but
   [Go issue 59345](https://github.com/golang/go/issues/59345) (see previous warning)
@@ -330,10 +329,10 @@ These warnings are not AFAIK mandated by any documentation or requirements.[^3]
 
 The last warnings provide information about the tests or conflicts with other warnings.
 
-* **Skipping test**  
+* `WarnSkippingTest`: 'Skipping test'  
   A test has been skipped, likely due to the specification of some other warning.
   Not currently used (2024-01-11).
-* **Unused Warning(s)**  
+* `WarnUnused`: 'Unused Warning(s)'  
   If a warning is specified but the condition is not actually present
   one of these warnings will be issued with the specified warning.
   These are intended to help clean out unnecessary warnings from a test suite
@@ -357,26 +356,26 @@ This is due to the way the default test harness works.
 
 It is possible to override the default test harness by defining a global function
 [`TestMain()`](https://pkg.go.dev/testing#hdr-Main).
-The `verify/test` package provides a convenient function to support this.
+The `verify/tests` package provides a convenient function to support this.
 Define the following `TestMain()` function:
 ```go
 func TestMain(m *testing.M) {
-    test.WithWarnings(m)
+    tests.WithWarnings(m)
 }
 ```
 
 This function may be defined in the same `_test.go` file as the handler test.
 If multiple handler tests are in the same directory it will be necessary to
 move the `TestMain()` definition to a separate file,
-such as the `/main_test.go` in the `verify` directory in this repository.
+such as the [`verify/main_test.go`](verify/main_test.go).
 
-[^1]: Respect to Samuel Berthe, I'm not picking on you, I just need an example here. :wink:
+[^1]: Respect to the handler's author, I'm not picking on you, I just need an example here. :wink:
 
 [^2]: The `--debug` flag and `Debugf` function are defined in the `test` package in this repository.
 
 [^3]: I favor more rigorous guidelines and handlers that require fewer warnings.
 Most JSON logging will be done to feed downstream log consumers.
-The looser the guidelines the greater the chance that swapping `log/slog` handlers
+The looser the guidelines the greater the chance that swapping `slog` handlers
 will necessitate changes to downstream processes.
 
 [^4]: I am lazy.
