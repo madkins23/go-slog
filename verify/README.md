@@ -181,18 +181,61 @@ Warnings for samber/slog-zerolog:
          {"level":"info","time":"0001-01-01T00:00:00Z","message":"This is a message"}
 ```
 
+### Warning Result Format
+
+:construction: **TBD** :construction:
+
 ### Warning Specifics
 
 Each of the warnings is intended to represent a feature that might be expected.
 
 #### Required
 
+These are warnings relating to tests that I can justify from documentation.
+
+* **Zero time is logged**  
+  Handlers should not log the basic `time` field if it is zero.  
+  :point_right: [If r.Time is the zero time, ignore the time.](https://pkg.go.dev/log/slog@master#Handler)
+* **SourceKey logged for zero PC**  
+  The `slog.Record.PC` field can be loaded with a program counter (PC).
+  If the PC is non-zero and the `slog.HandlerOptions.AddSource` flag is set
+  the `source` field will contain a group with (as documented) <file>, <line> and
+  (as current seen from `log/slog.JSONHandler`) the function name.
+  If the PC is zero then this field and its associated group should not be logged.  
+  :point_right: [If r.PC is zero, ignore it.](https://pkg.go.dev/log/slog@master#Handler)
+* **LogValuer objects are not resolved**  
+  Handlers should resolve all objects implementing the
+  [`LogValuer`](https://pkg.go.dev/log/slog@master#LogValuer) interface.  
+  This is a powerful feature which can customize logging of objects and
+  [speed up logging by delaying argument resolution until logging time](https://pkg.go.dev/log/slog@master#hdr-Performance_considerations).  
+  :point_right: [Attr's values should be resolved.](https://pkg.go.dev/log/slog@master#Handler)
 * **Empty attribute(s) logged ("":null)**  
-test
+  Handlers are supposed to avoid logging empty attributes.  
+  :point_right: [If an Attr's key and value are both the zero value, ignore the Attr.](https://pkg.go.dev/log/slog@master#Handler)
+* **Group with empty key does not inline subfields**  
+  Handlers should expand groups named "" (the empty string) into the enclosing log record.  
+  :point_right: [If a group's key is empty, inline the group's Attrs.](https://pkg.go.dev/log/slog@master#Handler)
+* **Empty (sub)group(s) logged**  
+  Handlers should not log groups (or subgroups) without fields.  
+  :point_right: [If a group has no Attrs (even if it has a non-empty key), ignore it.](https://pkg.go.dev/log/slog@master#Handler)
+
+#### From `slogtest`
 
 #### Suggestions
 
+* **Handler doesn't default to slog.LevelInfo**  
+* **Duplicate field(s) found**  
+* **Log level in lowercase**  
+* **Wrong message key (should be 'msg')**  
+* **slog.Duration() doesn't log nanoseconds**  
+* **slog.Time() doesn't log nanoseconds**  
+* **HandlerOptions.ReplAttr not available**  
+* **HandlerOptions.ReplAttr not available for basic field**  
+* **Source data not logged when AddSource flag set**  
 
+#### Administrative
 
+* **Skipping test**
+* **Unused Warning(s)**
 
 [^1]: Respect to Samuel Berthe, I'm not picking on you, I just need an example here. :wink:
