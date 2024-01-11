@@ -187,11 +187,13 @@ Warnings for samber/slog-zerolog:
 
 ### Warning Specifics
 
-Each of the warnings is intended to represent a feature that might be expected.
+Each of the warnings is intended to represent a feature that is required,
+might be expected, or provides administrative information.
 
 #### Required
 
-These are warnings relating to tests that I can justify from documentation.
+_The following warnings_ relate to tests that I can justify from
+[`slog.Handler`](https://pkg.go.dev/log/slog@master#Handler) documentation.
 
 * **Zero time is logged**  
   Handlers should not log the basic `time` field if it is zero.  
@@ -219,9 +221,14 @@ These are warnings relating to tests that I can justify from documentation.
   Handlers should not log groups (or subgroups) without fields.  
   :point_right: [If a group has no Attrs (even if it has a non-empty key), ignore it.](https://pkg.go.dev/log/slog@master#Handler)
 
-#### From `slogtest`
+_These warnings_ are related to tests in
+[`slogtest/slogtest`](https://cs.opensource.google/go/x/exp/+/0dcbfd60:slog/slogtest/slogtest.go).
 
 #### Suggestions
+
+_These warnings_ are not AFAIK supported by any documentation or requirements.
+
+:construction: **TBD** :construction:
 
 * **Handler doesn't default to slog.LevelInfo**  
 * **Duplicate field(s) found**  
@@ -234,6 +241,10 @@ These are warnings relating to tests that I can justify from documentation.
 * **Source data not logged when AddSource flag set**  
 
 #### Administrative
+
+:construction: **TBD** :construction:
+
+_The last warnings_ are information about the tests or conflicts with other warnings.
 
 * **Skipping test**
 * **Unused Warning(s)**
