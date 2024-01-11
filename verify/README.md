@@ -291,7 +291,7 @@ Warnings that seem to be implied by documentation but can't (quite) be considere
   If `HandlerOptions.ReplaceAttr` is provided it should be honored by the handler.
   However, documentation on implementing handler methods seems to suggest it is optional.  
   :point_right: [Behavior defined for `slog.HandlerOptions`](https://pkg.go.dev/log/slog@master#HandlerOptions)  
-  :point_right: ['You might also consider adding a ReplaceAttr option to your handler, like the one for the built-in handlers. Although ReplaceAttr will complicate your implementation, it will also make your handler more generally useful.'](https://github.com/golang/example/tree/master/slog-handler-guide#implementing-handler-methods)
+  :point_right: ['You might also consider adding a ReplaceAttr option to your handler, like the one for the built-in handlers.'](https://github.com/golang/example/tree/master/slog-handler-guide#implementing-handler-methods)
 * `WarnNoReplAttrBasic`: 'HandlerOptions.ReplaceAttr not available for basic field'  
   Some handlers (e.g. `samber/slog-zerolog`) support `HandlerOptions.ReplaceAttr`
   except for the four main fields `time`, `level`, `msg`, and `source`.
