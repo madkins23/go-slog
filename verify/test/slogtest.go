@@ -2,8 +2,10 @@ package test
 
 import (
 	"context"
+	"fmt"
 	"log/slog"
 	"math"
+	"strings"
 	"time"
 )
 
@@ -74,6 +76,24 @@ func (suite *SlogTestSuite) TestGroupEmpty() {
 	logger := suite.Logger(SimpleOptions())
 	logger.Info(message, slog.Group("group"))
 	logMap := suite.logMap()
+	if suite.hasWarning(WarnGroupEmpty) {
+		issues := make([]string, 0, 4)
+		if len(logMap) > 3 {
+			issues = append(issues, "too many fields")
+			if grp, found := logMap["group"]; found {
+				issues = append(issues, "found field")
+				if group, ok := grp.(map[string]any); ok {
+					issues = append(issues, "value is group")
+					issues = append(issues, fmt.Sprintf("length: %d", len(group)))
+				}
+			}
+		}
+		if len(issues) > 0 {
+			suite.addWarning(WarnGroupEmpty, strings.Join(issues, ", "), true)
+			return
+		}
+		suite.addWarning(WarnUnused, WarnGroupEmpty, false)
+	}
 	suite.checkFieldCount(3, logMap)
 	_, found := logMap["group"]
 	suite.Assert().False(found)
@@ -171,16 +191,16 @@ func (suite *SlogTestSuite) TestGroupWithMultiSubEmpty() {
 	if group, ok := logMap["group"].(map[string]any); ok {
 		suite.Assert().Equal(float64(2), group["second"])
 		suite.Assert().Equal("3", group["third"])
-		if suite.hasWarning(WarnSubgroupEmpty) {
+		if suite.hasWarning(WarnGroupEmpty) {
 			if len(group) > 2 {
 				if subGroup, found := group["subGroup"]; found {
 					if sg, ok := subGroup.(map[string]any); ok && len(sg) < 1 {
-						suite.addWarning(WarnSubgroupEmpty, "", true)
+						suite.addWarning(WarnGroupEmpty, "", true)
 						return
 					}
 				}
 			}
-			suite.addWarning(WarnUnused, WarnSubgroupEmpty, false)
+			suite.addWarning(WarnUnused, WarnGroupEmpty, false)
 		}
 		suite.Assert().Len(group, 2)
 		_, found := group["subGroup"]

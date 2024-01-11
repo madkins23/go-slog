@@ -27,7 +27,7 @@ const (
 	WarnResolver        = "LogValuer objects are not resolved"
 	WarnSkippingTest    = "Skipping test"
 	WarnSourceKey       = "Source data not logged when AddSource flag set"
-	WarnSubgroupEmpty   = "Empty subgroup(s) logged"
+	WarnGroupEmpty      = "Empty (sub)group(s) logged"
 	WarnUnused          = "Unused Warning(s)"
 	WarnZeroPC          = "SourceKey logged for zero PC"
 	WarnZeroTime        = "Zero time is logged"
