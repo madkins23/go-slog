@@ -187,8 +187,8 @@ Each of the warnings is intended to represent a feature that might be expected.
 
 #### Required
 
-* **Empty attribute(s) logged ("":null)**
-  test
+* **Empty attribute(s) logged ("":null)**  
+test
 
 #### Suggestions
 
