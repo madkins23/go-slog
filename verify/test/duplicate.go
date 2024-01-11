@@ -5,7 +5,8 @@ package test
 // This issue is under discussion in https://github.com/golang/go/issues/59365.
 
 // TestAttributeDuplicate tests whether duplicate attributes are logged properly.
-// Based on the existing behavior of log/slog the second occurrence overrides the first.
+//   - Based on the existing behavior of log/slog the second occurrence overrides the first.
+//   - See https://github.com/golang/go/issues/59365
 func (suite *SlogTestSuite) TestAttributeDuplicate() {
 	logger := suite.Logger(SimpleOptions())
 	logger.Info(message,
@@ -17,7 +18,8 @@ func (suite *SlogTestSuite) TestAttributeDuplicate() {
 
 // TestAttributeWithDuplicate tests whether duplicate attributes are logged properly
 // when the duplicate is introduced by With() and then the main call.
-// Based on the existing behavior of log/slog the second occurrence overrides the first.
+//   - Based on the existing behavior of log/slog the second occurrence overrides the first.
+//   - See https://github.com/golang/go/issues/59365
 func (suite *SlogTestSuite) TestAttributeWithDuplicate() {
 	logger := suite.Logger(SimpleOptions())
 	logger.

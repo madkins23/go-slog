@@ -15,7 +15,7 @@ import (
 //  https://github.com/golang/example/blob/master/slog-handler-guide/README.md
 
 // TestCancelledContext verifies that a cancelled context will not affect logging.
-// * https://github.com/golang/example/blob/master/slog-handler-guide/README.md
+//   - https://github.com/golang/example/blob/master/slog-handler-guide/README.md
 func (suite *SlogTestSuite) TestCancelledContext() {
 	logger := suite.Logger(SimpleOptions())
 	ctx, cancelFn := context.WithCancel(context.Background())
@@ -37,9 +37,9 @@ func (suite *SlogTestSuite) TestCancelledContext() {
 
 // TestDefaultLevel tests whether the handler under test
 // is created by default with slog.LevelInfo.
-// * Implied by: https://pkg.go.dev/log/slog@master#Handler
-// "First, we wanted the default level to be Info, Since Levels are ints,
-// Info is the default value for int, zero."
+//   - Implied by https://pkg.go.dev/log/slog@master#Handler:
+//     "First, we wanted the default level to be Info,
+//     Since Levels are ints, Info is the default value for int, zero."
 func (suite *SlogTestSuite) TestDefaultLevel() {
 	for _, options := range []*slog.HandlerOptions{
 		{},
@@ -83,7 +83,7 @@ func (suite *SlogTestSuite) TestDefaultLevel() {
 
 // TestDerivedInvariantWith tests to see if
 // deriving another handler via With() changes the original handler.
-// * https://github.com/golang/example/blob/master/slog-handler-guide/README.md
+//   - https://github.com/golang/example/blob/master/slog-handler-guide/README.md
 func (suite *SlogTestSuite) TestDerivedInvariantWith() {
 	simpleLogger := suite.Logger(SimpleOptions())
 	simpleLogger.Info(message)
@@ -101,7 +101,7 @@ func (suite *SlogTestSuite) TestDerivedInvariantWith() {
 
 // TestDerivedInvariantWithGroup tests to see if
 // deriving another handler via WithGroup() changes the original handler.
-// * https://github.com/golang/example/blob/master/slog-handler-guide/README.md
+//   - https://github.com/golang/example/blob/master/slog-handler-guide/README.md
 func (suite *SlogTestSuite) TestDerivedInvariantWithGroup() {
 	simpleLogger := suite.Logger(SimpleOptions())
 	simpleLogger.Info(message)
@@ -118,7 +118,7 @@ func (suite *SlogTestSuite) TestDerivedInvariantWithGroup() {
 }
 
 // TestDisabled tests whether logging is disabled by level.
-// * https://pkg.go.dev/log/slog@master#hdr-Levels
+//   - https://pkg.go.dev/log/slog@master#hdr-Levels
 func (suite *SlogTestSuite) TestDisabled() {
 	logger := suite.Logger(SimpleOptions())
 	logger.Debug(message)
@@ -126,8 +126,8 @@ func (suite *SlogTestSuite) TestDisabled() {
 }
 
 // TestKey tests generation of a source key.
-// * https://pkg.go.dev/log/slog@master#HandlerOptions
-// * https://pkg.go.dev/log/slog@master#Source
+//   - https://pkg.go.dev/log/slog@master#HandlerOptions
+//   - https://pkg.go.dev/log/slog@master#Source
 func (suite *SlogTestSuite) TestKey() {
 	logger := suite.Logger(SourceOptions())
 	var pcs [1]uintptr
@@ -142,7 +142,7 @@ func (suite *SlogTestSuite) TestKey() {
 }
 
 // TestKeyCase tests whether level keys are properly cased.
-// * Based on the existing behavior of log/slog they should be uppercase.
+//   - Based on the existing behavior of log/slog they should be uppercase.
 func (suite *SlogTestSuite) TestKeyCase() {
 	ctx := context.Background()
 	logger := suite.Logger(LevelOptions(slog.LevelDebug))
@@ -155,8 +155,8 @@ func (suite *SlogTestSuite) TestKeyCase() {
 }
 
 // TestLevelVar tests the use of a slog.LevelVar.
-// * https://pkg.go.dev/log/slog@master#hdr-Levels
-// * https://pkg.go.dev/log/slog@master#LevelVar
+//   - https://pkg.go.dev/log/slog@master#hdr-Levels
+//   - https://pkg.go.dev/log/slog@master#LevelVar
 func (suite *SlogTestSuite) TestLevelVar() {
 	ctx := context.Background()
 	var programLevel = new(slog.LevelVar)
@@ -175,8 +175,8 @@ func (suite *SlogTestSuite) TestLevelVar() {
 }
 
 // TestLogAttributes tests the LogAttrs call with all attribute objects.
-// * https://pkg.go.dev/log/slog@master#Logger.LogAttrs
-// * https://pkg.go.dev/log/slog@master#Attr
+//   - https://pkg.go.dev/log/slog@master#Logger.LogAttrs
+//   - https://pkg.go.dev/log/slog@master#Attr
 func (suite *SlogTestSuite) TestLogAttributes() {
 	logger := suite.Logger(SimpleOptions())
 	t := time.Now()
