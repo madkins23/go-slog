@@ -20,10 +20,10 @@ func Test_slog_samber_zerolog(t *testing.T) {
 	}
 	if *test.UseWarnings {
 		sLogSuite.WarnOnly(test.WarnDefaultLevel)
-		sLogSuite.WarnOnly(test.WarnMessageKey)
 		sLogSuite.WarnOnly(test.WarnEmptyAttributes)
 		sLogSuite.WarnOnly(test.WarnGroupInline)
 		sLogSuite.WarnOnly(test.WarnLevelCase)
+		sLogSuite.WarnOnly(test.WarnMessageKey)
 		sLogSuite.WarnOnly(test.WarnNanoDuration)
 		sLogSuite.WarnOnly(test.WarnNanoTime)
 		sLogSuite.WarnOnly(test.WarnNoReplAttrBasic)

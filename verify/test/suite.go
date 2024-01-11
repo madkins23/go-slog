@@ -35,7 +35,7 @@ type SlogTestSuite struct {
 // -----------------------------------------------------------------------------
 // Suite test configuration.
 
-const duplicateFieldsNotError = true
+const duplicateFieldsNotError = false
 
 // suites captures all suites tested together into an array.
 // This array is used when showing warnings.
@@ -43,10 +43,6 @@ var suites = make([]*SlogTestSuite, 0)
 
 func (suite *SlogTestSuite) SetupSuite() {
 	suites = append(suites, suite)
-	if duplicateFieldsNotError {
-		// There doesn't seem to be a rule about this in https://pkg.go.dev/log/slog@master#Handler.
-		suite.WarnOnly(WarnDuplicates)
-	}
 }
 
 func (suite *SlogTestSuite) SetupTest() {

@@ -18,10 +18,11 @@ func Test_slog_zerolog_phsym(t *testing.T) {
 		Name:    "phsym/zeroslog",
 	}
 	if *test.UseWarnings {
-		sLogSuite.WarnOnly(test.WarnMessageKey)
+		sLogSuite.WarnOnly(test.WarnDuplicates)
 		sLogSuite.WarnOnly(test.WarnEmptyAttributes)
 		sLogSuite.WarnOnly(test.WarnGroupInline)
 		sLogSuite.WarnOnly(test.WarnLevelCase)
+		sLogSuite.WarnOnly(test.WarnMessageKey)
 		sLogSuite.WarnOnly(test.WarnNanoDuration)
 		sLogSuite.WarnOnly(test.WarnNanoTime)
 		sLogSuite.WarnOnly(test.WarnNoReplAttr)

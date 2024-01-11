@@ -21,11 +21,6 @@ func (suite *SlogTestSuite) checkFieldCount(fieldCount uint, logMap map[string]a
 			suite.addWarning(WarnDuplicates, fmt.Sprintf("%v", counter.Duplicates()), false)
 			return
 		}
-		//goland:noinspection GoBoolExpressions
-		if !duplicateFieldsNotError {
-			// Don't WarnUnused since WarnDuplicates is currently always set.
-			suite.addWarning(WarnUnused, WarnDuplicates, false)
-		}
 	}
 	suite.Assert().Len(logMap, int(fieldCount))
 	// Double check to make sure there are no duplicate fields at the top level.
