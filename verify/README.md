@@ -91,7 +91,6 @@ There are two flags defined for testing the verification code:
   Sets an integer level for showing any `Debugf()` statements in the code.
   As of 2024-01-11 there is only one in the test suite code at a level of `1`.
   This statement dumps the current JSON log record.[^2]
-  ()
 * `-useWarnings`  
   Activates the warning system (see [**Warnings**](#warnings)) below.
   Without this flag the tests fail on errors in the usual manner.
@@ -123,7 +122,9 @@ A "warning" facility is built into many of the tests to provide a way to:
 * get a compressed set of warnings about issues after testing is done, and
 * provide a list of known issues in the test suite.
 
-Compare the simple example above with the current (2024-01-10) test suite for
+### Example
+
+Compare the simple example [above](#simple-example) with the current (2024-01-10) test suite for
 [`samber/slog-zerolog`](https://github.com/samber/slog-zerolog):[^1]
 ```go
 // Test_slog_samber_zerolog runs tests for the samber zerolog handler.
@@ -169,7 +170,7 @@ Warnings for samber/slog-zerolog:
      2 Handler doesn't default to slog.LevelInfo
        TestDefaultLevel: defaultlevel is 'DEBUG'
        TestDefaultLevel: defaultlevel with AddSource is 'DEBUG'
-     3 HandlerOptions.ReplAttr not available for basic fields
+     3 HandlerOptions.ReplaceAttr not available for basic fields
        TestReplaceAttrBasic: too many attributes: 4, time field still exists, message field still exists
        TestReplaceAttrFnLevelCase: level value not null
        TestReplaceAttrFnRemoveTime: time value not empty string
@@ -272,35 +273,110 @@ _The following warnings_ relate to tests that I can justify from
 _These warnings_ are related to tests in
 [`slogtest/slogtest`](https://cs.opensource.google/go/x/exp/+/0dcbfd60:slog/slogtest/slogtest.go).
 
-#### Recommended
+#### Implied
 
-_Warnings in this group_ are not required AFAIK but 
+Warnings that seem to be implied by documentation but can't be considered required.
+
+* **Handler doesn't default to slog.LevelInfo**  
+  A new `slog.Handler` should default to `slog.LevelInfo`.  
+  :point_right: [First, we wanted the default level to be Info, Since Levels are ints, Info is the default value for int, zero.](https://pkg.go.dev/log/slog@master#Handler)
+* **Wrong message key (should be 'msg')**  
+  The field name of the "message" key should be `msg`.  
+  :point_right: [Constant values are defined for `slog/log`](https://pkg.go.dev/log/slog@master#pkg-constants)  
+  :point_right: [Field values are defined for the `JSONHandler.Handle()` implementation](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)
+* **Source data not logged when AddSource flag set**  
+  If the `slog.HandlerOptions.AddSource` flag is set source data should be logged.  
+  :point_right: [Flag declaration](https://pkg.go.dev/log/slog@master#HandlerOptions)  
+  :point_right: [Behavior defined for `JSONHandler.Handle()`](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)  
+  :point_right: [Definition of source data record](https://pkg.go.dev/log/slog@master#Source)
+* **HandlerOptions.ReplaceAttr not available**  
+  If `HandlerOptions.ReplaceAttr` is provided it should be honored by the handler.
+  However, documentation on implementing handler methods seems to suggest it is optional.  
+  :point_right: [Behavior defined for `slog.HandlerOptions`](https://pkg.go.dev/log/slog@master#HandlerOptions)  
+  :point_right: [You might also consider adding a ReplaceAttr option to your handler, like the one for the built-in handlers. Although ReplaceAttr will complicate your implementation, it will also make your handler more generally useful.](https://github.com/golang/example/tree/master/slog-handler-guide#implementing-handler-methods)
+* **HandlerOptions.ReplaceAttr not available for basic field**  
+  Some handlers (e.g. `samber/slog-zerolog`) support `HandlerOptions.ReplaceAttr`
+  except for the four main fields `time`, `level`, `msg`, and `source`.
 
 #### Suggestions
 
-_These warnings_ are not AFAIK supported by any documentation or requirements.
+These warnings are not AFAIK mandated by any documentation or requirements.[^3]
 
-:construction: **TBD** :construction:
-
-* **Handler doesn't default to slog.LevelInfo**  
 * **Duplicate field(s) found**  
+  Some handlers (e.g. `log/slog.JSONHandler`)
+  will output multiple occurrences of the same field name
+  if the logger is called with multiple instances of the same field.
+  This behavior is currently [under debate](https://github.com/golang/go/issues/59365)
+  with no resolution at this time (2024-01-11) and a
+  [release milestone of 1.23](https://github.com/golang/go/milestone/212),
+  (whereas [Release 1.22](https://tip.golang.org/doc/go1.22)
+  is currently expected in February 2024).
 * **Log level in lowercase**  
-* **Wrong message key (should be 'msg')**  
+  Each JSON log record contains the logging level of the log statement as a string.
+  Different handlers provide that string in uppercase or lowercase.
+  Documentation for [`slog.Level`](https://pkg.go.dev/log/slog@master#Level)
+  says that its `String()` and `MarshalJSON()` methods will return uppercase
+  but `UnmarshalJSON()` will parse in a case-insensitive manner.
 * **slog.Duration() doesn't log nanoseconds**  
+  The `slog.JSONHandler` uses nanoseconds for `time.Duration` but some other handlers use seconds.  
+  :point_right: [Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)
 * **slog.Time() doesn't log nanoseconds**  
-* **HandlerOptions.ReplAttr not available**  
-* **HandlerOptions.ReplAttr not available for basic field**  
-* **Source data not logged when AddSource flag set**  
+  The `slog.JSONHandler` uses nanoseconds for `time.Time` but some other handlers use seconds.
+  I can't find any supporting documentation or bug on this but
+  [Go issue 59345](https://github.com/golang/go/issues/59345) (see previous warning)
+  may have fixed this as well in Go 1.21.
 
 #### Administrative
 
-:construction: **TBD** :construction:
+The last warnings provide information about the tests or conflicts with other warnings.
 
-_The last warnings_ are information about the tests or conflicts with other warnings.
+* **Skipping test**  
+  A test has been skipped, likely due to the specification of some other warning.
+  Not currently used (2024-01-11).
+* **Unused Warning(s)**  
+  If a warning is specified but the condition is not actually present
+  one of these warnings will be issued with the specified warning.
+  These are intended to help clean out unnecessary warnings from a test suite
+  as issues are fixed in the tested handler.
 
-* **Skipping test**
-* **Unused Warning(s)**
+### Caveats
+
+Warnings have been defined for cases that I have seen thus far for the rather
+limited number of handlers for which I have configured tests.
+I can think of other warnings, but I am loath to configure them unless they are needed.[^4]
+If your handler comes up with a new error condition for which there are tests but no warning
+you can either fix your handler or file a ticket.
+
+The `-useWarnings` tends to result in the results being buried in the normal `go test` output.
+This can be fixed by implementing a global [`TestMain()`](#testmain) function.
+
+### `TestMain`
+
+Normally the warning results will show up in a block in the middle of `go test` output.
+This is due to the way the default test harness works.
+
+It is possible to override the default test harness by defining a global function
+[`TestMain()`](https://pkg.go.dev/testing#hdr-Main).
+The `verify/test` package provides a convenient function to support this.
+Define the following `TestMain()` function:
+```go
+func TestMain(m *testing.M) {
+    test.WithWarnings(m)
+}
+```
+
+This function may be defined in the same `_test.go` file as the handler test.
+If multiple handler tests are in the same directory it will be necessary to
+move the `TestMain()` definition to a separate file,
+such as the `/main_test.go` in the `verify` directory in this repository.
 
 [^1] Respect to Samuel Berthe, I'm not picking on you, I just need an example here. :wink:
 
 [^2] The `--debug` flag and `Debugf` function are defined in the `test` package in this repository.
+
+[^3] I favor more rigorous guidelines and handlers that require fewer warnings.
+Most JSON logging will be done to feed downstream log consumers.
+The looser the guidelines the greater the chance that swapping `log/slog` handlers
+will necessitate changes to downstream processes.
+
+[^4] I am lazy.
