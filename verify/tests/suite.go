@@ -2,20 +2,16 @@ package tests
 
 import (
 	"bytes"
-	"io"
 	"log/slog"
 
 	"github.com/stretchr/testify/suite"
 
+	"github.com/madkins23/go-slog/infra"
 	"github.com/madkins23/go-slog/replace"
 )
 
 // -----------------------------------------------------------------------------
 // Top level definitions.
-
-// CreateHandlerFn is responsible for generating log/slog handler instances.
-// Define one for a given test file and use to instantiate SlogTestSuite.
-type CreateHandlerFn func(w io.Writer, options *slog.HandlerOptions) slog.Handler
 
 // SlogTestSuite provides various tests for a specified log/slog.Handler.
 type SlogTestSuite struct {
@@ -25,8 +21,8 @@ type SlogTestSuite struct {
 	warnings map[string]*Warning
 
 	// Creator creates a slog.Handler to be used in creating a slog.Logger for a test.
-	// This field must be configured by test suites.
-	Creator CreateHandlerFn
+	// This field must be configured by test suites and shouldn't be changed later.
+	Creator infra.Creator
 
 	// Name of Handler for warnings display.
 	Name string
@@ -81,7 +77,7 @@ func ReplaceAttrOptions(fn replace.AttrFn) *slog.HandlerOptions {
 	}
 }
 
-// Logger returns a slog.Logger with the specified options.
+// Logger returns a new slog.Logger with the specified options.
 func (suite *SlogTestSuite) Logger(options *slog.HandlerOptions) *slog.Logger {
-	return slog.New(suite.Creator(suite.Buffer, options))
+	return slog.New(suite.Creator.NewHandle(suite.Buffer, options))
 }
