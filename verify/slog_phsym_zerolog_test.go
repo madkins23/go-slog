@@ -17,19 +17,17 @@ func Test_slog_zerolog_phsym(t *testing.T) {
 		Creator: SlogPhsymZerologHandlerCreator,
 		Name:    "phsym/zeroslog",
 	}
-	if *tests.UseWarnings {
-		sLogSuite.WarnOnly(tests.WarnDuplicates)
-		sLogSuite.WarnOnly(tests.WarnEmptyAttributes)
-		sLogSuite.WarnOnly(tests.WarnGroupInline)
-		sLogSuite.WarnOnly(tests.WarnLevelCase)
-		sLogSuite.WarnOnly(tests.WarnMessageKey)
-		sLogSuite.WarnOnly(tests.WarnNanoDuration)
-		sLogSuite.WarnOnly(tests.WarnNanoTime)
-		sLogSuite.WarnOnly(tests.WarnNoReplAttr)
-		sLogSuite.WarnOnly(tests.WarnSourceKey)
-		sLogSuite.WarnOnly(tests.WarnGroupEmpty)
-		sLogSuite.WarnOnly(tests.WarnZeroTime)
-	}
+	sLogSuite.WarnOnly(tests.WarnDuplicates)
+	sLogSuite.WarnOnly(tests.WarnEmptyAttributes)
+	sLogSuite.WarnOnly(tests.WarnGroupInline)
+	sLogSuite.WarnOnly(tests.WarnLevelCase)
+	sLogSuite.WarnOnly(tests.WarnMessageKey)
+	sLogSuite.WarnOnly(tests.WarnNanoDuration)
+	sLogSuite.WarnOnly(tests.WarnNanoTime)
+	sLogSuite.WarnOnly(tests.WarnNoReplAttr)
+	sLogSuite.WarnOnly(tests.WarnSourceKey)
+	sLogSuite.WarnOnly(tests.WarnGroupEmpty)
+	sLogSuite.WarnOnly(tests.WarnZeroTime)
 	suite.Run(t, sLogSuite)
 }
 

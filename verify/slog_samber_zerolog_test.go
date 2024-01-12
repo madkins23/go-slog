@@ -18,19 +18,17 @@ func Test_slog_samber_zerolog(t *testing.T) {
 		Creator: SlogSamberZerologHandlerCreator,
 		Name:    "samber/slog-zerolog",
 	}
-	if *tests.UseWarnings {
-		sLogSuite.WarnOnly(tests.WarnDefaultLevel)
-		sLogSuite.WarnOnly(tests.WarnEmptyAttributes)
-		sLogSuite.WarnOnly(tests.WarnGroupInline)
-		sLogSuite.WarnOnly(tests.WarnLevelCase)
-		sLogSuite.WarnOnly(tests.WarnMessageKey)
-		sLogSuite.WarnOnly(tests.WarnNanoDuration)
-		sLogSuite.WarnOnly(tests.WarnNanoTime)
-		sLogSuite.WarnOnly(tests.WarnNoReplAttrBasic)
-		sLogSuite.WarnOnly(tests.WarnResolver)
-		sLogSuite.WarnOnly(tests.WarnZeroPC)
-		sLogSuite.WarnOnly(tests.WarnZeroTime)
-	}
+	sLogSuite.WarnOnly(tests.WarnDefaultLevel)
+	sLogSuite.WarnOnly(tests.WarnEmptyAttributes)
+	sLogSuite.WarnOnly(tests.WarnGroupInline)
+	sLogSuite.WarnOnly(tests.WarnLevelCase)
+	sLogSuite.WarnOnly(tests.WarnMessageKey)
+	sLogSuite.WarnOnly(tests.WarnNanoDuration)
+	sLogSuite.WarnOnly(tests.WarnNanoTime)
+	sLogSuite.WarnOnly(tests.WarnNoReplAttrBasic)
+	sLogSuite.WarnOnly(tests.WarnResolver)
+	sLogSuite.WarnOnly(tests.WarnZeroPC)
+	sLogSuite.WarnOnly(tests.WarnZeroTime)
 	suite.Run(t, sLogSuite)
 }
 

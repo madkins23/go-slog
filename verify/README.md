@@ -36,9 +36,7 @@ func Test_slog(t *testing.T) {
         Creator: &SlogCreator{},
         Name:    "log/slog.JSONHandler",
     }
-    if *tests.UseWarnings {
-        slogSuite.WarnOnly(tests.WarnDuplicates)
-    }
+    slogSuite.WarnOnly(tests.WarnDuplicates)
     suite.Run(t, slogSuite)
 }
 
@@ -134,19 +132,17 @@ func Test_slog_samber_zerolog(t *testing.T) {
 		Creator: SlogSamberZerologHandlerCreator,
 		Name:    "samber/slog-zerolog",
 	}
-	if *tests.UseWarnings {
-		sLogSuite.WarnOnly(tests.WarnDefaultLevel)
-		sLogSuite.WarnOnly(tests.WarnMessageKey)
-		sLogSuite.WarnOnly(tests.WarnEmptyAttributes)
-		sLogSuite.WarnOnly(tests.WarnGroupInline)
-		sLogSuite.WarnOnly(tests.WarnLevelCase)
-		sLogSuite.WarnOnly(tests.WarnNanoDuration)
-		sLogSuite.WarnOnly(tests.WarnNanoTime)
-		sLogSuite.WarnOnly(tests.WarnNoReplAttrBasic)
-		sLogSuite.WarnOnly(tests.WarnResolver)
-		sLogSuite.WarnOnly(tests.WarnZeroPC)
-		sLogSuite.WarnOnly(tests.WarnZeroTime)
-	}
+	sLogSuite.WarnOnly(tests.WarnDefaultLevel)
+	sLogSuite.WarnOnly(tests.WarnMessageKey)
+	sLogSuite.WarnOnly(tests.WarnEmptyAttributes)
+	sLogSuite.WarnOnly(tests.WarnGroupInline)
+	sLogSuite.WarnOnly(tests.WarnLevelCase)
+	sLogSuite.WarnOnly(tests.WarnNanoDuration)
+	sLogSuite.WarnOnly(tests.WarnNanoTime)
+	sLogSuite.WarnOnly(tests.WarnNoReplAttrBasic)
+	sLogSuite.WarnOnly(tests.WarnResolver)
+	sLogSuite.WarnOnly(tests.WarnZeroPC)
+	sLogSuite.WarnOnly(tests.WarnZeroTime)
 	suite.Run(t, sLogSuite)
 }
 ```
@@ -247,51 +243,51 @@ _The following warnings_ relate to tests that I can justify from requirements in
 
 * `WarnZeroTime`: 'Zero time is logged'  
   Handlers should not log the basic `time` field if it is zero.  
-  :point_right: ['- If r.Time is the zero time, ignore the time.'](https://pkg.go.dev/log/slog@master#Handler)
+  * ['- If r.Time is the zero time, ignore the time.'](https://pkg.go.dev/log/slog@master#Handler)
 * `WarnZeroPC`: 'SourceKey logged for zero PC'  
   The `slog.Record.PC` field can be loaded with a program counter (PC).
   If the PC is non-zero and the `slog.HandlerOptions.AddSource` flag is set
   the `source` field will contain a [`slog.Source`](https://pkg.go.dev/log/slog@master#Source) record
   containing the function name, file name, and file line at which the log record was generated.
   If the PC is zero then this field and its associated group should not be logged.  
-  :point_right: ['- If r.PC is zero, ignore it.'](https://pkg.go.dev/log/slog@master#Handler)
+  * ['- If r.PC is zero, ignore it.'](https://pkg.go.dev/log/slog@master#Handler)
 * `WarnResolver`: 'LogValuer objects are not resolved'  
   Handlers should resolve all objects implementing the
   [`LogValuer`](https://pkg.go.dev/log/slog@master#LogValuer) interface.  
   This is a powerful feature which can customize logging of objects and
   [speed up logging by delaying argument resolution until logging time](https://pkg.go.dev/log/slog@master#hdr-Performance_considerations).  
-  :point_right: ['- Attr's values should be resolved.'](https://pkg.go.dev/log/slog@master#Handler)
-* `WarnEmptyAttributes`: 'Empty attribute(s) logged "":null)'  
+  * ['- Attr's values should be resolved.'](https://pkg.go.dev/log/slog@master#Handler)
+* `WarnEmptyAttributes`: 'Empty attribute(s) logged "":null'  
   Handlers are supposed to avoid logging empty attributes.  
-  :point_right: ['- If an Attr's key and value are both the zero value, ignore the Attr.'](https://pkg.go.dev/log/slog@master#Handler)
+  * ['- If an Attr's key and value are both the zero value, ignore the Attr.'](https://pkg.go.dev/log/slog@master#Handler)
 * `WarnGroupInline`: 'Group with empty key does not inline subfields'  
   Handlers should expand groups named "" (the empty string) into the enclosing log record.  
-  :point_right: ['- If a group's key is empty, inline the group's Attrs.'](https://pkg.go.dev/log/slog@master#Handler)
+  * ['- If a group's key is empty, inline the group's Attrs.'](https://pkg.go.dev/log/slog@master#Handler)
 * `WarnGroupEmpty`: 'Empty (sub)group(s) logged'  
   Handlers should not log groups (or subgroups) without fields.  
-  :point_right: ['- If a group has no Attrs (even if it has a non-empty key), ignore it.'](https://pkg.go.dev/log/slog@master#Handler)
+  * ['- If a group has no Attrs (even if it has a non-empty key), ignore it.'](https://pkg.go.dev/log/slog@master#Handler)
 
 #### Implied
 
-Warnings that seem to be implied by documentation but can't (quite) be considered required.
+Warnings that seem to be implied by documentation but can't be considered required.
 
 * `WarnDefaultLevel`: 'Handler doesn't default to slog.LevelInfo'  
   A new `slog.Handler` should default to `slog.LevelInfo`.  
-  :point_right: ['First, we wanted the default level to be Info, Since Levels are ints, Info is the default value for int, zero.'](https://pkg.go.dev/log/slog@master#Handler)
+  * ['First, we wanted the default level to be Info, Since Levels are ints, Info is the default value for int, zero.'](https://pkg.go.dev/log/slog@master#Handler)
 * `WarnMessageKey`: 'Wrong message key (should be 'msg')'  
   The field name of the "message" key should be `msg`.  
-  :point_right: [Constant values are defined for `slog/log`](https://pkg.go.dev/log/slog@master#pkg-constants)  
-  :point_right: [Field values are defined for the `JSONHandler.Handle()` implementation](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)
+  * [Constant values are defined for `slog/log`](https://pkg.go.dev/log/slog@master#pkg-constants)  
+  * [Field values are defined for the `JSONHandler.Handle()` implementation](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)
 * `WarnSourceKey`: 'Source data not logged when AddSource flag set'  
   Handlers should log source data when the `slog.HandlerOptions.AddSource` flag is set.  
-  :point_right: [Flag declaration as `slog.HandlerOptions` field](https://pkg.go.dev/log/slog@master#HandlerOptions)  
-  :point_right: [Behavior defined for `JSONHandler.Handle()`](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)  
-  :point_right: [Definition of source data record](https://pkg.go.dev/log/slog@master#Source)
+  * [Flag declaration as `slog.HandlerOptions` field](https://pkg.go.dev/log/slog@master#HandlerOptions)  
+  * [Behavior defined for `JSONHandler.Handle()`](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)  
+  * [Definition of source data record](https://pkg.go.dev/log/slog@master#Source)
 * `WarnNoReplAttr`: 'HandlerOptions.ReplaceAttr not available'  
   If `HandlerOptions.ReplaceAttr` is provided it should be honored by the handler.
   However, documentation on implementing handler methods seems to suggest it is optional.  
-  :point_right: [Behavior defined for `slog.HandlerOptions`](https://pkg.go.dev/log/slog@master#HandlerOptions)  
-  :point_right: ['You might also consider adding a ReplaceAttr option to your handler, like the one for the built-in handlers.'](https://github.com/golang/example/tree/master/slog-handler-guide#implementing-handler-methods)
+  * [Behavior defined for `slog.HandlerOptions`](https://pkg.go.dev/log/slog@master#HandlerOptions)  
+  * ['You might also consider adding a ReplaceAttr option to your handler, like the one for the built-in handlers.'](https://github.com/golang/example/tree/master/slog-handler-guide#implementing-handler-methods)
 * `WarnNoReplAttrBasic`: 'HandlerOptions.ReplaceAttr not available for basic field'  
   Some handlers (e.g. `samber/slog-zerolog`) support `HandlerOptions.ReplaceAttr`
   except for the four main fields `time`, `level`, `msg`, and `source`.
@@ -318,7 +314,7 @@ These warnings are not AFAIK mandated by any documentation or requirements.[^3]
   but `UnmarshalJSON()` will parse in a case-insensitive manner.
 * `WarnNanoDuration`: 'slog.Duration() doesn't log nanoseconds'  
   The `slog.JSONHandler` uses nanoseconds for `time.Duration` but some other handlers use seconds.  
-  :point_right: [Go issue 59345: Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)
+  * [Go issue 59345: Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)
 * `WarnNanoTime`: 'slog.Time() doesn't log nanoseconds'  
   The `slog.JSONHandler` uses nanoseconds for `time.Time` but some other handlers use seconds.
   I can't find any supporting documentation or bug on this but

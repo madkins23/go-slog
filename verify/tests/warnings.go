@@ -33,7 +33,7 @@ const (
 	WarnZeroTime        = "Zero time is logged"
 )
 
-// UseWarnings is the flag value for enabling warnings instead of known errors.
+// useWarnings is the flag value for enabling warnings instead of known errors.
 // Command line setting:
 //
 //	go test ./... -args -useWarnings
@@ -42,11 +42,9 @@ const (
 // Other behavior must be activated in specific handler test suites, for example:
 //
 //	sLogSuite := &test.SlogTestSuite{Creator: &SlogCreator{}}
-//	if *test.UseWarnings {
-//		sLogSuite.WarnOnly(test.WarnMessageKey)
-//	}
+//	sLogSuite.WarnOnly(test.WarnMessageKey)
 //	suite.Run(t, slogSuite)
-var UseWarnings = flag.Bool("useWarnings", false, "Show warnings instead of known errors")
+var useWarnings = flag.Bool("useWarnings", false, "Show warnings instead of known errors")
 
 // Warning encapsulates data from non-error warnings.
 type Warning struct {
@@ -198,7 +196,7 @@ func (suite *SlogTestSuite) addWarning(warning string, text string, addLogRecord
 
 // hasWarning returns true if the specified warning has been set in the test suite.
 func (suite *SlogTestSuite) hasWarning(warning string) bool {
-	return suite.warn[warning]
+	return *useWarnings && suite.warn[warning]
 }
 
 // hasWarnings checks all specified warnings and returns an array of
@@ -206,9 +204,11 @@ func (suite *SlogTestSuite) hasWarning(warning string) bool {
 // If none are found an empty array is returned.
 func (suite *SlogTestSuite) hasWarnings(warnings ...string) []string {
 	found := make([]string, 0, len(warnings))
-	for _, warning := range warnings {
-		if suite.warn[warning] {
-			found = append(found, warning)
+	if *useWarnings {
+		for _, warning := range warnings {
+			if suite.warn[warning] {
+				found = append(found, warning)
+			}
 		}
 	}
 	return found

@@ -16,9 +16,7 @@ func Test_slog(t *testing.T) {
 		Creator: SlogHandlerCreator,
 		Name:    "log/slog.JSONHandler",
 	}
-	if *tests.UseWarnings {
-		slogSuite.WarnOnly(tests.WarnDuplicates)
-	}
+	slogSuite.WarnOnly(tests.WarnDuplicates)
 	suite.Run(t, slogSuite)
 }
 
