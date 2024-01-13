@@ -19,7 +19,7 @@ import (
 // TestCancelledContext verifies that a cancelled context will not affect logging.
 //   - https://github.com/golang/example/blob/master/slog-handler-guide/README.md
 func (suite *SlogTestSuite) TestCancelledContext() {
-	logger := suite.Logger(SimpleOptions())
+	logger := suite.Logger(infra.SimpleOptions())
 	ctx, cancelFn := context.WithCancel(context.Background())
 	logger.InfoContext(ctx, message)
 	logMap := suite.logMap()
@@ -87,7 +87,7 @@ func (suite *SlogTestSuite) TestDefaultLevel() {
 // deriving another handler via With() changes the original handler.
 //   - https://github.com/golang/example/blob/master/slog-handler-guide/README.md
 func (suite *SlogTestSuite) TestDerivedInvariantWith() {
-	simpleLogger := suite.Logger(SimpleOptions())
+	simpleLogger := suite.Logger(infra.SimpleOptions())
 	simpleLogger.Info(message)
 	origLogMap := suite.logMap()
 	delete(origLogMap, slog.TimeKey)
@@ -105,7 +105,7 @@ func (suite *SlogTestSuite) TestDerivedInvariantWith() {
 // deriving another handler via WithGroup() changes the original handler.
 //   - https://github.com/golang/example/blob/master/slog-handler-guide/README.md
 func (suite *SlogTestSuite) TestDerivedInvariantWithGroup() {
-	simpleLogger := suite.Logger(SimpleOptions())
+	simpleLogger := suite.Logger(infra.SimpleOptions())
 	simpleLogger.Info(message)
 	origLogMap := suite.logMap()
 	delete(origLogMap, slog.TimeKey)
@@ -122,7 +122,7 @@ func (suite *SlogTestSuite) TestDerivedInvariantWithGroup() {
 // TestDisabled tests whether logging is disabled by level.
 //   - https://pkg.go.dev/log/slog@master#hdr-Levels
 func (suite *SlogTestSuite) TestDisabled() {
-	logger := suite.Logger(SimpleOptions())
+	logger := suite.Logger(infra.SimpleOptions())
 	logger.Debug(message)
 	suite.Assert().Empty(suite.Buffer)
 }
@@ -131,7 +131,7 @@ func (suite *SlogTestSuite) TestDisabled() {
 //   - https://pkg.go.dev/log/slog@master#HandlerOptions
 //   - https://pkg.go.dev/log/slog@master#Source
 func (suite *SlogTestSuite) TestKey() {
-	logger := suite.Logger(SourceOptions())
+	logger := suite.Logger(infra.SourceOptions())
 	var pcs [1]uintptr
 	runtime.Callers(2, pcs[:])
 	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, pcs[0])
@@ -147,7 +147,7 @@ func (suite *SlogTestSuite) TestKey() {
 //   - Based on the existing behavior of log/slog they should be uppercase.
 func (suite *SlogTestSuite) TestKeyCase() {
 	ctx := context.Background()
-	logger := suite.Logger(LevelOptions(slog.LevelDebug))
+	logger := suite.Logger(infra.LevelOptions(slog.LevelDebug))
 	for name, level := range logLevels {
 		logger.Log(ctx, level, message)
 		logMap := suite.logMap()
@@ -162,7 +162,7 @@ func (suite *SlogTestSuite) TestKeyCase() {
 func (suite *SlogTestSuite) TestLevelVar() {
 	ctx := context.Background()
 	var programLevel = new(slog.LevelVar)
-	logger := suite.Logger(LevelOptions(programLevel))
+	logger := suite.Logger(infra.LevelOptions(programLevel))
 	// Should be INFO by default.
 	suite.Assert().Equal(slog.LevelInfo, programLevel.Level())
 	suite.Assert().False(logger.Enabled(ctx, -1))
@@ -180,7 +180,7 @@ func (suite *SlogTestSuite) TestLevelVar() {
 //   - https://pkg.go.dev/log/slog@master#Logger.LogAttrs
 //   - https://pkg.go.dev/log/slog@master#Attr
 func (suite *SlogTestSuite) TestLogAttributes() {
-	logger := suite.Logger(SimpleOptions())
+	logger := suite.Logger(infra.SimpleOptions())
 	t := time.Now()
 	logger.LogAttrs(context.Background(), slog.LevelInfo, message,
 		slog.Time("when", t),

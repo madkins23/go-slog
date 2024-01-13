@@ -7,7 +7,6 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/madkins23/go-slog/infra"
-	"github.com/madkins23/go-slog/replace"
 )
 
 // -----------------------------------------------------------------------------
@@ -40,37 +39,6 @@ func (suite *SlogTestSuite) SetupTest() {
 
 // -----------------------------------------------------------------------------
 // Handler/Logger creation.
-
-// SimpleOptions returns a default, simple, slog.HandlerOptions.
-func SimpleOptions() *slog.HandlerOptions {
-	return &slog.HandlerOptions{
-		Level: slog.LevelInfo,
-	}
-}
-
-// LevelOptions returns a slog.HandlerOptions with the specified level.
-func LevelOptions(level slog.Leveler) *slog.HandlerOptions {
-	return &slog.HandlerOptions{
-		Level: level,
-	}
-}
-
-// SourceOptions returns a slog.HandlerOptions with the specified level
-// and the AddSource field set to true.
-func SourceOptions() *slog.HandlerOptions {
-	return &slog.HandlerOptions{
-		Level:     slog.LevelInfo,
-		AddSource: true,
-	}
-}
-
-// ReplaceAttrOptions returns a slog.HandlerOptions with the specified ReplaceAttr function.
-func ReplaceAttrOptions(fn replace.AttrFn) *slog.HandlerOptions {
-	return &slog.HandlerOptions{
-		Level:       slog.LevelInfo,
-		ReplaceAttr: fn,
-	}
-}
 
 // Logger returns a new slog.Logger with the specified options.
 func (suite *SlogTestSuite) Logger(options *slog.HandlerOptions) *slog.Logger {

@@ -15,7 +15,7 @@ import (
 // TestReplaceAttr tests the use of HandlerOptions.ReplaceAttr.
 //   - https://pkg.go.dev/log/slog@master#HandlerOptions
 func (suite *SlogTestSuite) TestReplaceAttr() {
-	logger := suite.Logger(ReplaceAttrOptions(func(groups []string, a slog.Attr) slog.Attr {
+	logger := suite.Logger(infra.ReplaceAttrOptions(func(groups []string, a slog.Attr) slog.Attr {
 		switch a.Key {
 		case "alpha":
 			return slog.String(a.Key, "omega")
@@ -128,14 +128,14 @@ func (suite *SlogTestSuite) TestReplaceAttrFnLevelCase() {
 		attrFn = replace.LevelUpperCase
 	}
 
-	logger := suite.Logger(SimpleOptions())
+	logger := suite.Logger(infra.SimpleOptions())
 	logger.Info(message)
 	logMap := suite.logMap()
 	level, ok := logMap[slog.LevelKey].(string)
 	suite.Require().True(ok)
 	suite.Assert().Equal(start, level)
 	suite.bufferReset()
-	logger = suite.Logger(ReplaceAttrOptions(attrFn))
+	logger = suite.Logger(infra.ReplaceAttrOptions(attrFn))
 	logger.Info(message)
 	logMap = suite.logMap()
 	level, ok = logMap[slog.LevelKey].(string)
@@ -163,14 +163,14 @@ func (suite *SlogTestSuite) TestReplaceAttrFnLevelCase() {
 
 // TestReplaceAttrFnRemoveEmptyKey tests the RemoveEmptyKey function.
 func (suite *SlogTestSuite) TestReplaceAttrFnRemoveEmptyKey() {
-	logger := suite.Logger(SimpleOptions())
+	logger := suite.Logger(infra.SimpleOptions())
 	logger.Info(message, "", "garbage")
 	logMap := suite.logMap()
 	value, ok := logMap[""]
 	suite.Require().True(ok)
 	suite.Require().Equal("garbage", value)
 	suite.bufferReset()
-	logger = suite.Logger(ReplaceAttrOptions(replace.RemoveEmptyKey))
+	logger = suite.Logger(infra.ReplaceAttrOptions(replace.RemoveEmptyKey))
 	logger.Info(message, "", nil)
 	logMap = suite.logMap()
 	value, ok = logMap[""]
@@ -203,7 +203,7 @@ func (suite *SlogTestSuite) TestReplaceAttrFnRemoveEmptyKey() {
 
 // TestReplaceAttrFnRemoveTime tests the RemoveEmptyKey function.
 func (suite *SlogTestSuite) TestReplaceAttrFnRemoveTime() {
-	logger := suite.Logger(SimpleOptions())
+	logger := suite.Logger(infra.SimpleOptions())
 	logger.Info(message)
 	logMap := suite.logMap()
 	suite.Require().Len(logMap, 3)
@@ -211,7 +211,7 @@ func (suite *SlogTestSuite) TestReplaceAttrFnRemoveTime() {
 	suite.Require().True(ok)
 	suite.NotNil(value)
 	suite.bufferReset()
-	logger = suite.Logger(ReplaceAttrOptions(replace.RemoveTime))
+	logger = suite.Logger(infra.ReplaceAttrOptions(replace.RemoveTime))
 	logger.Info(message)
 	logMap = suite.logMap()
 	value, ok = logMap[slog.TimeKey].(string)
