@@ -31,6 +31,11 @@ func (c *Creator) NewHandle(w io.Writer, options *slog.HandlerOptions) slog.Hand
 	return c.fn(w, options)
 }
 
+// Name returns the name of the handler.
+func (c *Creator) Name() string {
+	return c.name
+}
+
 // -----------------------------------------------------------------------------
 // Global Creator
 

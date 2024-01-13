@@ -24,10 +24,10 @@ type SlogTestSuite struct {
 	Creator infra.Creator
 }
 
-func NewSlogTestSuite(name string, fn infra.CreatorFn) *SlogTestSuite {
+func NewSlogTestSuite(creator infra.Creator) *SlogTestSuite {
 	return &SlogTestSuite{
-		Creator:        infra.NewCreator(name, fn),
-		WarningManager: infra.NewWarningManager(name),
+		Creator:        creator,
+		WarningManager: infra.NewWarningManager(creator.Name()),
 	}
 }
 
