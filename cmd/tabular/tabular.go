@@ -95,7 +95,9 @@ func main() {
 		bench := benchName(parts[1])
 
 		if matches := ptnBenchName.FindSubmatch([]byte(bench)); matches != nil && len(matches) > 2 {
-			bench = benchName(fmt.Sprintf("%s (%s CPU)", string(matches[1]), string(matches[2])))
+			name := strings.TrimLeft(string(matches[1]), "_")
+			name = strings.Replace(name, "_", " ", -1)
+			bench = benchName(fmt.Sprintf("%s (%s CPU)", name, string(matches[2])))
 		}
 
 		if matches := ptnHandlerName.FindSubmatch([]byte(handler)); matches != nil && len(matches) > 1 {

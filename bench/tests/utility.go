@@ -19,3 +19,7 @@ func failOnPanic(b *testing.B, r interface{}) {
 		b.FailNow()
 	}
 }
+
+const (
+	message = "This is a message"
+)
