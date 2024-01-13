@@ -1,6 +1,10 @@
 package tests
 
-import "log/slog"
+import (
+	"log/slog"
+
+	"github.com/madkins23/go-slog/infra"
+)
 
 // -----------------------------------------------------------------------------
 // Benchmarks for testing the suite.
@@ -10,13 +14,13 @@ import "log/slog"
 // the function to run during the benchmark.
 
 func (suite *SlogBenchmarkSuite) Benchmark1() Benchmark {
-	return NewBenchmark(&slog.HandlerOptions{}, func(logger *slog.Logger) {
+	return NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
 		logger.Info("Benchmark1")
 	})
 }
 
 func (suite *SlogBenchmarkSuite) Benchmark2() Benchmark {
-	return NewBenchmark(&slog.HandlerOptions{}, func(logger *slog.Logger) {
+	return NewBenchmark(infra.SourceOptions(), func(logger *slog.Logger) {
 		logger.Info("Benchmark2")
 	})
 }
