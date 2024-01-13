@@ -46,6 +46,15 @@ const (
 //	suite.Run(t, slogSuite)
 var useWarnings = flag.Bool("useWarnings", false, "Show warnings instead of known errors")
 
+// WarningManager manages the warning set for a test run.
+type WarningManager struct {
+	// Name of Handler for warnings display.
+	Name string
+
+	warn     map[string]bool
+	warnings map[string]*Warning
+}
+
 // Warning encapsulates data from non-error warnings.
 type Warning struct {
 	// Name of warning.
@@ -67,27 +76,27 @@ type WarningInstance struct {
 
 // WarnOnly sets a flag to collect warnings instead of failing tests.
 // The warn argument is one of the global constants beginning with 'Warn'.
-func (suite *SlogTestSuite) WarnOnly(warning string) {
-	if suite.warn == nil {
-		suite.warn = make(map[string]bool)
+func (wrnMgr *WarningManager) WarnOnly(warning string) {
+	if wrnMgr.warn == nil {
+		wrnMgr.warn = make(map[string]bool)
 	}
-	suite.warn[warning] = true
+	wrnMgr.warn[warning] = true
 }
 
-// Warnings returns an array of Warning records sorted by warn text.
+// GetWarnings returns an array of Warning records sorted by warn text.
 // If there are no warnings the result array will be nil.
 // Use this method if manual processing of warnings is required,
 // otherwise use the WithWarnings method.
-func (suite *SlogTestSuite) Warnings() []*Warning {
-	if suite.warnings == nil || len(suite.warnings) < 1 {
+func (wrnMgr *WarningManager) GetWarnings() []*Warning {
+	if wrnMgr.warnings == nil || len(wrnMgr.warnings) < 1 {
 		return nil
 	}
-	if unused, found := suite.warnings[WarnUnused]; found {
+	if unused, found := wrnMgr.warnings[WarnUnused]; found {
 		// Clean up WarnUnused warning instances.
 		really := make([]WarningInstance, 0)
 		for _, instance := range unused.Data {
-			if _, found := suite.warnings[instance.Text]; !found {
-				// OK, there are no such warnings.
+			if _, found := wrnMgr.warnings[instance.Text]; !found {
+				// OK, there are no such wrnMgr.
 				really = append(really, instance)
 			}
 		}
@@ -95,39 +104,39 @@ func (suite *SlogTestSuite) Warnings() []*Warning {
 			unused.Data = really
 			unused.Count = uint(len(really))
 		} else {
-			delete(suite.warnings, WarnUnused)
+			delete(wrnMgr.warnings, WarnUnused)
 		}
 	}
-	// Sort warnings by warning string.
-	warningStrings := make([]string, 0, len(suite.warnings))
-	for warning := range suite.warnings {
+	// Sort wrnMgr by warning string.
+	warningStrings := make([]string, 0, len(wrnMgr.warnings))
+	for warning := range wrnMgr.warnings {
 		warningStrings = append(warningStrings, warning)
 	}
 	sort.Strings(warningStrings)
-	warnings := make([]*Warning, len(warningStrings))
+	w := make([]*Warning, len(warningStrings))
 	for i, warning := range warningStrings {
-		warnings[i] = suite.warnings[warning]
+		w[i] = wrnMgr.warnings[warning]
 	}
-	return warnings
+	return w
 }
 
 // ShowWarnings prints any warnings to Stdout in a preformatted manner.
-// Use the Warnings method if more control over output is required.
+// Use the WarningManager method if more control over output is required.
 //
 // Note: Both Stdout and Stderr are captured by the the 'go test' command and
 // shunted into Stdout (see https://pkg.go.dev/cmd/go#hdr-Test_packages).
 // This output stream is only visible when the 'go test -v flag' is used.
-func (suite *SlogTestSuite) ShowWarnings(output io.Writer) {
+func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 	if output == nil {
 		output = os.Stdout
 	}
-	warnings := suite.Warnings()
+	warnings := wrnMgr.GetWarnings()
 	if warnings != nil && len(warnings) > 0 {
 		forHandler := ""
-		if suite.Name != "" {
-			forHandler = " for " + suite.Name
+		if wrnMgr.Name != "" {
+			forHandler = " for " + wrnMgr.Name
 		}
-		_, _ = fmt.Fprintf(output, "Warnings%s:\n", forHandler)
+		_, _ = fmt.Fprintf(output, "GetWarnings%s:\n", forHandler)
 		for _, warning := range warnings {
 			_, _ = fmt.Fprintf(output, "  %4d %s\n", warning.Count, warning.Name)
 			for _, data := range warning.Data {
@@ -171,14 +180,14 @@ func WithWarnings(m *testing.M) {
 // addWarning to results list, specifying warning string and optional extra text.
 // If the addLogRecord flag is true the current log record JSON is also stored.
 // The current function name is acquired from the currentFunctionName() and stored.
-func (suite *SlogTestSuite) addWarning(warning string, text string, addLogRecord bool) {
-	if suite.warnings == nil {
-		suite.warnings = make(map[string]*Warning)
+func (wrnMgr *WarningManager) addWarning(warning string, text string, logRecordJSON string) {
+	if wrnMgr.warnings == nil {
+		wrnMgr.warnings = make(map[string]*Warning)
 	}
-	record, found := suite.warnings[warning]
+	record, found := wrnMgr.warnings[warning]
 	if !found {
 		record = &Warning{Name: warning}
-		suite.warnings[warning] = record
+		wrnMgr.warnings[warning] = record
 	}
 	record.Count++
 	if record.Data == nil {
@@ -188,25 +197,25 @@ func (suite *SlogTestSuite) addWarning(warning string, text string, addLogRecord
 		Function: currentFunctionName(),
 		Text:     text,
 	}
-	if addLogRecord {
-		instance.Record = strings.TrimRight(suite.Buffer.String(), "\n")
+	if logRecordJSON != "" {
+		instance.Record = strings.TrimRight(logRecordJSON, "\n")
 	}
 	record.Data = append(record.Data, instance)
 }
 
-// hasWarning returns true if the specified warning has been set in the test suite.
-func (suite *SlogTestSuite) hasWarning(warning string) bool {
-	return *useWarnings && suite.warn[warning]
+// HasWarning returns true if the specified warning has been set in the test suite.
+func (wrnMgr *WarningManager) HasWarning(warning string) bool {
+	return *useWarnings && wrnMgr.warn[warning]
 }
 
-// hasWarnings checks all specified warnings and returns an array of
+// HasWarnings checks all specified warnings and returns an array of
 // any that have been set in the test suite in the same order.
 // If none are found an empty array is returned.
-func (suite *SlogTestSuite) hasWarnings(warnings ...string) []string {
+func (wrnMgr *WarningManager) HasWarnings(warnings ...string) []string {
 	found := make([]string, 0, len(warnings))
 	if *useWarnings {
 		for _, warning := range warnings {
-			if suite.warn[warning] {
+			if wrnMgr.HasWarning(warning) {
 				found = append(found, warning)
 			}
 		}
@@ -217,19 +226,19 @@ func (suite *SlogTestSuite) hasWarnings(warnings ...string) []string {
 // skipTest adds warnings for a test that is being skipped.
 // The first warning is for skipping a test with the text set to the 'because' warning argument.
 // The second warning is for the 'because' warning with the text set to skipping the test.
-func (suite *SlogTestSuite) skipTest(because string) {
-	suite.addWarning(WarnSkippingTest, because, false)
-	suite.addWarning(because, WarnSkippingTest, false)
+func (wrnMgr *WarningManager) skipTest(because string) {
+	wrnMgr.addWarning(WarnSkippingTest, because, "")
+	wrnMgr.addWarning(because, WarnSkippingTest, "")
 }
 
 // skipTestIf checks the warnings provided to see if any have been set in the suite,
 // adding skipTest warnings for the first one and returning true.
 // False is returned if none of the warnings are found.
-func (suite *SlogTestSuite) skipTestIf(warnings ...string) bool {
+func (wrnMgr *WarningManager) skipTestIf(warnings ...string) bool {
 	for _, warning := range warnings {
-		if suite.warn[warning] {
-			suite.addWarning(WarnSkippingTest, warning, false)
-			suite.addWarning(warning, WarnSkippingTest, false)
+		if wrnMgr.warn[warning] {
+			wrnMgr.addWarning(WarnSkippingTest, warning, "")
+			wrnMgr.addWarning(warning, WarnSkippingTest, "")
 			return true
 		}
 	}

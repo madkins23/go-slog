@@ -27,7 +27,7 @@ func (suite *SlogTestSuite) TestReplaceAttr() {
 	}))
 	logger.Info(message, "alpha", "beta", "change", "my key", "remove", "me")
 	logMap := suite.logMap()
-	if suite.hasWarning(WarnNoReplAttr) {
+	if suite.HasWarning(WarnNoReplAttr) {
 		issues := make([]string, 0, 4)
 		if len(logMap) > 5 {
 			issues = append(issues, fmt.Sprintf("too many attributes: %d", len(logMap)))
@@ -44,12 +44,12 @@ func (suite *SlogTestSuite) TestReplaceAttr() {
 			issues = append(issues, "remove still exists")
 		}
 		if len(issues) > 0 {
-			suite.addWarning(WarnNoReplAttr, strings.Join(issues, ", "), false)
+			suite.addWarning(WarnNoReplAttr, strings.Join(issues, ", "), "")
 			return
 		}
-		suite.addWarning(WarnUnused, WarnNoReplAttr, true)
+		suite.addWarning(WarnUnused, WarnNoReplAttr, suite.Buffer.String())
 	}
-	if suite.hasWarning(WarnEmptyAttributes) {
+	if suite.HasWarning(WarnEmptyAttributes) {
 		suite.checkFieldCount(6, logMap)
 	} else {
 		suite.checkFieldCount(5, logMap)
@@ -82,7 +82,7 @@ func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 	})
 	logger.Info(message)
 	logMap := suite.logMap()
-	warnings := suite.hasWarnings(WarnNoReplAttr, WarnNoReplAttrBasic)
+	warnings := suite.HasWarnings(WarnNoReplAttr, WarnNoReplAttrBasic)
 	if len(warnings) > 0 {
 		issues := make([]string, 0, 5)
 		if len(logMap) > 3 {
@@ -93,7 +93,7 @@ func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 		}
 		if logMap[slog.MessageKey] != nil {
 			issues = append(issues, slog.MessageKey+" field still exists")
-		} else if suite.hasWarning(WarnMessageKey) && logMap["message"] != nil {
+		} else if suite.HasWarning(WarnMessageKey) && logMap["message"] != nil {
 			issues = append(issues, "message field still exists")
 		}
 		// TODO: This one may still work, in samber it's apparently a separate field from basic.
@@ -101,10 +101,10 @@ func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 			issues = append(issues, fmt.Sprintf("%s == %v", slog.SourceKey, logMap[slog.SourceKey]))
 		}
 		if len(issues) > 0 {
-			suite.addWarning(warnings[0], strings.Join(issues, ", "), false)
+			suite.addWarning(warnings[0], strings.Join(issues, ", "), "")
 			return
 		}
-		suite.addWarning(WarnUnused, warnings[0], true)
+		suite.addWarning(WarnUnused, warnings[0], suite.Buffer.String())
 	}
 	suite.checkFieldCount(3, logMap)
 	suite.Assert().Nil(logMap[slog.TimeKey])
@@ -121,7 +121,7 @@ func (suite *SlogTestSuite) TestReplaceAttrFnLevelCase() {
 	start := "INFO"
 	fixed := "info"
 	attrFn := replace.LevelLowerCase
-	if suite.hasWarning(WarnLevelCase) {
+	if suite.HasWarning(WarnLevelCase) {
 		start = "info"
 		fixed = "INFO"
 		attrFn = replace.LevelUpperCase
@@ -139,7 +139,7 @@ func (suite *SlogTestSuite) TestReplaceAttrFnLevelCase() {
 	logMap = suite.logMap()
 	level, ok = logMap[slog.LevelKey].(string)
 	suite.Require().True(ok)
-	warnings := suite.hasWarnings(WarnNoReplAttrBasic, WarnNoReplAttr)
+	warnings := suite.HasWarnings(WarnNoReplAttrBasic, WarnNoReplAttr)
 	if len(warnings) > 0 {
 		issues := make([]string, 0, 3)
 		if len(logMap) < 3 {
@@ -152,10 +152,10 @@ func (suite *SlogTestSuite) TestReplaceAttrFnLevelCase() {
 			issues = append(issues, "level value not null")
 		}
 		if len(issues) > 0 {
-			suite.addWarning(warnings[0], strings.Join(issues, ", "), false)
+			suite.addWarning(warnings[0], strings.Join(issues, ", "), "")
 			return
 		}
-		suite.addWarning(WarnUnused, warnings[0], false)
+		suite.addWarning(WarnUnused, warnings[0], "")
 	}
 	suite.Assert().Equal(fixed, level)
 }
@@ -173,7 +173,7 @@ func (suite *SlogTestSuite) TestReplaceAttrFnRemoveEmptyKey() {
 	logger.Info(message, "", nil)
 	logMap = suite.logMap()
 	value, ok = logMap[""]
-	if suite.hasWarning(WarnNoReplAttr) {
+	if suite.HasWarning(WarnNoReplAttr) {
 		issues := make([]string, 0, 3)
 		if len(logMap) < 4 {
 			issues = append(issues, fmt.Sprintf("too few attributes: %d", len(logMap)))
@@ -185,12 +185,12 @@ func (suite *SlogTestSuite) TestReplaceAttrFnRemoveEmptyKey() {
 			issues = append(issues, "empty key value not null")
 		}
 		if len(issues) > 0 {
-			suite.addWarning(WarnNoReplAttr, strings.Join(issues, ", "), false)
+			suite.addWarning(WarnNoReplAttr, strings.Join(issues, ", "), "")
 			return
 		}
-		suite.addWarning(WarnUnused, WarnNoReplAttr, false)
+		suite.addWarning(WarnUnused, WarnNoReplAttr, "")
 	}
-	if suite.hasWarning(WarnEmptyAttributes) {
+	if suite.HasWarning(WarnEmptyAttributes) {
 		suite.Assert().Len(logMap, 4)
 		suite.Assert().True(ok)
 		suite.Assert().Nil(value)
@@ -214,7 +214,7 @@ func (suite *SlogTestSuite) TestReplaceAttrFnRemoveTime() {
 	logger.Info(message)
 	logMap = suite.logMap()
 	value, ok = logMap[slog.TimeKey].(string)
-	warnings := suite.hasWarnings(WarnNoReplAttrBasic, WarnNoReplAttr)
+	warnings := suite.HasWarnings(WarnNoReplAttrBasic, WarnNoReplAttr)
 	if len(warnings) > 0 {
 		issues := make([]string, 0, 3)
 		if len(logMap) < 3 {
@@ -227,12 +227,12 @@ func (suite *SlogTestSuite) TestReplaceAttrFnRemoveTime() {
 			issues = append(issues, "time value not empty string")
 		}
 		if len(issues) > 0 {
-			suite.addWarning(warnings[0], strings.Join(issues, ", "), false)
+			suite.addWarning(warnings[0], strings.Join(issues, ", "), "")
 			return
 		}
-		suite.addWarning(WarnUnused, warnings[0], false)
+		suite.addWarning(WarnUnused, warnings[0], "")
 	}
-	if suite.hasWarning(WarnEmptyAttributes) {
+	if suite.HasWarning(WarnEmptyAttributes) {
 		suite.Require().Len(logMap, 3)
 		suite.Assert().True(ok)
 		suite.Assert().Nil(value)

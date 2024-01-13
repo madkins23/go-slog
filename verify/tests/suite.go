@@ -17,15 +17,11 @@ import (
 type SlogTestSuite struct {
 	suite.Suite
 	*bytes.Buffer
-	warn     map[string]bool
-	warnings map[string]*Warning
+	WarningManager
 
 	// Creator creates a slog.Handler to be used in creating a slog.Logger for a test.
 	// This field must be configured by test suites and shouldn't be changed later.
 	Creator infra.Creator
-
-	// Name of Handler for warnings display.
-	Name string
 }
 
 // -----------------------------------------------------------------------------

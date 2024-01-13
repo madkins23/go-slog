@@ -15,8 +15,7 @@ import (
 // Test_slog_zerolog_phsym runs tests for the physym zerolog handler.
 func Test_slog_zerolog_phsym(t *testing.T) {
 	sLogSuite := &tests.SlogTestSuite{
-		Name:    "phsym/zeroslog",
-		Creator: infra.NewCreator(SlogPhsymZerologHandlerCreatorFn),
+		Creator: infra.NewCreator("phsym/zeroslog", SlogPhsymZerologHandlerCreatorFn),
 	}
 	sLogSuite.WarnOnly(tests.WarnDuplicates)
 	sLogSuite.WarnOnly(tests.WarnEmptyAttributes)

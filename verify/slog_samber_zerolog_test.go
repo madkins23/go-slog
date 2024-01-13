@@ -16,8 +16,7 @@ import (
 // Test_slog_samber_zerolog runs tests for the samber zerolog handler.
 func Test_slog_samber_zerolog(t *testing.T) {
 	sLogSuite := &tests.SlogTestSuite{
-		Name:    "samber/slog-zerolog",
-		Creator: infra.NewCreator(SlogSamberZerologHandlerCreatorFn),
+		Creator: infra.NewCreator("samber/slog-zerolog", SlogSamberZerologHandlerCreatorFn),
 	}
 	sLogSuite.WarnOnly(tests.WarnDefaultLevel)
 	sLogSuite.WarnOnly(tests.WarnEmptyAttributes)

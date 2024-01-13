@@ -14,8 +14,7 @@ import (
 // Test_slog runs tests for the log/slog JSON handler.
 func Test_slog(t *testing.T) {
 	slogSuite := &tests.SlogTestSuite{
-		Name:    "log/slog.JSONHandler",
-		Creator: infra.NewCreator(SlogHandlerCreator),
+		Creator: infra.NewCreator("log/slog.JSONHandler", SlogHandlerCreator),
 	}
 	slogSuite.WarnOnly(tests.WarnDuplicates)
 	suite.Run(t, slogSuite)

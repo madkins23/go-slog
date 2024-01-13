@@ -47,7 +47,7 @@ func (suite *SlogTestSuite) TestDefaultLevel() {
 	} {
 		ctx := context.Background()
 		logger := suite.Logger(options)
-		if suite.hasWarning(WarnDefaultLevel) {
+		if suite.HasWarning(WarnDefaultLevel) {
 			level := slog.Level(100)
 			name := ""
 
@@ -66,10 +66,10 @@ func (suite *SlogTestSuite) TestDefaultLevel() {
 					where = " with AddSource"
 				}
 				suite.addWarning(WarnDefaultLevel,
-					fmt.Sprintf("defaultlevel%s is '%s'", where, name), false)
+					fmt.Sprintf("defaultlevel%s is '%s'", where, name), "")
 				continue
 			}
-			suite.addWarning(WarnUnused, WarnDefaultLevel, false)
+			suite.addWarning(WarnUnused, WarnDefaultLevel, "")
 		}
 		suite.Assert().False(logger.Enabled(ctx, slog.LevelDebug-1))
 		suite.Assert().False(logger.Enabled(ctx, slog.LevelDebug))
@@ -194,7 +194,7 @@ func (suite *SlogTestSuite) TestLogAttributes() {
 	suite.checkFieldCount(12, logMap)
 	when, ok := logMap["when"].(string)
 	suite.True(ok)
-	if suite.hasWarning(WarnNanoTime) {
+	if suite.HasWarning(WarnNanoTime) {
 		// Some handlers log times as RFC3339 instead of RFC3339Nano
 		suite.Equal(t.Format(time.RFC3339), when)
 	} else {
@@ -203,7 +203,7 @@ func (suite *SlogTestSuite) TestLogAttributes() {
 	}
 	howLong, ok := logMap["howLong"].(float64)
 	suite.True(ok)
-	if suite.hasWarning(WarnNanoDuration) {
+	if suite.HasWarning(WarnNanoDuration) {
 		// Some handlers push out milliseconds instead of nanoseconds.
 		suite.Equal(float64(60000), howLong)
 	} else {
