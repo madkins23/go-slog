@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -243,4 +244,36 @@ func (wrnMgr *WarningManager) skipTestIf(warnings ...string) bool {
 		}
 	}
 	return false
+}
+
+// -----------------------------------------------------------------------------
+// Global WarningManager
+
+// The global WarningManager is private and only accessible via functions in this package.
+// There is no locking around access to the global WarningManager.
+var globalManager *WarningManager
+
+var ErrAlreadySet = errors.New("global WarningManager already set")
+
+// InitGlobalManager should be called once at the beginning of the application,
+// before any global WarningManager interaction, to set the global WarningManager.
+// Prior to any InitGlobalManager call the global WarningManager is nil.
+// Returns an error if the global WarningManager has already been initialized.
+// Setting a nil pointer will return the same error if appropriate but otherwise do nothing.
+// There is no locking around access to the global WarningManager.
+func InitGlobalManager(wrnMgr *WarningManager) error {
+	if globalManager != nil {
+		return ErrAlreadySet
+	}
+	if wrnMgr != nil {
+		globalManager = wrnMgr
+	}
+	return nil
+}
+
+// GlobalWarningManager returns the global WarningManager.
+// If InitGlobalManager has not been called this result will be nil.
+// There is no locking around access to the global WarningManager.
+func GlobalWarningManager() *WarningManager {
+	return globalManager
 }

@@ -31,6 +31,9 @@ func (c *Creator) NewHandle(w io.Writer, options *slog.HandlerOptions) slog.Hand
 	return c.fn(w, options)
 }
 
+// -----------------------------------------------------------------------------
+// Global Creator
+
 // The global Creator is private and only accessible via functions in this package.
 // There is no locking around access to the global Creator.
 var globalCreator *Creator
