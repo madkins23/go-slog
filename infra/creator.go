@@ -38,7 +38,7 @@ func (c *Creator) NewHandle(w io.Writer, options *slog.HandlerOptions) slog.Hand
 // There is no locking around access to the global Creator.
 var globalCreator *Creator
 
-var ErrAlreadySet = errors.New("global Creator already set")
+var ErrCreatorAlreadySet = errors.New("global Creator already set")
 
 // InitGlobalCreator should be called once at the beginning of the application,
 // before any global Creator interaction, to set the global Creator.
@@ -48,7 +48,7 @@ var ErrAlreadySet = errors.New("global Creator already set")
 // There is no locking around access to the global Creator.
 func InitGlobalCreator(creator *Creator) error {
 	if globalCreator != nil {
-		return ErrAlreadySet
+		return ErrCreatorAlreadySet
 	}
 	if creator != nil {
 		globalCreator = creator

@@ -7,6 +7,8 @@ import (
 	"math"
 	"strings"
 	"time"
+
+	"github.com/madkins23/go-slog/infra"
 )
 
 // -----------------------------------------------------------------------------
@@ -78,7 +80,7 @@ func (suite *SlogTestSuite) TestGroupEmpty() {
 	logger := suite.Logger(SimpleOptions())
 	logger.Info(message, slog.Group("group"))
 	logMap := suite.logMap()
-	if suite.HasWarning(WarnGroupEmpty) {
+	if suite.HasWarning(infra.WarnGroupEmpty) {
 		issues := make([]string, 0, 4)
 		if len(logMap) > 3 {
 			issues = append(issues, "too many fields")
@@ -91,10 +93,10 @@ func (suite *SlogTestSuite) TestGroupEmpty() {
 			}
 		}
 		if len(issues) > 0 {
-			suite.addWarning(WarnGroupEmpty, strings.Join(issues, ", "), suite.Buffer.String())
+			suite.AddWarning(infra.WarnGroupEmpty, strings.Join(issues, ", "), suite.Buffer.String())
 			return
 		}
-		suite.addWarning(WarnUnused, WarnGroupEmpty, "")
+		suite.AddWarning(infra.WarnUnused, infra.WarnGroupEmpty, "")
 	}
 	suite.checkFieldCount(3, logMap)
 	_, found := logMap["group"]
@@ -120,7 +122,7 @@ func (suite *SlogTestSuite) TestGroupInline() {
 		suite.Assert().Equal("3", fieldMap["third"])
 		suite.Assert().Equal("forth", fieldMap["fourth"])
 	}
-	if suite.HasWarning(WarnGroupInline) {
+	if suite.HasWarning(infra.WarnGroupInline) {
 		counter := suite.fieldCounter()
 		suite.Require().NoError(counter.Parse())
 		if counter.NumFields() == 6 {
@@ -130,10 +132,10 @@ func (suite *SlogTestSuite) TestGroupInline() {
 			} else {
 				suite.Fail("Group not map[string]any")
 			}
-			suite.addWarning(WarnGroupInline, "", suite.Buffer.String())
+			suite.AddWarning(infra.WarnGroupInline, "", suite.Buffer.String())
 			return
 		}
-		suite.addWarning(WarnUnused, WarnGroupInline, "")
+		suite.AddWarning(infra.WarnUnused, infra.WarnGroupInline, "")
 	}
 	suite.checkFieldCount(8, logMap)
 	checkFieldFn(logMap)
@@ -196,16 +198,16 @@ func (suite *SlogTestSuite) TestGroupWithMultiSubEmpty() {
 	if group, ok := logMap["group"].(map[string]any); ok {
 		suite.Assert().Equal(float64(2), group["second"])
 		suite.Assert().Equal("3", group["third"])
-		if suite.HasWarning(WarnGroupEmpty) {
+		if suite.HasWarning(infra.WarnGroupEmpty) {
 			if len(group) > 2 {
 				if subGroup, found := group["subGroup"]; found {
 					if sg, ok := subGroup.(map[string]any); ok && len(sg) < 1 {
-						suite.addWarning(WarnGroupEmpty, "", suite.Buffer.String())
+						suite.AddWarning(infra.WarnGroupEmpty, "", suite.Buffer.String())
 						return
 					}
 				}
 			}
-			suite.addWarning(WarnUnused, WarnGroupEmpty, "")
+			suite.AddWarning(infra.WarnUnused, infra.WarnGroupEmpty, "")
 		}
 		suite.Assert().Len(group, 2)
 		_, found := group["subGroup"]
@@ -298,12 +300,12 @@ func (suite *SlogTestSuite) TestZeroPC() {
 	suite.checkLevelKey("INFO", logMap)
 	suite.checkMessageKey(message, logMap)
 	suite.Assert().NotNil(logMap[slog.TimeKey])
-	if suite.HasWarning(WarnZeroPC) {
+	if suite.HasWarning(infra.WarnZeroPC) {
 		if _, ok := logMap[slog.SourceKey].(map[string]any); ok {
-			suite.addWarning(WarnZeroPC, "", suite.Buffer.String())
+			suite.AddWarning(infra.WarnZeroPC, "", suite.Buffer.String())
 			return
 		}
-		suite.addWarning(WarnUnused, WarnZeroPC, "")
+		suite.AddWarning(infra.WarnUnused, infra.WarnZeroPC, "")
 	}
 
 	suite.checkFieldCount(3, logMap)
@@ -320,18 +322,18 @@ func (suite *SlogTestSuite) TestZeroTime() {
 	logMap := suite.logMap()
 	suite.checkLevelKey("INFO", logMap)
 	suite.checkMessageKey(message, logMap)
-	if suite.HasWarning(WarnZeroTime) {
+	if suite.HasWarning(infra.WarnZeroTime) {
 		counter := suite.fieldCounter()
 		suite.Require().NoError(counter.Parse())
 		if counter.NumFields() == 3 {
 			if timeAny, found := logMap[slog.TimeKey]; found {
 				timeZero := suite.parseTime(timeAny)
 				suite.Assert().Equal(time.Time{}, timeZero, "time should be zero")
-				suite.addWarning(WarnZeroTime, "", suite.Buffer.String())
+				suite.AddWarning(infra.WarnZeroTime, "", suite.Buffer.String())
 				return
 			}
 		}
-		suite.addWarning(WarnUnused, WarnZeroTime, "")
+		suite.AddWarning(infra.WarnUnused, infra.WarnZeroTime, "")
 	}
 	suite.checkFieldCount(2, logMap)
 	suite.Assert().Nil(logMap[slog.TimeKey])

@@ -3,8 +3,6 @@ package tests
 import (
 	"encoding/json"
 	"fmt"
-	"runtime"
-	"strings"
 
 	testJSON "github.com/madkins23/go-slog/json"
 	"github.com/madkins23/go-slog/test"
@@ -38,28 +36,4 @@ func (suite *SlogTestSuite) logMap() map[string]any {
 // This is not dependent on the use of the -debug flag.
 func (suite *SlogTestSuite) showLog() {
 	fmt.Printf(">>> %s", suite.Buffer)
-}
-
-// -----------------------------------------------------------------------------
-// Utility functions.
-
-// currentFunctionName checks up the call stack for the name of the current test function.
-// Only the last part of the function name (after the last period) is returned.
-// The function name is found by checking for a prefix of "Test".
-// If no test function is found "Unknown" is returned.
-func currentFunctionName() string {
-	pc := make([]uintptr, 10)
-	n := runtime.Callers(2, pc)
-	frames := runtime.CallersFrames(pc[:n])
-	more := true
-	for more {
-		var frame runtime.Frame
-		frame, more = frames.Next()
-		parts := strings.Split(frame.Function, ".")
-		functionName := parts[len(parts)-1]
-		if strings.HasPrefix(functionName, "Test") {
-			return functionName
-		}
-	}
-	return "Unknown"
 }

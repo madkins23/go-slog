@@ -15,20 +15,18 @@ import (
 
 // Test_slog_samber_zerolog runs tests for the samber zerolog handler.
 func Test_slog_samber_zerolog(t *testing.T) {
-	sLogSuite := &tests.SlogTestSuite{
-		Creator: infra.NewCreator("samber/slog-zerolog", SlogSamberZerologHandlerCreatorFn),
-	}
-	sLogSuite.WarnOnly(tests.WarnDefaultLevel)
-	sLogSuite.WarnOnly(tests.WarnEmptyAttributes)
-	sLogSuite.WarnOnly(tests.WarnGroupInline)
-	sLogSuite.WarnOnly(tests.WarnLevelCase)
-	sLogSuite.WarnOnly(tests.WarnMessageKey)
-	sLogSuite.WarnOnly(tests.WarnNanoDuration)
-	sLogSuite.WarnOnly(tests.WarnNanoTime)
-	sLogSuite.WarnOnly(tests.WarnNoReplAttrBasic)
-	sLogSuite.WarnOnly(tests.WarnResolver)
-	sLogSuite.WarnOnly(tests.WarnZeroPC)
-	sLogSuite.WarnOnly(tests.WarnZeroTime)
+	sLogSuite := tests.NewSlogTestSuite("samber/slog-zerolog", SlogSamberZerologHandlerCreatorFn)
+	sLogSuite.WarnOnly(infra.WarnDefaultLevel)
+	sLogSuite.WarnOnly(infra.WarnEmptyAttributes)
+	sLogSuite.WarnOnly(infra.WarnGroupInline)
+	sLogSuite.WarnOnly(infra.WarnLevelCase)
+	sLogSuite.WarnOnly(infra.WarnMessageKey)
+	sLogSuite.WarnOnly(infra.WarnNanoDuration)
+	sLogSuite.WarnOnly(infra.WarnNanoTime)
+	sLogSuite.WarnOnly(infra.WarnNoReplAttrBasic)
+	sLogSuite.WarnOnly(infra.WarnResolver)
+	sLogSuite.WarnOnly(infra.WarnZeroPC)
+	sLogSuite.WarnOnly(infra.WarnZeroTime)
 	suite.Run(t, sLogSuite)
 }
 

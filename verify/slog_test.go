@@ -13,10 +13,8 @@ import (
 
 // Test_slog runs tests for the log/slog JSON handler.
 func Test_slog(t *testing.T) {
-	slogSuite := &tests.SlogTestSuite{
-		Creator: infra.NewCreator("log/slog.JSONHandler", SlogHandlerCreator),
-	}
-	slogSuite.WarnOnly(tests.WarnDuplicates)
+	slogSuite := tests.NewSlogTestSuite("log/slog.JSONHandler", SlogHandlerCreator)
+	slogSuite.WarnOnly(infra.WarnDuplicates)
 	suite.Run(t, slogSuite)
 }
 

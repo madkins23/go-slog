@@ -17,23 +17,22 @@ import (
 type SlogTestSuite struct {
 	suite.Suite
 	*bytes.Buffer
-	WarningManager
+	*infra.WarningManager
 
 	// Creator creates a slog.Handler to be used in creating a slog.Logger for a test.
 	// This field must be configured by test suites and shouldn't be changed later.
 	Creator infra.Creator
 }
 
+func NewSlogTestSuite(name string, fn infra.CreatorFn) *SlogTestSuite {
+	return &SlogTestSuite{
+		Creator:        infra.NewCreator(name, fn),
+		WarningManager: infra.NewWarningManager(name),
+	}
+}
+
 // -----------------------------------------------------------------------------
 // Suite test configuration.
-
-// suites captures all suites tested together into an array.
-// This array is used when showing warnings.
-var suites = make([]*SlogTestSuite, 0)
-
-func (suite *SlogTestSuite) SetupSuite() {
-	suites = append(suites, suite)
-}
 
 func (suite *SlogTestSuite) SetupTest() {
 	suite.Buffer = &bytes.Buffer{}

@@ -7,6 +7,8 @@ import (
 	"math"
 	"runtime"
 	"time"
+
+	"github.com/madkins23/go-slog/infra"
 )
 
 // -----------------------------------------------------------------------------
@@ -47,7 +49,7 @@ func (suite *SlogTestSuite) TestDefaultLevel() {
 	} {
 		ctx := context.Background()
 		logger := suite.Logger(options)
-		if suite.HasWarning(WarnDefaultLevel) {
+		if suite.HasWarning(infra.WarnDefaultLevel) {
 			level := slog.Level(100)
 			name := ""
 
@@ -65,11 +67,11 @@ func (suite *SlogTestSuite) TestDefaultLevel() {
 				if options.AddSource {
 					where = " with AddSource"
 				}
-				suite.addWarning(WarnDefaultLevel,
+				suite.AddWarning(infra.WarnDefaultLevel,
 					fmt.Sprintf("defaultlevel%s is '%s'", where, name), "")
 				continue
 			}
-			suite.addWarning(WarnUnused, WarnDefaultLevel, "")
+			suite.AddWarning(infra.WarnUnused, infra.WarnDefaultLevel, "")
 		}
 		suite.Assert().False(logger.Enabled(ctx, slog.LevelDebug-1))
 		suite.Assert().False(logger.Enabled(ctx, slog.LevelDebug))
@@ -194,7 +196,7 @@ func (suite *SlogTestSuite) TestLogAttributes() {
 	suite.checkFieldCount(12, logMap)
 	when, ok := logMap["when"].(string)
 	suite.True(ok)
-	if suite.HasWarning(WarnNanoTime) {
+	if suite.HasWarning(infra.WarnNanoTime) {
 		// Some handlers log times as RFC3339 instead of RFC3339Nano
 		suite.Equal(t.Format(time.RFC3339), when)
 	} else {
@@ -203,7 +205,7 @@ func (suite *SlogTestSuite) TestLogAttributes() {
 	}
 	howLong, ok := logMap["howLong"].(float64)
 	suite.True(ok)
-	if suite.HasWarning(WarnNanoDuration) {
+	if suite.HasWarning(infra.WarnNanoDuration) {
 		// Some handlers push out milliseconds instead of nanoseconds.
 		suite.Equal(float64(60000), howLong)
 	} else {

@@ -14,20 +14,18 @@ import (
 
 // Test_slog_zerolog_phsym runs tests for the physym zerolog handler.
 func Test_slog_zerolog_phsym(t *testing.T) {
-	sLogSuite := &tests.SlogTestSuite{
-		Creator: infra.NewCreator("phsym/zeroslog", SlogPhsymZerologHandlerCreatorFn),
-	}
-	sLogSuite.WarnOnly(tests.WarnDuplicates)
-	sLogSuite.WarnOnly(tests.WarnEmptyAttributes)
-	sLogSuite.WarnOnly(tests.WarnGroupInline)
-	sLogSuite.WarnOnly(tests.WarnLevelCase)
-	sLogSuite.WarnOnly(tests.WarnMessageKey)
-	sLogSuite.WarnOnly(tests.WarnNanoDuration)
-	sLogSuite.WarnOnly(tests.WarnNanoTime)
-	sLogSuite.WarnOnly(tests.WarnNoReplAttr)
-	sLogSuite.WarnOnly(tests.WarnSourceKey)
-	sLogSuite.WarnOnly(tests.WarnGroupEmpty)
-	sLogSuite.WarnOnly(tests.WarnZeroTime)
+	sLogSuite := tests.NewSlogTestSuite("phsym/zeroslog", SlogPhsymZerologHandlerCreatorFn)
+	sLogSuite.WarnOnly(infra.WarnDuplicates)
+	sLogSuite.WarnOnly(infra.WarnEmptyAttributes)
+	sLogSuite.WarnOnly(infra.WarnGroupInline)
+	sLogSuite.WarnOnly(infra.WarnLevelCase)
+	sLogSuite.WarnOnly(infra.WarnMessageKey)
+	sLogSuite.WarnOnly(infra.WarnNanoDuration)
+	sLogSuite.WarnOnly(infra.WarnNanoTime)
+	sLogSuite.WarnOnly(infra.WarnNoReplAttr)
+	sLogSuite.WarnOnly(infra.WarnSourceKey)
+	sLogSuite.WarnOnly(infra.WarnGroupEmpty)
+	sLogSuite.WarnOnly(infra.WarnZeroTime)
 	suite.Run(t, sLogSuite)
 }
 

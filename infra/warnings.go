@@ -1,7 +1,6 @@
-package tests
+package infra
 
 import (
-	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -40,7 +39,7 @@ const (
 //	go test ./... -args -useWarnings
 //
 // This flag will automatically set WarnLevelCase.
-// Other behavior must be activated in specific handler test suites, for example:
+// Other behavior must be activated in specific handler test managers, for example:
 //
 //	sLogSuite := &test.SlogTestSuite{Creator: &SlogCreator{}}
 //	sLogSuite.WarnOnly(test.WarnMessageKey)
@@ -73,6 +72,16 @@ type WarningInstance struct {
 	Function string
 	Record   string
 	Text     string
+}
+
+// managers captures all managers tested together into an array.
+// This array is used when showing warnings.
+var managers = make([]*WarningManager, 0)
+
+func NewWarningManager(name string) *WarningManager {
+	mgr := &WarningManager{Name: name}
+	managers = append(managers, mgr)
+	return mgr
 }
 
 // WarnOnly sets a flag to collect warnings instead of failing tests.
@@ -155,7 +164,7 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 }
 
 // WithWarnings implements the guts of TestMain (see https://pkg.go.dev/testing#hdr-Main).
-// This will cause the ShowWarnings method to be called on all test suites
+// This will cause the ShowWarnings method to be called on all test managers
 // after all other output has been done, instead of buried in the middle.
 // To use, add the following to a '_test' file:
 //
@@ -172,16 +181,16 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 func WithWarnings(m *testing.M) {
 	flag.Parse()
 	exitVal := m.Run()
-	for _, testSuite := range suites {
+	for _, testSuite := range managers {
 		testSuite.ShowWarnings(nil)
 	}
 	os.Exit(exitVal)
 }
 
-// addWarning to results list, specifying warning string and optional extra text.
+// AddWarning to results list, specifying warning string and optional extra text.
 // If the addLogRecord flag is true the current log record JSON is also stored.
-// The current function name is acquired from the currentFunctionName() and stored.
-func (wrnMgr *WarningManager) addWarning(warning string, text string, logRecordJSON string) {
+// The current function name is acquired from the CurrentFunctionName() and stored.
+func (wrnMgr *WarningManager) AddWarning(warning string, text string, logRecordJSON string) {
 	if wrnMgr.warnings == nil {
 		wrnMgr.warnings = make(map[string]*Warning)
 	}
@@ -195,7 +204,7 @@ func (wrnMgr *WarningManager) addWarning(warning string, text string, logRecordJ
 		record.Data = make([]WarningInstance, 0)
 	}
 	instance := WarningInstance{
-		Function: currentFunctionName(),
+		Function: CurrentFunctionName(),
 		Text:     text,
 	}
 	if logRecordJSON != "" {
@@ -228,8 +237,8 @@ func (wrnMgr *WarningManager) HasWarnings(warnings ...string) []string {
 // The first warning is for skipping a test with the text set to the 'because' warning argument.
 // The second warning is for the 'because' warning with the text set to skipping the test.
 func (wrnMgr *WarningManager) skipTest(because string) {
-	wrnMgr.addWarning(WarnSkippingTest, because, "")
-	wrnMgr.addWarning(because, WarnSkippingTest, "")
+	wrnMgr.AddWarning(WarnSkippingTest, because, "")
+	wrnMgr.AddWarning(because, WarnSkippingTest, "")
 }
 
 // skipTestIf checks the warnings provided to see if any have been set in the suite,
@@ -238,42 +247,10 @@ func (wrnMgr *WarningManager) skipTest(because string) {
 func (wrnMgr *WarningManager) skipTestIf(warnings ...string) bool {
 	for _, warning := range warnings {
 		if wrnMgr.warn[warning] {
-			wrnMgr.addWarning(WarnSkippingTest, warning, "")
-			wrnMgr.addWarning(warning, WarnSkippingTest, "")
+			wrnMgr.AddWarning(WarnSkippingTest, warning, "")
+			wrnMgr.AddWarning(warning, WarnSkippingTest, "")
 			return true
 		}
 	}
 	return false
-}
-
-// -----------------------------------------------------------------------------
-// Global WarningManager
-
-// The global WarningManager is private and only accessible via functions in this package.
-// There is no locking around access to the global WarningManager.
-var globalManager *WarningManager
-
-var ErrAlreadySet = errors.New("global WarningManager already set")
-
-// InitGlobalManager should be called once at the beginning of the application,
-// before any global WarningManager interaction, to set the global WarningManager.
-// Prior to any InitGlobalManager call the global WarningManager is nil.
-// Returns an error if the global WarningManager has already been initialized.
-// Setting a nil pointer will return the same error if appropriate but otherwise do nothing.
-// There is no locking around access to the global WarningManager.
-func InitGlobalManager(wrnMgr *WarningManager) error {
-	if globalManager != nil {
-		return ErrAlreadySet
-	}
-	if wrnMgr != nil {
-		globalManager = wrnMgr
-	}
-	return nil
-}
-
-// GlobalWarningManager returns the global WarningManager.
-// If InitGlobalManager has not been called this result will be nil.
-// There is no locking around access to the global WarningManager.
-func GlobalWarningManager() *WarningManager {
-	return globalManager
 }
