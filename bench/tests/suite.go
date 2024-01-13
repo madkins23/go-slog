@@ -62,6 +62,7 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 					b.Fatalf("Could not convert benchmark result %v", results[0].Interface())
 				}
 				logger := slog.New(suite.creator.NewHandle(&count, benchmark.Options()))
+				b.ReportAllocs()
 				b.ResetTimer()
 				b.RunParallel(func(pb *testing.PB) {
 					for pb.Next() {
