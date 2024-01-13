@@ -6,9 +6,13 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"regexp"
 	"sort"
 	"strings"
 )
+
+// Tabular reads the JSON from gobenchdata and formats it into simple tables.
+// See scripts/bench for usage example.
 
 type benchmark struct {
 	Name    string
@@ -36,6 +40,9 @@ type testData struct {
 	memAllocsPerOp int
 	memMbPerSec    int
 }
+
+var ptnBenchName = regexp.MustCompile(`Benchmark(.+)-(\d+)`)
+var ptnHandlerName = regexp.MustCompile(`Benchmark(?:_slog)?_(.*)`)
 
 func main() {
 	jsonFile := flag.String("json", "", "Source JSON file (else stdin)")
@@ -73,47 +80,61 @@ func main() {
 		return
 	}
 
-	data := make(map[string]map[string]testData)
+	type handlerName string
+	type benchName string
 
-	for _, b := range item.Suites[0].Benchmarks {
-		parts := strings.Split(b.Name, "/")
+	data := make(map[benchName]map[handlerName]testData)
+
+	for _, bm := range item.Suites[0].Benchmarks {
+		parts := strings.Split(bm.Name, "/")
 		if len(parts) != 2 {
-			fmt.Printf("* Name has %d parts: %s\n", len(parts), b.Name)
+			fmt.Printf("* Name has %d parts: %s\n", len(parts), bm.Name)
 			continue
 		}
+		handler := handlerName(parts[0])
+		bench := benchName(parts[1])
 
-		if data[parts[0]] == nil {
-			data[parts[0]] = make(map[string]testData, 0)
+		if matches := ptnBenchName.FindSubmatch([]byte(bench)); matches != nil && len(matches) > 2 {
+			bench = benchName(fmt.Sprintf("%s (%s CPU)", string(matches[1]), string(matches[2])))
 		}
 
-		data[parts[0]][parts[1]] = testData{
-			iterations:     b.Runs,
-			nanosPerOp:     b.NsPerOp,
-			memBytesPerOp:  b.Mem.BytesPerOp,
-			memAllocsPerOp: b.Mem.AllocsPerOp,
-			memMbPerSec:    b.Mem.BytesPerOp,
+		if matches := ptnHandlerName.FindSubmatch([]byte(handler)); matches != nil && len(matches) > 1 {
+			handler = handlerName(matches[1])
+		}
+
+		if data[bench] == nil {
+			data[bench] = make(map[handlerName]testData, 0)
+		}
+
+		data[bench][handler] = testData{
+			iterations:     bm.Runs,
+			nanosPerOp:     bm.NsPerOp,
+			memBytesPerOp:  bm.Mem.BytesPerOp,
+			memAllocsPerOp: bm.Mem.AllocsPerOp,
+			memMbPerSec:    bm.Mem.BytesPerOp,
 		}
 	}
 
-	tests := make([]string, 0)
+	benches := make([]string, 0)
 	for test := range data {
-		tests = append(tests, test)
+		benches = append(benches, string(test))
 	}
-	sort.Strings(tests)
+	sort.Strings(benches)
 
-	for _, test := range tests {
-		fmt.Printf("\n%s\n  Handler                    Runs     Ns/Op  Bytes/Op Allocs/Op    MB/Sec\n", test)
+	for _, test := range benches {
+		fmt.Printf("\nBenchmark %s\n", test)
+		fmt.Println("  Handler                    Runs     Ns/Op  Bytes/Op Allocs/Op    MB/Sec")
 		fmt.Println("  -----------------------------------------------------------------------")
 
-		testData := data[test]
+		testData := data[benchName(test)]
 		hdlrs := make([]string, 0)
 		for hdlr := range testData {
-			hdlrs = append(hdlrs, hdlr)
+			hdlrs = append(hdlrs, string(hdlr))
 		}
 		sort.Strings(hdlrs)
 
 		for _, hdlr := range hdlrs {
-			hdlrData := testData[hdlr]
+			hdlrData := testData[handlerName(hdlr)]
 			fmt.Printf("  %-20s  %9d %9.3f %9d %9d %9d\n",
 				hdlr, hdlrData.iterations, hdlrData.nanosPerOp,
 				hdlrData.memBytesPerOp, hdlrData.memAllocsPerOp, hdlrData.memMbPerSec)
