@@ -68,6 +68,7 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 						benchmark.Test(logger)
 					}
 				})
+				b.StopTimer()
 				if b.N != int(count.Written()) {
 					b.Fatalf("Mismatch in log write count. Expected: %d, Actual: %d",
 						b.N, count.Written())
