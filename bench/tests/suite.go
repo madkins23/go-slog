@@ -51,6 +51,8 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 		method := suiteType.Method(i)
 		if strings.HasPrefix(method.Name, benchmarkMethodPrefix) {
 			test.Debugf(2, ">>>     Method: %s\n", method.Name)
+			// TODO: If I could call the following I could haz results now?
+			//       testing.Benchmark(func(b *testing.B) {
 			b.Run(method.Name, func(b *testing.B) {
 				var count infra.CountWriter
 				results := method.Func.Call([]reflect.Value{reflect.ValueOf(suite)})
@@ -61,12 +63,13 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				if !ok {
 					b.Fatalf("Could not convert benchmark result %v", results[0].Interface())
 				}
+				function := benchmark.Function()
 				logger := slog.New(suite.creator.NewHandle(&count, benchmark.Options()))
 				b.ReportAllocs()
 				b.ResetTimer()
 				b.RunParallel(func(pb *testing.PB) {
 					for pb.Next() {
-						benchmark.Test(logger)
+						function(logger)
 					}
 				})
 				b.StopTimer()
@@ -85,7 +88,7 @@ type BenchmarkFn func(logger *slog.Logger)
 
 type Benchmark interface {
 	Options() *slog.HandlerOptions
-	Test(*slog.Logger)
+	Function() BenchmarkFn
 }
 
 var _ Benchmark = &benchmark{}
@@ -99,8 +102,8 @@ func (b *benchmark) Options() *slog.HandlerOptions {
 	return b.options
 }
 
-func (b *benchmark) Test(logger *slog.Logger) {
-	b.fn(logger)
+func (b *benchmark) Function() BenchmarkFn {
+	return b.fn
 }
 
 func NewBenchmark(options *slog.HandlerOptions, fn BenchmarkFn) Benchmark {

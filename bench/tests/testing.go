@@ -13,6 +13,9 @@ import (
 // They return a benchmark object containing the options for logger creation and
 // the function to run during the benchmark.
 
+// -----------------------------------------------------------------------------
+// Basic tests.
+
 func (suite *SlogBenchmarkSuite) Benchmark_Simple() Benchmark {
 	return NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
 		logger.Info(message)
@@ -24,3 +27,5 @@ func (suite *SlogBenchmarkSuite) Benchmark_Simple_Source() Benchmark {
 		logger.Info(message)
 	})
 }
+
+// -----------------------------------------------------------------------------
