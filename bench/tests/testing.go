@@ -17,6 +17,14 @@ import (
 // -----------------------------------------------------------------------------
 // Basic tests.
 
+func (suite *SlogBenchmarkSuite) Benchmark_Disabled() Benchmark {
+	mark := NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
+		logger.Info(message)
+	})
+	mark.SetDontCount(true)
+	return mark
+}
+
 func (suite *SlogBenchmarkSuite) Benchmark_Simple() Benchmark {
 	return NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
 		logger.Info(message)

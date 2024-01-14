@@ -77,7 +77,7 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 					}
 				})
 				b.StopTimer()
-				if b.N != int(count.Written()) {
+				if !benchmark.DontCount() && b.N != int(count.Written()) {
 					b.Fatalf("Mismatch in log write count. Expected: %d, Actual: %d",
 						b.N, count.Written())
 				}
@@ -93,13 +93,31 @@ type BenchmarkFn func(logger *slog.Logger)
 type Benchmark interface {
 	Options() *slog.HandlerOptions
 	Function() BenchmarkFn
+	DontCount() bool
+	SetDontCount(bool)
 }
 
 var _ Benchmark = &benchmark{}
 
 type benchmark struct {
-	options *slog.HandlerOptions
-	fn      BenchmarkFn
+	options   *slog.HandlerOptions
+	fn        BenchmarkFn
+	dontCount bool
+}
+
+func NewBenchmark(options *slog.HandlerOptions, fn BenchmarkFn) Benchmark {
+	return &benchmark{
+		options: options,
+		fn:      fn,
+	}
+}
+
+func (b *benchmark) DontCount() bool {
+	return b.dontCount
+}
+
+func (b *benchmark) SetDontCount(dontCount bool) {
+	b.dontCount = dontCount
 }
 
 func (b *benchmark) Options() *slog.HandlerOptions {
@@ -108,11 +126,4 @@ func (b *benchmark) Options() *slog.HandlerOptions {
 
 func (b *benchmark) Function() BenchmarkFn {
 	return b.fn
-}
-
-func NewBenchmark(options *slog.HandlerOptions, fn BenchmarkFn) Benchmark {
-	return &benchmark{
-		options: options,
-		fn:      fn,
-	}
 }
