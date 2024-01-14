@@ -49,18 +49,32 @@ func main() {
 	flag.Parse()
 
 	var err error
-	out := os.Stdout
+	var in io.Reader = os.Stdin
 	if *jsonFile != "" {
-		if out, err = os.Open(*jsonFile); err != nil {
+		if in, err = os.Open(*jsonFile); err != nil {
 			fmt.Printf("* Error opening JSON file %s: %s\n", *jsonFile, err)
 			return
 		}
 	}
 
 	var source []byte
-	if source, err = io.ReadAll(out); err != nil {
+	if source, err = io.ReadAll(in); err != nil {
 		fmt.Printf("* Error reading JSON source: %s\n", err)
 		return
+	}
+
+	// The gobenchdata application dumps a line of text ahead of the JSON
+	// unless the output is redirected to a file, so try to skip that mess.
+	newLine := true
+	for i, b := range source {
+		if newLine && b == '[' || b == '{' {
+			source = source[i:]
+			break
+		} else if b == '\n' {
+			newLine = true
+		} else if newLine {
+			newLine = false
+		}
 	}
 
 	var br []jsonData

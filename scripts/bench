@@ -1,16 +1,9 @@
 #!/bin/bash
 
-# Run tests using tee to see status (can be long)
-#  and to save intermediate text data for debugging.
-go test -bench=. bench/*.go | tee /tmp/bench.txt
-
-# gobenchdata prepends the JSON sent to stdout with
-#  a non-JSON text line like: "detected 1 benchmark suites"
-#  so it isn't possible to pipe directly from gobenchdata to tabular.
-#  with a tee to save the JSON stream for debugging.
-#  Sending the output to a JSON file via the --json flag solves that problem.
-cat /tmp/bench.txt | gobenchdata --json /tmp/bench.json
-go run cmd/tabular/tabular.go -json=/tmp/bench.json >/tmp/bench.tab
-
-cat /tmp/bench.tab
-# less /tmp/bench.tab
+go test -bench=. bench/*.go      | # Run benchmark tests                \
+   tee /dev/tty                  | # Show progress to user in real time \
+   tee /tmp/bench.txt            | # Save benchmark output              \
+   gobenchdata                   | # Convert to JSON                    \
+   tee /tmp/bench.json           | # Save JSON version                  \
+   go run cmd/tabular/tabular.go | # Process JSON to table              \
+   tee /tmp/bench.tab              # Save table to file
