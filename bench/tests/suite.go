@@ -64,7 +64,11 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 					b.Fatalf("Could not convert benchmark result %v", results[0].Interface())
 				}
 				function := benchmark.Function()
-				logger := slog.New(suite.creator.NewHandle(&count, benchmark.Options()))
+				handler := suite.creator.NewHandle(&count, benchmark.Options())
+				if handlerFn := benchmark.HandlerFn(); handlerFn != nil {
+					handler = handlerFn(handler)
+				}
+				logger := slog.New(handler)
 				if test.DebugLevel() > 0 {
 					// Print the log record to STDOUT.
 					function(stdoutLogger)
@@ -88,10 +92,12 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 
 // -----------------------------------------------------------------------------
 
+type HandlerFn func(handler slog.Handler) slog.Handler
 type BenchmarkFn func(logger *slog.Logger)
 
 type Benchmark interface {
 	Options() *slog.HandlerOptions
+	HandlerFn() HandlerFn
 	Function() BenchmarkFn
 	DontCount() bool
 	SetDontCount(bool)
@@ -100,15 +106,17 @@ type Benchmark interface {
 var _ Benchmark = &benchmark{}
 
 type benchmark struct {
-	options   *slog.HandlerOptions
-	fn        BenchmarkFn
-	dontCount bool
+	options     *slog.HandlerOptions
+	handlerFn   HandlerFn
+	benchmarkFn BenchmarkFn
+	dontCount   bool
 }
 
-func NewBenchmark(options *slog.HandlerOptions, fn BenchmarkFn) Benchmark {
+func NewBenchmark(options *slog.HandlerOptions, fn BenchmarkFn, handlerFn HandlerFn) Benchmark {
 	return &benchmark{
-		options: options,
-		fn:      fn,
+		options:     options,
+		benchmarkFn: fn,
+		handlerFn:   handlerFn,
 	}
 }
 
@@ -125,5 +133,9 @@ func (b *benchmark) Options() *slog.HandlerOptions {
 }
 
 func (b *benchmark) Function() BenchmarkFn {
-	return b.fn
+	return b.benchmarkFn
+}
+
+func (b *benchmark) HandlerFn() HandlerFn {
+	return b.handlerFn
 }
