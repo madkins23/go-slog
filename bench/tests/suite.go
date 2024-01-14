@@ -2,6 +2,7 @@ package tests
 
 import (
 	"log/slog"
+	"os"
 	"reflect"
 	"strings"
 	"sync"
@@ -43,10 +44,9 @@ const benchmarkMethodPrefix = "Benchmark"
 func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 	defer recoverAndFailOnPanic(b)
 
+	stdoutLogger := slog.New(suite.creator.NewHandle(os.Stdout, infra.SimpleOptions()))
 	suite.SetB(b)
-
 	suiteType := reflect.TypeOf(suite)
-	test.Debugf(1, ">>>   Suite: %s\n", suiteType.Elem().Name())
 	for i := 0; i < suiteType.NumMethod(); i++ {
 		method := suiteType.Method(i)
 		if strings.HasPrefix(method.Name, benchmarkMethodPrefix) {
@@ -65,6 +65,10 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				}
 				function := benchmark.Function()
 				logger := slog.New(suite.creator.NewHandle(&count, benchmark.Options()))
+				if test.DebugLevel() > 0 {
+					// Print the log record to STDOUT.
+					function(stdoutLogger)
+				}
 				b.ReportAllocs()
 				b.ResetTimer()
 				b.RunParallel(func(pb *testing.PB) {

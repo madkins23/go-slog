@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"context"
 	"log/slog"
 
 	"github.com/madkins23/go-slog/infra"
@@ -25,6 +26,20 @@ func (suite *SlogBenchmarkSuite) Benchmark_Simple() Benchmark {
 func (suite *SlogBenchmarkSuite) Benchmark_Simple_Source() Benchmark {
 	return NewBenchmark(infra.SourceOptions(), func(logger *slog.Logger) {
 		logger.Info(message)
+	})
+}
+
+// -----------------------------------------------------------------------------
+
+func (suite *SlogBenchmarkSuite) Benchmark_Log_Attributes() Benchmark {
+	return NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
+		logger.LogAttrs(context.Background(), slog.LevelInfo, message, allAttributes()...)
+	})
+}
+
+func (suite *SlogBenchmarkSuite) Benchmark_Log_Key_Values() Benchmark {
+	return NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
+		logger.Info(message, allKeyValues()...)
 	})
 }
 
