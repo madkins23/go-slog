@@ -16,11 +16,15 @@ import (
 var debug = flag.Uint("debug", 0, "Show debug statements")
 
 // Debugf will only print the specified data if the -debug command flag is set.
-// The format strings will be wrapped with '>>> ' before and '\n' after.
 // The level field determines whether the statement will be printed.
-// The debug flag must be greater than or equal to the specified level for printing.
+// The -debug flag must be greater than or equal to the specified level for printing.
 func Debugf(level uint, format string, args ...interface{}) {
 	if *debug >= level {
 		fmt.Printf(format, args...)
 	}
+}
+
+// DebugLevel returns the level set by the -debug flag or 0 for default.
+func DebugLevel() uint {
+	return *debug
 }
