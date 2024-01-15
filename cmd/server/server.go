@@ -7,10 +7,12 @@ import (
 	"html/template"
 	"log/slog"
 	"os"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/phsym/console-slog"
 
+	ginslog "github.com/madkins23/go-slog/gin"
 	"github.com/madkins23/go-slog/infra"
 )
 
@@ -33,14 +35,13 @@ var (
 func main() {
 	flag.Parse() // Necessary for -json=<file> argument defined in infra package.
 
-	logger := slog.New(console.NewHandler(
-		os.Stderr, &console.HandlerOptions{Level: slog.LevelInfo}))
+	gin.DefaultWriter = ginslog.NewWriter(slog.LevelInfo)
+	gin.DefaultErrorWriter = ginslog.NewWriter(slog.LevelError)
+	logger := slog.New(console.NewHandler(os.Stderr, &console.HandlerOptions{
+		Level:      slog.LevelInfo,
+		TimeFormat: time.TimeOnly,
+	}))
 	slog.SetDefault(logger)
-
-	/*
-		gin.DefaultWriter = ginzero.NewWriter(zerolog.InfoLevel)
-		gin.DefaultErrorWriter = ginzero.NewWriter(zerolog.ErrorLevel)
-	*/
 
 	if err := setup(); err != nil {
 		slog.Error("Error during setup", "err", err)
