@@ -1,5 +1,6 @@
 #!/bin/bash
 
-# Run verify tests with warnings.
+# Run slog verification tests with warnings.
 
+clear
 go test -v ./verify -args -useWarnings

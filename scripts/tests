@@ -1,5 +1,7 @@
 #!/bin/bash
 
-# Run all tests in the current repository.
+# Run all tests in the current repository except for the slog verification tests.
+# The verification tests require the -useWarnings flag which blows up other tests.
 
-go test -v ./... "$@"
+clear
+go test -skip=Test_slog -v ./... "$@"
