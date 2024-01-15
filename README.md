@@ -28,3 +28,16 @@ The tests implemented herein were inspired by:
 
 A small collection of functions in the `replace` package
 can be used with `slog.HandlerOptions.ReplaceAttr`.
+
+## Gin Logging Redirect
+
+Package `gin` contains utilities for using `log/slog` with `gin-gonic/gin`.
+In particular, this package provides `gin.Writer` which can be used to redirect Gin-internal logging:
+```go
+gin.DefaultWriter = gin.NewWriter(slog.LevelInfo)
+gin.DefaultErrorWriter = gin.NewWriter(slog.LevelError)
+```
+Start this before starting Gin and all of the Gin-internal logging
+should be redirected to the new `io.Writer` objects.
+These objects will parse the Gin-internal logging formats and
+use `log/slog` to do the actual logging so it will look the same.

@@ -1,4 +1,4 @@
-package ginzero
+package gin
 
 import (
 	"fmt"
@@ -23,7 +23,7 @@ func NewWriter(level slog.Leveler) Writer {
 }
 
 // Make sure the writer struct implements ginzero.Writer.
-var _ = Writer(&writer{})
+var _ Writer = &writer{}
 
 // writer object returned by NewWriter function.
 type writer struct {

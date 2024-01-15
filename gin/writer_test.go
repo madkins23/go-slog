@@ -1,16 +1,17 @@
-package ginzero
+package gin
 
 import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"os"
 	"testing"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/phsym/console-slog"
 	"github.com/rs/zerolog"
-	"github.com/rs/zerolog/log"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/stretchr/testify/suite"
@@ -21,8 +22,8 @@ type WriterTestSuite struct {
 }
 
 func TestWriterSuite(t *testing.T) {
-	gin.DefaultWriter = NewWriter(zerolog.InfoLevel)
-	gin.DefaultErrorWriter = NewWriter(zerolog.ErrorLevel)
+	gin.DefaultWriter = NewWriter(slog.LevelInfo)
+	gin.DefaultErrorWriter = NewWriter(slog.LevelError)
 	defer func() {
 		gin.DefaultWriter = os.Stdout
 		gin.DefaultErrorWriter = os.Stderr
@@ -44,9 +45,9 @@ func (suite *WriterTestSuite) GinStartupTest() {
 			gn := gin.New()
 			require.NotNil(t, gn)
 		}, func(t *testing.T, record map[string]interface{}) {
-			assert.Equal(t, "warn", record["level"])
+			assert.Equal(t, "WARN", record[slog.LevelKey])
 			assert.Equal(t, "gin", record["sys"])
-			assert.Contains(t, record["message"], "Running in \"debug\" mode.")
+			assert.Contains(t, record[slog.MessageKey], "Running in \"debug\" mode.")
 		})
 }
 
@@ -58,8 +59,8 @@ func (suite *WriterTestSuite) TestDefault() {
 			_, err := gin.DefaultWriter.Write([]byte("TestDefault"))
 			require.NoError(t, err)
 		}, func(t *testing.T, record map[string]interface{}) {
-			assert.Equal(t, "info", record["level"])
-			assert.Contains(t, record["message"], "TestDefault")
+			assert.Equal(t, "INFO", record[slog.LevelKey])
+			assert.Contains(t, record[slog.MessageKey], "TestDefault")
 		})
 }
 
@@ -70,10 +71,9 @@ func (suite *WriterTestSuite) TestDefaultDebug() {
 		func(t *testing.T) {
 			_, err := gin.DefaultErrorWriter.Write([]byte("[DEBUG] TestDefaultDebug"))
 			require.NoError(t, err)
-		}, func(t *testing.T, record map[string]interface{}) {
-			assert.Equal(t, "debug", record["level"])
-			assert.Contains(t, record["message"], "TestDefaultDebug")
-		})
+		},
+		// Sending DEBUG to logger configured for INFO and above, no reponse.
+		nil)
 }
 
 // ----------------------------------------------------------------------------
@@ -84,8 +84,8 @@ func (suite *WriterTestSuite) TestDefaultGin() {
 			_, err := gin.DefaultErrorWriter.Write([]byte("[GIN] TestDefaultGin"))
 			require.NoError(t, err)
 		}, func(t *testing.T, record map[string]interface{}) {
-			assert.Equal(t, "error", record["level"])
-			assert.Contains(t, record["message"], "TestDefaultGin")
+			assert.Equal(t, "ERROR", record[slog.LevelKey])
+			assert.Contains(t, record[slog.MessageKey], "TestDefaultGin")
 		})
 }
 
@@ -107,8 +107,8 @@ func (suite *WriterTestSuite) TestDefaultWarning() {
 			_, err := gin.DefaultErrorWriter.Write([]byte("[WARNING] TestDefaultWarning"))
 			require.NoError(t, err)
 		}, func(t *testing.T, record map[string]interface{}) {
-			assert.Equal(t, "warn", record["level"])
-			assert.Contains(t, record["message"], "TestDefaultWarning")
+			assert.Equal(t, "WARN", record[slog.LevelKey])
+			assert.Contains(t, record[slog.MessageKey], "TestDefaultWarning")
 		})
 }
 
@@ -120,8 +120,8 @@ func (suite *WriterTestSuite) TestError() {
 			_, err := gin.DefaultErrorWriter.Write([]byte("TestError"))
 			require.NoError(t, err)
 		}, func(t *testing.T, record map[string]interface{}) {
-			assert.Equal(t, "error", record["level"])
-			assert.Contains(t, record["message"], "TestError")
+			assert.Equal(t, "ERROR", record[slog.LevelKey])
+			assert.Contains(t, record[slog.MessageKey], "TestError")
 		})
 }
 
@@ -133,8 +133,8 @@ func (suite *WriterTestSuite) TestErrorWarning() {
 			_, err := gin.DefaultErrorWriter.Write([]byte("[WARNING] TestErrorWarning"))
 			require.NoError(t, err)
 		}, func(t *testing.T, record map[string]interface{}) {
-			assert.Equal(t, "warn", record["level"])
-			assert.Contains(t, record["message"], "TestErrorWarning")
+			assert.Equal(t, "WARN", record[slog.LevelKey])
+			assert.Contains(t, record[slog.MessageKey], "TestErrorWarning")
 		})
 }
 
@@ -142,16 +142,17 @@ func (suite *WriterTestSuite) TestErrorWarning() {
 
 func (suite *WriterTestSuite) testLog(test func(t *testing.T), check func(t *testing.T, record map[string]interface{})) {
 	// Trap output from running log function.
-	zLog := log.Logger
-	defer func() { log.Logger = zLog }()
+	sLog := slog.Default()
+	defer slog.SetDefault(sLog)
 	buffer := &bytes.Buffer{}
-	log.Logger = zerolog.New(buffer)
+	slog.SetDefault(slog.New(slog.NewJSONHandler(buffer, nil)))
+
 	// Execute test.
 	test(suite.T())
 	if check != nil {
 		// Check log output which is in JSON.
 		var record map[string]interface{}
-		fmt.Println("JSON ", buffer.String())
+		fmt.Println("JSON: ", buffer.String())
 		suite.Require().NoError(json.Unmarshal(buffer.Bytes(), &record))
 		check(suite.T(), record)
 	}
@@ -160,19 +161,19 @@ func (suite *WriterTestSuite) testLog(test func(t *testing.T), check func(t *tes
 //////////////////////////////////////////////////////////////////////////
 
 func ExampleWriter() {
-	// Switch zerolog to console mode.
+	// Switch slog to phsym/slog-console.
 	zerolog.TimestampFunc = func() time.Time {
 		return time.Now().Local()
 	}
-	log.Logger = log.Output(zerolog.ConsoleWriter{
-		Out:     os.Stdout,
-		NoColor: true,
-		// Don't show duration or time as they mess up the Output comparison.
-		PartsExclude: []string{"time"},
-	})
+	logger := slog.New(console.NewHandler(os.Stdout, &console.HandlerOptions{
+		Level:      slog.LevelInfo,
+		TimeFormat: "<*>", // Don't want real time, too hard to match.
+		NoColor:    true,
+	}))
+	slog.SetDefault(logger)
 
-	gin.DefaultWriter = NewWriter(zerolog.InfoLevel)
-	gin.DefaultErrorWriter = NewWriter(zerolog.ErrorLevel)
+	gin.DefaultWriter = NewWriter(slog.LevelInfo)
+	gin.DefaultErrorWriter = NewWriter(slog.LevelError)
 	defer func() {
 		gin.DefaultWriter = os.Stdout
 		gin.DefaultErrorWriter = os.Stderr
@@ -180,7 +181,7 @@ func ExampleWriter() {
 	_ = gin.New()
 
 	// Output:
-	// WRN Running in "debug" mode. Switch to "release" mode in production.
+	// <*> WRN Running in "debug" mode. Switch to "release" mode in production.
 	//  - using env:	export GIN_MODE=release
 	//  - using code:	gin.SetMode(gin.ReleaseMode) sys=gin
 }
