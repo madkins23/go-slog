@@ -24,3 +24,7 @@ The tests implemented herein were inspired by:
   [`go-logging-benchmark`](https://github.com/betterstack-community/go-logging-benchmarks)
 * as well as some other test cases that seemed useful.
 
+## Replace Attributes Functions
+
+A small collection of functions in the `replace` package
+can be used with `slog.HandlerOptions.ReplaceAttr`.
