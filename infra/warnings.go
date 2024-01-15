@@ -146,7 +146,7 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 		if wrnMgr.Name != "" {
 			forHandler = " for " + wrnMgr.Name
 		}
-		_, _ = fmt.Fprintf(output, "Warnings%s:\n", forHandler)
+		_, _ = fmt.Fprintf(output, "\nWarnings%s:\n", forHandler)
 		for _, warning := range warnings {
 			_, _ = fmt.Fprintf(output, "  %4d %s\n", warning.Count, warning.Name)
 			for _, data := range warning.Data {

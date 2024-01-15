@@ -1,4 +1,4 @@
-package replace
+package infra
 
 import "log/slog"
 

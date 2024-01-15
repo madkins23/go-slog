@@ -357,6 +357,8 @@ you can either fix your handler or file a ticket.
 The `-useWarnings` flag tends to result in the results being buried in the normal `go test` output.
 This can be fixed by implementing a global [`TestMain()`](#testmain) function.
 
+Warnings will only be visible when running `go test` if the `-v` flag is used.
+
 ### `TestMain`
 
 Normally the warning results will show up in a block in the middle of `go test` output.

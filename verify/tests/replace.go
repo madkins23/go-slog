@@ -22,7 +22,7 @@ func (suite *SlogTestSuite) TestReplaceAttr() {
 		case "change":
 			return slog.String("bravo", a.Value.String())
 		case "remove":
-			return replace.EmptyAttr()
+			return infra.EmptyAttr()
 		}
 		return a
 	}))
@@ -70,7 +70,7 @@ func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 		ReplaceAttr: func(groups []string, a slog.Attr) slog.Attr {
 			switch a.Key {
 			case slog.TimeKey:
-				return replace.EmptyAttr()
+				return infra.EmptyAttr()
 			case slog.LevelKey:
 				return slog.String(slog.LevelKey, "Tilted")
 			case slog.MessageKey:
