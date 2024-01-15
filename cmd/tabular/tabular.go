@@ -3,6 +3,11 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log/slog"
+	"os"
+	"time"
+
+	"github.com/phsym/console-slog"
 
 	"github.com/madkins23/go-slog/infra"
 )
@@ -13,9 +18,16 @@ import (
 func main() {
 	flag.Parse() // Necessary for -json=<file> argument defined in infra package.
 
+	logger := slog.New(console.NewHandler(os.Stderr, &console.HandlerOptions{
+		Level:      slog.LevelInfo,
+		TimeFormat: time.TimeOnly,
+	}))
+	slog.SetDefault(logger)
+
 	var data infra.BenchData
 	if err := data.LoadBenchJSON(); err != nil {
-		fmt.Printf("* Error parsing benchmark JSON: %s\n", err)
+		slog.Error("Error parsing benchmark JSON", "err", err)
+		return
 	}
 
 	for _, bench := range data.BenchTags() {
