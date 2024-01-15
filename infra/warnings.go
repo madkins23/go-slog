@@ -20,6 +20,7 @@ const (
 	WarnGroupInline     = "Group with empty key does not inline subfields"
 	WarnLevelCase       = "Log level in lowercase"
 	WarnMessageKey      = "Wrong message key (should be 'msg')"
+	WarnDurationSeconds = "slog.Duration() logs seconds"
 	WarnNanoDuration    = "slog.Duration() doesn't log nanoseconds"
 	WarnNanoTime        = "slog.Time() doesn't log nanoseconds"
 	WarnNoReplAttr      = "HandlerOptions.ReplaceAttr not available"
@@ -31,6 +32,7 @@ const (
 	WarnUnused          = "Unused Warning(s)"
 	WarnZeroPC          = "SourceKey logged for zero PC"
 	WarnZeroTime        = "Zero time is logged"
+	WarnZeroTimeNow     = "Zero time is logged as current time"
 )
 
 // useWarnings is the flag value for enabling warnings instead of known errors.
@@ -146,7 +148,7 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 		if wrnMgr.Name != "" {
 			forHandler = " for " + wrnMgr.Name
 		}
-		_, _ = fmt.Fprintf(output, "\nWarnings%s:\n", forHandler)
+		_, _ = fmt.Fprintf(output, "Warnings%s:\n", forHandler)
 		for _, warning := range warnings {
 			_, _ = fmt.Fprintf(output, "  %4d %s\n", warning.Count, warning.Name)
 			for _, data := range warning.Data {
@@ -160,6 +162,7 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 				}
 			}
 		}
+		_, _ = fmt.Fprintln(output)
 	}
 }
 

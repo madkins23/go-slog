@@ -327,8 +327,12 @@ func (suite *SlogTestSuite) TestZeroTime() {
 		suite.Require().NoError(counter.Parse())
 		if counter.NumFields() == 3 {
 			if timeAny, found := logMap[slog.TimeKey]; found {
-				timeZero := suite.parseTime(timeAny)
-				suite.Assert().Equal(time.Time{}, timeZero, "time should be zero")
+				timeParsed := suite.parseTime(timeAny)
+				if !suite.HasWarning(infra.WarnZeroTimeNow) {
+					suite.Assert().Equal(time.Time{}, timeParsed, "time should be zero")
+				} else if timeParsed.Equal(time.Time{}) {
+					suite.AddWarning(infra.WarnUnused, infra.WarnZeroTimeNow, "")
+				}
 				suite.AddWarning(infra.WarnZeroTime, "", suite.Buffer.String())
 				return
 			}

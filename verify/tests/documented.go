@@ -6,6 +6,7 @@ import (
 	"log/slog"
 	"math"
 	"runtime"
+	"strconv"
 	"time"
 
 	"github.com/madkins23/go-slog/infra"
@@ -205,13 +206,18 @@ func (suite *SlogTestSuite) TestLogAttributes() {
 	}
 	howLong, ok := logMap["howLong"].(float64)
 	suite.True(ok)
-	if suite.HasWarning(infra.WarnNanoDuration) {
-		// Some handlers push out milliseconds instead of nanoseconds.
-		suite.Equal(float64(60000), howLong)
-	} else {
+
+	if !suite.HasWarning(infra.WarnNanoDuration) {
 		// Based on the existing behavior of log/slog it should be nanoseconds.
 		//goland:noinspection GoRedundantConversion
 		suite.Equal(float64(6e+10), howLong)
+	} else if !suite.HasWarning(infra.WarnDurationSeconds) {
+		// Some handlers push out milliseconds instead of nanoseconds.
+		suite.Equal(float64(60000), howLong)
+	} else if float64(60) != howLong {
+		suite.AddWarning(infra.WarnDurationSeconds,
+			strconv.FormatFloat(howLong, 'f', 3, 64),
+			suite.Buffer.String())
 	}
 	suite.Equal("snoofus", logMap["goober"])
 	suite.Equal(true, logMap["boolean"])
