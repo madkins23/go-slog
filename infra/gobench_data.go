@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"log/slog"
 	"os"
 	"regexp"
 	"sort"
@@ -110,7 +111,7 @@ func (bd *BenchData) LoadBenchJSON() error {
 		for _, bm := range suiteData.Benchmarks {
 			parts := strings.Split(bm.Name, "/")
 			if len(parts) != 2 {
-				fmt.Printf("* Name has %d parts: %s\n", len(parts), bm.Name)
+				slog.Warn("Name has wrong number of parts", "name", bm.Name, "parts", len(parts))
 				continue
 			}
 			handler := HandlerTag(parts[0])

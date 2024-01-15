@@ -5,8 +5,11 @@ import (
 	"flag"
 	"fmt"
 	"html/template"
+	"log/slog"
+	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/phsym/console-slog"
 
 	"github.com/madkins23/go-slog/infra"
 )
@@ -30,8 +33,17 @@ var (
 func main() {
 	flag.Parse() // Necessary for -json=<file> argument defined in infra package.
 
+	logger := slog.New(console.NewHandler(
+		os.Stderr, &console.HandlerOptions{Level: slog.LevelInfo}))
+	slog.SetDefault(logger)
+
+	/*
+		gin.DefaultWriter = ginzero.NewWriter(zerolog.InfoLevel)
+		gin.DefaultErrorWriter = ginzero.NewWriter(zerolog.ErrorLevel)
+	*/
+
 	if err := setup(); err != nil {
-		fmt.Printf("*** Error during setup: %s", err)
+		slog.Error("Error during setup", "err", err)
 		return
 	}
 
@@ -42,9 +54,9 @@ func main() {
 	router.GET("/style.css", textFunction(css))
 
 	// Listen and serve on 0.0.0.0:8080 (for windows "localhost:8080"). {
-	fmt.Println(">>> http://localhost:8080")
+	slog.Info("Web Server @ http://localhost:8080")
 	if err := router.Run(); err != nil {
-		fmt.Printf("*** Error during ListenAndServe(): %s", err)
+		slog.Error("Error during ListenAndServe()", "err", err)
 	}
 }
 
@@ -115,14 +127,14 @@ func pageFunction(page pageType) func(c *gin.Context) {
 			pageData.Handler = infra.HandlerTag(name)
 		}
 		if err := templates[page].Execute(c.Writer, pageData); err != nil {
-			fmt.Printf("*** Error in page function: %s", err)
+			slog.Error("Error in page function", "err", err)
 		}
 	}
 }
 
 func textFunction(text string) func(c *gin.Context) {
 	return func(c *gin.Context) {
-		fmt.Printf(">>> text:  %s\n", text)
+		slog.Debug("textFunction()", "text", text)
 		_, _ = c.Writer.Write([]byte(text))
 	}
 }
