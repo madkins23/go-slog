@@ -1,0 +1,27 @@
+<html>
+<head>
+  <title>Benchmark</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+
+<body>
+<div class="grid-container">
+  <div class="grid-child">
+    <h2>Benchmarks</h2>
+    <ul>
+      {{ range .Data.BenchTags }}
+        <li><a href="bench/{{ . }}">{{ . }}</a></li>
+      {{ end }}
+    </ul>
+  </div>
+  <div class="grid-child">
+    <h2>Handlers</h2>
+    <ul>
+      {{ range .Data.HandlerTags }}
+        <li><a href="handler/{{ . }}">{{ . }}</a></li>
+      {{ end }}
+    </ul>
+  </div>
+</div>
+</body>
+</html>

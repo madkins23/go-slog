@@ -9,6 +9,7 @@ import (
 	"regexp"
 	"sort"
 	"strings"
+	"time"
 )
 
 var jsonFile = flag.String("json", "", "Source JSON file (else stdin)")
@@ -40,11 +41,11 @@ type benchmarkData struct {
 
 // -----------------------------------------------------------------------------
 
-// BenchName is an alias for string so that types can't be confused.
-type BenchName string
+// BenchTag is an alias for string so that types can't be confused.
+type BenchTag string
 
-// HandlerName is an alias for string so that types can't be confused.
-type HandlerName string
+// HandlerTag is an alias for string so that types can't be confused.
+type HandlerTag string
 
 // BenchmarkRecord represents a single benchmark/handler test result.
 type BenchmarkRecord struct {
@@ -55,12 +56,15 @@ type BenchmarkRecord struct {
 	MemMbPerSec    int
 }
 
-// BenchData encapsulates benchmark records by BenchmarkName and HandlerName.
+// BenchData encapsulates benchmark records by BenchmarkName and HandlerTag.
 type BenchData struct {
-	byBenchmark map[BenchName]map[HandlerName]BenchmarkRecord
-	byHandler   map[HandlerName]map[BenchName]BenchmarkRecord
-	benches     []BenchName
-	handlers    []HandlerName
+	date         time.Time
+	byBenchmark  map[BenchTag]map[HandlerTag]BenchmarkRecord
+	byHandler    map[HandlerTag]map[BenchTag]BenchmarkRecord
+	benches      []BenchTag
+	handlers     []HandlerTag
+	benchNames   map[BenchTag]string
+	handlerNames map[HandlerTag]string
 }
 
 // -----------------------------------------------------------------------------
@@ -97,7 +101,7 @@ func (bd *BenchData) LoadBenchJSON() error {
 	}
 	testData := data[0]
 
-	// TODO: What about other test data?
+	bd.date = time.UnixMilli(int64(testData.Date))
 	if len(testData.Suites) != 1 {
 		return fmt.Errorf("suites array has %d items\n", len(testData.Suites))
 	}
@@ -109,24 +113,33 @@ func (bd *BenchData) LoadBenchJSON() error {
 				fmt.Printf("* Name has %d parts: %s\n", len(parts), bm.Name)
 				continue
 			}
-			handler := HandlerName(parts[0])
-			bench := BenchName(parts[1])
+			handler := HandlerTag(parts[0])
+			bench := BenchTag(parts[1])
 
 			if matches := ptnBenchName.FindSubmatch([]byte(bench)); matches != nil && len(matches) > 2 {
-				name := strings.TrimLeft(string(matches[1]), "_")
-				name = strings.Replace(name, "_", " ", -1)
-				bench = BenchName(fmt.Sprintf("%s (%s CPU)", name, string(matches[2])))
+				bench = BenchTag(strings.TrimLeft(string(matches[1]), "_"))
+				if bd.benchNames == nil {
+					bd.benchNames = make(map[BenchTag]string)
+				}
+				bd.benchNames[bench] =
+					fmt.Sprintf("%s (%s CPU)",
+						strings.Replace(string(bench), "_", " ", -1),
+						string(matches[2]))
 			}
+			if bd.handlerNames == nil {
+				bd.handlerNames = make(map[HandlerTag]string)
+			}
+			bd.handlerNames[handler] = strings.Replace(string(handler), "_", " ", -1)
 
 			if matches := ptnHandlerName.FindSubmatch([]byte(handler)); matches != nil && len(matches) > 1 {
-				handler = HandlerName(matches[1])
+				handler = HandlerTag(matches[1])
 			}
 
 			if bd.byBenchmark == nil {
-				bd.byBenchmark = make(map[BenchName]map[HandlerName]BenchmarkRecord)
+				bd.byBenchmark = make(map[BenchTag]map[HandlerTag]BenchmarkRecord)
 			}
 			if bd.byBenchmark[bench] == nil {
-				bd.byBenchmark[bench] = make(map[HandlerName]BenchmarkRecord)
+				bd.byBenchmark[bench] = make(map[HandlerTag]BenchmarkRecord)
 			}
 			bd.byBenchmark[bench][handler] = BenchmarkRecord{
 				Iterations:     bm.Runs,
@@ -137,10 +150,10 @@ func (bd *BenchData) LoadBenchJSON() error {
 			}
 
 			if bd.byHandler == nil {
-				bd.byHandler = make(map[HandlerName]map[BenchName]BenchmarkRecord)
+				bd.byHandler = make(map[HandlerTag]map[BenchTag]BenchmarkRecord)
 			}
 			if bd.byHandler[handler] == nil {
-				bd.byHandler[handler] = make(map[BenchName]BenchmarkRecord)
+				bd.byHandler[handler] = make(map[BenchTag]BenchmarkRecord)
 			}
 			bd.byHandler[handler][bench] = BenchmarkRecord{
 				Iterations:     bm.Runs,
@@ -156,8 +169,23 @@ func (bd *BenchData) LoadBenchJSON() error {
 
 // -----------------------------------------------------------------------------
 
-// Benches returns an array of all benchmark names sorted alphabetically.
-func (bd *BenchData) Benches() []BenchName {
+// BenchName returns the full name associated with a BenchTag.
+// If there is no full name the tag is returned.
+func (bd *BenchData) BenchName(bench BenchTag) string {
+	if name, found := bd.benchNames[bench]; found {
+		return name
+	} else {
+		return string(bench)
+	}
+}
+
+// BenchRecords returns a map of HandlerTag to BenchmarkRecord for the specified benchmark.
+func (bd *BenchData) BenchRecords(handler HandlerTag) map[BenchTag]BenchmarkRecord {
+	return bd.byHandler[handler]
+}
+
+// BenchTags returns an array of all benchmark names sorted alphabetically.
+func (bd *BenchData) BenchTags() []BenchTag {
 	if bd.benches == nil {
 		for bench := range bd.byBenchmark {
 			bd.benches = append(bd.benches, bench)
@@ -169,13 +197,23 @@ func (bd *BenchData) Benches() []BenchName {
 	return bd.benches
 }
 
-// HandlerRecords returns a map of HandlerName to BenchmarkRecord for the specified benchmark.
-func (bd *BenchData) HandlerRecords(bench BenchName) map[HandlerName]BenchmarkRecord {
+// HandlerName returns the full name associated with a HandlerTag.
+// If there is no full name the tag is returned.
+func (bd *BenchData) HandlerName(handler HandlerTag) string {
+	if name, found := bd.handlerNames[handler]; found {
+		return name
+	} else {
+		return string(handler)
+	}
+}
+
+// HandlerRecords returns a map of HandlerTag to BenchmarkRecord for the specified benchmark.
+func (bd *BenchData) HandlerRecords(bench BenchTag) map[HandlerTag]BenchmarkRecord {
 	return bd.byBenchmark[bench]
 }
 
-// Handlers returns an array of all handler names sorted alphabetically.
-func (bd *BenchData) Handlers() []HandlerName {
+// HandlerTags returns an array of all handler names sorted alphabetically.
+func (bd *BenchData) HandlerTags() []HandlerTag {
 	if bd.handlers == nil {
 		for handler := range bd.byHandler {
 			bd.handlers = append(bd.handlers, handler)
@@ -185,6 +223,10 @@ func (bd *BenchData) Handlers() []HandlerName {
 		})
 	}
 	return bd.handlers
+}
+
+func (bd *BenchData) Date() time.Time {
+	return bd.date
 }
 
 // -----------------------------------------------------------------------------

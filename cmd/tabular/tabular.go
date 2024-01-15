@@ -18,13 +18,13 @@ func main() {
 		fmt.Printf("* Error parsing benchmark JSON: %s\n", err)
 	}
 
-	for _, bench := range data.Benches() {
+	for _, bench := range data.BenchTags() {
 		fmt.Printf("\nBenchmark %s\n", bench)
 		fmt.Println("  Handler                    Runs     Ns/Op  Bytes/Op Allocs/Op    MB/Sec")
 		fmt.Println("  -----------------------------------------------------------------------")
 
 		handlerRecords := data.HandlerRecords(bench)
-		for _, handler := range data.Handlers() {
+		for _, handler := range data.HandlerTags() {
 			handlerRecord := handlerRecords[handler]
 			fmt.Printf("  %-20s  %9d %9.3f %9d %9d %9d\n",
 				handler, handlerRecord.Iterations, handlerRecord.NanosPerOp,

@@ -1,0 +1,39 @@
+body {
+    background-color: gray;
+}
+
+table {
+    margin: 5px;
+    padding: 5px;
+}
+
+table td, th {
+    margin: 5px;
+    padding: 5px;
+}
+
+table td {
+    border: 2px inset darkgray;
+}
+
+.number {
+    text-align: right;
+}
+
+.centered {
+    text-align: center;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+    width: 50%;
+    horiz-align: center;
+    padding: 4px
+}
+
+.grid-child {
+    border: 2px groove darkgray;
+    padding: 4px
+}
