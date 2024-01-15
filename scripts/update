@@ -1,4 +1,6 @@
 #!/bin/bash
 
+# Tidy and update module references.
+
 go mod tidy
 go get -u ./...

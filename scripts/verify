@@ -1,3 +1,5 @@
 #!/bin/bash
 
+# Run verify tests with warnings.
+
 go test -v ./verify -args -useWarnings
