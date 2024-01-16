@@ -54,6 +54,8 @@ Supporting files:
   A `struct` that implements the
   [`slog.LogValuer`](https://pkg.go.dev/log/slog@master#LogValuer)
   interface for testing.
+* `warnings.go`  
+  Warnings specific to the test suite.
 
 Inherited:
 

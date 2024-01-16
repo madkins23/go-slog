@@ -42,15 +42,17 @@ func Test_slog(t *testing.T) {
 }
 ```
 The file itself must have the `_test.go` suffix and
-contain a function with a name beginning with 'Test' in order to be executed as a test.
+contain a function with a name beginning with `Test` in order to be executed as a test.
 In this instance `slog_test.go` contains function `Test_slog`.
 
 The first line in `Test_slog` creates a new test suite.
 The argument to the `NewSlogTestSuite` function is an [`infra.Creator`](../infra/creator.go) object,
-which is a object for creating new `slog.Handler` objects during testing.
-In this case a factory for creating `slog.JSONHandler` objects
-is created by the `creator.Slog` function that is already defined.
-In order to test a new `slog.Handler` (one that has not been tested in this repository)
+which is responsible for creating new `slog.Logger`
+(and optionally `slog.Handler`) objects during testing.
+In this case an appropriate factory is created by the `creator.Slog` function
+that is already defined in the `creator` package.
+In order to test a new handler instance
+(one that has not been tested in this repository)
 it is necessary to [create a new `infra.Creator`](#creators) for it.
 Existing examples can be found in the `creator` package.
 
@@ -69,9 +71,13 @@ In short:
 This package contains several examples, including the one above:
 * [`slog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_test.go)
   Verifies the standard [`slog.JSONHandler`](https://pkg.go.dev/log/slog@master#JSONHandler).
-* [`slog_zerolog_phsym_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_phsym_zerolog_test.go)
+* [`slog_darvaza_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_darvaza_zerolog_test.go)
+  Verifies the [`zerolog` handler](https://pkg.go.dev/darvaza.org/slog/handlers/zerolog).
+* [`slog_phsym_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_phsym_zerolog_test.go)
   Verifies the [`zeroslog` handler](https://github.com/phsym/zeroslog/tree/2bf737d6422a5de048845cd3bdd2db6363555eb4).
-* [`slog_zerolog_samber_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
+* [`slog_samber_zap_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
+  Verifies the [`slog-zap` handler](https://github.com/samber/slog-zap).
+* [`slog_samber_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
   Verifies the [`slog-zerolog` handler](https://github.com/samber/slog-zerolog).
 
 In addition, there is a [`main_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/main_test.go) file which exists to provide
