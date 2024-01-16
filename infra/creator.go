@@ -47,7 +47,11 @@ func (c *Creator) NewLogger(w io.Writer, options *slog.HandlerOptions) *slog.Log
 // NewHandler returns a new slog.Handler object.
 // The actual creation is done by invoking the embedded CreateHandlerFn.
 func (c *Creator) NewHandler(w io.Writer, options *slog.HandlerOptions) slog.Handler {
-	return c.handlerFn(w, options)
+	if c.handlerFn != nil {
+		return c.handlerFn(w, options)
+	} else {
+		return nil
+	}
 }
 
 func (c *Creator) CanMakeHandler() bool {
