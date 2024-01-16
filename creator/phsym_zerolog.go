@@ -11,15 +11,16 @@ import (
 
 // SlogPhsymZerolog returns a Creator object for the phsym/zeroslog handler.
 func SlogPhsymZerolog() infra.Creator {
-	return infra.NewCreator("phsym/zeroslog", SlogPhsymZerologHandlerFn)
+	return &phsymZeroCreator{CreatorData: infra.NewCreatorData("phsym/zeroslog")}
 }
 
-var _ infra.CreatorFn = SlogPhsymZerologHandlerFn
+type phsymZeroCreator struct {
+	infra.CreatorData
+}
 
-// SlogPhsymZerologHandlerFn returns a new slog.Handler for phsym/zeroslog.
-func SlogPhsymZerologHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
-	return zeroslog.NewJsonHandler(w, &zeroslog.HandlerOptions{
+func (c *phsymZeroCreator) NewLogger(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
+	return slog.New(zeroslog.NewJsonHandler(w, &zeroslog.HandlerOptions{
 		Level:     options.Level,
 		AddSource: options.AddSource,
-	})
+	}))
 }

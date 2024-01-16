@@ -13,13 +13,14 @@ import (
 
 // SlogSamberZap returns a Creator object for the samber/slog-zerolog handler.
 func SlogSamberZap() infra.Creator {
-	return infra.NewCreator("samber/slog-zap", SlogSamberZapHandlerFn)
+	return &samberZapCreator{CreatorData: infra.NewCreatorData("samber/slog-zap")}
 }
 
-var _ infra.CreatorFn = SlogSamberZerologHandlerFn
+type samberZapCreator struct {
+	infra.CreatorData
+}
 
-// SlogSamberZapHandlerFn returns a new slog.Handler for samber/slog-zerolog.
-func SlogSamberZapHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
+func (c *samberZapCreator) NewLogger(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
 	level := options.Level
 	if level == nil {
 		level = slog.LevelInfo
@@ -27,7 +28,7 @@ func SlogSamberZapHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Hand
 	productionCfg := zap.NewProductionEncoderConfig()
 	productionCfg.TimeKey = "time"
 	productionCfg.EncodeTime = zapcore.RFC3339TimeEncoder
-	return slogzap.Option{
+	return slog.New(slogzap.Option{
 		Level: level,
 		Logger: zap.New(zapcore.NewCore(
 			zapcore.NewJSONEncoder(productionCfg),
@@ -36,7 +37,7 @@ func SlogSamberZapHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Hand
 		Converter:   nil,
 		AddSource:   options.AddSource,
 		ReplaceAttr: options.ReplaceAttr,
-	}.NewZapHandler()
+	}.NewZapHandler())
 }
 
 // convertSlogLevel maps slog Levels to zap Levels.

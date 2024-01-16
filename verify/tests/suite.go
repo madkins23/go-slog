@@ -42,5 +42,5 @@ func (suite *SlogTestSuite) SetupTest() {
 
 // Logger returns a new slog.Logger with the specified options.
 func (suite *SlogTestSuite) Logger(options *slog.HandlerOptions) *slog.Logger {
-	return slog.New(suite.Creator.NewHandle(suite.Buffer, options))
+	return suite.Creator.NewLogger(suite.Buffer, options)
 }

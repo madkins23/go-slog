@@ -10,16 +10,16 @@ import (
 	"github.com/madkins23/go-slog/infra"
 )
 
-// SlogSamberZerolog returns a Creator object for the samber/slog-zerolog handler.
-func SlogSamberZerolog() infra.Creator {
-	return &samberZeroCreator{CreatorData: infra.NewCreatorData("samber/slog-zerolog")}
+// SlogDarvazaZerolog returns a Creator object for the darvaza/zerolog handler.
+func SlogDarvazaZerolog() infra.Creator {
+	return &darvazaZeroCreator{CreatorData: infra.NewCreatorData("darvaza/zerolog")}
 }
 
-type samberZeroCreator struct {
+type darvazaZeroCreator struct {
 	infra.CreatorData
 }
 
-func (c *samberZeroCreator) NewLogger(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
+func (c *darvazaZeroCreator) NewLogger(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
 	zeroLogger := zerolog.New(w)
 	return slog.New(samber.Option{
 		Logger:      &zeroLogger,

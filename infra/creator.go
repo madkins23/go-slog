@@ -5,31 +5,36 @@ import (
 	"log/slog"
 )
 
-// A CreatorFn is a function that can create new slog.Handler objects.
-type CreatorFn func(w io.Writer, options *slog.HandlerOptions) slog.Handler
-
 // A Creator object encapsulates the creation of new slog.Handler objects.
 // This includes both the name of the handler and a CreatorFn.
-type Creator struct {
-	name string
-	fn   CreatorFn
+type Creator interface {
+	CreatorData
+
+	// NewLogger returns a new slog.Logger for the specified writer and options.
+	NewLogger(w io.Writer, options *slog.HandlerOptions) *slog.Logger
 }
 
-// NewCreator returns a new Creator object for the specified CreatorFn.
-func NewCreator(name string, fn CreatorFn) Creator {
-	return Creator{
+// -----------------------------------------------------------------------------
+
+// A CreatorData object encapsulates any ancillary Creator data.
+type CreatorData interface {
+	// Name returns the name of the slog.Logger to be created.
+	Name() string
+}
+
+// creatorData instantiates the CreatorData interface.
+type creatorData struct {
+	name string
+}
+
+// NewCreatorData returns a new Creator object for the specified CreatorFn.
+func NewCreatorData(name string) CreatorData {
+	return &creatorData{
 		name: name,
-		fn:   fn,
 	}
 }
 
-// NewHandle returns a new slog.Handler for the specified writer and options.
-// The actual creation is done by invoking the embedded CreatorFn.
-func (c *Creator) NewHandle(w io.Writer, options *slog.HandlerOptions) slog.Handler {
-	return c.fn(w, options)
-}
-
-// Name returns the name of the handler.
-func (c *Creator) Name() string {
+// Name returns the name of the slog.Logger to be created.
+func (c *creatorData) Name() string {
 	return c.name
 }

@@ -16,7 +16,7 @@ There are two main benefits to using `slog`:
 
 The second benefit justifies a strong verification suite.
 
-## Simple Example
+### Simple Example
 
 Verification of a `slog` handler using the `verify` test suite is fairly simple.
 The following [code](https://github.com/madkins23/go-slog/blob/main/verify/slog_test.go)
@@ -26,19 +26,18 @@ runs the test suite on `slog.JSONHandler`:
 package verify
 
 import (
-  "testing"
+    "testing"
 
     "github.com/stretchr/testify/suite"
 
     "github.com/madkins23/go-slog/creator"
-    "github.com/madkins23/go-slog/infra"
     "github.com/madkins23/go-slog/verify/tests"
 )
 
 // Test_slog runs tests for the log/slog JSON handler.
 func Test_slog(t *testing.T) {
     slogSuite := tests.NewSlogTestSuite(creator.Slog())
-    slogSuite.WarnOnly(infra.WarnDuplicates)
+    slogSuite.WarnOnly(tests.WarnDuplicates)
     suite.Run(t, slogSuite)
 }
 ```
@@ -47,12 +46,12 @@ contain a function with a name beginning with 'Test' in order to be executed as 
 In this instance `slog_test.go` contains function `Test_slog`.
 
 The first line in `Test_slog` creates a new test suite.
-The argument to the `NewSlogTestSuite` function is an `infra.Creator` object,
+The argument to the `NewSlogTestSuite` function is an [`infra.Creator`](../infra/creator.go) object,
 which is a object for creating new `slog.Handler` objects during testing.
 In this case a factory for creating `slog.JSONHandler` objects
 is created by the `creator.Slog` function that is already defined.
 In order to test a new `slog.Handler` (one that has not been tested in this repository)
-it is necessary to create a new `infra.Creator` for it.
+it is necessary to [create a new `infra.Creator`](#creators) for it.
 Existing examples can be found in the `creator` package.
 
 Once the test suite exists the second line configures a warning to be tracked.
@@ -78,7 +77,7 @@ This package contains several examples, including the one above:
 In addition, there is a [`main_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/main_test.go) file which exists to provide
 a global resource to the other tests ([described below](#testmain)).
 
-## Running Tests
+### Running Tests
 
 Run the handler verification tests installed in this repository with:
 ```shell
@@ -91,7 +90,7 @@ the [`scripts/verify`](https://github.com/madkins23/go-slog/blob/main/scripts/ve
 **Note**:  running `go test ./... -args -useWarnings` will fail as
 the other tests in the repository don't recognize the `-useWarnings` flag.
 
-### Test Flags
+#### Test Flags
 
 There are two flags defined for testing the verification code:
 * `-debug=<level>`  
@@ -104,7 +103,7 @@ There are two flags defined for testing the verification code:
   When this flag is present tests succeed and warnings are presented
   in the `go test` output.
 
-## Caveats
+### Caveats
 
 The test harness that drives verification has some limitations.
 
@@ -114,13 +113,29 @@ Text and console handlers don't have a consistent format.
 While it might be useful to test those handlers as well,
 the difficulty of parsing various output formats argues against it.[^2]
 
-_The test suite interface to `slog` logging is via `slog.Handler`_.
-This is a well-defined interface and the obvious place to swap in
-a different logging backend.
-This makes loggers that directly implement `slog`-like behavior
-without instantiating a `slog.Handler`
-(e.g. the [darvaza loggers](https://github.com/darvaza-proxy/slog))
-inappropriate for this test suite.
+## Creators
+
+A [`infra.Creator`](../infra/creator.go) object is a factory used to generate
+`slog.Logger` objects for testing.
+A number of predefined `Creator` objects can be found in the [`creator` package](../creator).
+The simplest of these returns loggers for the
+[`slog.NewJSONHandler`](https://pkg.go.dev/log/slog@master#JSONHandler)
+handler.
+
+```Go
+// Slog returns a Creator object for the log/slog.JSONHandler.
+func Slog() infra.Creator {
+	return &slogCreator{CreatorData: infra.NewCreatorData("log/slog.JSONHandler")}
+}
+
+type slogCreator struct {
+	infra.CreatorData
+}
+
+func (c *slogCreator) NewLogger(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
+	return slog.New(slog.NewJSONHandler(w, options))
+}
+```
 
 ## Warnings
 

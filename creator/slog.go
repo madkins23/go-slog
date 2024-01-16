@@ -9,12 +9,13 @@ import (
 
 // Slog returns a Creator object for the log/slog.JSONHandler.
 func Slog() infra.Creator {
-	return infra.NewCreator("log/slog.JSONHandler", slogHandlerFn)
+	return &slogCreator{CreatorData: infra.NewCreatorData("log/slog.JSONHandler")}
 }
 
-var _ infra.CreatorFn = slogHandlerFn
+type slogCreator struct {
+	infra.CreatorData
+}
 
-// slogHandlerFn returns a new slog.Handler for log/slog.NewJSONHandler.
-func slogHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
-	return slog.NewJSONHandler(w, options)
+func (c *slogCreator) NewLogger(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
+	return slog.New(slog.NewJSONHandler(w, options))
 }
