@@ -162,39 +162,30 @@ The test suite will succeed (`PASS`) and the following result data will show at 
 
 ```
 Warnings for phsym/zeroslog:
-     2 Duplicate field(s) found
-       TestAttributeDuplicate: map[alpha:2 charlie:3]
-       TestAttributeWithDuplicate: map[alpha:2 charlie:3]
+  Required
      1 Empty (sub)group(s) logged
        TestGroupWithMultiSubEmpty
-         {"level":"info","first":"one","group":{"second":2,"third":"3","subGroup":{}},"time":"2024-01-15T08:14:19-08:00","message":"This is a message"}
+         {"level":"info","first":"one","group":{"second":2,"third":"3","subGroup":{}},"time":"2024-01-15T17:36:33-08:00","message":"This is a message"}
      2 Empty attribute(s) logged ("":null)
        TestAttributeWithEmpty
-         {"level":"info","":null,"first":"one","pi":3.141592653589793,"time":"2024-01-15T08:14:19-08:00","message":"This is a message"}
+         {"level":"info","":null,"first":"one","pi":3.141592653589793,"time":"2024-01-15T17:36:33-08:00","message":"This is a message"}
        TestAttributesEmpty
-         {"level":"info","first":"one","":null,"pi":3.141592653589793,"time":"2024-01-15T08:14:19-08:00","message":"This is a message"}
+         {"level":"info","first":"one","":null,"pi":3.141592653589793,"time":"2024-01-15T17:36:33-08:00","message":"This is a message"}
      1 Group with empty key does not inline subfields
        TestGroupInline
-         {"level":"info","first":"one","":{"second":2,"third":"3","fourth":"forth"},"pi":3.141592653589793,"time":"2024-01-15T08:14:19-08:00","message":"This is a message"}
+         {"level":"info","first":"one","":{"second":2,"third":"3","fourth":"forth"},"pi":3.141592653589793,"time":"2024-01-15T17:36:33-08:00","message":"This is a message"}
+     1 Zero time is logged
+       TestZeroTime: 0001-01-01T00:00:00Z
+         {"level":"info","time":"0001-01-01T00:00:00Z","message":"This is a message"}
+  Implied
      4 HandlerOptions.ReplaceAttr not available
        TestReplaceAttr: too many attributes: 6, alpha == beta, change still exists, remove still exists
        TestReplaceAttrBasic: too many attributes: 4, time field still exists, message field still exists, source == <nil>
        TestReplaceAttrFnLevelCase: level value not null
        TestReplaceAttrFnRemoveTime: time value not empty string
-    10 Log level in lowercase
-       TestCancelledContext: 'info'
-       TestCancelledContext: 'info'
-       TestKey: 'info'
-       TestKeyCase: 'debug'
-       TestKeyCase: 'info'
-       TestKeyCase: 'warn'
-       TestKeyCase: 'error'
-       TestKeys: 'info'
-       TestZeroPC: 'info'
-       TestZeroTime: 'info'
      1 Source data not logged when AddSource flag set
        TestKey: no 'source' key
-         {"level":"info","caller":"/snap/go/current/src/reflect/value.go:596","time":"2024-01-15T08:14:19-08:00","message":"This is a message"}
+         {"level":"info","caller":"/snap/go/current/src/reflect/value.go:596","time":"2024-01-15T17:36:33-08:00","message":"This is a message"}
      6 Wrong message key (should be 'msg')
        TestCancelledContext: `message`
        TestCancelledContext: `message`
@@ -202,9 +193,23 @@ Warnings for phsym/zeroslog:
        TestKeys: `message`
        TestZeroPC: `message`
        TestZeroTime: `message`
-     1 Zero time is logged
-       TestZeroTime
-         {"level":"info","time":"0001-01-01T00:00:00Z","message":"This is a message"}
+  Suggested
+     2 Duplicate field(s) found
+       TestAttributeDuplicate: map[alpha:2 charlie:3]
+       TestAttributeWithDuplicate: map[alpha:2 charlie:3]
+    10 Log level in lowercase
+       TestCancelledContext: 'info'
+       TestCancelledContext: 'info'
+       TestKey: 'info'
+       TestKeyCase: 'warn'
+       TestKeyCase: 'error'
+       TestKeyCase: 'debug'
+       TestKeyCase: 'info'
+       TestKeys: 'info'
+       TestZeroPC: 'info'
+       TestZeroTime: 'info'
+     1 slog.Duration() logs milliseconds instead of nanoseconds
+       TestLogAttributes
 ```
 
 ### Warning Result Format

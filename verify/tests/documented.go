@@ -198,30 +198,35 @@ func (suite *SlogTestSuite) TestLogAttributes() {
 	suite.True(ok)
 	if suite.HasWarning(WarnTimeMillis) {
 		// Some handlers log times as RFC3339 instead of RFC3339Nano
-		suite.Equal(t.Format(time.RFC3339), when)
+		if t.Format(time.RFC3339) == when {
+			suite.AddWarning(WarnTimeMillis, when, "")
+		} else {
+			suite.AddUnused(WarnTimeMillis, "")
+		}
 	} else {
 		// Based on the existing behavior of log/slog it should be RFC3339Nano.
 		suite.Equal(t.Format(time.RFC3339Nano), when)
-		suite.AddUnused(WarnTimeMillis, "")
 	}
 	howLong, ok := logMap["howLong"].(float64)
 	suite.True(ok)
-
 	if suite.HasWarning(WarnDurationSeconds) {
 		// Some handlers push out seconds instead of nanoseconds.
-		suite.Equal(float64(60), howLong)
-		suite.AddWarning(WarnDurationSeconds, "", "")
+		if howLong == float64(60) {
+			suite.AddWarning(WarnDurationSeconds, "", "")
+		} else {
+			suite.AddUnused(WarnDurationSeconds, "")
+		}
 	} else if suite.HasWarning(WarnDurationMillis) {
 		// Some handlers push out milliseconds instead of nanoseconds.
-		suite.Equal(float64(60000), howLong)
-		suite.AddWarning(WarnDurationMillis, "", "")
+		if howLong == float64(60000) {
+			suite.AddWarning(WarnDurationMillis, "", "")
+		} else {
+			suite.AddUnused(WarnDurationMillis, "")
+		}
 	} else {
 		// Based on the existing behavior of log/slog it should be nanoseconds.
 		//goland:noinspection GoRedundantConversion
 		suite.Equal(float64(6e+10), howLong)
-		for _, warning := range suite.HasWarnings(WarnDurationSeconds, WarnDurationMillis) {
-			suite.AddUnused(warning, "")
-		}
 	}
 	suite.Equal("snoofus", logMap["goober"])
 	suite.Equal(true, logMap["boolean"])
