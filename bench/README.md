@@ -70,13 +70,13 @@ a global resource to the other tests ([described below](#testmain)).
 
 Run the handler verification tests installed in this repository with:
 ```shell
-go test -v -bench=. bench/*.go
+go test -bench=. bench/*.go
 ```
 
 Due to the way Go benchmark testing is configured
 it is not possible to gather results internally.
 Processing of results must be done using external tools
-such as [`gobenchdata`](https://github.com/bobheadxi/gobenchdata)
+such as [`gobenchdata`](https://github.com/bobheadxi/gobenchdata)[^1]
 and the command [`tabular`](../cmd/tabular/tabular.go)
 in this repository.
 
@@ -98,3 +98,8 @@ There is one flag defined for testing the verification code:
 * Some tests are skipped because the require a `slog.Handler` object
   which is not available for some handler instances
   (e.g. [`darvaza`](https://github.com/darvaza-proxy/slog)) handlers.
+
+---
+
+[^1]: Don't use `-v` in the `go test -bench` command when using `gobenchdata`.
+      Apparently this adds extra lines that `gobenchdata` can't properly parse.
