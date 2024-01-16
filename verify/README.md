@@ -123,19 +123,29 @@ The simplest of these returns loggers for the
 handler.
 
 ```Go
+package creator
+
+import (
+  "io"
+  "log/slog"
+
+  "github.com/madkins23/go-slog/infra"
+)
+
 // Slog returns a Creator object for the log/slog.JSONHandler.
 func Slog() infra.Creator {
-	return &slogCreator{CreatorData: infra.NewCreatorData("log/slog.JSONHandler")}
+  return infra.NewCreator("log/slog.JSONHandler", SlogHandlerFn)
 }
 
-type slogCreator struct {
-	infra.CreatorData
-}
-
-func (c *slogCreator) NewLogger(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
-	return slog.New(slog.NewJSONHandler(w, options))
+func SlogHandlerFn(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
+  return slog.New(slog.NewJSONHandler(w, options))
 }
 ```
+
+Creation of a new `infra.Creator` object is fairly simple.
+The `infra.NewCreator` function takes the name of the handler package
+and a function that returns a new `*slog.Logger`.
+That function should match `infra.CreatorFn`.
 
 ## Warnings
 

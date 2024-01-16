@@ -59,8 +59,3 @@ Inherited:
 
 * [`infra.WarningManager`](https://github.com/madkins23/go-slog/blob/main/infra/warnings.go)  
   The code that manages verification warnings is currently located in the `infra` package.
-
-## Notes
-
-* All files in `verify/tests` are for the suite, broken up by category of tests.
-* Some stuff is inherited from `infra`, but warning code shouldn't be?

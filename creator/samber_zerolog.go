@@ -12,14 +12,10 @@ import (
 
 // SlogSamberZerolog returns a Creator object for the samber/slog-zerolog handler.
 func SlogSamberZerolog() infra.Creator {
-	return &samberZeroCreator{CreatorData: infra.NewCreatorData("samber/slog-zerolog")}
+	return infra.NewCreator("samber/slog-zerolog", SlogSamberZerologHandlerFn)
 }
 
-type samberZeroCreator struct {
-	infra.CreatorData
-}
-
-func (c *samberZeroCreator) NewLogger(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
+func SlogSamberZerologHandlerFn(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
 	zeroLogger := zerolog.New(w)
 	return slog.New(samber.Option{
 		Logger:      &zeroLogger,

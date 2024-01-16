@@ -13,14 +13,10 @@ import (
 
 // SlogSamberZap returns a Creator object for the samber/slog-zerolog handler.
 func SlogSamberZap() infra.Creator {
-	return &samberZapCreator{CreatorData: infra.NewCreatorData("samber/slog-zap")}
+	return infra.NewCreator("samber/slog-zap", SlogSamberZapHandlerFn)
 }
 
-type samberZapCreator struct {
-	infra.CreatorData
-}
-
-func (c *samberZapCreator) NewLogger(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
+func SlogSamberZapHandlerFn(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
 	level := options.Level
 	if level == nil {
 		level = slog.LevelInfo
