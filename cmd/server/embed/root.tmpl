@@ -10,7 +10,7 @@
     <h2>Benchmarks</h2>
     <ul>
       {{ range .Data.BenchTags }}
-        <li><a href="bench/{{ . }}">{{ . }}</a></li>
+        <li><a href="bench/{{ . }}">{{ $.Data.BenchName . }}</a></li>
       {{ end }}
     </ul>
   </div>
@@ -18,7 +18,7 @@
     <h2>Handlers</h2>
     <ul>
       {{ range .Data.HandlerTags }}
-        <li><a href="handler/{{ . }}">{{ . }}</a></li>
+        <li><a href="handler/{{ . }}">{{ $.Data.HandlerName . }}</a></li>
       {{ end }}
     </ul>
   </div>

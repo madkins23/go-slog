@@ -127,10 +127,22 @@ func (bd *BenchData) LoadBenchJSON() error {
 						strings.Replace(string(bench), "_", " ", -1),
 						string(matches[2]))
 			}
+
+			handler = HandlerTag(strings.TrimLeft(strings.TrimPrefix(string(handler), "Benchmark_slog"), "_"))
+			parts = strings.Split(strings.TrimLeft(string(handler), "_"), "_")
 			if bd.handlerNames == nil {
 				bd.handlerNames = make(map[HandlerTag]string)
 			}
-			bd.handlerNames[handler] = strings.Replace(string(handler), "_", " ", -1)
+			for i, part := range parts {
+				if len(part) > 0 {
+					parts[i] = strings.ToUpper(part[:1]) + part[1:]
+				}
+			}
+			bd.handlerNames[handler] = strings.Join(parts, " ")
+			if bd.handlerNames[handler] == "" {
+				// Special case, by this point nothing is left.
+				bd.handlerNames[handler] = "slog.JSONHandler"
+			}
 
 			if matches := ptnHandlerName.FindSubmatch([]byte(handler)); matches != nil && len(matches) > 1 {
 				handler = HandlerTag(matches[1])
