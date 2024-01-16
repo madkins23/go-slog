@@ -12,10 +12,10 @@ import (
 
 // SlogDarvazaZerolog returns a Creator object for the darvaza/zerolog handler.
 func SlogDarvazaZerolog() infra.Creator {
-	return infra.NewCreator("darvaza/zerolog", SlogDarvazaZerologHandlerFn)
+	return infra.NewCreator("darvaza/zerolog", nil, SlogDarvazaZerologLoggerFn)
 }
 
-func SlogDarvazaZerologHandlerFn(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
+func SlogDarvazaZerologLoggerFn(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
 	zeroLogger := zerolog.New(w)
 	return slog.New(samber.Option{
 		Logger:      &zeroLogger,

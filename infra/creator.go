@@ -3,30 +3,55 @@ package infra
 import (
 	"io"
 	"log/slog"
+	"os"
 )
 
-// A CreatorFn is a function that can create new slog.Handler objects.
-type CreatorFn func(w io.Writer, options *slog.HandlerOptions) *slog.Logger
+// CreateLoggerFn is a function that can create new slog.Logger objects.
+type CreateLoggerFn func(w io.Writer, options *slog.HandlerOptions) *slog.Logger
+
+// CreateHandlerFn is a function that can create new slog.Handler objects.
+type CreateHandlerFn func(w io.Writer, options *slog.HandlerOptions) slog.Handler
 
 // A Creator object encapsulates the creation of new slog.Handler objects.
-// This includes both the name of the handler and a CreatorFn.
+// This includes both the name of the handler and a CreateLoggerFn.
 type Creator struct {
-	name string
-	fn   CreatorFn
+	name      string
+	handlerFn CreateHandlerFn
+	loggerFn  CreateLoggerFn
 }
 
-// NewCreator returns a new Creator object for the specified name and CreatorFn.
-func NewCreator(name string, fn CreatorFn) Creator {
+// NewCreator returns a new Creator object for the specified name and CreateLoggerFn.
+func NewCreator(name string, handlerFn CreateHandlerFn, loggerFn CreateLoggerFn) Creator {
+	if handlerFn == nil && loggerFn == nil {
+		slog.Error("Creator must have either handlerFn or loggerFn")
+		os.Exit(1)
+	}
 	return Creator{
-		name: name,
-		fn:   fn,
+		name:      name,
+		handlerFn: handlerFn,
+		loggerFn:  loggerFn,
 	}
 }
 
 // NewLogger returns a new slog.Logger object.
-// The actual creation is done by invoking the embedded CreatorFn.
+// The actual creation is done by invoking the embedded CreateLoggerFn,
+// if it is non-nil, or the embedded CreateHandlerFn.
 func (c *Creator) NewLogger(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
-	return c.fn(w, options)
+	if c.loggerFn != nil {
+		return c.loggerFn(w, options)
+	} else {
+		return slog.New(c.handlerFn(w, options))
+	}
+}
+
+// NewHandler returns a new slog.Handler object.
+// The actual creation is done by invoking the embedded CreateHandlerFn.
+func (c *Creator) NewHandler(w io.Writer, options *slog.HandlerOptions) slog.Handler {
+	return c.handlerFn(w, options)
+}
+
+func (c *Creator) CanMakeHandler() bool {
+	return c.handlerFn != nil
 }
 
 // Name returns the name of the slog package.

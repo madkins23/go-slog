@@ -9,9 +9,9 @@ import (
 
 // Slog returns a Creator object for the log/slog.JSONHandler.
 func Slog() infra.Creator {
-	return infra.NewCreator("log/slog.JSONHandler", SlogHandlerFn)
+	return infra.NewCreator("log/slog.JSONHandler", SlogHandlerFn, nil)
 }
 
-func SlogHandlerFn(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
-	return slog.New(slog.NewJSONHandler(w, options))
+func SlogHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
+	return slog.NewJSONHandler(w, options)
 }
