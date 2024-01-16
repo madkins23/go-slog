@@ -127,7 +127,7 @@ func (wrnMgr *WarningManager) Predefine(warnings ...*Warning) {
 func (wrnMgr *WarningManager) WarnOnly(warning *Warning) {
 	if _, found := wrnMgr.predefined[warning.Name]; !found {
 		wrnMgr.AddWarning(WarnUndefined, warning.Name, "")
-		slog.Warn("Undefined warning '%s'", warning.Name)
+		slog.Warn("Undefined warning", "warning", warning.Name)
 	}
 	if wrnMgr.warnOnly == nil {
 		wrnMgr.warnOnly = make(map[string]bool)
