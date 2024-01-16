@@ -1,5 +1,6 @@
 #!/bin/bash
 
+clear
 go test -bench=. bench/*.go      | # Run benchmark tests                \
    tee /dev/tty                  | # Show progress to user in real time \
    tee /tmp/bench.txt            | # Save benchmark output              \

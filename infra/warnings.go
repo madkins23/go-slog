@@ -27,6 +27,8 @@ import (
 //	suite.Run(t, slogSuite)
 var useWarnings = flag.Bool("useWarnings", false, "Show warnings instead of known errors")
 
+// -----------------------------------------------------------------------------
+
 // WarningLevel for warnings used mainly to organize warnings on output.
 type WarningLevel uint
 
@@ -76,6 +78,7 @@ type WarningManager struct {
 	// Name of Handler for warnings display.
 	Name string
 
+	fnPrefix   string
 	predefined map[string]*Warning
 	warnOnly   map[string]bool
 	warnings   map[string]*Warnings
@@ -110,8 +113,11 @@ type WarningInstance struct {
 // This array is used when showing warnings.
 var managers = make([]*WarningManager, 0)
 
-func NewWarningManager(name string) *WarningManager {
-	mgr := &WarningManager{Name: name}
+func NewWarningManager(name string, fnPrefix string) *WarningManager {
+	mgr := &WarningManager{
+		Name:     name,
+		fnPrefix: fnPrefix,
+	}
 	managers = append(managers, mgr)
 	mgr.Predefine(WarnSkippingTest, WarnUndefined, WarnUnused)
 	return mgr
@@ -142,7 +148,7 @@ func (wrnMgr *WarningManager) WarnOnly(warning *Warning) {
 }
 
 // -----------------------------------------------------------------------------
-// Calls made during testing.
+// Calls to be made during testing.
 
 // AddUnused adds a WarnUnused warning to the results list.
 // The warning added is WarnUnused and the extra text is the name of the specified warning.
@@ -154,6 +160,20 @@ func (wrnMgr *WarningManager) AddUnused(warning *Warning, logRecordJSON string) 
 // If the addLogRecord flag is true the current log record JSON is also stored.
 // The current function name is acquired from the CurrentFunctionName() and stored.
 func (wrnMgr *WarningManager) AddWarning(warning *Warning, text string, logRecordJSON string) {
+	wrnMgr.addWarning(warning, CurrentFunctionName(wrnMgr.fnPrefix), text, logRecordJSON)
+}
+
+// AddWarningFn to results list, specifying warning string and function name.
+// If the addLogRecord flag is true the current log record JSON is also stored.
+// The current function name is acquired from the CurrentFunctionName() and stored.
+func (wrnMgr *WarningManager) AddWarningFn(warning *Warning, fnName string, logRecordJSON string) {
+	wrnMgr.addWarning(warning, fnName, "", logRecordJSON)
+}
+
+// addWarning to results list, specifying warning string, function name, and optional extra text.
+// If the addLogRecord flag is true the current log record JSON is also stored.
+// The current function name is acquired from the CurrentFunctionName() and stored.
+func (wrnMgr *WarningManager) addWarning(warning *Warning, fnName string, text string, logRecordJSON string) {
 	if wrnMgr.warnings == nil {
 		wrnMgr.warnings = make(map[string]*Warnings)
 	}
@@ -167,7 +187,7 @@ func (wrnMgr *WarningManager) AddWarning(warning *Warning, text string, logRecor
 		record.Data = make([]WarningInstance, 0)
 	}
 	instance := WarningInstance{
-		Function: CurrentFunctionName(),
+		Function: fnName,
 		Text:     text,
 	}
 	if logRecordJSON != "" {
@@ -205,7 +225,7 @@ func (wrnMgr *WarningManager) SkipTest(because *Warning) {
 }
 
 // SkipTestIf checks the warnings provided to see if any have been set in the suite,
-// adding skipTest warnings for the first one and returning true.
+// adding SkipTest warnings for the first one and returning true.
 // False is returned if none of the warnings are found.
 func (wrnMgr *WarningManager) SkipTestIf(warnings ...*Warning) bool {
 	for _, warning := range warnings {
@@ -219,7 +239,7 @@ func (wrnMgr *WarningManager) SkipTestIf(warnings ...*Warning) bool {
 }
 
 // -----------------------------------------------------------------------------
-// Result display functionality.
+// Display warnings at end of testing.
 
 // GetWarnings returns an array of Warnings records sorted by warning level and text.
 // If there are no warnings the result array will be nil.

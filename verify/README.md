@@ -486,6 +486,12 @@ This listing isn't shown unless there are multiple test suites run in the same c
 
 ---
 
+In the absence of a `TestMain` definition the warnings will not be shown.
+Add the `tests.WithWarnings(m)` line to the end of the main test,
+after the call to `Run` the test suite.
+
+---
+
 [^1]: The `--debug` flag and `Debugf` function are defined in the `test` package in this repository.
 
 [^2]: An additional argument is that using a non-JSON output is generally only done

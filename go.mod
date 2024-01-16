@@ -5,6 +5,7 @@ go 1.21.5
 require (
 	github.com/gertd/go-pluralize v0.2.1
 	github.com/gin-gonic/gin v1.9.1
+	github.com/phsym/console-slog v0.3.1
 	github.com/phsym/zeroslog v0.1.0
 	github.com/rs/zerolog v1.31.0
 	github.com/samber/slog-zap/v2 v2.2.0

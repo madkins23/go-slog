@@ -9,18 +9,24 @@ import (
 	"testing"
 
 	"github.com/madkins23/go-slog/infra"
-	"github.com/madkins23/go-slog/test"
+	"github.com/madkins23/go-slog/internal/test"
 )
 
 type SlogBenchmarkSuite struct {
-	creator infra.Creator
+	infra.Creator
+	*infra.WarningManager
 
 	b  *testing.B
 	mu sync.RWMutex
 }
 
 func NewSlogBenchmarkSuite(creator infra.Creator) *SlogBenchmarkSuite {
-	return &SlogBenchmarkSuite{creator: creator}
+	suite := &SlogBenchmarkSuite{
+		Creator:        creator,
+		WarningManager: NewWarningManager(creator.Name()),
+	}
+	suite.WarnOnly(WarnNoHandlerCreation)
+	return suite
 }
 
 // B retrieves the current *testing.B context.
@@ -44,31 +50,40 @@ const benchmarkMethodPrefix = "Benchmark"
 func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 	defer recoverAndFailOnPanic(b)
 
-	stdoutLogger := slog.New(suite.creator.NewHandle(os.Stdout, infra.SimpleOptions()))
+	stdoutLogger := suite.NewLogger(os.Stdout, infra.SimpleOptions())
 	suite.SetB(b)
 	suiteType := reflect.TypeOf(suite)
 	for i := 0; i < suiteType.NumMethod(); i++ {
 		method := suiteType.Method(i)
 		if strings.HasPrefix(method.Name, benchmarkMethodPrefix) {
+			results := method.Func.Call([]reflect.Value{reflect.ValueOf(suite)})
+			if len(results) < 1 {
+				b.Fatalf("No results returned from benchmark")
+			}
+			benchmark, ok := results[0].Interface().(Benchmark)
+			if !ok {
+				b.Fatalf("Could not convert benchmark result %v", results[0].Interface())
+			}
+			if benchmark.HandlerFn() != nil && !suite.CanMakeHandler() {
+				// This test requires the handler to be adjusted before creating the logger
+				// but the Creator object doesn't provide a handler so skip the test.
+				test.Debugf(2, ">>>     Skip:   %s\n", method.Name)
+				suite.AddWarningFn(WarnNoHandlerCreation, method.Name, "")
+				continue
+			}
 			test.Debugf(2, ">>>     Method: %s\n", method.Name)
 			// TODO: If I could call the following I could haz results now?
 			//       testing.Benchmark(func(b *testing.B) {
 			b.Run(method.Name, func(b *testing.B) {
 				var count infra.CountWriter
-				results := method.Func.Call([]reflect.Value{reflect.ValueOf(suite)})
-				if len(results) < 1 {
-					b.Fatalf("No results returned from benchmark")
-				}
-				benchmark, ok := results[0].Interface().(Benchmark)
-				if !ok {
-					b.Fatalf("Could not convert benchmark result %v", results[0].Interface())
-				}
 				function := benchmark.Function()
-				handler := suite.creator.NewHandle(&count, benchmark.Options())
-				if handlerFn := benchmark.HandlerFn(); handlerFn != nil {
-					handler = handlerFn(handler)
+				var logger *slog.Logger
+				if benchmark.HandlerFn() != nil && suite.CanMakeHandler() {
+					logger = slog.New(benchmark.HandlerFn()(
+						suite.NewHandler(&count, benchmark.Options())))
+				} else {
+					logger = suite.NewLogger(&count, benchmark.Options())
 				}
-				logger := slog.New(handler)
 				if test.DebugLevel() > 0 {
 					// Print the log record to STDOUT.
 					function(stdoutLogger)

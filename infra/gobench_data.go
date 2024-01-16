@@ -232,6 +232,12 @@ func (bd *BenchData) Date() time.Time {
 
 // -----------------------------------------------------------------------------
 
+func (br *BenchmarkRecord) IsEmpty() bool {
+	return br.Iterations == 0
+}
+
+// -----------------------------------------------------------------------------
+
 // skipTextBeforeJSON skips over any non-JSON lines until some JSON is found
 // then returns the remainder of the source data starting with the JSON.
 // This support using the gobenchdata application which places a line of text

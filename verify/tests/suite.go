@@ -15,12 +15,13 @@ import (
 // SlogTestSuite provides various tests for a specified log/slog.Handler.
 type SlogTestSuite struct {
 	suite.Suite
-	*bytes.Buffer
 	*infra.WarningManager
 
 	// Creator creates a slog.Handler to be used in creating a slog.Logger for a test.
 	// This field must be configured by test suites and shouldn't be changed later.
 	Creator infra.Creator
+
+	*bytes.Buffer
 }
 
 func NewSlogTestSuite(creator infra.Creator) *SlogTestSuite {
