@@ -65,8 +65,8 @@ func tableDefs() table.TableDef {
 				ColumnLines: 1,
 			},
 			{
-				Width:  10,
-				Format: "%10.3f",
+				Width:  11,
+				Format: "%11.3f",
 			},
 			{
 				Width:  9,
