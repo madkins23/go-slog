@@ -26,7 +26,7 @@ type SlogTestSuite struct {
 func NewSlogTestSuite(creator infra.Creator) *SlogTestSuite {
 	return &SlogTestSuite{
 		Creator:        creator,
-		WarningManager: infra.NewWarningManager(creator.Name()),
+		WarningManager: NewWarningManager(creator.Name()),
 	}
 }
 

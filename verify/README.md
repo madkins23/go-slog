@@ -138,17 +138,17 @@ the current (2024-01-15) test suite for
 // Test_slog_zerolog_phsym runs tests for the physym zerolog handler.
 func Test_slog_zerolog_phsym(t *testing.T) {
     slogSuite := tests.NewSlogTestSuite(creator.SlogPhsymZerolog())
-    slogSuite.WarnOnly(infra.WarnDuplicates)
-    slogSuite.WarnOnly(infra.WarnEmptyAttributes)
-    slogSuite.WarnOnly(infra.WarnGroupInline)
-    slogSuite.WarnOnly(infra.WarnLevelCase)
-    slogSuite.WarnOnly(infra.WarnMessageKey)
-    slogSuite.WarnOnly(infra.WarnNanoDuration)
-    slogSuite.WarnOnly(infra.WarnNanoTime)
-    slogSuite.WarnOnly(infra.WarnNoReplAttr)
-    slogSuite.WarnOnly(infra.WarnSourceKey)
-    slogSuite.WarnOnly(infra.WarnGroupEmpty)
-    slogSuite.WarnOnly(infra.WarnZeroTime)
+    slogSuite.WarnOnly(tests.WarnDuplicates)
+    slogSuite.WarnOnly(tests.WarnDurationMillis)
+    slogSuite.WarnOnly(tests.WarnEmptyAttributes)
+    slogSuite.WarnOnly(tests.WarnGroupEmpty)
+    slogSuite.WarnOnly(tests.WarnGroupInline)
+    slogSuite.WarnOnly(tests.WarnLevelCase)
+    slogSuite.WarnOnly(tests.WarnMessageKey)
+    slogSuite.WarnOnly(tests.WarnTimeMillis)
+    slogSuite.WarnOnly(tests.WarnNoReplAttr)
+    slogSuite.WarnOnly(tests.WarnSourceKey)
+    slogSuite.WarnOnly(tests.WarnZeroTime)
     suite.Run(t, slogSuite)
 }
 ```
@@ -304,7 +304,7 @@ Warnings that seem to be implied by documentation but can't be considered requir
   except for the four main fields `time`, `level`, `msg`, and `source`.
   When that is the case it is better to use this (`WarnNoReplAttrBasic`) warning.
 
-#### Suggestions
+#### Suggested
 
 These warnings are not AFAIK mandated by any documentation or requirements.[^4]
 
@@ -317,16 +317,19 @@ These warnings are not AFAIK mandated by any documentation or requirements.[^4]
   [release milestone of (currently unscheduled) Go 1.23](https://github.com/golang/go/milestone/212),
   (whereas [Go Release 1.22](https://tip.golang.org/doc/go1.22)
   is currently expected in February 2024).
+* `WarnDurationSeconds`: 'slog.Duration() logs seconds instead of nanoseconds'
+  The `slog.JSONHandler` uses nanoseconds for `time.Duration` but some other handlers use seconds.
+  * [Go issue 59345: Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)
+* `WarnDurationMillis`: 'slog.Duration() logs milliseconds instead of nanoseconds'  
+  The `slog.JSONHandler` uses nanoseconds for `time.Duration` but some other handlers use seconds.
+  * [Go issue 59345: Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)
 * `WarnLevelCaseLog`: 'level in lowercase'  
   Each JSON log record contains the logging level of the log statement as a string.
   Different handlers provide that string in uppercase or lowercase.
   Documentation for [`slog.Level`](https://pkg.go.dev/log/slog@master#Level)
   says that its `String()` and `MarshalJSON()` methods will return uppercase
   but `UnmarshalJSON()` will parse in a case-insensitive manner.
-* `WarnNanoDuration`: 'slog.Duration() doesn't log nanoseconds'  
-  The `slog.JSONHandler` uses nanoseconds for `time.Duration` but some other handlers use seconds.  
-  * [Go issue 59345: Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)
-* `WarnNanoTime`: 'slog.Time() doesn't log nanoseconds'  
+* `WarnTimeMillis`: 'slog.Time() logs milliseconds instead of nanoseconds'  
   The `slog.JSONHandler` uses nanoseconds for `time.Time` but some other handlers use seconds.
   This does _not_ apply to the basic `time` field, only attribute fields.
   I can't find any supporting documentation or bug on this but
@@ -340,6 +343,9 @@ The last warnings provide information about the tests or conflicts with other wa
 * `WarnSkippingTest`: 'Skipping test'  
   A test has been skipped, likely due to the specification of some other warning.
   Not currently used (2024-01-15).
+* `WarnUndefined`: 'Undefined Warning(s)'  
+  An attempt to call WarnOnly() with an undefined warning.
+  Warnings must be predefined to the `WarningManager` prior to use.
 * `WarnUnused`: 'Unused Warning(s)'  
   If a warning is specified but the condition is not actually present
   one of these warnings will be issued with the specified warning.
