@@ -1,0 +1,18 @@
+    <form action="bench" style="display:inline-block;">
+      <label for="tag">Bench:</label>
+      <select name="tag" id="tag" onchange="this.form.submit();">
+        <option value="" selected disabled hidden>- Choose -</option>
+        {{ range .Data.BenchTags }}
+          <option value="{{ . }}" {{ if eq $.Bench . }}selected{{ end }}>{{ $.Data.BenchName . }}</option>
+        {{ end }}
+      </select>
+    </form>
+    <form action="handler" style="display:inline-block; float:right;">
+      <label for="tag">Handler:</label>
+      <select name="tag" id="tag" onchange="this.form.submit();">
+        <option value="" selected disabled hidden>- Choose -</option>
+        {{ range .Data.HandlerTags }}
+          <option value="{{ . }}" {{ if eq $.Handler . }}selected{{ end }}>{{ $.Data.HandlerName . }}</option>
+        {{ end }}
+      </select>
+    </form>

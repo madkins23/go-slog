@@ -1,40 +1,47 @@
 body {
     background-color: gray;
+    justify-content: center;
+    width:100%;
 }
 
-table {
+fieldset {
+    margin:  0px auto;
+}
+
+legend {
+    font-weight: bold;
+    padding: 0.5em;
+}
+
+div.top {
+    position: fixed;
+    top: 0%;
+    left: 50%;
+    transform: translate(-50%, 0%);
     margin: 5px;
     padding: 5px;
 }
 
-table td, th {
+table.data {
     margin: 5px;
     padding: 5px;
 }
 
-table td {
+table.data td, th {
+    margin: 5px;
+    padding: 5px;
+}
+
+table.data td {
     border: 2px inset darkgray;
+}
+
+table.root td {
+    vertical-align: top;
+    width: 50%;
 }
 
 .number {
     font-family: monospace;
     text-align: right;
-}
-
-.centered {
-    text-align: center;
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
-    width: 50%;
-    horiz-align: center;
-    padding: 4px
-}
-
-.grid-child {
-    border: 2px groove darkgray;
-    padding: 4px
 }

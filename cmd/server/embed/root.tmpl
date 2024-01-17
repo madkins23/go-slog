@@ -5,23 +5,28 @@
 </head>
 
 <body>
-<div class="grid-container">
-  <div class="grid-child">
-    <h2>Benchmarks</h2>
-    <ul>
-      {{ range .Data.BenchTags }}
-        <li><a href="bench/{{ . }}">{{ $.Data.BenchName . }}</a></li>
-      {{ end }}
-    </ul>
-  </div>
-  <div class="grid-child">
-    <h2>Handlers</h2>
-    <ul>
-      {{ range .Data.HandlerTags }}
-        <li><a href="handler/{{ . }}">{{ $.Data.HandlerName . }}</a></li>
-      {{ end }}
-    </ul>
-  </div>
+<div class="top">
+  <table class="root">
+    <tr><td>
+      <fieldset>
+        <legend>Benchmarks</legend>
+        <table>
+          {{ range .Data.BenchTags }}
+            <tr><td><a href="bench?tag={{ . }}">{{ $.Data.BenchName . }}</a></td></tr>
+          {{ end }}
+        </table>
+      </fieldset>
+    </td><td>
+      <fieldset>
+        <legend>Handlers</legend>
+        <table>
+          {{ range .Data.HandlerTags }}
+            <tr><td><a href="handler?tag={{ . }}">{{ $.Data.HandlerName . }}</a></td></tr>
+          {{ end }}
+        </table>
+      </fieldset>
+    </td></tr>
+  </table>
 </div>
 </body>
 </html>

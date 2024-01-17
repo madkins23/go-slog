@@ -128,6 +128,9 @@ func (bd *BenchData) LoadBenchJSON() error {
 						string(matches[2]))
 			}
 
+			if handler == "Benchmark_slog" {
+				handler = "Benchmark_slog_slog_JSONHandler"
+			}
 			handler = HandlerTag(strings.TrimLeft(strings.TrimPrefix(string(handler), "Benchmark_slog"), "_"))
 			parts = strings.Split(strings.TrimLeft(string(handler), "_"), "_")
 			if bd.handlerNames == nil {
@@ -139,10 +142,6 @@ func (bd *BenchData) LoadBenchJSON() error {
 				}
 			}
 			bd.handlerNames[handler] = strings.Join(parts, " ")
-			if bd.handlerNames[handler] == "" {
-				// Special case, by this point nothing is left.
-				bd.handlerNames[handler] = "slog.JSONHandler"
-			}
 
 			if matches := ptnHandlerName.FindSubmatch([]byte(handler)); matches != nil && len(matches) > 1 {
 				handler = HandlerTag(matches[1])

@@ -24,6 +24,7 @@ const (
 	pageRoot    = "root"
 	pageBench   = "bench"
 	pageHandler = "handler"
+	pageChoices = "choices"
 	pageError   = "error"
 )
 
@@ -50,9 +51,14 @@ func main() {
 
 	router := gin.Default()
 	router.GET("/", pageFunction(pageRoot))
-	router.GET("/bench/:bench", pageFunction(pageBench))
-	router.GET("/handler/:handler", pageFunction(pageHandler))
+	router.GET("/bench", pageFunction(pageBench))
+	router.GET("/handler", pageFunction(pageHandler))
 	router.GET("/style.css", textFunction(css))
+
+	if err := router.SetTrustedProxies(nil); err != nil {
+		slog.Error("Don't trust proxies", "err", err)
+		os.Exit(1)
+	}
 
 	// Listen and serve on 0.0.0.0:8080 (for windows "localhost:8080"). {
 	slog.Info("Web Server @ http://localhost:8080")
@@ -77,6 +83,9 @@ var (
 	//go:embed embed/handler.tmpl
 	tmplHandler string
 
+	//go:embed embed/choices.tmpl
+	tmplChoices string
+
 	//go:embed embed/error.tmpl
 	tmplError string
 )
@@ -94,11 +103,18 @@ func setup() error {
 		case pageRoot:
 			tmpl, err = tmpl.Parse(tmplRoot)
 		case pageBench:
-			tmpl, err = tmpl.Parse(tmplBench)
+			_, err = tmpl.Parse(tmplBench)
+			if err == nil {
+				_, err = tmpl.New(pageChoices).Parse(tmplChoices)
+			}
 		case pageHandler:
 			tmpl, err = tmpl.Parse(tmplHandler)
+			if err == nil {
+				_, err = tmpl.New(pageChoices).Parse(tmplChoices)
+			}
 		case pageError:
 			tmpl, err = tmpl.Parse(tmplError)
+		case pageChoices:
 		default:
 			return fmt.Errorf("unknown page name: %s", page)
 		}
@@ -122,10 +138,14 @@ type pageData struct {
 func pageFunction(page pageType) func(c *gin.Context) {
 	return func(c *gin.Context) {
 		pageData := pageData{Data: data}
-		if name := c.Param("bench"); name != "" {
-			pageData.Bench = infra.BenchTag(name)
-		} else if name := c.Param("handler"); name != "" {
-			pageData.Handler = infra.HandlerTag(name)
+		if page == pageBench || page == pageHandler {
+			if name := c.Query("tag"); name == "" {
+				slog.Error("No 'tag' URL argument")
+			} else if page == pageBench {
+				pageData.Bench = infra.BenchTag(name)
+			} else if page == pageHandler {
+				pageData.Handler = infra.HandlerTag(name)
+			}
 		}
 		if err := templates[page].Execute(c.Writer, pageData); err != nil {
 			slog.Error("Error in page function", "err", err)
