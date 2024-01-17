@@ -9,6 +9,7 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"sort"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -134,20 +135,43 @@ func setup() error {
 // -----------------------------------------------------------------------------
 
 var (
-	charts = make(map[string][]byte)
+	chartCache = make(map[string][]byte)
 )
 
 func chartFunction(c *gin.Context) {
 	tag := c.Query("tag")
-	ch, found := charts[tag]
+	ch, found := chartCache[tag]
 	if !found {
-		// Generate and save chart.
-		graph := chart.Chart{
-			Series: []chart.Series{
-				chart.ContinuousSeries{
-					XValues: []float64{1.0, 2.0, 3.0, 4.0},
-					YValues: []float64{1.0, 2.0, 3.0, 4.0},
+		var title string
+		if records := data.HandlerRecords(infra.BenchTag(tag)); records != nil {
+			title, _, _ = chartBench(infra.BenchTag(tag), records)
+		} else if records := data.BenchRecords(infra.HandlerTag(tag)); records != nil {
+			title, _, _ = chartHandler(infra.HandlerTag(tag), records)
+		} else {
+			slog.Error("Neither handler nor benchmark records found", "fn", "chartFunction")
+			c.HTML(http.StatusBadRequest, "pageFunction", gin.H{
+				"ErrorTitle":   "Template failed execution",
+				"ErrorMessage": "No records for " + tag})
+			return
+		}
+
+		graph := chart.BarChart{
+			Title: title,
+			Background: chart.Style{
+				Padding: chart.Box{
+					Top: 40,
 				},
+			},
+			Height:   512,
+			BarWidth: 60,
+			Bars: []chart.Value{
+				{Value: 5.25, Label: "Blue"},
+				{Value: 4.88, Label: "Green"},
+				{Value: 4.74, Label: "Gray"},
+				{Value: 3.22, Label: "Orange"},
+				{Value: 3, Label: "Test"},
+				{Value: 2.27, Label: "??"},
+				{Value: 1, Label: "!!"},
 			},
 		}
 		b := &bytes.Buffer{}
@@ -155,9 +179,68 @@ func chartFunction(c *gin.Context) {
 			slog.Error("Render graph", "err", err)
 		}
 		ch = b.Bytes()
-		charts[tag] = ch
+		chartCache[tag] = ch
 	}
 	c.Data(http.StatusOK, "image/svg+xml", ch)
+}
+
+func chartBench(bench infra.BenchTag, records infra.HandlerRecords) (
+	title string, labels []string, values [][]float64) {
+
+	title = data.BenchName(bench)
+
+	order := make([]string, 0, len(records))
+	for benchTag := range records {
+		order = append(order, string(benchTag))
+	}
+
+	sort.Strings(order)
+	labels = make([]string, len(records))
+
+	values = make([][]float64, len(records))
+	for i := 0; i < len(records); i++ {
+		values[i] = make([]float64, 4)
+	}
+	for i, tag := range order {
+		labels[i] = data.HandlerName(infra.HandlerTag(tag))
+		record := records[infra.HandlerTag(tag)]
+		values[i][0] = record.NanosPerOp
+		values[i][1] = float64(record.MemAllocsPerOp)
+		values[i][2] = float64(record.MemBytesPerOp)
+		values[i][3] = float64(record.MemMbPerSec)
+	}
+
+	return
+}
+
+func chartHandler(handler infra.HandlerTag, records infra.BenchRecords) (
+	title string, labels []string, values [][]float64) {
+
+	title = data.HandlerName(handler)
+
+	order := make([]string, 0, len(records))
+	for benchTag := range records {
+		order = append(order, string(benchTag))
+	}
+	sort.Strings(order)
+	labels = make([]string, len(records))
+	for i, tag := range order {
+		labels[i] = data.BenchName(infra.BenchTag(tag))
+	}
+
+	values = make([][]float64, 4)
+	for i := 0; i < 4; i++ {
+		values[i] = make([]float64, 0, len(records))
+	}
+	for _, tag := range order {
+		record := records[infra.BenchTag(tag)]
+		values[0] = append(values[0], record.NanosPerOp)
+		values[1] = append(values[1], float64(record.MemAllocsPerOp))
+		values[2] = append(values[2], float64(record.MemBytesPerOp))
+		values[3] = append(values[3], float64(record.MemMbPerSec))
+	}
+
+	return
 }
 
 type pageData struct {
@@ -180,7 +263,7 @@ func pageFunction(page pageType) gin.HandlerFunc {
 		}
 		if err := templates[page].Execute(c.Writer, pageData); err != nil {
 			slog.Error("Error in page function", "err", err)
-			c.HTML(http.StatusBadRequest, "pageFunction", gin.H{
+			c.HTML(http.StatusInternalServerError, "pageFunction", gin.H{
 				"ErrorTitle":   "Template failed execution",
 				"ErrorMessage": err.Error()})
 		}
@@ -191,7 +274,7 @@ func textFunction(text string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		slog.Debug("textFunction()", "text", text)
 		if _, err := c.Writer.Write([]byte(text)); err != nil {
-			c.HTML(http.StatusBadRequest, "textFunction", gin.H{
+			c.HTML(http.StatusInternalServerError, "textFunction", gin.H{
 				"ErrorTitle":   "Failed to write string",
 				"ErrorMessage": err.Error()})
 		}

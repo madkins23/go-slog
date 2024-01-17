@@ -29,8 +29,10 @@
         </tr>
       {{ end }}
     </table>
-    <img src="chart.svg?tag={{ .Bench }}" alt="Chart for Benchmark {{ .Data.BenchName .Bench }}" />
   </fieldset>
+  <p>
+    <img src="chart.svg?tag={{ .Bench }}" alt="Chart for Benchmark {{ .Data.BenchName .Bench }}" />
+  </p>
 </div>
 </body>
 </html>
