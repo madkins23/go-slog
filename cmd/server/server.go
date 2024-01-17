@@ -1,16 +1,19 @@
 package main
 
 import (
+	"bytes"
 	_ "embed"
 	"flag"
 	"fmt"
 	"html/template"
 	"log/slog"
+	"net/http"
 	"os"
 	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/phsym/console-slog"
+	"github.com/wcharczuk/go-chart/v2"
 
 	ginslog "github.com/madkins23/go-slog/gin"
 	"github.com/madkins23/go-slog/infra"
@@ -53,6 +56,7 @@ func main() {
 	router.GET("/", pageFunction(pageRoot))
 	router.GET("/bench", pageFunction(pageBench))
 	router.GET("/handler", pageFunction(pageHandler))
+	router.GET("/chart.svg", chartFunction)
 	router.GET("/style.css", textFunction(css))
 
 	if err := router.SetTrustedProxies(nil); err != nil {
@@ -129,13 +133,40 @@ func setup() error {
 
 // -----------------------------------------------------------------------------
 
+var (
+	charts = make(map[string][]byte)
+)
+
+func chartFunction(c *gin.Context) {
+	tag := c.Query("tag")
+	ch, found := charts[tag]
+	if !found {
+		// Generate and save chart.
+		graph := chart.Chart{
+			Series: []chart.Series{
+				chart.ContinuousSeries{
+					XValues: []float64{1.0, 2.0, 3.0, 4.0},
+					YValues: []float64{1.0, 2.0, 3.0, 4.0},
+				},
+			},
+		}
+		b := &bytes.Buffer{}
+		if err := graph.Render(chart.SVG, b); err != nil {
+			slog.Error("Render graph", "err", err)
+		}
+		ch = b.Bytes()
+		charts[tag] = ch
+	}
+	c.Data(http.StatusOK, "image/svg+xml", ch)
+}
+
 type pageData struct {
 	Data    *infra.BenchData
 	Bench   infra.BenchTag
 	Handler infra.HandlerTag
 }
 
-func pageFunction(page pageType) func(c *gin.Context) {
+func pageFunction(page pageType) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		pageData := pageData{Data: data}
 		if page == pageBench || page == pageHandler {
@@ -149,13 +180,20 @@ func pageFunction(page pageType) func(c *gin.Context) {
 		}
 		if err := templates[page].Execute(c.Writer, pageData); err != nil {
 			slog.Error("Error in page function", "err", err)
+			c.HTML(http.StatusBadRequest, "pageFunction", gin.H{
+				"ErrorTitle":   "Template failed execution",
+				"ErrorMessage": err.Error()})
 		}
 	}
 }
 
-func textFunction(text string) func(c *gin.Context) {
+func textFunction(text string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		slog.Debug("textFunction()", "text", text)
-		_, _ = c.Writer.Write([]byte(text))
+		if _, err := c.Writer.Write([]byte(text)); err != nil {
+			c.HTML(http.StatusBadRequest, "textFunction", gin.H{
+				"ErrorTitle":   "Failed to write string",
+				"ErrorMessage": err.Error()})
+		}
 	}
 }
