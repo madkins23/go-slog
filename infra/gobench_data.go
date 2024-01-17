@@ -48,6 +48,12 @@ type BenchTag string
 // HandlerTag is an alias for string so that types can't be confused.
 type HandlerTag string
 
+// BenchRecords is a map of test records by benchmark tag.
+type BenchRecords map[BenchTag]BenchmarkRecord
+
+// HandlerRecords is a map of test records by handler tag.
+type HandlerRecords map[HandlerTag]BenchmarkRecord
+
 // BenchmarkRecord represents a single benchmark/handler test result.
 type BenchmarkRecord struct {
 	Iterations     int
@@ -60,8 +66,8 @@ type BenchmarkRecord struct {
 // BenchData encapsulates benchmark records by BenchmarkName and HandlerTag.
 type BenchData struct {
 	date         time.Time
-	byBenchmark  map[BenchTag]map[HandlerTag]BenchmarkRecord
-	byHandler    map[HandlerTag]map[BenchTag]BenchmarkRecord
+	byBenchmark  map[BenchTag]HandlerRecords
+	byHandler    map[HandlerTag]BenchRecords
 	benches      []BenchTag
 	handlers     []HandlerTag
 	benchNames   map[BenchTag]string
@@ -148,10 +154,10 @@ func (bd *BenchData) LoadBenchJSON() error {
 			}
 
 			if bd.byBenchmark == nil {
-				bd.byBenchmark = make(map[BenchTag]map[HandlerTag]BenchmarkRecord)
+				bd.byBenchmark = make(map[BenchTag]HandlerRecords)
 			}
 			if bd.byBenchmark[bench] == nil {
-				bd.byBenchmark[bench] = make(map[HandlerTag]BenchmarkRecord)
+				bd.byBenchmark[bench] = make(HandlerRecords)
 			}
 			bd.byBenchmark[bench][handler] = BenchmarkRecord{
 				Iterations:     bm.Runs,
@@ -162,10 +168,10 @@ func (bd *BenchData) LoadBenchJSON() error {
 			}
 
 			if bd.byHandler == nil {
-				bd.byHandler = make(map[HandlerTag]map[BenchTag]BenchmarkRecord)
+				bd.byHandler = make(map[HandlerTag]BenchRecords)
 			}
 			if bd.byHandler[handler] == nil {
-				bd.byHandler[handler] = make(map[BenchTag]BenchmarkRecord)
+				bd.byHandler[handler] = make(BenchRecords)
 			}
 			bd.byHandler[handler][bench] = BenchmarkRecord{
 				Iterations:     bm.Runs,
@@ -192,7 +198,7 @@ func (bd *BenchData) BenchName(bench BenchTag) string {
 }
 
 // BenchRecords returns a map of HandlerTag to BenchmarkRecord for the specified benchmark.
-func (bd *BenchData) BenchRecords(handler HandlerTag) map[BenchTag]BenchmarkRecord {
+func (bd *BenchData) BenchRecords(handler HandlerTag) BenchRecords {
 	return bd.byHandler[handler]
 }
 
@@ -220,7 +226,7 @@ func (bd *BenchData) HandlerName(handler HandlerTag) string {
 }
 
 // HandlerRecords returns a map of HandlerTag to BenchmarkRecord for the specified benchmark.
-func (bd *BenchData) HandlerRecords(bench BenchTag) map[HandlerTag]BenchmarkRecord {
+func (bd *BenchData) HandlerRecords(bench BenchTag) HandlerRecords {
 	return bd.byBenchmark[bench]
 }
 
