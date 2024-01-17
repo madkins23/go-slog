@@ -1,7 +1,6 @@
 package main
 
 import (
-	"bytes"
 	_ "embed"
 	"flag"
 	"fmt"
@@ -14,7 +13,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/phsym/console-slog"
-	"github.com/wcharczuk/go-chart/v2"
+	charts "github.com/vicanso/go-charts/v2"
 
 	ginslog "github.com/madkins23/go-slog/gin"
 	"github.com/madkins23/go-slog/internal/bench"
@@ -166,31 +165,41 @@ func chartFunction(c *gin.Context) {
 				"ErrorMessage": "No records for " + tag})
 			return
 		}
-
-		graph := chart.BarChart{
-			Title: title,
-			Background: chart.Style{
-				Padding: chart.Box{
-					Top: 40,
+		painter, err := charts.BarRender(
+			values,
+			charts.SVGTypeOption(),
+			charts.TitleTextOptionFunc(title),
+			charts.XAxisDataOptionFunc([]string{
+				"Ns/Op",
+				"Mem Allocs/Op",
+				"Mem Bytes/Op",
+				"Mem MB/Sec",
+			}),
+			charts.YAxisOptionFunc(
+				charts.YAxisOption{
+					Position: charts.PositionLeft,
 				},
+				charts.YAxisOption{
+					Position: charts.PositionRight,
+				},
+			),
+			func(opt *charts.ChartOption) {
+				opt.Legend = charts.LegendOption{
+					Data: labels,
+					Left: "25%",
+					Top:  "25%",
+					//Align: charts.AlignRight,
+				}
 			},
-			Height:   512,
-			BarWidth: 60,
-			Bars: []chart.Value{
-				{Value: 5.25, Label: "Blue"},
-				{Value: 4.88, Label: "Green"},
-				{Value: 4.74, Label: "Gray"},
-				{Value: 3.22, Label: "Orange"},
-				{Value: 3, Label: "Test"},
-				{Value: 2.27, Label: "??"},
-				{Value: 1, Label: "!!"},
-			},
+			charts.LegendLabelsOptionFunc(labels, charts.PositionBottom),
+		)
+		if err != nil {
+			panic(err)
 		}
-		b := &bytes.Buffer{}
-		if err := graph.Render(chart.SVG, b); err != nil {
-			slog.Error("Render graph", "err", err)
+		ch, err = painter.Bytes()
+		if err != nil {
+			panic(err)
 		}
-		ch = b.Bytes()
 		chartCache[tag] = ch
 	}
 	c.Data(http.StatusOK, "image/svg+xml", ch)
