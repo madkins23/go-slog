@@ -28,11 +28,11 @@
         {{ range $tag, $record := .Data.HandlerRecords .Test }}
           <tr>
             <td>{{ $.Data.HandlerName $tag }}</td>
-            <td class="number">{{ $record.Iterations }}</td>
-            <td class="number">{{ printf "%0.2f" $record.NanosPerOp }}</td>
-            <td class="number">{{ $record.MemAllocsPerOp }}</td>
-            <td class="number">{{ $record.MemBytesPerOp }}</td>
-            <td class="number">{{ printf "%0.2f" $record.GbPerSec }}</td>
+            <td class="number">{{ $.FixInt $record.Iterations }}</td>
+            <td class="number">{{ $.FixFloat $record.NanosPerOp }}</td>
+            <td class="number">{{ $.FixInt $record.MemAllocsPerOp }}</td>
+            <td class="number">{{ $.FixInt $record.MemBytesPerOp }}</td>
+            <td class="number">{{ $.FixFloat $record.GbPerSec }}</td>
           </tr>
         {{ end }}
       </table>

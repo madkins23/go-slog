@@ -12,6 +12,7 @@ import (
 	"github.com/madkins23/go-utils/text/table"
 
 	"github.com/madkins23/go-slog/internal/bench"
+	"github.com/madkins23/go-slog/internal/language"
 )
 
 // Tabular reads the JSON from gobenchdata and formats it into simple tables.
@@ -25,6 +26,11 @@ func main() {
 		TimeFormat: time.TimeOnly,
 	}))
 	slog.SetDefault(logger)
+
+	if err := language.Setup(); err != nil {
+		slog.Error("Error during language setup", "err", err)
+		return
+	}
 
 	var data bench.Data
 	if err := data.LoadDataJSON(); err != nil {
@@ -45,9 +51,12 @@ func main() {
 		for _, handler := range data.HandlerTags() {
 			handlerRecord := handlerRecords[handler]
 			if !handlerRecord.IsEmpty() {
-				fmt.Printf(tableMgr.RowFormat(),
+				_, err := language.Printer().Printf(tableMgr.RowFormat(),
 					handler, handlerRecord.Iterations, handlerRecord.NanosPerOp,
 					handlerRecord.MemAllocsPerOp, handlerRecord.MemBytesPerOp, handlerRecord.GbPerSec)
+				if err != nil {
+					slog.Error("Unable to print data row", "err", err)
+				}
 			}
 		}
 		fmt.Println(tableMgr.BorderString(table.Bottom))
@@ -62,8 +71,8 @@ func tableDefs() table.TableDef {
 				AlignLeft: true,
 			},
 			{
-				Width:       9,
-				Format:      "%9d",
+				Width:       11,
+				Format:      "%11d",
 				ColumnLines: 1,
 			},
 			{
@@ -71,16 +80,16 @@ func tableDefs() table.TableDef {
 				Format: "%11.3f",
 			},
 			{
-				Width:  9,
-				Format: "%9d",
+				Width:  11,
+				Format: "%11d",
 			},
 			{
-				Width:  9,
-				Format: "%9d",
+				Width:  11,
+				Format: "%11d",
 			},
 			{
-				Width:  13,
-				Format: "%13.3f",
+				Width:  15,
+				Format: "%15.3f",
 			},
 		},
 		Prefix:      "  ",

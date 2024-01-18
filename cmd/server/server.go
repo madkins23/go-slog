@@ -13,10 +13,12 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/phsym/console-slog"
-	charts "github.com/vicanso/go-charts/v2"
+	"github.com/vicanso/go-charts/v2"
+	"golang.org/x/text/message"
 
 	ginslog "github.com/madkins23/go-slog/gin"
 	"github.com/madkins23/go-slog/internal/bench"
+	"github.com/madkins23/go-slog/internal/language"
 )
 
 // -----------------------------------------------------------------------------
@@ -95,6 +97,10 @@ var (
 )
 
 func setup() error {
+	if err := language.Setup(); err != nil {
+		return fmt.Errorf("language setup: %w", err)
+	}
+
 	if err := data.LoadDataJSON(); err != nil {
 		return fmt.Errorf("load benchmark JSON: %w", err)
 	}
@@ -229,18 +235,27 @@ type pageData struct {
 	Data    *bench.Data
 	Test    bench.TestTag
 	Handler bench.HandlerTag
+	Printer *message.Printer
+}
+
+func (pd *pageData) FixInt(number int) string {
+	return pd.Printer.Sprintf("%d", number)
+}
+
+func (pd *pageData) FixFloat(number float64) string {
+	return pd.Printer.Sprintf("%0.2f", number)
 }
 
 func pageFunction(page pageType) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		pageData := pageData{Data: data}
+		pageData := &pageData{Data: data, Printer: language.Printer()}
 		if page == pageTest || page == pageHandler {
-			if name := c.Query("tag"); name == "" {
-				slog.Error("No 'tag' URL argument")
+			if tag := c.Query("tag"); tag == "" {
+				slog.Error("No URL argument", "arg", "tag")
 			} else if page == pageTest {
-				pageData.Test = bench.TestTag(name)
+				pageData.Test = bench.TestTag(tag)
 			} else if page == pageHandler {
-				pageData.Handler = bench.HandlerTag(name)
+				pageData.Handler = bench.HandlerTag(tag)
 			}
 		}
 		if err := templates[page].Execute(c.Writer, pageData); err != nil {
