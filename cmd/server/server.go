@@ -17,7 +17,7 @@ import (
 	"github.com/wcharczuk/go-chart/v2"
 
 	ginslog "github.com/madkins23/go-slog/gin"
-	"github.com/madkins23/go-slog/infra"
+	"github.com/madkins23/go-slog/internal/bench"
 )
 
 // -----------------------------------------------------------------------------
@@ -75,7 +75,7 @@ func main() {
 // -----------------------------------------------------------------------------
 
 var (
-	data      = &infra.BenchData{}
+	data      = &bench.Data{}
 	pages     = []pageType{pageRoot, pageBench, pageHandler}
 	templates map[pageType]*template.Template
 
@@ -96,7 +96,7 @@ var (
 )
 
 func setup() error {
-	if err := data.LoadBenchJSON(); err != nil {
+	if err := data.LoadDataJSON(); err != nil {
 		return fmt.Errorf("load benchmark JSON: %w", err)
 	}
 
@@ -155,10 +155,10 @@ func chartFunction(c *gin.Context) {
 	ch, found := chartCache[tag]
 	if !found {
 		var title string
-		if records := data.HandlerRecords(infra.BenchTag(tag)); records != nil {
-			title, _, _ = chartBench(infra.BenchTag(tag), records)
-		} else if records := data.BenchRecords(infra.HandlerTag(tag)); records != nil {
-			title, _, _ = chartHandler(infra.HandlerTag(tag), records)
+		if records := data.HandlerRecords(bench.TestTag(tag)); records != nil {
+			title, _, _ = chartBench(bench.TestTag(tag), records)
+		} else if records := data.TestRecords(bench.HandlerTag(tag)); records != nil {
+			title, _, _ = chartHandler(bench.HandlerTag(tag), records)
 		} else {
 			slog.Error("Neither handler nor benchmark records found", "fn", "chartFunction")
 			c.HTML(http.StatusBadRequest, "pageFunction", gin.H{
@@ -196,10 +196,10 @@ func chartFunction(c *gin.Context) {
 	c.Data(http.StatusOK, "image/svg+xml", ch)
 }
 
-func chartBench(bench infra.BenchTag, records infra.HandlerRecords) (
+func chartBench(test bench.TestTag, records bench.HandlerRecords) (
 	title string, labels []string, values [][]float64) {
 
-	title = data.BenchName(bench)
+	title = data.TestName(test)
 
 	order := make([]string, 0, len(records))
 	for benchTag := range records {
@@ -214,8 +214,8 @@ func chartBench(bench infra.BenchTag, records infra.HandlerRecords) (
 		values[i] = make([]float64, 4)
 	}
 	for i, tag := range order {
-		labels[i] = data.HandlerName(infra.HandlerTag(tag))
-		record := records[infra.HandlerTag(tag)]
+		labels[i] = data.HandlerName(bench.HandlerTag(tag))
+		record := records[bench.HandlerTag(tag)]
 		values[i][0] = record.NanosPerOp
 		values[i][1] = float64(record.MemAllocsPerOp)
 		values[i][2] = float64(record.MemBytesPerOp)
@@ -225,7 +225,7 @@ func chartBench(bench infra.BenchTag, records infra.HandlerRecords) (
 	return
 }
 
-func chartHandler(handler infra.HandlerTag, records infra.BenchRecords) (
+func chartHandler(handler bench.HandlerTag, records bench.TestRecords) (
 	title string, labels []string, values [][]float64) {
 
 	title = data.HandlerName(handler)
@@ -237,7 +237,7 @@ func chartHandler(handler infra.HandlerTag, records infra.BenchRecords) (
 	sort.Strings(order)
 	labels = make([]string, len(records))
 	for i, tag := range order {
-		labels[i] = data.BenchName(infra.BenchTag(tag))
+		labels[i] = data.TestName(bench.TestTag(tag))
 	}
 
 	values = make([][]float64, 4)
@@ -245,7 +245,7 @@ func chartHandler(handler infra.HandlerTag, records infra.BenchRecords) (
 		values[i] = make([]float64, 0, len(records))
 	}
 	for _, tag := range order {
-		record := records[infra.BenchTag(tag)]
+		record := records[bench.TestTag(tag)]
 		values[0] = append(values[0], record.NanosPerOp)
 		values[1] = append(values[1], float64(record.MemAllocsPerOp))
 		values[2] = append(values[2], float64(record.MemBytesPerOp))
@@ -256,9 +256,9 @@ func chartHandler(handler infra.HandlerTag, records infra.BenchRecords) (
 }
 
 type pageData struct {
-	Data    *infra.BenchData
-	Bench   infra.BenchTag
-	Handler infra.HandlerTag
+	Data    *bench.Data
+	Bench   bench.TestTag
+	Handler bench.HandlerTag
 }
 
 func pageFunction(page pageType) gin.HandlerFunc {
@@ -268,9 +268,9 @@ func pageFunction(page pageType) gin.HandlerFunc {
 			if name := c.Query("tag"); name == "" {
 				slog.Error("No 'tag' URL argument")
 			} else if page == pageBench {
-				pageData.Bench = infra.BenchTag(name)
+				pageData.Bench = bench.TestTag(name)
 			} else if page == pageHandler {
-				pageData.Handler = infra.HandlerTag(name)
+				pageData.Handler = bench.HandlerTag(name)
 			}
 		}
 		if err := templates[page].Execute(c.Writer, pageData); err != nil {

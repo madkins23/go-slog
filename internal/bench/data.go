@@ -1,4 +1,4 @@
-package infra
+package bench
 
 import (
 	"encoding/json"
@@ -17,6 +17,7 @@ import (
 var jsonFile = flag.String("json", "", "Source JSON file (else stdin)")
 
 // -----------------------------------------------------------------------------
+// Records matching gobenchdata JSON output.
 
 type testData struct {
 	Date   uint64
@@ -43,20 +44,22 @@ type benchmarkData struct {
 
 // -----------------------------------------------------------------------------
 
-// BenchTag is an alias for string so that types can't be confused.
-type BenchTag string
+// TestTag is a unique name for a Benchmark test.
+// The type is an alias for string so that types can't be confused.
+type TestTag string
 
-// HandlerTag is an alias for string so that types can't be confused.
+// HandlerTag is a unique name for a slog handler.
+// The type is an alias for string so that types can't be confused.
 type HandlerTag string
 
-// BenchRecords is a map of test records by benchmark tag.
-type BenchRecords map[BenchTag]BenchmarkRecord
+// TestRecords is a map of test records by test tag.
+type TestRecords map[TestTag]TestRecord
 
 // HandlerRecords is a map of test records by handler tag.
-type HandlerRecords map[HandlerTag]BenchmarkRecord
+type HandlerRecords map[HandlerTag]TestRecord
 
-// BenchmarkRecord represents a single benchmark/handler test result.
-type BenchmarkRecord struct {
+// TestRecord represents a single benchmark/handler test result.
+type TestRecord struct {
 	Iterations     int
 	NanosPerOp     float64
 	MemBytesPerOp  int
@@ -64,27 +67,27 @@ type BenchmarkRecord struct {
 	MemMbPerSec    int
 }
 
-// BenchData encapsulates benchmark records by BenchmarkName and HandlerTag.
-type BenchData struct {
+// Data encapsulates benchmark records by BenchmarkName and HandlerTag.
+type Data struct {
 	date         time.Time
-	byBenchmark  map[BenchTag]HandlerRecords
-	byHandler    map[HandlerTag]BenchRecords
-	benches      []BenchTag
+	byTest       map[TestTag]HandlerRecords
+	byHandler    map[HandlerTag]TestRecords
+	tests        []TestTag
 	handlers     []HandlerTag
-	benchNames   map[BenchTag]string
-	benchCPUs    map[BenchTag]uint64
+	testNames    map[TestTag]string
+	testCPUs     map[TestTag]uint64
 	handlerNames map[HandlerTag]string
 }
 
 // -----------------------------------------------------------------------------
 
-var ptnBenchName = regexp.MustCompile(`Benchmark(.+)-(\d+)`)
+var ptrTestName = regexp.MustCompile(`Benchmark(.+)-(\d+)`)
 var ptnHandlerName = regexp.MustCompile(`Benchmark(?:_slog)?_(.*)`)
 
-// LoadBenchJSON loads benchmark data from JSON emitted by gobenchdata.
+// LoadDataJSON loads benchmark data from JSON emitted by gobenchdata.
 // The data will be loaded from os.Stdin unless the -json=<path> flag is set
 // in which case the data will be loaded from the specified path.
-func (bd *BenchData) LoadBenchJSON() error {
+func (bd *Data) LoadDataJSON() error {
 	var err error
 	var in io.Reader = os.Stdin
 	if *jsonFile != "" {
@@ -103,7 +106,7 @@ func (bd *BenchData) LoadBenchJSON() error {
 	// Unmarshal the data:
 	var data []testData
 	if err = json.Unmarshal(source, &data); err != nil {
-		return fmt.Errorf("unmarshal source bench data: %w", err)
+		return fmt.Errorf("unmarshal source gobenchdata: %w", err)
 	}
 	if len(data) != 1 {
 		return fmt.Errorf("top level array has %d items\n", len(data))
@@ -123,25 +126,26 @@ func (bd *BenchData) LoadBenchJSON() error {
 				continue
 			}
 			handler := HandlerTag(parts[0])
-			bench := BenchTag(parts[1])
+			test := TestTag(parts[1])
 
-			if matches := ptnBenchName.FindSubmatch([]byte(bench)); matches != nil && len(matches) > 2 {
-				bench = BenchTag(strings.TrimLeft(string(matches[1]), "_"))
-				if bd.benchNames == nil {
-					bd.benchNames = make(map[BenchTag]string)
+			if matches := ptrTestName.FindSubmatch([]byte(test)); matches != nil && len(matches) > 2 {
+				test = TestTag(strings.TrimLeft(string(matches[1]), "_"))
+				if bd.testNames == nil {
+					bd.testNames = make(map[TestTag]string)
 				}
-				if bd.benchCPUs == nil {
-					bd.benchCPUs = make(map[BenchTag]uint64)
+				if bd.testCPUs == nil {
+					bd.testCPUs = make(map[TestTag]uint64)
 				}
-				bd.benchNames[bench] = strings.Replace(string(bench), "_", " ", -1)
+				bd.testNames[test] = strings.Replace(string(test), "_", " ", -1)
 				if cpuCount, err := strconv.ParseUint(string(matches[2]), 10, 64); err != nil {
 					slog.Warn("Unable to parse CPU count", "from", matches[2], "err", err)
 				} else {
-					bd.benchCPUs[bench] = cpuCount
+					bd.testCPUs[test] = cpuCount
 				}
 			}
 
 			if handler == "Benchmark_slog" {
+				// Fix this so the handler name doesn't get edited down to nothing.
 				handler = "Benchmark_slog_slog_JSONHandler"
 			}
 			handler = HandlerTag(strings.TrimLeft(strings.TrimPrefix(string(handler), "Benchmark_slog"), "_"))
@@ -160,13 +164,13 @@ func (bd *BenchData) LoadBenchJSON() error {
 				handler = HandlerTag(matches[1])
 			}
 
-			if bd.byBenchmark == nil {
-				bd.byBenchmark = make(map[BenchTag]HandlerRecords)
+			if bd.byTest == nil {
+				bd.byTest = make(map[TestTag]HandlerRecords)
 			}
-			if bd.byBenchmark[bench] == nil {
-				bd.byBenchmark[bench] = make(HandlerRecords)
+			if bd.byTest[test] == nil {
+				bd.byTest[test] = make(HandlerRecords)
 			}
-			bd.byBenchmark[bench][handler] = BenchmarkRecord{
+			bd.byTest[test][handler] = TestRecord{
 				Iterations:     bm.Runs,
 				NanosPerOp:     bm.NsPerOp,
 				MemBytesPerOp:  bm.Mem.BytesPerOp,
@@ -175,12 +179,12 @@ func (bd *BenchData) LoadBenchJSON() error {
 			}
 
 			if bd.byHandler == nil {
-				bd.byHandler = make(map[HandlerTag]BenchRecords)
+				bd.byHandler = make(map[HandlerTag]TestRecords)
 			}
 			if bd.byHandler[handler] == nil {
-				bd.byHandler[handler] = make(BenchRecords)
+				bd.byHandler[handler] = make(TestRecords)
 			}
-			bd.byHandler[handler][bench] = BenchmarkRecord{
+			bd.byHandler[handler][test] = TestRecord{
 				Iterations:     bm.Runs,
 				NanosPerOp:     bm.NsPerOp,
 				MemBytesPerOp:  bm.Mem.BytesPerOp,
@@ -194,37 +198,37 @@ func (bd *BenchData) LoadBenchJSON() error {
 
 // -----------------------------------------------------------------------------
 
-// BenchName returns the full name associated with a BenchTag.
+// TestName returns the full name associated with a TestTag.
 // If there is no full name the tag is returned.
-func (bd *BenchData) BenchName(bench BenchTag) string {
-	if name, found := bd.benchNames[bench]; found {
+func (bd *Data) TestName(test TestTag) string {
+	if name, found := bd.testNames[test]; found {
 		return name
 	} else {
-		return string(bench)
+		return string(test)
 	}
 }
 
-// BenchRecords returns a map of HandlerTag to BenchmarkRecord for the specified benchmark.
-func (bd *BenchData) BenchRecords(handler HandlerTag) BenchRecords {
+// TestRecords returns a map of HandlerTag to TestRecord for the specified benchmark.
+func (bd *Data) TestRecords(handler HandlerTag) TestRecords {
 	return bd.byHandler[handler]
 }
 
-// BenchTags returns an array of all benchmark names sorted alphabetically.
-func (bd *BenchData) BenchTags() []BenchTag {
-	if bd.benches == nil {
-		for bench := range bd.byBenchmark {
-			bd.benches = append(bd.benches, bench)
+// TestTags returns an array of all test names sorted alphabetically.
+func (bd *Data) TestTags() []TestTag {
+	if bd.tests == nil {
+		for test := range bd.byTest {
+			bd.tests = append(bd.tests, test)
 		}
-		sort.Slice(bd.benches, func(i, j int) bool {
-			return bd.benches[i] > bd.benches[j]
+		sort.Slice(bd.tests, func(i, j int) bool {
+			return bd.TestName(bd.tests[i]) > bd.TestName(bd.tests[j])
 		})
 	}
-	return bd.benches
+	return bd.tests
 }
 
 // HandlerName returns the full name associated with a HandlerTag.
 // If there is no full name the tag is returned.
-func (bd *BenchData) HandlerName(handler HandlerTag) string {
+func (bd *Data) HandlerName(handler HandlerTag) string {
 	if name, found := bd.handlerNames[handler]; found {
 		return name
 	} else {
@@ -232,13 +236,13 @@ func (bd *BenchData) HandlerName(handler HandlerTag) string {
 	}
 }
 
-// HandlerRecords returns a map of HandlerTag to BenchmarkRecord for the specified benchmark.
-func (bd *BenchData) HandlerRecords(bench BenchTag) HandlerRecords {
-	return bd.byBenchmark[bench]
+// HandlerRecords returns a map of HandlerTag to TestRecord for the specified benchmark.
+func (bd *Data) HandlerRecords(test TestTag) HandlerRecords {
+	return bd.byTest[test]
 }
 
 // HandlerTags returns an array of all handler names sorted alphabetically.
-func (bd *BenchData) HandlerTags() []HandlerTag {
+func (bd *Data) HandlerTags() []HandlerTag {
 	if bd.handlers == nil {
 		for handler := range bd.byHandler {
 			bd.handlers = append(bd.handlers, handler)
@@ -250,13 +254,13 @@ func (bd *BenchData) HandlerTags() []HandlerTag {
 	return bd.handlers
 }
 
-func (bd *BenchData) Date() time.Time {
+func (bd *Data) Date() time.Time {
 	return bd.date
 }
 
 // -----------------------------------------------------------------------------
 
-func (br *BenchmarkRecord) IsEmpty() bool {
+func (br *TestRecord) IsEmpty() bool {
 	return br.Iterations == 0
 }
 

@@ -11,7 +11,7 @@ import (
 
 	"github.com/madkins23/go-utils/text/table"
 
-	"github.com/madkins23/go-slog/infra"
+	"github.com/madkins23/go-slog/internal/bench"
 )
 
 // Tabular reads the JSON from gobenchdata and formats it into simple tables.
@@ -26,26 +26,27 @@ func main() {
 	}))
 	slog.SetDefault(logger)
 
-	var data infra.BenchData
-	if err := data.LoadBenchJSON(); err != nil {
+	var data bench.Data
+	if err := data.LoadDataJSON(); err != nil {
 		slog.Error("Error parsing benchmark JSON", "err", err)
 		return
 	}
 
 	tableMgr := tableDefs()
 
-	for _, bench := range data.BenchTags() {
-		fmt.Printf("\nBenchmark %s\n", bench)
+	for _, test := range data.TestTags() {
+		fmt.Printf("\nBenchmark %s\n", test)
 		fmt.Println(tableMgr.BorderString(table.Top))
-		fmt.Printf(tableMgr.HeaderFormat(), "Handler", "Runs", "Ns/Op", "Bytes/Op", "Allocs/Op", "MB/Sec")
+		fmt.Printf(tableMgr.HeaderFormat(), "Handler", bench.Runs.ShortName(), bench.Nanos.ShortName(),
+			bench.MemAllocs.ShortName(), bench.MemBytes.ShortName(), bench.MemMB.ShortName())
 		fmt.Println(tableMgr.SeparatorString(1))
-		handlerRecords := data.HandlerRecords(bench)
+		handlerRecords := data.HandlerRecords(test)
 		for _, handler := range data.HandlerTags() {
 			handlerRecord := handlerRecords[handler]
 			if !handlerRecord.IsEmpty() {
 				fmt.Printf(tableMgr.RowFormat(),
 					handler, handlerRecord.Iterations, handlerRecord.NanosPerOp,
-					handlerRecord.MemBytesPerOp, handlerRecord.MemAllocsPerOp, handlerRecord.MemMbPerSec)
+					handlerRecord.MemAllocsPerOp, handlerRecord.MemBytesPerOp, handlerRecord.MemMbPerSec)
 			}
 		}
 		fmt.Println(tableMgr.BorderString(table.Bottom))
