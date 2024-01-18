@@ -17,6 +17,7 @@ import (
 // -----------------------------------------------------------------------------
 // Basic tests.
 
+//goland:noinspection GoSnakeCaseUsage
 func (suite *SlogBenchmarkSuite) Benchmark_Disabled() Benchmark {
 	mark := NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
 		logger.Info(message)
@@ -25,12 +26,14 @@ func (suite *SlogBenchmarkSuite) Benchmark_Disabled() Benchmark {
 	return mark
 }
 
+//goland:noinspection GoSnakeCaseUsage
 func (suite *SlogBenchmarkSuite) Benchmark_Simple() Benchmark {
 	return NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
 		logger.Info(message)
 	}, nil)
 }
 
+//goland:noinspection GoSnakeCaseUsage
 func (suite *SlogBenchmarkSuite) Benchmark_Simple_Source() Benchmark {
 	return NewBenchmark(infra.SourceOptions(), func(logger *slog.Logger) {
 		logger.Info(message)
@@ -39,12 +42,14 @@ func (suite *SlogBenchmarkSuite) Benchmark_Simple_Source() Benchmark {
 
 // -----------------------------------------------------------------------------
 
+//goland:noinspection GoSnakeCaseUsage
 func (suite *SlogBenchmarkSuite) Benchmark_Attributes() Benchmark {
 	return NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
 		logger.LogAttrs(context.Background(), slog.LevelInfo, message, allAttributes...)
 	}, nil)
 }
 
+//goland:noinspection GoSnakeCaseUsage
 func (suite *SlogBenchmarkSuite) Benchmark_Key_Values() Benchmark {
 	return NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
 		logger.Info(message, allKeyValues...)
@@ -53,18 +58,21 @@ func (suite *SlogBenchmarkSuite) Benchmark_Key_Values() Benchmark {
 
 // -----------------------------------------------------------------------------
 
+//goland:noinspection GoSnakeCaseUsage
 func (suite *SlogBenchmarkSuite) Benchmark_With_Attrs_Simple() Benchmark {
 	return NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
 		logger.Info(message)
 	}, withAllAttributes)
 }
 
+//goland:noinspection GoSnakeCaseUsage
 func (suite *SlogBenchmarkSuite) Benchmark_With_Attrs_Attributes() Benchmark {
 	return NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
 		logger.LogAttrs(context.Background(), slog.LevelInfo, message, allAttributes...)
 	}, withAllAttributes)
 }
 
+//goland:noinspection GoSnakeCaseUsage
 func (suite *SlogBenchmarkSuite) Benchmark_With_Attrs_Key_Values() Benchmark {
 	return NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
 		logger.Info(message, allKeyValues...)
@@ -73,12 +81,14 @@ func (suite *SlogBenchmarkSuite) Benchmark_With_Attrs_Key_Values() Benchmark {
 
 // -----------------------------------------------------------------------------
 
+//goland:noinspection GoSnakeCaseUsage
 func (suite *SlogBenchmarkSuite) Benchmark_With_Group_Attributes() Benchmark {
 	return NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
 		logger.LogAttrs(context.Background(), slog.LevelInfo, message, allAttributes...)
 	}, withGroupAttributes)
 }
 
+//goland:noinspection GoSnakeCaseUsage
 func (suite *SlogBenchmarkSuite) Benchmark_With_Group_Key_Values() Benchmark {
 	return NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
 		logger.Info(message, allKeyValues...)
@@ -87,6 +97,7 @@ func (suite *SlogBenchmarkSuite) Benchmark_With_Group_Key_Values() Benchmark {
 
 // -----------------------------------------------------------------------------
 
+//goland:noinspection GoSnakeCaseUsage
 func (suite *SlogBenchmarkSuite) Benchmark_Big_Group() Benchmark {
 	return NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
 		logger.Info(message, BigGroup())
