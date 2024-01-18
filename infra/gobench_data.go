@@ -9,6 +9,7 @@ import (
 	"os"
 	"regexp"
 	"sort"
+	"strconv"
 	"strings"
 	"time"
 )
@@ -71,6 +72,7 @@ type BenchData struct {
 	benches      []BenchTag
 	handlers     []HandlerTag
 	benchNames   map[BenchTag]string
+	benchCPUs    map[BenchTag]uint64
 	handlerNames map[HandlerTag]string
 }
 
@@ -128,10 +130,15 @@ func (bd *BenchData) LoadBenchJSON() error {
 				if bd.benchNames == nil {
 					bd.benchNames = make(map[BenchTag]string)
 				}
-				bd.benchNames[bench] =
-					fmt.Sprintf("%s (%s CPU)",
-						strings.Replace(string(bench), "_", " ", -1),
-						string(matches[2]))
+				if bd.benchCPUs == nil {
+					bd.benchCPUs = make(map[BenchTag]uint64)
+				}
+				bd.benchNames[bench] = strings.Replace(string(bench), "_", " ", -1)
+				if cpuCount, err := strconv.ParseUint(string(matches[2]), 10, 64); err != nil {
+					slog.Warn("Unable to parse CPU count", "from", matches[2], "err", err)
+				} else {
+					bd.benchCPUs[bench] = cpuCount
+				}
 			}
 
 			if handler == "Benchmark_slog" {

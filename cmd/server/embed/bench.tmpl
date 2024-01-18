@@ -14,8 +14,8 @@
         <th>Handler</th>
         <th>Runs</th>
         <th>Ns/Op</th>
-        <th>Bytes/Op</th>
         <th>Allocs/Op</th>
+        <th>Bytes/Op</th>
         <th>MB/Sec</th>
       </tr>
       {{ range $tag, $record := .Data.HandlerRecords .Bench }}
@@ -23,8 +23,8 @@
           <td>{{ $.Data.HandlerName $tag }}</td>
           <td class="number">{{ $record.Iterations }}</td>
           <td class="number">{{ printf "%0.2f" $record.NanosPerOp }}</td>
-          <td class="number">{{ $record.MemBytesPerOp }}</td>
           <td class="number">{{ $record.MemAllocsPerOp }}</td>
+          <td class="number">{{ $record.MemBytesPerOp }}</td>
           <td class="number">{{ $record.MemMbPerSec }}</td>
         </tr>
       {{ end }}
