@@ -73,6 +73,9 @@ Run the handler verification tests installed in this repository with:
 go test -bench=. bench/*.go
 ```
 
+It is not necessary to use the `-benchmem` argument to generate memory statistics.
+This feature is turned on within the benchmark harness (nor can it be turned off).
+
 Due to the way Go benchmark testing is configured
 it is not possible to gather results internally.
 Processing of results must be done using external tools
