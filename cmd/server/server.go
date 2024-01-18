@@ -133,6 +133,7 @@ func setup() error {
 
 // -----------------------------------------------------------------------------
 
+//go:generate go run github.com/dmarkham/enumer -type=dataFields
 type dataFields uint
 
 const (
@@ -151,13 +152,13 @@ var (
 
 func chartFunction(c *gin.Context) {
 	tag := c.Query("tag")
+	//tag := c.Query("field")
 	ch, found := chartCache[tag]
 	if !found {
-		var title string
 		if records := data.HandlerRecords(bench.TestTag(tag)); records != nil {
-			title, _, _ = chartBench(bench.TestTag(tag), records)
+			_, _, _ = chartBench(bench.TestTag(tag), records)
 		} else if records := data.TestRecords(bench.HandlerTag(tag)); records != nil {
-			title, _, _ = chartHandler(bench.HandlerTag(tag), records)
+			_, _, _ = chartHandler(bench.HandlerTag(tag), records)
 		} else {
 			slog.Error("Neither handler nor benchmark records found", "fn", "chartFunction")
 			c.HTML(http.StatusBadRequest, "pageFunction", gin.H{
@@ -165,33 +166,38 @@ func chartFunction(c *gin.Context) {
 				"ErrorMessage": "No records for " + tag})
 			return
 		}
-		painter, err := charts.BarRender(
-			values,
-			charts.SVGTypeOption(),
-			charts.TitleTextOptionFunc(title),
-			charts.XAxisDataOptionFunc([]string{
-				"Ns/Op",
-				"Mem Allocs/Op",
-				"Mem Bytes/Op",
-				"Mem MB/Sec",
-			}),
-			charts.YAxisOptionFunc(
-				charts.YAxisOption{
-					Position: charts.PositionLeft,
+		painter, err := charts.HorizontalBarRender(
+			// TODO: here
+			[][]float64{
+				{
+					10,
+					30,
+					50,
+					70,
+					90,
+					110,
+					130,
 				},
-				charts.YAxisOption{
-					Position: charts.PositionRight,
-				},
-			),
-			func(opt *charts.ChartOption) {
-				opt.Legend = charts.LegendOption{
-					Data: labels,
-					Left: "25%",
-					Top:  "25%",
-					//Align: charts.AlignRight,
-				}
 			},
-			charts.LegendLabelsOptionFunc(labels, charts.PositionBottom),
+			charts.SVGTypeOption(),
+			// TODO: here
+			charts.TitleTextOptionFunc("World Population"),
+			charts.PaddingOptionFunc(charts.Box{
+				Top:    20,
+				Right:  40,
+				Bottom: 20,
+				Left:   20,
+			}),
+			// TODO: here
+			charts.YAxisDataOptionFunc([]string{
+				"UN",
+				"Brazil",
+				"Indonesia",
+				"USA",
+				"India",
+				"China",
+				"World",
+			}),
 		)
 		if err != nil {
 			panic(err)
