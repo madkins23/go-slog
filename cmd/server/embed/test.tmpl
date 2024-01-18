@@ -8,7 +8,7 @@
 <table class="top">
   <tr>
     <td>
-      <h1>Handler {{ .Data.HandlerName .Handler }}</h1>
+      <h1>Test {{ .Data.TestName .Test }}</h1>
     </td>
     <td align="right">
       {{ template "choices" $ }}
@@ -18,16 +18,16 @@
     <td colspan=2 align="center">
       <table class="data">
         <tr>
-          <th>Benchmark</th>
+          <th>Handler</th>
           <th>Runs</th>
           <th>Ns/Op</th>
           <th>Allocs/Op</th>
           <th>Bytes/Op</th>
           <th>MB/Sec</th>
         </tr>
-        {{ range $tag, $record := .Data.TestRecords .Handler }}
+        {{ range $tag, $record := .Data.HandlerRecords .Test }}
           <tr>
-            <td>{{ $.Data.TestName $tag }}</td>
+            <td>{{ $.Data.HandlerName $tag }}</td>
             <td class="number">{{ $record.Iterations }}</td>
             <td class="number">{{ printf "%0.2f" $record.NanosPerOp }}</td>
             <td class="number">{{ $record.MemAllocsPerOp }}</td>
@@ -42,17 +42,16 @@
     <td colspan=2>
       <table>
         <tr>
-          <td><img src="chart.svg?tag={{ .Handler }}&item=Nanos" alt="{{ .Data.HandlerName .Handler }} Ns/Op" /></td>
-          <td><img src="chart.svg?tag={{ .Handler }}&item=MemAllocs" alt="{{ .Data.HandlerName .Handler }} Allocs/Op" /></td>
+          <td><img src="chart.svg?tag={{ .Test }}&item=Nanos" alt="{{ .Data.TestName .Test }} Ns/Op" /></td>
+          <td><img src="chart.svg?tag={{ .Test }}&item=MemAllocs" alt="{{ .Data.TestName .Test }} Allocs/Op" /></td>
         </tr>
         <tr>
-          <td><img src="chart.svg?tag={{ .Handler }}&item=MemBytes" alt="{{ .Data.HandlerName .Handler }} Bytes/Op" /></td>
-          <td><img src="chart.svg?tag={{ .Handler }}&item=MemMB" alt="{{ .Data.HandlerName .Handler }} MB/Sec" /></td>
+          <td><img src="chart.svg?tag={{ .Test }}&item=MemBytes" alt="{{ .Data.TestName .Test }} Bytes/Op" /></td>
+          <td><img src="chart.svg?tag={{ .Test }}&item=MemMB" alt="{{ .Data.TestName .Test }} MB/Sec" /></td>
         </tr>
       </table>
     </td>
   </tr>
 </table>
-</div>
 </body>
 </html>

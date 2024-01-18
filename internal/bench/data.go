@@ -67,6 +67,30 @@ type TestRecord struct {
 	MemMbPerSec    int
 }
 
+func (tr *TestRecord) IsEmpty() bool {
+	return tr.Iterations == 0
+}
+
+func (tr *TestRecord) ItemValue(item TestItems) float64 {
+	switch item {
+	case Runs:
+		return float64(tr.Iterations)
+	case Nanos:
+		return tr.NanosPerOp
+	case MemAllocs:
+		return float64(tr.MemAllocsPerOp)
+	case MemBytes:
+		return float64(tr.MemBytesPerOp)
+	case MemMB:
+		return float64(tr.MemMbPerSec)
+	default:
+		slog.Warn("Unknown bench.TestItem", "item", item)
+		return 0
+	}
+}
+
+// -----------------------------------------------------------------------------
+
 // Data encapsulates benchmark records by BenchmarkName and HandlerTag.
 type Data struct {
 	date         time.Time
@@ -87,7 +111,7 @@ var ptnHandlerName = regexp.MustCompile(`Benchmark(?:_slog)?_(.*)`)
 // LoadDataJSON loads benchmark data from JSON emitted by gobenchdata.
 // The data will be loaded from os.Stdin unless the -json=<path> flag is set
 // in which case the data will be loaded from the specified path.
-func (bd *Data) LoadDataJSON() error {
+func (d *Data) LoadDataJSON() error {
 	var err error
 	var in io.Reader = os.Stdin
 	if *jsonFile != "" {
@@ -113,7 +137,7 @@ func (bd *Data) LoadDataJSON() error {
 	}
 	testData := data[0]
 
-	bd.date = time.UnixMilli(int64(testData.Date))
+	d.date = time.UnixMilli(int64(testData.Date))
 	if len(testData.Suites) != 1 {
 		return fmt.Errorf("suites array has %d items\n", len(testData.Suites))
 	}
@@ -130,17 +154,17 @@ func (bd *Data) LoadDataJSON() error {
 
 			if matches := ptrTestName.FindSubmatch([]byte(test)); matches != nil && len(matches) > 2 {
 				test = TestTag(strings.TrimLeft(string(matches[1]), "_"))
-				if bd.testNames == nil {
-					bd.testNames = make(map[TestTag]string)
+				if d.testNames == nil {
+					d.testNames = make(map[TestTag]string)
 				}
-				if bd.testCPUs == nil {
-					bd.testCPUs = make(map[TestTag]uint64)
+				if d.testCPUs == nil {
+					d.testCPUs = make(map[TestTag]uint64)
 				}
-				bd.testNames[test] = strings.Replace(string(test), "_", " ", -1)
+				d.testNames[test] = strings.Replace(string(test), "_", " ", -1)
 				if cpuCount, err := strconv.ParseUint(string(matches[2]), 10, 64); err != nil {
 					slog.Warn("Unable to parse CPU count", "from", matches[2], "err", err)
 				} else {
-					bd.testCPUs[test] = cpuCount
+					d.testCPUs[test] = cpuCount
 				}
 			}
 
@@ -150,46 +174,46 @@ func (bd *Data) LoadDataJSON() error {
 			}
 			handler = HandlerTag(strings.TrimLeft(strings.TrimPrefix(string(handler), "Benchmark_slog"), "_"))
 			parts = strings.Split(strings.TrimLeft(string(handler), "_"), "_")
-			if bd.handlerNames == nil {
-				bd.handlerNames = make(map[HandlerTag]string)
+			if d.handlerNames == nil {
+				d.handlerNames = make(map[HandlerTag]string)
 			}
 			for i, part := range parts {
 				if len(part) > 0 {
 					parts[i] = strings.ToUpper(part[:1]) + part[1:]
 				}
 			}
-			bd.handlerNames[handler] = strings.Join(parts, " ")
+			d.handlerNames[handler] = strings.Join(parts, " ")
 
 			if matches := ptnHandlerName.FindSubmatch([]byte(handler)); matches != nil && len(matches) > 1 {
 				handler = HandlerTag(matches[1])
 			}
 
-			if bd.byTest == nil {
-				bd.byTest = make(map[TestTag]HandlerRecords)
+			if d.byTest == nil {
+				d.byTest = make(map[TestTag]HandlerRecords)
 			}
-			if bd.byTest[test] == nil {
-				bd.byTest[test] = make(HandlerRecords)
+			if d.byTest[test] == nil {
+				d.byTest[test] = make(HandlerRecords)
 			}
-			bd.byTest[test][handler] = TestRecord{
+			d.byTest[test][handler] = TestRecord{
 				Iterations:     bm.Runs,
 				NanosPerOp:     bm.NsPerOp,
 				MemBytesPerOp:  bm.Mem.BytesPerOp,
 				MemAllocsPerOp: bm.Mem.AllocsPerOp,
-				MemMbPerSec:    bm.Mem.BytesPerOp,
+				MemMbPerSec:    bm.Mem.MBPerSec,
 			}
 
-			if bd.byHandler == nil {
-				bd.byHandler = make(map[HandlerTag]TestRecords)
+			if d.byHandler == nil {
+				d.byHandler = make(map[HandlerTag]TestRecords)
 			}
-			if bd.byHandler[handler] == nil {
-				bd.byHandler[handler] = make(TestRecords)
+			if d.byHandler[handler] == nil {
+				d.byHandler[handler] = make(TestRecords)
 			}
-			bd.byHandler[handler][test] = TestRecord{
+			d.byHandler[handler][test] = TestRecord{
 				Iterations:     bm.Runs,
 				NanosPerOp:     bm.NsPerOp,
 				MemBytesPerOp:  bm.Mem.BytesPerOp,
 				MemAllocsPerOp: bm.Mem.AllocsPerOp,
-				MemMbPerSec:    bm.Mem.BytesPerOp,
+				MemMbPerSec:    bm.Mem.MBPerSec,
 			}
 		}
 	}
@@ -200,8 +224,8 @@ func (bd *Data) LoadDataJSON() error {
 
 // TestName returns the full name associated with a TestTag.
 // If there is no full name the tag is returned.
-func (bd *Data) TestName(test TestTag) string {
-	if name, found := bd.testNames[test]; found {
+func (d *Data) TestName(test TestTag) string {
+	if name, found := d.testNames[test]; found {
 		return name
 	} else {
 		return string(test)
@@ -209,27 +233,27 @@ func (bd *Data) TestName(test TestTag) string {
 }
 
 // TestRecords returns a map of HandlerTag to TestRecord for the specified benchmark.
-func (bd *Data) TestRecords(handler HandlerTag) TestRecords {
-	return bd.byHandler[handler]
+func (d *Data) TestRecords(handler HandlerTag) TestRecords {
+	return d.byHandler[handler]
 }
 
 // TestTags returns an array of all test names sorted alphabetically.
-func (bd *Data) TestTags() []TestTag {
-	if bd.tests == nil {
-		for test := range bd.byTest {
-			bd.tests = append(bd.tests, test)
+func (d *Data) TestTags() []TestTag {
+	if d.tests == nil {
+		for test := range d.byTest {
+			d.tests = append(d.tests, test)
 		}
-		sort.Slice(bd.tests, func(i, j int) bool {
-			return bd.TestName(bd.tests[i]) > bd.TestName(bd.tests[j])
+		sort.Slice(d.tests, func(i, j int) bool {
+			return d.TestName(d.tests[i]) > d.TestName(d.tests[j])
 		})
 	}
-	return bd.tests
+	return d.tests
 }
 
 // HandlerName returns the full name associated with a HandlerTag.
 // If there is no full name the tag is returned.
-func (bd *Data) HandlerName(handler HandlerTag) string {
-	if name, found := bd.handlerNames[handler]; found {
+func (d *Data) HandlerName(handler HandlerTag) string {
+	if name, found := d.handlerNames[handler]; found {
 		return name
 	} else {
 		return string(handler)
@@ -237,31 +261,25 @@ func (bd *Data) HandlerName(handler HandlerTag) string {
 }
 
 // HandlerRecords returns a map of HandlerTag to TestRecord for the specified benchmark.
-func (bd *Data) HandlerRecords(test TestTag) HandlerRecords {
-	return bd.byTest[test]
+func (d *Data) HandlerRecords(test TestTag) HandlerRecords {
+	return d.byTest[test]
 }
 
 // HandlerTags returns an array of all handler names sorted alphabetically.
-func (bd *Data) HandlerTags() []HandlerTag {
-	if bd.handlers == nil {
-		for handler := range bd.byHandler {
-			bd.handlers = append(bd.handlers, handler)
+func (d *Data) HandlerTags() []HandlerTag {
+	if d.handlers == nil {
+		for handler := range d.byHandler {
+			d.handlers = append(d.handlers, handler)
 		}
-		sort.Slice(bd.handlers, func(i, j int) bool {
-			return bd.handlers[i] > bd.handlers[j]
+		sort.Slice(d.handlers, func(i, j int) bool {
+			return d.HandlerName(d.handlers[i]) > d.HandlerName(d.handlers[j])
 		})
 	}
-	return bd.handlers
+	return d.handlers
 }
 
-func (bd *Data) Date() time.Time {
-	return bd.date
-}
-
-// -----------------------------------------------------------------------------
-
-func (br *TestRecord) IsEmpty() bool {
-	return br.Iterations == 0
+func (d *Data) Date() time.Time {
+	return d.date
 }
 
 // -----------------------------------------------------------------------------

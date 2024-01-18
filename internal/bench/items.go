@@ -15,26 +15,38 @@ const (
 
 // -----------------------------------------------------------------------------
 
-var shortNames = map[TestItems]string{
-	Runs:      "Runs",
-	Nanos:     "Ns/Op",
-	MemAllocs: "Allocs/Op",
-	MemBytes:  "Bytes/Op",
-	MemMB:     "MB/Sec",
+var testItemData = map[TestItems]struct {
+	short string
+	long  string
+}{
+	Runs: {
+		short: "Runs",
+		long:  "Test runs",
+	},
+	Nanos: {
+		short: "Ns/Op",
+		long:  "Nanoseconds per test",
+	},
+	MemAllocs: {
+		short: "Allocs/Op",
+		long:  "Memory allocations per test",
+	},
+	MemBytes: {
+		short: "Bytes/Op",
+		long:  "Memory bytes allocated per test",
+	},
+	MemMB: {
+		short: "MB/Sec",
+		long:  "Memory Megabytes allocated per second",
+	},
 }
+
+// -----------------------------------------------------------------------------
 
 func (item TestItems) ShortName() string {
-	return shortNames[item]
-}
-
-var longNames = map[TestItems]string{
-	Runs:      "Test runs",
-	Nanos:     "Nanoseconds per test",
-	MemAllocs: "Memory allocations per test",
-	MemBytes:  "Memory bytes allocated per test",
-	MemMB:     "Memory Megabytes allocated per second",
+	return testItemData[item].short
 }
 
 func (item TestItems) LongName() string {
-	return longNames[item]
+	return testItemData[item].long
 }

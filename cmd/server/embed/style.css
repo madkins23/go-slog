@@ -1,25 +1,25 @@
 body {
     background-color: gray;
     justify-content: center;
-    width:100%;
+    height: fit-content;
 }
 
 fieldset {
-    margin:  0px auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form.choice {
+    margin-bottom: 0;
+}
+
+img {
+    border: 2px inset white;
 }
 
 legend {
     font-weight: bold;
     padding: 0.5em;
-}
-
-div.top {
-    position: fixed;
-    top: 0%;
-    left: 50%;
-    transform: translate(-50%, 0%);
-    margin: 5px;
-    padding: 5px;
 }
 
 table.data {
@@ -36,9 +36,18 @@ table.data td {
     border: 2px inset darkgray;
 }
 
+table.root {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 table.root td {
     vertical-align: top;
-    width: 50%;
+}
+
+table.top {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .number {

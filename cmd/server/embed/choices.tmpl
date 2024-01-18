@@ -1,18 +1,28 @@
-    <form action="bench" style="display:inline-block;">
-      <label for="tag">Bench:</label>
-      <select name="tag" id="tag" onchange="this.form.submit();">
-        <option value="" selected disabled hidden>- Choose -</option>
-        {{ range .Data.BenchTags }}
-          <option value="{{ . }}" {{ if eq $.Bench . }}selected{{ end }}>{{ $.Data.BenchName . }}</option>
-        {{ end }}
-      </select>
-    </form>
-    <form action="handler" style="display:inline-block; float:right;">
-      <label for="tag">Handler:</label>
-      <select name="tag" id="tag" onchange="this.form.submit();">
-        <option value="" selected disabled hidden>- Choose -</option>
-        {{ range .Data.HandlerTags }}
-          <option value="{{ . }}" {{ if eq $.Handler . }}selected{{ end }}>{{ $.Data.HandlerName . }}</option>
-        {{ end }}
-      </select>
-    </form>
+        <table>
+          <tr>
+            <td align="right">Test:</td>
+            <td>
+              <form action="test" class="choice">
+                <select name="tag" id="tag" onchange="this.form.submit();">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  {{ range .Data.TestTags }}
+                    <option value="{{ . }}" {{ if eq $.Test . }}selected{{ end }}>{{ $.Data.TestName . }}</option>
+                  {{ end }}
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Handler:</td>
+            <td>
+              <form action="handler" class="choice">
+                <select name="tag" id="tag" onchange="this.form.submit();">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  {{ range .Data.HandlerTags }}
+                    <option value="{{ . }}" {{ if eq $.Handler . }}selected{{ end }}>{{ $.Data.HandlerName . }}</option>
+                  {{ end }}
+                </select>
+              </form>
+            </td>
+          </tr>
+        </table>

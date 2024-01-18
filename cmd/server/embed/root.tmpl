@@ -1,18 +1,17 @@
 <html>
 <head>
-  <title>Benchmark</title>
+  <title>Benchmarks</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 
 <body>
-<div class="top">
   <table class="root">
     <tr><td>
       <fieldset>
-        <legend>Benchmarks</legend>
+        <legend>Tests</legend>
         <table>
-          {{ range .Data.BenchTags }}
-            <tr><td><a href="bench?tag={{ . }}">{{ $.Data.BenchName . }}</a></td></tr>
+          {{ range .Data.TestTags }}
+            <tr><td><a href="test?tag={{ . }}">{{ $.Data.TestName . }}</a></td></tr>
           {{ end }}
         </table>
       </fieldset>
@@ -27,6 +26,5 @@
       </fieldset>
     </td></tr>
   </table>
-</div>
 </body>
 </html>
