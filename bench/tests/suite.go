@@ -89,14 +89,15 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 					function(stdoutLogger)
 				}
 				b.ReportAllocs()
-				// TODO: This doesn't seem to make any difference:
-				//b.ResetTimer()
+				// TODO: This doesn't seem to make any difference?
+				b.ResetTimer()
 				b.RunParallel(func(pb *testing.PB) {
 					for pb.Next() {
 						function(logger)
 					}
 				})
 				b.StopTimer()
+				b.SetBytes(int64(count.Bytes()))
 				if !benchmark.DontCount() && b.N != int(count.Written()) {
 					b.Fatalf("Mismatch in log write count. Expected: %d, Actual: %d",
 						b.N, count.Written())

@@ -28,10 +28,10 @@ func _TestItemsNoOp() {
 	_ = x[Nanos-(1)]
 	_ = x[MemAllocs-(2)]
 	_ = x[MemBytes-(3)]
-	_ = x[MemMB-(4)]
+	_ = x[GBperSec-(4)]
 }
 
-var _TestItemsValues = []TestItems{Runs, Nanos, MemAllocs, MemBytes, MemMB}
+var _TestItemsValues = []TestItems{Runs, Nanos, MemAllocs, MemBytes, GBperSec}
 
 var _TestItemsNameToValueMap = map[string]TestItems{
 	_TestItemsName[0:4]:        Runs,
@@ -42,8 +42,8 @@ var _TestItemsNameToValueMap = map[string]TestItems{
 	_TestItemsLowerName[9:18]:  MemAllocs,
 	_TestItemsName[18:26]:      MemBytes,
 	_TestItemsLowerName[18:26]: MemBytes,
-	_TestItemsName[26:31]:      MemMB,
-	_TestItemsLowerName[26:31]: MemMB,
+	_TestItemsName[26:31]:      GBperSec,
+	_TestItemsLowerName[26:31]: GBperSec,
 }
 
 var _TestItemsNames = []string{

@@ -8,6 +8,7 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"sync"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -133,7 +134,8 @@ func setup() error {
 // -----------------------------------------------------------------------------
 
 var (
-	chartCache = make(map[string][]byte)
+	chartCache      = make(map[string][]byte)
+	chartCacheMutex sync.Mutex
 )
 
 func chartFunction(c *gin.Context) {
@@ -146,7 +148,9 @@ func chartFunction(c *gin.Context) {
 	}
 	tag := c.Query("tag")
 	cacheKey := tag + ":" + item.String()
+	chartCacheMutex.Lock()
 	ch, found := chartCache[cacheKey]
+	chartCacheMutex.Unlock()
 	if !found {
 		var labels []string
 		var values []float64
@@ -188,7 +192,9 @@ func chartFunction(c *gin.Context) {
 		if err != nil {
 			panic(err)
 		}
+		chartCacheMutex.Lock()
 		chartCache[cacheKey] = ch
+		chartCacheMutex.Unlock()
 	}
 	c.Data(http.StatusOK, "image/svg+xml", ch)
 }

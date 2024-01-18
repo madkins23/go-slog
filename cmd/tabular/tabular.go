@@ -37,8 +37,9 @@ func main() {
 	for _, test := range data.TestTags() {
 		fmt.Printf("\nBenchmark %s\n", test)
 		fmt.Println(tableMgr.BorderString(table.Top))
-		fmt.Printf(tableMgr.HeaderFormat(), "Handler", bench.Runs.ShortName(), bench.Nanos.ShortName(),
-			bench.MemAllocs.ShortName(), bench.MemBytes.ShortName(), bench.MemMB.ShortName())
+		fmt.Printf(tableMgr.HeaderFormat(), "Handler",
+			bench.Runs.ShortName(), bench.Nanos.ShortName(),
+			bench.MemAllocs.ShortName(), bench.MemBytes.ShortName(), bench.GBperSec.ShortName())
 		fmt.Println(tableMgr.SeparatorString(1))
 		handlerRecords := data.HandlerRecords(test)
 		for _, handler := range data.HandlerTags() {
@@ -46,7 +47,7 @@ func main() {
 			if !handlerRecord.IsEmpty() {
 				fmt.Printf(tableMgr.RowFormat(),
 					handler, handlerRecord.Iterations, handlerRecord.NanosPerOp,
-					handlerRecord.MemAllocsPerOp, handlerRecord.MemBytesPerOp, handlerRecord.MemMbPerSec)
+					handlerRecord.MemAllocsPerOp, handlerRecord.MemBytesPerOp, handlerRecord.GbPerSec)
 			}
 		}
 		fmt.Println(tableMgr.BorderString(table.Bottom))
@@ -78,8 +79,8 @@ func tableDefs() table.TableDef {
 				Format: "%9d",
 			},
 			{
-				Width:  9,
-				Format: "%9d",
+				Width:  13,
+				Format: "%13.3f",
 			},
 		},
 		Prefix:      "  ",

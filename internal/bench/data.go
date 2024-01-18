@@ -38,7 +38,7 @@ type benchmarkData struct {
 	Mem     struct {
 		BytesPerOp  int
 		AllocsPerOp int
-		MBPerSec    int
+		MBPerSec    float64
 	}
 }
 
@@ -64,7 +64,7 @@ type TestRecord struct {
 	NanosPerOp     float64
 	MemBytesPerOp  int
 	MemAllocsPerOp int
-	MemMbPerSec    int
+	GbPerSec       float64
 }
 
 func (tr *TestRecord) IsEmpty() bool {
@@ -81,8 +81,8 @@ func (tr *TestRecord) ItemValue(item TestItems) float64 {
 		return float64(tr.MemAllocsPerOp)
 	case MemBytes:
 		return float64(tr.MemBytesPerOp)
-	case MemMB:
-		return float64(tr.MemMbPerSec)
+	case GBperSec:
+		return float64(tr.GbPerSec)
 	default:
 		slog.Warn("Unknown bench.TestItem", "item", item)
 		return 0
@@ -199,7 +199,7 @@ func (d *Data) LoadDataJSON() error {
 				NanosPerOp:     bm.NsPerOp,
 				MemBytesPerOp:  bm.Mem.BytesPerOp,
 				MemAllocsPerOp: bm.Mem.AllocsPerOp,
-				MemMbPerSec:    bm.Mem.MBPerSec,
+				GbPerSec:       bm.Mem.MBPerSec / 1000,
 			}
 
 			if d.byHandler == nil {
@@ -213,7 +213,7 @@ func (d *Data) LoadDataJSON() error {
 				NanosPerOp:     bm.NsPerOp,
 				MemBytesPerOp:  bm.Mem.BytesPerOp,
 				MemAllocsPerOp: bm.Mem.AllocsPerOp,
-				MemMbPerSec:    bm.Mem.MBPerSec,
+				GbPerSec:       bm.Mem.MBPerSec,
 			}
 		}
 	}
