@@ -75,7 +75,7 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 			// TODO: If I could call the following I could haz results now?
 			//       testing.Benchmark(func(b *testing.B) {
 			b.Run(method.Name, func(b *testing.B) {
-				var count infra.CountWriter
+				var count test.CountWriter
 				function := benchmark.Function()
 				var logger *slog.Logger
 				if benchmark.HandlerFn() != nil && suite.CanMakeHandler() {
