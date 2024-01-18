@@ -19,11 +19,11 @@ import (
 
 //goland:noinspection GoSnakeCaseUsage
 func (suite *SlogBenchmarkSuite) Benchmark_Disabled() Benchmark {
-	mark := NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
+	test := NewBenchmark(infra.SimpleOptions(), func(logger *slog.Logger) {
 		logger.Info(message)
 	}, nil)
-	mark.SetDontCount(true)
-	return mark
+	test.SetDontCount(true)
+	return test
 }
 
 //goland:noinspection GoSnakeCaseUsage
@@ -96,6 +96,7 @@ func (suite *SlogBenchmarkSuite) Benchmark_With_Group_Key_Values() Benchmark {
 }
 
 // -----------------------------------------------------------------------------
+// Large/Long tests.
 
 //goland:noinspection GoSnakeCaseUsage
 func (suite *SlogBenchmarkSuite) Benchmark_Big_Group() Benchmark {

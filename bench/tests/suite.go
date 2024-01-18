@@ -89,7 +89,8 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 					function(stdoutLogger)
 				}
 				b.ReportAllocs()
-				b.ResetTimer()
+				// TODO: This doesn't seem to make any difference:
+				//b.ResetTimer()
 				b.RunParallel(func(pb *testing.PB) {
 					for pb.Next() {
 						function(logger)
