@@ -134,6 +134,18 @@ func setup() error {
 
 // -----------------------------------------------------------------------------
 
+type dataFields uint
+
+const (
+	dfNanos dataFields = iota
+	dfMemAllocs
+	dfMemBytes
+	dfMemMB
+	dfLen
+)
+
+// -----------------------------------------------------------------------------
+
 var (
 	chartCache = make(map[string][]byte)
 )
