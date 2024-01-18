@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"github.com/madkins23/go-slog/internal/test"
 	testJSON "github.com/madkins23/go-slog/json"
-	"github.com/madkins23/go-slog/test"
 )
 
 // -----------------------------------------------------------------------------
