@@ -25,19 +25,19 @@ var testItemData = map[TestItems]struct {
 	},
 	Nanos: {
 		short: "Ns/Op",
-		long:  "Nanoseconds per test",
+		long:  "Nanoseconds per operation",
 	},
 	MemAllocs: {
 		short: "Allocs/Op",
-		long:  "Memory allocations per test",
+		long:  "Memory allocations per operation",
 	},
 	MemBytes: {
 		short: "Bytes/Op",
-		long:  "Memory bytes allocated per test",
+		long:  "Bytes allocated per operation",
 	},
 	MemMB: {
 		short: "MB/Sec",
-		long:  "Memory Megabytes allocated per second",
+		long:  "Megabytes allocated per second",
 	},
 }
 
