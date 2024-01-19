@@ -54,7 +54,7 @@ func main() {
 				_, err := language.Printer().Printf(tableMgr.RowFormat(),
 					data.HandlerName(handler), handlerRecord.Runs, handlerRecord.NanosPerOp,
 					handlerRecord.MemAllocsPerOp, handlerRecord.MemBytesPerOp,
-					handlerRecord.ItemValue(bench.GbPerSec))
+					handlerRecord.GbPerSec)
 				if err != nil {
 					slog.Error("Unable to print data row", "err", err)
 				}
