@@ -43,7 +43,7 @@ In order to test a new handler instance
 it is necessary to [create a new `infra.Creator`](#creators) for it.
 Existing examples can be found in the `creator` package.
 
-Finally the suite is run via its `Run` method.
+Finally, the suite is run via its `Run` method.
 In short:
 * The `TestXxxxxx` function is executed by the [Go test harness](https://pkg.go.dev/testing).
 * The test function configures a `SlogTestSuite` using an `infra.Creator` factory object.
@@ -79,9 +79,8 @@ This feature is turned on within the benchmark harness (nor can it be turned off
 Due to the way Go benchmark testing is configured
 it is not possible to gather results internally.
 Processing of results must be done using external tools
-such as [`gobenchdata`](https://github.com/bobheadxi/gobenchdata)[^1]
-and the command [`tabular`](../cmd/tabular/tabular.go)
-in this repository.
+such as the commands [`tabular`](../cmd/tabular/tabular.go)
+and [`server`](../cmd/server/server.go) in this repository.
 
 On an operating system that supports `bash` scripts you can use
 the [`scripts/bench`](https://github.com/madkins23/go-slog/blob/main/scripts/verify) script which is configured
@@ -101,6 +100,12 @@ There is one flag defined for testing the verification code:
 * Some tests are skipped because the require a `slog.Handler` object
   which is not available for some handler instances
   (e.g. [`darvaza`](https://github.com/darvaza-proxy/slog)) handlers.
+
+## Commands to Display Results
+
+### `tabular`
+
+### `server`
 
 ---
 

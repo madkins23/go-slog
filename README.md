@@ -1,17 +1,20 @@
 # go-slog
-Tools and testing for `log/slog` handlers
+Tools and testing for `log/slog` (hereafter just `slog`) handlers.
 
 ## Contents
 
-* Test harness for verifying `log/slog` handlers
+* Test harness for verifying `slog` handlers
+* Functions for use with `slog.HandlerOptions.ReplaceAttr`
+* Test harness for benchmarking `slog` handlers
+* Utility to redirect internal `gin` logging to `slog`
 
-## Verification
+## Handler Verification
 
-Verification of `log/slog` handlers can be done by creating
+Verification of `slog` handlers can be done by creating
 simple `_test.go` files that utilize the `verify/test.SlogTestSuite`
 located in this repository.
 Usage details for this facility are provided in
-the [`Readme.MD`](verify/README.md) file
+the [`README`](verify/README.md) file
 located in the [`verify`](verify) package directory.
 
 The tests implemented herein were inspired by:
@@ -29,9 +32,25 @@ The tests implemented herein were inspired by:
 A small collection of functions in the `replace` package
 can be used with `slog.HandlerOptions.ReplaceAttr`.
 
+## Handler Benchmarks
+
+Benchmarks of `slog` handlers can be done by creating
+simple `_test.go` files that utilize the `bench/test.SlogBenchmarkSuite`
+located in this repository.
+Use details for this facility are provided in
+the [`README`](bench/README.md) file
+located in the [`bench`](bench) package directory.
+
+Benchmarks are intended to compare multiple handlers.
+The benchmark data generated can be processed by two applications:
+* [`tabular`](cmd/tabular/tabular.go)  
+  generates a set of tables, each of which compares handlers for a given benchmark test.
+* [`server`](cmd/server/server.go)  
+  runs a simple web server showing the same tables plus bar charts.
+
 ## Gin Logging Redirect
 
-Package `gin` contains utilities for using `log/slog` with `gin-gonic/gin`.
+Package `gin` contains utilities for using `slog` with `gin-gonic/gin`.
 In particular, this package provides `gin.Writer` which can be used to redirect Gin-internal logging:
 ```go
 gin.DefaultWriter = gin.NewWriter(slog.LevelInfo)
@@ -40,4 +59,4 @@ gin.DefaultErrorWriter = gin.NewWriter(slog.LevelError)
 Start this before starting Gin and all of the Gin-internal logging
 should be redirected to the new `io.Writer` objects.
 These objects will parse the Gin-internal logging formats and
-use `log/slog` to do the actual logging so it will look the same.
+use `slog` to do the actual logging so it will look the same.
