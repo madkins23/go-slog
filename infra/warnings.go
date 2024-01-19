@@ -69,6 +69,8 @@ var (
 	}
 )
 
+// -----------------------------------------------------------------------------
+
 // WarningManager manages the warning set for a test run.
 type WarningManager struct {
 	// Name of Handler for warnings display.
@@ -101,6 +103,9 @@ type WarningInstance struct {
 	Text     string
 }
 
+// -----------------------------------------------------------------------------
+// Calls made during context-specific setup of warning manager.
+
 // managers captures all managers tested together into an array.
 // This array is used when showing warnings.
 var managers = make([]*WarningManager, 0)
@@ -112,6 +117,7 @@ func NewWarningManager(name string) *WarningManager {
 	return mgr
 }
 
+// Predefine warnings that can be referenced during testing.
 func (wrnMgr *WarningManager) Predefine(warnings ...*Warning) {
 	if wrnMgr.predefined == nil {
 		wrnMgr.predefined = make(map[string]*Warning, len(warnings))
@@ -134,6 +140,86 @@ func (wrnMgr *WarningManager) WarnOnly(warning *Warning) {
 	}
 	wrnMgr.warnOnly[warning.Name] = true
 }
+
+// -----------------------------------------------------------------------------
+// Calls made during testing.
+
+// AddUnused adds a WarnUnused warning to the results list.
+// The warning added is WarnUnused and the extra text is the name of the specified warning.
+func (wrnMgr *WarningManager) AddUnused(warning *Warning, logRecordJSON string) {
+	wrnMgr.AddWarning(WarnUnused, warning.Name, logRecordJSON)
+}
+
+// AddWarning to results list, specifying warning string and optional extra text.
+// If the addLogRecord flag is true the current log record JSON is also stored.
+// The current function name is acquired from the CurrentFunctionName() and stored.
+func (wrnMgr *WarningManager) AddWarning(warning *Warning, text string, logRecordJSON string) {
+	if wrnMgr.warnings == nil {
+		wrnMgr.warnings = make(map[string]*Warnings)
+	}
+	record, found := wrnMgr.warnings[warning.Name]
+	if !found {
+		record = &Warnings{Name: warning.Name, Level: warning.Level}
+		wrnMgr.warnings[warning.Name] = record
+	}
+	record.Count++
+	if record.Data == nil {
+		record.Data = make([]WarningInstance, 0)
+	}
+	instance := WarningInstance{
+		Function: CurrentFunctionName(),
+		Text:     text,
+	}
+	if logRecordJSON != "" {
+		instance.Record = strings.TrimRight(logRecordJSON, "\n")
+	}
+	record.Data = append(record.Data, instance)
+}
+
+// HasWarning returns true if the specified warning has been set in the test suite.
+func (wrnMgr *WarningManager) HasWarning(warning *Warning) bool {
+	return *useWarnings && wrnMgr.warnOnly[warning.Name]
+}
+
+// HasWarnings checks all specified warnings and returns an array of
+// any that have been set in the test suite in the same order.
+// If none are found an empty array is returned.
+func (wrnMgr *WarningManager) HasWarnings(warnings ...*Warning) []*Warning {
+	found := make([]*Warning, 0, len(warnings))
+	if *useWarnings {
+		for _, warning := range warnings {
+			if wrnMgr.HasWarning(warning) {
+				found = append(found, warning)
+			}
+		}
+	}
+	return found
+}
+
+// SkipTest adds warnings for a test that is being skipped.
+// The first warning is for skipping a test with the text set to the 'because' warning argument.
+// The second warning is for the 'because' warning with the text set to skipping the test.
+func (wrnMgr *WarningManager) SkipTest(because *Warning) {
+	wrnMgr.AddWarning(WarnSkippingTest, because.Name, "")
+	wrnMgr.AddWarning(because, WarnSkippingTest.Name, "")
+}
+
+// SkipTestIf checks the warnings provided to see if any have been set in the suite,
+// adding skipTest warnings for the first one and returning true.
+// False is returned if none of the warnings are found.
+func (wrnMgr *WarningManager) SkipTestIf(warnings ...*Warning) bool {
+	for _, warning := range warnings {
+		if wrnMgr.warnOnly[warning.Name] {
+			wrnMgr.AddWarning(WarnSkippingTest, warning.Name, "")
+			wrnMgr.AddWarning(warning, WarnSkippingTest.Name, "")
+			return true
+		}
+	}
+	return false
+}
+
+// -----------------------------------------------------------------------------
+// Result display functionality.
 
 // GetWarnings returns an array of Warnings records sorted by warning level and text.
 // If there are no warnings the result array will be nil.
@@ -304,78 +390,4 @@ func ShowHandlersByWarning() {
 			}
 		}
 	}
-}
-
-// AddUnused adds a WarnUnused warning to the results list.
-// The warning added is WarnUnused and the extra text is the name of the specified warning.
-func (wrnMgr *WarningManager) AddUnused(warning *Warning, logRecordJSON string) {
-	wrnMgr.AddWarning(WarnUnused, warning.Name, logRecordJSON)
-}
-
-// AddWarning to results list, specifying warning string and optional extra text.
-// If the addLogRecord flag is true the current log record JSON is also stored.
-// The current function name is acquired from the CurrentFunctionName() and stored.
-func (wrnMgr *WarningManager) AddWarning(warning *Warning, text string, logRecordJSON string) {
-	if wrnMgr.warnings == nil {
-		wrnMgr.warnings = make(map[string]*Warnings)
-	}
-	record, found := wrnMgr.warnings[warning.Name]
-	if !found {
-		record = &Warnings{Name: warning.Name, Level: warning.Level}
-		wrnMgr.warnings[warning.Name] = record
-	}
-	record.Count++
-	if record.Data == nil {
-		record.Data = make([]WarningInstance, 0)
-	}
-	instance := WarningInstance{
-		Function: CurrentFunctionName(),
-		Text:     text,
-	}
-	if logRecordJSON != "" {
-		instance.Record = strings.TrimRight(logRecordJSON, "\n")
-	}
-	record.Data = append(record.Data, instance)
-}
-
-// HasWarning returns true if the specified warning has been set in the test suite.
-func (wrnMgr *WarningManager) HasWarning(warning *Warning) bool {
-	return *useWarnings && wrnMgr.warnOnly[warning.Name]
-}
-
-// HasWarnings checks all specified warnings and returns an array of
-// any that have been set in the test suite in the same order.
-// If none are found an empty array is returned.
-func (wrnMgr *WarningManager) HasWarnings(warnings ...*Warning) []*Warning {
-	found := make([]*Warning, 0, len(warnings))
-	if *useWarnings {
-		for _, warning := range warnings {
-			if wrnMgr.HasWarning(warning) {
-				found = append(found, warning)
-			}
-		}
-	}
-	return found
-}
-
-// skipTest adds warnings for a test that is being skipped.
-// The first warning is for skipping a test with the text set to the 'because' warning argument.
-// The second warning is for the 'because' warning with the text set to skipping the test.
-func (wrnMgr *WarningManager) skipTest(because *Warning) {
-	wrnMgr.AddWarning(WarnSkippingTest, because.Name, "")
-	wrnMgr.AddWarning(because, WarnSkippingTest.Name, "")
-}
-
-// skipTestIf checks the warnings provided to see if any have been set in the suite,
-// adding skipTest warnings for the first one and returning true.
-// False is returned if none of the warnings are found.
-func (wrnMgr *WarningManager) skipTestIf(warnings ...*Warning) bool {
-	for _, warning := range warnings {
-		if wrnMgr.warnOnly[warning.Name] {
-			wrnMgr.AddWarning(WarnSkippingTest, warning.Name, "")
-			wrnMgr.AddWarning(warning, WarnSkippingTest.Name, "")
-			return true
-		}
-	}
-	return false
 }
