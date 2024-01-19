@@ -70,15 +70,15 @@ In short:
 
 This package contains several examples, including the one above:
 * [`slog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_test.go)
-  Verifies the standard [`slog.JSONHandler`](https://pkg.go.dev/log/slog@master#JSONHandler).
+  Verifies the [standard `slog.JSONHandler`](https://pkg.go.dev/log/slog@master#JSONHandler).
 * [`slog_darvaza_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_darvaza_zerolog_test.go)
-  Verifies the [`zerolog` handler](https://pkg.go.dev/darvaza.org/slog/handlers/zerolog).
+  Verifies the [`darvaza zerolog` handler](https://pkg.go.dev/darvaza.org/slog/handlers/zerolog).
 * [`slog_phsym_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_phsym_zerolog_test.go)
-  Verifies the [`zeroslog` handler](https://github.com/phsym/zeroslog/tree/2bf737d6422a5de048845cd3bdd2db6363555eb4).
+  Verifies the [`phsym zeroslog` handler](https://github.com/phsym/zeroslog/tree/2bf737d6422a5de048845cd3bdd2db6363555eb4).
 * [`slog_samber_zap_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
-  Verifies the [`slog-zap` handler](https://github.com/samber/slog-zap).
+  Verifies the [`samber slog-zap` handler](https://github.com/samber/slog-zap).
 * [`slog_samber_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
-  Verifies the [`slog-zerolog` handler](https://github.com/samber/slog-zerolog).
+  Verifies the [`samber slog-zerolog` handler](https://github.com/samber/slog-zerolog).
 
 In addition, there is a [`main_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/main_test.go) file which exists to provide
 a global resource to the other tests ([described below](#testmain)).
@@ -121,37 +121,11 @@ the difficulty of parsing various output formats argues against it.[^2]
 
 ## Creators
 
-A [`infra.Creator`](../infra/creator.go) object is a factory used to generate
-`slog.Logger` objects for testing.
-A number of predefined `Creator` objects can be found in the [`creator` package](../creator).
-The simplest of these returns loggers for the
-[`slog.NewJSONHandler`](https://pkg.go.dev/log/slog@master#JSONHandler)
-handler.
+`Creator` objects are factories for generating new `slog.Logger` objects.
 
-```Go
-package creator
 
-import (
-  "io"
-  "log/slog"
-
-  "github.com/madkins23/go-slog/infra"
-)
-
-// Slog returns a Creator object for the log/slog.JSONHandler.
-func Slog() infra.Creator {
-  return infra.NewCreator("log/slog.JSONHandler", SlogHandlerFn)
-}
-
-func SlogHandlerFn(w io.Writer, options *slog.HandlerOptions) *slog.Logger {
-  return slog.New(slog.NewJSONHandler(w, options))
-}
-```
-
-Creation of a new `infra.Creator` object is fairly simple.
-The `infra.NewCreator` function takes the name of the handler package
-and a function that returns a new `*slog.Logger`.
-That function should match `infra.CreatorFn`.
+Detailed documentation on this is provided in the [`README`](../infra/README.md)
+for the [`infra` package](../infra).
 
 ## Warnings
 
@@ -183,6 +157,7 @@ func Test_slog_zerolog_phsym(t *testing.T) {
     suite.Run(t, slogSuite)
 }
 ```
+
 The various `WarnOnly()` calls configure a set of warnings that are recognized by the test suite.
 Each warning is recognized by one or more tests,
 which execute different code when the warning is configured.
@@ -331,12 +306,14 @@ Warnings that seem to be implied by documentation but can't be considered requir
   * [Behavior defined for `JSONHandler.Handle()`](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)  
   * [Definition of source data record](https://pkg.go.dev/log/slog@master#Source)
 * `WarnNoReplAttr`: 'HandlerOptions.ReplaceAttr not available'  
-  If `HandlerOptions.ReplaceAttr` is provided it should be honored by the handler.
+  If [`HandlerOptions.ReplaceAttr`](https://pkg.go.dev/log/slog@master#HandlerOptions)
+  is provided it should be honored by the handler.
   However, documentation on implementing handler methods seems to suggest it is optional.  
   * [Behavior defined for `slog.HandlerOptions`](https://pkg.go.dev/log/slog@master#HandlerOptions)  
   * ['You might also consider adding a ReplaceAttr option to your handler, like the one for the built-in handlers.'](https://github.com/golang/example/tree/master/slog-handler-guide#implementing-handler-methods)
 * `WarnNoReplAttrBasic`: 'HandlerOptions.ReplaceAttr not available for basic field'  
-  Some handlers (e.g. `phsym/zeroslog`) support `HandlerOptions.ReplaceAttr`
+  Some handlers (e.g. `phsym/zeroslog`) support
+  [`HandlerOptions.ReplaceAttr`](https://pkg.go.dev/log/slog@master#HandlerOptions)
   except for the four main fields `time`, `level`, `msg`, and `source`.
   When that is the case it is better to use this (`WarnNoReplAttrBasic`) warning.
 

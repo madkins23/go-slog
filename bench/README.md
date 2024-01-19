@@ -53,15 +53,15 @@ In short:
 
 This package contains several examples, including the one above:
 * [`slog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_test.go)
-  Verifies the standard [`slog.JSONHandler`](https://pkg.go.dev/log/slog@master#JSONHandler).
+  Verifies the [standard `slog.JSONHandler`](https://pkg.go.dev/log/slog@master#JSONHandler).
 * [`slog_darvaza_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_darvaza_zerolog_test.go)
-  Verifies the [`zerolog` handler](https://pkg.go.dev/darvaza.org/slog/handlers/zerolog).
+  Verifies the [`darvaza zerolog` handler](https://pkg.go.dev/darvaza.org/slog/handlers/zerolog).
 * [`slog_phsym_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_phsym_zerolog_test.go)
-  Verifies the [`zeroslog` handler](https://github.com/phsym/zeroslog/tree/2bf737d6422a5de048845cd3bdd2db6363555eb4).
+  Verifies the [`phsym zeroslog` handler](https://github.com/phsym/zeroslog/tree/2bf737d6422a5de048845cd3bdd2db6363555eb4).
 * [`slog_samber_zap_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
-  Verifies the [`slog-zap` handler](https://github.com/samber/slog-zap).
+  Verifies the [`samber slog-zap` handler](https://github.com/samber/slog-zap).
 * [`slog_samber_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
-  Verifies the [`slog-zerolog` handler](https://github.com/samber/slog-zerolog).
+  Verifies the [`samber slog-zerolog` handler](https://github.com/samber/slog-zerolog).
 
 In addition, there is a [`main_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/main_test.go) file which exists to provide
 a global resource to the other tests ([described below](#testmain)).

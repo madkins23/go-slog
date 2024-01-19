@@ -15,8 +15,9 @@ import (
 
 // FieldCounter manually parses JSON to count fields.
 // The main purpose of this is to find duplicate fields.
-// The encoding/json package just chooses one of the fields when this happens,
-// so it isn't useful in counting duplicate fields.
+//
+// Using the encoding/json package does not provide this functionality
+// as it just chooses one of the fields when this happens.
 type FieldCounter struct {
 	counts  map[string]uint
 	charLoc uint

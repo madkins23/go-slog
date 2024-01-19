@@ -29,8 +29,17 @@ The tests implemented herein were inspired by:
 
 ## Replace Attributes Functions
 
-A small collection of functions in the `replace` package
+A small collection of functions in the [`replace`](replace) package
 can be used with `slog.HandlerOptions.ReplaceAttr`.
+
+These were intended to "fix" some of the verification issues with various handlers.
+Unfortunately, other issues prevent them from being fixed:
+* Attributes can't be directly removed, they can only be made empty,
+  but some handlers tested don't remove empty attributes as they should
+  so this fix doesn't work for them.
+* Some handlers don't recognize `slog.HandlerOptions.ReplaceAttr`.
+* Those that do don't always recognize them for the basic fields
+  (time, level, message, and source).
 
 ## Handler Benchmarks
 
