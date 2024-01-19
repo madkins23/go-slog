@@ -184,6 +184,9 @@ func (wrnMgr *WarningManager) GetWarnings() []*Warnings {
 	return w
 }
 
+// Track handlers that invoke warnings for use in TestMain.
+var byWarning = make(map[*Warning]map[string]bool)
+
 // ShowWarnings prints any warnings to Stdout in a preformatted manner.
 // Use the WarningManager method if more control over output is required.
 //
@@ -194,15 +197,26 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 	if output == nil {
 		output = os.Stdout
 	}
+
+	forHandler := ""
+	if wrnMgr.Name != "" {
+		forHandler = " for " + wrnMgr.Name
+	}
+
 	warnings := wrnMgr.GetWarnings()
 	if warnings != nil && len(warnings) > 0 {
-		forHandler := ""
-		if wrnMgr.Name != "" {
-			forHandler = " for " + wrnMgr.Name
-		}
+		// Warnings grouped by level.
 		var warningLevel = warnLevelUnused
-		_, _ = fmt.Fprintf(output, "Warnings%s:\n", forHandler)
+		_, _ = fmt.Fprintf(output, "\nWarnings%s:\n", forHandler)
 		for _, warning := range warnings {
+			// Track handlers that invoke warnings for use in TestMain.
+			warn := wrnMgr.predefined[warning.Name]
+			if byWarning[warn] == nil {
+				byWarning[warn] = make(map[string]bool)
+			}
+			byWarning[warn][wrnMgr.Name] = true
+
+			// Show warnings.
 			if warning.Level != warningLevel {
 				warningLevel = warning.Level
 				levelName, found := warningLevelNames[warningLevel]
@@ -223,7 +237,6 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 				}
 			}
 		}
-		_, _ = fmt.Fprintln(output)
 	}
 }
 
@@ -238,17 +251,59 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 //
 // This step can be omitted if warnings are being sent to an output file.
 //
-// Note: The TestMain function can only be defined once in a package.
-// If multiple SlogTestSuite instances are created in separate files in
-// the same package, TestMain can be moved into a single main_test.go file
-// as is done in the go-slog/verify package.
+// If multiple SlogTestSuite instances are defined in separate files in the same package:
+//   - an addition list of warnings and which handlers throw them will be shown and
+//   - the TestMain function must be moved to a separate file, as it can only be defined once.
 func WithWarnings(m *testing.M) {
 	flag.Parse()
 	exitVal := m.Run()
-	for _, testSuite := range managers {
-		testSuite.ShowWarnings(nil)
+
+	for _, manager := range managers {
+		manager.ShowWarnings(nil)
 	}
+
+	if len(managers) > 1 {
+		ShowHandlersByWarning()
+	}
+
 	os.Exit(exitVal)
+}
+
+// ShowHandlersByWarning uses the global byWarning map to
+// show the handlers that issue each warning.
+func ShowHandlersByWarning() {
+	fmt.Printf("\nHandlers by warning:\n")
+	byLevel := make(map[WarningLevel][]*Warning)
+	byName := make(map[string]*Warning)
+	for warning := range byWarning {
+		if byLevel[warning.Level] == nil {
+			byLevel[warning.Level] = make([]*Warning, 0)
+		}
+		byLevel[warning.Level] = append(byLevel[warning.Level], warning)
+		byName[warning.Name] = warning
+	}
+
+	for level := WarnLevelRequired; level >= WarnLevelAdmin; level-- {
+		if warnings, found := byLevel[level]; found {
+			fmt.Printf("  %s\n", warningLevelNames[level])
+			names := make([]string, 0, len(warnings))
+			for _, warning := range warnings {
+				names = append(names, warning.Name)
+			}
+			sort.Strings(names)
+			for _, name := range names {
+				fmt.Printf("    %s\n", name)
+				handlers := byWarning[byName[name]]
+				hdlrNames := make([]string, 0, len(handlers))
+				for handler := range handlers {
+					hdlrNames = append(hdlrNames, handler)
+				}
+				for _, hdlrName := range hdlrNames {
+					fmt.Printf("      %s\n", hdlrName)
+				}
+			}
+		}
+	}
 }
 
 // AddUnused adds a WarnUnused warning to the results list.

@@ -411,9 +411,80 @@ func TestMain(m *testing.M) {
 ```
 
 This function may be defined in the same `_test.go` file as the handler test.
-If multiple handler tests are in the same directory it will be necessary to
-move the `TestMain()` definition to a separate file,
-such as the [`verify/main_test.go`](main_test.go).
+If multiple handler tests are in the same directory:
+
+* It will be necessary to move the `TestMain()` definition to a separate file,
+  such as the [`verify/main_test.go`](main_test.go).
+* An addition listing of which handlers throw each warning will be added:
+
+```
+Handlers by warning:
+  Required
+    Empty (sub)group(s) logged
+      phsym/zeroslog
+    Empty attribute(s) logged ("":null)
+      darvaza/zerolog
+      phsym/zeroslog
+      samber/slog-zap
+      samber/slog-zerolog
+    Group with empty key does not inline subfields
+      darvaza/zerolog
+      phsym/zeroslog
+      samber/slog-zap
+      samber/slog-zerolog
+    LogValuer objects are not resolved
+      darvaza/zerolog
+      samber/slog-zap
+      samber/slog-zerolog
+    SourceKey logged for zero PC
+      darvaza/zerolog
+      samber/slog-zap
+      samber/slog-zerolog
+    Zero time is logged
+      samber/slog-zap
+      samber/slog-zerolog
+      darvaza/zerolog
+      phsym/zeroslog
+  Implied
+    Handler doesn't default to slog.LevelInfo
+      darvaza/zerolog
+      samber/slog-zerolog
+    HandlerOptions.ReplaceAttr not available
+      phsym/zeroslog
+    HandlerOptions.ReplaceAttr not available for basic fields
+      samber/slog-zap
+      samber/slog-zerolog
+      darvaza/zerolog
+    Source data not logged when AddSource flag set
+      phsym/zeroslog
+    Wrong message key (should be 'msg')
+      darvaza/zerolog
+      phsym/zeroslog
+      samber/slog-zerolog
+  Suggested
+    Duplicate field(s) found
+      phsym/zeroslog
+      log/slog.JSONHandler
+    Log level in lowercase
+      darvaza/zerolog
+      phsym/zeroslog
+      samber/slog-zap
+      samber/slog-zerolog
+    slog.Duration() logs milliseconds instead of nanoseconds
+      darvaza/zerolog
+      phsym/zeroslog
+      samber/slog-zerolog
+    slog.Duration() logs seconds instead of nanoseconds
+      samber/slog-zap
+    slog.Time() logs milliseconds instead of nanoseconds
+      darvaza/zerolog
+      phsym/zeroslog
+      samber/slog-zap
+      samber/slog-zerolog
+```
+This listing isn't shown unless there are multiple test suites run in the same call to `go test`.
+
+---
 
 [^1]: The `--debug` flag and `Debugf` function are defined in the `test` package in this repository.
 
