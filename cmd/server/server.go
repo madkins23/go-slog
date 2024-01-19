@@ -179,7 +179,7 @@ func chartFunction(c *gin.Context) {
 			charts.SVGTypeOption(),
 			charts.TitleTextOptionFunc(item.LongName()),
 			charts.YAxisDataOptionFunc(labels),
-			charts.WidthOptionFunc(300),
+			charts.WidthOptionFunc(400),
 			charts.HeightOptionFunc(verticalPadding+(barMargin+barWidth)*len(values)),
 			charts.PaddingOptionFunc(charts.Box{
 				Top:    10,
@@ -238,7 +238,7 @@ type pageData struct {
 	Printer *message.Printer
 }
 
-func (pd *pageData) FixInt(number int) string {
+func (pd *pageData) FixUint(number uint64) string {
 	return pd.Printer.Sprintf("%d", number)
 }
 

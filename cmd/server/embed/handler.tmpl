@@ -28,10 +28,10 @@
         {{ range $tag, $record := .Data.TestRecords .Handler }}
           <tr>
             <td>{{ $.Data.TestName $tag }}</td>
-            <td class="number">{{ $.FixInt $record.Iterations }}</td>
+            <td class="number">{{ $.FixUint $record.Runs }}</td>
             <td class="number">{{ $.FixFloat $record.NanosPerOp }}</td>
-            <td class="number">{{ $.FixInt $record.MemAllocsPerOp }}</td>
-            <td class="number">{{ $.FixInt $record.MemBytesPerOp }}</td>
+            <td class="number">{{ $.FixUint $record.MemAllocsPerOp }}</td>
+            <td class="number">{{ $.FixUint $record.MemBytesPerOp }}</td>
             <td class="number">{{ $.FixFloat $record.GbPerSec }}</td>
           </tr>
         {{ end }}
@@ -39,7 +39,7 @@
     </td>
   </tr>
   <tr>
-    <td colspan=2>
+    <td colspan=2 align="center">
       <table>
         <tr>
           <td><img src="chart.svg?tag={{ .Handler }}&item=Nanos" alt="{{ .Data.HandlerName .Handler }} Ns/Op" /></td>
@@ -47,7 +47,7 @@
         </tr>
         <tr>
           <td><img src="chart.svg?tag={{ .Handler }}&item=MemBytes" alt="{{ .Data.HandlerName .Handler }} Bytes/Op" /></td>
-          <td><img src="chart.svg?tag={{ .Handler }}&item=MemMB" alt="{{ .Data.HandlerName .Handler }} MB/Sec" /></td>
+          <td><img src="chart.svg?tag={{ .Handler }}&item=GbPerSec" alt="{{ .Data.HandlerName .Handler }} GB/Sec" /></td>
         </tr>
       </table>
     </td>

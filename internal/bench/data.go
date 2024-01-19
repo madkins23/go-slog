@@ -1,7 +1,9 @@
 package bench
 
 import (
-	"encoding/json"
+	"bufio"
+	"bytes"
+	"errors"
 	"flag"
 	"fmt"
 	"io"
@@ -11,36 +13,12 @@ import (
 	"sort"
 	"strconv"
 	"strings"
-	"time"
 )
 
-var jsonFile = flag.String("json", "", "Source JSON file (else stdin)")
+var fromFile = flag.String("from", "", "Load data from path (optional)")
 
 // -----------------------------------------------------------------------------
 // Records matching gobenchdata JSON output.
-
-type testData struct {
-	Date   uint64
-	Suites []suiteData
-}
-
-type suiteData struct {
-	GoOS       string `json:"Goos"`
-	GoArch     string `json:"Goarch"`
-	Package    string `json:"Pkg"`
-	Benchmarks []benchmarkData
-}
-
-type benchmarkData struct {
-	Name    string
-	Runs    int
-	NsPerOp float64
-	Mem     struct {
-		BytesPerOp  int
-		AllocsPerOp int
-		MBPerSec    float64
-	}
-}
 
 // -----------------------------------------------------------------------------
 
@@ -60,29 +38,35 @@ type HandlerRecords map[HandlerTag]TestRecord
 
 // TestRecord represents a single benchmark/handler test result.
 type TestRecord struct {
-	Iterations     int
+	Runs           uint64
 	NanosPerOp     float64
-	MemBytesPerOp  int
-	MemAllocsPerOp int
+	MemBytesPerOp  uint64
+	MemAllocsPerOp uint64
+	MbPerSec       float64
 	GbPerSec       float64
+	TbPerSec       float64
 }
 
 func (tr *TestRecord) IsEmpty() bool {
-	return tr.Iterations == 0
+	return tr.Runs == 0
 }
 
 func (tr *TestRecord) ItemValue(item TestItems) float64 {
 	switch item {
 	case Runs:
-		return float64(tr.Iterations)
+		return float64(tr.Runs)
 	case Nanos:
 		return tr.NanosPerOp
 	case MemAllocs:
 		return float64(tr.MemAllocsPerOp)
 	case MemBytes:
 		return float64(tr.MemBytesPerOp)
-	case GBperSec:
-		return float64(tr.GbPerSec)
+	case MbPerSec:
+		return tr.MbPerSec
+	case GbPerSec:
+		return tr.GbPerSec
+	case TbPerSec:
+		return tr.TbPerSec
 	default:
 		slog.Warn("Unknown bench.TestItem", "item", item)
 		return 0
@@ -93,7 +77,6 @@ func (tr *TestRecord) ItemValue(item TestItems) float64 {
 
 // Data encapsulates benchmark records by BenchmarkName and HandlerTag.
 type Data struct {
-	date         time.Time
 	byTest       map[TestTag]HandlerRecords
 	byHandler    map[HandlerTag]TestRecords
 	tests        []TestTag
@@ -105,8 +88,12 @@ type Data struct {
 
 // -----------------------------------------------------------------------------
 
-var ptrTestName = regexp.MustCompile(`Benchmark(.+)-(\d+)`)
-var ptnHandlerName = regexp.MustCompile(`Benchmark(?:_slog)?_(.*)`)
+var (
+	ptnDataLine = regexp.MustCompile(`^([^/]+)/Benchmark_([^-]+)-(\d+)\s+(\d+)\s+(\d+(?:\.\d+)?)\s+ns/op\b`)
+	ptnAllocsOp = regexp.MustCompile(`\s(\d+)\s+allocs/op\b`)
+	ptnBytesOp  = regexp.MustCompile(`\s(\d+)\s+B/op\b`)
+	ptnMbSec    = regexp.MustCompile(`\s(\d+(?:\.\d+)?)\s+MB/s`)
+)
 
 // LoadDataJSON loads benchmark data from JSON emitted by gobenchdata.
 // The data will be loaded from os.Stdin unless the -json=<path> flag is set
@@ -114,69 +101,83 @@ var ptnHandlerName = regexp.MustCompile(`Benchmark(?:_slog)?_(.*)`)
 func (d *Data) LoadDataJSON() error {
 	var err error
 	var in io.Reader = os.Stdin
-	if *jsonFile != "" {
-		if in, err = os.Open(*jsonFile); err != nil {
-			return fmt.Errorf("opening JSON file %s: %s\n", *jsonFile, err)
+	if *fromFile != "" {
+		if in, err = os.Open(*fromFile); err != nil {
+			return fmt.Errorf("opening input file %s: %s\n", *fromFile, err)
 		}
 	}
+	reader := bufio.NewReader(in)
 
-	source, err := io.ReadAll(in)
-	if err != nil {
-		return fmt.Errorf("read all source data: %w\n", err)
-	}
-	// Skip over non-JSON first line from gobenchdata.
-	source = skipTextBeforeJSON(source)
-
-	// Unmarshal the data:
-	var data []testData
-	if err = json.Unmarshal(source, &data); err != nil {
-		return fmt.Errorf("unmarshal source gobenchdata: %w", err)
-	}
-	if len(data) != 1 {
-		return fmt.Errorf("top level array has %d items\n", len(data))
-	}
-	testData := data[0]
-
-	d.date = time.UnixMilli(int64(testData.Date))
-	if len(testData.Suites) != 1 {
-		return fmt.Errorf("suites array has %d items\n", len(testData.Suites))
-	}
-	for _, suiteData := range testData.Suites {
-		// TODO: What about other suite data?
-		for _, bm := range suiteData.Benchmarks {
-			parts := strings.Split(bm.Name, "/")
-			if len(parts) != 2 {
-				slog.Warn("Name has wrong number of parts", "name", bm.Name, "parts", len(parts))
-				continue
+	var line bytes.Buffer
+	for {
+		chunk, isPrefix, err := reader.ReadLine()
+		if errors.Is(err, io.EOF) {
+			if line.Len() < 1 {
+				break
 			}
-			handler := HandlerTag(parts[0])
-			test := TestTag(parts[1])
+		} else if err != nil {
+			return fmt.Errorf("reading line: %w", err)
+		}
+		line.Write(chunk)
+		if isPrefix {
+			// Line not yet complete, go around again.
+			continue
+		}
 
-			if matches := ptrTestName.FindSubmatch([]byte(test)); matches != nil && len(matches) > 2 {
-				test = TestTag(strings.TrimLeft(string(matches[1]), "_"))
-				if d.testNames == nil {
-					d.testNames = make(map[TestTag]string)
-				}
-				if d.testCPUs == nil {
-					d.testCPUs = make(map[TestTag]uint64)
-				}
-				d.testNames[test] = strings.Replace(string(test), "_", " ", -1)
-				if cpuCount, err := strconv.ParseUint(string(matches[2]), 10, 64); err != nil {
-					slog.Warn("Unable to parse CPU count", "from", matches[2], "err", err)
-				} else {
-					d.testCPUs[test] = cpuCount
+		// Process the line here.
+		var ok bool
+		var hdlrBytes, testBytes []byte
+		var nsOps, mbSec float64
+		var cpus, runs, allocsOp, bytesOp uint64
+		if matches := ptnDataLine.FindSubmatch(line.Bytes()); matches != nil && len(matches) == 6 {
+			hdlrBytes = matches[1]
+			testBytes = matches[2]
+			if cpus, err = strconv.ParseUint(string(matches[3]), 10, 64); err != nil {
+				return fmt.Errorf("parse cpus: %w", err)
+			}
+			if runs, err = strconv.ParseUint(string(matches[4]), 10, 64); err != nil {
+				return fmt.Errorf("parse runs: %w", err)
+			}
+			if nsOps, err = strconv.ParseFloat(string(matches[5]), 64); err != nil {
+				return fmt.Errorf("parse ns/op: %w", err)
+			}
+			if matches = ptnAllocsOp.FindSubmatch(line.Bytes()); matches != nil && len(matches) == 2 {
+				if allocsOp, err = strconv.ParseUint(string(matches[1]), 10, 64); err != nil {
+					return fmt.Errorf("parse allocs/op: %w", err)
 				}
 			}
+			if matches = ptnBytesOp.FindSubmatch(line.Bytes()); matches != nil && len(matches) == 2 {
+				if bytesOp, err = strconv.ParseUint(string(matches[1]), 10, 64); err != nil {
+					return fmt.Errorf("parse bytes/op: %w", err)
+				}
+			}
+			if matches = ptnMbSec.FindSubmatch(line.Bytes()); matches != nil && len(matches) == 2 {
+				if mbSec, err = strconv.ParseFloat(string(matches[1]), 64); err != nil {
+					return fmt.Errorf("parse mb/s: %w", err)
+				}
+			}
+			ok = true
+		}
 
-			if handler == "Benchmark_slog" {
+		if ok {
+			test := TestTag(strings.TrimLeft(string(testBytes), "_"))
+			if d.testNames == nil {
+				d.testNames = make(map[TestTag]string)
+			}
+			d.testNames[test] = strings.Replace(string(test), "_", " ", -1)
+
+			if string(hdlrBytes) == "Benchmark_slog" {
 				// Fix this so the handler name doesn't get edited down to nothing.
-				handler = "Benchmark_slog_slog_JSONHandler"
+				hdlrBytes = []byte("Benchmark_slog_slog_JSONHandler")
 			}
-			handler = HandlerTag(strings.TrimLeft(strings.TrimPrefix(string(handler), "Benchmark_slog"), "_"))
-			parts = strings.Split(strings.TrimLeft(string(handler), "_"), "_")
+			handler := HandlerTag(
+				strings.TrimLeft(
+					strings.TrimPrefix(string(hdlrBytes), "Benchmark_slog"),
+					"_"))
 			if d.handlerNames == nil {
 				d.handlerNames = make(map[HandlerTag]string)
 			}
+			parts := strings.Split(strings.TrimLeft(string(handler), "_"), "_")
 			for i, part := range parts {
 				if len(part) > 0 {
 					parts[i] = strings.ToUpper(part[:1]) + part[1:]
@@ -184,9 +185,10 @@ func (d *Data) LoadDataJSON() error {
 			}
 			d.handlerNames[handler] = strings.Join(parts, " ")
 
-			if matches := ptnHandlerName.FindSubmatch([]byte(handler)); matches != nil && len(matches) > 1 {
-				handler = HandlerTag(matches[1])
+			if d.testCPUs == nil {
+				d.testCPUs = make(map[TestTag]uint64)
 			}
+			d.testCPUs[test] = cpus
 
 			if d.byTest == nil {
 				d.byTest = make(map[TestTag]HandlerRecords)
@@ -195,11 +197,13 @@ func (d *Data) LoadDataJSON() error {
 				d.byTest[test] = make(HandlerRecords)
 			}
 			d.byTest[test][handler] = TestRecord{
-				Iterations:     bm.Runs,
-				NanosPerOp:     bm.NsPerOp,
-				MemBytesPerOp:  bm.Mem.BytesPerOp,
-				MemAllocsPerOp: bm.Mem.AllocsPerOp,
-				GbPerSec:       bm.Mem.MBPerSec / 1000,
+				Runs:           runs,
+				NanosPerOp:     nsOps,
+				MemBytesPerOp:  bytesOp,
+				MemAllocsPerOp: allocsOp,
+				MbPerSec:       mbSec,
+				GbPerSec:       mbSec / 1_000.0,
+				TbPerSec:       mbSec / 1_000_000.0,
 			}
 
 			if d.byHandler == nil {
@@ -209,14 +213,17 @@ func (d *Data) LoadDataJSON() error {
 				d.byHandler[handler] = make(TestRecords)
 			}
 			d.byHandler[handler][test] = TestRecord{
-				Iterations:     bm.Runs,
-				NanosPerOp:     bm.NsPerOp,
-				MemBytesPerOp:  bm.Mem.BytesPerOp,
-				MemAllocsPerOp: bm.Mem.AllocsPerOp,
-				GbPerSec:       bm.Mem.MBPerSec,
+				Runs:           runs,
+				NanosPerOp:     nsOps,
+				MemBytesPerOp:  bytesOp,
+				MemAllocsPerOp: allocsOp,
+				MbPerSec:       mbSec,
 			}
 		}
+
+		line.Reset()
 	}
+
 	return nil
 }
 
@@ -244,7 +251,7 @@ func (d *Data) TestTags() []TestTag {
 			d.tests = append(d.tests, test)
 		}
 		sort.Slice(d.tests, func(i, j int) bool {
-			return d.TestName(d.tests[i]) > d.TestName(d.tests[j])
+			return d.TestName(d.tests[i]) < d.TestName(d.tests[j])
 		})
 	}
 	return d.tests
@@ -272,33 +279,8 @@ func (d *Data) HandlerTags() []HandlerTag {
 			d.handlers = append(d.handlers, handler)
 		}
 		sort.Slice(d.handlers, func(i, j int) bool {
-			return d.HandlerName(d.handlers[i]) > d.HandlerName(d.handlers[j])
+			return d.HandlerName(d.handlers[i]) < d.HandlerName(d.handlers[j])
 		})
 	}
 	return d.handlers
-}
-
-func (d *Data) Date() time.Time {
-	return d.date
-}
-
-// -----------------------------------------------------------------------------
-
-// skipTextBeforeJSON skips over any non-JSON lines until some JSON is found
-// then returns the remainder of the source data starting with the JSON.
-// This support using the gobenchdata application which places a line of text
-// ahead of the JSON output unless the output is redirected to a file.
-// This supports reading from gobenchdata standard output via a shell pipe.
-func skipTextBeforeJSON(source []byte) []byte {
-	newLine := true
-	for i, b := range source {
-		if newLine && b == '[' || b == '{' {
-			return source[i:]
-		} else if b == '\n' {
-			newLine = true
-		} else if newLine {
-			newLine = false
-		}
-	}
-	return []byte{}
 }

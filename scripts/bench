@@ -1,10 +1,9 @@
 #!/bin/bash
 
 clear
+mkdir /tmp/bench
 go test -bench=. bench/*.go      | # Run benchmark tests                \
    tee /dev/tty                  | # Show progress to user in real time \
-   tee /tmp/bench.txt            | # Save benchmark output              \
-   gobenchdata                   | # Convert to JSON                    \
-   tee /tmp/bench.json           | # Save JSON version                  \
+   tee /tmp/bench/output.txt     | # Save benchmark output              \
    go run cmd/tabular/tabular.go | # Process JSON to table              \
-   tee /tmp/bench.tab              # Save table to file
+   tee /tmp/bench/table.txt        # Save table to file

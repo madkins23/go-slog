@@ -10,7 +10,9 @@ const (
 	Nanos
 	MemAllocs
 	MemBytes
-	GBperSec
+	MbPerSec
+	GbPerSec
+	TbPerSec
 )
 
 // -----------------------------------------------------------------------------
@@ -35,9 +37,17 @@ var testItemData = map[TestItems]struct {
 		short: "Bytes/Op",
 		long:  "Bytes allocated per operation",
 	},
-	GBperSec: {
+	MbPerSec: {
+		short: "MB/Sec",
+		long:  "Megabytes processed per second",
+	},
+	GbPerSec: {
 		short: "GB/Sec",
 		long:  "Gigabytes processed per second",
+	},
+	TbPerSec: {
+		short: "TB/Sec",
+		long:  "Terabytes processed per second",
 	},
 }
 
