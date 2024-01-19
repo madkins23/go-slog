@@ -21,7 +21,8 @@ import (
 	"github.com/madkins23/go-slog/internal/language"
 )
 
-// -----------------------------------------------------------------------------
+// Server reads output from `test -bench` and serves tables and charts via HTTP.
+// See scripts/server for usage example.
 
 type pageType string
 

@@ -15,8 +15,8 @@ import (
 	"github.com/madkins23/go-slog/internal/language"
 )
 
-// Tabular reads the JSON from gobenchdata and formats it into simple tables.
-// See scripts/bench for usage example.
+// Tabular reads output from `test -bench` and formats it into simple tables.
+// See scripts/bench and scripts/tabulate for usage examples.
 
 func main() {
 	flag.Parse() // Necessary for -json=<file> argument defined in infra package.
