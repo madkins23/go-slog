@@ -40,12 +40,20 @@ const (
 	WarnLevelRequired
 )
 
-var warningLevelNames = map[WarningLevel]string{
-	WarnLevelAdmin:     "Administrative",
-	WarnLevelSuggested: "Suggested",
-	WarnLevelImplied:   "Implied",
-	WarnLevelRequired:  "Required",
-}
+var (
+	warningLevelOrder = []WarningLevel{
+		WarnLevelRequired,
+		WarnLevelImplied,
+		WarnLevelSuggested,
+		WarnLevelAdmin,
+	}
+	warningLevelNames = map[WarningLevel]string{
+		WarnLevelAdmin:     "Administrative",
+		WarnLevelSuggested: "Suggested",
+		WarnLevelImplied:   "Implied",
+		WarnLevelRequired:  "Required",
+	}
+)
 
 // Warning definition.
 type Warning struct {
@@ -312,34 +320,46 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 	warnings := wrnMgr.GetWarnings()
 	if warnings != nil && len(warnings) > 0 {
 		// Warnings grouped by level.
-		var warningLevel = warnLevelUnused
-		_, _ = fmt.Fprintf(output, "\nWarnings%s:\n", forHandler)
+		warningTree := make(map[WarningLevel][]*Warnings)
 		for _, warning := range warnings {
-			// Track handlers that invoke warnings for use in TestMain.
-			warn := wrnMgr.predefined[warning.Name]
-			if byWarning[warn] == nil {
-				byWarning[warn] = make(map[string]bool)
+			list, found := warningTree[warning.Level]
+			if !found {
+				list = make([]*Warnings, 0)
 			}
-			byWarning[warn][wrnMgr.Name] = true
-
-			// Show warnings.
-			if warning.Level != warningLevel {
-				warningLevel = warning.Level
-				levelName, found := warningLevelNames[warningLevel]
+			warningTree[warning.Level] = append(list, warning)
+		}
+		for _, list := range warningTree {
+			sort.Slice(list, func(i, j int) bool {
+				return list[i].Name < list[j].Name
+			})
+		}
+		_, _ = fmt.Fprintf(output, "\nWarnings%s:\n", forHandler)
+		for _, level := range warningLevelOrder {
+			if list, ok := warningTree[level]; ok {
+				levelName, found := warningLevelNames[level]
 				if !found {
-					levelName = fmt.Sprintf("Unknown level %d", warningLevel)
+					levelName = fmt.Sprintf("Unknown level %d", level)
 				}
 				_, _ = fmt.Fprintf(output, "  %s\n", levelName)
-			}
-			_, _ = fmt.Fprintf(output, "  %4d %s\n", warning.Count, warning.Name)
-			for _, data := range warning.Data {
-				text := data.Function
-				if data.Text != "" {
-					text += ": " + data.Text
-				}
-				_, _ = fmt.Fprintf(output, "       %s\n", text)
-				if data.Record != "" {
-					_, _ = fmt.Fprintf(output, "         %s\n", data.Record)
+				for _, warning := range list {
+					// Track handlers that invoke warnings for use in TestMain.
+					warn := wrnMgr.predefined[warning.Name]
+					if byWarning[warn] == nil {
+						byWarning[warn] = make(map[string]bool)
+					}
+					byWarning[warn][wrnMgr.Name] = true
+
+					_, _ = fmt.Fprintf(output, "  %4d %s\n", warning.Count, warning.Name)
+					for _, data := range warning.Data {
+						text := data.Function
+						if data.Text != "" {
+							text += ": " + data.Text
+						}
+						_, _ = fmt.Fprintf(output, "       %s\n", text)
+						if data.Record != "" {
+							_, _ = fmt.Fprintf(output, "         %s\n", data.Record)
+						}
+					}
 				}
 			}
 		}
@@ -388,8 +408,7 @@ func ShowHandlersByWarning() {
 		byLevel[warning.Level] = append(byLevel[warning.Level], warning)
 		byName[warning.Name] = warning
 	}
-
-	for level := WarnLevelRequired; level >= WarnLevelAdmin; level-- {
+	for _, level := range warningLevelOrder {
 		if warnings, found := byLevel[level]; found {
 			fmt.Printf("  %s\n", warningLevelNames[level])
 			names := make([]string, 0, len(warnings))
