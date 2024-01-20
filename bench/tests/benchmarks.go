@@ -125,15 +125,19 @@ func (suite *SlogBenchmarkSuite) Benchmark_Logging() Benchmark {
 }
 
 // -----------------------------------------------------------------------------
+// Acquire a bunch of log statements to use in Benchmark_Logging.
 
 //go:embed logging.txt
 var logging []byte
 
 var logData [][]any
 
-var ptnCode = regexp.MustCompile(`\s(\d+)\s*$`)
-var ptnSplit = regexp.MustCompile(`\s+`)
+var (
+	ptnCode  = regexp.MustCompile(`\s(\d+)\s*$`)
+	ptnSplit = regexp.MustCompile(`\s+`)
+)
 
+// Read log data from embedded data, construct array of arg arrays for logging.
 func getLogData() [][]any {
 	if logData == nil {
 		reader := bufio.NewReader(bytes.NewReader(logging))
@@ -149,10 +153,14 @@ func getLogData() [][]any {
 					continue
 				}
 			}
+			// Example line:
+			//  07:55:52 INF 200 |    9.522199ms |             ::1 | GET      "/chart.svg?tag=samber_zap&item=MemAllocs" sys=gin
 			if parts := strings.Split(string(line.Bytes()), "|"); len(parts) != 4 {
 				slog.Warn("Wrong number of parts", "num", len(parts), "line", line, "func", "getLogData")
 			} else {
 				var args []any
+				// Parse parts[0]:
+				//  07:55:52 INF 200
 				if matches := ptnCode.FindStringSubmatch(parts[0]); len(matches) != 2 {
 					slog.Warn("Unable to parse code", "from", parts[0])
 				} else if num, err := strconv.ParseInt(matches[1], 10, 64); err != nil {
@@ -161,7 +169,9 @@ func getLogData() [][]any {
 					args = append(args, "code", num)
 				}
 				args = append(args, "duration", strings.Trim(parts[1], " "))
-				// TODO: Ignore parts[2] (::1) since I don't know what it is.
+				// Ignore parts[2] (::1) since I don't know what it is.
+				// Parse parts[3]:
+				//  GET      "/chart.svg?tag=samber_zap&item=MemAllocs" sys=gin
 				parts = ptnSplit.Split(strings.Trim(parts[3], " "), -1)
 				if len(parts) == 3 {
 					args = append(args, "method", parts[0])
