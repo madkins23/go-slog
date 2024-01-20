@@ -62,6 +62,15 @@ func main() {
 		}
 		fmt.Println(tableMgr.BorderString(table.Bottom))
 	}
+
+	if data.HasWarningText() {
+		fmt.Println()
+		for _, line := range data.WarningText() {
+			fmt.Println(line)
+		}
+	}
+
+	fmt.Println()
 }
 
 func tableDefs() table.TableDef {

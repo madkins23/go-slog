@@ -90,7 +90,7 @@ var warnings = []*infra.Warning{
 
 // NewWarningManager generates an infra.WarningManager configured for SlogTestSuite.
 func NewWarningManager(name string) *infra.WarningManager {
-	mgr := infra.NewWarningManager(name, "Test")
+	mgr := infra.NewWarningManager(name, "Test", "")
 	mgr.Predefine(warnings...)
 	return mgr
 }

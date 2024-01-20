@@ -8,7 +8,8 @@
 <table class="top">
   <tr>
     <td>
-      <h1>Handler {{ .Data.HandlerName .Handler }}</h1>
+      <a href="/"><img src="home.svg" alt="Home" class="home" /></a>
+      <h1 class="home">Handler {{ .Data.HandlerName .Handler }}</h1>
     </td>
     <td align="right">
       {{ template "choices" $ }}
@@ -42,12 +43,12 @@
     <td colspan=2 align="center">
       <table>
         <tr>
-          <td><img src="chart.svg?tag={{ .Handler }}&item=Nanos" alt="{{ .Data.HandlerName .Handler }} Ns/Op" /></td>
-          <td><img src="chart.svg?tag={{ .Handler }}&item=MemAllocs" alt="{{ .Data.HandlerName .Handler }} Allocs/Op" /></td>
+          <td><img src="chart.svg?tag={{ .Handler }}&item=Nanos" alt="{{ .Data.HandlerName .Handler }} Ns/Op" class="chart" /></td>
+          <td><img src="chart.svg?tag={{ .Handler }}&item=MemAllocs" alt="{{ .Data.HandlerName .Handler }} Allocs/Op" class="chart" /></td>
         </tr>
         <tr>
-          <td><img src="chart.svg?tag={{ .Handler }}&item=MemBytes" alt="{{ .Data.HandlerName .Handler }} Bytes/Op" /></td>
-          <td><img src="chart.svg?tag={{ .Handler }}&item=GbPerSec" alt="{{ .Data.HandlerName .Handler }} GB/Sec" /></td>
+          <td><img src="chart.svg?tag={{ .Handler }}&item=MemBytes" alt="{{ .Data.HandlerName .Handler }} Bytes/Op" class="chart" /></td>
+          <td><img src="chart.svg?tag={{ .Handler }}&item=GbPerSec" alt="{{ .Data.HandlerName .Handler }} GB/Sec" class="chart" /></td>
         </tr>
       </table>
     </td>

@@ -87,6 +87,7 @@ type WarningManager struct {
 	Name string
 
 	fnPrefix   string
+	showPrefix string
 	predefined map[string]*Warning
 	warnOnly   map[string]bool
 	warnings   map[string]*Warnings
@@ -121,10 +122,11 @@ type WarningInstance struct {
 // This array is used when showing warnings.
 var managers = make([]*WarningManager, 0)
 
-func NewWarningManager(name string, fnPrefix string) *WarningManager {
+func NewWarningManager(name string, fnPrefix string, showPrefix string) *WarningManager {
 	mgr := &WarningManager{
-		Name:     name,
-		fnPrefix: fnPrefix,
+		Name:       name,
+		fnPrefix:   fnPrefix,
+		showPrefix: showPrefix,
 	}
 	managers = append(managers, mgr)
 	mgr.Predefine(WarnSkippingTest, WarnUndefined, WarnUnused)
@@ -333,14 +335,14 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 				return list[i].Name < list[j].Name
 			})
 		}
-		_, _ = fmt.Fprintf(output, "\nWarnings%s:\n", forHandler)
+		_, _ = fmt.Fprintf(output, "\n%sWarnings%s:\n", wrnMgr.showPrefix, forHandler)
 		for _, level := range warningLevelOrder {
 			if list, ok := warningTree[level]; ok {
 				levelName, found := warningLevelNames[level]
 				if !found {
 					levelName = fmt.Sprintf("Unknown level %d", level)
 				}
-				_, _ = fmt.Fprintf(output, "  %s\n", levelName)
+				_, _ = fmt.Fprintf(output, "%s  %s\n", wrnMgr.showPrefix, levelName)
 				for _, warning := range list {
 					// Track handlers that invoke warnings for use in TestMain.
 					warn := wrnMgr.predefined[warning.Name]
@@ -349,15 +351,15 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 					}
 					byWarning[warn][wrnMgr.Name] = true
 
-					_, _ = fmt.Fprintf(output, "  %4d %s\n", warning.Count, warning.Name)
+					_, _ = fmt.Fprintf(output, "%s  %4d %s\n", wrnMgr.showPrefix, warning.Count, warning.Name)
 					for _, data := range warning.Data {
 						text := data.Function
 						if data.Text != "" {
 							text += ": " + data.Text
 						}
-						_, _ = fmt.Fprintf(output, "       %s\n", text)
+						_, _ = fmt.Fprintf(output, "%s       %s\n", wrnMgr.showPrefix, text)
 						if data.Record != "" {
-							_, _ = fmt.Fprintf(output, "         %s\n", data.Record)
+							_, _ = fmt.Fprintf(output, "%s         %s\n", wrnMgr.showPrefix, data.Record)
 						}
 					}
 				}
@@ -384,12 +386,16 @@ func WithWarnings(m *testing.M) {
 	flag.Parse()
 	exitVal := m.Run()
 
+	var showPrefix string
 	for _, manager := range managers {
 		manager.ShowWarnings(nil)
+		if showPrefix == "" {
+			showPrefix = manager.showPrefix
+		}
 	}
 
 	if len(managers) > 1 {
-		ShowHandlersByWarning()
+		ShowHandlersByWarning(showPrefix)
 	}
 
 	os.Exit(exitVal)
@@ -397,8 +403,8 @@ func WithWarnings(m *testing.M) {
 
 // ShowHandlersByWarning uses the global byWarning map to
 // show the handlers that issue each warning.
-func ShowHandlersByWarning() {
-	fmt.Printf("\nHandlers by warning:\n")
+func ShowHandlersByWarning(showPrefix string) {
+	fmt.Printf("%s\n%s Handlers by warning:\n", showPrefix, showPrefix)
 	byLevel := make(map[WarningLevel][]*Warning)
 	byName := make(map[string]*Warning)
 	for warning := range byWarning {
@@ -410,21 +416,21 @@ func ShowHandlersByWarning() {
 	}
 	for _, level := range warningLevelOrder {
 		if warnings, found := byLevel[level]; found {
-			fmt.Printf("  %s\n", warningLevelNames[level])
+			fmt.Printf("%s  %s\n", showPrefix, warningLevelNames[level])
 			names := make([]string, 0, len(warnings))
 			for _, warning := range warnings {
 				names = append(names, warning.Name)
 			}
 			sort.Strings(names)
 			for _, name := range names {
-				fmt.Printf("    %s\n", name)
+				fmt.Printf("%s    %s\n", showPrefix, name)
 				handlers := byWarning[byName[name]]
 				hdlrNames := make([]string, 0, len(handlers))
 				for handler := range handlers {
 					hdlrNames = append(hdlrNames, handler)
 				}
 				for _, hdlrName := range hdlrNames {
-					fmt.Printf("      %s\n", hdlrName)
+					fmt.Printf("%s      %s\n", showPrefix, hdlrName)
 				}
 			}
 		}

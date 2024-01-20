@@ -37,6 +37,9 @@ const (
 var (
 	//go:embed embed/style.css
 	css string
+
+	//go:embed embed/home.svg
+	home []byte
 )
 
 func main() {
@@ -60,6 +63,7 @@ func main() {
 	router.GET("/test", pageFunction(pageTest))
 	router.GET("/handler", pageFunction(pageHandler))
 	router.GET("/chart.svg", chartFunction)
+	router.GET("/home.svg", svgFunction(home))
 	router.GET("/style.css", textFunction(css))
 
 	if err := router.SetTrustedProxies(nil); err != nil {
@@ -265,6 +269,13 @@ func pageFunction(page pageType) gin.HandlerFunc {
 				"ErrorTitle":   "Template failed execution",
 				"ErrorMessage": err.Error()})
 		}
+	}
+}
+
+func svgFunction(svg []byte) gin.HandlerFunc {
+	return func(c *gin.Context) {
+		slog.Debug("svgFunction()", "svg", string(svg))
+		c.Data(http.StatusOK, "image/svg+xml", svg)
 	}
 }
 

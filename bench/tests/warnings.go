@@ -15,7 +15,7 @@ var warnings = []*infra.Warning{
 
 // NewWarningManager generates an infra.WarningManager configured for SlogBenchmarkSuite.
 func NewWarningManager(name string) *infra.WarningManager {
-	mgr := infra.NewWarningManager(name, benchmarkMethodPrefix)
+	mgr := infra.NewWarningManager(name, benchmarkMethodPrefix, "# ")
 	mgr.Predefine(warnings...)
 	return mgr
 }

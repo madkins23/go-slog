@@ -25,6 +25,11 @@
         </table>
       </fieldset>
     </td></tr>
+    {{ if .Data.HasWarningText }}
+      <tr><td colspan=2 align="left" class="warnings"><pre>
+{{range $val := .Data.WarningText }}{{ $val }}
+{{end}}</pre></td></tr>
+    {{ end }}
   </table>
 </body>
 </html>

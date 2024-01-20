@@ -84,11 +84,13 @@ type Data struct {
 	testNames    map[TestTag]string
 	testCPUs     map[TestTag]uint64
 	handlerNames map[HandlerTag]string
+	warningText  []string
 }
 
 // -----------------------------------------------------------------------------
 
 var (
+	ptnWarnLine = regexp.MustCompile(`^# (.*)`)
 	ptnDataLine = regexp.MustCompile(`^([^/]+)/Benchmark_([^-]+)-(\d+)\s+(\d+)\s+(\d+(?:\.\d+)?)\s+ns/op\b`)
 	ptnAllocsOp = regexp.MustCompile(`\s(\d+)\s+allocs/op\b`)
 	ptnBytesOp  = regexp.MustCompile(`\s(\d+)\s+B/op\b`)
@@ -129,7 +131,11 @@ func (d *Data) LoadDataJSON() error {
 		var hdlrBytes, testBytes []byte
 		var nsOps, mbSec float64
 		var cpus, runs, allocsOp, bytesOp uint64
-		if matches := ptnDataLine.FindSubmatch(line.Bytes()); matches != nil && len(matches) == 6 {
+		if matches := ptnWarnLine.FindSubmatch(line.Bytes()); matches != nil && len(matches) == 2 {
+			// Capture warning text marked with "# " at beginning of line.
+			d.warningText = append(d.warningText, string(matches[1]))
+		} else if matches := ptnDataLine.FindSubmatch(line.Bytes()); matches != nil && len(matches) == 6 {
+			// Process a data line.
 			hdlrBytes = matches[1]
 			testBytes = matches[2]
 			if cpus, err = strconv.ParseUint(string(matches[3]), 10, 64); err != nil {
@@ -229,6 +235,34 @@ func (d *Data) LoadDataJSON() error {
 
 // -----------------------------------------------------------------------------
 
+// HandlerName returns the full name associated with a HandlerTag.
+// If there is no full name the tag is returned.
+func (d *Data) HandlerName(handler HandlerTag) string {
+	if name, found := d.handlerNames[handler]; found {
+		return name
+	} else {
+		return string(handler)
+	}
+}
+
+// HandlerRecords returns a map of HandlerTag to TestRecord for the specified benchmark.
+func (d *Data) HandlerRecords(test TestTag) HandlerRecords {
+	return d.byTest[test]
+}
+
+// HandlerTags returns an array of all handler names sorted alphabetically.
+func (d *Data) HandlerTags() []HandlerTag {
+	if d.handlers == nil {
+		for handler := range d.byHandler {
+			d.handlers = append(d.handlers, handler)
+		}
+		sort.Slice(d.handlers, func(i, j int) bool {
+			return d.HandlerName(d.handlers[i]) < d.HandlerName(d.handlers[j])
+		})
+	}
+	return d.handlers
+}
+
 // TestName returns the full name associated with a TestTag.
 // If there is no full name the tag is returned.
 func (d *Data) TestName(test TestTag) string {
@@ -257,30 +291,12 @@ func (d *Data) TestTags() []TestTag {
 	return d.tests
 }
 
-// HandlerName returns the full name associated with a HandlerTag.
-// If there is no full name the tag is returned.
-func (d *Data) HandlerName(handler HandlerTag) string {
-	if name, found := d.handlerNames[handler]; found {
-		return name
-	} else {
-		return string(handler)
-	}
+// HasWarningText from end of benchmark run.
+func (d *Data) HasWarningText() bool {
+	return len(d.warningText) > 0
 }
 
-// HandlerRecords returns a map of HandlerTag to TestRecord for the specified benchmark.
-func (d *Data) HandlerRecords(test TestTag) HandlerRecords {
-	return d.byTest[test]
-}
-
-// HandlerTags returns an array of all handler names sorted alphabetically.
-func (d *Data) HandlerTags() []HandlerTag {
-	if d.handlers == nil {
-		for handler := range d.byHandler {
-			d.handlers = append(d.handlers, handler)
-		}
-		sort.Slice(d.handlers, func(i, j int) bool {
-			return d.HandlerName(d.handlers[i]) < d.HandlerName(d.handlers[j])
-		})
-	}
-	return d.handlers
+// WarningText from end of benchmark run.
+func (d *Data) WarningText() []string {
+	return d.warningText
 }

@@ -13,8 +13,19 @@ form.choice {
     margin-bottom: 0;
 }
 
-img {
+h1.home {
+    display: inline-block;
+}
+
+img.chart {
     border: 2px inset white;
+}
+
+img.home {
+    display: inline-block;
+    height: 2em;
+    width: 2em;
+    vertical-align: text-bottom;
 }
 
 legend {
@@ -43,6 +54,11 @@ table.root {
 
 table.root td {
     vertical-align: top;
+}
+
+table.root td.warnings {
+    background-color: white;
+    border: 2px inset white;
 }
 
 table.top {
