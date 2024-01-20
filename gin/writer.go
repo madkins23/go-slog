@@ -45,6 +45,8 @@ var (
 	ptnLogLevel, _ = regexp.Compile(`^\s*\[(DEBUG|ERROR|INFO|WARNING|.*)\]\s*`)
 )
 
+var ptnTimePrefix = regexp.MustCompile(`^\s*\d+/\d+/\d+\s*-\s*\d+:\d+:\d+\s*\|\s*(.+)$`)
+
 // Write a block of data to the (supposedly) stream object.
 // For the moment we're assuming that there is a single Write() call for each log record.
 // TODO: Fix code to handle multiple Write() calls per log record.
@@ -71,6 +73,12 @@ func (w *writer) Write(p []byte) (n int, err error) {
 		} else {
 			break
 		}
+	}
+
+	// Format of many of the lines:
+	// 2024/01/20 - 07:18:37 | 200 |    1.226682ms |             ::1 | GET      "/"
+	if matches := ptnTimePrefix.FindStringSubmatch(msg); len(matches) == 2 {
+		msg = matches[1]
 	}
 
 	var args []any
