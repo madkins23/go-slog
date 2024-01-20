@@ -78,10 +78,15 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				var count test.CountWriter
 				function := benchmark.Function()
 				var logger *slog.Logger
-				if benchmark.HandlerFn() != nil && suite.CanMakeHandler() {
-					logger = slog.New(benchmark.HandlerFn()(
-						suite.NewHandler(&count, benchmark.Options())))
-				} else {
+				if benchmark.HandlerFn() != nil {
+					if suite.CanMakeHandler() {
+						logger = slog.New(benchmark.HandlerFn()(
+							suite.NewHandler(&count, benchmark.Options())))
+					} else {
+						suite.AddWarning(WarnNoHandlerCreation, "", "")
+					}
+				}
+				if logger == nil {
 					logger = suite.NewLogger(&count, benchmark.Options())
 				}
 				if test.DebugLevel() > 0 {
