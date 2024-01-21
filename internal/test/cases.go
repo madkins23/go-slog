@@ -14,7 +14,7 @@ import (
 // Cases are read from JSON files in 'test' subdirectory of the specified test directory.
 // The JSON files must contain the following common fields:
 //
-//	Name                   test name
+//	Description                   test name
 //	Source                 test source string
 //
 // If the Source field is empty the test file name is used to read the source
@@ -35,7 +35,7 @@ var _ Case = &BasicCase{}
 // but they can't be because of the JSON unmarshaler.
 // Do not reference them externally.
 type BasicCase struct {
-	BasicName   string `json:"Name"`
+	BasicName   string `json:"Description"`
 	BasicSource string `json:"Source"`
 	base        string
 	dir         string

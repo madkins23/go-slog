@@ -91,6 +91,8 @@ A "warning" facility is built into many of the tests to provide a way to:
 Since this code is currently used primary in handler verification,
 there are better examples in the [`verify` `README`](../verify/README.md) file.
 
+The actual warnings are defined in the [`warning`](../warning) package.
+
 ### Usage
 
 * Define a `WarningManager`.

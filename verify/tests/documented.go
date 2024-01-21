@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/madkins23/go-slog/infra"
+	"github.com/madkins23/go-slog/warning"
 )
 
 // -----------------------------------------------------------------------------
@@ -49,7 +50,7 @@ func (suite *SlogTestSuite) TestDefaultLevel() {
 	} {
 		ctx := context.Background()
 		logger := suite.Logger(options)
-		if suite.HasWarning(WarnDefaultLevel) {
+		if suite.HasWarning(warning.DefaultLevel) {
 			level := slog.Level(100)
 			name := ""
 
@@ -67,11 +68,11 @@ func (suite *SlogTestSuite) TestDefaultLevel() {
 				if options.AddSource {
 					where = " with AddSource"
 				}
-				suite.AddWarning(WarnDefaultLevel,
+				suite.AddWarning(warning.DefaultLevel,
 					fmt.Sprintf("defaultlevel%s is '%s'", where, name), "")
 				continue
 			}
-			suite.AddUnused(WarnDefaultLevel, "")
+			suite.AddUnused(warning.DefaultLevel, "")
 		}
 		suite.Assert().False(logger.Enabled(ctx, slog.LevelDebug-1))
 		suite.Assert().False(logger.Enabled(ctx, slog.LevelDebug))
@@ -196,12 +197,12 @@ func (suite *SlogTestSuite) TestLogAttributes() {
 	suite.checkFieldCount(12, logMap)
 	when, ok := logMap["when"].(string)
 	suite.True(ok)
-	if suite.HasWarning(WarnTimeMillis) {
+	if suite.HasWarning(warning.TimeMillis) {
 		// Some handlers log times as RFC3339 instead of RFC3339Nano
 		if t.Format(time.RFC3339) == when {
-			suite.AddWarning(WarnTimeMillis, when, "")
+			suite.AddWarning(warning.TimeMillis, when, "")
 		} else {
-			suite.AddUnused(WarnTimeMillis, "")
+			suite.AddUnused(warning.TimeMillis, "")
 		}
 	} else {
 		// Based on the existing behavior of log/slog it should be RFC3339Nano.
@@ -209,19 +210,19 @@ func (suite *SlogTestSuite) TestLogAttributes() {
 	}
 	howLong, ok := logMap["howLong"].(float64)
 	suite.True(ok)
-	if suite.HasWarning(WarnDurationSeconds) {
+	if suite.HasWarning(warning.DurationSeconds) {
 		// Some handlers push out seconds instead of nanoseconds.
 		if howLong == float64(60) {
-			suite.AddWarning(WarnDurationSeconds, "", "")
+			suite.AddWarning(warning.DurationSeconds, "", "")
 		} else {
-			suite.AddUnused(WarnDurationSeconds, "")
+			suite.AddUnused(warning.DurationSeconds, "")
 		}
-	} else if suite.HasWarning(WarnDurationMillis) {
+	} else if suite.HasWarning(warning.DurationMillis) {
 		// Some handlers push out milliseconds instead of nanoseconds.
 		if howLong == float64(60000) {
-			suite.AddWarning(WarnDurationMillis, "", "")
+			suite.AddWarning(warning.DurationMillis, "", "")
 		} else {
-			suite.AddUnused(WarnDurationMillis, "")
+			suite.AddUnused(warning.DurationMillis, "")
 		}
 	} else {
 		// Based on the existing behavior of log/slog it should be nanoseconds.

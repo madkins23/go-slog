@@ -2,6 +2,8 @@ package bench
 
 // -----------------------------------------------------------------------------
 
+// TestItems are specific pieces of benchmark data available per test.
+//
 //go:generate go run github.com/dmarkham/enumer -type=TestItems
 type TestItems uint
 

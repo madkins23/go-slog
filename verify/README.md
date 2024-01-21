@@ -29,15 +29,16 @@ import (
     "testing"
 
     "github.com/stretchr/testify/suite"
-
+    
     "github.com/madkins23/go-slog/creator"
     "github.com/madkins23/go-slog/verify/tests"
+    "github.com/madkins23/go-slog/warning"
 )
 
 // Test_slog runs tests for the log/slog JSON handler.
 func Test_slog(t *testing.T) {
     slogSuite := tests.NewSlogTestSuite(creator.Slog())
-    slogSuite.WarnOnly(tests.WarnDuplicates)
+    slogSuite.WarnOnly(warning.Duplicates)
     suite.Run(t, slogSuite)
 }
 ```
@@ -143,17 +144,16 @@ the current (2024-01-15) test suite for
 // Test_slog_zerolog_phsym runs tests for the physym zerolog handler.
 func Test_slog_zerolog_phsym(t *testing.T) {
     slogSuite := tests.NewSlogTestSuite(creator.SlogPhsymZerolog())
-    slogSuite.WarnOnly(tests.WarnDuplicates)
-    slogSuite.WarnOnly(tests.WarnDurationMillis)
-    slogSuite.WarnOnly(tests.WarnEmptyAttributes)
-    slogSuite.WarnOnly(tests.WarnGroupEmpty)
-    slogSuite.WarnOnly(tests.WarnGroupInline)
-    slogSuite.WarnOnly(tests.WarnLevelCase)
-    slogSuite.WarnOnly(tests.WarnMessageKey)
-    slogSuite.WarnOnly(tests.WarnTimeMillis)
-    slogSuite.WarnOnly(tests.WarnNoReplAttr)
-    slogSuite.WarnOnly(tests.WarnSourceKey)
-    slogSuite.WarnOnly(tests.WarnZeroTime)
+    slogSuite.WarnOnly(warning.Duplicates)
+    slogSuite.WarnOnly(warning.EmptyAttributes)
+    slogSuite.WarnOnly(warning.GroupEmpty)
+    slogSuite.WarnOnly(warning.GroupInline)
+    slogSuite.WarnOnly(warning.LevelCase)
+    slogSuite.WarnOnly(warning.MessageKey)
+    slogSuite.WarnOnly(warning.TimeMillis)
+    slogSuite.WarnOnly(warning.NoReplAttr)
+    slogSuite.WarnOnly(warning.SourceKey)
+    slogSuite.WarnOnly(warning.ZeroTime)
     suite.Run(t, slogSuite)
 }
 ```
@@ -169,53 +169,52 @@ The test suite will succeed (`PASS`) and the following result data will show at 
 ```
 Warnings for phsym/zeroslog:
   Required
-     1 Empty (sub)group(s) logged
-       TestGroupWithMultiSubEmpty
-         {"level":"info","first":"one","group":{"second":2,"third":"3","subGroup":{}},"time":"2024-01-15T17:36:33-08:00","message":"This is a message"}
-     2 Empty attribute(s) logged ("":null)
-       TestAttributeWithEmpty
-         {"level":"info","":null,"first":"one","pi":3.141592653589793,"time":"2024-01-15T17:36:33-08:00","message":"This is a message"}
-       TestAttributesEmpty
-         {"level":"info","first":"one","":null,"pi":3.141592653589793,"time":"2024-01-15T17:36:33-08:00","message":"This is a message"}
-     1 Group with empty key does not inline subfields
-       TestGroupInline
-         {"level":"info","first":"one","":{"second":2,"third":"3","fourth":"forth"},"pi":3.141592653589793,"time":"2024-01-15T17:36:33-08:00","message":"This is a message"}
-     1 Zero time is logged
-       TestZeroTime: 0001-01-01T00:00:00Z
-         {"level":"info","time":"0001-01-01T00:00:00Z","message":"This is a message"}
+     2 [EmptyAttributes] Empty attribute(s) logged ("":null)
+         TestAttributeWithEmpty
+           {"level":"info","":null,"first":"one","pi":3.141592653589793,"time":"2024-01-21T08:57:18-08:00","message":"This is a message"}
+         TestAttributesEmpty
+           {"level":"info","first":"one","":null,"pi":3.141592653589793,"time":"2024-01-21T08:57:18-08:00","message":"This is a message"}
+     1 [GroupEmpty] Empty (sub)group(s) logged
+         TestGroupWithMultiSubEmpty
+           {"level":"info","first":"one","group":{"second":2,"third":"3","subGroup":{}},"time":"2024-01-21T08:57:18-08:00","message":"This is a message"}
+     1 [ZeroTime] Zero time is logged
+         TestZeroTime: 0001-01-01T00:00:00Z
+           {"level":"info","time":"0001-01-01T00:00:00Z","message":"This is a message"}
   Implied
-     4 HandlerOptions.ReplaceAttr not available
-       TestReplaceAttr: too many attributes: 6, alpha == beta, change still exists, remove still exists
-       TestReplaceAttrBasic: too many attributes: 4, time field still exists, message field still exists, source == <nil>
-       TestReplaceAttrFnLevelCase: level value not null
-       TestReplaceAttrFnRemoveTime: time value not empty string
-     1 Source data not logged when AddSource flag set
-       TestKey: no 'source' key
-         {"level":"info","caller":"/snap/go/current/src/reflect/value.go:596","time":"2024-01-15T17:36:33-08:00","message":"This is a message"}
-     6 Wrong message key (should be 'msg')
-       TestCancelledContext: `message`
-       TestCancelledContext: `message`
-       TestKey: `message`
-       TestKeys: `message`
-       TestZeroPC: `message`
-       TestZeroTime: `message`
+     6 [MessageKey] Wrong message key (should be 'msg')
+         TestCancelledContext: `message`
+         TestCancelledContext: `message`
+         TestKey: `message`
+         TestKeys: `message`
+         TestZeroPC: `message`
+         TestZeroTime: `message`
+     4 [NoReplAttr] HandlerOptions.ReplaceAttr not available
+         TestReplaceAttr: too many attributes: 6, alpha == beta, change still exists, remove still exists
+         TestReplaceAttrBasic: too many attributes: 4, time field still exists, message field still exists, source == <nil>
+         TestReplaceAttrFnLevelCase: level value not null
+         TestReplaceAttrFnRemoveTime: time value not empty string
+     1 [SourceKey] Source data not logged when AddSource flag set
+         TestKey: no 'source' key
+           {"level":"info","caller":"/snap/go/10489/src/reflect/value.go:596","time":"2024-01-21T08:57:18-08:00","message":"This is a message"}
   Suggested
-     2 Duplicate field(s) found
-       TestAttributeDuplicate: map[alpha:2 charlie:3]
-       TestAttributeWithDuplicate: map[alpha:2 charlie:3]
-    10 Log level in lowercase
-       TestCancelledContext: 'info'
-       TestCancelledContext: 'info'
-       TestKey: 'info'
-       TestKeyCase: 'warn'
-       TestKeyCase: 'error'
-       TestKeyCase: 'debug'
-       TestKeyCase: 'info'
-       TestKeys: 'info'
-       TestZeroPC: 'info'
-       TestZeroTime: 'info'
-     1 slog.Duration() logs milliseconds instead of nanoseconds
-       TestLogAttributes
+     3 [Duplicates] Duplicate field(s) found
+         TestAttributeDuplicate: map[alpha:2 charlie:3]
+         TestAttributeWithDuplicate: map[alpha:2 charlie:3]
+         TestGroupInline
+           {"level":"info","first":"one","":{"second":2,"third":"3","fourth":"forth"},"pi":3.141592653589793,"time":"2024-01-21T08:57:18-08:00","message":"This is a message"}
+    10 [LevelCase] Log level in lowercase
+         TestCancelledContext: 'info'
+         TestCancelledContext: 'info'
+         TestKey: 'info'
+         TestKeyCase: 'debug'
+         TestKeyCase: 'info'
+         TestKeyCase: 'warn'
+         TestKeyCase: 'error'
+         TestKeys: 'info'
+         TestZeroPC: 'info'
+         TestZeroTime: 'info'
+     1 [TimeMillis] slog.Time() logs milliseconds instead of nanoseconds
+         TestLogAttributes: 2024-01-21T08:57:18-08:00
 ```
 
 ### Warning Result Format
@@ -223,9 +222,9 @@ Warnings for phsym/zeroslog:
 Each warning entry in the results has the following format:
 ```
   <count> <warning-text>
-          <test-function-name>[: <optional-text>]
-            [<optional-log-record>]
-          ...<more instances>...
+            <test-function-name>[: <optional-text>]
+              [<optional-log-record>]
+            ...<more instances>...
 ```
 
 The first line has the `<count>` of times the warning was raised
@@ -260,68 +259,68 @@ For each warning described below:
 The following warnings relate to tests that I can justify from requirements in the
 [`slog.Handler`](https://pkg.go.dev/log/slog@master#Handler) documentation.
 
-* `WarnZeroTime`: 'Zero time is logged'  
-  Handlers should not log the basic `time` field if it is zero.  
+* `[EmptyAttributes]`: 'Empty attribute(s) logged "":null'  
+  Handlers are supposed to avoid logging empty attributes.  
+  * ['- If an Attr's key and value are both the zero value, ignore the Attr.'](https://pkg.go.dev/log/slog@master#Handler)
+* `[GroupEmpty]`: 'Empty (sub)group(s) logged'  
+  Handlers should not log groups (or subgroups) without fields,
+  whether or not the have non-empty names.
+  * ['- If a group has no Attrs (even if it has a non-empty key), ignore it.'](https://pkg.go.dev/log/slog@master#Handler)
+* `[GroupInline]`: 'Group with empty key does not inline subfields'  
+  Handlers should expand groups named "" (the empty string) into the enclosing log record.  
+  * ['- If a group's key is empty, inline the group's Attrs.'](https://pkg.go.dev/log/slog@master#Handler)
+* `[Resolver]`: 'LogValuer objects are not resolved'  
+  Handlers should resolve all objects implementing the
+  [`LogValuer`](https://pkg.go.dev/log/slog@master#LogValuer) or
+  [`Stringer`](https://pkg.go.dev/fmt#Stringer) interfaces.  
+  This is a powerful feature which can customize logging of objects and
+  [speed up logging by delaying argument resolution until logging time](https://pkg.go.dev/log/slog@master#hdr-Performance_considerations).
+  * ['- Attr's values should be resolved.'](https://pkg.go.dev/log/slog@master#Handler)
+* `[ZeroTime]`: 'Zero time is logged'  
+  Handlers should not log the basic `time` field if it is zero.
   * ['- If r.Time is the zero time, ignore the time.'](https://pkg.go.dev/log/slog@master#Handler)
-* `WarnZeroPC`: 'SourceKey logged for zero PC'  
+* `[ZeroPC]`: 'SourceKey logged for zero PC'  
   The `slog.Record.PC` field can be loaded with a program counter (PC).
   This is normally done by the `slog.Logger` code.
   If the PC is non-zero and the `slog.HandlerOptions.AddSource` flag is set
   the `source` field will contain a [`slog.Source`](https://pkg.go.dev/log/slog@master#Source) record
   containing the function name, file name, and file line at which the log record was generated.
-  If the PC is zero then this field and its associated group should not be logged.  
+  If the PC is zero then this field and its associated group should not be logged.
   * ['- If r.PC is zero, ignore it.'](https://pkg.go.dev/log/slog@master#Handler)
-* `WarnResolver`: 'LogValuer objects are not resolved'  
-  Handlers should resolve all objects implementing the
-  [`LogValuer`](https://pkg.go.dev/log/slog@master#LogValuer) or
-  [`Stringer`](https://pkg.go.dev/fmt#Stringer) interfaces.  
-  This is a powerful feature which can customize logging of objects and
-  [speed up logging by delaying argument resolution until logging time](https://pkg.go.dev/log/slog@master#hdr-Performance_considerations).  
-  * ['- Attr's values should be resolved.'](https://pkg.go.dev/log/slog@master#Handler)
-* `WarnEmptyAttributes`: 'Empty attribute(s) logged "":null'  
-  Handlers are supposed to avoid logging empty attributes.  
-  * ['- If an Attr's key and value are both the zero value, ignore the Attr.'](https://pkg.go.dev/log/slog@master#Handler)
-* `WarnGroupInline`: 'Group with empty key does not inline subfields'  
-  Handlers should expand groups named "" (the empty string) into the enclosing log record.  
-  * ['- If a group's key is empty, inline the group's Attrs.'](https://pkg.go.dev/log/slog@master#Handler)
-* `WarnGroupEmpty`: 'Empty (sub)group(s) logged'  
-  Handlers should not log groups (or subgroups) without fields,
-  whether or not the have non-empty names.  
-  * ['- If a group has no Attrs (even if it has a non-empty key), ignore it.'](https://pkg.go.dev/log/slog@master#Handler)
 
 #### Implied
 
 Warnings that seem to be implied by documentation but can't be considered required.
 
-* `WarnDefaultLevel`: 'Handler doesn't default to slog.LevelInfo'  
+* `[DefaultLevel]`: 'Handler doesn't default to slog.LevelInfo'  
   A new `slog.Handler` should default to `slog.LevelInfo`.  
   * ['First, we wanted the default level to be Info, Since Levels are ints, Info is the default value for int, zero.'](https://pkg.go.dev/log/slog@master#Level)
-* `WarnMessageKey`: 'Wrong message key (should be 'msg')'  
+* `[MessageKey]`: 'Wrong message key (should be 'msg')'  
   The field name of the "message" key should be `msg`.  
   * [Constant values are defined for `slog/log`](https://pkg.go.dev/log/slog@master#pkg-constants)  
   * [Field values are defined for the `JSONHandler.Handle()` implementation](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)
-* `WarnSourceKey`: 'Source data not logged when AddSource flag set'  
-  Handlers should log source data when the `slog.HandlerOptions.AddSource` flag is set.  
-  * [Flag declaration as `slog.HandlerOptions` field](https://pkg.go.dev/log/slog@master#HandlerOptions)  
-  * [Behavior defined for `JSONHandler.Handle()`](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)  
-  * [Definition of source data record](https://pkg.go.dev/log/slog@master#Source)
-* `WarnNoReplAttr`: 'HandlerOptions.ReplaceAttr not available'  
+* `[NoReplAttr]`: 'HandlerOptions.ReplaceAttr not available'  
   If [`HandlerOptions.ReplaceAttr`](https://pkg.go.dev/log/slog@master#HandlerOptions)
   is provided it should be honored by the handler.
   However, documentation on implementing handler methods seems to suggest it is optional.  
   * [Behavior defined for `slog.HandlerOptions`](https://pkg.go.dev/log/slog@master#HandlerOptions)  
   * ['You might also consider adding a ReplaceAttr option to your handler, like the one for the built-in handlers.'](https://github.com/golang/example/tree/master/slog-handler-guide#implementing-handler-methods)
-* `WarnNoReplAttrBasic`: 'HandlerOptions.ReplaceAttr not available for basic field'  
+* `[NoReplAttrBasic]`: 'HandlerOptions.ReplaceAttr not available for basic field'  
   Some handlers (e.g. `phsym/zeroslog`) support
   [`HandlerOptions.ReplaceAttr`](https://pkg.go.dev/log/slog@master#HandlerOptions)
   except for the four main fields `time`, `level`, `msg`, and `source`.
   When that is the case it is better to use this (`WarnNoReplAttrBasic`) warning.
+* `[SourceKey]`: 'Source data not logged when AddSource flag set'  
+  Handlers should log source data when the `slog.HandlerOptions.AddSource` flag is set.
+  * [Flag declaration as `slog.HandlerOptions` field](https://pkg.go.dev/log/slog@master#HandlerOptions)
+  * [Behavior defined for `JSONHandler.Handle()`](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)
+  * [Definition of source data record](https://pkg.go.dev/log/slog@master#Source)
 
 #### Suggested
 
 These warnings are not AFAIK mandated by any documentation or requirements.[^4]
 
-* `WarnDuplicates`: 'Duplicate field(s) found'  
+* `[Duplicates]`: 'Duplicate field(s) found'  
   Some handlers (e.g. `slog.JSONHandler`)
   will output multiple occurrences of the same field name
   if the logger is called with multiple instances of the same field.
@@ -330,19 +329,19 @@ These warnings are not AFAIK mandated by any documentation or requirements.[^4]
   [release milestone of (currently unscheduled) Go 1.23](https://github.com/golang/go/milestone/212),
   (whereas [Go Release 1.22](https://tip.golang.org/doc/go1.22)
   is currently expected in February 2024).
-* `WarnDurationSeconds`: 'slog.Duration() logs seconds instead of nanoseconds'
+* `[DurationSeconds]`: 'slog.Duration() logs seconds instead of nanoseconds'  
   The `slog.JSONHandler` uses nanoseconds for `time.Duration` but some other handlers use seconds.
   * [Go issue 59345: Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)
-* `WarnDurationMillis`: 'slog.Duration() logs milliseconds instead of nanoseconds'  
+* `[DurationMillis]`: 'slog.Duration() logs milliseconds instead of nanoseconds'  
   The `slog.JSONHandler` uses nanoseconds for `time.Duration` but some other handlers use seconds.
   * [Go issue 59345: Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)
-* `WarnLevelCaseLog`: 'level in lowercase'  
+* `[LevelCaseLog]`: 'level in lowercase'  
   Each JSON log record contains the logging level of the log statement as a string.
   Different handlers provide that string in uppercase or lowercase.
   Documentation for [`slog.Level`](https://pkg.go.dev/log/slog@master#Level)
   says that its `String()` and `MarshalJSON()` methods will return uppercase
   but `UnmarshalJSON()` will parse in a case-insensitive manner.
-* `WarnTimeMillis`: 'slog.Time() logs milliseconds instead of nanoseconds'  
+* `[TimeMillis]`: 'slog.Time() logs milliseconds instead of nanoseconds'  
   The `slog.JSONHandler` uses nanoseconds for `time.Time` but some other handlers use seconds.
   This does _not_ apply to the basic `time` field, only attribute fields.
   I can't find any supporting documentation or bug on this but
@@ -353,13 +352,13 @@ These warnings are not AFAIK mandated by any documentation or requirements.[^4]
 
 The last warnings provide information about the tests or conflicts with other warnings.
 
-* `WarnSkippingTest`: 'Skipping test'  
+* `[SkippingTest]`: 'Skipping test'  
   A test has been skipped, likely due to the specification of some other warning.
   Not currently used (2024-01-15).
-* `WarnUndefined`: 'Undefined Warning(s)'  
+* `[Undefined]`: 'Undefined Warning(s)'  
   An attempt to call WarnOnly() with an undefined warning.
   Warnings must be predefined to the `WarningManager` prior to use.
-* `WarnUnused`: 'Unused Warning(s)'  
+* `[Unused]`: 'Unused Warning(s)'  
   If a warning is specified but the condition is not actually present
   one of these warnings will be issued with the specified warning.
   These are intended to help clean out unnecessary `WarnOnly` settings
@@ -398,68 +397,61 @@ If multiple handler tests are in the same directory:
 
 * It will be necessary to move the `TestMain()` definition to a separate file,
   such as the [`verify/main_test.go`](main_test.go).
-* An addition listing of which handlers throw each warning will be added:
+* An addition listing of which handlers throw each warning
+  will be added after the normal output:
 
 ```
-Handlers by warning:
+ Handlers by warning:
   Required
-    Empty (sub)group(s) logged
-      phsym/zeroslog
-    Empty attribute(s) logged ("":null)
+    [EmptyAttributes] Empty attribute(s) logged ("":null)
       darvaza/zerolog
       phsym/zeroslog
       samber/slog-zap
       samber/slog-zerolog
-    Group with empty key does not inline subfields
+    [GroupEmpty] Empty (sub)group(s) logged
+      phsym/zeroslog
+    [Resolver] LogValuer objects are not resolved
+      darvaza/zerolog
+      samber/slog-zap
+      samber/slog-zerolog
+    [ZeroPC] SourceKey logged for zero PC
+      darvaza/zerolog
+      samber/slog-zap
+      samber/slog-zerolog
+    [ZeroTime] Zero time is logged
       darvaza/zerolog
       phsym/zeroslog
       samber/slog-zap
       samber/slog-zerolog
-    LogValuer objects are not resolved
-      darvaza/zerolog
-      samber/slog-zap
-      samber/slog-zerolog
-    SourceKey logged for zero PC
-      darvaza/zerolog
-      samber/slog-zap
-      samber/slog-zerolog
-    Zero time is logged
-      samber/slog-zap
-      samber/slog-zerolog
-      darvaza/zerolog
-      phsym/zeroslog
   Implied
-    Handler doesn't default to slog.LevelInfo
+    [DefaultLevel] Handler doesn't default to slog.LevelInfo
       darvaza/zerolog
       samber/slog-zerolog
-    HandlerOptions.ReplaceAttr not available
+    [MessageKey] Wrong message key (should be 'msg')
+      darvaza/zerolog
       phsym/zeroslog
-    HandlerOptions.ReplaceAttr not available for basic fields
+      samber/slog-zerolog
+    [NoReplAttr] HandlerOptions.ReplaceAttr not available
+      phsym/zeroslog
+    [NoReplAttrBasic] HandlerOptions.ReplaceAttr not available for basic fields
+      darvaza/zerolog
       samber/slog-zap
       samber/slog-zerolog
-      darvaza/zerolog
-    Source data not logged when AddSource flag set
+    [SourceKey] Source data not logged when AddSource flag set
       phsym/zeroslog
-    Wrong message key (should be 'msg')
-      darvaza/zerolog
-      phsym/zeroslog
-      samber/slog-zerolog
   Suggested
-    Duplicate field(s) found
-      phsym/zeroslog
+    [Duplicates] slog.Duration() logs seconds instead of nanoseconds
       log/slog.JSONHandler
-    Log level in lowercase
       darvaza/zerolog
       phsym/zeroslog
       samber/slog-zap
       samber/slog-zerolog
-    slog.Duration() logs milliseconds instead of nanoseconds
+    [LevelCase] Log level in lowercase
       darvaza/zerolog
       phsym/zeroslog
-      samber/slog-zerolog
-    slog.Duration() logs seconds instead of nanoseconds
       samber/slog-zap
-    slog.Time() logs milliseconds instead of nanoseconds
+      samber/slog-zerolog
+    [TimeMillis] slog.Time() logs milliseconds instead of nanoseconds
       darvaza/zerolog
       phsym/zeroslog
       samber/slog-zap

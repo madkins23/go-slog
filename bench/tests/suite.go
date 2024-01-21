@@ -10,6 +10,7 @@ import (
 
 	"github.com/madkins23/go-slog/infra"
 	"github.com/madkins23/go-slog/internal/test"
+	"github.com/madkins23/go-slog/warning"
 )
 
 type SlogBenchmarkSuite struct {
@@ -25,7 +26,7 @@ func NewSlogBenchmarkSuite(creator infra.Creator) *SlogBenchmarkSuite {
 		Creator:        creator,
 		WarningManager: NewWarningManager(creator.Name()),
 	}
-	suite.WarnOnly(WarnNoHandlerCreation)
+	suite.WarnOnly(warning.NoHandlerCreation)
 	return suite
 }
 
@@ -68,7 +69,7 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				// This test requires the handler to be adjusted before creating the logger
 				// but the Creator object doesn't provide a handler so skip the test.
 				test.Debugf(2, ">>>     Skip:   %s\n", method.Name)
-				suite.AddWarningFn(WarnNoHandlerCreation, method.Name, "")
+				suite.AddWarningFn(warning.NoHandlerCreation, method.Name, "")
 				continue
 			}
 			test.Debugf(2, ">>>     Method: %s\n", method.Name)
@@ -83,7 +84,7 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 						logger = slog.New(benchmark.HandlerFn()(
 							suite.NewHandler(&count, benchmark.Options())))
 					} else {
-						suite.AddWarning(WarnNoHandlerCreation, "", "")
+						suite.AddWarning(warning.NoHandlerCreation, "", "")
 					}
 				}
 				if logger == nil {
