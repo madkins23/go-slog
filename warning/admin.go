@@ -11,6 +11,11 @@ var (
 		Name:        "SkippingTest",
 		Description: "Skipping test",
 	}
+	TestError = &Warning{
+		Level:       LevelAdmin,
+		Name:        "TestError",
+		Description: "Test harness error",
+	}
 	Undefined = &Warning{
 		Level:       LevelAdmin,
 		Name:        "Undefined",

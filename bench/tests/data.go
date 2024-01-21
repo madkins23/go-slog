@@ -83,20 +83,6 @@ var withAttributes = []slog.Attr{
 	slog.Any("Error", valError),
 }
 
-var withKeyValues = []any{
-	"withBool", valBool,
-	"withInt", valInt,
-	"withInt64", valInt64,
-	"withUint64", valUInt64,
-	"withFloat64", valFloat64,
-	"withString", valString,
-	"withTime", valTime,
-	"withDuration", valDuration,
-	slog.Group("withGroup", valKVs...),
-	"withAny", valAny,
-	"withError", valError,
-}
-
 var bigGroup slog.Attr
 
 func BigGroup() slog.Attr {

@@ -71,9 +71,11 @@ type WarningInstance struct {
 // -----------------------------------------------------------------------------
 // Calls made during context-specific setup of warning manager.
 
-// managers captures all managers tested together into an array.
-// This array is used when showing warning.
-var managers = make([]*WarningManager, 0)
+// managers captures all managers tested together into a map by manager name.
+// Due to the way benchmarking works there will be more than one with the same name,
+// but this doesn't matter as they should all be the same.
+// This map is used when showing data at the end.
+var managers = make(map[string]*WarningManager)
 
 func NewWarningManager(name string, fnPrefix string, showPrefix string) *WarningManager {
 	mgr := &WarningManager{
@@ -81,8 +83,8 @@ func NewWarningManager(name string, fnPrefix string, showPrefix string) *Warning
 		fnPrefix:   fnPrefix,
 		showPrefix: showPrefix,
 	}
-	managers = append(managers, mgr)
 	mgr.Predefine(warning.Administrative()...)
+	managers[name] = mgr // Overwrite each time per above comment.
 	return mgr
 }
 
@@ -321,43 +323,9 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 	}
 }
 
-// WithWarnings implements the guts of TestMain (see https://pkg.go.dev/testing#hdr-Main).
-// This will cause the ShowWarnings method to be called on all test managers
-// after all other output has been done, instead of buried in the middle.
-// To use, add the following to a '_test' file:
-//
-//	func TestMain(m *testing.M) {
-//	    test.WithWarnings(m)
-//	}
-//
-// This step can be omitted if warning are being sent to an output file.
-//
-// If multiple SlogTestSuite instances are defined in separate files in the same package:
-//   - an addition list of warning and which handlers throw them will be shown and
-//   - the TestMain function must be moved to a separate file, as it can only be defined once.
-func WithWarnings(m *testing.M) {
-	flag.Parse()
-	exitVal := m.Run()
-
-	var showPrefix string
-	for _, manager := range managers {
-		manager.ShowWarnings(nil)
-		if showPrefix == "" {
-			showPrefix = manager.showPrefix
-		}
-	}
-
-	if len(managers) > 1 {
-		ShowHandlersByWarning(showPrefix)
-	}
-
-	os.Exit(exitVal)
-}
-
 // ShowHandlersByWarning uses the global byWarning map to
 // show the handlers that issue each warning.
 func ShowHandlersByWarning(showPrefix string) {
-	fmt.Printf("%s\n%s Handlers by warning:\n", showPrefix, showPrefix)
 	byLevel := make(map[warning.Level][]*warning.Warning)
 	byName := make(map[string]*warning.Warning)
 	for w := range byWarning {
@@ -367,6 +335,10 @@ func ShowHandlersByWarning(showPrefix string) {
 		byLevel[w.Level] = append(byLevel[w.Level], w)
 		byName[w.Name] = w
 	}
+	if len(byLevel) < 1 || len(byName) < 1 {
+		return
+	}
+	fmt.Printf("%s\n%s Handlers by warning:\n", showPrefix, showPrefix)
 	for _, level := range warning.LevelOrder {
 		if warnings, found := byLevel[level]; found {
 			fmt.Printf("%s  %s\n", showPrefix, level.String())
@@ -388,4 +360,37 @@ func ShowHandlersByWarning(showPrefix string) {
 			}
 		}
 	}
+}
+
+// WithWarnings implements the guts of TestMain (see https://pkg.go.dev/testing#hdr-Main).
+// This will cause the ShowWarnings method to be called on all test managers
+// after all other output has been done, instead of buried in the middle.
+// To use, add the following to a '_test' file:
+//
+//	func TestMain(m *testing.M) {
+//	    test.WithWarnings(m)
+//	}
+//
+// This step can be omitted if warning are being sent to an output file.
+func WithWarnings(m *testing.M) {
+	flag.Parse()
+	exitVal := m.Run()
+
+	managerNames := make([]string, 0, len(managers))
+	for name := range managers {
+		managerNames = append(managerNames, name)
+	}
+	sort.Strings(managerNames)
+	var showPrefix string
+	for _, name := range managerNames {
+		manager := managers[name]
+		manager.ShowWarnings(nil)
+		if showPrefix == "" {
+			showPrefix = manager.showPrefix
+		}
+	}
+
+	ShowHandlersByWarning(showPrefix)
+
+	os.Exit(exitVal)
 }
