@@ -25,12 +25,12 @@ func (suite *SlogBenchmarkSuite) Benchmark_Disabled() Benchmark {
 			logger.Debug(message)
 		},
 		nil,
-		func(captured []byte, logMap map[string]any, manager *infra.WarningManager) bool {
+		func(captured []byte, logMap map[string]any, manager *infra.WarningManager) error {
 			if len(captured) > 0 {
 				manager.AddWarning(warning.NotDisabled, "Disabled", string(captured))
-				return false
+				return warning.NotDisabled
 			}
-			return true
+			return nil
 		})
 	bm.SetDontCount(true)
 	return bm

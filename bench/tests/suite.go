@@ -100,8 +100,8 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				var buffer bytes.Buffer
 				logger := suite.logger(benchmark, &buffer)
 				benchmark.Function()(logger)
-				if !benchmark.VerifyFn()(buffer.Bytes(), nil, suite.WarningManager) {
-					slog.Warn("Verification Error")
+				if err := benchmark.VerifyFn()(buffer.Bytes(), nil, suite.WarningManager); err != nil {
+					slog.Warn("Verification Error", "err", err)
 				}
 			}
 
@@ -143,7 +143,7 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 
 type BenchmarkFn func(logger *slog.Logger)
 type HandlerFn func(handler slog.Handler) slog.Handler
-type VerifyFn func(captured []byte, logMap map[string]any, manager *infra.WarningManager) bool
+type VerifyFn func(captured []byte, logMap map[string]any, manager *infra.WarningManager) error
 
 type Benchmark interface {
 	Options() *slog.HandlerOptions
