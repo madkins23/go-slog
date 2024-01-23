@@ -21,12 +21,6 @@ func expectedBasic() map[string]any {
 	}
 }
 
-func expectedSource() map[string]any {
-	expected := expectedBasic()
-	expected[slog.SourceKey] = []string{"file", "function", "line"}
-	return expected
-}
-
 // -----------------------------------------------------------------------------
 
 type Thing struct {

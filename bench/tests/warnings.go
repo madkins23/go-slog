@@ -9,6 +9,7 @@ import (
 func NewWarningManager(name string) *infra.WarningManager {
 	mgr := infra.NewWarningManager(name, benchmarkMethodPrefix, "# ")
 	mgr.Predefine(warning.Benchmark()...)
+	mgr.Predefine(warning.Implied()...)
 	mgr.Predefine(warning.Suggested()...)
 	return mgr
 }

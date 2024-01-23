@@ -53,7 +53,9 @@ func (suite *SlogBenchmarkSuite) Benchmark_Simple_Source() Benchmark {
 			logger.Info(message)
 		},
 		nil,
-		matcher("Simple_Source", expectedSource()))
+		verify(
+			finder("Simple_Source", expectedBasic()),
+			sorcerer("Simple_Source")))
 }
 
 // -----------------------------------------------------------------------------
@@ -189,7 +191,7 @@ func (suite *SlogBenchmarkSuite) Benchmark_Logging() Benchmark {
 			}
 		},
 		nil,
-		liner(fields("Logging", "level", "msg", "code", "duration", "method", "sys", "url")))
+		verifyLines(fields("Logging", "level", "msg", "code", "duration", "method", "sys", "url")))
 	bm.SetDontCount(true)
 	return bm
 }

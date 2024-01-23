@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"log/slog"
 	"runtime/debug"
-	"sort"
 	"strings"
 	"testing"
 
@@ -62,18 +61,18 @@ func fixLogMap(logMap map[string]any) map[string]any {
 		logMap[slog.MessageKey] = msg
 		delete(logMap, "message")
 	}
-	if src, found := logMap[slog.SourceKey]; found {
-		if down, ok := src.(map[string]any); ok {
-			// Can't match the contained data over time,
-			// just return an alphabetized array of the keys.
-			keys := make([]string, 0, len(down))
-			for key := range down {
-				keys = append(keys, key)
-			}
-			sort.Strings(keys)
-			logMap[slog.SourceKey] = keys
-		}
-	}
+	//if src, found := logMap[slog.SourceKey]; found {
+	//	if down, ok := src.(map[string]any); ok {
+	//		// Can't match the contained data over time,
+	//		// just return an alphabetized array of the keys.
+	//		keys := make([]string, 0, len(down))
+	//		for key := range down {
+	//			keys = append(keys, key)
+	//		}
+	//		sort.Strings(keys)
+	//		logMap[slog.SourceKey] = keys
+	//	}
+	//}
 	return logMap
 }
 

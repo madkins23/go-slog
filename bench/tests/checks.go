@@ -91,8 +91,8 @@ func finderDeep(expected map[string]any, actual map[string]any, prefix string) [
 	return badFields
 }
 
-// liner applies the specified function(s) to each line in the captured bytes.
-func liner(fns ...VerifyFn) VerifyFn {
+// verifyLines applies the specified function(s) to each line in the captured bytes.
+func verifyLines(fns ...VerifyFn) VerifyFn {
 	return func(captured []byte, logMap map[string]any, manager *infra.WarningManager) bool {
 		var buffer bytes.Buffer
 		result := true
@@ -150,6 +150,33 @@ func noDuplicates(testName string) VerifyFn {
 			return false
 		}
 		return true
+	}
+}
+
+func sorcerer(testName string) VerifyFn {
+	return func(captured []byte, logMap map[string]any, manager *infra.WarningManager) bool {
+		result := false
+		text := testName
+		logMap = getLogMap(captured, logMap, manager)
+		if srcVal, found := logMap[slog.SourceKey]; found {
+			if srcMap, ok := srcVal.(map[string]any); ok {
+				missing := make([]string, 0)
+				for _, field := range []string{"file", "function", "line"} {
+					if _, found = srcMap[field]; !found {
+						missing = append(missing, field)
+					}
+				}
+				if len(missing) > 0 {
+					text += ": " + strings.Join(missing, ",")
+				} else {
+					result = true
+				}
+			}
+		}
+		if !result {
+			manager.AddWarning(warning.SourceKey, text, string(captured))
+		}
+		return result
 	}
 }
 
