@@ -3,6 +3,7 @@ package test
 import (
 	"flag"
 	"fmt"
+	"strings"
 )
 
 // Set -debug flag to show extra print statements.
@@ -20,11 +21,7 @@ var debug = flag.Uint("debug", 0, "Show debug statements")
 // The -debug flag must be greater than or equal to the specified level for printing.
 func Debugf(level uint, format string, args ...interface{}) {
 	if *debug >= level {
-		str := fmt.Sprintf(format, args...)
-		if str[len(str)-1] != '\n' {
-			str += "\n"
-		}
-		fmt.Println(str)
+		fmt.Println(strings.TrimSuffix(fmt.Sprintf(format, args...), "\n"))
 	}
 }
 

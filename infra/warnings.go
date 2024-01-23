@@ -294,7 +294,7 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 				return list[i].Name < list[j].Name
 			})
 		}
-		_, _ = fmt.Fprintf(output, "\n%sWarnings%s:\n", wrnMgr.showPrefix, forHandler)
+		_, _ = fmt.Fprintf(output, "%s\n%sWarnings%s:\n", wrnMgr.showPrefix, wrnMgr.showPrefix, forHandler)
 		for _, level := range warning.LevelOrder {
 			if list, ok := warningTree[level]; ok {
 				_, _ = fmt.Fprintf(output, "%s  %s\n", wrnMgr.showPrefix, level.String())

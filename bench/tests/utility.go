@@ -50,7 +50,7 @@ const (
 // -----------------------------------------------------------------------------
 
 // fixLogMap destructively alters the specified log map to make it match actual results.
-// The fixed logMap is also returned as the function's result as a convenience.
+// The fixed parseLogMap is also returned as the function's result as a convenience.
 func fixLogMap(logMap map[string]any) map[string]any {
 	delete(logMap, slog.TimeKey)
 	if lvl, found := logMap[slog.LevelKey]; found {
@@ -77,9 +77,9 @@ func fixLogMap(logMap map[string]any) map[string]any {
 	return logMap
 }
 
-// logMap unmarshals JSON in the output capture buffer into a map[string]any.
+// parseLogMap unmarshals JSON in the output capture buffer into a map[string]any.
 // The buffer is sent to test logging output if the -debug=<level> flag is >= 1.
-func logMap(b []byte) (map[string]any, error) {
+func parseLogMap(b []byte) (map[string]any, error) {
 	test.Debugf(1, ">>> JSON: %s", b)
 	var results map[string]any
 	if err := json.Unmarshal(b, &results); err != nil {
