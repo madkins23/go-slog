@@ -33,3 +33,28 @@ Inherited:
 
 * [`infra.WarningManager`](https://github.com/madkins23/go-slog/blob/main/infra/warnings.go)  
   The code that manages benchmark warnings is currently located in the `infra` package.
+
+## Benchmark Tests
+
+Benchmark tests are defined by the `Benchmark` interface and
+the `NewBenchmark` function.
+
+Each test must have:
+* a pointer to `slog.HandlerOptions` to be used in generating the `slog.Logger`,
+* a pointer to a `BenchmarkFn` which executes the actual benchmark test,
+* an optional pointer to a `HandlerFn` which is used to adjust
+  the `slog.Handler` object (if available) before constructing the `slog.Logger`, and
+* an optional pointer to a `VerifyFn` which is used to verify the test.
+
+For example:
+
+```Go
+func (suite *SlogBenchmarkSuite) Benchmark_Simple() Benchmark {
+    return NewBenchmark(infra.SimpleOptions(),
+        func(logger *slog.Logger) {
+            logger.Info(message)
+        },
+        nil,
+        matcher("Simple", expectedBasic()))
+}
+```

@@ -165,6 +165,9 @@ type benchmark struct {
 }
 
 func NewBenchmark(options *slog.HandlerOptions, fn BenchmarkFn, handlerFn HandlerFn, verifyFn VerifyFn) Benchmark {
+	if fn == nil {
+		panic("NewBenchmark must have BenchmarkFn")
+	}
 	return &benchmark{
 		options:     options,
 		benchmarkFn: fn,
