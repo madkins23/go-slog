@@ -22,8 +22,8 @@ type WriterTestSuite struct {
 }
 
 func TestWriterSuite(t *testing.T) {
-	gin.DefaultWriter = NewWriter(slog.LevelInfo)
-	gin.DefaultErrorWriter = NewWriter(slog.LevelError)
+	gin.DefaultWriter = NewWriter(slog.LevelInfo, nil)
+	gin.DefaultErrorWriter = NewWriter(slog.LevelError, nil)
 	defer func() {
 		gin.DefaultWriter = os.Stdout
 		gin.DefaultErrorWriter = os.Stderr
@@ -46,7 +46,7 @@ func (suite *WriterTestSuite) GinStartupTest() {
 			require.NotNil(t, gn)
 		}, func(t *testing.T, record map[string]interface{}) {
 			assert.Equal(t, "WARN", record[slog.LevelKey])
-			assert.Equal(t, "gin", record["sys"])
+			assert.Equal(t, "gin", record["system"])
 			assert.Contains(t, record[slog.MessageKey], "Running in \"debug\" mode.")
 		})
 }
@@ -172,8 +172,8 @@ func ExampleWriter() {
 	}))
 	slog.SetDefault(logger)
 
-	gin.DefaultWriter = NewWriter(slog.LevelInfo)
-	gin.DefaultErrorWriter = NewWriter(slog.LevelError)
+	gin.DefaultWriter = NewWriter(slog.LevelInfo, nil)
+	gin.DefaultErrorWriter = NewWriter(slog.LevelError, nil)
 	defer func() {
 		gin.DefaultWriter = os.Stdout
 		gin.DefaultErrorWriter = os.Stderr
@@ -183,5 +183,5 @@ func ExampleWriter() {
 	// Output:
 	// <*> WRN Running in "debug" mode. Switch to "release" mode in production.
 	//  - using env:	export GIN_MODE=release
-	//  - using code:	gin.SetMode(gin.ReleaseMode) sys=gin
+	//  - using code:	gin.SetMode(gin.ReleaseMode) system=gin
 }

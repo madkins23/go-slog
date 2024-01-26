@@ -191,7 +191,7 @@ func (suite *SlogBenchmarkSuite) Benchmark_Logging() Benchmark {
 			}
 		},
 		nil,
-		verifyLines(fields("Logging", "level", "msg", "code", "duration", "method", "sys", "url")))
+		verifyLines(fields("Logging", "level", "msg", "code", "elapsed", "method", "url")))
 	bm.SetDontCount(true)
 	return bm
 }

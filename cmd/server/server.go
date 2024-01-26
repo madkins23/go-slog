@@ -45,8 +45,8 @@ var (
 func main() {
 	flag.Parse() // Necessary for -json=<file> argument defined in infra package.
 
-	gin.DefaultWriter = ginslog.NewWriter(slog.LevelInfo)
-	gin.DefaultErrorWriter = ginslog.NewWriter(slog.LevelError)
+	gin.DefaultWriter = ginslog.NewWriter(slog.LevelInfo, false)
+	gin.DefaultErrorWriter = ginslog.NewWriter(slog.LevelError, false)
 	logger := slog.New(console.NewHandler(os.Stderr, &console.HandlerOptions{
 		Level:      slog.LevelInfo,
 		TimeFormat: time.TimeOnly,
