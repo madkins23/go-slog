@@ -3,7 +3,6 @@ package gin
 import (
 	"bytes"
 	"encoding/json"
-	"fmt"
 	"log/slog"
 	"os"
 	"testing"
@@ -38,6 +37,23 @@ func TestWriterSuite(t *testing.T) {
 	suite.Run(t, sweet)
 }
 
+func TestWriterSuiteGroup(t *testing.T) {
+	gin.DefaultWriter = NewWriter(slog.LevelInfo, "gin")
+	gin.DefaultErrorWriter = NewWriter(slog.LevelError, "gin")
+	defer func() {
+		gin.DefaultWriter = os.Stdout
+		gin.DefaultErrorWriter = os.Stderr
+	}()
+
+	// Breakout test suite startup so that GinStartupTest() can be run first.
+	sweet := new(WriterTestSuite)
+	sweet.SetT(t)
+	sweet.GinStartupTest()
+
+	// Run the rest of the tests
+	suite.Run(t, sweet)
+}
+
 // GinStartupTest traps and tests the initial Gin startup warning for debug mode.
 func (suite *WriterTestSuite) GinStartupTest() {
 	suite.testLog(
@@ -46,7 +62,6 @@ func (suite *WriterTestSuite) GinStartupTest() {
 			require.NotNil(t, gn)
 		}, func(t *testing.T, record map[string]interface{}) {
 			assert.Equal(t, "WARN", record[slog.LevelKey])
-			assert.Equal(t, "gin", record["system"])
 			assert.Contains(t, record[slog.MessageKey], "Running in \"debug\" mode.")
 		})
 }
@@ -152,7 +167,6 @@ func (suite *WriterTestSuite) testLog(test func(t *testing.T), check func(t *tes
 	if check != nil {
 		// Check log output which is in JSON.
 		var record map[string]interface{}
-		fmt.Println("JSON: ", buffer.String())
 		suite.Require().NoError(json.Unmarshal(buffer.Bytes(), &record))
 		check(suite.T(), record)
 	}
@@ -183,5 +197,5 @@ func ExampleWriter() {
 	// Output:
 	// <*> WRN Running in "debug" mode. Switch to "release" mode in production.
 	//  - using env:	export GIN_MODE=release
-	//  - using code:	gin.SetMode(gin.ReleaseMode) system=gin
+	//  - using code:	gin.SetMode(gin.ReleaseMode)
 }

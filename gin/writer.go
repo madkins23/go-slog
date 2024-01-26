@@ -53,7 +53,7 @@ var (
 // Write a block of data to the (supposedly) stream object.
 // For the moment we're assuming that there is a single Write() call for each log record.
 // TODO: Fix code to handle partial/multiple Write() calls per log record.
-func (w *writer) Write(p []byte) (n int, err error) {
+func (w *writer) Write(p []byte) (int, error) {
 	level := w.level
 	msg := strings.TrimRight(string(p), "\n")
 	for x := 0; x < 10; x++ { // Don't use infinite for loop for safety
@@ -65,10 +65,10 @@ func (w *writer) Write(p []byte) (n int, err error) {
 			msg = msg[len(match):]
 		} else if matches := ptnLogLevel.FindStringSubmatch(msg); len(matches) > 1 {
 			var ok bool
-			if level, ok = logLevels[matches[1]]; !ok {
+			if _, ok = logLevels[matches[1]]; !ok {
 				return 0, fmt.Errorf("no level %s", matches[1])
 			}
-			msg = matches[0]
+			msg = msg[len(matches[0]):]
 		} else {
 			break
 		}
@@ -82,11 +82,16 @@ func (w *writer) Write(p []byte) (n int, err error) {
 
 	var args []any
 	if w.group != "" {
-		// Empty the traffic record out of the message:
+		// Attempt to parse Gin traffic data out of the message.
 		if args, err := Parse(msg); err != nil {
-			return 0, fmt.Errorf("parse gin traffic: %w", err)
-		} else if w.group != "*" {
-			args = []any{slog.Group(w.group, args)}
+			// The error isn't really an error, it just couldn't parse.
+			slog.Debug("gin traffic parse", "err", err)
+			// Just fall through now and use the pre-existing msg.
+		} else {
+			msg = "Gin traffic"
+			if w.group != "*" {
+				args = []any{slog.Group(w.group, args...)}
+			}
 		}
 	}
 

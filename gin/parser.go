@@ -20,7 +20,7 @@ const (
 )
 
 var (
-	ptnCode  = regexp.MustCompile(`\s(\d+)\s*$`)
+	ptnCode  = regexp.MustCompile(`^\s*(\d+)\s*$`)
 	ptnSplit = regexp.MustCompile(`\s+`)
 )
 
@@ -33,9 +33,11 @@ func Parse(message string) ([]any, error) {
 	}
 	var result []any
 	if matches := ptnCode.FindStringSubmatch(parts[0]); len(matches) != 2 {
-		slog.Warn("Unable to parse code", "from", parts[0])
+		// TODO: if it doesn't parse it's not an error, just return the message as is
+		return nil, fmt.Errorf("parse code from '%s'", parts[0])
 	} else if num, err := strconv.ParseInt(matches[1], 10, 64); err != nil {
-		slog.Warn("Unable to parse int", "from", parts[0], "func", "getLogData")
+		// TODO: if it doesn't parse it's not an error, just return the message as is
+		return nil, fmt.Errorf("parse int from '%s': %w", matches[1], err)
 	} else {
 		result = append(result, slog.Int64(string(code), num))
 	}
