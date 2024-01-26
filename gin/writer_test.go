@@ -37,23 +37,6 @@ func TestWriterSuite(t *testing.T) {
 	suite.Run(t, sweet)
 }
 
-func TestWriterSuiteGroup(t *testing.T) {
-	gin.DefaultWriter = NewWriter(slog.LevelInfo, "gin")
-	gin.DefaultErrorWriter = NewWriter(slog.LevelError, "gin")
-	defer func() {
-		gin.DefaultWriter = os.Stdout
-		gin.DefaultErrorWriter = os.Stderr
-	}()
-
-	// Breakout test suite startup so that GinStartupTest() can be run first.
-	sweet := new(WriterTestSuite)
-	sweet.SetT(t)
-	sweet.GinStartupTest()
-
-	// Run the rest of the tests
-	suite.Run(t, sweet)
-}
-
 // GinStartupTest traps and tests the initial Gin startup warning for debug mode.
 func (suite *WriterTestSuite) GinStartupTest() {
 	suite.testLog(
@@ -87,7 +70,6 @@ func (suite *WriterTestSuite) TestDefaultDebug() {
 			_, err := gin.DefaultErrorWriter.Write([]byte("[DEBUG] TestDefaultDebug"))
 			require.NoError(t, err)
 		},
-		// Sending DEBUG to logger configured for INFO and above, no reponse.
 		nil)
 }
 
@@ -98,7 +80,8 @@ func (suite *WriterTestSuite) TestDefaultGin() {
 		func(t *testing.T) {
 			_, err := gin.DefaultErrorWriter.Write([]byte("[GIN] TestDefaultGin"))
 			require.NoError(t, err)
-		}, func(t *testing.T, record map[string]interface{}) {
+		},
+		func(t *testing.T, record map[string]interface{}) {
 			assert.Equal(t, "ERROR", record[slog.LevelKey])
 			assert.Contains(t, record[slog.MessageKey], "TestDefaultGin")
 		})
@@ -111,7 +94,8 @@ func (suite *WriterTestSuite) TestDefaultBadLevel() {
 		func(t *testing.T) {
 			_, err := gin.DefaultErrorWriter.Write([]byte("[BAD] TestDefaultBadLevel"))
 			require.ErrorContains(t, err, "no level BAD")
-		}, nil)
+		},
+		nil)
 }
 
 // ----------------------------------------------------------------------------
@@ -121,7 +105,8 @@ func (suite *WriterTestSuite) TestDefaultWarning() {
 		func(t *testing.T) {
 			_, err := gin.DefaultErrorWriter.Write([]byte("[WARNING] TestDefaultWarning"))
 			require.NoError(t, err)
-		}, func(t *testing.T, record map[string]interface{}) {
+		},
+		func(t *testing.T, record map[string]interface{}) {
 			assert.Equal(t, "WARN", record[slog.LevelKey])
 			assert.Contains(t, record[slog.MessageKey], "TestDefaultWarning")
 		})
@@ -134,7 +119,8 @@ func (suite *WriterTestSuite) TestError() {
 		func(t *testing.T) {
 			_, err := gin.DefaultErrorWriter.Write([]byte("TestError"))
 			require.NoError(t, err)
-		}, func(t *testing.T, record map[string]interface{}) {
+		},
+		func(t *testing.T, record map[string]interface{}) {
 			assert.Equal(t, "ERROR", record[slog.LevelKey])
 			assert.Contains(t, record[slog.MessageKey], "TestError")
 		})
@@ -147,7 +133,8 @@ func (suite *WriterTestSuite) TestErrorWarning() {
 		func(t *testing.T) {
 			_, err := gin.DefaultErrorWriter.Write([]byte("[WARNING] TestErrorWarning"))
 			require.NoError(t, err)
-		}, func(t *testing.T, record map[string]interface{}) {
+		},
+		func(t *testing.T, record map[string]interface{}) {
 			assert.Equal(t, "WARN", record[slog.LevelKey])
 			assert.Contains(t, record[slog.MessageKey], "TestErrorWarning")
 		})
@@ -155,7 +142,10 @@ func (suite *WriterTestSuite) TestErrorWarning() {
 
 //////////////////////////////////////////////////////////////////////////
 
-func (suite *WriterTestSuite) testLog(test func(t *testing.T), check func(t *testing.T, record map[string]interface{})) {
+func (suite *WriterTestSuite) testLog(
+	test func(t *testing.T),
+	check func(t *testing.T, record map[string]interface{}),
+) {
 	// Trap output from running log function.
 	sLog := slog.Default()
 	defer slog.SetDefault(sLog)

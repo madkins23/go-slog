@@ -30,9 +30,6 @@ func NewWriter(level slog.Leveler, group string) io.Writer {
 
 // writer object returned by NewWriter function.
 type writer struct {
-	// Empty zerolog level for this object.
-	// Can be overridden by error levels (specified in logLevels variable)
-	// in square brackets at the beginning of a log record line.
 	level slog.Leveler
 	group string
 }
@@ -65,7 +62,7 @@ func (w *writer) Write(p []byte) (int, error) {
 			msg = msg[len(match):]
 		} else if matches := ptnLogLevel.FindStringSubmatch(msg); len(matches) > 1 {
 			var ok bool
-			if _, ok = logLevels[matches[1]]; !ok {
+			if level, ok = logLevels[matches[1]]; !ok {
 				return 0, fmt.Errorf("no level %s", matches[1])
 			}
 			msg = msg[len(matches[0]):]
@@ -81,14 +78,15 @@ func (w *writer) Write(p []byte) (int, error) {
 	}
 
 	var args []any
+	var err error
 	if w.group != "" {
 		// Attempt to parse Gin traffic data out of the message.
-		if args, err := Parse(msg); err != nil {
+		if args, err = Parse(msg); err != nil {
 			// The error isn't really an error, it just couldn't parse.
 			slog.Debug("gin traffic parse", "err", err)
 			// Just fall through now and use the pre-existing msg.
 		} else {
-			msg = "Gin traffic"
+			msg = "Gin Traffic"
 			if w.group != "*" {
 				args = []any{slog.Group(w.group, args...)}
 			}
