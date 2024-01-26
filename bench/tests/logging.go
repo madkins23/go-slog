@@ -29,7 +29,6 @@ var ptnTrimTimeLevel = regexp.MustCompile(`^\s*[\d:]{8}\s+\w+\s+(\d+.*?)\s*$`)
 // Read log data from embedded data, construct array of arg arrays for logging.
 func init() {
 	reader := bufio.NewReader(bytes.NewReader(logging))
-	parser := gin.NewParser(gin.Empty())
 	var line bytes.Buffer
 	for {
 		if chunk, isPrefix, err := reader.ReadLine(); errors.Is(err, io.EOF) {
@@ -47,7 +46,7 @@ func init() {
 		if len(matches) == 2 {
 			msg = matches[1]
 		}
-		if args, err := parser.Parse(line.String()); err != nil {
+		if args, err := gin.Parse(line.String()); err != nil {
 			panic("Error parsing logging traffic: " + err.Error())
 		} else {
 			logDataMap = append(logDataMap, args)

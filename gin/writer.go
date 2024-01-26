@@ -8,35 +8,25 @@ import (
 	"strings"
 )
 
-// Writer interface for replacing gin standard output and/or error streams.
-type Writer interface {
-	io.Writer
-	Parser
-}
-
-// NewWriter returns a Writer object with the specified zerolog.Level.
+// NewWriter returns an io.Writer object with the specified zerolog.Level.
 // There are two gin output streams: gin.DefaultWriter and gin.DefaultErrorWriter.
 // These streams are used by gin internal code outside the request middleware loop.
 // Create a separate Writer object with a different zerolog.Level for each stream
 // or create a single object for both streams (untested but should work).
-// If the parse flag is non-nil then Gin traffic lines:
+//
+// If the group argument is not the empty string then Gin traffic messages for the form:
 //
 //	200 |    2.512908ms |             ::1 | GET      "/handler?tag=samber_zap" system=gin
 //
-// will be parsed into further fields, otherwise that data will be the log message.
-// In addition, it serves as a lookup to convert the output fields to other field names.
-// This facility does not extend to renaming into groups.
-// Use Empty() to specify default parsing behavior and field names.
-func NewWriter(level slog.Leveler, parseTraffic FieldString) Writer {
+// will be parsed into further fields which will be output within a group of the specified name,
+// else the pre-formatted message lines will be output as is which looks fine in a text logger.
+func NewWriter(level slog.Leveler, group string) io.Writer {
 	w := &writer{level: level}
-	if parseTraffic != nil {
-		w.Parser = NewParser(parseTraffic)
+	if group != "" {
+		w.group = group
 	}
 	return w
 }
-
-// Make sure the writer struct implements ginzero.Writer.
-var _ Writer = &writer{}
 
 // writer object returned by NewWriter function.
 type writer struct {
@@ -44,11 +34,8 @@ type writer struct {
 	// Can be overridden by error levels (specified in logLevels variable)
 	// in square brackets at the beginning of a log record line.
 	level slog.Leveler
-	Parser
-	Group string
+	group string
 }
-
-const groupName = "gin"
 
 var (
 	logLevels = map[string]slog.Leveler{
@@ -65,7 +52,7 @@ var (
 
 // Write a block of data to the (supposedly) stream object.
 // For the moment we're assuming that there is a single Write() call for each log record.
-// TODO: Fix code to handle multiple Write() calls per log record.
+// TODO: Fix code to handle partial/multiple Write() calls per log record.
 func (w *writer) Write(p []byte) (n int, err error) {
 	level := w.level
 	msg := strings.TrimRight(string(p), "\n")
@@ -94,15 +81,12 @@ func (w *writer) Write(p []byte) (n int, err error) {
 	}
 
 	var args []any
-	if w.Parser != nil {
+	if w.group != "" {
 		// Empty the traffic record out of the message:
-		if w.Group == "" {
-			w.Group = groupName
-		}
-		if args, err := w.Parse(msg); err != nil {
-			slog.Warn("Unable to parse Gin traffic", "err", err)
-		} else if w.Group != "*" {
-			args = []any{slog.Group(w.Group, args)}
+		if args, err := Parse(msg); err != nil {
+			return 0, fmt.Errorf("parse gin traffic: %w", err)
+		} else if w.group != "*" {
+			args = []any{slog.Group(w.group, args)}
 		}
 	}
 

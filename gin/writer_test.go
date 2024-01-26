@@ -22,8 +22,8 @@ type WriterTestSuite struct {
 }
 
 func TestWriterSuite(t *testing.T) {
-	gin.DefaultWriter = NewWriter(slog.LevelInfo, nil)
-	gin.DefaultErrorWriter = NewWriter(slog.LevelError, nil)
+	gin.DefaultWriter = NewWriter(slog.LevelInfo, "")
+	gin.DefaultErrorWriter = NewWriter(slog.LevelError, "")
 	defer func() {
 		gin.DefaultWriter = os.Stdout
 		gin.DefaultErrorWriter = os.Stderr
@@ -172,8 +172,8 @@ func ExampleWriter() {
 	}))
 	slog.SetDefault(logger)
 
-	gin.DefaultWriter = NewWriter(slog.LevelInfo, nil)
-	gin.DefaultErrorWriter = NewWriter(slog.LevelError, nil)
+	gin.DefaultWriter = NewWriter(slog.LevelInfo, "")
+	gin.DefaultErrorWriter = NewWriter(slog.LevelError, "")
 	defer func() {
 		gin.DefaultWriter = os.Stdout
 		gin.DefaultErrorWriter = os.Stderr
