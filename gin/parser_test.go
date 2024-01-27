@@ -8,7 +8,7 @@ import (
 )
 
 func TestParse(t *testing.T) {
-	args, err := Parse(`200 |    2.512908ms |             ::1 | GET      "/handler?tag=samber_zap" sys=gin`)
+	args, err := Parse(`200 |    2.512908ms |             ::1 | GET      "/handler?tag=samber_zap"`)
 	assert.NoError(t, err)
 	assert.Len(t, args, 5)
 	for _, thing := range args {
