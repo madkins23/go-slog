@@ -62,10 +62,10 @@ The benchmark data generated can be processed by two applications:
 Package `gin` contains utilities for using `slog` with `gin-gonic/gin`.
 In particular, this package provides `gin.Writer` which can be used to redirect Gin-internal logging:
 ```go
-gin.DefaultWriter = gin.NewWriter(slog.LevelInfo)
-gin.DefaultErrorWriter = gin.NewWriter(slog.LevelError)
+gin.DefaultWriter = gin.NewWriter(slog.LevelInfo, NoTraffic)
+gin.DefaultErrorWriter = gin.NewWriter(slog.LevelError, NoTraffic)
 ```
-Start this before starting Gin and all of the Gin-internal logging
+Start this before starting Gin and all the Gin-internal logging
 should be redirected to the new `io.Writer` objects.
 These objects will parse the Gin-internal logging formats and
-use `slog` to do the actual logging so it will look the same.
+use `slog` to do the actual logging, so the log output will all look the same.
