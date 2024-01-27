@@ -8,18 +8,27 @@ import (
 	"strings"
 )
 
+const (
+	GinGroup  = "gin"
+	NoTraffic = ""
+	Traffic   = "*"
+)
+
+var TrafficMessage = "Gin Traffic"
+
 // NewWriter returns an io.Writer object with the specified zerolog.Level.
 // There are two gin output streams: gin.DefaultWriter and gin.DefaultErrorWriter.
-// These streams are used by gin internal code outside the request middleware loop.
+// These streams are used by gin internal Code outside the request middleware loop.
 // Create a separate Writer object with a different zerolog.Level for each stream
 // or create a single object for both streams (untested but should work).
 //
 // If the group argument is not the empty string then Gin traffic messages for the form:
 //
-//	200 |    2.512908ms |             ::1 | GET      "/handler?tag=samber_zap" system=gin
+//	200 |    2.512908ms |             ::1 | GET      "/handler?tag=samber_zap"
 //
 // will be parsed into further fields which will be output within a group of the specified name,
 // else the pre-formatted message lines will be output as is which looks fine in a text logger.
+// A group name of "*" results in the group contents spliced in at the top level.
 func NewWriter(level slog.Leveler, group string) io.Writer {
 	w := &writer{level: level}
 	if group != "" {
@@ -49,7 +58,7 @@ var (
 
 // Write a block of data to the (supposedly) stream object.
 // For the moment we're assuming that there is a single Write() call for each log record.
-// TODO: Fix code to handle partial/multiple Write() calls per log record.
+// TODO: Fix Code to handle partial/multiple Write() calls per log record.
 func (w *writer) Write(p []byte) (int, error) {
 	level := w.level
 	msg := strings.TrimRight(string(p), "\n")
@@ -71,8 +80,8 @@ func (w *writer) Write(p []byte) (int, error) {
 		}
 	}
 
-	// Format of many of the lines:
-	// 2024/01/20 - 07:18:37 | 200 |    1.226682ms |             ::1 | GET      "/"
+	// Format of many of the lines at this point:
+	// 2024/01/26 - 13:21:32 | 200 |  5.529751605s |             ::1 | GET      "/chart.svg?tag=With_Attrs_Attributes&item=MemBytes"
 	if matches := ptnTimePrefix.FindStringSubmatch(msg); len(matches) == 2 {
 		msg = matches[1]
 	}
@@ -81,12 +90,14 @@ func (w *writer) Write(p []byte) (int, error) {
 	var err error
 	if w.group != "" {
 		// Attempt to parse Gin traffic data out of the message.
+		//  200 |  5.529751605s |             ::1 | GET      "/chart.svg?tag=With_Attrs_Attributes&item=MemBytes"
 		if args, err = Parse(msg); err != nil {
 			// The error isn't really an error, it just couldn't parse.
 			slog.Debug("gin traffic parse", "err", err)
 			// Just fall through now and use the pre-existing msg.
 		} else {
-			msg = "Gin Traffic"
+			level = slog.LevelInfo
+			msg = TrafficMessage
 			if w.group != "*" {
 				args = []any{slog.Group(w.group, args...)}
 			}

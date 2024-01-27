@@ -23,8 +23,8 @@ var logDataMap [][]any
 
 // Example line:
 //
-//	07:55:52 INF 200 |    9.522199ms |             ::1 | GET      "/chart.svg?tag=samber_zap&item=MemAllocs" sys=gin
-var ptnTrimTimeLevel = regexp.MustCompile(`^\s*[\d:]{8}\s+\w+\s+(\d+.*?)\s*$`)
+//	07:55:52 INF 200 |    9.522199ms |             ::1 | GET      "/chart.svg?tag=samber_zap&item=MemAllocs"
+var ptnTrimTimeLevel = regexp.MustCompile(`^\s*[\d:]{8}\s+\w+\s+(\d+?)`)
 
 // Read log data from embedded data, construct array of arg arrays for logging.
 func init() {
@@ -34,7 +34,7 @@ func init() {
 		if chunk, isPrefix, err := reader.ReadLine(); errors.Is(err, io.EOF) {
 			break
 		} else if err != nil {
-			slog.Warn("Error reading logging data line", "err", err)
+			slog.Error("Reading logging data line", "err", err)
 		} else {
 			line.Write(chunk)
 			if isPrefix {
@@ -44,10 +44,10 @@ func init() {
 		msg := line.String()
 		matches := ptnTrimTimeLevel.FindStringSubmatch(msg)
 		if len(matches) == 2 {
-			msg = matches[1]
+			msg = matches[1] + msg[len(matches[0]):]
 		}
-		if args, err := gin.Parse(line.String()); err != nil {
-			panic("Error parsing logging traffic: " + err.Error())
+		if args, err := gin.Parse(msg); err != nil {
+			slog.Error("Parsing logging traffic line", "err", err)
 		} else {
 			logDataMap = append(logDataMap, args)
 		}

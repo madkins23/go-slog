@@ -14,16 +14,16 @@ func TestParse(t *testing.T) {
 	for _, thing := range args {
 		if attr, ok := thing.(slog.Attr); assert.True(t, ok) {
 			switch Field(attr.Key) {
-			case code:
-				assert.Equal(t, "code=200", attr.String())
-			case elapsed:
-				assert.Equal(t, "elapsed=2.512908ms", attr.String())
-			case client:
-				assert.Equal(t, "client=::1", attr.String())
-			case method:
-				assert.Equal(t, "method=GET", attr.String())
-			case url:
-				assert.Equal(t, "url=/handler?tag=samber_zap", attr.String())
+			case Code:
+				assert.Equal(t, "Code=200", attr.String())
+			case Elapsed:
+				assert.Equal(t, "Elapsed=2.512908ms", attr.String())
+			case Client:
+				assert.Equal(t, "Client=::1", attr.String())
+			case Method:
+				assert.Equal(t, "Method=GET", attr.String())
+			case Url:
+				assert.Equal(t, "Url=/handler?tag=samber_zap", attr.String())
 			default:
 				assert.Fail(t, "unknown attribute key '%s'", attr.Key)
 			}
@@ -40,7 +40,7 @@ func TestParse_Error_Split(t *testing.T) {
 
 func TestParse_Error_CodeNotNum(t *testing.T) {
 	args, err := Parse(`2XX |    512908ms |             ::1 | GET      "/handler?tag=samber_zap" sys=gin`)
-	assert.ErrorContains(t, err, "parse code")
+	assert.ErrorContains(t, err, "parse Code")
 	assert.ErrorContains(t, err, "2XX")
 	assert.Nil(t, args)
 }
