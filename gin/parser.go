@@ -8,6 +8,7 @@ import (
 	"strings"
 )
 
+// Field codifies the fields that may be parsed from a Gin traffic record.
 type Field string
 
 const (
@@ -23,9 +24,13 @@ var (
 	ptnSplit = regexp.MustCompile(`\s+`)
 )
 
+// TODO: document
+
+// Parse a Gin traffic record (specified as message) to return a set of slog.Attr items.
+// There should be a single such item for each Field constant defined above.
 func Parse(message string) ([]any, error) {
 	// Example line:
-	//  200 |    9.522199ms |             ::1 | GET      "/chart.svg?tag=samber_zap&item=MemAllocs" System=gin
+	//  200 |    9.522199ms |             ::1 | GET      "/chart.svg?tag=samber_zap&item=MemAllocs"
 	parts := strings.Split(message, "|")
 	if len(parts) != 4 {
 		return nil, fmt.Errorf("wrong number of parts: %d", len(parts))

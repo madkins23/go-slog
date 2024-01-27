@@ -32,14 +32,14 @@ func TestParse(t *testing.T) {
 }
 
 func TestParse_Error_Split(t *testing.T) {
-	args, err := Parse(`2XX |         ::1 | GET      "/handler?tag=samber_zap" sys=gin`)
+	args, err := Parse(`2XX |         ::1 | GET      "/handler?tag=samber_zap"`)
 	assert.ErrorContains(t, err, "wrong number of parts")
 	assert.ErrorContains(t, err, "3")
 	assert.Nil(t, args)
 }
 
 func TestParse_Error_CodeNotNum(t *testing.T) {
-	args, err := Parse(`2XX |    512908ms |             ::1 | GET      "/handler?tag=samber_zap" sys=gin`)
+	args, err := Parse(`2XX |    512908ms |             ::1 | GET      "/handler?tag=samber_zap"`)
 	assert.ErrorContains(t, err, "parse Code")
 	assert.ErrorContains(t, err, "2XX")
 	assert.Nil(t, args)

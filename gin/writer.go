@@ -22,12 +22,12 @@ var TrafficMessage = "Gin Traffic"
 // Create a separate Writer object with a different zerolog.Level for each stream
 // or create a single object for both streams (untested but should work).
 //
-// If the group argument is not the empty string then Gin traffic messages for the form:
+// If the group argument is not the empty string then Gin traffic messages of the form:
 //
 //	200 |    2.512908ms |             ::1 | GET      "/handler?tag=samber_zap"
 //
 // will be parsed into further fields which will be output within a group of the specified name,
-// else the pre-formatted message lines will be output as is which looks fine in a text logger.
+// else the pre-formatted message lines will be output as is (which looks fine in a text logger).
 // A group name of "*" results in the group contents spliced in at the top level.
 func NewWriter(level slog.Leveler, group string) io.Writer {
 	w := &writer{level: level}
@@ -57,6 +57,7 @@ var (
 )
 
 // Write a block of data to the (supposedly) stream object.
+// The data will be parsed, if possible, and converted into a slog record.
 // For the moment we're assuming that there is a single Write() call for each log record.
 // TODO: Fix Code to handle partial/multiple Write() calls per log record.
 func (w *writer) Write(p []byte) (int, error) {
