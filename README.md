@@ -65,7 +65,12 @@ In particular, this package provides `gin.Writer` which can be used to redirect 
 gin.DefaultWriter = gin.NewWriter(slog.LevelInfo, NoTraffic)
 gin.DefaultErrorWriter = gin.NewWriter(slog.LevelError, NoTraffic)
 ```
-Start this before starting Gin and all the Gin-internal logging
+Configure this before starting Gin and all the Gin-internal logging
 should be redirected to the new `io.Writer` objects.
 These objects will parse the Gin-internal logging formats and
 use `slog` to do the actual logging, so the log output will all look the same.
+
+The `gin.Writer` objects can further parse the "standard" Gin traffic lines.
+Where the second argument to `gin.NewWriter` is `NoTraffic` as above
+the traffic lines which are in the message portion of the log record are left alone.
+
