@@ -51,13 +51,13 @@ func (suite *SlogBenchmarkSuite) SetB(b *testing.B) {
 
 // logger for testing with handler tweaks if HandlerFn is specified in the benchmark.
 // Assumes that if HandlerFn is present CanMakeHandler() is true.
-func (suite *SlogBenchmarkSuite) logger(b Benchmark, w io.Writer) *slog.Logger {
-	if b.HandlerFn() != nil {
+func (suite *SlogBenchmarkSuite) logger(b *Benchmark, w io.Writer) *slog.Logger {
+	if b.HandlerFn != nil {
 		// Since we're here we know that CanMakeHandler() must be true.
 		// Otherwise we would have hit the continue above.
-		return slog.New(b.HandlerFn()(suite.NewHandler(w, b.Options())))
+		return slog.New(b.HandlerFn(suite.NewHandler(w, b.Options)))
 	}
-	return suite.NewLogger(w, b.Options())
+	return suite.NewLogger(w, b.Options)
 }
 
 // -----------------------------------------------------------------------------
@@ -77,17 +77,17 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 			if len(results) < 1 {
 				b.Fatalf("Unable to acquire benchmark definition")
 			}
-			benchmark, ok := results[0].Interface().(Benchmark)
+			benchmark, ok := results[0].Interface().(*Benchmark)
 			if !ok {
 				b.Fatalf("Could not convert benchmark definition %v", results[0].Interface())
 			}
 
-			if benchmark.Function() == nil {
+			if benchmark.BenchmarkFn == nil {
 				slog.Error("No benchmark function", "method", method.Name)
 				continue
 			}
 
-			if benchmark.HandlerFn() != nil && !suite.CanMakeHandler() {
+			if benchmark.HandlerFn != nil && !suite.CanMakeHandler() {
 				// This test requires the handler to be adjusted before creating the logger
 				// but the Creator object doesn't provide a handler so skip the test.
 				test.Debugf(2, ">>>     Skip:   %s\n", method.Name)
@@ -96,11 +96,11 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				continue
 			}
 
-			if benchmark.VerifyFn() != nil {
+			if benchmark.VerifyFn != nil {
 				var buffer bytes.Buffer
 				logger := suite.logger(benchmark, &buffer)
-				benchmark.Function()(logger)
-				if err := benchmark.VerifyFn()(buffer.Bytes(), nil, suite.WarningManager); err != nil {
+				benchmark.BenchmarkFn(logger)
+				if err := benchmark.VerifyFn(buffer.Bytes(), nil, suite.WarningManager); err != nil {
 					slog.Warn("Verification Error", "err", err)
 				}
 			}
@@ -114,7 +114,7 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 			//       testing.Benchmark(func(b *testing.B) {
 			b.Run(method.Name, func(b *testing.B) {
 				var count test.CountWriter
-				function := benchmark.Function()
+				function := benchmark.BenchmarkFn
 				logger := suite.logger(benchmark, &count)
 				if test.DebugLevel() > 0 {
 					// Print the log record to STDOUT.
@@ -130,72 +130,11 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				})
 				b.StopTimer()
 				b.SetBytes(int64(count.Bytes()))
-				if !benchmark.DontCount() && b.N != int(count.Written()) {
+				if !benchmark.DontCount && b.N != int(count.Written()) {
 					b.Fatalf("Mismatch in log write count. Expected: %d, Actual: %d",
 						b.N, count.Written())
 				}
 			})
 		}
 	}
-}
-
-// -----------------------------------------------------------------------------
-
-type BenchmarkFn func(logger *slog.Logger)
-type HandlerFn func(handler slog.Handler) slog.Handler
-type VerifyFn func(captured []byte, logMap map[string]any, manager *infra.WarningManager) error
-
-type Benchmark interface {
-	Options() *slog.HandlerOptions
-	Function() BenchmarkFn
-	HandlerFn() HandlerFn
-	VerifyFn() VerifyFn
-	DontCount() bool
-	SetDontCount(bool)
-}
-
-var _ Benchmark = &benchmark{}
-
-type benchmark struct {
-	options     *slog.HandlerOptions
-	benchmarkFn BenchmarkFn
-	handlerFn   HandlerFn
-	verifyFn    VerifyFn
-	dontCount   bool
-}
-
-func NewBenchmark(options *slog.HandlerOptions, fn BenchmarkFn, handlerFn HandlerFn, verifyFn VerifyFn) Benchmark {
-	if fn == nil {
-		panic("NewBenchmark must have BenchmarkFn")
-	}
-	return &benchmark{
-		options:     options,
-		benchmarkFn: fn,
-		handlerFn:   handlerFn,
-		verifyFn:    verifyFn,
-	}
-}
-
-func (b *benchmark) Function() BenchmarkFn {
-	return b.benchmarkFn
-}
-
-func (b *benchmark) HandlerFn() HandlerFn {
-	return b.handlerFn
-}
-
-func (b *benchmark) VerifyFn() VerifyFn {
-	return b.verifyFn
-}
-
-func (b *benchmark) DontCount() bool {
-	return b.dontCount
-}
-
-func (b *benchmark) SetDontCount(dontCount bool) {
-	b.dontCount = dontCount
-}
-
-func (b *benchmark) Options() *slog.HandlerOptions {
-	return b.options
 }
