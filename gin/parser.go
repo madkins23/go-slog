@@ -12,11 +12,11 @@ import (
 type Field string
 
 const (
-	Code    Field = "Code"
-	Client  Field = "Client"
-	Elapsed Field = "Elapsed"
-	Method  Field = "Method"
-	Url     Field = "Url"
+	Code    Field = "code"
+	Client  Field = "client"
+	Elapsed Field = "elapsed"
+	Method  Field = "method"
+	Url     Field = "url"
 )
 
 var (

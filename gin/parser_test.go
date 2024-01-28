@@ -15,15 +15,15 @@ func TestParse(t *testing.T) {
 		if attr, ok := thing.(slog.Attr); assert.True(t, ok) {
 			switch Field(attr.Key) {
 			case Code:
-				assert.Equal(t, "Code=200", attr.String())
+				assert.Equal(t, "code=200", attr.String())
 			case Elapsed:
-				assert.Equal(t, "Elapsed=2.512908ms", attr.String())
+				assert.Equal(t, "elapsed=2.512908ms", attr.String())
 			case Client:
-				assert.Equal(t, "Client=::1", attr.String())
+				assert.Equal(t, "client=::1", attr.String())
 			case Method:
-				assert.Equal(t, "Method=GET", attr.String())
+				assert.Equal(t, "method=GET", attr.String())
 			case Url:
-				assert.Equal(t, "Url=/handler?tag=samber_zap", attr.String())
+				assert.Equal(t, "url=/handler?tag=samber_zap", attr.String())
 			default:
 				assert.Fail(t, "unknown attribute key '%s'", attr.Key)
 			}
