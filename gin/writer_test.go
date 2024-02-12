@@ -41,7 +41,7 @@ func (suite *WriterTestSuite) GinStartupTest() {
 			assert.Equal(t, "WARN", record[slog.LevelKey])
 			assert.Contains(t, record[slog.MessageKey], "Running in \"debug\" mode.")
 		},
-		NoTraffic)
+		Options{})
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -55,7 +55,7 @@ func (suite *WriterTestSuite) TestDefault() {
 			assert.Equal(t, "INFO", record[slog.LevelKey])
 			assert.Contains(t, record[slog.MessageKey], "TestDefault")
 		},
-		NoTraffic)
+		Options{})
 }
 
 // ----------------------------------------------------------------------------
@@ -67,7 +67,7 @@ func (suite *WriterTestSuite) TestDefaultDebug() {
 			require.NoError(t, err)
 		},
 		nil,
-		NoTraffic)
+		Options{})
 }
 
 // ----------------------------------------------------------------------------
@@ -82,7 +82,7 @@ func (suite *WriterTestSuite) TestDefaultGin() {
 			assert.Equal(t, "ERROR", record[slog.LevelKey])
 			assert.Contains(t, record[slog.MessageKey], "TestDefaultGin")
 		},
-		NoTraffic)
+		Options{})
 }
 
 // ----------------------------------------------------------------------------
@@ -94,7 +94,7 @@ func (suite *WriterTestSuite) TestDefaultBadLevel() {
 			require.ErrorContains(t, err, "no level BAD")
 		},
 		nil,
-		NoTraffic)
+		Options{})
 }
 
 // ----------------------------------------------------------------------------
@@ -109,7 +109,7 @@ func (suite *WriterTestSuite) TestDefaultWarning() {
 			assert.Equal(t, "WARN", record[slog.LevelKey])
 			assert.Contains(t, record[slog.MessageKey], "TestDefaultWarning")
 		},
-		NoTraffic)
+		Options{})
 }
 
 // ----------------------------------------------------------------------------
@@ -124,7 +124,7 @@ func (suite *WriterTestSuite) TestError() {
 			assert.Equal(t, "ERROR", record[slog.LevelKey])
 			assert.Contains(t, record[slog.MessageKey], "TestError")
 		},
-		NoTraffic)
+		Options{})
 }
 
 // ----------------------------------------------------------------------------
@@ -139,7 +139,7 @@ func (suite *WriterTestSuite) TestErrorWarning() {
 			assert.Equal(t, "WARN", record[slog.LevelKey])
 			assert.Contains(t, record[slog.MessageKey], "TestErrorWarning")
 		},
-		NoTraffic)
+		Options{})
 }
 
 // ----------------------------------------------------------------------------
@@ -153,22 +153,22 @@ func (suite *WriterTestSuite) TestTrafficIgnore() {
 			assert.Equal(t, "INFO", record[slog.LevelKey])
 			assert.Equal(t, ginTraffic, record[slog.MessageKey])
 		},
-		NoTraffic)
+		Options{})
 }
 
 // ----------------------------------------------------------------------------
 
-func (suite *WriterTestSuite) TestTrafficSplice() {
+func (suite *WriterTestSuite) TestTrafficEmbed() {
 	suite.testLog(
 		func(t *testing.T) {
 			_, err := gin.DefaultWriter.Write([]byte(ginLine))
 			require.NoError(t, err)
 		}, func(t *testing.T, record map[string]interface{}) {
 			assert.Equal(t, "INFO", record[slog.LevelKey])
-			assert.Equal(t, TrafficMessage, record[slog.MessageKey])
+			assert.Equal(t, DefaultTrafficMessage, record[slog.MessageKey])
 			checkTraffic(t, record)
 		},
-		Traffic)
+		Options{Traffic: Traffic{Parse: true, Embed: true}})
 }
 
 // ----------------------------------------------------------------------------
@@ -180,12 +180,29 @@ func (suite *WriterTestSuite) TestTrafficGroup() {
 			require.NoError(t, err)
 		}, func(t *testing.T, record map[string]interface{}) {
 			assert.Equal(t, "INFO", record[slog.LevelKey])
-			assert.Equal(t, TrafficMessage, record[slog.MessageKey])
-			group, ok := record[GinGroup].(map[string]any)
+			assert.Equal(t, DefaultTrafficMessage, record[slog.MessageKey])
+			group, ok := record[DefaultTrafficGroup].(map[string]any)
 			assert.True(t, ok)
 			checkTraffic(t, group)
 		},
-		GinGroup)
+		Options{Traffic: Traffic{Parse: true}},
+	)
+}
+
+func (suite *WriterTestSuite) TestTrafficGroupName() {
+	suite.testLog(
+		func(t *testing.T) {
+			_, err := gin.DefaultWriter.Write([]byte(ginLine))
+			require.NoError(t, err)
+		}, func(t *testing.T, record map[string]interface{}) {
+			assert.Equal(t, "INFO", record[slog.LevelKey])
+			assert.Equal(t, DefaultTrafficMessage, record[slog.MessageKey])
+			group, ok := record["group-name"].(map[string]any)
+			assert.True(t, ok)
+			checkTraffic(t, group)
+		},
+		Options{Traffic: Traffic{Parse: true, Group: "group-name"}},
+	)
 }
 
 //////////////////////////////////////////////////////////////////////////
@@ -193,10 +210,11 @@ func (suite *WriterTestSuite) TestTrafficGroup() {
 func (suite *WriterTestSuite) testLog(
 	test func(t *testing.T),
 	check func(t *testing.T, record map[string]interface{}),
-	group string,
+	options Options,
 ) {
-	gin.DefaultWriter = NewWriter(slog.LevelInfo, group)
-	gin.DefaultErrorWriter = NewWriter(slog.LevelError, group)
+	gin.DefaultWriter = NewWriter(&options)
+	options.Level = slog.LevelError
+	gin.DefaultErrorWriter = NewWriter(&options)
 	defer func() {
 		gin.DefaultWriter = os.Stdout
 		gin.DefaultErrorWriter = os.Stderr
@@ -221,7 +239,9 @@ func (suite *WriterTestSuite) testLog(
 //////////////////////////////////////////////////////////////////////////
 
 func ExampleWriter() {
-	// Switch slog to phsym/slog-console.
+	// Switch slog to phsym/slog-console because
+	// * it's simpler to match multi-line output at Gin startup and
+	// * the time format can be changed.
 	logger := slog.New(console.NewHandler(os.Stdout, &console.HandlerOptions{
 		Level:      slog.LevelInfo,
 		TimeFormat: "<*>", // Don't want real time, too hard to match.
@@ -229,17 +249,82 @@ func ExampleWriter() {
 	}))
 	slog.SetDefault(logger)
 
-	gin.DefaultWriter = NewWriter(slog.LevelInfo, NoTraffic)
-	gin.DefaultErrorWriter = NewWriter(slog.LevelError, NoTraffic)
+	gin.DefaultWriter = NewWriter(&Options{})
+	gin.DefaultErrorWriter = NewWriter(&Options{Level: slog.LevelError})
 	defer func() {
 		gin.DefaultWriter = os.Stdout
 		gin.DefaultErrorWriter = os.Stderr
 	}()
 	_ = gin.New()
+	_, _ = gin.DefaultWriter.Write([]byte(ginLine))
 	// Output:
 	// <*> WRN Running in "debug" mode. Switch to "release" mode in production.
 	//  - using env:	export GIN_MODE=release
 	//  - using code:	gin.SetMode(gin.ReleaseMode)
+	// <*> INF 200 |  5.529751605s |             ::1 | GET      "/chart.svg?tag=With_Attrs_Attributes&item=MemBytes"
+}
+
+func ExampleWriter_embedTraffic() {
+	// Switch slog to phsym/slog-console because
+	// * it's simpler to match multi-line output at Gin startup and
+	// * the time format can be changed.
+	logger := slog.New(console.NewHandler(os.Stdout, &console.HandlerOptions{
+		Level:      slog.LevelInfo,
+		TimeFormat: "<*>", // Don't want real time, too hard to match.
+		NoColor:    true,
+	}))
+	slog.SetDefault(logger)
+
+	options := &Options{
+		Traffic: Traffic{
+			Parse: true,
+			Embed: true,
+		},
+	}
+	gin.DefaultWriter = NewWriter(options)
+	gin.DefaultErrorWriter = NewWriter(&Options{Level: slog.LevelError})
+	defer func() {
+		gin.DefaultWriter = os.Stdout
+		gin.DefaultErrorWriter = os.Stderr
+	}()
+	_ = gin.New()
+	_, _ = gin.DefaultWriter.Write([]byte(ginLine))
+	// Output:
+	// <*> WRN Running in "debug" mode. Switch to "release" mode in production.
+	//  - using env:	export GIN_MODE=release
+	//  - using code:	gin.SetMode(gin.ReleaseMode)
+	// <*> INF Gin Traffic code=200 elapsed=5.529751605s client=::1 method=GET url=/chart.svg?tag=With_Attrs_Attributes&item=MemBytes
+}
+
+func ExampleWriter_groupTraffic() {
+	// Switch slog to phsym/slog-console because
+	// * it's simpler to match multi-line output at Gin startup and
+	// * the time format can be changed.
+	logger := slog.New(console.NewHandler(os.Stdout, &console.HandlerOptions{
+		Level:      slog.LevelInfo,
+		TimeFormat: "<*>", // Don't want real time, too hard to match.
+		NoColor:    true,
+	}))
+	slog.SetDefault(logger)
+
+	options := &Options{
+		Traffic: Traffic{
+			Parse: true,
+		},
+	}
+	gin.DefaultWriter = NewWriter(options)
+	gin.DefaultErrorWriter = NewWriter(&Options{Level: slog.LevelError})
+	defer func() {
+		gin.DefaultWriter = os.Stdout
+		gin.DefaultErrorWriter = os.Stderr
+	}()
+	_ = gin.New()
+	_, _ = gin.DefaultWriter.Write([]byte(ginLine))
+	// Output:
+	// <*> WRN Running in "debug" mode. Switch to "release" mode in production.
+	//  - using env:	export GIN_MODE=release
+	//  - using code:	gin.SetMode(gin.ReleaseMode)
+	// <*> INF Gin Traffic gin.code=200 gin.elapsed=5.529751605s gin.client=::1 gin.method=GET gin.url=/chart.svg?tag=With_Attrs_Attributes&item=MemBytes
 }
 
 //////////////////////////////////////////////////////////////////////////

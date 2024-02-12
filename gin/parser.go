@@ -24,9 +24,7 @@ var (
 	ptnSplit = regexp.MustCompile(`\s+`)
 )
 
-// TODO: document
-
-// Parse a Gin traffic record (specified as message) to return a set of slog.Attr items.
+// Parse a Gin traffic record (specified as message) to return an array of slog.Attr items.
 // There should be a single such item for each Field constant defined above.
 func Parse(message string) ([]any, error) {
 	// Example line:
@@ -36,18 +34,21 @@ func Parse(message string) ([]any, error) {
 		return nil, fmt.Errorf("wrong number of parts: %d", len(parts))
 	}
 	var result []any
+	// Parse HTTP code from first part.
 	if matches := ptnCode.FindStringSubmatch(parts[0]); len(matches) != 2 {
-		// TODO: if it doesn't parse it's not an error, just return the message as is
 		return nil, fmt.Errorf("parse Code from '%s'", parts[0])
 	} else if num, err := strconv.ParseInt(matches[1], 10, 64); err != nil {
-		// TODO: if it doesn't parse it's not an error, just return the message as is
+		// This should never happen so no test code coverage here.
 		return nil, fmt.Errorf("parse int from '%s': %w", matches[1], err)
 	} else {
 		result = append(result, slog.Int64(string(Code), num))
 	}
+	// Parse elapsed time from second part.
 	result = append(result, slog.String(string(Elapsed), strings.Trim(parts[1], " ")))
+	// Parse client IP address from third part.
 	result = append(result, slog.String(string(Client), strings.Trim(parts[2], " ")))
-	// Example parts[3]:
+	// Parse HTTP method and URL from fourth part.
+	// Example of parts[3]:
 	//  GET      "/chart.svg?tag=samber_zap&item=MemAllocs" System=gin
 	parts = ptnSplit.Split(strings.Trim(parts[3], " "), -1)
 	if len(parts) == 2 {

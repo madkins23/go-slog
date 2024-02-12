@@ -9,12 +9,56 @@ import (
 )
 
 const (
-	GinGroup  = "gin"
-	NoTraffic = ""
-	Traffic   = "*"
+	// DefaultTrafficGroup is the default group for traffic data if parsing is required and no group is provided.
+	DefaultTrafficGroup = "gin"
+
+	// DefaultTrafficMessage to be logged when the original log message is
+	// a Gin traffic data line which has been parsed under other field names.
+	DefaultTrafficMessage = "Gin Traffic"
 )
 
-var TrafficMessage = "Gin Traffic"
+// ----------------------------------------------------------------------------
+
+// Options for NewWriter.
+type Options struct {
+	// Level sets the default log level for everything except Gin Traffic messages.
+	Level slog.Leveler
+
+	// Traffic collects options related to parsing Gin traffic data records.
+	Traffic Traffic
+}
+
+// Traffic collects options related to parsing Gin traffic data records.
+// Records have the form:
+//
+//	200 |    2.512908ms |             ::1 | GET      "/handler?tag=samber_zap"
+type Traffic struct {
+	// Parse Gin traffic data records when true.
+	// Nothing else in this struct matters if this is false.
+	Parse bool
+
+	// Embed parsed traffic data at the top level of the log message when true.
+	// Options data will be mixed in with other log data.
+	// Only used if Parse is true.
+	Embed bool
+
+	// Level is the slog.Level for traffic data lines (defaults to slog.LevelInfo).
+	// Overrides the level attached to the writer object for relevant messages.
+	// Only used if Parse is true.
+	Level slog.Leveler
+
+	// Message to be used when traffic data has been parsed from the original message.
+	// When no message is provided the default value of DefaultTrafficMessage is used.
+	// Only used if Parse is true.
+	Message string
+
+	// Group provides a group name under which traffic data will be gathered.
+	// When no group name is provided the value of DefaultTrafficGroup is used.
+	// Only used if Parse is true and Embed is false.
+	Group string
+}
+
+// ----------------------------------------------------------------------------
 
 // NewWriter returns an io.Writer object with the specified zerolog.Level.
 // There are two gin output streams: gin.DefaultWriter and gin.DefaultErrorWriter.
@@ -22,25 +66,35 @@ var TrafficMessage = "Gin Traffic"
 // Create a separate Writer object with a different zerolog.Level for each stream
 // or create a single object for both streams (untested but should work).
 //
-// If the group argument is not the empty string then Gin traffic messages of the form:
-//
-//	200 |    2.512908ms |             ::1 | GET      "/handler?tag=samber_zap"
-//
-// will be parsed into further fields which will be output within a group of the specified name,
-// else the pre-formatted message lines will be output as is (which looks fine in a text logger).
-// A group name of "*" results in the group contents spliced in at the top level.
-func NewWriter(level slog.Leveler, group string) io.Writer {
-	w := &writer{level: level}
-	if group != "" {
-		w.group = group
+// The options argument holds settings for the underlying writer object.
+// See the documentation for Options.
+func NewWriter(options *Options) io.Writer {
+	w := &writer{
+		Options: *options,
+	}
+	if w.Level == nil {
+		w.Level = slog.LevelInfo
+	}
+	if w.Traffic.Parse {
+		// Fix some default values here, so it doesn't have to be done in Write().
+		if w.Traffic.Level == nil {
+			w.Traffic.Level = slog.LevelInfo
+		}
+		if w.Traffic.Group == "" && !w.Traffic.Embed {
+			w.Traffic.Group = DefaultTrafficGroup
+		}
+		if w.Traffic.Message == "" {
+			w.Traffic.Message = DefaultTrafficMessage
+		}
 	}
 	return w
 }
 
+// ----------------------------------------------------------------------------
+
 // writer object returned by NewWriter function.
 type writer struct {
-	level slog.Leveler
-	group string
+	Options
 }
 
 var (
@@ -59,9 +113,9 @@ var (
 // Write a block of data to the (supposedly) stream object.
 // The data will be parsed, if possible, and converted into a slog record.
 // For the moment we're assuming that there is a single Write() call for each log record.
-// TODO: Fix Code to handle partial/multiple Write() calls per log record.
+// TODO: Fix code to handle partial/multiple Write() calls per log record.
 func (w *writer) Write(p []byte) (int, error) {
-	level := w.level
+	level := w.Level
 	msg := strings.TrimRight(string(p), "\n")
 	for x := 0; x < 10; x++ { // Don't use infinite for loop for safety
 		// Pull off prefix sequences that represent log information.
@@ -84,23 +138,25 @@ func (w *writer) Write(p []byte) (int, error) {
 	// Format of many of the lines at this point:
 	// 2024/01/26 - 13:21:32 | 200 |  5.529751605s |             ::1 | GET      "/chart.svg?tag=With_Attrs_Attributes&item=MemBytes"
 	if matches := ptnTimePrefix.FindStringSubmatch(msg); len(matches) == 2 {
+		// Remove time prefix.
 		msg = matches[1]
 	}
 
 	var args []any
 	var err error
-	if w.group != "" {
+	if w.Traffic.Parse {
 		// Attempt to parse Gin traffic data out of the message.
 		//  200 |  5.529751605s |             ::1 | GET      "/chart.svg?tag=With_Attrs_Attributes&item=MemBytes"
 		if args, err = Parse(msg); err != nil {
 			// The error isn't really an error, it just couldn't parse.
 			slog.Debug("gin traffic parse", "err", err)
-			// Just fall through now and use the pre-existing msg.
+			// Use the pre-existing log message in variable msg.
 		} else {
+			// The traffic data in the log message parsed.
 			level = slog.LevelInfo
-			msg = TrafficMessage
-			if w.group != "*" {
-				args = []any{slog.Group(w.group, args...)}
+			msg = w.Traffic.Message
+			if !w.Traffic.Embed {
+				args = []any{slog.Group(w.Traffic.Group, args...)}
 			}
 		}
 	}
@@ -115,7 +171,8 @@ func (w *writer) Write(p []byte) (int, error) {
 	case slog.LevelWarn:
 		slog.Warn(msg, args...)
 	default:
-		return 0, fmt.Errorf("unknown log level %s", w.level)
+		// Shouldn't ever happen so no test code coverage here.
+		return 0, fmt.Errorf("unknown log level %s", w.Level)
 	}
 
 	return len(p), nil
