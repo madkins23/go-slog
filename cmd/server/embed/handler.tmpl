@@ -43,12 +43,12 @@
     <td colspan=2 align="center">
       <table>
         <tr>
-          <td><img src="/chart/{{ .Handler }}/Nanos" alt="{{ .Data.HandlerName .Handler }} Ns/Op" class="chart" /></td>
-          <td><img src="/chart/{{ .Handler }}/MemAllocs" alt="{{ .Data.HandlerName .Handler }} Allocs/Op" class="chart" /></td>
+          <td><img src="/chart/{{ .Handler }}/Nanos.svg" alt="{{ .Data.HandlerName .Handler }} Ns/Op" class="chart" /></td>
+          <td><img src="/chart/{{ .Handler }}/MemAllocs.svg" alt="{{ .Data.HandlerName .Handler }} Allocs/Op" class="chart" /></td>
         </tr>
         <tr>
-          <td><img src="/chart/{{ .Handler }}/MemBytes" alt="{{ .Data.HandlerName .Handler }} Bytes/Op" class="chart" /></td>
-          <td><img src="/chart/{{ .Handler }}/GbPerSec" alt="{{ .Data.HandlerName .Handler }} GB/Sec" class="chart" /></td>
+          <td><img src="/chart/{{ .Handler }}/MemBytes.svg" alt="{{ .Data.HandlerName .Handler }} Bytes/Op" class="chart" /></td>
+          <td><img src="/chart/{{ .Handler }}/GbPerSec.svg" alt="{{ .Data.HandlerName .Handler }} GB/Sec" class="chart" /></td>
         </tr>
       </table>
     </td>

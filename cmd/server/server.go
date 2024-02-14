@@ -8,6 +8,7 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"strings"
 	"sync"
 	"time"
 
@@ -152,7 +153,7 @@ var (
 )
 
 func chartFunction(c *gin.Context) {
-	itemArg := c.Param("item")
+	itemArg := strings.TrimSuffix(c.Param("item"), ".svg")
 	item, err := bench.TestItemsString(itemArg)
 	if err != nil {
 		slog.Error("Bad URL parameter", "param", itemArg, "err", err)
@@ -259,10 +260,13 @@ func pageFunction(page pageType) gin.HandlerFunc {
 		if page == pageTest || page == pageHandler {
 			if tag := c.Param("tag"); tag == "" {
 				slog.Error("No URL parameter", "param", "tag")
-			} else if page == pageTest {
-				pageData.Test = bench.TestTag(tag)
-			} else if page == pageHandler {
-				pageData.Handler = bench.HandlerTag(tag)
+			} else {
+				tag := strings.TrimSuffix(tag, ".html")
+				if page == pageTest {
+					pageData.Test = bench.TestTag(tag)
+				} else if page == pageHandler {
+					pageData.Handler = bench.HandlerTag(tag)
+				}
 			}
 		}
 		if err := templates[page].Execute(c.Writer, pageData); err != nil {
