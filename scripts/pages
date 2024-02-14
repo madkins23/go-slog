@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Get pages from server
+
+wget -r localhost:8080 -nH -P pages
