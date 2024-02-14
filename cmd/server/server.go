@@ -60,9 +60,9 @@ func main() {
 
 	router := gin.Default()
 	router.GET("/", pageFunction(pageRoot))
-	router.GET("/test", pageFunction(pageTest))
-	router.GET("/handler", pageFunction(pageHandler))
-	router.GET("/chart.svg", chartFunction)
+	router.GET("/test/:tag", pageFunction(pageTest))
+	router.GET("/handler/:tag", pageFunction(pageHandler))
+	router.GET("/chart/:tag/:item", chartFunction)
 	router.GET("/home.svg", svgFunction(home))
 	router.GET("/style.css", textFunction(css))
 
@@ -150,14 +150,14 @@ var (
 )
 
 func chartFunction(c *gin.Context) {
-	itemArg := c.Query("item")
+	itemArg := c.Param("item")
 	item, err := bench.TestItemsString(itemArg)
 	if err != nil {
-		slog.Error("Bad item URL argument", "arg", itemArg, "err", err)
+		slog.Error("Bad URL parameter", "param", itemArg, "err", err)
 		// TODO: what to do here?
 		return
 	}
-	tag := c.Query("tag")
+	tag := c.Param("tag")
 	cacheKey := tag + ":" + item.String()
 	chartCacheMutex.Lock()
 	ch, found := chartCache[cacheKey]
@@ -255,8 +255,8 @@ func pageFunction(page pageType) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		pageData := &pageData{Data: data, Printer: language.Printer()}
 		if page == pageTest || page == pageHandler {
-			if tag := c.Query("tag"); tag == "" {
-				slog.Error("No URL argument", "arg", "tag")
+			if tag := c.Param("tag"); tag == "" {
+				slog.Error("No URL parameter", "param", "tag")
 			} else if page == pageTest {
 				pageData.Test = bench.TestTag(tag)
 			} else if page == pageHandler {

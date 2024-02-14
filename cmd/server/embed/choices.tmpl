@@ -1,9 +1,19 @@
+        <script>
+          function testChoice(form) {
+            window.location.href = "/test/" + form.tag.value;
+            return true;
+          }
+          function hdlrChoice(form) {
+            window.location.href = "/handler/" + form.tag.value;
+            return true;
+          }
+        </script>
         <table>
           <tr>
             <td align="right">Test:</td>
             <td>
-              <form action="test" class="choice">
-                <select name="tag" id="tag" onchange="this.form.submit();">
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   {{ range .Data.TestTags }}
                     <option value="{{ . }}" {{ if eq $.Test . }}selected{{ end }}>{{ $.Data.TestName . }}</option>
@@ -16,7 +26,7 @@
             <td align="right">Handler:</td>
             <td>
               <form action="handler" class="choice">
-                <select name="tag" id="tag" onchange="this.form.submit();">
+                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   {{ range .Data.HandlerTags }}
                     <option value="{{ . }}" {{ if eq $.Handler . }}selected{{ end }}>{{ $.Data.HandlerName . }}</option>

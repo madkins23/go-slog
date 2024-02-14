@@ -8,7 +8,7 @@
 <table class="top">
   <tr>
     <td>
-      <a href="/"><img src="home.svg" alt="Home" class="home" /></a>
+      <a href="/"><img src="/home.svg" alt="Home" class="home" /></a>
       <h1 class="home">Test {{ .Data.TestName .Test }}</h1>
     </td>
     <td align="right">
@@ -43,12 +43,12 @@
     <td colspan=2 align="center">
       <table>
         <tr>
-          <td><img src="chart.svg?tag={{ .Test }}&item=Nanos" alt="{{ .Data.TestName .Test }} Ns/Op" class="chart" /></td>
-          <td><img src="chart.svg?tag={{ .Test }}&item=MemAllocs" alt="{{ .Data.TestName .Test }} Allocs/Op" class="chart" /></td>
+          <td><img src="/chart/{{ .Test }}/Nanos" alt="{{ .Data.TestName .Test }} Ns/Op" class="chart" /></td>
+          <td><img src="/chart/{{ .Test }}/MemAllocs" alt="{{ .Data.TestName .Test }} Allocs/Op" class="chart" /></td>
         </tr>
         <tr>
-          <td><img src="chart.svg?tag={{ .Test }}&item=MemBytes" alt="{{ .Data.TestName .Test }} Bytes/Op" class="chart" /></td>
-          <td><img src="chart.svg?tag={{ .Test }}&item=GbPerSec" alt="{{ .Data.TestName .Test }} GB/Sec" class="chart" /></td>
+          <td><img src="/chart/{{ .Test }}/MemBytes" alt="{{ .Data.TestName .Test }} Bytes/Op" class="chart" /></td>
+          <td><img src="/chart/{{ .Test }}/GbPerSec" alt="{{ .Data.TestName .Test }} GB/Sec" class="chart" /></td>
         </tr>
       </table>
     </td>

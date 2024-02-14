@@ -11,7 +11,7 @@
         <legend>Tests</legend>
         <table>
           {{ range .Data.TestTags }}
-            <tr><td><a href="test?tag={{ . }}">{{ $.Data.TestName . }}</a></td></tr>
+            <tr><td><a href="test/{{ . }}">{{ $.Data.TestName . }}</a></td></tr>
           {{ end }}
         </table>
       </fieldset>
@@ -20,7 +20,7 @@
         <legend>Handlers</legend>
         <table>
           {{ range .Data.HandlerTags }}
-            <tr><td><a href="handler?tag={{ . }}">{{ $.Data.HandlerName . }}</a></td></tr>
+            <tr><td><a href="handler/{{ . }}">{{ $.Data.HandlerName . }}</a></td></tr>
           {{ end }}
         </table>
       </fieldset>
