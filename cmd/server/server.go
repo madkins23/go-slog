@@ -59,7 +59,9 @@ func main() {
 	}
 
 	router := gin.Default()
-	router.GET("/", pageFunction(pageRoot))
+	rootPageFn := pageFunction(pageRoot)
+	router.GET("/", rootPageFn)
+	router.GET("/index.html", rootPageFn)
 	router.GET("/test/:tag", pageFunction(pageTest))
 	router.GET("/handler/:tag", pageFunction(pageHandler))
 	router.GET("/chart/:tag/:item", chartFunction)
