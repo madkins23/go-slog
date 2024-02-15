@@ -5,7 +5,7 @@ on:
     - cron: '0 0 * * 0'
   push:
     branches:
-      - server-pages
+      - main
 
 jobs:
   run_benchmark:
