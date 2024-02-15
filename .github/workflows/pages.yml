@@ -14,7 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.ref }}
 
       - name: Set up Go
         uses: actions/setup-go@v5
@@ -25,11 +25,14 @@ jobs:
       - name: Install the latest versions of each library
         run: go get -u ./... && go mod tidy
 
-      - name: Benchmark Go Logging Libraries
-        run: go test -bench=. bench/*.go > /tmp/bench.txt
+      - name: Benchmark Go logging libraries
+        run: go test -bench=. bench/*.go | go run cmd/server/server.go
 
-#      - name: Commit benchmark results to repo
-#        uses: EndBug/add-and-commit@v9
-#        with:
-#          message: Update benchmark results
-#          commit: '--no-verify'
+      - name: Get Pages from server
+        run: wget -r localhost:8080/go-slog -nH --cut-dirs=1 -P docs
+
+      - name: Commit benchmark results to repo
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: Update benchmark results
+          commit: '--no-verify'
