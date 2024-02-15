@@ -26,7 +26,7 @@ jobs:
         run: go get -u ./... && go mod tidy
 
       - name: Benchmark Go logging libraries
-        run: go test -bench=. bench/*.go > /tmp/bench.txt
+        run: 'go test -bench=. bench/*.go > /tmp/bench.txt'
 
 #      - name: Benchmark Go logging libraries
 #        run: go run cmd/server/server.go -from=/tmp/bench.txt
