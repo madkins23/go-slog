@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# Wait for server to be available
+curl -s --head -X GET --retry 10 --retry-connrefused --retry-delay 5 http://localhost:8080/go-slog/index.html
+
+# Get pages from server
+wget -r localhost:8080/go-slog/index.html -nH -nv --cut-dirs=1 -P docs
+
+# Shut down server
+curl -s -X GET http://localhost:8080/go-slog/exit

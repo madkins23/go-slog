@@ -8,6 +8,7 @@ import (
 	"log/slog"
 	"net/http"
 	"os"
+	"strings"
 	"sync"
 	"time"
 
@@ -15,6 +16,9 @@ import (
 	"github.com/phsym/console-slog"
 	"github.com/vicanso/go-charts/v2"
 	"golang.org/x/text/message"
+
+	"github.com/madkins23/gin-utils/pkg/handler"
+	"github.com/madkins23/gin-utils/pkg/shutdown"
 
 	ginslog "github.com/madkins23/go-slog/gin"
 	"github.com/madkins23/go-slog/internal/bench"
@@ -25,6 +29,8 @@ import (
 // See scripts/server for usage example.
 
 type pageType string
+
+const port = 8080
 
 const (
 	pageRoot    = "root"
@@ -43,7 +49,7 @@ var (
 )
 
 func main() {
-	flag.Parse() // Necessary for -json=<file> argument defined in infra package.
+	flag.Parse() // Necessary for -from=<file> argument defined in internal/bench package.
 
 	gin.DefaultWriter = ginslog.NewWriter(&ginslog.Options{})
 	gin.DefaultErrorWriter = ginslog.NewWriter(&ginslog.Options{Level: slog.LevelError})
@@ -58,13 +64,20 @@ func main() {
 		return
 	}
 
+	graceful := &shutdown.Graceful{}
+	graceful.Initialize()
+	defer graceful.Close()
+
 	router := gin.Default()
-	router.GET("/", pageFunction(pageRoot))
-	router.GET("/test", pageFunction(pageTest))
-	router.GET("/handler", pageFunction(pageHandler))
-	router.GET("/chart.svg", chartFunction)
-	router.GET("/home.svg", svgFunction(home))
-	router.GET("/style.css", textFunction(css))
+	rootPageFn := pageFunction(pageRoot)
+	router.GET("/go-slog/", rootPageFn)
+	router.GET("/go-slog/index.html", rootPageFn)
+	router.GET("/go-slog/test/:tag", pageFunction(pageTest))
+	router.GET("/go-slog/handler/:tag", pageFunction(pageHandler))
+	router.GET("/go-slog/chart/:tag/:item", chartFunction)
+	router.GET("/go-slog/home.svg", svgFunction(home))
+	router.GET("/go-slog/style.css", textFunction(css))
+	router.GET("/go-slog/exit", handler.Exit)
 
 	if err := router.SetTrustedProxies(nil); err != nil {
 		slog.Error("Don't trust proxies", "err", err)
@@ -72,9 +85,10 @@ func main() {
 	}
 
 	// Listen and serve on 0.0.0.0:8080 (for windows "localhost:8080"). {
-	slog.Info("Web Server @ http://localhost:8080")
-	if err := router.Run(); err != nil {
-		slog.Error("Error during ListenAndServe()", "err", err)
+	slog.Info("Web Server @ http://localhost:8080/go-slog")
+
+	if err := graceful.Serve(router, port); err != nil {
+		slog.Error("Running gin server", "err", err)
 	}
 }
 
@@ -150,14 +164,14 @@ var (
 )
 
 func chartFunction(c *gin.Context) {
-	itemArg := c.Query("item")
+	itemArg := strings.TrimSuffix(c.Param("item"), ".svg")
 	item, err := bench.TestItemsString(itemArg)
 	if err != nil {
-		slog.Error("Bad item URL argument", "arg", itemArg, "err", err)
+		slog.Error("Bad URL parameter", "param", itemArg, "err", err)
 		// TODO: what to do here?
 		return
 	}
-	tag := c.Query("tag")
+	tag := c.Param("tag")
 	cacheKey := tag + ":" + item.String()
 	chartCacheMutex.Lock()
 	ch, found := chartCache[cacheKey]
@@ -255,12 +269,15 @@ func pageFunction(page pageType) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		pageData := &pageData{Data: data, Printer: language.Printer()}
 		if page == pageTest || page == pageHandler {
-			if tag := c.Query("tag"); tag == "" {
-				slog.Error("No URL argument", "arg", "tag")
-			} else if page == pageTest {
-				pageData.Test = bench.TestTag(tag)
-			} else if page == pageHandler {
-				pageData.Handler = bench.HandlerTag(tag)
+			if tag := c.Param("tag"); tag == "" {
+				slog.Error("No URL parameter", "param", "tag")
+			} else {
+				tag := strings.TrimSuffix(tag, ".html")
+				if page == pageTest {
+					pageData.Test = bench.TestTag(tag)
+				} else if page == pageHandler {
+					pageData.Handler = bench.HandlerTag(tag)
+				}
 			}
 		}
 		if err := templates[page].Execute(c.Writer, pageData); err != nil {

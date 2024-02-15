@@ -1,0 +1,77 @@
+body {
+    background-color: gray;
+    justify-content: center;
+    height: fit-content;
+}
+
+fieldset {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+form.choice {
+    margin-bottom: 0;
+}
+
+h1.home {
+    display: inline-block;
+}
+
+img.chart {
+    border: 2px inset white;
+}
+
+img.home {
+    display: inline-block;
+    height: 2em;
+    width: 2em;
+    vertical-align: text-bottom;
+}
+
+legend {
+    font-weight: bold;
+    padding: 0.5em;
+}
+
+table.data {
+    margin: 5px;
+    padding: 5px;
+}
+
+table.data td, th {
+    margin: 5px;
+    padding: 5px;
+}
+
+table.data td {
+    border: 2px inset darkgray;
+}
+
+table.root {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.root td {
+    vertical-align: top;
+}
+
+table.root td.warnings {
+    background-color: white;
+    border: 2px inset white;
+    overflow: scroll;
+}
+
+table.root td.warnings pre {
+    width: 800;
+}
+
+table.top {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.number {
+    font-family: monospace;
+    text-align: right;
+}

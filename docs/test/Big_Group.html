@@ -1,0 +1,161 @@
+<html>
+<head>
+  <title>Benchmark Data</title>
+  <link rel="stylesheet" href="/go-slog/style.css">
+</head>
+
+<body>
+<table class="top">
+  <tr>
+    <td>
+      <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+      <h1 class="home">Test Big Group</h1>
+    </td>
+    <td align="right">
+              <script>
+          function testChoice(form) {
+            window.location.href = "/go-slog/test/" + form.tag.value + ".html";
+            return true;
+          }
+          function hdlrChoice(form) {
+            window.location.href = "/go-slog/handler/" + form.tag.value + ".html";
+            return true;
+          }
+        </script>
+        <table>
+          <tr>
+            <td align="right">Test:</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="Attributes" >Attributes</option>
+                  
+                    <option value="Big_Group" selected>Big Group</option>
+                  
+                    <option value="Disabled" >Disabled</option>
+                  
+                    <option value="Key_Values" >Key Values</option>
+                  
+                    <option value="Logging" >Logging</option>
+                  
+                    <option value="Simple" >Simple</option>
+                  
+                    <option value="Simple_Source" >Simple Source</option>
+                  
+                    <option value="With_Attrs_Attributes" >With Attrs Attributes</option>
+                  
+                    <option value="With_Attrs_Key_Values" >With Attrs Key Values</option>
+                  
+                    <option value="With_Attrs_Simple" >With Attrs Simple</option>
+                  
+                    <option value="With_Group_Attributes" >With Group Attributes</option>
+                  
+                    <option value="With_Group_Key_Values" >With Group Key Values</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Handler:</td>
+            <td>
+              <form action="handler" class="choice">
+                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="darvaza_zerolog" >Darvaza Zerolog</option>
+                  
+                    <option value="phsym_zerolog" >Phsym Zerolog</option>
+                  
+                    <option value="samber_zap" >Samber Zap</option>
+                  
+                    <option value="samber_zerolog" >Samber Zerolog</option>
+                  
+                    <option value="slog_JSONHandler" >Slog JSONHandler</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+        </table>
+    </td>
+  </tr>
+  <tr>
+    <td colspan=2 align="center">
+      <table class="data">
+        <tr>
+          <th>Handler</th>
+          <th>Runs</th>
+          <th>Ns/Op</th>
+          <th>Allocs/Op</th>
+          <th>Bytes/Op</th>
+          <th>GB/Sec</th>
+        </tr>
+        
+          <tr>
+            <td>Darvaza Zerolog</td>
+            <td class="number">1,927</td>
+            <td class="number">662,863.00</td>
+            <td class="number">10,480</td>
+            <td class="number">631,661</td>
+            <td class="number">51.89</td>
+          </tr>
+        
+          <tr>
+            <td>Phsym Zerolog</td>
+            <td class="number">5,253</td>
+            <td class="number">231,145.00</td>
+            <td class="number">3,866</td>
+            <td class="number">237,250</td>
+            <td class="number">407.69</td>
+          </tr>
+        
+          <tr>
+            <td>Samber Zap</td>
+            <td class="number">1,914</td>
+            <td class="number">633,296.00</td>
+            <td class="number">10,380</td>
+            <td class="number">614,398</td>
+            <td class="number">53.41</td>
+          </tr>
+        
+          <tr>
+            <td>Samber Zerolog</td>
+            <td class="number">1,862</td>
+            <td class="number">661,253.00</td>
+            <td class="number">10,352</td>
+            <td class="number">623,938</td>
+            <td class="number">49.65</td>
+          </tr>
+        
+          <tr>
+            <td>Slog JSONHandler</td>
+            <td class="number">4,906</td>
+            <td class="number">254,562.00</td>
+            <td class="number">3,873</td>
+            <td class="number">284,992</td>
+            <td class="number">345.99</td>
+          </tr>
+        
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td colspan=2 align="center">
+      <table>
+        <tr>
+          <td><img src="/go-slog/chart/Big_Group/Nanos.svg" alt="Big Group Ns/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/Big_Group/MemAllocs.svg" alt="Big Group Allocs/Op" class="chart" /></td>
+        </tr>
+        <tr>
+          <td><img src="/go-slog/chart/Big_Group/MemBytes.svg" alt="Big Group Bytes/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/Big_Group/GbPerSec.svg" alt="Big Group GB/Sec" class="chart" /></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

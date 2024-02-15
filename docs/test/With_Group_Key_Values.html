@@ -1,0 +1,152 @@
+<html>
+<head>
+  <title>Benchmark Data</title>
+  <link rel="stylesheet" href="/go-slog/style.css">
+</head>
+
+<body>
+<table class="top">
+  <tr>
+    <td>
+      <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+      <h1 class="home">Test With Group Key Values</h1>
+    </td>
+    <td align="right">
+              <script>
+          function testChoice(form) {
+            window.location.href = "/go-slog/test/" + form.tag.value + ".html";
+            return true;
+          }
+          function hdlrChoice(form) {
+            window.location.href = "/go-slog/handler/" + form.tag.value + ".html";
+            return true;
+          }
+        </script>
+        <table>
+          <tr>
+            <td align="right">Test:</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="Attributes" >Attributes</option>
+                  
+                    <option value="Big_Group" >Big Group</option>
+                  
+                    <option value="Disabled" >Disabled</option>
+                  
+                    <option value="Key_Values" >Key Values</option>
+                  
+                    <option value="Logging" >Logging</option>
+                  
+                    <option value="Simple" >Simple</option>
+                  
+                    <option value="Simple_Source" >Simple Source</option>
+                  
+                    <option value="With_Attrs_Attributes" >With Attrs Attributes</option>
+                  
+                    <option value="With_Attrs_Key_Values" >With Attrs Key Values</option>
+                  
+                    <option value="With_Attrs_Simple" >With Attrs Simple</option>
+                  
+                    <option value="With_Group_Attributes" >With Group Attributes</option>
+                  
+                    <option value="With_Group_Key_Values" selected>With Group Key Values</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Handler:</td>
+            <td>
+              <form action="handler" class="choice">
+                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="darvaza_zerolog" >Darvaza Zerolog</option>
+                  
+                    <option value="phsym_zerolog" >Phsym Zerolog</option>
+                  
+                    <option value="samber_zap" >Samber Zap</option>
+                  
+                    <option value="samber_zerolog" >Samber Zerolog</option>
+                  
+                    <option value="slog_JSONHandler" >Slog JSONHandler</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+        </table>
+    </td>
+  </tr>
+  <tr>
+    <td colspan=2 align="center">
+      <table class="data">
+        <tr>
+          <th>Handler</th>
+          <th>Runs</th>
+          <th>Ns/Op</th>
+          <th>Allocs/Op</th>
+          <th>Bytes/Op</th>
+          <th>GB/Sec</th>
+        </tr>
+        
+          <tr>
+            <td>Phsym Zerolog</td>
+            <td class="number">890,934</td>
+            <td class="number">1,297.00</td>
+            <td class="number">4</td>
+            <td class="number">944</td>
+            <td class="number">281,553.81</td>
+          </tr>
+        
+          <tr>
+            <td>Samber Zap</td>
+            <td class="number">134,059</td>
+            <td class="number">8,629.00</td>
+            <td class="number">123</td>
+            <td class="number">13,248</td>
+            <td class="number">5,872.53</td>
+          </tr>
+        
+          <tr>
+            <td>Samber Zerolog</td>
+            <td class="number">141,116</td>
+            <td class="number">8,609.00</td>
+            <td class="number">125</td>
+            <td class="number">13,453</td>
+            <td class="number">6,261.57</td>
+          </tr>
+        
+          <tr>
+            <td>Slog JSONHandler</td>
+            <td class="number">715,078</td>
+            <td class="number">1,668.00</td>
+            <td class="number">7</td>
+            <td class="number">856</td>
+            <td class="number">185,168.10</td>
+          </tr>
+        
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td colspan=2 align="center">
+      <table>
+        <tr>
+          <td><img src="/go-slog/chart/With_Group_Key_Values/Nanos.svg" alt="With Group Key Values Ns/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/With_Group_Key_Values/MemAllocs.svg" alt="With Group Key Values Allocs/Op" class="chart" /></td>
+        </tr>
+        <tr>
+          <td><img src="/go-slog/chart/With_Group_Key_Values/MemBytes.svg" alt="With Group Key Values Bytes/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/With_Group_Key_Values/GbPerSec.svg" alt="With Group Key Values GB/Sec" class="chart" /></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

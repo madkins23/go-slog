@@ -1,0 +1,44 @@
+name: Update benchmark pages
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * 0'
+  push:
+    branches:
+      - server-pages
+
+jobs:
+  run_benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref }}
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+          check-latest: true
+
+#      - name: Install the latest versions of each library
+#        run: go get -u ./... && go mod tidy
+
+      - name: Benchmark Go logging libraries
+        run: go test -bench=. bench/*.go > ${{ runner.temp }}/bench.txt
+
+      - name: Run Server / Get Pages
+        run: go run cmd/server/server.go -from=${{ runner.temp }}/bench.txt & scripts/pages
+
+#      - name: Benchmark Go logging libraries
+#        run: go run cmd/server/server.go -from=/tmp/bench.txt
+#
+#      - name: Get Pages from server
+#        run: wget -r localhost:8080/go-slog -nH --cut-dirs=1 -P docs
+
+      - name: Commit benchmark results to repo
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: Update benchmark results
+          commit: '--no-verify'

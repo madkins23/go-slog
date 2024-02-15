@@ -318,6 +318,8 @@ The root page shows links to various test data pages and the warnings:
 Test pages show the same tables as `tabular` plus charts comparing the results:
 ![Test pages show the same tables as `tabular` plus charts comparing the results.](../cmd/server/images/test.png)
 
+[Recent benchmark data](https://madkins23.github.io/go-slog/index.html).
+
 ---
 
 [^1]: Don't use `-v` in the `go test -bench` command when using `gobenchdata`.
