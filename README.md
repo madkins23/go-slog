@@ -57,6 +57,8 @@ The benchmark data generated can be processed by two applications:
 * [`server`](cmd/server/server.go)  
   runs a simple web server showing the same tables plus bar charts.
 
+[Recent benchmark data](https://madkins23.github.io/go-slog/index.html).
+
 ## Gin Logging Redirect
 
 Package `gin` contains utilities for using `slog` with `gin-gonic/gin`.
