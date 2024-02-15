@@ -26,13 +26,16 @@ jobs:
         run: go get -u ./... && go mod tidy
 
       - name: Benchmark Go logging libraries
-        run: go test -bench=. bench/*.go | go run cmd/server/server.go
+        run: go test -bench=. bench/*.go > /tmp/bench.txt
 
-      - name: Get Pages from server
-        run: wget -r localhost:8080/go-slog -nH --cut-dirs=1 -P docs
-
-      - name: Commit benchmark results to repo
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: Update benchmark results
-          commit: '--no-verify'
+#      - name: Benchmark Go logging libraries
+#        run: go run cmd/server/server.go -from=/tmp/bench.txt
+#
+#      - name: Get Pages from server
+#        run: wget -r localhost:8080/go-slog -nH --cut-dirs=1 -P docs
+#
+#      - name: Commit benchmark results to repo
+#        uses: EndBug/add-and-commit@v9
+#        with:
+#          message: Update benchmark results
+#          commit: '--no-verify'
