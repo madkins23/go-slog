@@ -8,26 +8,26 @@ L 148 68" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path  
 L 148 92" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path  d="M 143 116
 L 148 116" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path  d="M 143 140
 L 148 140" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path  d="M 148 45
-L 148 140" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><text x="10" y="63" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Slog JSONHandler</text><text x="28" y="87" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Samber Zerolog</text><text x="54" y="111" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Samber Zap</text><text x="34" y="135" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Phsym Zerolog</text><text x="144" y="165" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">0</text><text x="206" y="165" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">2.36k</text><text x="283" y="165" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">4.72k</text><text x="361" y="165" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">7.08k</text><path  d="M 186 45
+L 148 140" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><text x="10" y="63" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Slog JSONHandler</text><text x="28" y="87" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Samber Zerolog</text><text x="54" y="111" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Samber Zap</text><text x="34" y="135" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Phsym Zerolog</text><text x="144" y="165" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">0</text><text x="206" y="165" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">1.52k</text><text x="283" y="165" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">3.04k</text><text x="361" y="165" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">4.56k</text><path  d="M 186 45
 L 186 140" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 225 45
 L 225 140" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 264 45
 L 264 140" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 302 45
 L 302 140" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 341 45
 L 341 140" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 380 45
 L 380 140" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 148 121
-L 156 121
-L 156 134
+L 162 121
+L 162 134
 L 148 134
 L 148 121" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/><path  d="M 148 97
-L 364 97
-L 364 110
+L 369 97
+L 369 110
 L 148 110
 L 148 97" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/><path  d="M 148 73
-L 300 73
-L 300 86
+L 341 73
+L 341 86
 L 148 86
 L 148 73" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/><path  d="M 148 50
-L 161 50
-L 161 63
+L 166 50
+L 166 63
 L 148 63
 L 148 50" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/></svg>

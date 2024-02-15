@@ -71,12 +71,19 @@ Warnings for phsym/zeroslog:
   Implied
      1 [SourceKey] Source data not logged when AddSource flag set
          Benchmark_slog_phsym_zerolog: Simple_Source: no source key
-           {&#34;level&#34;:&#34;info&#34;,&#34;caller&#34;:&#34;/home/marc/work/go/src/github.com/madkins23/go-slog/bench/tests/benchmarks.go:69&#34;,&#34;time&#34;:&#34;2024-02-12T09:00:09-08:00&#34;,&#34;message&#34;:&#34;This is a message&#34;}
+           {&#34;level&#34;:&#34;info&#34;,&#34;caller&#34;:&#34;/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:69&#34;,&#34;time&#34;:&#34;2024-02-15T15:35:48Z&#34;,&#34;message&#34;:&#34;This is a message&#34;}
+
+Warnings for samber/slog-zap:
+  Implied
+     1 [SourceKey] Source data not logged when AddSource flag set
+         Benchmark_slog_samber_zap: Simple_Source: no source key
+           {&#34;level&#34;:&#34;info&#34;,&#34;time&#34;:&#34;2024-02-15T15:36:05Z&#34;,&#34;caller&#34;:&#34;tests/benchmarks.go:69&#34;,&#34;msg&#34;:&#34;This is a message&#34;}
 
  Handlers by warning:
   Implied
     [SourceKey] Source data not logged when AddSource flag set
       phsym/zeroslog
+      samber/slog-zap
   Administrative
     [NoHandlerCreation] Test depends on unavailable handler creation
       darvaza/zerolog
