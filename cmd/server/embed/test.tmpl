@@ -1,14 +1,14 @@
 <html>
 <head>
   <title>Benchmark Data</title>
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/go-slog/style.css">
 </head>
 
 <body>
 <table class="top">
   <tr>
     <td>
-      <a href="/index.html"><img src="/home.svg" alt="Home" class="home" /></a>
+      <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
       <h1 class="home">Test {{ .Data.TestName .Test }}</h1>
     </td>
     <td align="right">
@@ -43,12 +43,12 @@
     <td colspan=2 align="center">
       <table>
         <tr>
-          <td><img src="/chart/{{ .Test }}/Nanos.svg" alt="{{ .Data.TestName .Test }} Ns/Op" class="chart" /></td>
-          <td><img src="/chart/{{ .Test }}/MemAllocs.svg" alt="{{ .Data.TestName .Test }} Allocs/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Test }}/Nanos.svg" alt="{{ .Data.TestName .Test }} Ns/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Test }}/MemAllocs.svg" alt="{{ .Data.TestName .Test }} Allocs/Op" class="chart" /></td>
         </tr>
         <tr>
-          <td><img src="/chart/{{ .Test }}/MemBytes.svg" alt="{{ .Data.TestName .Test }} Bytes/Op" class="chart" /></td>
-          <td><img src="/chart/{{ .Test }}/GbPerSec.svg" alt="{{ .Data.TestName .Test }} GB/Sec" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Test }}/MemBytes.svg" alt="{{ .Data.TestName .Test }} Bytes/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Test }}/GbPerSec.svg" alt="{{ .Data.TestName .Test }} GB/Sec" class="chart" /></td>
         </tr>
       </table>
     </td>

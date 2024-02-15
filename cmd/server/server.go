@@ -61,13 +61,13 @@ func main() {
 
 	router := gin.Default()
 	rootPageFn := pageFunction(pageRoot)
-	router.GET("/", rootPageFn)
-	router.GET("/index.html", rootPageFn)
-	router.GET("/test/:tag", pageFunction(pageTest))
-	router.GET("/handler/:tag", pageFunction(pageHandler))
-	router.GET("/chart/:tag/:item", chartFunction)
-	router.GET("/home.svg", svgFunction(home))
-	router.GET("/style.css", textFunction(css))
+	router.GET("/go-slog/", rootPageFn)
+	router.GET("/go-slog/index.html", rootPageFn)
+	router.GET("/go-slog/test/:tag", pageFunction(pageTest))
+	router.GET("/go-slog/handler/:tag", pageFunction(pageHandler))
+	router.GET("/go-slog/chart/:tag/:item", chartFunction)
+	router.GET("/go-slog/home.svg", svgFunction(home))
+	router.GET("/go-slog/style.css", textFunction(css))
 
 	if err := router.SetTrustedProxies(nil); err != nil {
 		slog.Error("Don't trust proxies", "err", err)
@@ -75,7 +75,7 @@ func main() {
 	}
 
 	// Listen and serve on 0.0.0.0:8080 (for windows "localhost:8080"). {
-	slog.Info("Web Server @ http://localhost:8080")
+	slog.Info("Web Server @ http://localhost:8080/go-slog")
 	if err := router.Run(); err != nil {
 		slog.Error("Error during ListenAndServe()", "err", err)
 	}

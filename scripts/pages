@@ -2,4 +2,4 @@
 
 # Get pages from server
 
-wget -r localhost:8080 -nH -P docs
+wget -r localhost:8080/go-slog -nH --cut-dirs=1 -P docs

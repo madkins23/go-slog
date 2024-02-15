@@ -1,7 +1,7 @@
 <html>
 <head>
   <title>Benchmarks</title>
-  <link rel="stylesheet" href="/style.css">
+  <link rel="stylesheet" href="/go-slog/style.css">
 </head>
 
 <body>
@@ -11,7 +11,7 @@
         <legend>Tests</legend>
         <table>
           {{ range .Data.TestTags }}
-            <tr><td><a href="test/{{ . }}.html">{{ $.Data.TestName . }}</a></td></tr>
+            <tr><td><a href="/go-slog/test/{{ . }}.html">{{ $.Data.TestName . }}</a></td></tr>
           {{ end }}
         </table>
       </fieldset>
@@ -20,7 +20,7 @@
         <legend>Handlers</legend>
         <table>
           {{ range .Data.HandlerTags }}
-            <tr><td><a href="handler/{{ . }}.html">{{ $.Data.HandlerName . }}</a></td></tr>
+            <tr><td><a href="/go-slog/handler/{{ . }}.html">{{ $.Data.HandlerName . }}</a></td></tr>
           {{ end }}
         </table>
       </fieldset>
