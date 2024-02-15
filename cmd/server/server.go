@@ -44,7 +44,7 @@ var (
 )
 
 func main() {
-	flag.Parse() // Necessary for -json=<file> argument defined in infra package.
+	flag.Parse() // Necessary for -from=<file> argument defined in internal/bench package.
 
 	gin.DefaultWriter = ginslog.NewWriter(&ginslog.Options{})
 	gin.DefaultErrorWriter = ginslog.NewWriter(&ginslog.Options{Level: slog.LevelError})
