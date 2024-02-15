@@ -28,14 +28,17 @@ jobs:
       - name: Benchmark Go logging libraries
         run: go test -bench=. bench/*.go > ${{ runner.temp }}/bench.txt
 
+      - name: Run Server / Get Pages
+        run: go run cmd/server/server.go -from=${{ runner.temp }}/bench.txt & scripts/pages
+
 #      - name: Benchmark Go logging libraries
 #        run: go run cmd/server/server.go -from=/tmp/bench.txt
 #
 #      - name: Get Pages from server
 #        run: wget -r localhost:8080/go-slog -nH --cut-dirs=1 -P docs
-#
-#      - name: Commit benchmark results to repo
-#        uses: EndBug/add-and-commit@v9
-#        with:
-#          message: Update benchmark results
-#          commit: '--no-verify'
+
+      - name: Commit benchmark results to repo
+        uses: EndBug/add-and-commit@v9
+        with:
+          message: Update benchmark results
+          commit: '--no-verify'
