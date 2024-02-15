@@ -22,12 +22,11 @@ jobs:
           go-version: '1.21'
           check-latest: true
 
-      - name: Install the latest versions of each library
-        run: go get -u ./... && go mod tidy
+#      - name: Install the latest versions of each library
+#        run: go get -u ./... && go mod tidy
 
       - name: Benchmark Go logging libraries
-        run: go test -bench=. bench/*.go
-#       run: go test -bench=. bench/*.go > ${{ runner.temp }}/bench.txt
+        run: go test -bench=. bench/*.go > ${{ runner.temp }}/bench.txt
 
 #      - name: Benchmark Go logging libraries
 #        run: go run cmd/server/server.go -from=/tmp/bench.txt
