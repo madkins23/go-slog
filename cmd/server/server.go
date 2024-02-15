@@ -17,6 +17,9 @@ import (
 	"github.com/vicanso/go-charts/v2"
 	"golang.org/x/text/message"
 
+	"github.com/madkins23/gin-utils/pkg/handler"
+	"github.com/madkins23/gin-utils/pkg/shutdown"
+
 	ginslog "github.com/madkins23/go-slog/gin"
 	"github.com/madkins23/go-slog/internal/bench"
 	"github.com/madkins23/go-slog/internal/language"
@@ -26,6 +29,8 @@ import (
 // See scripts/server for usage example.
 
 type pageType string
+
+const port = 8080
 
 const (
 	pageRoot    = "root"
@@ -59,6 +64,10 @@ func main() {
 		return
 	}
 
+	graceful := &shutdown.Graceful{}
+	graceful.Initialize()
+	defer graceful.Close()
+
 	router := gin.Default()
 	rootPageFn := pageFunction(pageRoot)
 	router.GET("/go-slog/", rootPageFn)
@@ -68,6 +77,7 @@ func main() {
 	router.GET("/go-slog/chart/:tag/:item", chartFunction)
 	router.GET("/go-slog/home.svg", svgFunction(home))
 	router.GET("/go-slog/style.css", textFunction(css))
+	router.GET("/go-slog/exit", handler.Exit)
 
 	if err := router.SetTrustedProxies(nil); err != nil {
 		slog.Error("Don't trust proxies", "err", err)
@@ -76,8 +86,9 @@ func main() {
 
 	// Listen and serve on 0.0.0.0:8080 (for windows "localhost:8080"). {
 	slog.Info("Web Server @ http://localhost:8080/go-slog")
-	if err := router.Run(); err != nil {
-		slog.Error("Error during ListenAndServe()", "err", err)
+
+	if err := graceful.Serve(router, port); err != nil {
+		slog.Error("Running gin server", "err", err)
 	}
 }
 
