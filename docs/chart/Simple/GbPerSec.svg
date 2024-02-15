@@ -9,7 +9,7 @@ L 148 91" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path  
 L 148 114" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path  d="M 143 137
 L 148 137" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path  d="M 143 160
 L 148 160" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path  d="M 148 45
-L 148 160" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><text x="10" y="63" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Slog JSONHandler</text><text x="28" y="86" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Samber Zerolog</text><text x="54" y="109" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Samber Zap</text><text x="34" y="132" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Phsym Zerolog</text><text x="25" y="155" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Darvaza Zerolog</text><text x="120" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">155.34k</text><text x="197" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">466.02k</text><text x="278" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">776.7k</text><text x="358" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">1.08M</text><path  d="M 186 45
+L 148 160" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><text x="10" y="63" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Slog JSONHandler</text><text x="28" y="86" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Samber Zerolog</text><text x="54" y="109" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Samber Zap</text><text x="34" y="132" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Phsym Zerolog</text><text x="25" y="155" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Darvaza Zerolog</text><text x="120" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">151.26k</text><text x="197" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">453.78k</text><text x="278" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">756.3k</text><text x="358" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">1.05M</text><path  d="M 186 45
 L 186 160" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 225 45
 L 225 160" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 264 45
 L 264 160" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 302 45
@@ -20,12 +20,12 @@ L 240 142
 L 240 155
 L 148 155
 L 148 142" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/><path  d="M 148 119
-L 390 119
-L 390 132
+L 389 119
+L 389 132
 L 148 132
 L 148 119" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/><path  d="M 148 96
-L 195 96
-L 195 109
+L 194 96
+L 194 109
 L 148 109
 L 148 96" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/><path  d="M 148 73
 L 235 73
