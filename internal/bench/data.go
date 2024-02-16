@@ -15,7 +15,7 @@ import (
 	"strings"
 )
 
-var fromFile = flag.String("from", "", "Load data from path (optional)")
+var benchFile = flag.String("bench", "", "Load benchmark data from path (optional)")
 
 // -----------------------------------------------------------------------------
 // Records matching gobenchdata JSON output.
@@ -103,9 +103,9 @@ var (
 func (d *Data) LoadDataJSON() error {
 	var err error
 	var in io.Reader = os.Stdin
-	if *fromFile != "" {
-		if in, err = os.Open(*fromFile); err != nil {
-			return fmt.Errorf("opening input file %s: %s\n", *fromFile, err)
+	if *benchFile != "" {
+		if in, err = os.Open(*benchFile); err != nil {
+			return fmt.Errorf("open --bench=%s: %s\n", *benchFile, err)
 		}
 	}
 	reader := bufio.NewReader(in)

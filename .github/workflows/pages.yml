@@ -22,20 +22,17 @@ jobs:
           go-version: '1.21'
           check-latest: true
 
+# Not using now because updates to zerolog 1.32 break phsym/zeroslog.
 #      - name: Install the latest versions of each library
 #        run: go get -u ./... && go mod tidy
+# TODO: that kind of thing shouldn't break bench and verify functionality,
+#       should just be a warning of some sort
 
       - name: Benchmark Go logging libraries
         run: go test -bench=. bench/*.go > ${{ runner.temp }}/bench.txt
 
       - name: Run Server / Get Pages
-        run: go run cmd/server/server.go -from=${{ runner.temp }}/bench.txt & scripts/pages
-
-#      - name: Benchmark Go logging libraries
-#        run: go run cmd/server/server.go -from=/tmp/bench.txt
-#
-#      - name: Get Pages from server
-#        run: wget -r localhost:8080/go-slog -nH --cut-dirs=1 -P docs
+        run: go run cmd/server/server.go -bench=${{ runner.temp }}/bench.txt & scripts/pages
 
       - name: Commit benchmark results to repo
         uses: EndBug/add-and-commit@v9
