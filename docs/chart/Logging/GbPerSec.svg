@@ -9,15 +9,15 @@ L 148 91" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path  
 L 148 114" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path  d="M 143 137
 L 148 137" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path  d="M 143 160
 L 148 160" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path  d="M 148 45
-L 148 160" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><text x="10" y="63" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Slog JSONHandler</text><text x="28" y="86" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Samber Zerolog</text><text x="54" y="109" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Samber Zap</text><text x="34" y="132" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Phsym Zerolog</text><text x="25" y="155" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Darvaza Zerolog</text><text x="144" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">0</text><text x="210" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">7.4k</text><text x="283" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">14.8k</text><text x="361" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">22.2k</text><path  d="M 186 45
+L 148 160" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><text x="10" y="63" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Slog JSONHandler</text><text x="28" y="86" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Samber Zerolog</text><text x="54" y="109" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Samber Zap</text><text x="34" y="132" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Phsym Zerolog</text><text x="25" y="155" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">Darvaza Zerolog</text><text x="144" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">0</text><text x="210" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">7.6k</text><text x="283" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">15.2k</text><text x="361" y="185" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">22.8k</text><path  d="M 186 45
 L 186 160" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 225 45
 L 225 160" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 264 45
 L 264 160" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 302 45
 L 302 160" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 341 45
 L 341 160" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 380 45
 L 380 160" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 148 142
-L 167 142
-L 167 155
+L 168 142
+L 168 155
 L 148 155
 L 148 142" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/><path  d="M 148 119
 L 369 119
@@ -32,7 +32,7 @@ L 167 73
 L 167 86
 L 148 86
 L 148 73" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/><path  d="M 148 50
-L 267 50
-L 267 63
+L 250 50
+L 250 63
 L 148 63
 L 148 50" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/></svg>
