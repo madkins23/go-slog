@@ -20,7 +20,7 @@ var justTests = flag.Bool("justTests", false, "Don't run benchmarks, just tests"
 
 type SlogBenchmarkSuite struct {
 	infra.Creator
-	*infra.WarningManager
+	*test.WarningManager
 
 	b  *testing.B
 	mu sync.RWMutex

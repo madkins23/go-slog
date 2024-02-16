@@ -1,4 +1,4 @@
-package infra
+package test
 
 import (
 	"flag"
@@ -6,6 +6,7 @@ import (
 	"io"
 	"log/slog"
 	"os"
+	"runtime"
 	"sort"
 	"strings"
 	"testing"
@@ -123,21 +124,21 @@ func (wrnMgr *WarningManager) AddUnused(w *warning.Warning, logRecordJSON string
 
 // AddWarning to results list, specifying warning string and optional extra text.
 // If the addLogRecord flag is true the current log record JSON is also stored.
-// The current function name is acquired from the CurrentFunctionName() and stored.
+// The current function name is acquired from the currentFunctionName() and stored.
 func (wrnMgr *WarningManager) AddWarning(w *warning.Warning, text string, logRecordJSON string) {
-	wrnMgr.addWarning(w, CurrentFunctionName(wrnMgr.fnPrefix), text, logRecordJSON)
+	wrnMgr.addWarning(w, currentFunctionName(wrnMgr.fnPrefix), text, logRecordJSON)
 }
 
 // AddWarningFn to results list, specifying warning string and function name.
 // If the addLogRecord flag is true the current log record JSON is also stored.
-// The current function name is acquired from the CurrentFunctionName() and stored.
+// The current function name is acquired from the currentFunctionName() and stored.
 func (wrnMgr *WarningManager) AddWarningFn(w *warning.Warning, fnName string, logRecordJSON string) {
 	wrnMgr.addWarning(w, fnName, "", logRecordJSON)
 }
 
 // addWarning to results list, specifying warning string, function name, and optional extra text.
 // If the addLogRecord flag is true the current log record JSON is also stored.
-// The current function name is acquired from the CurrentFunctionName() and stored.
+// The current function name is acquired from the currentFunctionName() and stored.
 func (wrnMgr *WarningManager) addWarning(w *warning.Warning, fnName string, text string, logRecordJSON string) {
 	if wrnMgr.warnings == nil {
 		wrnMgr.warnings = make(map[string]*Warnings)
@@ -393,4 +394,28 @@ func WithWarnings(m *testing.M) {
 	ShowHandlersByWarning(showPrefix)
 
 	os.Exit(exitVal)
+}
+
+// -----------------------------------------------------------------------------
+// Utility
+
+// currentFunctionName checks up the call stack for the name of the current test function.
+// Only the last part of the function name (after the last period) is returned.
+// The function name is found by checking for a fnPrefix of "Test".
+// If no test function is found "Unknown" is returned.
+func currentFunctionName(prefix string) string {
+	pc := make([]uintptr, 10)
+	n := runtime.Callers(2, pc)
+	frames := runtime.CallersFrames(pc[:n])
+	more := true
+	for more {
+		var frame runtime.Frame
+		frame, more = frames.Next()
+		parts := strings.Split(frame.Function, ".")
+		functionName := parts[len(parts)-1]
+		if strings.HasPrefix(functionName, prefix) {
+			return functionName
+		}
+	}
+	return "Unknown"
 }

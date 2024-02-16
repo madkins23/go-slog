@@ -7,6 +7,7 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/madkins23/go-slog/infra"
+	"github.com/madkins23/go-slog/internal/test"
 )
 
 // -----------------------------------------------------------------------------
@@ -15,7 +16,7 @@ import (
 // SlogTestSuite provides various tests for a specified log/slog.Handler.
 type SlogTestSuite struct {
 	suite.Suite
-	*infra.WarningManager
+	*test.WarningManager
 
 	// Creator creates a slog.Handler to be used in creating a slog.Logger for a test.
 	// This field must be configured by test suites and shouldn't be changed later.
