@@ -305,6 +305,9 @@ func (suite *SlogTestSuite) TestZeroPC() {
 		if _, ok := logMap[slog.SourceKey].(map[string]any); ok {
 			suite.AddWarning(warning.ZeroPC, "", suite.Buffer.String())
 			return
+		} else if _, ok := logMap["caller"]; ok {
+			suite.AddWarning(warning.ZeroPC, "non-standard key 'caller'", suite.Buffer.String())
+			return
 		}
 		suite.AddUnused(warning.ZeroPC, "")
 	}

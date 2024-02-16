@@ -21,6 +21,7 @@ func Test_slog_samber_zap(t *testing.T) {
 	sLogSuite.WarnOnly(warning.TimeMillis)
 	sLogSuite.WarnOnly(warning.NoReplAttrBasic)
 	sLogSuite.WarnOnly(warning.Resolver)
+	sLogSuite.WarnOnly(warning.SourceKey)
 	sLogSuite.WarnOnly(warning.ZeroPC)
 	sLogSuite.WarnOnly(warning.ZeroTime)
 	suite.Run(t, sLogSuite)
