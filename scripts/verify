@@ -3,4 +3,6 @@
 # Run slog verification tests with warnings.
 
 clear
-go test -v ./verify -args -useWarnings
+mkdir -p /tmp/go-slog
+go test -v ./verify -args -useWarnings | # Run verification tests  \
+   tee /tmp/go-slog/verify.txt           # Save benchmark output
