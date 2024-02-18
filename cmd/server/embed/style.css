@@ -100,7 +100,7 @@ table.warning td.level {
     font-weight: bold;
 }
 
-table.warning td.logLine {
+table.warning td.logLine pre {
     font-family: monospace;
     background-color: antiquewhite;
     border: 2px inset antiquewhite;
@@ -113,17 +113,26 @@ table.warning td.warning {
     padding-top: 0.5em;
 }
 
-table.warning tr.instance td.logLink {
+table.instance {
+    margin: 5px;
+    padding: 5px;
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px inset darkgray;
+    background-color: lightgray;
+}
+
+table.instance td.logLink {
     text-align: center;
 }
 
-table.warning tr.instance td.name {
-#   border: 2px inset darkgray;
+table.instance td.name {
     font-family: monospace;
     font-size: 1em;
 }
 
-table.warning tr.instance td.extra {
+table.instance td.extra {
 #   border: 2px inset darkgray;
     font-family: monospace;
     font-size: 1em;

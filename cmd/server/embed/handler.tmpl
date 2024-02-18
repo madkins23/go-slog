@@ -69,63 +69,62 @@
           <colgroup>
             <col width="3%"/>
             <col width="3%"/>
-            <col width="3%"/>
-            <col width="25%"/>
-            <col width="3%"/>
-            <col width="1%"/>
-            <col width="55%"/>
-            <col width="7%"/>
+            <col width="30%"/>
+            <col width="64%"/>
           </colgroup>
           {{ $data := .Warning.ForHandler .Handler.Tag }}
           {{ range $level := $data.Levels }}
             <tr>
-              <td colspan=8 class="level">{{ $level.Name }}</td>
+              <td colspan=4 class="level">{{ $level.Name }}</td>
             </tr>
             {{ range $warning := $level.Warnings }}
               <tr>
                 <td></td>
-                <td colspan=3 class="warning">
+                <td colspan=2 class="warning">
                   {{ $warning.Name }}
                 </td>
-                <td colspan=4 class="extra">
+                <td class="extra">
                   {{ $warning.Description }}
                 </td>
               </tr>
-              {{ range $index, $instance := $warning.Instances }}
-                {{ $id := printf "%v%v" $warning.Name $instance.Name }}
-                {{ $color := "lightcyan" }}
-                {{ if eq (mod $index 2) 0 }}
-                  {{ $color = "lightgray" }}
-                {{ end }}
-                <tr class="instance">
-                  <td colspan=2></td>
-                  <td colspan=2 class="name" style="background-color:{{ $color }};">{{  $instance.Name  }}</td>
-                  <td style="background-color:{{ $color }};"></td>
-                  <td colspan=2 class="extra" style="background-color:{{ $color }};">{{ $instance.Extra }}</td>
-                  <td class="logLink" style="background-color:{{ $color }};">
-                    {{ if $instance.HasLog }}
-                      <button type="button" onclick="toggleTableRow('{{ $id }}')">Log</button>
-                    {{ end }}
-                  </td>
-                </tr>
-                <tr id="{{ $id }}" style="display:none;">
-                  <td colspan=2></td>
-                  <td style="background-color:{{ $color }};"></td>
-                  <td colspan=5 class="logLine"><pre>{{ $instance.Log }}</pre></td>
-                </tr>
-              {{ end }}
-            {{ end }}
-          {{ end }}
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="30%"/>
+                      <col width="50%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    {{ range $index, $instance := $warning.Instances }}
+                      {{ $id := printf "%v%v" $warning.Name $instance.Name }}
+                      {{ $color := "lightcyan" }}
+                      {{ if eq (mod $index 2) 0 }}
+                        {{ $color = "lightgray" }}
+                      {{ end }}
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:{{ $color }};">{{  $instance.Name  }}</td>
+                        <td class="extra" style="background-color:{{ $color }};">{{  $instance.Extra  }}</td>
+                        <td class="logLink" style="background-color:{{ $color }};">
+                          {{ if $instance.HasLog }}
+                            <button type="button" onclick="toggleTableRow('{{ $id }}')">Log</button>
+                          {{ end }}
+                        </td>
+                      </tr>
+                      <tr id="{{ $id }}" style="display:none;">
+                        <td style="background-color:{{ $color }};"></td>
+                        <td style="background-color:{{ $color }};" colspan=3 class="logLine"><pre>{{ $instance.Log }}</pre></td>
+                      </tr>
+                    {{ end }} {{/* range over instances */}}
+                  </table>
+                </td>
+              </tr>
+            {{ end }} {{/* range over warnings */}}
+          {{ end }} {{/* range over levels */}}
         </table>
       </td>
-    </tr>
-  {{ else }}
-    <tr>
-      <td colspan=2 align="left">
-        Boo Hoo!
-      </td>
-    </tr>
-  {{ end }}
+  {{ end }} {{/* if there are warnings for this handler */}}
 </table>
 </div>
 </body>
