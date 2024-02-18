@@ -1,4 +1,4 @@
-package bench
+package data
 
 import (
 	"bufio"
@@ -12,7 +12,7 @@ import (
 // ParseBenchmarkData parses benchmark data from the output of go -bench.
 // The data will be loaded from os.Stdin unless the -bench=<path> flag is set
 // in which case the data will be loaded from the specified path.
-func (d *Data) ParseBenchmarkData(in io.Reader) error {
+func (d *Benchmarks) ParseBenchmarkData(in io.Reader) error {
 	var err error
 	if *benchFile != "" {
 		if in, err = os.Open(*benchFile); err != nil {

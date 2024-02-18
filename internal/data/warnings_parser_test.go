@@ -1,4 +1,4 @@
-package warning
+package data
 
 import (
 	_ "embed"
@@ -16,14 +16,14 @@ var verifyTxt string
 
 type ParserTestSuite struct {
 	suite.Suite
-	bench  *Data
-	verify *Data
+	bench  *Warnings
+	verify *Warnings
 }
 
 func (suite *ParserTestSuite) SetupSuite() {
-	suite.bench = NewData()
+	suite.bench = NewWarningData()
 	suite.Require().NoError(suite.bench.ParseWarningData(strings.NewReader(benchTxt)))
-	suite.verify = NewData()
+	suite.verify = NewWarningData()
 	suite.Require().NoError(suite.verify.ParseWarningData(strings.NewReader(verifyTxt)))
 }
 

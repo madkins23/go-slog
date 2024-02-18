@@ -1,14 +1,14 @@
-package bench
+package data
 
 // -----------------------------------------------------------------------------
 
-// TestItems are specific pieces of benchmark data available per test.
+// BenchItems are specific pieces of benchmark data available per test.
 //
-//go:generate go run github.com/dmarkham/enumer -type=TestItems
-type TestItems uint
+//go:generate go run github.com/dmarkham/enumer -type=BenchItems
+type BenchItems uint
 
 const (
-	Runs TestItems = iota
+	Runs BenchItems = iota
 	Nanos
 	MemAllocs
 	MemBytes
@@ -19,7 +19,7 @@ const (
 
 // -----------------------------------------------------------------------------
 
-var testItemData = map[TestItems]struct {
+var testItemData = map[BenchItems]struct {
 	short string
 	long  string
 }{
@@ -55,10 +55,10 @@ var testItemData = map[TestItems]struct {
 
 // -----------------------------------------------------------------------------
 
-func (item TestItems) ShortName() string {
+func (item BenchItems) ShortName() string {
 	return testItemData[item].short
 }
 
-func (item TestItems) LongName() string {
+func (item BenchItems) LongName() string {
 	return testItemData[item].long
 }

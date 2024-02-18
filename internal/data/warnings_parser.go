@@ -1,4 +1,4 @@
-package warning
+package data
 
 import (
 	"bufio"
@@ -29,7 +29,7 @@ var (
 // ParseWarningData parses warning data from the output of benchmark and verification testing.
 // The data will be loaded from os.Stdin unless the -bench=<path> flag is set
 // in which case the data will be loaded from the specified path.
-func (d *Data) ParseWarningData(in io.Reader) error {
+func (d *Warnings) ParseWarningData(in io.Reader) error {
 	var err error
 	if *verifyFile != "" {
 		if in, err = os.Open(*verifyFile); err != nil {

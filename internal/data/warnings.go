@@ -1,7 +1,8 @@
-package warning
+package data
 
 import (
 	"flag"
+	"log/slog"
 	"sort"
 
 	"github.com/madkins23/go-slog/warning"
@@ -11,18 +12,8 @@ var verifyFile = flag.String("verify", "", "Load verification data from path (op
 
 // -----------------------------------------------------------------------------
 
-// TestTag is a unique name for a Benchmark or Verification test.
-// The type is an alias for string so that types can't be confused.
-type TestTag string
-
-// HandlerTag is a unique name for a slog handler.
-// The type is an alias for string so that types can't be confused.
-type HandlerTag string
-
-// -----------------------------------------------------------------------------
-
-// Data encapsulates benchmark records by BenchmarkName and HandlerTag.
-type Data struct {
+// Warnings encapsulates benchmark records by BenchmarkName and HandlerTag.
+type Warnings struct {
 	byTest       map[TestTag]*Levels
 	byHandler    map[HandlerTag]*Levels
 	tests        []TestTag
@@ -31,8 +22,8 @@ type Data struct {
 	testNames    map[TestTag]string
 }
 
-func NewData() *Data {
-	return &Data{
+func NewWarningsData() *Warnings {
+	return &Warnings{
 		byTest:       make(map[TestTag]*Levels),
 		byHandler:    make(map[HandlerTag]*Levels),
 		tests:        make([]TestTag, 0),
@@ -42,27 +33,28 @@ func NewData() *Data {
 	}
 }
 
-func (d *Data) HasTest(test TestTag) bool {
+func (d *Warnings) HasTest(test TestTag) bool {
 	_, found := d.byTest[test]
 	return found
 }
 
-func (d *Data) HasHandler(handler HandlerTag) bool {
+func (d *Warnings) HasHandler(handler HandlerTag) bool {
+	slog.Info("HasHandler()", "handler", handler)
 	_, found := d.byHandler[handler]
 	return found
 }
 
-func (d *Data) ForTest(test TestTag) *Levels {
+func (d *Warnings) ForTest(test TestTag) *Levels {
 	return d.byTest[test]
 }
 
-func (d *Data) ForHandler(handler HandlerTag) *Levels {
+func (d *Warnings) ForHandler(handler HandlerTag) *Levels {
 	return d.byHandler[handler]
 }
 
 // HandlerName returns the full name associated with a HandlerTag.
 // If there is no full name the tag is returned.
-func (d *Data) HandlerName(handler HandlerTag) string {
+func (d *Warnings) HandlerName(handler HandlerTag) string {
 	if name, found := d.handlerNames[handler]; found {
 		return name
 	} else {
@@ -71,7 +63,7 @@ func (d *Data) HandlerName(handler HandlerTag) string {
 }
 
 // HandlerTags returns an array of all handler names sorted alphabetically.
-func (d *Data) HandlerTags() []HandlerTag {
+func (d *Warnings) HandlerTags() []HandlerTag {
 	if len(d.handlers) < 1 {
 		for handler := range d.byHandler {
 			d.handlers = append(d.handlers, handler)
@@ -83,7 +75,7 @@ func (d *Data) HandlerTags() []HandlerTag {
 	return d.handlers
 }
 
-func (d *Data) findHandler(handler HandlerTag, level warning.Level, warningName string) *dataWarning {
+func (d *Warnings) findHandler(handler HandlerTag, level warning.Level, warningName string) *dataWarning {
 	levels, ok := d.byHandler[handler]
 	if !ok {
 		levels = &Levels{
@@ -95,7 +87,7 @@ func (d *Data) findHandler(handler HandlerTag, level warning.Level, warningName 
 	return levels.findLevel(level, warningName)
 }
 
-func (d *Data) findTest(test TestTag, level warning.Level, warningName string) *dataWarning {
+func (d *Warnings) findTest(test TestTag, level warning.Level, warningName string) *dataWarning {
 	levels, ok := d.byTest[test]
 	if !ok {
 		levels = &Levels{

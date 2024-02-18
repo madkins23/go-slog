@@ -1,4 +1,4 @@
-package bench
+package data
 
 import (
 	"flag"
@@ -10,14 +10,6 @@ import (
 var benchFile = flag.String("bench", "", "Load benchmark data from path (optional)")
 
 // -----------------------------------------------------------------------------
-
-// TestTag is a unique name for a Benchmark test.
-// The type is an alias for string so that types can't be confused.
-type TestTag string
-
-// HandlerTag is a unique name for a slog handler.
-// The type is an alias for string so that types can't be confused.
-type HandlerTag string
 
 // TestRecords is a map of test records by test tag.
 type TestRecords map[TestTag]TestRecord
@@ -40,7 +32,7 @@ func (tr *TestRecord) IsEmpty() bool {
 	return tr.Runs == 0
 }
 
-func (tr *TestRecord) ItemValue(item TestItems) float64 {
+func (tr *TestRecord) ItemValue(item BenchItems) float64 {
 	switch item {
 	case Runs:
 		return float64(tr.Runs)
@@ -64,8 +56,8 @@ func (tr *TestRecord) ItemValue(item TestItems) float64 {
 
 // -----------------------------------------------------------------------------
 
-// Data encapsulates benchmark records by BenchmarkName and HandlerTag.
-type Data struct {
+// Benchmarks encapsulates benchmark records by BenchmarkName and HandlerTag.
+type Benchmarks struct {
 	byTest       map[TestTag]HandlerRecords
 	byHandler    map[HandlerTag]TestRecords
 	tests        []TestTag
@@ -76,8 +68,8 @@ type Data struct {
 	warningText  []string
 }
 
-func NewData() *Data {
-	return &Data{
+func NewBenchmarks() *Benchmarks {
+	return &Benchmarks{
 		byTest:       make(map[TestTag]HandlerRecords),
 		byHandler:    make(map[HandlerTag]TestRecords),
 		testNames:    make(map[TestTag]string),
@@ -100,7 +92,7 @@ var (
 
 // HandlerName returns the full name associated with a HandlerTag.
 // If there is no full name the tag is returned.
-func (d *Data) HandlerName(handler HandlerTag) string {
+func (d *Benchmarks) HandlerName(handler HandlerTag) string {
 	if name, found := d.handlerNames[handler]; found {
 		return name
 	} else {
@@ -109,12 +101,12 @@ func (d *Data) HandlerName(handler HandlerTag) string {
 }
 
 // HandlerRecords returns a map of HandlerTag to TestRecord for the specified benchmark.
-func (d *Data) HandlerRecords(test TestTag) HandlerRecords {
+func (d *Benchmarks) HandlerRecords(test TestTag) HandlerRecords {
 	return d.byTest[test]
 }
 
 // HandlerTags returns an array of all handler names sorted alphabetically.
-func (d *Data) HandlerTags() []HandlerTag {
+func (d *Benchmarks) HandlerTags() []HandlerTag {
 	if d.handlers == nil {
 		for handler := range d.byHandler {
 			d.handlers = append(d.handlers, handler)
@@ -128,7 +120,7 @@ func (d *Data) HandlerTags() []HandlerTag {
 
 // TestName returns the full name associated with a TestTag.
 // If there is no full name the tag is returned.
-func (d *Data) TestName(test TestTag) string {
+func (d *Benchmarks) TestName(test TestTag) string {
 	if name, found := d.testNames[test]; found {
 		return name
 	} else {
@@ -137,12 +129,12 @@ func (d *Data) TestName(test TestTag) string {
 }
 
 // TestRecords returns a map of HandlerTag to TestRecord for the specified benchmark.
-func (d *Data) TestRecords(handler HandlerTag) TestRecords {
+func (d *Benchmarks) TestRecords(handler HandlerTag) TestRecords {
 	return d.byHandler[handler]
 }
 
 // TestTags returns an array of all test names sorted alphabetically.
-func (d *Data) TestTags() []TestTag {
+func (d *Benchmarks) TestTags() []TestTag {
 	if d.tests == nil {
 		for test := range d.byTest {
 			d.tests = append(d.tests, test)
@@ -155,11 +147,11 @@ func (d *Data) TestTags() []TestTag {
 }
 
 // HasWarningText from end of benchmark run.
-func (d *Data) HasWarningText() bool {
+func (d *Benchmarks) HasWarningText() bool {
 	return len(d.warningText) > 0
 }
 
 // WarningText from end of benchmark run.
-func (d *Data) WarningText() []string {
+func (d *Benchmarks) WarningText() []string {
 	return d.warningText
 }

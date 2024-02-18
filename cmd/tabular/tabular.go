@@ -11,7 +11,7 @@ import (
 
 	"github.com/madkins23/go-utils/text/table"
 
-	"github.com/madkins23/go-slog/internal/bench"
+	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/language"
 )
 
@@ -32,7 +32,7 @@ func main() {
 		return
 	}
 
-	data := bench.NewData()
+	data := data.NewBenchmarks()
 	if err := data.ParseBenchmarkData(nil); err != nil {
 		slog.Error("Error parsing -bench data", "err", err)
 		return
@@ -44,8 +44,8 @@ func main() {
 		fmt.Printf("\nBenchmark %s\n", data.TestName(test))
 		fmt.Println(tableMgr.BorderString(table.Top))
 		fmt.Printf(tableMgr.HeaderFormat(), "Handler",
-			bench.Runs.ShortName(), bench.Nanos.ShortName(),
-			bench.MemAllocs.ShortName(), bench.MemBytes.ShortName(), bench.GbPerSec.ShortName())
+			data.Runs.ShortName(), data.Nanos.ShortName(),
+			data.MemAllocs.ShortName(), data.MemBytes.ShortName(), data.GbPerSec.ShortName())
 		fmt.Println(tableMgr.SeparatorString(1))
 		handlerRecords := data.HandlerRecords(test)
 		for _, handler := range data.HandlerTags() {
