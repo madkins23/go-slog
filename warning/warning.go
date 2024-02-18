@@ -1,6 +1,9 @@
 package warning
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 // -----------------------------------------------------------------------------
 
@@ -28,6 +31,13 @@ var (
 		LevelImplied:   "Implied",
 		LevelRequired:  "Required",
 	}
+	levelParse = map[string]Level{
+		"admin":          LevelAdmin,
+		"administrative": LevelAdmin,
+		"suggested":      LevelSuggested,
+		"implied":        LevelImplied,
+		"required":       LevelRequired,
+	}
 )
 
 func (l Level) String() string {
@@ -36,6 +46,13 @@ func (l Level) String() string {
 	} else {
 		return fmt.Sprintf("Unknown level %d", l)
 	}
+}
+
+func ParseLevel(text string) (Level, error) {
+	if level, found := levelParse[strings.ToLower(text)]; found {
+		return level, nil
+	}
+	return levelUnused, fmt.Errorf("no warning level '%s'", text)
 }
 
 // Warning definition.
