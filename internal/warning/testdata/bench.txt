@@ -1,0 +1,92 @@
+goos: linux
+goarch: amd64
+cpu: Intel(R) Core(TM) i7-7820HQ CPU @ 2.90GHz
+Benchmark_slog_darvaza_zerolog/Benchmark_Attributes-8         	  297088	      3418 ns/op	35286779.68 MB/s	    4979 B/op	      58 allocs/op
+Benchmark_slog_darvaza_zerolog/Benchmark_Big_Group-8          	    2065	    549408 ns/op	67149.93 MB/s	  648793 B/op	   10496 allocs/op
+Benchmark_slog_darvaza_zerolog/Benchmark_Disabled-8           	527030310	         2.247 ns/op	       0 B/op	       0 allocs/op
+Benchmark_slog_darvaza_zerolog/Benchmark_Key_Values-8         	  275192	      3769 ns/op	29641049.27 MB/s	    5365 B/op	      59 allocs/op
+Benchmark_slog_darvaza_zerolog/Benchmark_Logging-8            	   19357	     60749 ns/op	2813914.34 MB/s	   81692 B/op	    1173 allocs/op
+Benchmark_slog_darvaza_zerolog/Benchmark_Simple-8             	 3640400	       339.3 ns/op	879751824.80 MB/s	     360 B/op	       3 allocs/op
+Benchmark_slog_darvaza_zerolog/Benchmark_Simple_Source-8      	 1293595	       936.7 ns/op	408796374.34 MB/s	    1243 B/op	      12 allocs/op
+Benchmark_slog_phsym_zerolog/Benchmark_Attributes-8           	 1532857	       784.3 ns/op	793543589.50 MB/s	     272 B/op	       2 allocs/op
+Benchmark_slog_phsym_zerolog/Benchmark_Big_Group-8            	    5097	    240587 ns/op	387767.78 MB/s	  261820 B/op	    3949 allocs/op
+Benchmark_slog_phsym_zerolog/Benchmark_Disabled-8             	485452178	         2.476 ns/op	       0 B/op	       0 allocs/op
+Benchmark_slog_phsym_zerolog/Benchmark_Key_Values-8           	 1000000	      1017 ns/op	399339262.31 MB/s	     657 B/op	       3 allocs/op
+Benchmark_slog_phsym_zerolog/Benchmark_Logging-8              	   73176	     16435 ns/op	39318973.54 MB/s	       0 B/op	       0 allocs/op
+Benchmark_slog_phsym_zerolog/Benchmark_Simple-8               	 5187471	       223.1 ns/op	1907041832.39 MB/s	       0 B/op	       0 allocs/op
+2024/02/16 11:42:50 WARN Verification Error err="Implied [SourceKey] Source data not logged when AddSource flag set: Simple_Source: no source key"
+Benchmark_slog_phsym_zerolog/Benchmark_Simple_Source-8        	 2691404	       448.2 ns/op	1044935979.59 MB/s	     328 B/op	       4 allocs/op
+Benchmark_slog_phsym_zerolog/Benchmark_With_Attrs_Attributes-8         	 1410283	       849.9 ns/op	1264398619.09 MB/s     272 B/op	       2 allocs/op
+Benchmark_slog_phsym_zerolog/Benchmark_With_Attrs_Key_Values-8         	 1000000	      1031 ns/op	738839267.11 MB/s	     657 B/op	       3 allocs/op
+Benchmark_slog_phsym_zerolog/Benchmark_With_Attrs_Simple-8             	 4785661	       237.5 ns/op	8823957133.88 MB/s       0 B/op	       0 allocs/op
+Benchmark_slog_phsym_zerolog/Benchmark_With_Group_Attributes-8         	 1196600	       974.5 ns/op	515747697.73 MB/s	     561 B/op	       3 allocs/op
+Benchmark_slog_phsym_zerolog/Benchmark_With_Group_Key_Values-8         	  855955	      1322 ns/op	271942671.37 MB/s	     945 B/op	       4 allocs/op
+Benchmark_slog_samber_zap/Benchmark_Attributes-8                       	  143954	      7432 ns/op	7728812.42 MB/s	    6628 B/op	      49 allocs/op
+Benchmark_slog_samber_zap/Benchmark_Big_Group-8                        	    1693	    634413 ns/op	46808.82 MB/s	  626269 B/op	   10308 allocs/op
+Benchmark_slog_samber_zap/Benchmark_Disabled-8                         	460759838	         2.624 ns/op	       0 B/op	       0 allocs/op
+Benchmark_slog_samber_zap/Benchmark_Key_Values-8                       	  183997	      5563 ns/op	13196756.17 MB/s	    7028 B/op	      50 allocs/op
+Benchmark_slog_samber_zap/Benchmark_Logging-8                          	   12620	     93995 ns/op	1158277.86 MB/s	  121531 B/op	    1021 allocs/op
+Benchmark_slog_samber_zap/Benchmark_Simple-8                           	 2652224	       454.8 ns/op	454883675.98 MB/s	     336 B/op	       2 allocs/op
+2024/02/16 11:43:08 WARN Verification Error err="Implied [SourceKey] Source data not logged when AddSource flag set: Simple_Source: no source key"
+Benchmark_slog_samber_zap/Benchmark_Simple_Source-8                    	 1734567	       679.7 ns/op	285833326.19 MB/s	     594 B/op	       5 allocs/op
+Benchmark_slog_samber_zap/Benchmark_With_Attrs_Attributes-8            	  115239	      9270 ns/op	7744549.80 MB/s	   12179 B/op	      70 allocs/op
+Benchmark_slog_samber_zap/Benchmark_With_Attrs_Key_Values-8            	  110301	      9442 ns/op	7277797.55 MB/s	   12567 B/op	      71 allocs/op
+Benchmark_slog_samber_zap/Benchmark_With_Attrs_Simple-8                	  221038	      4812 ns/op	19799383.10 MB/s	    5595 B/op	      44 allocs/op
+Benchmark_slog_samber_zap/Benchmark_With_Group_Attributes-8            	   96128	     11384 ns/op	3276422.86 MB/s	   12931 B/op	     122 allocs/op
+Benchmark_slog_samber_zap/Benchmark_With_Group_Key_Values-8            	   99352	     11417 ns/op	3376531.38 MB/s	   13320 B/op	     123 allocs/op
+Benchmark_slog_samber_zerolog/Benchmark_Attributes-8                   	  256800	      4714 ns/op	22118660.73 MB/s	    4980 B/op	      58 allocs/op
+Benchmark_slog_samber_zerolog/Benchmark_Big_Group-8                    	    1662	    663772 ns/op	44723.95 MB/s	  646685 B/op	   10491 allocs/op
+Benchmark_slog_samber_zerolog/Benchmark_Disabled-8                     	429582392	         2.731 ns/op	       0 B/op	       0 allocs/op
+Benchmark_slog_samber_zerolog/Benchmark_Key_Values-8                   	  241617	      5043 ns/op	19451104.13 MB/s	    5366 B/op	      59 allocs/op
+Benchmark_slog_samber_zerolog/Benchmark_Logging-8                      	   14805	     84301 ns/op	1550908.72 MB/s	   81695 B/op	    1173 allocs/op
+Benchmark_slog_samber_zerolog/Benchmark_Simple-8                       	 2798904	       407.0 ns/op	563949056.19 MB/s	     360 B/op	       3 allocs/op
+Benchmark_slog_samber_zerolog/Benchmark_Simple_Source-8                	 1000000	      1139 ns/op	259776158.82 MB/s	    1243 B/op	      12 allocs/op
+Benchmark_slog_samber_zerolog/Benchmark_With_Attrs_Attributes-8        	  138198	      7936 ns/op	11023505.14 MB/s	    8730 B/op	      86 allocs/op
+Benchmark_slog_samber_zerolog/Benchmark_With_Attrs_Key_Values-8        	  145446	      8306 ns/op	11084722.59 MB/s	    9116 B/op	      87 allocs/op
+Benchmark_slog_samber_zerolog/Benchmark_With_Attrs_Simple-8            	  254359	      4613 ns/op	24150494.83 MB/s	    3938 B/op	      53 allocs/op
+Benchmark_slog_samber_zerolog/Benchmark_With_Group_Attributes-8        	   96406	     11095 ns/op	3406064.99 MB/s	   13112 B/op	     124 allocs/op
+Benchmark_slog_samber_zerolog/Benchmark_With_Group_Key_Values-8        	   98518	     11716 ns/op	3296399.14 MB/s	   13498 B/op	     125 allocs/op
+Benchmark_slog/Benchmark_Attributes-8                                  	  899839	      1310 ns/op	293838293.53 MB/s	     472 B/op	       6 allocs/op
+Benchmark_slog/Benchmark_Big_Group-8                                   	    3717	    302597 ns/op	218545.43 MB/s	  289022 B/op	    3841 allocs/op
+Benchmark_slog/Benchmark_Disabled-8                                    	416638770	         2.855 ns/op	       0 B/op	       0 allocs/op
+Benchmark_slog/Benchmark_Key_Values-8                                  	  813938	      1526 ns/op	228179267.13 MB/s	     857 B/op	       7 allocs/op
+Benchmark_slog/Benchmark_Logging-8                                     	   42247	     27706 ns/op	13923939.16 MB/s	       0 B/op	       0 allocs/op
+Benchmark_slog/Benchmark_Simple-8                                      	 3359397	       352.5 ns/op	837543130.98 MB/s	       0 B/op	       0 allocs/op
+Benchmark_slog/Benchmark_Simple_Source-8                               	 1339057	       859.3 ns/op	470444505.60 MB/s	     568 B/op	       6 allocs/op
+Benchmark_slog/Benchmark_With_Attrs_Attributes-8                       	  912880	      1371 ns/op	532695931.63 MB/s	     472 B/op	       6 allocs/op
+Benchmark_slog/Benchmark_With_Attrs_Key_Values-8                       	  774842	      1583 ns/op	391641168.14 MB/s	     857 B/op	       7 allocs/op
+Benchmark_slog/Benchmark_With_Attrs_Simple-8                           	 3156642	       378.0 ns/op	3840360490.94 MB/s       0 B/op	       0 allocs/op
+Benchmark_slog/Benchmark_With_Group_Attributes-8                       	  827185	      1350 ns/op	270832327.42 MB/s	     472 B/op	       6 allocs/op
+Benchmark_slog/Benchmark_With_Group_Key_Values-8                       	  764878	      1582 ns/op	213682512.05 MB/s	     857 B/op	       7 allocs/op
+PASS
+#
+# Warnings for darvaza/zerolog:
+#   Administrative
+#      5 [NoHandlerCreation] Test depends on unavailable handler creation
+#          Benchmark_With_Attrs_Attributes
+#          Benchmark_With_Attrs_Key_Values
+#          Benchmark_With_Attrs_Simple
+#          Benchmark_With_Group_Attributes
+#          Benchmark_With_Group_Key_Values
+# 
+# Warnings for phsym/zeroslog:
+#   Implied
+#      1 [SourceKey] Source data not logged when AddSource flag set
+#          Benchmark_slog_phsym_zerolog: Simple_Source: no source key
+#            {"level":"info","caller":"/home/marc/work/go/src/github.com/madkins23/go-slog/bench/tests/benchmarks.go:70","time":"2024-02-16T11:42:50-08:00","message":"This is a message"}
+# 
+# Warnings for samber/slog-zap:
+#   Implied
+#      1 [SourceKey] Source data not logged when AddSource flag set
+#          Benchmark_slog_samber_zap: Simple_Source: no source key
+#            {"level":"info","time":"2024-02-16T11:43:08-08:00","caller":"tests/benchmarks.go:70","msg":"This is a message"}
+# 
+#  Handlers by warning:
+#   Implied
+#     [SourceKey] Source data not logged when AddSource flag set
+#       samber/slog-zap
+#       phsym/zeroslog
+#   Administrative
+#     [NoHandlerCreation] Test depends on unavailable handler creation
+#       darvaza/zerolog
+ok  	command-line-arguments	83.476s
