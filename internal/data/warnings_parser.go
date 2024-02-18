@@ -50,9 +50,9 @@ func (d *Warnings) ParseWarningData(in io.Reader) error {
 				dWarning.AddInstance(instance)
 				d.findTest(TestTag(instance.name), level, dWarning.warning.name).AddInstance(
 					&dataInstance{
-						name:    string(handler),
-						extra:   instance.extra,
-						logLine: instance.logLine,
+						name:  string(handler),
+						extra: instance.extra,
+						log:   instance.log,
 					})
 			}
 			instance = nil
@@ -68,7 +68,7 @@ func (d *Warnings) ParseWarningData(in io.Reader) error {
 
 		if matches := ptnWarningsFor.FindSubmatch(line); len(matches) == 2 {
 			saveInstance(line)
-			handler = HandlerTag(matches[1])
+			handler = HandlerTag(string(matches[1]))
 			if d.handlerNames == nil {
 				d.handlerNames = make(map[HandlerTag]string)
 			}
@@ -107,12 +107,12 @@ func (d *Warnings) ParseWarningData(in io.Reader) error {
 			continue
 		}
 		if ptnLogLine.Match(line) {
-			instance.logLine = string(line)
+			instance.log = string(line)
 			// Attempt to pretty-print the log line.
 			var jm map[string]any
 			if json.Unmarshal(line, &jm) == nil {
 				if indented, err := json.MarshalIndent(jm, "", "\t"); err == nil {
-					instance.logLine = string(indented)
+					instance.log = string(indented)
 				}
 			}
 			continue

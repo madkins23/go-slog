@@ -2,6 +2,12 @@
 <head>
   <title>Benchmark Data</title>
   <link rel="stylesheet" href="/go-slog/style.css">
+  <script>
+    function toggleTableRow(id) {
+        var elem = document.getElementById(id);
+        elem.style.display = elem.style.display == "none" ? "table-row" : "none";
+    }
+  </script>
 </head>
 
 <body>
@@ -9,7 +15,7 @@
   <tr>
     <td>
       <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
-      <h1 class="home">Handler {{ .Data.HandlerName .Handler }}</h1>
+      <h1 class="home">Handler {{ .Bench.HandlerName .Handler }}</h1>
     </td>
     <td align="right">
       {{ template "choices" $ }}
@@ -26,9 +32,9 @@
           <th>Bytes/Op</th>
           <th>GB/Sec</th>
         </tr>
-        {{ range $tag, $record := .Data.TestRecords .Handler }}
+        {{ range $tag, $record := .Bench.TestRecords .Handler }}
           <tr>
-            <td>{{ $.Data.TestName $tag }}</td>
+            <td>{{ $.Bench.TestName $tag }}</td>
             <td class="number">{{ $.FixUint $record.Runs }}</td>
             <td class="number">{{ $.FixFloat $record.NanosPerOp }}</td>
             <td class="number">{{ $.FixUint $record.MemAllocsPerOp }}</td>
@@ -43,16 +49,80 @@
     <td colspan=2 align="center">
       <table>
         <tr>
-          <td><img src="/go-slog/chart/{{ .Handler }}/Nanos.svg" alt="{{ .Data.HandlerName .Handler }} Ns/Op" class="chart" /></td>
-          <td><img src="/go-slog/chart/{{ .Handler }}/MemAllocs.svg" alt="{{ .Data.HandlerName .Handler }} Allocs/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Handler }}/Nanos.svg" alt="{{ .Bench.HandlerName .Handler }} Ns/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Handler }}/MemAllocs.svg" alt="{{ .Bench.HandlerName .Handler }} Allocs/Op" class="chart" /></td>
         </tr>
         <tr>
-          <td><img src="/go-slog/chart/{{ .Handler }}/MemBytes.svg" alt="{{ .Data.HandlerName .Handler }} Bytes/Op" class="chart" /></td>
-          <td><img src="/go-slog/chart/{{ .Handler }}/GbPerSec.svg" alt="{{ .Data.HandlerName .Handler }} GB/Sec" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Handler }}/MemBytes.svg" alt="{{ .Bench.HandlerName .Handler }} Bytes/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Handler }}/GbPerSec.svg" alt="{{ .Bench.HandlerName .Handler }} GB/Sec" class="chart" /></td>
         </tr>
       </table>
     </td>
   </tr>
+  {{ if .Warning.HasHandler .Handler.Tag }}
+    <tr>
+      <td colspan=2 align="left">
+        <table class="warning">
+          <colgroup>
+            <col width="3%"/>
+            <col width="3%"/>
+            <col width="3%"/>
+            <col width="27%"/>
+            <col width="3%"/>
+            <col width="1%"/>
+            <col width="55%"/>
+            <col width="5%"/>
+          </colgroup>
+          {{ $data := .Warning.ForHandler .Handler.Tag }}
+          {{ range $level := $data.Levels }}
+            <tr>
+              <td colspan=8 class="level">{{ $level.Name }}</td>
+            </tr>
+            {{ range $warning := $level.Warnings }}
+              <tr>
+                <td></td>
+                <td colspan=3 class="warning">
+                  {{ $warning.Name }}
+                </td>
+                <td colspan=4 class="extra">
+                  {{ $warning.Description }}
+                </td>
+              </tr>
+              {{ range $index, $instance := $warning.Instances }}
+                {{ $id := printf "%v%v" $warning.Name $instance.Name }}
+                {{ $color := "lightcyan" }}
+                {{ if eq (mod $index 2) 0 }}
+                  {{ $color = "lightgray" }}
+                {{ end }}
+                <tr class="instance">
+                  <td colspan=2></td>
+                  <td colspan=2 class="name" style="background-color:{{ $color }};">{{  $instance.Name  }}</td>
+                  <td style="background-color:{{ $color }};"></td>
+                  <td colspan=2 class="extra" style="background-color:{{ $color }};">{{ $instance.Extra }}</td>
+                  <td class="logLink" style="background-color:{{ $color }};">
+                    {{ if $instance.HasLog }}
+                      <button type="button" onclick="toggleTableRow('{{ $id }}')">Log</button>
+                    {{ end }}
+                  </td>
+                </tr>
+                <tr id="{{ $id }}" style="display:none;">
+                  <td colspan=2></td>
+                  <td style="background-color:{{ $color }};"></td>
+                  <td colspan=5 class="logLine"><pre>{{ $instance.Log }}</pre></td>
+                </tr>
+              {{ end }}
+            {{ end }}
+          {{ end }}
+        </table>
+      </td>
+    </tr>
+  {{ else }}
+    <tr>
+      <td colspan=2 align="left">
+        Boo Hoo!
+      </td>
+    </tr>
+  {{ end }}
 </table>
 </div>
 </body>

@@ -15,8 +15,8 @@
               <form class="choice">
                 <select name="tag" id="tag" onchange="testChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
-                  {{ range .Data.TestTags }}
-                    <option value="{{ . }}" {{ if eq $.Test . }}selected{{ end }}>{{ $.Data.TestName . }}</option>
+                  {{ range .Bench.TestTags }}
+                    <option value="{{ . }}" {{ if eq $.Test . }}selected{{ end }}>{{ $.Bench.TestName . }}</option>
                   {{ end }}
                 </select>
               </form>
@@ -28,8 +28,8 @@
               <form action="handler" class="choice">
                 <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
-                  {{ range .Data.HandlerTags }}
-                    <option value="{{ . }}" {{ if eq $.Handler . }}selected{{ end }}>{{ $.Data.HandlerName . }}</option>
+                  {{ range .Bench.HandlerTags }}
+                    <option value="{{ . }}" {{ if eq $.Handler . }}selected{{ end }}>{{ $.Bench.HandlerName . }}</option>
                   {{ end }}
                 </select>
               </form>

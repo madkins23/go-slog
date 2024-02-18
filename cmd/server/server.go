@@ -21,7 +21,7 @@ import (
 	"github.com/madkins23/gin-utils/pkg/shutdown"
 
 	ginslog "github.com/madkins23/go-slog/gin"
-	"github.com/madkins23/go-slog/internal/bench"
+	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/language"
 )
 
@@ -95,7 +95,8 @@ func main() {
 // -----------------------------------------------------------------------------
 
 var (
-	data      = &bench.Data{}
+	bData     = data.NewBenchmarks()
+	wData     = data.NewWarningsData()
 	pages     = []pageType{pageRoot, pageTest, pageHandler}
 	templates map[pageType]*template.Template
 
@@ -120,14 +121,19 @@ func setup() error {
 		return fmt.Errorf("language setup: %w", err)
 	}
 
-	if err := data.LoadDataJSON(); err != nil {
-		return fmt.Errorf("load benchmark JSON: %w", err)
+	if err := bData.ParseBenchmarkData(nil); err != nil {
+		return fmt.Errorf("parse -bench data: %w", err)
+	}
+
+	if err := wData.ParseWarningData(nil); err != nil {
+		return fmt.Errorf("parse -verify data: %w", err)
 	}
 
 	templates = make(map[pageType]*template.Template)
 	for _, page := range pages {
 		var err error
 		tmpl := template.New(string(page))
+		tmpl.Funcs(map[string]any{"mod": func(a, b int) int { return a % b }})
 		switch page {
 		case pageRoot:
 			tmpl, err = tmpl.Parse(tmplRoot)
@@ -165,7 +171,7 @@ var (
 
 func chartFunction(c *gin.Context) {
 	itemArg := strings.TrimSuffix(c.Param("item"), ".svg")
-	item, err := bench.TestItemsString(itemArg)
+	item, err := data.BenchItemsString(itemArg)
 	if err != nil {
 		slog.Error("Bad URL parameter", "param", itemArg, "err", err)
 		// TODO: what to do here?
@@ -179,9 +185,9 @@ func chartFunction(c *gin.Context) {
 	if !found {
 		var labels []string
 		var values []float64
-		if records := data.HandlerRecords(bench.TestTag(tag)); records != nil {
+		if records := bData.HandlerRecords(data.TestTag(tag)); records != nil {
 			labels, values = chartTest(records, item)
-		} else if records := data.TestRecords(bench.HandlerTag(tag)); records != nil {
+		} else if records := bData.TestRecords(data.HandlerTag(tag)); records != nil {
 			labels, values = chartHandler(records, item)
 		} else {
 			slog.Error("Neither handler nor benchmark records found", "fn", "chartFunction")
@@ -224,24 +230,24 @@ func chartFunction(c *gin.Context) {
 	c.Data(http.StatusOK, "image/svg+xml", ch)
 }
 
-func chartTest(records bench.HandlerRecords, item bench.TestItems) (labels []string, values []float64) {
+func chartTest(records data.HandlerRecords, item data.BenchItems) (labels []string, values []float64) {
 	labels = make([]string, 0, len(records))
 	values = make([]float64, 0, len(records))
-	for _, tag := range data.HandlerTags() {
+	for _, tag := range bData.HandlerTags() {
 		if record, found := records[tag]; found {
-			labels = append(labels, data.HandlerName(tag))
+			labels = append(labels, bData.HandlerName(tag))
 			values = append(values, record.ItemValue(item))
 		}
 	}
 	return
 }
 
-func chartHandler(records bench.TestRecords, item bench.TestItems) (labels []string, values []float64) {
+func chartHandler(records data.TestRecords, item data.BenchItems) (labels []string, values []float64) {
 	labels = make([]string, 0, len(records))
 	values = make([]float64, 0, len(records))
-	for _, tag := range data.TestTags() {
+	for _, tag := range bData.TestTags() {
 		if record, found := records[tag]; found {
-			labels = append(labels, data.TestName(tag))
+			labels = append(labels, bData.TestName(tag))
 			values = append(values, record.ItemValue(item))
 		}
 	}
@@ -251,9 +257,10 @@ func chartHandler(records bench.TestRecords, item bench.TestItems) (labels []str
 // -----------------------------------------------------------------------------
 
 type pageData struct {
-	Data    *bench.Data
-	Test    bench.TestTag
-	Handler bench.HandlerTag
+	Bench   *data.Benchmarks
+	Warning *data.Warnings
+	Test    data.TestTag
+	Handler data.HandlerTag
 	Printer *message.Printer
 }
 
@@ -267,16 +274,20 @@ func (pd *pageData) FixFloat(number float64) string {
 
 func pageFunction(page pageType) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		pageData := &pageData{Data: data, Printer: language.Printer()}
+		pageData := &pageData{
+			Bench:   bData,
+			Warning: wData,
+			Printer: language.Printer(),
+		}
 		if page == pageTest || page == pageHandler {
 			if tag := c.Param("tag"); tag == "" {
 				slog.Error("No URL parameter", "param", "tag")
 			} else {
 				tag := strings.TrimSuffix(tag, ".html")
 				if page == pageTest {
-					pageData.Test = bench.TestTag(tag)
+					pageData.Test = data.TestTag(tag)
 				} else if page == pageHandler {
-					pageData.Handler = bench.HandlerTag(tag)
+					pageData.Handler = data.HandlerTag(tag)
 				}
 			}
 		}

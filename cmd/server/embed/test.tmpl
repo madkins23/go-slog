@@ -9,7 +9,7 @@
   <tr>
     <td>
       <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
-      <h1 class="home">Test {{ .Data.TestName .Test }}</h1>
+      <h1 class="home">Test {{ .Bench.TestName .Test }}</h1>
     </td>
     <td align="right">
       {{ template "choices" $ }}
@@ -26,9 +26,9 @@
           <th>Bytes/Op</th>
           <th>GB/Sec</th>
         </tr>
-        {{ range $tag, $record := .Data.HandlerRecords .Test }}
+        {{ range $tag, $record := .Bench.HandlerRecords .Test }}
           <tr>
-            <td>{{ $.Data.HandlerName $tag }}</td>
+            <td>{{ $.Bench.HandlerName $tag }}</td>
             <td class="number">{{ $.FixUint $record.Runs }}</td>
             <td class="number">{{ $.FixFloat $record.NanosPerOp }}</td>
             <td class="number">{{ $.FixUint $record.MemAllocsPerOp }}</td>
@@ -43,12 +43,12 @@
     <td colspan=2 align="center">
       <table>
         <tr>
-          <td><img src="/go-slog/chart/{{ .Test }}/Nanos.svg" alt="{{ .Data.TestName .Test }} Ns/Op" class="chart" /></td>
-          <td><img src="/go-slog/chart/{{ .Test }}/MemAllocs.svg" alt="{{ .Data.TestName .Test }} Allocs/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Test }}/Nanos.svg" alt="{{ .Bench.TestName .Test }} Ns/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Test }}/MemAllocs.svg" alt="{{ .Bench.TestName .Test }} Allocs/Op" class="chart" /></td>
         </tr>
         <tr>
-          <td><img src="/go-slog/chart/{{ .Test }}/MemBytes.svg" alt="{{ .Data.TestName .Test }} Bytes/Op" class="chart" /></td>
-          <td><img src="/go-slog/chart/{{ .Test }}/GbPerSec.svg" alt="{{ .Data.TestName .Test }} GB/Sec" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Test }}/MemBytes.svg" alt="{{ .Bench.TestName .Test }} Bytes/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Test }}/GbPerSec.svg" alt="{{ .Bench.TestName .Test }} GB/Sec" class="chart" /></td>
         </tr>
       </table>
     </td>

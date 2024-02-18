@@ -4,6 +4,7 @@ import (
 	"flag"
 	"log/slog"
 	"sort"
+	"strings"
 
 	"github.com/madkins23/go-slog/warning"
 )
@@ -178,6 +179,14 @@ type dataWarning struct {
 	sorted    bool
 }
 
+func (w *dataWarning) Name() string {
+	return w.warning.name
+}
+
+func (w *dataWarning) Description() string {
+	return w.warning.description
+}
+
 func (w *dataWarning) AddInstance(instance *dataInstance) {
 	w.instances = append(w.instances, instance)
 }
@@ -195,9 +204,25 @@ func (w *dataWarning) Instances() []*dataInstance {
 // -----------------------------------------------------------------------------
 
 type dataInstance struct {
-	name    string
-	extra   string
-	logLine string
+	name  string
+	extra string
+	log   string
+}
+
+func (di *dataInstance) Name() string {
+	return di.name
+}
+
+func (di *dataInstance) Extra() string {
+	return di.extra
+}
+
+func (di *dataInstance) HasLog() bool {
+	return len(strings.Trim(di.log, " ")) > 0
+}
+
+func (di *dataInstance) Log() string {
+	return di.log
 }
 
 // -----------------------------------------------------------------------------

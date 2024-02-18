@@ -54,7 +54,7 @@ func (suite *ParserTestSuite) TestData_Parse_Bench_darvaza_zerolog() {
 		suite.Assert().NotNil(instance)
 		suite.Assert().Equal(expectedTestNames[i], instance.name)
 		suite.Assert().Equal("", instance.extra)
-		suite.Assert().Equal("", instance.logLine)
+		suite.Assert().Equal("", instance.log)
 	}
 }
 
@@ -74,7 +74,7 @@ func (suite *ParserTestSuite) TestData_Parse_Bench_phsym_zerolog() {
 	suite.Assert().NotNil(instance)
 	suite.Assert().Equal("Benchmark_slog_phsym_zerolog", instance.name)
 	suite.Assert().Equal("Simple_Source: no source key", instance.extra)
-	suite.Assert().Contains(instance.logLine, "{")
+	suite.Assert().Contains(instance.log, "{")
 }
 
 func (suite *ParserTestSuite) TestData_Parse_Verify_phsym_zerolog() {
@@ -97,7 +97,7 @@ func (suite *ParserTestSuite) TestData_Parse_Verify_phsym_zerolog() {
 		suite.Assert().NotNil(instance)
 		suite.Assert().Equal(expectedTestNames[i], instance.name)
 		suite.Assert().Equal("", instance.extra)
-		suite.Assert().Contains(instance.logLine, "{")
+		suite.Assert().Contains(instance.log, "{")
 	}
 }
 
@@ -117,5 +117,5 @@ func (suite *ParserTestSuite) TestData_Parse_Verify_samber_slog_zap() {
 	suite.Assert().NotNil(instance)
 	suite.Assert().Equal("TestZeroPC", instance.name)
 	suite.Assert().Equal("non-standard key 'caller'", instance.extra)
-	suite.Assert().Contains(instance.logLine, "{")
+	suite.Assert().Contains(instance.log, "{")
 }
