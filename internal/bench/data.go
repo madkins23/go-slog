@@ -1,24 +1,13 @@
 package bench
 
 import (
-	"bufio"
-	"bytes"
-	"errors"
 	"flag"
-	"fmt"
-	"io"
 	"log/slog"
-	"os"
 	"regexp"
 	"sort"
-	"strconv"
-	"strings"
 )
 
 var benchFile = flag.String("bench", "", "Load benchmark data from path (optional)")
-
-// -----------------------------------------------------------------------------
-// Records matching gobenchdata JSON output.
 
 // -----------------------------------------------------------------------------
 
@@ -87,6 +76,16 @@ type Data struct {
 	warningText  []string
 }
 
+func NewData() *Data {
+	return &Data{
+		byTest:       make(map[TestTag]HandlerRecords),
+		byHandler:    make(map[HandlerTag]TestRecords),
+		testNames:    make(map[TestTag]string),
+		testCPUs:     make(map[TestTag]uint64),
+		handlerNames: make(map[HandlerTag]string),
+	}
+}
+
 // -----------------------------------------------------------------------------
 
 var (
@@ -96,142 +95,6 @@ var (
 	ptnBytesOp  = regexp.MustCompile(`\s(\d+)\s+B/op\b`)
 	ptnMbSec    = regexp.MustCompile(`\s(\d+(?:\.\d+)?)\s+MB/s`)
 )
-
-// LoadDataJSON loads benchmark data from JSON emitted by gobenchdata.
-// The data will be loaded from os.Stdin unless the -json=<path> flag is set
-// in which case the data will be loaded from the specified path.
-func (d *Data) LoadDataJSON() error {
-	var err error
-	var in io.Reader = os.Stdin
-	if *benchFile != "" {
-		if in, err = os.Open(*benchFile); err != nil {
-			return fmt.Errorf("open --bench=%s: %s\n", *benchFile, err)
-		}
-	}
-	reader := bufio.NewReader(in)
-
-	var line bytes.Buffer
-	for {
-		chunk, isPrefix, err := reader.ReadLine()
-		if errors.Is(err, io.EOF) {
-			if line.Len() < 1 {
-				break
-			}
-		} else if err != nil {
-			return fmt.Errorf("reading line: %w", err)
-		}
-		line.Write(chunk)
-		if isPrefix {
-			// Line not yet complete, go around again.
-			continue
-		}
-
-		// Process the line here.
-		var ok bool
-		var hdlrBytes, testBytes []byte
-		var nsOps, mbSec float64
-		var cpus, runs, allocsOp, bytesOp uint64
-		if matches := ptnWarnLine.FindSubmatch(line.Bytes()); matches != nil && len(matches) == 2 {
-			// Capture warning text marked with "# " at beginning of line.
-			d.warningText = append(d.warningText, string(matches[1]))
-		} else if matches := ptnDataLine.FindSubmatch(line.Bytes()); matches != nil && len(matches) == 6 {
-			// Process a data line.
-			hdlrBytes = matches[1]
-			testBytes = matches[2]
-			if cpus, err = strconv.ParseUint(string(matches[3]), 10, 64); err != nil {
-				return fmt.Errorf("parse cpus: %w", err)
-			}
-			if runs, err = strconv.ParseUint(string(matches[4]), 10, 64); err != nil {
-				return fmt.Errorf("parse runs: %w", err)
-			}
-			if nsOps, err = strconv.ParseFloat(string(matches[5]), 64); err != nil {
-				return fmt.Errorf("parse ns/op: %w", err)
-			}
-			if matches = ptnAllocsOp.FindSubmatch(line.Bytes()); matches != nil && len(matches) == 2 {
-				if allocsOp, err = strconv.ParseUint(string(matches[1]), 10, 64); err != nil {
-					return fmt.Errorf("parse allocs/op: %w", err)
-				}
-			}
-			if matches = ptnBytesOp.FindSubmatch(line.Bytes()); matches != nil && len(matches) == 2 {
-				if bytesOp, err = strconv.ParseUint(string(matches[1]), 10, 64); err != nil {
-					return fmt.Errorf("parse bytes/op: %w", err)
-				}
-			}
-			if matches = ptnMbSec.FindSubmatch(line.Bytes()); matches != nil && len(matches) == 2 {
-				if mbSec, err = strconv.ParseFloat(string(matches[1]), 64); err != nil {
-					return fmt.Errorf("parse mb/s: %w", err)
-				}
-			}
-			ok = true
-		}
-
-		if ok {
-			test := TestTag(strings.TrimLeft(string(testBytes), "_"))
-			if d.testNames == nil {
-				d.testNames = make(map[TestTag]string)
-			}
-			d.testNames[test] = strings.Replace(string(test), "_", " ", -1)
-
-			if string(hdlrBytes) == "Benchmark_slog" {
-				// Fix this so the handler name doesn't get edited down to nothing.
-				hdlrBytes = []byte("Benchmark_slog_slog_JSONHandler")
-			}
-			handler := HandlerTag(
-				strings.TrimLeft(
-					strings.TrimPrefix(string(hdlrBytes), "Benchmark_slog"),
-					"_"))
-			if d.handlerNames == nil {
-				d.handlerNames = make(map[HandlerTag]string)
-			}
-			parts := strings.Split(strings.TrimLeft(string(handler), "_"), "_")
-			for i, part := range parts {
-				if len(part) > 0 {
-					parts[i] = strings.ToUpper(part[:1]) + part[1:]
-				}
-			}
-			d.handlerNames[handler] = strings.Join(parts, " ")
-
-			if d.testCPUs == nil {
-				d.testCPUs = make(map[TestTag]uint64)
-			}
-			d.testCPUs[test] = cpus
-
-			if d.byTest == nil {
-				d.byTest = make(map[TestTag]HandlerRecords)
-			}
-			if d.byTest[test] == nil {
-				d.byTest[test] = make(HandlerRecords)
-			}
-			d.byTest[test][handler] = TestRecord{
-				Runs:           runs,
-				NanosPerOp:     nsOps,
-				MemBytesPerOp:  bytesOp,
-				MemAllocsPerOp: allocsOp,
-				MbPerSec:       mbSec,
-				GbPerSec:       mbSec / 1_000.0,
-				TbPerSec:       mbSec / 1_000_000.0,
-			}
-
-			if d.byHandler == nil {
-				d.byHandler = make(map[HandlerTag]TestRecords)
-			}
-			if d.byHandler[handler] == nil {
-				d.byHandler[handler] = make(TestRecords)
-			}
-			d.byHandler[handler][test] = TestRecord{
-				Runs:           runs,
-				NanosPerOp:     nsOps,
-				MemBytesPerOp:  bytesOp,
-				MemAllocsPerOp: allocsOp,
-				MbPerSec:       mbSec,
-			}
-		}
-
-		line.Reset()
-	}
-
-	return nil
-}
 
 // -----------------------------------------------------------------------------
 

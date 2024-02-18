@@ -32,9 +32,9 @@ func main() {
 		return
 	}
 
-	var data bench.Data
-	if err := data.LoadDataJSON(); err != nil {
-		slog.Error("Error parsing benchmark JSON", "err", err)
+	data := bench.NewData()
+	if err := data.ParseBenchmarkData(nil); err != nil {
+		slog.Error("Error parsing -bench data", "err", err)
 		return
 	}
 
