@@ -81,8 +81,8 @@ table.warning {
 }
 
 table.warning td {
-#   border: black thin solid;
-#   padding: 0px;
+    margin: 5px;
+    padding: 5px;
 }
 
 table.warning td.extra {
@@ -98,17 +98,12 @@ table.warning td.header {
 table.warning td.level {
     font-size: 1.5em;
     font-weight: bold;
-    padding-top: 1em;
 }
 
 table.warning td.logLine {
     font-family: monospace;
     background-color: antiquewhite;
     border: 2px inset antiquewhite;
-}
-
-table.warning tr.instance td.logLink {
-    text-align: center;
 }
 
 table.warning td.warning {
@@ -118,12 +113,18 @@ table.warning td.warning {
     padding-top: 0.5em;
 }
 
+table.warning tr.instance td.logLink {
+    text-align: center;
+}
+
 table.warning tr.instance td.name {
+#   border: 2px inset darkgray;
     font-family: monospace;
     font-size: 1em;
 }
 
 table.warning tr.instance td.extra {
+#   border: 2px inset darkgray;
     font-family: monospace;
     font-size: 1em;
 }
