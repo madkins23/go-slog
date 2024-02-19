@@ -17,19 +17,13 @@
       <h2>Benchmark Data</h2>
     </td>
   </tr>
-  {{ template "source" $.DataBench }}
+  {{ template "source" $.Benchmarks }}
   <tr>
     <td colspan=2>
-      <h2>Benchmark Warnings</h2>
+      <h2>Warnings</h2>
     </td>
   </tr>
-  {{ template "source" $.WarnBench }}
-  <tr>
-    <td colspan=2>
-      <h2 style="padding-top: 1em;">Verification Warnings</h2>
-    </td>
-  </tr>
-  {{ template "source" $.WarnVerify }}
+  {{ template "source" $.Warnings }}
 </table>
 </div>
 </body>

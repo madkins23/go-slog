@@ -21,10 +21,10 @@ type ParserTestSuite struct {
 }
 
 func (suite *ParserTestSuite) SetupSuite() {
-	suite.bench = NewWarningData("")
-	suite.Require().NoError(suite.bench.ParseWarningData(strings.NewReader(benchTxt), nil))
-	suite.verify = NewWarningData("")
-	suite.Require().NoError(suite.verify.ParseWarningData(strings.NewReader(verifyTxt), nil))
+	suite.bench = NewWarningData()
+	suite.Require().NoError(suite.bench.ParseWarningData(strings.NewReader(benchTxt), "", nil))
+	suite.verify = NewWarningData()
+	suite.Require().NoError(suite.verify.ParseWarningData(strings.NewReader(verifyTxt), "", nil))
 }
 
 func TestParserTestSuite(t *testing.T) {
@@ -73,7 +73,7 @@ func (suite *ParserTestSuite) TestData_Parse_Bench_phsym_zerolog() {
 	instance := warning.instances[0]
 	suite.Assert().NotNil(instance)
 	suite.Assert().Equal("Benchmark_slog_phsym_zerolog", instance.name)
-	suite.Assert().Equal("Simple_Source: no source key", instance.extra)
+	suite.Assert().Equal("Simple_Source: no 'source key'", instance.extra)
 	suite.Assert().Contains(instance.log, "{")
 }
 

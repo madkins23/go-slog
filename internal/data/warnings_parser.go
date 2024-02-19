@@ -29,7 +29,7 @@ var (
 // ParseWarningData parses warning data from the output of benchmark and verification testing.
 // The data will be loaded from os.Stdin unless the -bench=<path> flag is set
 // in which case the data will be loaded from the specified path.
-func (w *Warnings) ParseWarningData(in io.Reader, lookup map[string]HandlerTag) error {
+func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[string]HandlerTag) error {
 	var err error
 	if in == nil && *verifyFile != "" {
 		if in, err = os.Open(*verifyFile); err != nil {
@@ -147,8 +147,8 @@ func (w *Warnings) ParseWarningData(in io.Reader, lookup map[string]HandlerTag) 
 			}
 			baseTag := TestTag(instance.name)
 			testTag := baseTag
-			if w.source != "" {
-				instance.name = w.source + ":" + string(baseTag)
+			if source != "" {
+				instance.name = source + ":" + string(baseTag)
 				testTag = TestTag(instance.name)
 			}
 			if _, found := w.testNames[testTag]; !found {

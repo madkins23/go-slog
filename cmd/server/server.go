@@ -100,9 +100,8 @@ func main() {
 // -----------------------------------------------------------------------------
 
 var (
-	bData     = data.NewBenchmarks()
-	bWarn     = data.NewWarningData("Bench")
-	vWarn     = data.NewWarningData("Verify")
+	bench     = data.NewBenchmarks()
+	warns     = data.NewWarningData()
 	pages     = []pageType{pageRoot, pageTest, pageHandler, pageDebug}
 	templates map[pageType]*template.Template
 
@@ -136,15 +135,16 @@ func setup() error {
 		return fmt.Errorf("language setup: %w", err)
 	}
 
-	if err := bData.ParseBenchmarkData(nil); err != nil {
+	if err := bench.ParseBenchmarkData(nil); err != nil {
 		return fmt.Errorf("parse -bench data: %w", err)
 	}
 
-	if err := bWarn.ParseWarningData(bytes.NewReader(bData.WarningText()), bData.HandlerLookup()); err != nil {
+	if err := warns.ParseWarningData(
+		bytes.NewReader(bench.WarningText()), "Bench", bench.HandlerLookup()); err != nil {
 		return fmt.Errorf("parse -bench warnings: %w", err)
 	}
 
-	if err := vWarn.ParseWarningData(nil, bData.HandlerLookup()); err != nil {
+	if err := warns.ParseWarningData(nil, "Verify", bench.HandlerLookup()); err != nil {
 		return fmt.Errorf("parse -verify warnings: %w", err)
 	}
 
@@ -215,9 +215,9 @@ func chartFunction(c *gin.Context) {
 	if !found {
 		var labels []string
 		var values []float64
-		if records := bData.HandlerRecords(data.TestTag(tag)); records != nil {
+		if records := bench.HandlerRecords(data.TestTag(tag)); records != nil {
 			labels, values = chartTest(records, item)
-		} else if records := bData.TestRecords(data.HandlerTag(tag)); records != nil {
+		} else if records := bench.TestRecords(data.HandlerTag(tag)); records != nil {
 			labels, values = chartHandler(records, item)
 		} else {
 			slog.Error("Neither handler nor benchmark records found", "fn", "chartFunction")
@@ -263,9 +263,9 @@ func chartFunction(c *gin.Context) {
 func chartTest(records data.HandlerRecords, item data.BenchItems) (labels []string, values []float64) {
 	labels = make([]string, 0, len(records))
 	values = make([]float64, 0, len(records))
-	for _, tag := range bData.HandlerTags() {
+	for _, tag := range bench.HandlerTags() {
 		if record, found := records[tag]; found {
-			labels = append(labels, bData.HandlerName(tag))
+			labels = append(labels, bench.HandlerName(tag))
 			values = append(values, record.ItemValue(item))
 		}
 	}
@@ -275,9 +275,9 @@ func chartTest(records data.HandlerRecords, item data.BenchItems) (labels []stri
 func chartHandler(records data.TestRecords, item data.BenchItems) (labels []string, values []float64) {
 	labels = make([]string, 0, len(records))
 	values = make([]float64, 0, len(records))
-	for _, tag := range bData.TestTags() {
+	for _, tag := range bench.TestTags() {
 		if record, found := records[tag]; found {
-			labels = append(labels, bData.TestName(tag))
+			labels = append(labels, bench.TestName(tag))
 			values = append(values, record.ItemValue(item))
 		}
 	}
@@ -287,12 +287,11 @@ func chartHandler(records data.TestRecords, item data.BenchItems) (labels []stri
 // -----------------------------------------------------------------------------
 
 type templateData struct {
-	DataBench  *data.Benchmarks
-	WarnBench  *data.Warnings
-	WarnVerify *data.Warnings
-	Test       data.TestTag
-	Handler    data.HandlerTag
-	Printer    *message.Printer
+	*data.Benchmarks
+	*data.Warnings
+	Test    data.TestTag
+	Handler data.HandlerTag
+	Printer *message.Printer
 }
 
 func (pd *templateData) FixUint(number uint64) string {
@@ -306,9 +305,8 @@ func (pd *templateData) FixFloat(number float64) string {
 func pageFunction(page pageType) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tmplData := &templateData{
-			DataBench:  bData,
-			WarnBench:  bWarn,
-			WarnVerify: vWarn,
+			Benchmarks: bench,
+			Warnings:   warns,
 			Printer:    language.Printer(),
 		}
 		if page == pageTest || page == pageHandler {

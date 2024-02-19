@@ -15,7 +15,7 @@
   <tr>
     <td>
       <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
-      <h1 class="home">Handler {{ .DataBench.HandlerName .Handler }}</h1>
+      <h1 class="home">Handler {{ .Benchmarks.HandlerName .Handler }}</h1>
     </td>
     <td align="right">
       {{ template "choices" $ }}
@@ -33,9 +33,9 @@
           <th>Bytes/Op</th>
           <th>GB/Sec</th>
         </tr>
-        {{ range $tag, $record := .DataBench.TestRecords .Handler }}
+        {{ range $tag, $record := .Benchmarks.TestRecords .Handler }}
           <tr>
-            <td>{{ $.DataBench.TestName $tag }}</td>
+            <td>{{ $.Benchmarks.TestName $tag }}</td>
             <td class="number">{{ $.FixUint $record.Runs }}</td>
             <td class="number">{{ $.FixFloat $record.NanosPerOp }}</td>
             <td class="number">{{ $.FixUint $record.MemAllocsPerOp }}</td>
@@ -51,17 +51,17 @@
       <h2 align="left">Benchmark Charts</h2>
       <table>
         <tr>
-          <td><img src="/go-slog/chart/{{ .Handler }}/Nanos.svg" alt="{{ .DataBench.HandlerName .Handler }} Ns/Op" class="chart" /></td>
-          <td><img src="/go-slog/chart/{{ .Handler }}/MemAllocs.svg" alt="{{ .DataBench.HandlerName .Handler }} Allocs/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Handler }}/Nanos.svg" alt="{{ .Benchmarks.HandlerName .Handler }} Ns/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Handler }}/MemAllocs.svg" alt="{{ .Benchmarks.HandlerName .Handler }} Allocs/Op" class="chart" /></td>
         </tr>
         <tr>
-          <td><img src="/go-slog/chart/{{ .Handler }}/MemBytes.svg" alt="{{ .DataBench.HandlerName .Handler }} Bytes/Op" class="chart" /></td>
-          <td><img src="/go-slog/chart/{{ .Handler }}/GbPerSec.svg" alt="{{ .DataBench.HandlerName .Handler }} GB/Sec" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Handler }}/MemBytes.svg" alt="{{ .Benchmarks.HandlerName .Handler }} Bytes/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/{{ .Handler }}/GbPerSec.svg" alt="{{ .Benchmarks.HandlerName .Handler }} GB/Sec" class="chart" /></td>
         </tr>
       </table>
     </td>
   </tr>
-  {{ if .WarnVerify.HasHandler .Handler.Tag }}
+  {{ if .Warnings.HasHandler .Handler }}
     <tr>
       <td colspan=2 align="center">
         <h2 align="left" style="padding-top: 1em;">Warnings</h2>
@@ -72,7 +72,7 @@
             <col width="30%"/>
             <col width="64%"/>
           </colgroup>
-          {{ $data := .WarnVerify.ForHandler .Handler.Tag }}
+          {{ $data := .Warnings.ForHandler .Handler }}
           {{ template "warnings" $data }}
         </table>
       </td>

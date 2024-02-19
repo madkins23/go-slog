@@ -21,10 +21,9 @@ type Warnings struct {
 	handlers     []HandlerTag
 	handlerNames map[HandlerTag]string
 	testNames    map[TestTag]string
-	source       string
 }
 
-func NewWarningData(source string) *Warnings {
+func NewWarningData() *Warnings {
 	return &Warnings{
 		byTest:       make(map[TestTag]*Levels),
 		byHandler:    make(map[HandlerTag]*Levels),
@@ -32,7 +31,6 @@ func NewWarningData(source string) *Warnings {
 		handlers:     make([]HandlerTag, 0),
 		handlerNames: make(map[HandlerTag]string),
 		testNames:    make(map[TestTag]string),
-		source:       source,
 	}
 }
 
