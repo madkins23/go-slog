@@ -33,11 +33,11 @@ func TestParserTestSuite(t *testing.T) {
 
 func (suite *ParserTestSuite) TestData_Parse_Bench_darvaza_zerolog() {
 	var expectedTestNames = []string{
-		"Benchmark_With_Attrs_Attributes",
-		"Benchmark_With_Attrs_Key_Values",
-		"Benchmark_With_Attrs_Simple",
-		"Benchmark_With_Group_Attributes",
-		"Benchmark_With_Group_Key_Values",
+		"With_Attrs_Attributes",
+		"With_Attrs_Key_Values",
+		"With_Attrs_Simple",
+		"With_Group_Attributes",
+		"With_Group_Key_Values",
 	}
 	levels := suite.bench.ForHandler(HandlerTag("darvaza/zerolog"))
 	suite.Assert().NotNil(levels)
@@ -72,15 +72,15 @@ func (suite *ParserTestSuite) TestData_Parse_Bench_phsym_zerolog() {
 	suite.Assert().Len(warning.instances, 1)
 	instance := warning.instances[0]
 	suite.Assert().NotNil(instance)
-	suite.Assert().Equal("Benchmark_slog_phsym_zerolog", instance.name)
-	suite.Assert().Equal("Simple_Source: no 'source key'", instance.extra)
+	suite.Assert().Equal("slog_phsym_zerolog", instance.name)
+	suite.Assert().Equal("Simple_Source: no 'source' key", instance.extra)
 	suite.Assert().Contains(instance.log, "{")
 }
 
 func (suite *ParserTestSuite) TestData_Parse_Verify_phsym_zerolog() {
 	var expectedTestNames = []string{
-		"TestAttributeWithEmpty",
-		"TestAttributesEmpty",
+		"AttributeWithEmpty",
+		"AttributesEmpty",
 	}
 	levels := suite.verify.ForHandler(HandlerTag("phsym/zeroslog"))
 	suite.Assert().NotNil(levels)
@@ -115,7 +115,7 @@ func (suite *ParserTestSuite) TestData_Parse_Verify_samber_slog_zap() {
 	suite.Assert().Len(warning.Instances(), 1)
 	instance := warning.instances[0]
 	suite.Assert().NotNil(instance)
-	suite.Assert().Equal("TestZeroPC", instance.name)
+	suite.Assert().Equal("ZeroPC", instance.name)
 	suite.Assert().Equal("non-standard key 'caller'", instance.extra)
 	suite.Assert().Contains(instance.log, "{")
 }

@@ -72,13 +72,13 @@ PASS
 # Warnings for phsym/zeroslog:
 #   Implied
 #      1 [SourceKey] Source data not logged when AddSource flag set
-#          Benchmark_slog_phsym_zerolog: Simple_Source: no source key
+#          Benchmark_slog_phsym_zerolog: Simple_Source: no 'source' key
 #            {"level":"info","caller":"/home/marc/work/go/src/github.com/madkins23/go-slog/bench/tests/benchmarks.go:70","time":"2024-02-16T11:42:50-08:00","message":"This is a message"}
 # 
 # Warnings for samber/slog-zap:
 #   Implied
 #      1 [SourceKey] Source data not logged when AddSource flag set
-#          Benchmark_slog_samber_zap: Simple_Source: no source key
+#          Benchmark_slog_samber_zap: Simple_Source: no 'source' key
 #            {"level":"info","time":"2024-02-16T11:43:08-08:00","caller":"tests/benchmarks.go:70","msg":"This is a message"}
 # 
 #  Handlers by warning:
