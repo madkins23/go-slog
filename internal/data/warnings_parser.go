@@ -45,7 +45,7 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 	saveInstance := func(line []byte) {
 		if instance != nil {
 			if dWarning == nil {
-				slog.Warn("Nil dWarning", "line", line, "instance", instance)
+				slog.Warn("Nil dataWarning", "line", line, "instance", instance)
 			} else {
 				dWarning.AddInstance(instance)
 				tWarning := w.findTest(TestTag(instance.name), level, dWarning.warning.name)
