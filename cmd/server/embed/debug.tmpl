@@ -1,0 +1,36 @@
+<html>
+<head>
+  <title>Debug</title>
+  <link rel="stylesheet" href="/go-slog/style.css">
+</head>
+
+<body>
+<table class="top">
+  <tr>
+    <td>
+      <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+      <h1 class="home">Debug Data and Warnings</h1>
+    </td>
+  </tr>
+  <tr>
+    <td colspan=2>
+      <h2>Benchmark Data</h2>
+    </td>
+  </tr>
+  {{ template "source" $.DataBench }}
+  <tr>
+    <td colspan=2>
+      <h2>Benchmark Warnings</h2>
+    </td>
+  </tr>
+  {{ template "source" $.WarnBench }}
+  <tr>
+    <td colspan=2>
+      <h2 style="padding-top: 1em;">Verification Warnings</h2>
+    </td>
+  </tr>
+  {{ template "source" $.WarnVerify }}
+</table>
+</div>
+</body>
+</html>

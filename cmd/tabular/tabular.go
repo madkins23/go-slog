@@ -32,27 +32,27 @@ func main() {
 		return
 	}
 
-	data := data.NewBenchmarks()
-	if err := data.ParseBenchmarkData(nil); err != nil {
+	bench := data.NewBenchmarks()
+	if err := bench.ParseBenchmarkData(nil); err != nil {
 		slog.Error("Error parsing -bench data", "err", err)
 		return
 	}
 
 	tableMgr := tableDefs()
 
-	for _, test := range data.TestTags() {
-		fmt.Printf("\nBenchmark %s\n", data.TestName(test))
+	for _, test := range bench.TestTags() {
+		fmt.Printf("\nBenchmark %s\n", bench.TestName(test))
 		fmt.Println(tableMgr.BorderString(table.Top))
 		fmt.Printf(tableMgr.HeaderFormat(), "Handler",
 			data.Runs.ShortName(), data.Nanos.ShortName(),
 			data.MemAllocs.ShortName(), data.MemBytes.ShortName(), data.GbPerSec.ShortName())
 		fmt.Println(tableMgr.SeparatorString(1))
-		handlerRecords := data.HandlerRecords(test)
-		for _, handler := range data.HandlerTags() {
+		handlerRecords := bench.HandlerRecords(test)
+		for _, handler := range bench.HandlerTags() {
 			handlerRecord := handlerRecords[handler]
 			if !handlerRecord.IsEmpty() {
 				_, err := language.Printer().Printf(tableMgr.RowFormat(),
-					data.HandlerName(handler), handlerRecord.Runs, handlerRecord.NanosPerOp,
+					bench.HandlerName(handler), handlerRecord.Runs, handlerRecord.NanosPerOp,
 					handlerRecord.MemAllocsPerOp, handlerRecord.MemBytesPerOp,
 					handlerRecord.GbPerSec)
 				if err != nil {
@@ -63,11 +63,8 @@ func main() {
 		fmt.Println(tableMgr.BorderString(table.Bottom))
 	}
 
-	if data.HasWarningText() {
-		fmt.Println()
-		for _, line := range data.WarningText() {
-			fmt.Println(line)
-		}
+	if bench.HasWarningText() {
+		fmt.Println(string(bench.WarningText()))
 	}
 
 	fmt.Println()

@@ -10,8 +10,8 @@
       <fieldset>
         <legend>Tests</legend>
         <table>
-          {{ range .Bench.TestTags }}
-            <tr><td><a href="/go-slog/test/{{ . }}.html">{{ $.Bench.TestName . }}</a></td></tr>
+          {{ range .DataBench.TestTags }}
+            <tr><td><a href="/go-slog/test/{{ . }}.html">{{ $.DataBench.TestName . }}</a></td></tr>
           {{ end }}
         </table>
       </fieldset>
@@ -19,17 +19,12 @@
       <fieldset>
         <legend>Handlers</legend>
         <table>
-          {{ range .Bench.HandlerTags }}
-            <tr><td><a href="/go-slog/handler/{{ . }}.html">{{ $.Bench.HandlerName . }}</a></td></tr>
+          {{ range .DataBench.HandlerTags }}
+            <tr><td><a href="/go-slog/handler/{{ . }}.html">{{ $.DataBench.HandlerName . }}</a></td></tr>
           {{ end }}
         </table>
       </fieldset>
     </td></tr>
-    {{ if .Bench.HasWarningText }}
-      <tr><td colspan=2 align="left" class="warnings"><pre>
-{{range $val := .Bench.WarningText }}{{ $val }}
-{{end}}</pre></td></tr>
-    {{ end }}
   </table>
 </body>
 </html>

@@ -113,7 +113,7 @@ func noDuplicates(testName string) VerifyFn {
 		logMap = getLogMap(captured, logMap, manager)
 		counter := json.NewFieldCounter(captured)
 		if len(counter.Duplicates()) > 0 {
-			manager.AddWarning(warning.Duplicates, testName, string(captured))
+			manager.AddWarningFn(warning.Duplicates, testName, string(captured))
 			return warning.Duplicates.ErrorExtra(testName)
 		}
 		return nil
@@ -124,11 +124,11 @@ func sorcerer(testName string) VerifyFn {
 	return func(captured []byte, logMap map[string]any, manager *test.WarningManager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		if srcVal, found := logMap[slog.SourceKey]; !found {
-			text := fmt.Sprintf("%s: no %s key", testName, slog.SourceKey)
-			manager.AddWarning(warning.SourceKey, text, string(captured))
+			text := fmt.Sprintf("no %s key", slog.SourceKey)
+			manager.AddWarningFnText(warning.SourceKey, testName, text, string(captured))
 			return warning.SourceKey.ErrorExtra(text)
 		} else if srcMap, ok := srcVal.(map[string]any); !ok {
-			text := fmt.Sprintf("%s: source not map", testName)
+			text := "source not map"
 			manager.AddWarning(warning.SourceKey, text, string(captured))
 			return warning.SourceKey.ErrorExtra(text)
 		} else {
@@ -139,8 +139,8 @@ func sorcerer(testName string) VerifyFn {
 				}
 			}
 			if len(missing) > 0 {
-				text := fmt.Sprintf("%s: missing fields: %s", testName, strings.Join(missing, ","))
-				manager.AddWarning(warning.SourceKey, text, string(captured))
+				text := fmt.Sprintf("missing fields: %s", strings.Join(missing, ","))
+				manager.AddWarningFnText(warning.SourceKey, testName, text, string(captured))
 				return warning.SourceKey.ErrorExtra(text)
 			}
 		}

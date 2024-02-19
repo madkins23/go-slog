@@ -21,10 +21,10 @@ type ParserTestSuite struct {
 }
 
 func (suite *ParserTestSuite) SetupSuite() {
-	suite.bench = NewWarningData()
-	suite.Require().NoError(suite.bench.ParseWarningData(strings.NewReader(benchTxt)))
-	suite.verify = NewWarningData()
-	suite.Require().NoError(suite.verify.ParseWarningData(strings.NewReader(verifyTxt)))
+	suite.bench = NewWarningData("")
+	suite.Require().NoError(suite.bench.ParseWarningData("", strings.NewReader(benchTxt)))
+	suite.verify = NewWarningData("")
+	suite.Require().NoError(suite.verify.ParseWarningData("", strings.NewReader(verifyTxt)))
 }
 
 func TestParserTestSuite(t *testing.T) {

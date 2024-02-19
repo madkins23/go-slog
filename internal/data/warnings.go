@@ -21,9 +21,10 @@ type Warnings struct {
 	handlers     []HandlerTag
 	handlerNames map[HandlerTag]string
 	testNames    map[TestTag]string
+	source       string
 }
 
-func NewWarningsData() *Warnings {
+func NewWarningData(source string) *Warnings {
 	return &Warnings{
 		byTest:       make(map[TestTag]*Levels),
 		byHandler:    make(map[HandlerTag]*Levels),
@@ -31,32 +32,33 @@ func NewWarningsData() *Warnings {
 		handlers:     make([]HandlerTag, 0),
 		handlerNames: make(map[HandlerTag]string),
 		testNames:    make(map[TestTag]string),
+		source:       source,
 	}
 }
 
-func (d *Warnings) HasTest(test TestTag) bool {
-	_, found := d.byTest[test]
+func (w *Warnings) HasTest(test TestTag) bool {
+	_, found := w.byTest[test]
 	return found
 }
 
-func (d *Warnings) HasHandler(handler HandlerTag) bool {
+func (w *Warnings) HasHandler(handler HandlerTag) bool {
 	slog.Info("HasHandler()", "handler", handler)
-	_, found := d.byHandler[handler]
+	_, found := w.byHandler[handler]
 	return found
 }
 
-func (d *Warnings) ForTest(test TestTag) *Levels {
-	return d.byTest[test]
+func (w *Warnings) ForTest(test TestTag) *Levels {
+	return w.byTest[test]
 }
 
-func (d *Warnings) ForHandler(handler HandlerTag) *Levels {
-	return d.byHandler[handler]
+func (w *Warnings) ForHandler(handler HandlerTag) *Levels {
+	return w.byHandler[handler]
 }
 
 // HandlerName returns the full name associated with a HandlerTag.
 // If there is no full name the tag is returned.
-func (d *Warnings) HandlerName(handler HandlerTag) string {
-	if name, found := d.handlerNames[handler]; found {
+func (w *Warnings) HandlerName(handler HandlerTag) string {
+	if name, found := w.handlerNames[handler]; found {
 		return name
 	} else {
 		return string(handler)
@@ -64,38 +66,61 @@ func (d *Warnings) HandlerName(handler HandlerTag) string {
 }
 
 // HandlerTags returns an array of all handler names sorted alphabetically.
-func (d *Warnings) HandlerTags() []HandlerTag {
-	if len(d.handlers) < 1 {
-		for handler := range d.byHandler {
-			d.handlers = append(d.handlers, handler)
+func (w *Warnings) HandlerTags() []HandlerTag {
+	if len(w.handlers) < 1 {
+		for handler := range w.byHandler {
+			w.handlers = append(w.handlers, handler)
 		}
-		sort.Slice(d.handlers, func(i, j int) bool {
-			return d.HandlerName(d.handlers[i]) < d.HandlerName(d.handlers[j])
+		sort.Slice(w.handlers, func(i, j int) bool {
+			return w.HandlerName(w.handlers[i]) < w.HandlerName(w.handlers[j])
 		})
 	}
-	return d.handlers
+	return w.handlers
 }
 
-func (d *Warnings) findHandler(handler HandlerTag, level warning.Level, warningName string) *dataWarning {
-	levels, ok := d.byHandler[handler]
+// TestName returns the full name associated with a TestTag.
+// If there is no full name the tag is returned.
+func (w *Warnings) TestName(test TestTag) string {
+	if name, found := w.testNames[test]; found {
+		return name
+	} else {
+		return string(test)
+	}
+}
+
+// TestTags returns an array of all handler names sorted alphabetically.
+func (w *Warnings) TestTags() []TestTag {
+	if len(w.tests) < 1 {
+		for test := range w.byTest {
+			w.tests = append(w.tests, test)
+		}
+		sort.Slice(w.tests, func(i, j int) bool {
+			return w.TestName(w.tests[i]) < w.TestName(w.tests[j])
+		})
+	}
+	return w.tests
+}
+
+func (w *Warnings) findHandler(handler HandlerTag, level warning.Level, warningName string) *dataWarning {
+	levels, ok := w.byHandler[handler]
 	if !ok {
 		levels = &Levels{
 			lookup: make(map[string]*dataLevel),
 			levels: make([]*dataLevel, 0),
 		}
-		d.byHandler[handler] = levels
+		w.byHandler[handler] = levels
 	}
 	return levels.findLevel(level, warningName)
 }
 
-func (d *Warnings) findTest(test TestTag, level warning.Level, warningName string) *dataWarning {
-	levels, ok := d.byTest[test]
+func (w *Warnings) findTest(test TestTag, level warning.Level, warningName string) *dataWarning {
+	levels, ok := w.byTest[test]
 	if !ok {
 		levels = &Levels{
 			lookup: make(map[string]*dataLevel),
 			levels: make([]*dataLevel, 0),
 		}
-		d.byTest[test] = levels
+		w.byTest[test] = levels
 	}
 	return levels.findLevel(level, warningName)
 }
@@ -109,13 +134,12 @@ type Levels struct {
 
 func (l *Levels) Levels() []*dataLevel {
 	if len(l.levels) < 1 {
-		l.levels = make([]*dataLevel, 0, len(l.lookup))
-		for _, lv := range l.lookup {
-			l.levels = append(l.levels, lv)
+		l.levels = make([]*dataLevel, 0, len(warning.LevelOrder))
+		for _, lvl := range warning.LevelOrder {
+			if lv, ok := l.lookup[lvl.String()]; ok {
+				l.levels = append(l.levels, lv)
+			}
 		}
-		sort.Slice(l.levels, func(i, j int) bool {
-			return l.levels[i].name < l.levels[j].name
-		})
 	}
 	return l.levels
 }
@@ -124,7 +148,7 @@ func (l *Levels) findLevel(lvl warning.Level, warningName string) *dataWarning {
 	lv, ok := l.lookup[lvl.String()]
 	if !ok {
 		lv = &dataLevel{
-			name:   lvl.String(),
+			level:  lvl,
 			lookup: make(map[string]*dataWarning),
 		}
 		l.lookup[lvl.String()] = lv
@@ -135,13 +159,13 @@ func (l *Levels) findLevel(lvl warning.Level, warningName string) *dataWarning {
 // -----------------------------------------------------------------------------
 
 type dataLevel struct {
-	name     string
+	level    warning.Level
 	lookup   map[string]*dataWarning
 	warnings []*dataWarning
 }
 
 func (l *dataLevel) Name() string {
-	return l.name
+	return l.level.String()
 }
 
 func (l *dataLevel) Warnings() []*dataWarning {
@@ -204,9 +228,14 @@ func (w *dataWarning) Instances() []*dataInstance {
 // -----------------------------------------------------------------------------
 
 type dataInstance struct {
-	name  string
-	extra string
-	log   string
+	source string
+	name   string
+	extra  string
+	log    string
+}
+
+func (di *dataInstance) Source() string {
+	return di.source
 }
 
 func (di *dataInstance) Name() string {

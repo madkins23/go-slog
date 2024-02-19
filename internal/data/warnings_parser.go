@@ -29,9 +29,9 @@ var (
 // ParseWarningData parses warning data from the output of benchmark and verification testing.
 // The data will be loaded from os.Stdin unless the -bench=<path> flag is set
 // in which case the data will be loaded from the specified path.
-func (d *Warnings) ParseWarningData(in io.Reader) error {
+func (w *Warnings) ParseWarningData(source string, in io.Reader) error {
 	var err error
-	if *verifyFile != "" {
+	if in == nil && *verifyFile != "" {
 		if in, err = os.Open(*verifyFile); err != nil {
 			return fmt.Errorf("open --verify=%s: %s\n", *verifyFile, err)
 		}
@@ -48,7 +48,11 @@ func (d *Warnings) ParseWarningData(in io.Reader) error {
 				slog.Warn("Nil dWarning", "line", line, "instance", instance)
 			} else {
 				dWarning.AddInstance(instance)
-				d.findTest(TestTag(instance.name), level, dWarning.warning.name).AddInstance(
+				tagName := instance.name
+				if instance.source != "" {
+					tagName = instance.source + ":" + tagName
+				}
+				w.findTest(TestTag(tagName), level, dWarning.warning.name).AddInstance(
 					&dataInstance{
 						name:  string(handler),
 						extra: instance.extra,
@@ -68,17 +72,17 @@ func (d *Warnings) ParseWarningData(in io.Reader) error {
 
 		if matches := ptnWarningsFor.FindSubmatch(line); len(matches) == 2 {
 			saveInstance(line)
-			handler = HandlerTag(string(matches[1]))
-			if d.handlerNames == nil {
-				d.handlerNames = make(map[HandlerTag]string)
+			handler = HandlerTag(matches[1])
+			if w.handlerNames == nil {
+				w.handlerNames = make(map[HandlerTag]string)
 			}
 			parts := strings.Split(string(handler), "/")
 			for i, part := range parts {
 				if len(part) > 0 {
-					parts[i] = strings.ToUpper(part[:1]) + part[1:]
+					parts[i] = strings.ToUpper(part[:1]) + strings.ToLower(part[1:])
 				}
 			}
-			d.handlerNames[handler] = strings.Join(parts, " ")
+			w.handlerNames[handler] = strings.Join(parts, " ")
 			continue
 		}
 		if ptnByWarning.Match(line) {
@@ -101,11 +105,12 @@ func (d *Warnings) ParseWarningData(in io.Reader) error {
 		if matches := ptnWarning.FindSubmatch(line); len(matches) == 3 {
 			warningName := string(matches[1])
 			saveInstance(line)
-			dWarning = d.findHandler(handler, level, warningName)
+			dWarning = w.findHandler(handler, level, warningName)
 			dWarning.warning.description = string(matches[2])
 			instance = nil
 			continue
 		}
+		// Do this before ptnInstance as they can otherwise get confused.
 		if ptnLogLine.Match(line) {
 			instance.log = string(line)
 			// Attempt to pretty-print the log line.
@@ -120,9 +125,26 @@ func (d *Warnings) ParseWarningData(in io.Reader) error {
 		if matches := ptnInstance.FindSubmatch(line); len(matches) == 3 {
 			saveInstance(line)
 			instance = &dataInstance{
-				name:  string(matches[1]),
 				extra: string(matches[2]),
 			}
+			instance.name = string(matches[1])
+			for {
+				changed := false
+				for _, src := range []string{
+					"Benchmark_", "Benchmark",
+					"Bench_", "Bench",
+					"Test_", "Test",
+				} {
+					if strings.HasPrefix(instance.name, src) {
+						instance.name = strings.TrimPrefix(instance.name, src)
+						changed = true
+					}
+				}
+				if !changed {
+					break
+				}
+			}
+			instance.name = w.source + ":" + instance.name
 			continue
 		}
 		if handler != "" {

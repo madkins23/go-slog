@@ -87,6 +87,8 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				continue
 			}
 
+			// TODO: Is this first clause correct or should it be:
+			//       benchmark.HandlerFn == nil || !suite.CanMakeHandler()
 			if benchmark.HandlerFn != nil && !suite.CanMakeHandler() {
 				// This test requires the handler to be adjusted before creating the logger
 				// but the Creator object doesn't provide a handler so skip the test.
@@ -109,20 +111,21 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				continue
 			}
 
-			test.Debugf(2, ">>>     Method: %s\n", method.Name)
 			// TODO: If I could call the following I could haz results now?
 			//       testing.Benchmark(func(b *testing.B) {
 			b.Run(method.Name, func(b *testing.B) {
 				var count test.CountWriter
 				function := benchmark.BenchmarkFn
-				logger := suite.logger(benchmark, &count)
+				// TODO: I believe this is to capture warnings from a single run.
 				if test.DebugLevel() > 0 {
 					// Print the log record to STDOUT.
 					function(stdoutLogger)
 				}
 				b.ReportAllocs()
+				// Now move on to the actual test.
 				// TODO: This doesn't seem to make any difference?
 				b.ResetTimer()
+				logger := suite.logger(benchmark, &count)
 				b.RunParallel(func(pb *testing.PB) {
 					for pb.Next() {
 						function(logger)

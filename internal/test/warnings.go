@@ -126,20 +126,20 @@ func (wrnMgr *WarningManager) AddUnused(w *warning.Warning, logRecordJSON string
 // If the addLogRecord flag is true the current log record JSON is also stored.
 // The current function name is acquired from the currentFunctionName() and stored.
 func (wrnMgr *WarningManager) AddWarning(w *warning.Warning, text string, logRecordJSON string) {
-	wrnMgr.addWarning(w, currentFunctionName(wrnMgr.fnPrefix), text, logRecordJSON)
+	wrnMgr.AddWarningFnText(w, currentFunctionName(wrnMgr.fnPrefix), text, logRecordJSON)
 }
 
-// AddWarningFn to results list, specifying warning string and function name.
+// AddWarningFn adds a warning to the results list, specifying warning string and function name.
 // If the addLogRecord flag is true the current log record JSON is also stored.
 // The current function name is acquired from the currentFunctionName() and stored.
 func (wrnMgr *WarningManager) AddWarningFn(w *warning.Warning, fnName string, logRecordJSON string) {
-	wrnMgr.addWarning(w, fnName, "", logRecordJSON)
+	wrnMgr.AddWarningFnText(w, fnName, "", logRecordJSON)
 }
 
-// addWarning to results list, specifying warning string, function name, and optional extra text.
+// AddWarningFnText to results list, specifying warning string, function name, and optional extra text.
 // If the addLogRecord flag is true the current log record JSON is also stored.
 // The current function name is acquired from the currentFunctionName() and stored.
-func (wrnMgr *WarningManager) addWarning(w *warning.Warning, fnName string, text string, logRecordJSON string) {
+func (wrnMgr *WarningManager) AddWarningFnText(w *warning.Warning, fnName string, text string, logRecordJSON string) {
 	if wrnMgr.warnings == nil {
 		wrnMgr.warnings = make(map[string]*Warnings)
 	}
@@ -309,11 +309,11 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 
 					_, _ = fmt.Fprintf(output, "%s  %4d [%s] %s\n", wrnMgr.showPrefix, w.Count, w.Name, w.Description)
 					for _, data := range w.Data {
-						text := data.Function
 						if data.Text != "" {
-							text += ": " + data.Text
+							_, _ = fmt.Fprintf(output, "%s         %s: %s\n", wrnMgr.showPrefix, data.Function, data.Text)
+						} else {
+							_, _ = fmt.Fprintf(output, "%s         %s\n", wrnMgr.showPrefix, data.Function)
 						}
-						_, _ = fmt.Fprintf(output, "%s         %s\n", wrnMgr.showPrefix, text)
 						if data.Record != "" {
 							_, _ = fmt.Fprintf(output, "%s           %s\n", wrnMgr.showPrefix, data.Record)
 						}

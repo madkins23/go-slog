@@ -48,6 +48,19 @@ table.data td {
     background-color: lightgray;
 }
 
+table.debug {
+    margin: 5px;
+    padding: 5px;
+}
+
+table.debug td {
+    font-family: monospace;
+    margin: 5px;
+    padding: 5px;
+    border: 2px inset darkgray;
+    background-color: lightgray;
+}
+
 table.root {
     margin-left: auto;
     margin-right: auto;
@@ -136,6 +149,10 @@ table.instance td.extra {
 #   border: 2px inset darkgray;
     font-family: monospace;
     font-size: 1em;
+}
+
+.fixed {
+    font-family: monospace;
 }
 
 .number {

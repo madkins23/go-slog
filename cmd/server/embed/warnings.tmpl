@@ -1,0 +1,49 @@
+          {{ range $level := $.Levels }}
+            <tr>
+              <td colspan=4 class="level">{{ $level.Name }}</td>
+            </tr>
+            {{ range $warning := $level.Warnings }}
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  {{ $warning.Name }}
+                </td>
+                <td class="extra">
+                  {{ $warning.Description }}
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="30%"/>
+                      <col width="50%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    {{ range $index, $instance := $warning.Instances }}
+                      {{ $id := printf "%v%v" $warning.Name $instance.Name }}
+                      {{ $color := "lightcyan" }}
+                      {{ if eq (mod $index 2) 0 }}
+                        {{ $color = "lightgray" }}
+                      {{ end }}
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:{{ $color }};">{{  $instance.Name  }}</td>
+                        <td class="extra" style="background-color:{{ $color }};">{{  $instance.Extra  }}</td>
+                        <td class="logLink" style="background-color:{{ $color }};">
+                          {{ if $instance.HasLog }}
+                            <button type="button" onclick="toggleTableRow('{{ $id }}')">Log</button>
+                          {{ end }}
+                        </td>
+                      </tr>
+                      <tr id="{{ $id }}" style="display:none;">
+                        <td style="background-color:{{ $color }};"></td>
+                        <td style="background-color:{{ $color }};" colspan=3 class="logLine"><pre>{{ $instance.Log }}</pre></td>
+                      </tr>
+                    {{ end }} {{/* range over instances */}}
+                  </table>
+                </td>
+              </tr>
+            {{ end }} {{/* range over warnings */}}
+          {{ end }} {{/* range over levels */}}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	_ "embed"
 	"flag"
 	"fmt"
@@ -33,11 +34,14 @@ type pageType string
 const port = 8080
 
 const (
-	pageRoot    = "root"
-	pageTest    = "bench"
-	pageHandler = "handler"
-	pageChoices = "choices"
-	pageError   = "error"
+	pageRoot     = "root"
+	pageTest     = "bench"
+	pageHandler  = "handler"
+	pageChoices  = "choices"
+	pageWarnings = "warnings"
+	pageDebug    = "debug"
+	pageSource   = "source"
+	pageError    = "error"
 )
 
 var (
@@ -73,6 +77,7 @@ func main() {
 	router.GET("/go-slog/", rootPageFn)
 	router.GET("/go-slog/index.html", rootPageFn)
 	router.GET("/go-slog/test/:tag", pageFunction(pageTest))
+	router.GET("/go-slog/debug", pageFunction(pageDebug))
 	router.GET("/go-slog/handler/:tag", pageFunction(pageHandler))
 	router.GET("/go-slog/chart/:tag/:item", chartFunction)
 	router.GET("/go-slog/home.svg", svgFunction(home))
@@ -96,8 +101,9 @@ func main() {
 
 var (
 	bData     = data.NewBenchmarks()
-	wData     = data.NewWarningsData()
-	pages     = []pageType{pageRoot, pageTest, pageHandler}
+	bWarn     = data.NewWarningData("Bench")
+	vWarn     = data.NewWarningData("Verify")
+	pages     = []pageType{pageRoot, pageTest, pageHandler, pageDebug}
 	templates map[pageType]*template.Template
 
 	//go:embed embed/root.tmpl
@@ -112,6 +118,15 @@ var (
 	//go:embed embed/choices.tmpl
 	tmplChoices string
 
+	//go:embed embed/source.tmpl
+	tmplSource string
+
+	//go:embed embed/warnings.tmpl
+	tmplWarnings string
+
+	//go:embed embed/debug.tmpl
+	tmplDebug string
+
 	//go:embed embed/error.tmpl
 	tmplError string
 )
@@ -125,8 +140,12 @@ func setup() error {
 		return fmt.Errorf("parse -bench data: %w", err)
 	}
 
-	if err := wData.ParseWarningData(nil); err != nil {
-		return fmt.Errorf("parse -verify data: %w", err)
+	if err := bWarn.ParseWarningData("Bench", bytes.NewReader(bData.WarningText())); err != nil {
+		return fmt.Errorf("parse -bench warnings: %w", err)
+	}
+
+	if err := vWarn.ParseWarningData("Verify", nil); err != nil {
+		return fmt.Errorf("parse -verify warnings: %w", err)
 	}
 
 	templates = make(map[pageType]*template.Template)
@@ -142,10 +161,21 @@ func setup() error {
 			if err == nil {
 				_, err = tmpl.New(pageChoices).Parse(tmplChoices)
 			}
+			if err == nil {
+				_, err = tmpl.New(pageWarnings).Parse(tmplWarnings)
+			}
 		case pageHandler:
 			tmpl, err = tmpl.Parse(tmplHandler)
 			if err == nil {
 				_, err = tmpl.New(pageChoices).Parse(tmplChoices)
+			}
+			if err == nil {
+				_, err = tmpl.New(pageWarnings).Parse(tmplWarnings)
+			}
+		case pageDebug:
+			tmpl, err = tmpl.Parse(tmplDebug)
+			if err == nil {
+				_, err = tmpl.New(pageSource).Parse(tmplSource)
 			}
 		case pageError:
 			tmpl, err = tmpl.Parse(tmplError)
@@ -256,28 +286,30 @@ func chartHandler(records data.TestRecords, item data.BenchItems) (labels []stri
 
 // -----------------------------------------------------------------------------
 
-type pageData struct {
-	Bench   *data.Benchmarks
-	Warning *data.Warnings
-	Test    data.TestTag
-	Handler data.HandlerTag
-	Printer *message.Printer
+type templateData struct {
+	DataBench  *data.Benchmarks
+	WarnBench  *data.Warnings
+	WarnVerify *data.Warnings
+	Test       data.TestTag
+	Handler    data.HandlerTag
+	Printer    *message.Printer
 }
 
-func (pd *pageData) FixUint(number uint64) string {
+func (pd *templateData) FixUint(number uint64) string {
 	return pd.Printer.Sprintf("%d", number)
 }
 
-func (pd *pageData) FixFloat(number float64) string {
+func (pd *templateData) FixFloat(number float64) string {
 	return pd.Printer.Sprintf("%0.2f", number)
 }
 
 func pageFunction(page pageType) gin.HandlerFunc {
 	return func(c *gin.Context) {
-		pageData := &pageData{
-			Bench:   bData,
-			Warning: wData,
-			Printer: language.Printer(),
+		tmplData := &templateData{
+			DataBench:  bData,
+			WarnBench:  bWarn,
+			WarnVerify: vWarn,
+			Printer:    language.Printer(),
 		}
 		if page == pageTest || page == pageHandler {
 			if tag := c.Param("tag"); tag == "" {
@@ -285,13 +317,13 @@ func pageFunction(page pageType) gin.HandlerFunc {
 			} else {
 				tag := strings.TrimSuffix(tag, ".html")
 				if page == pageTest {
-					pageData.Test = data.TestTag(tag)
+					tmplData.Test = data.TestTag(tag)
 				} else if page == pageHandler {
-					pageData.Handler = data.HandlerTag(tag)
+					tmplData.Handler = data.HandlerTag(tag)
 				}
 			}
 		}
-		if err := templates[page].Execute(c.Writer, pageData); err != nil {
+		if err := templates[page].Execute(c.Writer, tmplData); err != nil {
 			slog.Error("Error in page function", "err", err)
 			c.HTML(http.StatusInternalServerError, "pageFunction", gin.H{
 				"ErrorTitle":   "Template failed execution",

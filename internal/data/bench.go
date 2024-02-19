@@ -3,7 +3,6 @@ package data
 import (
 	"flag"
 	"log/slog"
-	"regexp"
 	"sort"
 )
 
@@ -65,7 +64,7 @@ type Benchmarks struct {
 	testNames    map[TestTag]string
 	testCPUs     map[TestTag]uint64
 	handlerNames map[HandlerTag]string
-	warningText  []string
+	warningText  []byte
 }
 
 func NewBenchmarks() *Benchmarks {
@@ -77,16 +76,6 @@ func NewBenchmarks() *Benchmarks {
 		handlerNames: make(map[HandlerTag]string),
 	}
 }
-
-// -----------------------------------------------------------------------------
-
-var (
-	ptnWarnLine = regexp.MustCompile(`^# (.*)`)
-	ptnDataLine = regexp.MustCompile(`^([^/]+)/Benchmark_([^-]+)-(\d+)\s+(\d+)\s+(\d+(?:\.\d+)?)\s+ns/op\b`)
-	ptnAllocsOp = regexp.MustCompile(`\s(\d+)\s+allocs/op\b`)
-	ptnBytesOp  = regexp.MustCompile(`\s(\d+)\s+B/op\b`)
-	ptnMbSec    = regexp.MustCompile(`\s(\d+(?:\.\d+)?)\s+MB/s`)
-)
 
 // -----------------------------------------------------------------------------
 
@@ -152,6 +141,6 @@ func (d *Benchmarks) HasWarningText() bool {
 }
 
 // WarningText from end of benchmark run.
-func (d *Benchmarks) WarningText() []string {
+func (d *Benchmarks) WarningText() []byte {
 	return d.warningText
 }
