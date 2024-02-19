@@ -11,6 +11,7 @@ import (
 )
 
 var (
+	ptnAliasDef = regexp.MustCompile(`^#\s*Alias\s+(\S+)\s*-->\s*(\S+)\s*$`)
 	ptnWarnLine = regexp.MustCompile(`^# (.*)`)
 	ptnDataLine = regexp.MustCompile(`^([^/]+)/(Benchmark_[^-]+)-(\d+)\s+(\d+)\s+(\d+(?:\.\d+)?)\s+ns/op\b`)
 	ptnAllocsOp = regexp.MustCompile(`\s(\d+)\s+allocs/op\b`)
@@ -40,7 +41,10 @@ func (d *Benchmarks) ParseBenchmarkData(in io.Reader) error {
 		var nsOps, mbSec float64
 		var cpus, runs, allocsOp, bytesOp uint64
 		line := scanner.Bytes()
-		if matches := ptnWarnLine.FindSubmatch(line); len(matches) == 2 {
+		if matches := ptnAliasDef.FindSubmatch(line); len(matches) == 3 {
+			// Capture relationship between test name in function vs. Creator.
+			d.handlerNames[HandlerTag(matches[1])] = string(matches[2])
+		} else if matches := ptnWarnLine.FindSubmatch(line); len(matches) == 2 {
 			// Capture warning text marked with "# " at beginning of line.
 			if len(d.warningText) > 0 {
 				d.warningText = append(d.warningText, []byte("\n")...)
@@ -82,17 +86,10 @@ func (d *Benchmarks) ParseBenchmarkData(in io.Reader) error {
 			test := TestTag("Bench:" + tagName)
 			d.testNames[test] = strings.Replace(tagName, "_", " ", -1)
 
-			if string(hdlrBytes) == "Benchmark_slog" {
-				// Fix this so the handler name doesn't get edited down to nothing.
-				hdlrBytes = []byte("Benchmark_slog_slog_JSONHandler")
+			handler := FixBenchHandlerTag(hdlrBytes)
+			if _, found := d.handlerNames[handler]; !found {
+				d.handlerNames[handler] = handler.Name()
 			}
-			handler := HandlerTag(strings.TrimPrefix(string(hdlrBytes), "Benchmark_slog_"))
-			parts := strings.Split(string(handler), "_")
-			for i, part := range parts {
-				parts[i] = strings.ToUpper(part[:1]) + strings.ToLower(part[1:])
-			}
-			d.handlerNames[handler] = strings.Join(parts, " ")
-
 			d.testCPUs[test] = cpus
 
 			if d.byTest[test] == nil {

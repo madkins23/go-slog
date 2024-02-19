@@ -22,9 +22,9 @@ type ParserTestSuite struct {
 
 func (suite *ParserTestSuite) SetupSuite() {
 	suite.bench = NewWarningData("")
-	suite.Require().NoError(suite.bench.ParseWarningData("", strings.NewReader(benchTxt)))
+	suite.Require().NoError(suite.bench.ParseWarningData(strings.NewReader(benchTxt), nil))
 	suite.verify = NewWarningData("")
-	suite.Require().NoError(suite.verify.ParseWarningData("", strings.NewReader(verifyTxt)))
+	suite.Require().NoError(suite.verify.ParseWarningData(strings.NewReader(verifyTxt), nil))
 }
 
 func TestParserTestSuite(t *testing.T) {

@@ -228,14 +228,9 @@ func (w *dataWarning) Instances() []*dataInstance {
 // -----------------------------------------------------------------------------
 
 type dataInstance struct {
-	source string
-	name   string
-	extra  string
-	log    string
-}
-
-func (di *dataInstance) Source() string {
-	return di.source
+	name  string
+	extra string
+	log   string
 }
 
 func (di *dataInstance) Name() string {

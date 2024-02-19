@@ -140,11 +140,11 @@ func setup() error {
 		return fmt.Errorf("parse -bench data: %w", err)
 	}
 
-	if err := bWarn.ParseWarningData("Bench", bytes.NewReader(bData.WarningText())); err != nil {
+	if err := bWarn.ParseWarningData(bytes.NewReader(bData.WarningText()), bData.HandlerLookup()); err != nil {
 		return fmt.Errorf("parse -bench warnings: %w", err)
 	}
 
-	if err := vWarn.ParseWarningData("Verify", nil); err != nil {
+	if err := vWarn.ParseWarningData(nil, bData.HandlerLookup()); err != nil {
 		return fmt.Errorf("parse -verify warnings: %w", err)
 	}
 

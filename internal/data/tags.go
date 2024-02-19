@@ -1,25 +1,19 @@
 package data
 
+import "strings"
+
 // -----------------------------------------------------------------------------
 
 // TestTag is a unique name for a Benchmark or Verification test.
 // The type is an alias for string so that types can't be confused.
 type TestTag string
 
-var aliasTestTag = make(map[string]TestTag)
-
-// Alias defines an alias string for use by TestTagFor for this TestTag.
-func (t TestTag) Alias(s string) {
-	aliasTestTag[s] = t
-}
-
-// Tag returns any TestTag aliased to the string value of the current one,
-// otherwise the current tag.
-func (t TestTag) Tag() TestTag {
-	if tag, found := aliasTestTag[string(t)]; found {
-		return tag
+func (tt TestTag) Name() string {
+	parts := strings.Split(string(tt), "_")
+	for i, part := range parts {
+		parts[i] = strings.ToUpper(part[:1]) + strings.ToLower(part[1:])
 	}
-	return t
+	return strings.Join(parts, " ")
 }
 
 // -----------------------------------------------------------------------------
@@ -28,30 +22,19 @@ func (t TestTag) Tag() TestTag {
 // The type is an alias for string so that types can't be confused.
 type HandlerTag string
 
-var aliasHandlerTag = make(map[string]HandlerTag)
-
-// Alias defines an alias string for use by TestHandlerFor for this HandlerTag.
-func (tag HandlerTag) Alias(s string) {
-	aliasHandlerTag[s] = tag
-}
-
-// Tag returns any HandlerTag aliased to the string value of the current one,
-// otherwise the current tag.
-func (tag HandlerTag) Tag() HandlerTag {
-	if tag, found := aliasHandlerTag[string(tag)]; found {
-		return tag
+func (ht HandlerTag) Name() string {
+	parts := strings.Split(string(ht), "_")
+	for i, part := range parts {
+		parts[i] = strings.ToUpper(part[:1]) + strings.ToLower(part[1:])
 	}
-	return tag
+	return strings.Join(parts, " ")
 }
 
-// -----------------------------------------------------------------------------
-
-func init() {
-	// TODO: Is there a way to do this automagically instead of this awful hack?
-	HandlerTag("darvaza/zerolog").Alias("darvaza_zerolog")
-	HandlerTag("phsym/zeroslog").Alias("phsym_zerolog")
-	HandlerTag("samber/slog-zap").Alias("samber_zap")
-	HandlerTag("samber/slog-zerolog").Alias("samber_zerolog")
-	HandlerTag("slog/JSONHandler").Alias("slog_JSONHandler")
-
+func FixBenchHandlerTag(hdlrBytes []byte) HandlerTag {
+	if string(hdlrBytes) == "Benchmark_slog" {
+		// Fix this so the handler name doesn't get edited down to nothing.
+		hdlrBytes = []byte("Benchmark_slog_slog_JSONHandler")
+	}
+	tagString := strings.TrimPrefix(string(hdlrBytes), "Benchmark_slog_")
+	return HandlerTag(tagString)
 }

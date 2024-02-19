@@ -6,11 +6,11 @@ import (
 	"io"
 	"log/slog"
 	"os"
-	"runtime"
 	"sort"
 	"strings"
 	"testing"
 
+	"github.com/madkins23/go-slog/internal/misc"
 	"github.com/madkins23/go-slog/warning"
 )
 
@@ -126,7 +126,7 @@ func (wrnMgr *WarningManager) AddUnused(w *warning.Warning, logRecordJSON string
 // If the addLogRecord flag is true the current log record JSON is also stored.
 // The current function name is acquired from the currentFunctionName() and stored.
 func (wrnMgr *WarningManager) AddWarning(w *warning.Warning, text string, logRecordJSON string) {
-	wrnMgr.AddWarningFnText(w, currentFunctionName(wrnMgr.fnPrefix), text, logRecordJSON)
+	wrnMgr.AddWarningFnText(w, misc.CurrentFunctionName(wrnMgr.fnPrefix), text, logRecordJSON)
 }
 
 // AddWarningFn adds a warning to the results list, specifying warning string and function name.
@@ -398,24 +398,3 @@ func WithWarnings(m *testing.M) {
 
 // -----------------------------------------------------------------------------
 // Utility
-
-// currentFunctionName checks up the call stack for the name of the current test function.
-// Only the last part of the function name (after the last period) is returned.
-// The function name is found by checking for a fnPrefix of "Test".
-// If no test function is found "Unknown" is returned.
-func currentFunctionName(prefix string) string {
-	pc := make([]uintptr, 10)
-	n := runtime.Callers(2, pc)
-	frames := runtime.CallersFrames(pc[:n])
-	more := true
-	for more {
-		var frame runtime.Frame
-		frame, more = frames.Next()
-		parts := strings.Split(frame.Function, ".")
-		functionName := parts[len(parts)-1]
-		if strings.HasPrefix(functionName, prefix) {
-			return functionName
-		}
-	}
-	return "Unknown"
-}

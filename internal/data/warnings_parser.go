@@ -29,7 +29,7 @@ var (
 // ParseWarningData parses warning data from the output of benchmark and verification testing.
 // The data will be loaded from os.Stdin unless the -bench=<path> flag is set
 // in which case the data will be loaded from the specified path.
-func (w *Warnings) ParseWarningData(source string, in io.Reader) error {
+func (w *Warnings) ParseWarningData(in io.Reader, lookup map[string]HandlerTag) error {
 	var err error
 	if in == nil && *verifyFile != "" {
 		if in, err = os.Open(*verifyFile); err != nil {
@@ -48,11 +48,7 @@ func (w *Warnings) ParseWarningData(source string, in io.Reader) error {
 				slog.Warn("Nil dWarning", "line", line, "instance", instance)
 			} else {
 				dWarning.AddInstance(instance)
-				tagName := instance.name
-				if instance.source != "" {
-					tagName = instance.source + ":" + tagName
-				}
-				w.findTest(TestTag(tagName), level, dWarning.warning.name).AddInstance(
+				w.findTest(TestTag(instance.name), level, dWarning.warning.name).AddInstance(
 					&dataInstance{
 						name:  string(handler),
 						extra: instance.extra,
@@ -73,16 +69,21 @@ func (w *Warnings) ParseWarningData(source string, in io.Reader) error {
 		if matches := ptnWarningsFor.FindSubmatch(line); len(matches) == 2 {
 			saveInstance(line)
 			handler = HandlerTag(matches[1])
-			if w.handlerNames == nil {
-				w.handlerNames = make(map[HandlerTag]string)
-			}
-			parts := strings.Split(string(handler), "/")
-			for i, part := range parts {
-				if len(part) > 0 {
-					parts[i] = strings.ToUpper(part[:1]) + strings.ToLower(part[1:])
+			if h, found := lookup[string(handler)]; found {
+				if w.handlerNames == nil {
+					w.handlerNames = make(map[HandlerTag]string)
 				}
+				w.handlerNames[h] = string(handler)
+				handler = h
+			} else {
+				parts := strings.Split(string(handler), "/")
+				for i, part := range parts {
+					if len(part) > 0 {
+						parts[i] = strings.ToUpper(part[:1]) + strings.ToLower(part[1:])
+					}
+				}
+				w.handlerNames[handler] = strings.Join(parts, " ")
 			}
-			w.handlerNames[handler] = strings.Join(parts, " ")
 			continue
 		}
 		if ptnByWarning.Match(line) {
@@ -144,7 +145,15 @@ func (w *Warnings) ParseWarningData(source string, in io.Reader) error {
 					break
 				}
 			}
-			instance.name = w.source + ":" + instance.name
+			baseTag := TestTag(instance.name)
+			testTag := baseTag
+			if w.source != "" {
+				instance.name = w.source + ":" + string(baseTag)
+				testTag = TestTag(instance.name)
+			}
+			if _, found := w.testNames[testTag]; !found {
+				w.testNames[testTag] = baseTag.Name()
+			}
 			continue
 		}
 		if handler != "" {

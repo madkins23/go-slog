@@ -3,6 +3,7 @@ package tests
 import (
 	"bytes"
 	"flag"
+	"fmt"
 	"io"
 	"log/slog"
 	"os"
@@ -12,6 +13,8 @@ import (
 	"testing"
 
 	"github.com/madkins23/go-slog/infra"
+	"github.com/madkins23/go-slog/internal/data"
+	"github.com/madkins23/go-slog/internal/misc"
 	"github.com/madkins23/go-slog/internal/test"
 	"github.com/madkins23/go-slog/warning"
 )
@@ -66,6 +69,10 @@ const benchmarkMethodPrefix = "Benchmark"
 
 func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 	defer recoverAndFailOnPanic(b)
+
+	fn := misc.CurrentFunctionName("Benchmark_slog")
+	handler := data.FixBenchHandlerTag([]byte(fn))
+	fmt.Printf("# Alias %s --> %s\n", handler, suite.Creator.Name())
 
 	stdoutLogger := suite.NewLogger(os.Stdout, infra.SimpleOptions())
 	suite.SetB(b)

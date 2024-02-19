@@ -65,6 +65,7 @@ type Benchmarks struct {
 	testCPUs     map[TestTag]uint64
 	handlerNames map[HandlerTag]string
 	warningText  []byte
+	lookup       map[string]HandlerTag
 }
 
 func NewBenchmarks() *Benchmarks {
@@ -78,6 +79,16 @@ func NewBenchmarks() *Benchmarks {
 }
 
 // -----------------------------------------------------------------------------
+
+func (d *Benchmarks) HandlerLookup() map[string]HandlerTag {
+	if d.lookup == nil {
+		d.lookup = make(map[string]HandlerTag, len(d.handlerNames))
+		for tag, name := range d.handlerNames {
+			d.lookup[name] = tag
+		}
+	}
+	return d.lookup
+}
 
 // HandlerName returns the full name associated with a HandlerTag.
 // If there is no full name the tag is returned.
