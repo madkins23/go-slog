@@ -1,6 +1,10 @@
 package data
 
-import "strings"
+import (
+	"strings"
+
+	"github.com/fatih/camelcase"
+)
 
 // -----------------------------------------------------------------------------
 
@@ -9,11 +13,16 @@ import "strings"
 type TestTag string
 
 func (tt TestTag) Name() string {
-	parts := strings.Split(string(tt), "_")
-	for i, part := range parts {
-		parts[i] = strings.ToUpper(part[:1]) + strings.ToLower(part[1:])
+	var builder strings.Builder
+	for _, part1 := range strings.Split(string(tt), "_") {
+		for _, part2 := range camelcase.Split(part1) {
+			if builder.Len() > 0 {
+				builder.WriteString(" ")
+			}
+			builder.WriteString(strings.ToUpper(part2[:1]) + strings.ToLower(part2[1:]))
+		}
 	}
-	return strings.Join(parts, " ")
+	return builder.String()
 }
 
 // -----------------------------------------------------------------------------
@@ -23,11 +32,16 @@ func (tt TestTag) Name() string {
 type HandlerTag string
 
 func (ht HandlerTag) Name() string {
-	parts := strings.Split(string(ht), "_")
-	for i, part := range parts {
-		parts[i] = strings.ToUpper(part[:1]) + strings.ToLower(part[1:])
+	var builder strings.Builder
+	for _, part1 := range strings.Split(string(ht), "_") {
+		for _, part2 := range camelcase.Split(part1) {
+			if builder.Len() > 0 {
+				builder.WriteString(" ")
+			}
+			builder.WriteString(strings.ToUpper(part2[:1]) + strings.ToUpper(part2[1:]))
+		}
 	}
-	return strings.Join(parts, " ")
+	return builder.String()
 }
 
 func FixBenchHandlerTag(hdlrBytes []byte) HandlerTag {
