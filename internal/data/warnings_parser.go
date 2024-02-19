@@ -48,7 +48,9 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 				slog.Warn("Nil dWarning", "line", line, "instance", instance)
 			} else {
 				dWarning.AddInstance(instance)
-				w.findTest(TestTag(instance.name), level, dWarning.warning.name).AddInstance(
+				tWarning := w.findTest(TestTag(instance.name), level, dWarning.warning.name)
+				tWarning.warning.description = dWarning.warning.description
+				tWarning.AddInstance(
 					&dataInstance{
 						name:  string(handler),
 						extra: instance.extra,
@@ -69,6 +71,12 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 		if matches := ptnWarningsFor.FindSubmatch(line); len(matches) == 2 {
 			saveInstance(line)
 			handler = HandlerTag(matches[1])
+			// Capture relationship between handler name in benchmark function vs. Creator.
+			// The handler string here is the Creator name,
+			// converting it through the lookup map makes it into the Benchmarks variant,
+			// which makes all handler tags the same between Benchmarks and Warnings.
+			// The Creator name can't be used because they all contain slashes
+			// which breaks up the URL pattern matching in the server.
 			if h, found := lookup[string(handler)]; found {
 				if w.handlerNames == nil {
 					w.handlerNames = make(map[HandlerTag]string)
@@ -76,6 +84,7 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 				w.handlerNames[h] = string(handler)
 				handler = h
 			} else {
+				slog.Warn("Default handler name", "handler", handler)
 				parts := strings.Split(string(handler), "/")
 				for i, part := range parts {
 					if len(part) > 0 {

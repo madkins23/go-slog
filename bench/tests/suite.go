@@ -72,7 +72,11 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 
 	fn := misc.CurrentFunctionName("Benchmark_slog")
 	handler := data.FixBenchHandlerTag([]byte(fn))
-	fmt.Printf("# Alias %s --> %s\n", handler, suite.Creator.Name())
+	// Capture relationship between handler name in benchmark function vs. Creator.
+	// This way the handler name field is populated by the Creator name string.
+	// The data will be parsed by internal/data.Benchmarks.ParseBenchmarkData() and
+	// passed into Warnings.ParseWarningData().
+	fmt.Printf("# Handler[%s]=\"%s\"\n", handler, suite.Creator.Name())
 
 	stdoutLogger := suite.NewLogger(os.Stdout, infra.SimpleOptions())
 	suite.SetB(b)

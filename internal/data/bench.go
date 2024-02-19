@@ -80,6 +80,11 @@ func NewBenchmarks() *Benchmarks {
 
 // -----------------------------------------------------------------------------
 
+// HandlerLookup returns a map from handler names to handler tags.
+// Capture relationship between handler name in benchmark function vs. Creator.
+// The result will be passed into Warnings.ParseWarningData(),
+// where it will be used to convert handler names to tags.
+// This makes all handler tags the same between Benchmarks and Warnings.
 func (d *Benchmarks) HandlerLookup() map[string]HandlerTag {
 	if d.lookup == nil {
 		d.lookup = make(map[string]HandlerTag, len(d.handlerNames))

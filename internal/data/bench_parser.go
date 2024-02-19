@@ -11,12 +11,12 @@ import (
 )
 
 var (
-	ptnAliasDef = regexp.MustCompile(`^#\s*Alias\s+(\S+)\s*-->\s*(\S+)\s*$`)
-	ptnWarnLine = regexp.MustCompile(`^# (.*)`)
-	ptnDataLine = regexp.MustCompile(`^([^/]+)/(Benchmark_[^-]+)-(\d+)\s+(\d+)\s+(\d+(?:\.\d+)?)\s+ns/op\b`)
-	ptnAllocsOp = regexp.MustCompile(`\s(\d+)\s+allocs/op\b`)
-	ptnBytesOp  = regexp.MustCompile(`\s(\d+)\s+B/op\b`)
-	ptnMbSec    = regexp.MustCompile(`\s(\d+(?:\.\d+)?)\s+MB/s`)
+	ptnHandlerDef = regexp.MustCompile(`^#\s*Handler\[(\S+)\]\s*=\s*"(\S+)"\s*$`)
+	ptnWarnLine   = regexp.MustCompile(`^# (.*)`)
+	ptnDataLine   = regexp.MustCompile(`^([^/]+)/(Benchmark_[^-]+)-(\d+)\s+(\d+)\s+(\d+(?:\.\d+)?)\s+ns/op\b`)
+	ptnAllocsOp   = regexp.MustCompile(`\s(\d+)\s+allocs/op\b`)
+	ptnBytesOp    = regexp.MustCompile(`\s(\d+)\s+B/op\b`)
+	ptnMbSec      = regexp.MustCompile(`\s(\d+(?:\.\d+)?)\s+MB/s`)
 )
 
 // -----------------------------------------------------------------------------
@@ -41,8 +41,12 @@ func (d *Benchmarks) ParseBenchmarkData(in io.Reader) error {
 		var nsOps, mbSec float64
 		var cpus, runs, allocsOp, bytesOp uint64
 		line := scanner.Bytes()
-		if matches := ptnAliasDef.FindSubmatch(line); len(matches) == 3 {
-			// Capture relationship between test name in function vs. Creator.
+		if matches := ptnHandlerDef.FindSubmatch(line); len(matches) == 3 {
+			// Capture relationship between handler name in benchmark function vs. Creator.
+			// Parse handler tag/name information written in the log by bench/suite.Run().
+			// This way the handler name field is populated by the Creator name string.
+			// The data will be parsed by internal/data.Benchmarks.ParseBenchmarkData() and
+			// passed into Warnings.ParseWarningData().
 			d.handlerNames[HandlerTag(matches[1])] = string(matches[2])
 		} else if matches := ptnWarnLine.FindSubmatch(line); len(matches) == 2 {
 			// Capture warning text marked with "# " at beginning of line.
