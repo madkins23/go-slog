@@ -181,10 +181,14 @@ Editing every log statement in a large project can be a real pain.
 * [`chanchal1987/zaphandler`](https://github.com/chanchal1987/zaphandler)  
   Not currently tested in this project.
 * [`darvaza/logrus`](https://pkg.go.dev/darvaza.org/slog/handlers/logrus)  
-  Not currently tested in this project.
+  - `New` returns instance of an interface incompatible with `slog.Logger`
+  - No separate `Handler` object
 * [`darvaza/zap`](https://pkg.go.dev/darvaza.org/slog/handlers/zap)  
-  Not currently tested in this project.
-* [`darvaza/zerolog`](https://pkg.go.dev/darvaza.org/slog/handlers/zerolog)
+  - `New` returns instance of an interface incompatible with `slog.Logger`
+  - No separate `Handler` object
+* [`darvaza/zerolog`](https://pkg.go.dev/darvaza.org/slog/handlers/zerolog)  
+  - `New` returns instance of an interface incompatible with `slog.Logger`
+  - No separate `Handler` object
 * [`evanphx/go-hclog-slog`](https://github.com/evanphx/go-hclog-slog)  
   Not currently tested in this project.
 * [`galecore/xslog`](https://github.com/galecore/xslog)
