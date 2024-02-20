@@ -17,6 +17,11 @@ var (
 		"slog.Time() logs milliseconds instead of nanoseconds")
 )
 
+func init() {
+	// Always update this number when adding or removing Warning objects.
+	addTestCount(LevelSuggested, 5)
+}
+
 func Suggested() []*Warning {
 	return WarningsForLevel(LevelSuggested)
 }

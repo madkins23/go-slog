@@ -17,6 +17,11 @@ var (
 		"Source data not logged when AddSource flag set")
 )
 
+func init() {
+	// Always update this number when adding or removing Warning objects.
+	addTestCount(LevelImplied, 5)
+}
+
 func Implied() []*Warning {
 	return WarningsForLevel(LevelImplied)
 }

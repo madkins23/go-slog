@@ -21,6 +21,7 @@ type Warning struct {
 var (
 	allWarnings = make([]*Warning, 0, 25)
 	byName      = make(map[string]*Warning)
+	testCounts  = make(map[Level]int)
 	warningTree = make(map[Level][]*Warning)
 	warningLock sync.Mutex
 )
@@ -67,4 +68,10 @@ func buildTree() {
 			return array[i].Name < array[j].Name
 		})
 	}
+}
+
+// addTestCount supports unit test TestWarnings.
+// Whenever creating a new Warning object make sure to update this count.
+func addTestCount(level Level, increment uint) {
+	testCounts[level] += int(increment)
 }

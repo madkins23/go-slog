@@ -17,6 +17,11 @@ var (
 		"Unused Warnings(s)")
 )
 
+func init() {
+	// Always update this number when adding or removing Warning objects.
+	addTestCount(LevelAdmin, 5)
+}
+
 func Administrative() []*Warning {
 	return WarningsForLevel(LevelAdmin)
 }
