@@ -1,6 +1,10 @@
 * Add more slog handlers.
 * Move package-specific Readme notes into package doc.go files where possible.
-* Auto-register warnings.
+* More description attached to warnings?
+  - Maybe use markdown?
 * Re-check bench warnings for missing methods ?!?
 * Is there a way to avoid crashing when update to slog handlers blow up?
   - Currently this is an issue with zerolog 1.32 breaking phsym/zeroslog.
+
+* List of goland:noinspection codes (doesn't always work):
+  - https://github.com/JetBrains/qodana-profiles/blob/master/.idea/inspectionProfiles/qodana.recommended.full.xml
