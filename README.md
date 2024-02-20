@@ -178,18 +178,29 @@ Editing every log statement in a large project can be a real pain.
 
 ### Slog Handlers
 
+* [`chanchal1987/zaphandler`](https://github.com/chanchal1987/zaphandler)  
+  Not currently tested in this project.
+* [`darvaza/logrus`](https://pkg.go.dev/darvaza.org/slog/handlers/logrus)  
+  Not currently tested in this project.
 * [`darvaza/zap`](https://pkg.go.dev/darvaza.org/slog/handlers/zap)  
   Not currently tested in this project.
 * [`darvaza/zerolog`](https://pkg.go.dev/darvaza.org/slog/handlers/zerolog)
+* [`evanphx/go-hclog-slog`](https://github.com/evanphx/go-hclog-slog)  
+  Not currently tested in this project.
 * [`galecore/xslog`](https://github.com/galecore/xslog)
   - Doesn't currently work properly (2024-02-20).
 * [`phsym/console-slog`](https://github.com/phsym/console-slog)
   - Console `slog` handlers not tested in this project, only JSON handlers.
 * [`phsym/zeroslog`](https://github.com/phsym/zeroslog)
+* [`samber/slog-zap`](https://github.com/samber/slog-zap)  
+  Not currently tested in this project.
 * [`samber/slog-zerolog`](https://github.com/samber/slog-zerolog)
+* [`samber/slog-logrus`](https://github.com/samber/slog-logrus)  
+  Not currently tested in this project.
 
 ### Miscellaneous
 
+* [Awesome `slog`](https://github.com/go-slog/awesome-slog)
 * [Go Logging Benchmarks](https://github.com/betterstack-community/go-logging-benchmarks)
   - Benchmarks of various Go logging packages, not just `slog` loggers.
   - Used github action in this project as template for
