@@ -30,7 +30,28 @@
         </script>
         <table>
           <tr>
-            <td align="right">Test:</td>
+            <td align="right">Handlers</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="darvaza_zerolog" >darvaza/zerolog</option>
+                  
+                    <option value="slog_JSONHandler" >log/slog.JSONHandler</option>
+                  
+                    <option value="phsym_zerolog" selected>phsym/zeroslog</option>
+                  
+                    <option value="samber_zap" >samber/slog-zap</option>
+                  
+                    <option value="samber_zerolog" >samber/slog-zerolog</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Bench Tests</td>
             <td>
               <form class="choice">
                 <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -65,21 +86,55 @@
             </td>
           </tr>
           <tr>
-            <td align="right">Handler:</td>
+            <td align="right">Verify Tests</td>
             <td>
-              <form action="handler" class="choice">
-                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
-                    <option value="darvaza_zerolog" >darvaza/zerolog</option>
+                    <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
                   
-                    <option value="slog_JSONHandler" >log/slog.JSONHandler</option>
+                    <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
                   
-                    <option value="phsym_zerolog" selected>phsym/zeroslog</option>
+                    <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
                   
-                    <option value="samber_zap" >samber/slog-zap</option>
+                    <option value="Verify:AttributesEmpty" >Attributes Empty</option>
                   
-                    <option value="samber_zerolog" >samber/slog-zerolog</option>
+                    <option value="Verify:CancelledContext" >Cancelled Context</option>
+                  
+                    <option value="Verify:DefaultLevel" >Default Level</option>
+                  
+                    <option value="Verify:GroupInline" >Group Inline</option>
+                  
+                    <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                  
+                    <option value="Verify:Key" >Key</option>
+                  
+                    <option value="Verify:KeyCase" >Key Case</option>
+                  
+                    <option value="Verify:Keys" >Keys</option>
+                  
+                    <option value="Verify:LogAttributes" >Log Attributes</option>
+                  
+                    <option value="Verify:ReplaceAttr" >Replace Attr</option>
+                  
+                    <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
+                  
+                    <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                  
+                    <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                  
+                    <option value="Verify:ResolveGroup" >Resolve Group</option>
+                  
+                    <option value="Verify:ResolveGroupWith" >Resolve Group With</option>
+                  
+                    <option value="Verify:ResolveValuer" >Resolve Valuer</option>
+                  
+                    <option value="Verify:ResolveWith" >Resolve With</option>
+                  
+                    <option value="Verify:ZeroPC" >Zero Pc</option>
+                  
+                    <option value="Verify:ZeroTime" >Zero Time</option>
                   
                 </select>
               </form>
@@ -88,145 +143,147 @@
         </table>
     </td>
   </tr>
-  <tr>
-    <td colspan=2 align="center">
-      <h2 align="left">Benchmark Data</h2>
-      <table class="data">
-        <tr>
-          <th>Benchmark</th>
-          <th>Runs</th>
-          <th>Ns/Op</th>
-          <th>Allocs/Op</th>
-          <th>Bytes/Op</th>
-          <th>GB/Sec</th>
-        </tr>
-        
+  
+    <tr>
+      <td colspan=2 align="center">
+        <h2 align="left">Benchmark Data</h2>
+        <table class="data">
           <tr>
-            <td class="fixed">Attributes</td>
-            <td class="number">1,000,000</td>
-            <td class="number">1,061.00</td>
-            <td class="number">2</td>
-            <td class="number">272</td>
-            <td class="number">0.00</td>
+            <th>Benchmark</th>
+            <th>Runs</th>
+            <th>Ns/Op</th>
+            <th>Allocs/Op</th>
+            <th>Bytes/Op</th>
+            <th>GB/Sec</th>
           </tr>
-        
+          
+            <tr>
+              <td class="fixed">Attributes</td>
+              <td class="number">1,000,000</td>
+              <td class="number">1,053.00</td>
+              <td class="number">2</td>
+             <td class="number">272</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Big Group</td>
+              <td class="number">5,397</td>
+              <td class="number">223,691.00</td>
+              <td class="number">3,865</td>
+             <td class="number">238,206</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Disabled</td>
+              <td class="number">309,796,578</td>
+              <td class="number">3.88</td>
+              <td class="number">0</td>
+             <td class="number">0</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Key Values</td>
+              <td class="number">916,633</td>
+              <td class="number">1,203.00</td>
+              <td class="number">3</td>
+             <td class="number">656</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Logging</td>
+              <td class="number">55,567</td>
+              <td class="number">21,639.00</td>
+              <td class="number">0</td>
+             <td class="number">0</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Simple</td>
+              <td class="number">4,179,976</td>
+              <td class="number">289.00</td>
+              <td class="number">0</td>
+             <td class="number">0</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Simple Source</td>
+              <td class="number">2,216,954</td>
+              <td class="number">539.80</td>
+              <td class="number">4</td>
+             <td class="number">312</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Attrs Attributes</td>
+              <td class="number">1,000,000</td>
+              <td class="number">1,103.00</td>
+              <td class="number">2</td>
+             <td class="number">272</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Attrs Key Values</td>
+              <td class="number">956,006</td>
+              <td class="number">1,238.00</td>
+              <td class="number">3</td>
+             <td class="number">656</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Attrs Simple</td>
+              <td class="number">4,038,936</td>
+              <td class="number">293.70</td>
+              <td class="number">0</td>
+             <td class="number">0</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Group Attributes</td>
+              <td class="number">940,101</td>
+              <td class="number">1,159.00</td>
+              <td class="number">3</td>
+             <td class="number">560</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Group Key Values</td>
+              <td class="number">887,498</td>
+              <td class="number">1,335.00</td>
+              <td class="number">4</td>
+             <td class="number">944</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=2 align="center">
+        <h2 align="left">Benchmark Charts</h2>
+        <table>
           <tr>
-            <td class="fixed">Big Group</td>
-            <td class="number">5,726</td>
-            <td class="number">223,050.00</td>
-            <td class="number">3,828</td>
-            <td class="number">236,146</td>
-            <td class="number">0.00</td>
+            <td><img src="/go-slog/chart/phsym_zerolog/Nanos.svg" alt="phsym/zeroslog Ns/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/phsym_zerolog/MemAllocs.svg" alt="phsym/zeroslog Allocs/Op" class="chart" /></td>
           </tr>
-        
           <tr>
-            <td class="fixed">Disabled</td>
-            <td class="number">309,831,660</td>
-            <td class="number">3.88</td>
-            <td class="number">0</td>
-            <td class="number">0</td>
-            <td class="number">0.00</td>
+            <td><img src="/go-slog/chart/phsym_zerolog/MemBytes.svg" alt="phsym/zeroslog Bytes/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/phsym_zerolog/GbPerSec.svg" alt="phsym/zeroslog GB/Sec" class="chart" /></td>
           </tr>
-        
-          <tr>
-            <td class="fixed">Key Values</td>
-            <td class="number">947,419</td>
-            <td class="number">1,197.00</td>
-            <td class="number">3</td>
-            <td class="number">656</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">Logging</td>
-            <td class="number">55,746</td>
-            <td class="number">21,381.00</td>
-            <td class="number">0</td>
-            <td class="number">0</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">Simple</td>
-            <td class="number">4,186,742</td>
-            <td class="number">284.20</td>
-            <td class="number">0</td>
-            <td class="number">0</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">Simple Source</td>
-            <td class="number">2,233,627</td>
-            <td class="number">561.20</td>
-            <td class="number">4</td>
-            <td class="number">312</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">With Attrs Attributes</td>
-            <td class="number">1,000,000</td>
-            <td class="number">1,069.00</td>
-            <td class="number">2</td>
-            <td class="number">272</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">With Attrs Key Values</td>
-            <td class="number">968,923</td>
-            <td class="number">1,243.00</td>
-            <td class="number">3</td>
-            <td class="number">656</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">With Attrs Simple</td>
-            <td class="number">4,140,178</td>
-            <td class="number">288.50</td>
-            <td class="number">0</td>
-            <td class="number">0</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">With Group Attributes</td>
-            <td class="number">973,027</td>
-            <td class="number">1,163.00</td>
-            <td class="number">3</td>
-            <td class="number">560</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">With Group Key Values</td>
-            <td class="number">894,391</td>
-            <td class="number">1,302.00</td>
-            <td class="number">4</td>
-            <td class="number">944</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td colspan=2 align="center">
-      <h2 align="left">Benchmark Charts</h2>
-      <table>
-        <tr>
-          <td><img src="/go-slog/chart/phsym_zerolog/Nanos.svg" alt="phsym/zeroslog Ns/Op" class="chart" /></td>
-          <td><img src="/go-slog/chart/phsym_zerolog/MemAllocs.svg" alt="phsym/zeroslog Allocs/Op" class="chart" /></td>
-        </tr>
-        <tr>
-          <td><img src="/go-slog/chart/phsym_zerolog/MemBytes.svg" alt="phsym/zeroslog Bytes/Op" class="chart" /></td>
-          <td><img src="/go-slog/chart/phsym_zerolog/GbPerSec.svg" alt="phsym/zeroslog GB/Sec" class="chart" /></td>
-        </tr>
-      </table>
-    </td>
-  </tr>
+        </table>
+      </td>
+    </tr>
+  
   
     <tr>
       <td colspan=2 align="center">
@@ -286,7 +343,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-20T01:14:22Z&#34;
+	&#34;time&#34;: &#34;2024-02-20T01:57:05Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -310,7 +367,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-20T01:14:22Z&#34;
+	&#34;time&#34;: &#34;2024-02-20T01:57:05Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -363,7 +420,7 @@
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-20T01:14:22Z&#34;
+	&#34;time&#34;: &#34;2024-02-20T01:57:05Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -671,7 +728,7 @@
 	&#34;caller&#34;: &#34;/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:70&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-20T01:13:23Z&#34;
+	&#34;time&#34;: &#34;2024-02-20T01:56:06Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -693,7 +750,7 @@
 	&#34;caller&#34;: &#34;/opt/hostedtoolcache/go/1.21.7/x64/src/reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-20T01:14:22Z&#34;
+	&#34;time&#34;: &#34;2024-02-20T01:57:05Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -784,7 +841,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-20T01:14:22Z&#34;
+	&#34;time&#34;: &#34;2024-02-20T01:57:05Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1003,7 +1060,7 @@
                       
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">Verify:LogAttributes</td>
-                        <td class="extra" style="background-color:lightgray;">2024-02-20T01:14:22Z</td>
+                        <td class="extra" style="background-color:lightgray;">2024-02-20T01:57:05Z</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>

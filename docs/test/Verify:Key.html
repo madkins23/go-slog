@@ -1,0 +1,408 @@
+<html>
+<head>
+  <title>Benchmark Data</title>
+  <link rel="stylesheet" href="/go-slog/style.css">
+  <script>
+    function toggleTableRow(id) {
+        var elem = document.getElementById(id);
+        elem.style.display = elem.style.display == "none" ? "table-row" : "none";
+    }
+  </script>
+</head>
+
+<body>
+<table class="top">
+  <tr>
+    <td>
+      <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+      <h1 class="home">Test Verify:Key</h1>
+    </td>
+    <td align="right">
+              <script>
+          function testChoice(form) {
+            window.location.href = "/go-slog/test/" + form.tag.value + ".html";
+            return true;
+          }
+          function hdlrChoice(form) {
+            window.location.href = "/go-slog/handler/" + form.tag.value + ".html";
+            return true;
+          }
+        </script>
+        <table>
+          <tr>
+            <td align="right">Handlers</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="darvaza_zerolog" >darvaza/zerolog</option>
+                  
+                    <option value="slog_JSONHandler" >log/slog.JSONHandler</option>
+                  
+                    <option value="phsym_zerolog" >phsym/zeroslog</option>
+                  
+                    <option value="samber_zap" >samber/slog-zap</option>
+                  
+                    <option value="samber_zerolog" >samber/slog-zerolog</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Bench Tests</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="Bench:Attributes" >Attributes</option>
+                  
+                    <option value="Bench:Big_Group" >Big Group</option>
+                  
+                    <option value="Bench:Disabled" >Disabled</option>
+                  
+                    <option value="Bench:Key_Values" >Key Values</option>
+                  
+                    <option value="Bench:Logging" >Logging</option>
+                  
+                    <option value="Bench:Simple" >Simple</option>
+                  
+                    <option value="Bench:Simple_Source" >Simple Source</option>
+                  
+                    <option value="Bench:With_Attrs_Attributes" >With Attrs Attributes</option>
+                  
+                    <option value="Bench:With_Attrs_Key_Values" >With Attrs Key Values</option>
+                  
+                    <option value="Bench:With_Attrs_Simple" >With Attrs Simple</option>
+                  
+                    <option value="Bench:With_Group_Attributes" >With Group Attributes</option>
+                  
+                    <option value="Bench:With_Group_Key_Values" >With Group Key Values</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Verify Tests</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
+                  
+                    <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
+                  
+                    <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
+                  
+                    <option value="Verify:AttributesEmpty" >Attributes Empty</option>
+                  
+                    <option value="Verify:CancelledContext" >Cancelled Context</option>
+                  
+                    <option value="Verify:DefaultLevel" >Default Level</option>
+                  
+                    <option value="Verify:GroupInline" >Group Inline</option>
+                  
+                    <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                  
+                    <option value="Verify:Key" selected>Key</option>
+                  
+                    <option value="Verify:KeyCase" >Key Case</option>
+                  
+                    <option value="Verify:Keys" >Keys</option>
+                  
+                    <option value="Verify:LogAttributes" >Log Attributes</option>
+                  
+                    <option value="Verify:ReplaceAttr" >Replace Attr</option>
+                  
+                    <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
+                  
+                    <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                  
+                    <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                  
+                    <option value="Verify:ResolveGroup" >Resolve Group</option>
+                  
+                    <option value="Verify:ResolveGroupWith" >Resolve Group With</option>
+                  
+                    <option value="Verify:ResolveValuer" >Resolve Valuer</option>
+                  
+                    <option value="Verify:ResolveWith" >Resolve With</option>
+                  
+                    <option value="Verify:ZeroPC" >Zero Pc</option>
+                  
+                    <option value="Verify:ZeroTime" >Zero Time</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+        </table>
+    </td>
+  </tr>
+  
+  
+    <tr>
+      <td colspan=2 align="center">
+        <h2 align="left" style="padding-top: 1em;">Warnings</h2>
+        <table class="warning">
+          <colgroup>
+            <col width="3%"/>
+            <col width="3%"/>
+            <col width="30%"/>
+            <col width="64%"/>
+          </colgroup>
+          
+                    
+            <tr>
+              <td colspan=4 class="level">Implied</td>
+            </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  MessageKey
+                </td>
+                <td class="extra">
+                  Wrong message key (should be &#39;msg&#39;)
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="30%"/>
+                      <col width="50%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">darvaza_zerolog</td>
+                        <td class="extra" style="background-color:lightgray;">`message`</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="MessageKeydarvaza_zerolog" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">phsym_zerolog</td>
+                        <td class="extra" style="background-color:lightcyan;">`message`</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="MessageKeyphsym_zerolog" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">samber_zerolog</td>
+                        <td class="extra" style="background-color:lightgray;">`message`</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="MessageKeysamber_zerolog" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  SourceKey
+                </td>
+                <td class="extra">
+                  Source data not logged when AddSource flag set
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="30%"/>
+                      <col width="50%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">phsym_zerolog</td>
+                        <td class="extra" style="background-color:lightgray;">no &#39;source&#39; key</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                            <button type="button" onclick="toggleTableRow('SourceKeyphsym_zerolog')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="SourceKeyphsym_zerolog" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+	&#34;caller&#34;: &#34;/opt/hostedtoolcache/go/1.21.7/x64/src/reflect/value.go:596&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-20T01:57:05Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_zap</td>
+                        <td class="extra" style="background-color:lightcyan;">no &#39;source&#39; key</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                            <button type="button" onclick="toggleTableRow('SourceKeysamber_zap')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="SourceKeysamber_zap" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
+	&#34;caller&#34;: &#34;reflect/value.go:596&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-20T01:57:05Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+             
+          
+            <tr>
+              <td colspan=4 class="level">Suggested</td>
+            </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  LevelCase
+                </td>
+                <td class="extra">
+                  Log level in lowercase
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="30%"/>
+                      <col width="50%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">darvaza_zerolog</td>
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCasedarvaza_zerolog" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">phsym_zerolog</td>
+                        <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCasephsym_zerolog" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">samber_zap</td>
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCasesamber_zap" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_zerolog</td>
+                        <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCasesamber_zerolog" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+             
+           
+
+        </table>
+      </td>
+    </tr>
+  
+</table>
+</body>
+</html>

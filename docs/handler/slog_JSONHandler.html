@@ -30,7 +30,28 @@
         </script>
         <table>
           <tr>
-            <td align="right">Test:</td>
+            <td align="right">Handlers</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="darvaza_zerolog" >darvaza/zerolog</option>
+                  
+                    <option value="slog_JSONHandler" selected>log/slog.JSONHandler</option>
+                  
+                    <option value="phsym_zerolog" >phsym/zeroslog</option>
+                  
+                    <option value="samber_zap" >samber/slog-zap</option>
+                  
+                    <option value="samber_zerolog" >samber/slog-zerolog</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Bench Tests</td>
             <td>
               <form class="choice">
                 <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -65,21 +86,55 @@
             </td>
           </tr>
           <tr>
-            <td align="right">Handler:</td>
+            <td align="right">Verify Tests</td>
             <td>
-              <form action="handler" class="choice">
-                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
-                    <option value="darvaza_zerolog" >darvaza/zerolog</option>
+                    <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
                   
-                    <option value="slog_JSONHandler" selected>log/slog.JSONHandler</option>
+                    <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
                   
-                    <option value="phsym_zerolog" >phsym/zeroslog</option>
+                    <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
                   
-                    <option value="samber_zap" >samber/slog-zap</option>
+                    <option value="Verify:AttributesEmpty" >Attributes Empty</option>
                   
-                    <option value="samber_zerolog" >samber/slog-zerolog</option>
+                    <option value="Verify:CancelledContext" >Cancelled Context</option>
+                  
+                    <option value="Verify:DefaultLevel" >Default Level</option>
+                  
+                    <option value="Verify:GroupInline" >Group Inline</option>
+                  
+                    <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                  
+                    <option value="Verify:Key" >Key</option>
+                  
+                    <option value="Verify:KeyCase" >Key Case</option>
+                  
+                    <option value="Verify:Keys" >Keys</option>
+                  
+                    <option value="Verify:LogAttributes" >Log Attributes</option>
+                  
+                    <option value="Verify:ReplaceAttr" >Replace Attr</option>
+                  
+                    <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
+                  
+                    <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                  
+                    <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                  
+                    <option value="Verify:ResolveGroup" >Resolve Group</option>
+                  
+                    <option value="Verify:ResolveGroupWith" >Resolve Group With</option>
+                  
+                    <option value="Verify:ResolveValuer" >Resolve Valuer</option>
+                  
+                    <option value="Verify:ResolveWith" >Resolve With</option>
+                  
+                    <option value="Verify:ZeroPC" >Zero Pc</option>
+                  
+                    <option value="Verify:ZeroTime" >Zero Time</option>
                   
                 </select>
               </form>
@@ -88,145 +143,147 @@
         </table>
     </td>
   </tr>
-  <tr>
-    <td colspan=2 align="center">
-      <h2 align="left">Benchmark Data</h2>
-      <table class="data">
-        <tr>
-          <th>Benchmark</th>
-          <th>Runs</th>
-          <th>Ns/Op</th>
-          <th>Allocs/Op</th>
-          <th>Bytes/Op</th>
-          <th>GB/Sec</th>
-        </tr>
-        
+  
+    <tr>
+      <td colspan=2 align="center">
+        <h2 align="left">Benchmark Data</h2>
+        <table class="data">
           <tr>
-            <td class="fixed">Attributes</td>
-            <td class="number">723,642</td>
-            <td class="number">1,480.00</td>
-            <td class="number">6</td>
-            <td class="number">472</td>
-            <td class="number">0.00</td>
+            <th>Benchmark</th>
+            <th>Runs</th>
+            <th>Ns/Op</th>
+            <th>Allocs/Op</th>
+            <th>Bytes/Op</th>
+            <th>GB/Sec</th>
           </tr>
-        
+          
+            <tr>
+              <td class="fixed">Attributes</td>
+              <td class="number">750,301</td>
+              <td class="number">1,517.00</td>
+              <td class="number">6</td>
+             <td class="number">472</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Big Group</td>
+              <td class="number">4,562</td>
+              <td class="number">256,447.00</td>
+              <td class="number">3,868</td>
+             <td class="number">284,106</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Disabled</td>
+              <td class="number">309,860,758</td>
+              <td class="number">3.87</td>
+              <td class="number">0</td>
+             <td class="number">0</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Key Values</td>
+              <td class="number">642,690</td>
+              <td class="number">1,679.00</td>
+              <td class="number">7</td>
+             <td class="number">856</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Logging</td>
+              <td class="number">38,289</td>
+              <td class="number">30,937.00</td>
+              <td class="number">0</td>
+             <td class="number">0</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Simple</td>
+              <td class="number">3,242,348</td>
+              <td class="number">369.80</td>
+              <td class="number">0</td>
+             <td class="number">0</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Simple Source</td>
+              <td class="number">1,330,927</td>
+              <td class="number">904.50</td>
+              <td class="number">6</td>
+             <td class="number">568</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Attrs Attributes</td>
+              <td class="number">787,452</td>
+              <td class="number">1,512.00</td>
+              <td class="number">6</td>
+             <td class="number">472</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Attrs Key Values</td>
+              <td class="number">727,818</td>
+              <td class="number">1,662.00</td>
+              <td class="number">7</td>
+             <td class="number">856</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Attrs Simple</td>
+              <td class="number">3,096,286</td>
+              <td class="number">391.90</td>
+              <td class="number">0</td>
+             <td class="number">0</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Group Attributes</td>
+              <td class="number">765,339</td>
+              <td class="number">1,545.00</td>
+              <td class="number">6</td>
+             <td class="number">472</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Group Key Values</td>
+              <td class="number">711,817</td>
+              <td class="number">1,694.00</td>
+              <td class="number">7</td>
+             <td class="number">856</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=2 align="center">
+        <h2 align="left">Benchmark Charts</h2>
+        <table>
           <tr>
-            <td class="fixed">Big Group</td>
-            <td class="number">4,988</td>
-            <td class="number">251,006.00</td>
-            <td class="number">3,820</td>
-            <td class="number">280,420</td>
-            <td class="number">0.00</td>
+            <td><img src="/go-slog/chart/slog_JSONHandler/Nanos.svg" alt="log/slog.JSONHandler Ns/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/slog_JSONHandler/MemAllocs.svg" alt="log/slog.JSONHandler Allocs/Op" class="chart" /></td>
           </tr>
-        
           <tr>
-            <td class="fixed">Disabled</td>
-            <td class="number">309,852,620</td>
-            <td class="number">3.88</td>
-            <td class="number">0</td>
-            <td class="number">0</td>
-            <td class="number">0.00</td>
+            <td><img src="/go-slog/chart/slog_JSONHandler/MemBytes.svg" alt="log/slog.JSONHandler Bytes/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/slog_JSONHandler/GbPerSec.svg" alt="log/slog.JSONHandler GB/Sec" class="chart" /></td>
           </tr>
-        
-          <tr>
-            <td class="fixed">Key Values</td>
-            <td class="number">714,535</td>
-            <td class="number">1,650.00</td>
-            <td class="number">7</td>
-            <td class="number">856</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">Logging</td>
-            <td class="number">40,514</td>
-            <td class="number">29,322.00</td>
-            <td class="number">0</td>
-            <td class="number">0</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">Simple</td>
-            <td class="number">3,320,338</td>
-            <td class="number">355.70</td>
-            <td class="number">0</td>
-            <td class="number">0</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">Simple Source</td>
-            <td class="number">1,339,947</td>
-            <td class="number">894.80</td>
-            <td class="number">6</td>
-            <td class="number">568</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">With Attrs Attributes</td>
-            <td class="number">770,060</td>
-            <td class="number">1,499.00</td>
-            <td class="number">6</td>
-            <td class="number">472</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">With Attrs Key Values</td>
-            <td class="number">702,306</td>
-            <td class="number">1,673.00</td>
-            <td class="number">7</td>
-            <td class="number">856</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">With Attrs Simple</td>
-            <td class="number">3,264,435</td>
-            <td class="number">363.30</td>
-            <td class="number">0</td>
-            <td class="number">0</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">With Group Attributes</td>
-            <td class="number">802,365</td>
-            <td class="number">1,502.00</td>
-            <td class="number">6</td>
-            <td class="number">472</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">With Group Key Values</td>
-            <td class="number">743,455</td>
-            <td class="number">1,649.00</td>
-            <td class="number">7</td>
-            <td class="number">856</td>
-            <td class="number">0.00</td>
-          </tr>
-        
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td colspan=2 align="center">
-      <h2 align="left">Benchmark Charts</h2>
-      <table>
-        <tr>
-          <td><img src="/go-slog/chart/slog_JSONHandler/Nanos.svg" alt="log/slog.JSONHandler Ns/Op" class="chart" /></td>
-          <td><img src="/go-slog/chart/slog_JSONHandler/MemAllocs.svg" alt="log/slog.JSONHandler Allocs/Op" class="chart" /></td>
-        </tr>
-        <tr>
-          <td><img src="/go-slog/chart/slog_JSONHandler/MemBytes.svg" alt="log/slog.JSONHandler Bytes/Op" class="chart" /></td>
-          <td><img src="/go-slog/chart/slog_JSONHandler/GbPerSec.svg" alt="log/slog.JSONHandler GB/Sec" class="chart" /></td>
-        </tr>
-      </table>
-    </td>
-  </tr>
+        </table>
+      </td>
+    </tr>
+  
   
     <tr>
       <td colspan=2 align="center">

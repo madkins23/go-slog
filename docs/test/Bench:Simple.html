@@ -30,7 +30,28 @@
         </script>
         <table>
           <tr>
-            <td align="right">Test:</td>
+            <td align="right">Handlers</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="darvaza_zerolog" >darvaza/zerolog</option>
+                  
+                    <option value="slog_JSONHandler" >log/slog.JSONHandler</option>
+                  
+                    <option value="phsym_zerolog" >phsym/zeroslog</option>
+                  
+                    <option value="samber_zap" >samber/slog-zap</option>
+                  
+                    <option value="samber_zerolog" >samber/slog-zerolog</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Bench Tests</td>
             <td>
               <form class="choice">
                 <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -65,21 +86,55 @@
             </td>
           </tr>
           <tr>
-            <td align="right">Handler:</td>
+            <td align="right">Verify Tests</td>
             <td>
-              <form action="handler" class="choice">
-                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
-                    <option value="darvaza_zerolog" >darvaza/zerolog</option>
+                    <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
                   
-                    <option value="slog_JSONHandler" >log/slog.JSONHandler</option>
+                    <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
                   
-                    <option value="phsym_zerolog" >phsym/zeroslog</option>
+                    <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
                   
-                    <option value="samber_zap" >samber/slog-zap</option>
+                    <option value="Verify:AttributesEmpty" >Attributes Empty</option>
                   
-                    <option value="samber_zerolog" >samber/slog-zerolog</option>
+                    <option value="Verify:CancelledContext" >Cancelled Context</option>
+                  
+                    <option value="Verify:DefaultLevel" >Default Level</option>
+                  
+                    <option value="Verify:GroupInline" >Group Inline</option>
+                  
+                    <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                  
+                    <option value="Verify:Key" >Key</option>
+                  
+                    <option value="Verify:KeyCase" >Key Case</option>
+                  
+                    <option value="Verify:Keys" >Keys</option>
+                  
+                    <option value="Verify:LogAttributes" >Log Attributes</option>
+                  
+                    <option value="Verify:ReplaceAttr" >Replace Attr</option>
+                  
+                    <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
+                  
+                    <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                  
+                    <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                  
+                    <option value="Verify:ResolveGroup" >Resolve Group</option>
+                  
+                    <option value="Verify:ResolveGroupWith" >Resolve Group With</option>
+                  
+                    <option value="Verify:ResolveValuer" >Resolve Valuer</option>
+                  
+                    <option value="Verify:ResolveWith" >Resolve With</option>
+                  
+                    <option value="Verify:ZeroPC" >Zero Pc</option>
+                  
+                    <option value="Verify:ZeroTime" >Zero Time</option>
                   
                 </select>
               </form>
@@ -88,81 +143,83 @@
         </table>
     </td>
   </tr>
-  <tr>
-    <td colspan=2 align="center">
-      <table class="data">
-        <tr>
-          <th>Handler</th>
-          <th>Runs</th>
-          <th>Ns/Op</th>
-          <th>Allocs/Op</th>
-          <th>Bytes/Op</th>
-          <th>GB/Sec</th>
-        </tr>
-        
+  
+    <tr>
+      <td colspan=2 align="center">
+        <table class="data">
           <tr>
-            <td class="fixed">darvaza/zerolog</td>
-            <td class="number">2,798,200</td>
-            <td class="number">429.40</td>
-            <td class="number">3</td>
-            <td class="number">360</td>
-            <td class="number">501,808.82</td>
+            <th>Handler</th>
+            <th>Runs</th>
+            <th>Ns/Op</th>
+            <th>Allocs/Op</th>
+            <th>Bytes/Op</th>
+            <th>GB/Sec</th>
           </tr>
-        
+          
+            <tr>
+              <td class="fixed">darvaza/zerolog</td>
+              <td class="number">2,717,220</td>
+              <td class="number">431.40</td>
+              <td class="number">3</td>
+              <td class="number">360</td>
+              <td class="number">484,955.72</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">phsym/zeroslog</td>
+              <td class="number">4,179,976</td>
+              <td class="number">289.00</td>
+              <td class="number">0</td>
+              <td class="number">0</td>
+              <td class="number">1,113,642.48</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">samber/slog-zap</td>
+              <td class="number">2,385,217</td>
+              <td class="number">509.00</td>
+              <td class="number">2</td>
+              <td class="number">336</td>
+              <td class="number">342,063.10</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">samber/slog-zerolog</td>
+              <td class="number">2,729,533</td>
+              <td class="number">438.30</td>
+              <td class="number">3</td>
+              <td class="number">360</td>
+              <td class="number">479,491.83</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">log/slog.JSONHandler</td>
+              <td class="number">3,242,348</td>
+              <td class="number">369.80</td>
+              <td class="number">0</td>
+              <td class="number">0</td>
+              <td class="number">726,664.80</td>
+            </tr>
+          
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=2 align="center">
+        <table>
           <tr>
-            <td class="fixed">phsym/zeroslog</td>
-            <td class="number">4,186,742</td>
-            <td class="number">284.20</td>
-            <td class="number">0</td>
-            <td class="number">0</td>
-            <td class="number">1,134,236.06</td>
+            <td><img src="/go-slog/chart/Bench:Simple/Nanos.svg" alt="Simple Ns/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/Bench:Simple/MemAllocs.svg" alt="Simple Allocs/Op" class="chart" /></td>
           </tr>
-        
           <tr>
-            <td class="fixed">samber/slog-zap</td>
-            <td class="number">2,396,898</td>
-            <td class="number">503.60</td>
-            <td class="number">2</td>
-            <td class="number">336</td>
-            <td class="number">347,436.32</td>
+            <td><img src="/go-slog/chart/Bench:Simple/MemBytes.svg" alt="Simple Bytes/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/Bench:Simple/GbPerSec.svg" alt="Simple GB/Sec" class="chart" /></td>
           </tr>
-        
-          <tr>
-            <td class="fixed">samber/slog-zerolog</td>
-            <td class="number">2,773,664</td>
-            <td class="number">441.40</td>
-            <td class="number">3</td>
-            <td class="number">360</td>
-            <td class="number">483,821.51</td>
-          </tr>
-        
-          <tr>
-            <td class="fixed">log/slog.JSONHandler</td>
-            <td class="number">3,320,338</td>
-            <td class="number">355.70</td>
-            <td class="number">0</td>
-            <td class="number">0</td>
-            <td class="number">773,792.95</td>
-          </tr>
-        
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td colspan=2 align="center">
-      <table>
-        <tr>
-          <td><img src="/go-slog/chart/Bench:Simple/Nanos.svg" alt="Simple Ns/Op" class="chart" /></td>
-          <td><img src="/go-slog/chart/Bench:Simple/MemAllocs.svg" alt="Simple Allocs/Op" class="chart" /></td>
-        </tr>
-        <tr>
-          <td><img src="/go-slog/chart/Bench:Simple/MemBytes.svg" alt="Simple Bytes/Op" class="chart" /></td>
-          <td><img src="/go-slog/chart/Bench:Simple/GbPerSec.svg" alt="Simple GB/Sec" class="chart" /></td>
-        </tr>
-      </table>
-    </td>
-  </tr>
-   
+        </table>
+      </td>
+    </tr>
+  
+  
 </table>
 </body>
 </html>
