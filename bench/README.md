@@ -54,8 +54,6 @@ In short:
 This package contains several examples, including the one above:
 * [`slog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_test.go)
   Verifies the [standard `slog.JSONHandler`](https://pkg.go.dev/log/slog@master#JSONHandler).
-* [`slog_darvaza_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_darvaza_zerolog_test.go)
-  Verifies the [`darvaza zerolog` handler](https://pkg.go.dev/darvaza.org/slog/handlers/zerolog).
 * [`slog_phsym_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_phsym_zerolog_test.go)
   Verifies the [`phsym zeroslog` handler](https://github.com/phsym/zeroslog/tree/2bf737d6422a5de048845cd3bdd2db6363555eb4).
 * [`slog_samber_zap_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
@@ -105,15 +103,6 @@ The supporting tests are not the same as normal Go test harness tests:
 
 When running benchmarks the warning data is specified at the end of the output (as of 2024-01-24):
 ```
-# Warnings for darvaza/zerolog:
-#   Administrative
-#      5 [NoHandlerCreation] Test depends on unavailable handler creation
-#          Benchmark_With_Attrs_Attributes
-#          Benchmark_With_Attrs_Key_Values
-#          Benchmark_With_Attrs_Simple
-#          Benchmark_With_Group_Attributes
-#          Benchmark_With_Group_Key_Values
-# 
 # Warnings for phsym/zeroslog:
 #   Required
 #      1 [Mismatch] Logged record does not match expected
@@ -124,9 +113,6 @@ When running benchmarks the warning data is specified at the end of the output (
 #   Required
 #     [Mismatch] Logged record does not match expected
 #       phsym/zeroslog
-#   Administrative
-#     [NoHandlerCreation] Test depends on unavailable handler creation
-#       darvaza/zerolog
 ```
 
 The prefixed [octothorpe](https://en.wiktionary.org/wiki/octothorpe)
@@ -134,18 +120,9 @@ characters (`#`, often referred to as "pound signs")
 are used to mark the warning output for later consumption by result display commands
 (e.g. [`tabular`](../cmd/tabular/tabular.go) and [`server`](../cmd/server/server.go)). 
 
-The `NoHandlerCreation` warning is because the `darvaza/zerolog` logger
-does not provide a `slog.Handler` interface.
-The specified tests (e.g. `Benchmark_With_Attrs_Key_Values`) require the
-`slog.Handler` interface in order to function properly,
-so those tests don't actually run for `darvaza/zerolog`.
-
 ### Caveats
 
 * Actually testing is done by calling through a `slog.Logger` object.
-* Some tests are skipped because they require a `slog.Handler` object
-  which is not available for some handler instances
-  (e.g. [`darvaza`](https://github.com/darvaza-proxy/slog)) handlers.
 
 ## Commands to Display Results
 
@@ -158,7 +135,6 @@ Benchmark Attributes
   ╔══════════════════════╦═════════════╤═════════════╤═════════════╤═════════════╤═════════════════╗
   ║ Handler              ║        Runs │       Ns/Op │   Allocs/Op │    Bytes/Op │          GB/Sec ║
   ╠══════════════════════╬═════════════╪═════════════╪═════════════╪═════════════╪═════════════════╣
-  ║ Darvaza Zerolog      ║     295,244 │    3,599.00 │          58 │       4,979 │       33,307.78 ║
   ║ Phsym Zerolog        ║   1,469,576 │      878.30 │           2 │         272 │      679,287.18 ║
   ║ Samber Zap           ║     220,400 │    5,430.00 │          49 │       6,641 │       16,194.65 ║
   ║ Samber Zerolog       ║     230,053 │    4,775.00 │          58 │       4,980 │       19,562.43 ║
@@ -169,7 +145,6 @@ Benchmark Big Group
   ╔══════════════════════╦═════════════╤═════════════╤═════════════╤═════════════╤═════════════════╗
   ║ Handler              ║        Runs │       Ns/Op │   Allocs/Op │    Bytes/Op │          GB/Sec ║
   ╠══════════════════════╬═════════════╪═════════════╪═════════════╪═════════════╪═════════════════╣
-  ║ Darvaza Zerolog      ║       2,221 │  565,726.00 │      10,331 │     639,036 │           69.04 ║
   ║ Phsym Zerolog        ║       4,212 │  245,101.00 │       3,872 │     256,828 │          308.39 ║
   ║ Samber Zap           ║       1,699 │  662,999.00 │      10,599 │     645,065 │           46.21 ║
   ║ Samber Zerolog       ║       1,702 │  736,717.00 │      10,759 │     662,666 │           42.32 ║
@@ -180,7 +155,6 @@ Benchmark Disabled
   ╔══════════════════════╦═════════════╤═════════════╤═════════════╤═════════════╤═════════════════╗
   ║ Handler              ║        Runs │       Ns/Op │   Allocs/Op │    Bytes/Op │          GB/Sec ║
   ╠══════════════════════╬═════════════╪═════════════╪═════════════╪═════════════╪═════════════════╣
-  ║ Darvaza Zerolog      ║ 502,305,529 │        2.48 │           0 │           0 │            0.00 ║
   ║ Phsym Zerolog        ║ 457,777,998 │        2.55 │           0 │           0 │            0.00 ║
   ║ Samber Zap           ║ 437,792,124 │        2.67 │           0 │           0 │            0.00 ║
   ║ Samber Zerolog       ║ 399,693,715 │        2.73 │           0 │           0 │            0.00 ║
@@ -191,7 +165,6 @@ Benchmark Key Values
   ╔══════════════════════╦═════════════╤═════════════╤═════════════╤═════════════╤═════════════════╗
   ║ Handler              ║        Runs │       Ns/Op │   Allocs/Op │    Bytes/Op │          GB/Sec ║
   ╠══════════════════════╬═════════════╪═════════════╪═════════════╪═════════════╪═════════════════╣
-  ║ Darvaza Zerolog      ║     270,259 │    4,003.00 │          59 │       5,365 │       27,412.77 ║
   ║ Phsym Zerolog        ║   1,000,000 │    1,007.00 │           3 │         657 │      403,307.40 ║
   ║ Samber Zap           ║     139,530 │    7,725.00 │          50 │       7,025 │        7,207.17 ║
   ║ Samber Zerolog       ║     215,420 │    6,002.00 │          59 │       5,364 │       14,572.88 ║
@@ -202,7 +175,6 @@ Benchmark Logging
   ╔══════════════════════╦═════════════╤═════════════╤═════════════╤═════════════╤═════════════════╗
   ║ Handler              ║        Runs │       Ns/Op │   Allocs/Op │    Bytes/Op │          GB/Sec ║
   ╠══════════════════════╬═════════════╪═════════════╪═════════════╪═════════════╪═════════════════╣
-  ║ Darvaza Zerolog      ║      17,648 │   64,203.00 │       1,173 │      81,695 │        2,399.42 ║
   ║ Phsym Zerolog        ║      70,525 │   17,257.00 │           0 │           0 │       35,673.98 ║
   ║ Samber Zap           ║      12,416 │  105,113.00 │       1,021 │     121,547 │        1,006.98 ║
   ║ Samber Zerolog       ║      14,552 │   80,933.00 │       1,173 │      81,698 │        1,569.49 ║
@@ -213,7 +185,6 @@ Benchmark Simple
   ╔══════════════════════╦═════════════╤═════════════╤═════════════╤═════════════╤═════════════════╗
   ║ Handler              ║        Runs │       Ns/Op │   Allocs/Op │    Bytes/Op │          GB/Sec ║
   ╠══════════════════════╬═════════════╪═════════════╪═════════════╪═════════════╪═════════════════╣
-  ║ Darvaza Zerolog      ║   3,365,611 │      352.10 │           3 │         360 │      783,749.74 ║
   ║ Phsym Zerolog        ║   5,190,936 │      226.90 │           0 │           0 │    1,875,753.30 ║
   ║ Samber Zap           ║   2,514,404 │      499.00 │           2 │         336 │      392,995.45 ║
   ║ Samber Zerolog       ║   2,550,932 │      403.50 │           3 │         360 │      518,458.30 ║
@@ -224,7 +195,6 @@ Benchmark Simple Source
   ╔══════════════════════╦═════════════╤═════════════╤═════════════╤═════════════╤═════════════════╗
   ║ Handler              ║        Runs │       Ns/Op │   Allocs/Op │    Bytes/Op │          GB/Sec ║
   ╠══════════════════════╬═════════════╪═════════════╪═════════════╪═════════════╪═════════════════╣
-  ║ Darvaza Zerolog      ║   1,233,750 │      960.70 │          12 │       1,243 │      380,117.61 ║
   ║ Phsym Zerolog        ║   2,407,814 │      475.40 │           4 │         328 │      881,227.65 ║
   ║ Samber Zap           ║   1,012,440 │    1,326.00 │          10 │       1,141 │      222,880.57 ║
   ║ Samber Zerolog       ║     874,994 │    1,242.00 │          12 │       1,243 │      208,566.87 ║
@@ -281,15 +251,6 @@ Benchmark With Group Key Values
   ║ Slog JSONHandler     ║     640,320 │    1,605.00 │           7 │         857 │      176,251.19 ║
   ╚══════════════════════╩═════════════╧═════════════╧═════════════╧═════════════╧═════════════════╝
 
-Warnings for darvaza/zerolog:
-  Administrative
-     5 [NoHandlerCreation] Test depends on unavailable handler creation
-         Benchmark_With_Attrs_Attributes
-         Benchmark_With_Attrs_Key_Values
-         Benchmark_With_Attrs_Simple
-         Benchmark_With_Group_Attributes
-         Benchmark_With_Group_Key_Values
-
 Warnings for phsym/zeroslog:
   Required
      1 [Mismatch] Logged record does not match expected
@@ -300,9 +261,6 @@ Warnings for phsym/zeroslog:
   Required
     [Mismatch] Logged record does not match expected
       phsym/zeroslog
-  Administrative
-    [NoHandlerCreation] Test depends on unavailable handler creation
-      darvaza/zerolog
 ```
 
 Note the warnings appended to the end.

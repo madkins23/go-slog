@@ -63,7 +63,8 @@ Most tests use the latter, but a few tests require the former.
 * If both functions are provided, they will each be used for the appropriate method.
   This has yet to be required.
 
-The reason for these two functions is the existence of the [`darvaza zerolog` handler](https://pkg.go.dev/darvaza.org/slog/handlers/zerolog).
+The reason for two functions is the possibility that an `slog.Logger` is available
+but a `slog.Handler` is not.
 This handler is implemented directly as a `slog.Logger`,
 without defining a `slog.Handler` interface.[^1]
 

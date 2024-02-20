@@ -72,8 +72,6 @@ In short:
 This package contains several examples, including the one above:
 * [`slog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_test.go)
   Verifies the [standard `slog.JSONHandler`](https://pkg.go.dev/log/slog@master#JSONHandler).
-* [`slog_darvaza_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_darvaza_zerolog_test.go)
-  Verifies the [`darvaza zerolog` handler](https://pkg.go.dev/darvaza.org/slog/handlers/zerolog).
 * [`slog_phsym_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_phsym_zerolog_test.go)
   Verifies the [`phsym zeroslog` handler](https://github.com/phsym/zeroslog/tree/2bf737d6422a5de048845cd3bdd2db6363555eb4).
 * [`slog_samber_zap_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
@@ -404,37 +402,30 @@ If multiple handler tests are in the same directory:
  Handlers by warning:
   Required
     [EmptyAttributes] Empty attribute(s) logged ("":null)
-      darvaza/zerolog
       phsym/zeroslog
       samber/slog-zap
       samber/slog-zerolog
     [GroupEmpty] Empty (sub)group(s) logged
       phsym/zeroslog
     [Resolver] LogValuer objects are not resolved
-      darvaza/zerolog
       samber/slog-zap
       samber/slog-zerolog
     [ZeroPC] SourceKey logged for zero PC
-      darvaza/zerolog
       samber/slog-zap
       samber/slog-zerolog
     [ZeroTime] Zero time is logged
-      darvaza/zerolog
       phsym/zeroslog
       samber/slog-zap
       samber/slog-zerolog
   Implied
     [DefaultLevel] Handler doesn't default to slog.LevelInfo
-      darvaza/zerolog
       samber/slog-zerolog
     [MessageKey] Wrong message key (should be 'msg')
-      darvaza/zerolog
       phsym/zeroslog
       samber/slog-zerolog
     [NoReplAttr] HandlerOptions.ReplaceAttr not available
       phsym/zeroslog
     [NoReplAttrBasic] HandlerOptions.ReplaceAttr not available for basic fields
-      darvaza/zerolog
       samber/slog-zap
       samber/slog-zerolog
     [SourceKey] Source data not logged when AddSource flag set
@@ -442,17 +433,14 @@ If multiple handler tests are in the same directory:
   Suggested
     [Duplicates] slog.Duration() logs seconds instead of nanoseconds
       log/slog.JSONHandler
-      darvaza/zerolog
       phsym/zeroslog
       samber/slog-zap
       samber/slog-zerolog
     [LevelCase] Log level in lowercase
-      darvaza/zerolog
       phsym/zeroslog
       samber/slog-zap
       samber/slog-zerolog
     [TimeMillis] slog.Time() logs milliseconds instead of nanoseconds
-      darvaza/zerolog
       phsym/zeroslog
       samber/slog-zap
       samber/slog-zerolog
