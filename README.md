@@ -192,8 +192,7 @@ Editing every log statement in a large project can be a real pain.
 * [`phsym/console-slog`](https://github.com/phsym/console-slog)
   - Console `slog` handlers not tested in this project, only JSON handlers.
 * [`phsym/zeroslog`](https://github.com/phsym/zeroslog)
-* [`samber/slog-zap`](https://github.com/samber/slog-zap)  
-  Not currently tested in this project.
+* [`samber/slog-zap`](https://github.com/samber/slog-zap)
 * [`samber/slog-zerolog`](https://github.com/samber/slog-zerolog)
 * [`samber/slog-logrus`](https://github.com/samber/slog-logrus)  
   Not currently tested in this project.
