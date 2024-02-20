@@ -80,25 +80,35 @@ func NewBenchmarks() *Benchmarks {
 
 // -----------------------------------------------------------------------------
 
+func (b *Benchmarks) HasHandler(tag HandlerTag) bool {
+	_, found := b.byHandler[tag]
+	return found
+}
+
+func (b *Benchmarks) HasTest(tag TestTag) bool {
+	_, found := b.byTest[tag]
+	return found
+}
+
 // HandlerLookup returns a map from handler names to handler tags.
 // Capture relationship between handler name in benchmark function vs. Creator.
 // The result will be passed into Warnings.ParseWarningData(),
 // where it will be used to convert handler names to tags.
 // This makes all handler tags the same between Benchmarks and Warnings.
-func (d *Benchmarks) HandlerLookup() map[string]HandlerTag {
-	if d.lookup == nil {
-		d.lookup = make(map[string]HandlerTag, len(d.handlerNames))
-		for tag, name := range d.handlerNames {
-			d.lookup[name] = tag
+func (b *Benchmarks) HandlerLookup() map[string]HandlerTag {
+	if b.lookup == nil {
+		b.lookup = make(map[string]HandlerTag, len(b.handlerNames))
+		for tag, name := range b.handlerNames {
+			b.lookup[name] = tag
 		}
 	}
-	return d.lookup
+	return b.lookup
 }
 
 // HandlerName returns the full name associated with a HandlerTag.
 // If there is no full name the tag is returned.
-func (d *Benchmarks) HandlerName(handler HandlerTag) string {
-	if name, found := d.handlerNames[handler]; found {
+func (b *Benchmarks) HandlerName(handler HandlerTag) string {
+	if name, found := b.handlerNames[handler]; found {
 		return name
 	} else {
 		return string(handler)
@@ -106,27 +116,27 @@ func (d *Benchmarks) HandlerName(handler HandlerTag) string {
 }
 
 // HandlerRecords returns a map of HandlerTag to TestRecord for the specified benchmark.
-func (d *Benchmarks) HandlerRecords(test TestTag) HandlerRecords {
-	return d.byTest[test]
+func (b *Benchmarks) HandlerRecords(test TestTag) HandlerRecords {
+	return b.byTest[test]
 }
 
 // HandlerTags returns an array of all handler names sorted alphabetically.
-func (d *Benchmarks) HandlerTags() []HandlerTag {
-	if d.handlers == nil {
-		for handler := range d.byHandler {
-			d.handlers = append(d.handlers, handler)
+func (b *Benchmarks) HandlerTags() []HandlerTag {
+	if b.handlers == nil {
+		for handler := range b.byHandler {
+			b.handlers = append(b.handlers, handler)
 		}
-		sort.Slice(d.handlers, func(i, j int) bool {
-			return d.HandlerName(d.handlers[i]) < d.HandlerName(d.handlers[j])
+		sort.Slice(b.handlers, func(i, j int) bool {
+			return b.HandlerName(b.handlers[i]) < b.HandlerName(b.handlers[j])
 		})
 	}
-	return d.handlers
+	return b.handlers
 }
 
 // TestName returns the full name associated with a TestTag.
 // If there is no full name the tag is returned.
-func (d *Benchmarks) TestName(test TestTag) string {
-	if name, found := d.testNames[test]; found {
+func (b *Benchmarks) TestName(test TestTag) string {
+	if name, found := b.testNames[test]; found {
 		return name
 	} else {
 		return string(test)
@@ -134,29 +144,29 @@ func (d *Benchmarks) TestName(test TestTag) string {
 }
 
 // TestRecords returns a map of HandlerTag to TestRecord for the specified benchmark.
-func (d *Benchmarks) TestRecords(handler HandlerTag) TestRecords {
-	return d.byHandler[handler]
+func (b *Benchmarks) TestRecords(handler HandlerTag) TestRecords {
+	return b.byHandler[handler]
 }
 
 // TestTags returns an array of all test names sorted alphabetically.
-func (d *Benchmarks) TestTags() []TestTag {
-	if d.tests == nil {
-		for test := range d.byTest {
-			d.tests = append(d.tests, test)
+func (b *Benchmarks) TestTags() []TestTag {
+	if b.tests == nil {
+		for test := range b.byTest {
+			b.tests = append(b.tests, test)
 		}
-		sort.Slice(d.tests, func(i, j int) bool {
-			return d.TestName(d.tests[i]) < d.TestName(d.tests[j])
+		sort.Slice(b.tests, func(i, j int) bool {
+			return b.TestName(b.tests[i]) < b.TestName(b.tests[j])
 		})
 	}
-	return d.tests
+	return b.tests
 }
 
 // HasWarningText from end of benchmark run.
-func (d *Benchmarks) HasWarningText() bool {
-	return len(d.warningText) > 0
+func (b *Benchmarks) HasWarningText() bool {
+	return len(b.warningText) > 0
 }
 
 // WarningText from end of benchmark run.
-func (d *Benchmarks) WarningText() []byte {
-	return d.warningText
+func (b *Benchmarks) WarningText() []byte {
+	return b.warningText
 }

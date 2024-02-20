@@ -6,25 +6,38 @@
 
 <body>
   <table class="root">
-    <tr><td>
-      <fieldset>
-        <legend>Tests</legend>
-        <table>
-          {{ range .Benchmarks.TestTags }}
-            <tr><td><a href="/go-slog/test/{{ . }}.html">{{ $.Benchmarks.TestName . }}</a></td></tr>
-          {{ end }}
-        </table>
-      </fieldset>
-    </td><td>
-      <fieldset>
-        <legend>Handlers</legend>
-        <table>
-          {{ range .Benchmarks.HandlerTags }}
-            <tr><td><a href="/go-slog/handler/{{ . }}.html">{{ $.Benchmarks.HandlerName . }}</a></td></tr>
-          {{ end }}
-        </table>
-      </fieldset>
-    </td></tr>
+    <tr>
+      <td>
+        <fieldset>
+          <legend>Handlers</legend>
+          <table>
+            {{ range .Benchmarks.HandlerTags }}
+              <tr><td><a href="/go-slog/handler/{{ . }}.html">{{ $.Benchmarks.HandlerName . }}</a></td></tr>
+            {{ end }}
+          </table>
+        </fieldset>
+      </td>
+      <td>
+        <fieldset>
+          <legend>Bench Tests</legend>
+          <table>
+            {{ range .Benchmarks.TestTags }}
+              <tr><td><a href="/go-slog/test/{{ . }}.html">{{ $.Benchmarks.TestName . }}</a></td></tr>
+            {{ end }}
+          </table>
+        </fieldset>
+      </td>
+      <td>
+        <fieldset>
+          <legend>Verify Tests</legend>
+          <table>
+            {{ range .Warnings.TestTagsForSource "Verify" }}
+              <tr><td><a href="/go-slog/test/{{ . }}.html">{{ $.Warnings.TestName . }}</a></td></tr>
+            {{ end }}
+          </table>
+        </fieldset>
+      </td>
+    </tr>
   </table>
 </body>
 </html>

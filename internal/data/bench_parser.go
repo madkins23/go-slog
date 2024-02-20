@@ -24,7 +24,7 @@ var (
 // ParseBenchmarkData parses benchmark data from the output of go -bench.
 // The data will be loaded from os.Stdin unless the -bench=<path> flag is set
 // in which case the data will be loaded from the specified path.
-func (d *Benchmarks) ParseBenchmarkData(in io.Reader) error {
+func (b *Benchmarks) ParseBenchmarkData(in io.Reader) error {
 	var err error
 	if *benchFile != "" {
 		if in, err = os.Open(*benchFile); err != nil {
@@ -47,13 +47,13 @@ func (d *Benchmarks) ParseBenchmarkData(in io.Reader) error {
 			// This way the handler name field is populated by the Creator name string.
 			// The data will be parsed by internal/data.Benchmarks.ParseBenchmarkData() and
 			// passed into Warnings.ParseWarningData().
-			d.handlerNames[HandlerTag(matches[1])] = string(matches[2])
+			b.handlerNames[HandlerTag(matches[1])] = string(matches[2])
 		} else if matches := ptnWarnLine.FindSubmatch(line); len(matches) == 2 {
 			// Capture warning text marked with "# " at beginning of line.
-			if len(d.warningText) > 0 {
-				d.warningText = append(d.warningText, []byte("\n")...)
+			if len(b.warningText) > 0 {
+				b.warningText = append(b.warningText, []byte("\n")...)
 			}
-			d.warningText = append(d.warningText, matches[1]...)
+			b.warningText = append(b.warningText, matches[1]...)
 		} else if matches := ptnDataLine.FindSubmatch(line); len(matches) == 6 {
 			// Process a data line.
 			hdlrBytes = matches[1]
@@ -88,18 +88,18 @@ func (d *Benchmarks) ParseBenchmarkData(in io.Reader) error {
 		if ok {
 			tagName := strings.TrimPrefix(string(testBytes), "Benchmark_")
 			test := TestTag("Bench:" + tagName)
-			d.testNames[test] = strings.Replace(tagName, "_", " ", -1)
+			b.testNames[test] = strings.Replace(tagName, "_", " ", -1)
 
 			handler := FixBenchHandlerTag(hdlrBytes)
-			if _, found := d.handlerNames[handler]; !found {
-				d.handlerNames[handler] = handler.Name()
+			if _, found := b.handlerNames[handler]; !found {
+				b.handlerNames[handler] = handler.Name()
 			}
-			d.testCPUs[test] = cpus
+			b.testCPUs[test] = cpus
 
-			if d.byTest[test] == nil {
-				d.byTest[test] = make(HandlerRecords)
+			if b.byTest[test] == nil {
+				b.byTest[test] = make(HandlerRecords)
 			}
-			d.byTest[test][handler] = TestRecord{
+			b.byTest[test][handler] = TestRecord{
 				Runs:           runs,
 				NanosPerOp:     nsOps,
 				MemBytesPerOp:  bytesOp,
@@ -109,10 +109,10 @@ func (d *Benchmarks) ParseBenchmarkData(in io.Reader) error {
 				TbPerSec:       mbSec / 1_000_000.0,
 			}
 
-			if d.byHandler[handler] == nil {
-				d.byHandler[handler] = make(TestRecords)
+			if b.byHandler[handler] == nil {
+				b.byHandler[handler] = make(TestRecords)
 			}
-			d.byHandler[handler][test] = TestRecord{
+			b.byHandler[handler][test] = TestRecord{
 				Runs:           runs,
 				NanosPerOp:     nsOps,
 				MemBytesPerOp:  bytesOp,

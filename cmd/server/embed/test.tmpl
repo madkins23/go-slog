@@ -21,44 +21,46 @@
       {{ template "choices" $ }}
     </td>
   </tr>
-  <tr>
-    <td colspan=2 align="center">
-      <table class="data">
-        <tr>
-          <th>Handler</th>
-          <th>Runs</th>
-          <th>Ns/Op</th>
-          <th>Allocs/Op</th>
-          <th>Bytes/Op</th>
-          <th>GB/Sec</th>
-        </tr>
-        {{ range $tag, $record := .Benchmarks.HandlerRecords .Test }}
+  {{ if .Benchmarks.HasTest .Test }}
+    <tr>
+      <td colspan=2 align="center">
+        <table class="data">
           <tr>
-            <td class="fixed">{{ $.Benchmarks.HandlerName $tag }}</td>
-            <td class="number">{{ $.FixUint $record.Runs }}</td>
-            <td class="number">{{ $.FixFloat $record.NanosPerOp }}</td>
-            <td class="number">{{ $.FixUint $record.MemAllocsPerOp }}</td>
-            <td class="number">{{ $.FixUint $record.MemBytesPerOp }}</td>
-            <td class="number">{{ $.FixFloat $record.GbPerSec }}</td>
+            <th>Handler</th>
+            <th>Runs</th>
+            <th>Ns/Op</th>
+            <th>Allocs/Op</th>
+            <th>Bytes/Op</th>
+            <th>GB/Sec</th>
           </tr>
-        {{ end }}
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td colspan=2 align="center">
-      <table>
-        <tr>
-          <td><img src="/go-slog/chart/{{ .Test }}/Nanos.svg" alt="{{ .Benchmarks.TestName .Test }} Ns/Op" class="chart" /></td>
-          <td><img src="/go-slog/chart/{{ .Test }}/MemAllocs.svg" alt="{{ .Benchmarks.TestName .Test }} Allocs/Op" class="chart" /></td>
-        </tr>
-        <tr>
-          <td><img src="/go-slog/chart/{{ .Test }}/MemBytes.svg" alt="{{ .Benchmarks.TestName .Test }} Bytes/Op" class="chart" /></td>
-          <td><img src="/go-slog/chart/{{ .Test }}/GbPerSec.svg" alt="{{ .Benchmarks.TestName .Test }} GB/Sec" class="chart" /></td>
-        </tr>
-      </table>
-    </td>
-  </tr>
+          {{ range $tag, $record := .Benchmarks.HandlerRecords .Test }}
+            <tr>
+              <td class="fixed">{{ $.Benchmarks.HandlerName $tag }}</td>
+              <td class="number">{{ $.FixUint $record.Runs }}</td>
+              <td class="number">{{ $.FixFloat $record.NanosPerOp }}</td>
+              <td class="number">{{ $.FixUint $record.MemAllocsPerOp }}</td>
+              <td class="number">{{ $.FixUint $record.MemBytesPerOp }}</td>
+              <td class="number">{{ $.FixFloat $record.GbPerSec }}</td>
+            </tr>
+          {{ end }}
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=2 align="center">
+        <table>
+          <tr>
+            <td><img src="/go-slog/chart/{{ .Test }}/Nanos.svg" alt="{{ .Benchmarks.TestName .Test }} Ns/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/{{ .Test }}/MemAllocs.svg" alt="{{ .Benchmarks.TestName .Test }} Allocs/Op" class="chart" /></td>
+          </tr>
+          <tr>
+            <td><img src="/go-slog/chart/{{ .Test }}/MemBytes.svg" alt="{{ .Benchmarks.TestName .Test }} Bytes/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/{{ .Test }}/GbPerSec.svg" alt="{{ .Benchmarks.TestName .Test }} GB/Sec" class="chart" /></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  {{ end }}
   {{ if .Warnings.HasTest .Test }}
     <tr>
       <td colspan=2 align="center">
@@ -74,7 +76,8 @@
           {{ template "warnings" $data }}
         </table>
       </td>
-  {{ end }} {{/* if there are warnings for this handler */}}
+    </tr>
+  {{ end }}
 </table>
 </body>
 </html>

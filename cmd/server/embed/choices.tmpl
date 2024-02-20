@@ -10,7 +10,20 @@
         </script>
         <table>
           <tr>
-            <td align="right">Test:</td>
+            <td align="right">Handlers</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  {{ range .Benchmarks.HandlerTags }}
+                    <option value="{{ . }}" {{ if eq $.Handler . }}selected{{ end }}>{{ $.Benchmarks.HandlerName . }}</option>
+                  {{ end }}
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Bench Tests</td>
             <td>
               <form class="choice">
                 <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -23,13 +36,13 @@
             </td>
           </tr>
           <tr>
-            <td align="right">Handler:</td>
+            <td align="right">Verify Tests</td>
             <td>
-              <form action="handler" class="choice">
-                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
-                  {{ range .Benchmarks.HandlerTags }}
-                    <option value="{{ . }}" {{ if eq $.Handler . }}selected{{ end }}>{{ $.Benchmarks.HandlerName . }}</option>
+                  {{ range .Warnings.TestTagsForSource "Verify" }}
+                    <option value="{{ . }}" {{ if eq $.Test . }}selected{{ end }}>{{ $.Warnings.TestName . }}</option>
                   {{ end }}
                 </select>
               </form>

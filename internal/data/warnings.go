@@ -36,12 +36,13 @@ func NewWarningData() *Warnings {
 
 func (w *Warnings) HasTest(test TestTag) bool {
 	_, found := w.byTest[test]
+	slog.Info("HasTest()", "test", test, "found", found)
 	return found
 }
 
 func (w *Warnings) HasHandler(handler HandlerTag) bool {
-	slog.Info("HasHandler()", "handler", handler)
 	_, found := w.byHandler[handler]
+	slog.Info("HasHandler()", "handler", handler, "found", found)
 	return found
 }
 
@@ -97,6 +98,20 @@ func (w *Warnings) TestTags() []TestTag {
 		})
 	}
 	return w.tests
+}
+
+// TestTagsForSource returns an array of all test names for the specified source sorted alphabetically.
+func (w *Warnings) TestTagsForSource(source string) []TestTag {
+	if !strings.HasSuffix(source, ":") {
+		source += ":"
+	}
+	result := make([]TestTag, 0, len(w.TestTags())) // Causes w.tests to be loaded
+	for _, test := range w.tests {
+		if strings.HasPrefix(string(test), source) {
+			result = append(result, test)
+		}
+	}
+	return result
 }
 
 func (w *Warnings) findHandler(handler HandlerTag, level warning.Level, warningName string) *dataWarning {
