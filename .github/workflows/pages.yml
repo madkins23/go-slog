@@ -32,7 +32,7 @@ jobs:
         run: go test -bench=. bench/*.go > ${{ runner.temp }}/bench.txt
 
       - name: Verify Go logging libraries
-        run: go test -v ./verify -args -useWarnings > $${{ runner.temp }}/verify.txt
+        run: go test -v ./verify -args -useWarnings > ${{ runner.temp }}/verify.txt
 
       - name: Run Server & Get Pages
         run: go run cmd/server/server.go -bench=${{ runner.temp }}/bench.txt -verify=${{ runner.temp }}/verify.txt & scripts/pages
