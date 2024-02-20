@@ -45,6 +45,20 @@ table.data td, th {
 
 table.data td {
     border: 2px inset darkgray;
+    background-color: lightgray;
+}
+
+table.debug {
+    margin: 5px;
+    padding: 5px;
+}
+
+table.debug td {
+    font-family: monospace;
+    margin: 5px;
+    padding: 5px;
+    border: 2px inset darkgray;
+    background-color: lightgray;
 }
 
 table.root {
@@ -69,6 +83,76 @@ table.root td.warnings pre {
 table.top {
     margin-left: auto;
     margin-right: auto;
+}
+
+table.warning {
+    margin: 5px;
+    padding: 5px;
+    table-layout: fixed;
+    width: 800;
+    border-collapse: collapse;
+}
+
+table.warning td {
+    margin: 5px;
+    padding: 5px;
+}
+
+table.warning td.extra {
+    font-family: monospace;
+    font-size: 1em;
+}
+
+table.warning td.header {
+    font-size: 1.25em;
+    font-weight: bold;
+}
+
+table.warning td.level {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+table.warning td.logLine pre {
+    font-family: monospace;
+    background-color: antiquewhite;
+    border: 2px inset antiquewhite;
+}
+
+table.warning td.warning {
+    font-family: monospace;
+    font-size: 1.25em;
+    font-weight: bold;
+    padding-top: 0.5em;
+}
+
+table.instance {
+    margin: 5px;
+    padding: 5px;
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    border: 2px inset darkgray;
+    background-color: lightgray;
+}
+
+table.instance td.logLink {
+    text-align: center;
+}
+
+table.instance td.name {
+    font-family: monospace;
+    font-size: 1em;
+}
+
+table.instance td.extra {
+#   border: 2px inset darkgray;
+    font-family: monospace;
+    font-size: 1em;
+}
+
+.fixed {
+    font-family: monospace;
 }
 
 .number {

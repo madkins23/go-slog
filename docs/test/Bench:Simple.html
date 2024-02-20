@@ -1,0 +1,168 @@
+<html>
+<head>
+  <title>Benchmark Data</title>
+  <link rel="stylesheet" href="/go-slog/style.css">
+  <script>
+    function toggleTableRow(id) {
+        var elem = document.getElementById(id);
+        elem.style.display = elem.style.display == "none" ? "table-row" : "none";
+    }
+  </script>
+</head>
+
+<body>
+<table class="top">
+  <tr>
+    <td>
+      <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+      <h1 class="home">Test Simple</h1>
+    </td>
+    <td align="right">
+              <script>
+          function testChoice(form) {
+            window.location.href = "/go-slog/test/" + form.tag.value + ".html";
+            return true;
+          }
+          function hdlrChoice(form) {
+            window.location.href = "/go-slog/handler/" + form.tag.value + ".html";
+            return true;
+          }
+        </script>
+        <table>
+          <tr>
+            <td align="right">Test:</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="Bench:Attributes" >Attributes</option>
+                  
+                    <option value="Bench:Big_Group" >Big Group</option>
+                  
+                    <option value="Bench:Disabled" >Disabled</option>
+                  
+                    <option value="Bench:Key_Values" >Key Values</option>
+                  
+                    <option value="Bench:Logging" >Logging</option>
+                  
+                    <option value="Bench:Simple" selected>Simple</option>
+                  
+                    <option value="Bench:Simple_Source" >Simple Source</option>
+                  
+                    <option value="Bench:With_Attrs_Attributes" >With Attrs Attributes</option>
+                  
+                    <option value="Bench:With_Attrs_Key_Values" >With Attrs Key Values</option>
+                  
+                    <option value="Bench:With_Attrs_Simple" >With Attrs Simple</option>
+                  
+                    <option value="Bench:With_Group_Attributes" >With Group Attributes</option>
+                  
+                    <option value="Bench:With_Group_Key_Values" >With Group Key Values</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Handler:</td>
+            <td>
+              <form action="handler" class="choice">
+                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="darvaza_zerolog" >darvaza/zerolog</option>
+                  
+                    <option value="slog_JSONHandler" >log/slog.JSONHandler</option>
+                  
+                    <option value="phsym_zerolog" >phsym/zeroslog</option>
+                  
+                    <option value="samber_zap" >samber/slog-zap</option>
+                  
+                    <option value="samber_zerolog" >samber/slog-zerolog</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+        </table>
+    </td>
+  </tr>
+  <tr>
+    <td colspan=2 align="center">
+      <table class="data">
+        <tr>
+          <th>Handler</th>
+          <th>Runs</th>
+          <th>Ns/Op</th>
+          <th>Allocs/Op</th>
+          <th>Bytes/Op</th>
+          <th>GB/Sec</th>
+        </tr>
+        
+          <tr>
+            <td>darvaza/zerolog</td>
+            <td class="number">2,828,888</td>
+            <td class="number">424.90</td>
+            <td class="number">3</td>
+            <td class="number">360</td>
+            <td class="number">512,660.33</td>
+          </tr>
+        
+          <tr>
+            <td>phsym/zeroslog</td>
+            <td class="number">4,230,453</td>
+            <td class="number">285.40</td>
+            <td class="number">0</td>
+            <td class="number">0</td>
+            <td class="number">1,141,201.19</td>
+          </tr>
+        
+          <tr>
+            <td>samber/slog-zap</td>
+            <td class="number">2,376,360</td>
+            <td class="number">506.30</td>
+            <td class="number">2</td>
+            <td class="number">336</td>
+            <td class="number">342,623.11</td>
+          </tr>
+        
+          <tr>
+            <td>samber/slog-zerolog</td>
+            <td class="number">2,781,602</td>
+            <td class="number">431.50</td>
+            <td class="number">3</td>
+            <td class="number">360</td>
+            <td class="number">496,325.29</td>
+          </tr>
+        
+          <tr>
+            <td>log/slog.JSONHandler</td>
+            <td class="number">3,382,532</td>
+            <td class="number">368.00</td>
+            <td class="number">0</td>
+            <td class="number">0</td>
+            <td class="number">761,871.08</td>
+          </tr>
+        
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td colspan=2 align="center">
+      <table>
+        <tr>
+          <td><img src="/go-slog/chart/Bench:Simple/Nanos.svg" alt="Simple Ns/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/Bench:Simple/MemAllocs.svg" alt="Simple Allocs/Op" class="chart" /></td>
+        </tr>
+        <tr>
+          <td><img src="/go-slog/chart/Bench:Simple/MemBytes.svg" alt="Simple Bytes/Op" class="chart" /></td>
+          <td><img src="/go-slog/chart/Bench:Simple/GbPerSec.svg" alt="Simple GB/Sec" class="chart" /></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+   
+</table>
+</body>
+</html>
