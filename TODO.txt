@@ -1,13 +1,6 @@
+* Add more slog handlers.
+* Move package-specific Readme notes into package doc.go files where possible.
+* Auto-register warnings.
+* Re-check bench warnings for missing methods ?!?
 * Is there a way to avoid crashing when update to slog handlers blow up?
   - Currently this is an issue with zerolog 1.32 breaking phsym/zeroslog.
-* IMHO Note
-  - Especially warning levels
-  - Just advising, YMMV
-  - No authority to make anyone fix stuff
-  - Provide utility vs. speed trade-offs for users
-* Move package-specific Readme notes into package doc.go files where possible.
-* Add references to other slog handlers into top-level Readme.
-  - Then can close some of the open tabs in my Chrome slog group.
-* Add more slog handlers.
-* Re-check bench warnings for missing methods ?!?
-* Auto-register warnings.
