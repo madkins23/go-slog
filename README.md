@@ -1,6 +1,9 @@
 # go-slog
 Tools and testing for `log/slog` (hereafter just `slog`) handlers.
 
+[Recent benchmark data](https://madkins23.github.io/go-slog/index.html)
+is available via github Pages.
+
 ## Repository Contents
 
 * [Test harness for benchmarking `slog` handler performance](#handler-benchmarks)
@@ -136,7 +139,7 @@ Whether the reader agrees with this justification is subjective.
 The several levels of verification tests are defined based on the strength of justification:
 
 * **Required**  
-  Justified from requirements in the slog.Handler documentation.
+  Justified from requirements in the `slog.Handler` documentation.
 * **Implied**  
   Implied by documentation but can't be considered required.
 * **Suggested**  
