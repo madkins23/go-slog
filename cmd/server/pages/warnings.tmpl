@@ -53,6 +53,38 @@
       </table>
     </td>
   </tr>
+  <tr>
+    <td colspan=2><h1>Warnings vs. Handlers</h1></td>
+  </tr>
+  <tr>
+    <td colspan=2 align="center">
+      <table class="handler-v-warning">
+        <tr>
+          <td colspan=2></td>
+          {{ range $handler := .Warnings.HandlerTags }}
+            <th><div><span>{{ $.Warnings.HandlerName $handler }}</span></div></th>
+          {{ end }}
+        </tr>
+        {{ range $level := .Levels }}
+          <tr><td colspan=2 class="level">{{ $level }}</td></tr>
+          {{ range $warning := $level.Warnings }}
+            <tr>
+              <td width=5%></td>
+              <td class="name">{{ $warning.Name }}</td>
+              {{ range $handler := $.Warnings.HandlerTags }}
+                {{ $count := $.Warnings.HandlerWarningCount $handler $warning }}
+                {{ if gt $count 0 }}
+                  <td class="count"><span>{{ $.Warnings.HandlerWarningCount $handler $warning }}</span></td>
+                {{ else }}
+                  <td class="blank"></td>
+                {{ end }}
+              {{ end }}
+            </tr>
+          {{ end }}
+        {{ end }}
+      </table>
+    </td>
+  </tr>
 </table>
 </body>
 </html>

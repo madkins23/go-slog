@@ -17,6 +17,7 @@ var verifyFile = flag.String("verify", "", "Load verification data from path (op
 type Warnings struct {
 	byTest       map[TestTag]*Levels
 	byHandler    map[HandlerTag]*Levels
+	byWarning    map[string]map[HandlerTag]uint
 	tests        []TestTag
 	handlers     []HandlerTag
 	handlerNames map[HandlerTag]string
@@ -27,6 +28,7 @@ func NewWarningData() *Warnings {
 	return &Warnings{
 		byTest:       make(map[TestTag]*Levels),
 		byHandler:    make(map[HandlerTag]*Levels),
+		byWarning:    make(map[string]map[HandlerTag]uint),
 		tests:        make([]TestTag, 0),
 		handlers:     make([]HandlerTag, 0),
 		handlerNames: make(map[HandlerTag]string),
@@ -75,6 +77,11 @@ func (w *Warnings) HandlerTags() []HandlerTag {
 		})
 	}
 	return w.handlers
+}
+
+// HandlerWarningCount returns the number of the specified warning associated with the specified handler.
+func (w *Warnings) HandlerWarningCount(handler HandlerTag, warning *warning.Warning) uint {
+	return w.byWarning[warning.Name][handler]
 }
 
 // TestName returns the full name associated with a TestTag.

@@ -56,6 +56,10 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 						extra: instance.extra,
 						log:   instance.log,
 					})
+				if w.byWarning[dWarning.warning.name] == nil {
+					w.byWarning[dWarning.warning.name] = make(map[HandlerTag]uint)
+				}
+				w.byWarning[dWarning.warning.name][handler]++
 			}
 			instance = nil
 		}

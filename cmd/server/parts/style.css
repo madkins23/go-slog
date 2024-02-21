@@ -18,7 +18,7 @@ h1.home {
 }
 
 img.chart {
-    border: 2px inset white;
+    border: 2px inset antiquewhite;
 }
 
 img.home {
@@ -44,8 +44,9 @@ table.data td, th {
 }
 
 table.data td {
-    border: 2px inset darkgray;
-    background-color: lightgray;
+    background-color: lightslategray;
+    outline: 2px inset darkgray;
+    outline-offset: -2px;
 }
 
 table.debug {
@@ -57,8 +58,85 @@ table.debug td {
     font-family: monospace;
     margin: 5px;
     padding: 5px;
-    border: 2px inset darkgray;
+    outline: 2px inset darkgray;
+    outline-offset: -2px;
+    background-color: lightslategray;
+}
+
+table.handler-v-warning {
+    border-collapse: collapse;
+}
+
+table.handler-v-warning th {
+    height: 10em;
+    white-space: nowrap;
+    padding: 0 !important;
+    font-family: monospace;
+    font-weight: bold;
+}
+
+table.handler-v-warning th  > div {
+    transform:
+            translate(0px, 50px)
+            rotate(300deg);
+    width: 3em;
+}
+
+table.handler-v-warning th  > div > span {
+    padding: 5px 10px;
+}
+
+table.handler-v-warning td {
+    height: 1.5em;
+}
+
+table.handler-v-warning td.blank:nth-child(odd) {
+    background-color: lightslategray;
+}
+
+table.handler-v-warning td.count {
+    background-color: antiquewhite;
+    outline: 2px inset antiquewhite;
+    outline-offset: -2px;
+    text-align: center;
+}
+
+table.handler-v-warning td.count span {
+    font-family: monospace;
+}
+
+table.handler-v-warning td.name {
+    font-family: monospace;
+}
+
+table.handler-v-warning td.level {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+table.instance {
+    margin: 5px;
+    padding: 5px;
+    table-layout: fixed;
+    width: 100%;
+    border-collapse: collapse;
+    outline: 2px inset darkgray;
+    outline-offset: -2px;
     background-color: lightgray;
+}
+
+table.instance td.logLink {
+    text-align: center;
+}
+
+table.instance td.name {
+    font-family: monospace;
+    font-size: 1em;
+}
+
+table.instance td.extra {
+    font-family: monospace;
+    font-size: 1em;
 }
 
 table.root {
@@ -71,8 +149,9 @@ table.root td {
 }
 
 table.root td.warnings {
-    background-color: white;
-    border: 2px inset white;
+    background-color: antiquewhite;
+    outline: 2px inset antiquewhite;
+    outline-offset: -2px;
     overflow: scroll;
 }
 
@@ -116,12 +195,14 @@ table.warning td.level {
 table.warning td.logLine pre {
     font-family: monospace;
     background-color: antiquewhite;
-    border: 2px inset antiquewhite;
+    outline: 2px inset antiquewhite;
+    outline-offset: -2px;
 }
 
 table.warning td.summary {
     background-color: antiquewhite;
-    border: 2px inset antiquewhite;
+    outline: 2px inset antiquewhite;
+    outline-offset: -2px;
 }
 
 table.warning td.summary p {
@@ -139,30 +220,6 @@ table.warning td.warning {
     font-size: 1.25em;
     font-weight: bold;
     padding-top: 0.5em;
-}
-
-table.instance {
-    margin: 5px;
-    padding: 5px;
-    table-layout: fixed;
-    width: 100%;
-    border-collapse: collapse;
-    border: 2px inset darkgray;
-    background-color: lightgray;
-}
-
-table.instance td.logLink {
-    text-align: center;
-}
-
-table.instance td.name {
-    font-family: monospace;
-    font-size: 1em;
-}
-
-table.instance td.extra {
-    font-family: monospace;
-    font-size: 1em;
 }
 
 .fixed {
