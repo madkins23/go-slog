@@ -2,6 +2,7 @@ package warning
 
 import (
 	"fmt"
+	"html/template"
 	"strings"
 )
 
@@ -46,6 +47,21 @@ func (l Level) String() string {
 	} else {
 		return fmt.Sprintf("Unknown level %d", l)
 	}
+}
+
+var levelDescriptions = map[Level]string{
+	LevelRequired:  "The following warnings can be justified from requirements in the [`slog.Handler`](https://pkg.go.dev/log/slog@master#Handler) documentation.",
+	LevelImplied:   "Warnings that seem to be implied by documentation but can't be considered required.",
+	LevelSuggested: "These warnings are not AFAIK mandated by any documentation or requirements.",
+	LevelAdmin:     "Warnings that provide information about the tests or conflicts with other warnings.",
+}
+
+func (l Level) Description() template.HTML {
+	return MD2HTML(levelDescriptions[l])
+}
+
+func (l Level) Warnings() []*Warning {
+	return WarningsForLevel(l)
 }
 
 func ParseLevel(text string) (Level, error) {

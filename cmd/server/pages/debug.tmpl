@@ -11,19 +11,22 @@
       <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
       <h1 class="home">Debug Data and Warnings</h1>
     </td>
+    <td align="right">
+      {{ template "partChoices" $ }}
+    </td>
   </tr>
   <tr>
     <td colspan=2>
       <h2>Benchmark Data</h2>
     </td>
   </tr>
-  {{ template "source" $.Benchmarks }}
+  {{ template "partSource" $.Benchmarks }}
   <tr>
     <td colspan=2>
       <h2>Warnings</h2>
     </td>
   </tr>
-  {{ template "source" $.Warnings }}
+  {{ template "partSource" $.Warnings }}
 </table>
 </div>
 </body>

@@ -1,0 +1,58 @@
+<html>
+<head>
+  <title>Benchmark Data</title>
+  <link rel="stylesheet" href="/go-slog/style.css">
+  <script>
+    function toggleTableRow(id) {
+        var elem = document.getElementById(id);
+        elem.style.display = elem.style.display == "none" ? "table-row" : "none";
+    }
+  </script>
+</head>
+
+<body>
+<table class="top">
+  <tr>
+    <td>
+      <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+      <h1 class="home">Warnings</h1>
+    </td>
+    <td align="right"></td>
+  </tr>
+  <tr>
+    <td colspan=2 align="center">
+      <table class="warning">
+        <colgroup>
+          <col width="3%"/>
+          <col width="3%"/>
+          <col width="30%"/>
+          <col width="64%"/>
+        </colgroup>
+        {{ range $level := .Levels }}
+          <tr>
+            <td colspan=4 class="level">{{ $level }}</td>
+          </tr>
+          <tr>
+            <td></td>
+            <td colspan=3>{{ $level.Description }}</td>
+          </tr>
+          {{ range $warning := $level.Warnings }}
+            <tr>
+              <td></td>
+              <td colspan=2 class="warning">{{ $warning.Name }}</td>
+              <td class="extra">{{ $warning.Description }}</td>
+            </tr>
+            {{ if $warning.HasSummary }}
+              <tr>
+                <td colspan=2></td>
+                <td colspan=2 class="summary">{{ $warning.Summary }}</td>
+              </tr>
+            {{ end }}
+          {{ end }}
+        {{ end }}
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

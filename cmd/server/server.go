@@ -24,6 +24,7 @@ import (
 	ginslog "github.com/madkins23/go-slog/gin"
 	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/language"
+	"github.com/madkins23/go-slog/warning"
 )
 
 // Server reads output from `test -bench` and serves tables and charts via HTTP.
@@ -34,21 +35,23 @@ type pageType string
 const port = 8080
 
 const (
-	pageRoot     = "root"
-	pageTest     = "bench"
-	pageHandler  = "handler"
-	pageChoices  = "choices"
-	pageWarnings = "warnings"
-	pageDebug    = "debug"
-	pageSource   = "source"
-	pageError    = "error"
+	pageRoot     = "pageRoot"
+	pageTest     = "pageBench"
+	pageHandler  = "pageHandler"
+	pageWarnings = "pageWarnings"
+	pageDebug    = "pageDebug"
+	pageError    = "pageError"
+
+	partChoices  = "partChoices"
+	partSource   = "partSource"
+	partWarnings = "partWarnings"
 )
 
 var (
-	//go:embed embed/style.css
+	//go:embed parts/style.css
 	css string
 
-	//go:embed embed/home.svg
+	//go:embed parts/home.svg
 	home []byte
 )
 
@@ -77,8 +80,9 @@ func main() {
 	router.GET("/go-slog/", rootPageFn)
 	router.GET("/go-slog/index.html", rootPageFn)
 	router.GET("/go-slog/test/:tag", pageFunction(pageTest))
-	router.GET("/go-slog/debug", pageFunction(pageDebug))
 	router.GET("/go-slog/handler/:tag", pageFunction(pageHandler))
+	router.GET("/go-slog/warnings.html", pageFunction(pageWarnings))
+	router.GET("/go-slog/debug", pageFunction(pageDebug))
 	router.GET("/go-slog/chart/:tag/:item", chartFunction)
 	router.GET("/go-slog/home.svg", svgFunction(home))
 	router.GET("/go-slog/style.css", textFunction(css))
@@ -102,32 +106,35 @@ func main() {
 var (
 	bench     = data.NewBenchmarks()
 	warns     = data.NewWarningData()
-	pages     = []pageType{pageRoot, pageTest, pageHandler, pageDebug}
+	pages     = []pageType{pageRoot, pageTest, pageHandler, pageWarnings, pageDebug}
 	templates map[pageType]*template.Template
 
-	//go:embed embed/root.tmpl
-	tmplRoot string
+	//go:embed pages/root.tmpl
+	tmplPageRoot string
 
-	//go:embed embed/test.tmpl
-	tmplTest string
+	//go:embed pages/test.tmpl
+	tmplPageTest string
 
-	//go:embed embed/handler.tmpl
-	tmplHandler string
+	//go:embed pages/handler.tmpl
+	tmplPageHandler string
 
-	//go:embed embed/choices.tmpl
-	tmplChoices string
+	//go:embed pages/warnings.tmpl
+	tmplPageWarnings string
 
-	//go:embed embed/source.tmpl
-	tmplSource string
+	//go:embed pages/debug.tmpl
+	tmplPageDebug string
 
-	//go:embed embed/warnings.tmpl
-	tmplWarnings string
+	//go:embed pages/error.tmpl
+	tmplPageError string
 
-	//go:embed embed/debug.tmpl
-	tmplDebug string
+	//go:embed parts/choices.tmpl
+	tmplPartChoices string
 
-	//go:embed embed/error.tmpl
-	tmplError string
+	//go:embed parts/source.tmpl
+	tmplPartSource string
+
+	//go:embed parts/warnings.tmpl
+	tmplPartWarnings string
 )
 
 func setup() error {
@@ -155,31 +162,36 @@ func setup() error {
 		tmpl.Funcs(map[string]any{"mod": func(a, b int) int { return a % b }})
 		switch page {
 		case pageRoot:
-			tmpl, err = tmpl.Parse(tmplRoot)
+			tmpl, err = tmpl.Parse(tmplPageRoot)
 		case pageTest:
-			_, err = tmpl.Parse(tmplTest)
+			_, err = tmpl.Parse(tmplPageTest)
 			if err == nil {
-				_, err = tmpl.New(pageChoices).Parse(tmplChoices)
+				_, err = tmpl.New(partChoices).Parse(tmplPartChoices)
 			}
 			if err == nil {
-				_, err = tmpl.New(pageWarnings).Parse(tmplWarnings)
+				_, err = tmpl.New(partWarnings).Parse(tmplPartWarnings)
 			}
 		case pageHandler:
-			tmpl, err = tmpl.Parse(tmplHandler)
+			tmpl, err = tmpl.Parse(tmplPageHandler)
 			if err == nil {
-				_, err = tmpl.New(pageChoices).Parse(tmplChoices)
+				_, err = tmpl.New(partChoices).Parse(tmplPartChoices)
 			}
 			if err == nil {
-				_, err = tmpl.New(pageWarnings).Parse(tmplWarnings)
+				_, err = tmpl.New(partWarnings).Parse(tmplPartWarnings)
 			}
 		case pageDebug:
-			tmpl, err = tmpl.Parse(tmplDebug)
+			tmpl, err = tmpl.Parse(tmplPageDebug)
 			if err == nil {
-				_, err = tmpl.New(pageSource).Parse(tmplSource)
+				_, err = tmpl.New(partChoices).Parse(tmplPartChoices)
 			}
+			if err == nil {
+				_, err = tmpl.New(partSource).Parse(tmplPartSource)
+			}
+		case pageWarnings:
+			tmpl, err = tmpl.Parse(tmplPageWarnings)
 		case pageError:
-			tmpl, err = tmpl.Parse(tmplError)
-		case pageChoices:
+			tmpl, err = tmpl.Parse(tmplPageError)
+		case partChoices:
 		default:
 			return fmt.Errorf("unknown page name: %s", page)
 		}
@@ -289,6 +301,7 @@ func chartHandler(records data.TestRecords, item data.BenchItems) (labels []stri
 type templateData struct {
 	*data.Benchmarks
 	*data.Warnings
+	Levels  []warning.Level
 	Test    data.TestTag
 	Handler data.HandlerTag
 	Printer *message.Printer
@@ -307,6 +320,7 @@ func pageFunction(page pageType) gin.HandlerFunc {
 		tmplData := &templateData{
 			Benchmarks: bench,
 			Warnings:   warns,
+			Levels:     warning.LevelOrder,
 			Printer:    language.Printer(),
 		}
 		if page == pageTest || page == pageHandler {

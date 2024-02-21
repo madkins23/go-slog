@@ -18,7 +18,7 @@
       <h1 class="home">Test {{ .Benchmarks.TestName .Test }}</h1>
     </td>
     <td align="right">
-      {{ template "choices" $ }}
+      {{ template "partChoices" $ }}
     </td>
   </tr>
   {{ if .Benchmarks.HasTest .Test }}
@@ -73,7 +73,7 @@
             <col width="64%"/>
           </colgroup>
           {{ $data := .Warnings.ForTest .Test }}
-          {{ template "warnings" $data }}
+          {{ template "partWarnings" $data }}
         </table>
       </td>
     </tr>

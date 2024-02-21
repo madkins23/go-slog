@@ -24,3 +24,9 @@ func TestWarnings(t *testing.T) {
 	assert.Len(t, Suggested(), testCounts[LevelSuggested])
 	assert.Len(t, Administrative(), testCounts[LevelAdmin])
 }
+
+func TestSummary(t *testing.T) {
+	assert.Equal(t,
+		"<p>Handlers are supposed to avoid logging empty attributes.</p>\n\n<ul>\n<li><a href=\"https://pkg.go.dev/log/slog@master#Handler\" target=\"_blank\">&rsquo;- If an Attr&rsquo;s key and value are both the zero value, ignore the Attr.&rsquo;</a></li>\n</ul>\n",
+		EmptyAttributes.Summary())
+}
