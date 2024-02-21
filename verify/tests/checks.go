@@ -37,12 +37,16 @@ func (suite *SlogTestSuite) checkLevelKey(level string, logMap map[string]any) {
 	level = strings.ToUpper(level)
 	if suite.HasWarning(warning.LevelCase) {
 		if logLevel, ok := logMap[slog.LevelKey].(string); ok {
-			if suite.Assert().Equal(level, strings.ToUpper(logLevel)) && level != logLevel {
+			if level != strings.ToUpper(logLevel) {
+				suite.AddWarning(warning.LevelWrong, fmt.Sprintf("should be '%s', not '%s'", level, logLevel), "")
+				return
+			} else if level != logLevel {
 				suite.AddWarning(warning.LevelCase, "'"+logLevel+"'", "")
 				return
 			}
 		}
 		suite.AddUnused(warning.LevelCase, "")
+		return
 	}
 	suite.Assert().Equal(level, logMap[slog.LevelKey])
 }

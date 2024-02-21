@@ -26,7 +26,7 @@ func (suite *SlogTestSuite) fieldCounter() *testJSON.FieldCounter {
 // logMap unmarshals JSON in the output capture buffer into a map[string]any.
 // The buffer is sent to test logging output if the -debug=<level> flag is >= 1.
 func (suite *SlogTestSuite) logMap() map[string]any {
-	test.Debugf(1, ">>> JSON: %s", suite.Buffer.Bytes())
+	test.Debugf(1, ">>> JSON (%d) %s", suite.Buffer.Len(), suite.Buffer.Bytes())
 	var results map[string]any
 	suite.Require().NoError(json.Unmarshal(suite.Buffer.Bytes(), &results))
 	return results

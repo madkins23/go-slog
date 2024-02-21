@@ -128,10 +128,10 @@ func (suite *SlogTestSuite) TestDisabled() {
 	suite.Assert().Empty(suite.Buffer)
 }
 
-// TestKey tests generation of a source key.
+// TestSourceKey tests generation of a source key.
 //   - https://pkg.go.dev/log/slog@master#HandlerOptions
 //   - https://pkg.go.dev/log/slog@master#Source
-func (suite *SlogTestSuite) TestKey() {
+func (suite *SlogTestSuite) TestSourceKey() {
 	logger := suite.Logger(infra.SourceOptions())
 	var pcs [1]uintptr
 	runtime.Callers(2, pcs[:])

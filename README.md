@@ -178,28 +178,35 @@ Editing every log statement in a large project can be a real pain.
 
 ### Slog Handlers
 
-* [`chanchal1987/zaphandler`](https://github.com/chanchal1987/zaphandler)  
-  Not currently tested in this project.
-* [`darvaza/logrus`](https://pkg.go.dev/darvaza.org/slog/handlers/logrus)  
-  - `New` returns instance of an interface incompatible with `slog.Logger`
-  - No separate `Handler` object
-* [`darvaza/zap`](https://pkg.go.dev/darvaza.org/slog/handlers/zap)  
-  - `New` returns instance of an interface incompatible with `slog.Logger`
-  - No separate `Handler` object
-* [`darvaza/zerolog`](https://pkg.go.dev/darvaza.org/slog/handlers/zerolog)  
-  - `New` returns instance of an interface incompatible with `slog.Logger`
-  - No separate `Handler` object
-* [`evanphx/go-hclog-slog`](https://github.com/evanphx/go-hclog-slog)  
-  Not currently tested in this project.
-* [`galecore/xslog`](https://github.com/galecore/xslog)
-  - Doesn't currently work properly (2024-02-20).
-* [`phsym/console-slog`](https://github.com/phsym/console-slog)
-  - Console `slog` handlers not tested in this project, only JSON handlers.
+The following handlers are currently under test in this repository:
+
+* [`log/slog.JSONHandler`](https://pkg.go.dev/log/slog#JSONHandler)
 * [`phsym/zeroslog`](https://github.com/phsym/zeroslog)
 * [`samber/slog-zap`](https://github.com/samber/slog-zap)
 * [`samber/slog-zerolog`](https://github.com/samber/slog-zerolog)
-* [`samber/slog-logrus`](https://github.com/samber/slog-logrus)  
-  Not currently tested in this project.
+* [`samber/slog-logrus`](https://github.com/samber/slog-logrus)
+
+These handlers are not yet under test:
+
+* [`chanchal1987/zaphandler`](https://github.com/chanchal1987/zaphandler)
+* [`evanphx/go-hclog-slog`](https://github.com/evanphx/go-hclog-slog)
+
+Handlers that have been investigated and found wanting:
+
+* `darvaza` handlers are based on a different definition of `log/slog`
+  as an interface that is not compatible with the "real" `log/slog/Logger`.
+  Since the latter is _not_ an interface there is no way to build a shim.
+  In addition, there is no separate 'Handler' object.
+  * [`darvaza/logrus`](https://pkg.go.dev/darvaza.org/slog/handlers/logrus)
+  * [`darvaza/zap`](https://pkg.go.dev/darvaza.org/slog/handlers/zap)
+  * [`darvaza/zerolog`](https://pkg.go.dev/darvaza.org/slog/handlers/zerolog)
+
+* [`galecore/xslog`](https://github.com/galecore/xslog)
+  - Doesn't currently work properly (2024-02-20).
+
+Console handlers are not tested in this repository, but the author likes this one:
+
+* [`phsym/console-slog`](https://github.com/phsym/console-slog)
 
 ### Miscellaneous
 

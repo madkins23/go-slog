@@ -13,13 +13,16 @@ var (
 	LevelCase = NewWarning(LevelSuggested, "LevelCase",
 		"Log level in lowercase")
 
+	LevelWrong = NewWarning(LevelSuggested, "LevelWrong",
+		"Log level is incorrect")
+
 	TimeMillis = NewWarning(LevelSuggested, "TimeMillis",
 		"slog.Time() logs milliseconds instead of nanoseconds")
 )
 
 func init() {
 	// Always update this number when adding or removing Warning objects.
-	addTestCount(LevelSuggested, 5)
+	addTestCount(LevelSuggested, 6)
 }
 
 func Suggested() []*Warning {
