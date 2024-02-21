@@ -36,11 +36,11 @@
                 <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
-                    <option value="darvaza_zerolog" >darvaza/zerolog</option>
-                  
                     <option value="slog_JSONHandler" selected>log/slog.JSONHandler</option>
                   
                     <option value="phsym_zerolog" >phsym/zeroslog</option>
+                  
+                    <option value="samber_logrus" >samber/slog-logrus</option>
                   
                     <option value="samber_zap" >samber/slog-zap</option>
                   
@@ -108,8 +108,6 @@
                   
                     <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
                   
-                    <option value="Verify:Key" >Key</option>
-                  
                     <option value="Verify:KeyCase" >Key Case</option>
                   
                     <option value="Verify:Keys" >Keys</option>
@@ -131,6 +129,8 @@
                     <option value="Verify:ResolveValuer" >Resolve Valuer</option>
                   
                     <option value="Verify:ResolveWith" >Resolve With</option>
+                  
+                    <option value="Verify:SourceKey" >Source Key</option>
                   
                     <option value="Verify:ZeroPC" >Zero Pc</option>
                   
@@ -159,8 +159,8 @@
           
             <tr>
               <td class="fixed">Attributes</td>
-              <td class="number">751,363</td>
-              <td class="number">1,503.00</td>
+              <td class="number">825,231</td>
+              <td class="number">1,501.00</td>
               <td class="number">6</td>
              <td class="number">472</td>
               <td class="number">0.00</td>
@@ -168,17 +168,17 @@
           
             <tr>
               <td class="fixed">Big Group</td>
-              <td class="number">4,428</td>
-              <td class="number">258,868.00</td>
-              <td class="number">3,863</td>
-             <td class="number">284,133</td>
+              <td class="number">4,761</td>
+              <td class="number">250,447.00</td>
+              <td class="number">3,772</td>
+             <td class="number">276,469</td>
               <td class="number">0.00</td>
             </tr>
           
             <tr>
               <td class="fixed">Disabled</td>
-              <td class="number">322,725,358</td>
-              <td class="number">3.72</td>
+              <td class="number">309,885,924</td>
+              <td class="number">3.88</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -186,8 +186,8 @@
           
             <tr>
               <td class="fixed">Key Values</td>
-              <td class="number">704,386</td>
-              <td class="number">1,668.00</td>
+              <td class="number">711,870</td>
+              <td class="number">1,634.00</td>
               <td class="number">7</td>
              <td class="number">856</td>
               <td class="number">0.00</td>
@@ -195,8 +195,8 @@
           
             <tr>
               <td class="fixed">Logging</td>
-              <td class="number">40,398</td>
-              <td class="number">31,541.00</td>
+              <td class="number">39,970</td>
+              <td class="number">34,117.00</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -204,8 +204,8 @@
           
             <tr>
               <td class="fixed">Simple</td>
-              <td class="number">3,395,410</td>
-              <td class="number">372.90</td>
+              <td class="number">3,203,350</td>
+              <td class="number">354.30</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -213,8 +213,8 @@
           
             <tr>
               <td class="fixed">Simple Source</td>
-              <td class="number">1,316,564</td>
-              <td class="number">906.50</td>
+              <td class="number">1,336,020</td>
+              <td class="number">897.50</td>
               <td class="number">6</td>
              <td class="number">568</td>
               <td class="number">0.00</td>
@@ -222,8 +222,8 @@
           
             <tr>
               <td class="fixed">With Attrs Attributes</td>
-              <td class="number">780,468</td>
-              <td class="number">1,529.00</td>
+              <td class="number">805,210</td>
+              <td class="number">1,517.00</td>
               <td class="number">6</td>
              <td class="number">472</td>
               <td class="number">0.00</td>
@@ -231,8 +231,8 @@
           
             <tr>
               <td class="fixed">With Attrs Key Values</td>
-              <td class="number">704,316</td>
-              <td class="number">1,685.00</td>
+              <td class="number">706,650</td>
+              <td class="number">1,652.00</td>
               <td class="number">7</td>
              <td class="number">856</td>
               <td class="number">0.00</td>
@@ -240,8 +240,8 @@
           
             <tr>
               <td class="fixed">With Attrs Simple</td>
-              <td class="number">3,237,172</td>
-              <td class="number">363.10</td>
+              <td class="number">3,182,547</td>
+              <td class="number">372.70</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -249,8 +249,8 @@
           
             <tr>
               <td class="fixed">With Group Attributes</td>
-              <td class="number">793,390</td>
-              <td class="number">1,533.00</td>
+              <td class="number">741,094</td>
+              <td class="number">1,555.00</td>
               <td class="number">6</td>
              <td class="number">472</td>
               <td class="number">0.00</td>
@@ -258,8 +258,8 @@
           
             <tr>
               <td class="fixed">With Group Key Values</td>
-              <td class="number">706,120</td>
-              <td class="number">1,708.00</td>
+              <td class="number">711,950</td>
+              <td class="number">1,665.00</td>
               <td class="number">7</td>
              <td class="number">856</td>
               <td class="number">0.00</td>

@@ -36,11 +36,11 @@
                 <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
-                    <option value="darvaza_zerolog" >darvaza/zerolog</option>
-                  
                     <option value="slog_JSONHandler" >log/slog.JSONHandler</option>
                   
                     <option value="phsym_zerolog" >phsym/zeroslog</option>
+                  
+                    <option value="samber_logrus" >samber/slog-logrus</option>
                   
                     <option value="samber_zap" >samber/slog-zap</option>
                   
@@ -108,8 +108,6 @@
                   
                     <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
                   
-                    <option value="Verify:Key" >Key</option>
-                  
                     <option value="Verify:KeyCase" >Key Case</option>
                   
                     <option value="Verify:Keys" >Keys</option>
@@ -131,6 +129,8 @@
                     <option value="Verify:ResolveValuer" >Resolve Valuer</option>
                   
                     <option value="Verify:ResolveWith" >Resolve With</option>
+                  
+                    <option value="Verify:SourceKey" >Source Key</option>
                   
                     <option value="Verify:ZeroPC" >Zero Pc</option>
                   
@@ -159,37 +159,46 @@
             <tr>
               <td class="fixed">phsym/zeroslog</td>
               <td class="number">1,000,000</td>
-              <td class="number">1,092.00</td>
+              <td class="number">1,072.00</td>
               <td class="number">2</td>
               <td class="number">272</td>
-              <td class="number">684,094.16</td>
+              <td class="number">696,744.36</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">samber/slog-logrus</td>
+              <td class="number">45,440</td>
+              <td class="number">26,092.00</td>
+              <td class="number">134</td>
+              <td class="number">14,624</td>
+              <td class="number">1,125.02</td>
             </tr>
           
             <tr>
               <td class="fixed">samber/slog-zap</td>
-              <td class="number">144,308</td>
-              <td class="number">7,921.00</td>
+              <td class="number">149,650</td>
+              <td class="number">7,927.00</td>
               <td class="number">70</td>
               <td class="number">12,137</td>
-              <td class="number">11,076.32</td>
+              <td class="number">11,478.03</td>
             </tr>
           
             <tr>
               <td class="fixed">samber/slog-zerolog</td>
-              <td class="number">166,610</td>
-              <td class="number">7,144.00</td>
+              <td class="number">166,197</td>
+              <td class="number">7,200.00</td>
               <td class="number">86</td>
-              <td class="number">8,711</td>
-              <td class="number">14,412.15</td>
+              <td class="number">8,713</td>
+              <td class="number">14,265.21</td>
             </tr>
           
             <tr>
               <td class="fixed">log/slog.JSONHandler</td>
-              <td class="number">780,468</td>
-              <td class="number">1,529.00</td>
+              <td class="number">805,210</td>
+              <td class="number">1,517.00</td>
               <td class="number">6</td>
               <td class="number">472</td>
-              <td class="number">400,599.07</td>
+              <td class="number">416,489.51</td>
             </tr>
           
         </table>
@@ -210,69 +219,6 @@
       </td>
     </tr>
   
-  
-    <tr>
-      <td colspan=2 align="center">
-        <h2 align="left" style="padding-top: 1em;">Warnings</h2>
-        <table class="warning">
-          <colgroup>
-            <col width="3%"/>
-            <col width="3%"/>
-            <col width="30%"/>
-            <col width="64%"/>
-          </colgroup>
-          
-                    
-            <tr>
-              <td colspan=4 class="level">Administrative</td>
-            </tr>
-            
-              <tr>
-                <td></td>
-                <td colspan=2 class="warning">
-                  NoHandlerCreation
-                </td>
-                <td class="extra">
-                  Test depends on unavailable handler creation
-                </td>
-              </tr>
-              <tr class="instance">
-                <td colspan=2></td>
-                <td colspan=2>
-                  <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="30%"/>
-                      <col width="50%"/>
-                      <col width="7%"/>
-                    </colgroup>
-                    
-                      
-                      
-                      
-                        
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">darvaza_zerolog</td>
-                        <td class="extra" style="background-color:lightgray;"></td>
-                        <td class="logLink" style="background-color:lightgray;">
-                          
-                        </td>
-                      </tr>
-                      <tr id="NoHandlerCreationdarvaza_zerolog" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                     
-                  </table>
-                </td>
-              </tr>
-             
-           
-
-        </table>
-      </td>
-    </tr>
   
 </table>
 </body>

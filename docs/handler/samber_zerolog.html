@@ -36,11 +36,11 @@
                 <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
-                    <option value="darvaza_zerolog" >darvaza/zerolog</option>
-                  
                     <option value="slog_JSONHandler" >log/slog.JSONHandler</option>
                   
                     <option value="phsym_zerolog" >phsym/zeroslog</option>
+                  
+                    <option value="samber_logrus" >samber/slog-logrus</option>
                   
                     <option value="samber_zap" >samber/slog-zap</option>
                   
@@ -108,8 +108,6 @@
                   
                     <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
                   
-                    <option value="Verify:Key" >Key</option>
-                  
                     <option value="Verify:KeyCase" >Key Case</option>
                   
                     <option value="Verify:Keys" >Keys</option>
@@ -131,6 +129,8 @@
                     <option value="Verify:ResolveValuer" >Resolve Valuer</option>
                   
                     <option value="Verify:ResolveWith" >Resolve With</option>
+                  
+                    <option value="Verify:SourceKey" >Source Key</option>
                   
                     <option value="Verify:ZeroPC" >Zero Pc</option>
                   
@@ -159,8 +159,8 @@
           
             <tr>
               <td class="fixed">Attributes</td>
-              <td class="number">272,055</td>
-              <td class="number">4,350.00</td>
+              <td class="number">277,011</td>
+              <td class="number">4,347.00</td>
               <td class="number">58</td>
              <td class="number">4,973</td>
               <td class="number">0.00</td>
@@ -168,17 +168,17 @@
           
             <tr>
               <td class="fixed">Big Group</td>
-              <td class="number">1,875</td>
-              <td class="number">674,749.00</td>
-              <td class="number">10,342</td>
-             <td class="number">623,133</td>
+              <td class="number">1,846</td>
+              <td class="number">703,764.00</td>
+              <td class="number">10,657</td>
+             <td class="number">642,581</td>
               <td class="number">0.00</td>
             </tr>
           
             <tr>
               <td class="fixed">Disabled</td>
-              <td class="number">322,711,232</td>
-              <td class="number">3.72</td>
+              <td class="number">309,013,416</td>
+              <td class="number">3.88</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -186,8 +186,8 @@
           
             <tr>
               <td class="fixed">Key Values</td>
-              <td class="number">265,780</td>
-              <td class="number">4,532.00</td>
+              <td class="number">267,994</td>
+              <td class="number">4,546.00</td>
               <td class="number">59</td>
              <td class="number">5,358</td>
               <td class="number">0.00</td>
@@ -195,17 +195,17 @@
           
             <tr>
               <td class="fixed">Logging</td>
-              <td class="number">15,709</td>
-              <td class="number">75,715.00</td>
+              <td class="number">15,980</td>
+              <td class="number">74,283.00</td>
               <td class="number">1,173</td>
-             <td class="number">81,636</td>
+             <td class="number">81,637</td>
               <td class="number">0.00</td>
             </tr>
           
             <tr>
               <td class="fixed">Simple</td>
-              <td class="number">2,749,922</td>
-              <td class="number">440.90</td>
+              <td class="number">2,765,154</td>
+              <td class="number">433.60</td>
               <td class="number">3</td>
              <td class="number">360</td>
               <td class="number">0.00</td>
@@ -214,7 +214,7 @@
             <tr>
               <td class="fixed">Simple Source</td>
               <td class="number">1,000,000</td>
-              <td class="number">1,158.00</td>
+              <td class="number">1,142.00</td>
               <td class="number">12</td>
              <td class="number">1,225</td>
               <td class="number">0.00</td>
@@ -222,26 +222,26 @@
           
             <tr>
               <td class="fixed">With Attrs Attributes</td>
-              <td class="number">166,610</td>
-              <td class="number">7,144.00</td>
+              <td class="number">166,197</td>
+              <td class="number">7,200.00</td>
               <td class="number">86</td>
-             <td class="number">8,711</td>
+             <td class="number">8,713</td>
               <td class="number">0.00</td>
             </tr>
           
             <tr>
               <td class="fixed">With Attrs Key Values</td>
-              <td class="number">165,889</td>
-              <td class="number">7,384.00</td>
+              <td class="number">160,833</td>
+              <td class="number">7,432.00</td>
               <td class="number">87</td>
-             <td class="number">9,097</td>
+             <td class="number">9,096</td>
               <td class="number">0.00</td>
             </tr>
           
             <tr>
               <td class="fixed">With Attrs Simple</td>
-              <td class="number">304,856</td>
-              <td class="number">3,935.00</td>
+              <td class="number">302,389</td>
+              <td class="number">3,932.00</td>
               <td class="number">53</td>
              <td class="number">3,933</td>
               <td class="number">0.00</td>
@@ -249,8 +249,8 @@
           
             <tr>
               <td class="fixed">With Group Attributes</td>
-              <td class="number">131,191</td>
-              <td class="number">8,901.00</td>
+              <td class="number">128,529</td>
+              <td class="number">8,904.00</td>
               <td class="number">124</td>
              <td class="number">13,069</td>
               <td class="number">0.00</td>
@@ -258,8 +258,8 @@
           
             <tr>
               <td class="fixed">With Group Key Values</td>
-              <td class="number">131,277</td>
-              <td class="number">9,076.00</td>
+              <td class="number">133,245</td>
+              <td class="number">9,000.00</td>
               <td class="number">125</td>
              <td class="number">13,454</td>
               <td class="number">0.00</td>
@@ -343,7 +343,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-20T19:38:53Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -367,7 +367,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-20T19:38:53Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -421,7 +421,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-20T19:38:53Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -472,7 +472,7 @@
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-20T19:38:53Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -497,7 +497,7 @@
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-20T19:38:53Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -521,7 +521,7 @@
 	&#34;hidden&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-20T19:38:53Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -543,7 +543,7 @@
 	&#34;hidden&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-20T19:38:53Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -595,7 +595,7 @@
 		&#34;function&#34;: &#34;&#34;,
 		&#34;line&#34;: 0
 	},
-	&#34;time&#34;: &#34;2024-02-20T19:38:53Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -769,13 +769,13 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:Key</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:Keys</td>
                         <td class="extra" style="background-color:lightgray;">`message`</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="MessageKeyVerify:Key" style="display:none;">
+                      <tr id="MessageKeyVerify:Keys" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -784,13 +784,13 @@
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:Keys</td>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:SourceKey</td>
                         <td class="extra" style="background-color:lightcyan;">`message`</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
                         </td>
                       </tr>
-                      <tr id="MessageKeyVerify:Keys" style="display:none;">
+                      <tr id="MessageKeyVerify:SourceKey" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -1008,13 +1008,13 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:Key</td>
-                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:KeyCase</td>
+                        <td class="extra" style="background-color:lightgray;">&#39;debug&#39;</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseVerify:Key" style="display:none;">
+                      <tr id="LevelCaseVerify:KeyCase" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -1072,13 +1072,13 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:KeyCase</td>
-                        <td class="extra" style="background-color:lightgray;">&#39;debug&#39;</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:Keys</td>
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseVerify:KeyCase" style="display:none;">
+                      <tr id="LevelCaseVerify:Keys" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -1087,13 +1087,13 @@
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:Keys</td>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:SourceKey</td>
                         <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseVerify:Keys" style="display:none;">
+                      <tr id="LevelCaseVerify:SourceKey" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -1161,7 +1161,7 @@
                       
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">Verify:LogAttributes</td>
-                        <td class="extra" style="background-color:lightgray;">2024-02-20T19:38:53Z</td>
+                        <td class="extra" style="background-color:lightgray;">2024-02-21T00:17:39Z</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>

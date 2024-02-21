@@ -36,11 +36,11 @@
                 <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
-                    <option value="darvaza_zerolog" >darvaza/zerolog</option>
-                  
                     <option value="slog_JSONHandler" >log/slog.JSONHandler</option>
                   
                     <option value="phsym_zerolog" >phsym/zeroslog</option>
+                  
+                    <option value="samber_logrus" >samber/slog-logrus</option>
                   
                     <option value="samber_zap" >samber/slog-zap</option>
                   
@@ -108,8 +108,6 @@
                   
                     <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
                   
-                    <option value="Verify:Key" >Key</option>
-                  
                     <option value="Verify:KeyCase" selected>Key Case</option>
                   
                     <option value="Verify:Keys" >Keys</option>
@@ -131,6 +129,8 @@
                     <option value="Verify:ResolveValuer" >Resolve Valuer</option>
                   
                     <option value="Verify:ResolveWith" >Resolve With</option>
+                  
+                    <option value="Verify:SourceKey" >Source Key</option>
                   
                     <option value="Verify:ZeroPC" >Zero Pc</option>
                   
@@ -187,13 +187,13 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">darvaza_zerolog</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">phsym_zerolog</td>
                         <td class="extra" style="background-color:lightgray;">&#39;debug&#39;</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasedarvaza_zerolog" style="display:none;">
+                      <tr id="LevelCasephsym_zerolog" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -202,45 +202,13 @@
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">darvaza_zerolog</td>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">phsym_zerolog</td>
                         <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasedarvaza_zerolog" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                      
-                        
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">darvaza_zerolog</td>
-                        <td class="extra" style="background-color:lightgray;">&#39;warn&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
-                          
-                        </td>
-                      </tr>
-                      <tr id="LevelCasedarvaza_zerolog" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">darvaza_zerolog</td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;error&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
-                          
-                        </td>
-                      </tr>
-                      <tr id="LevelCasedarvaza_zerolog" style="display:none;">
+                      <tr id="LevelCasephsym_zerolog" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -252,12 +220,44 @@
                       
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">phsym_zerolog</td>
+                        <td class="extra" style="background-color:lightgray;">&#39;warn&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCasephsym_zerolog" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">phsym_zerolog</td>
+                        <td class="extra" style="background-color:lightcyan;">&#39;error&#39;</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCasephsym_zerolog" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">samber_logrus</td>
                         <td class="extra" style="background-color:lightgray;">&#39;error&#39;</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasephsym_zerolog" style="display:none;">
+                      <tr id="LevelCasesamber_logrus" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -266,13 +266,13 @@
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">phsym_zerolog</td>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_logrus</td>
                         <td class="extra" style="background-color:lightcyan;">&#39;debug&#39;</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasephsym_zerolog" style="display:none;">
+                      <tr id="LevelCasesamber_logrus" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -283,13 +283,13 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">phsym_zerolog</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">samber_logrus</td>
                         <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasephsym_zerolog" style="display:none;">
+                      <tr id="LevelCasesamber_logrus" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -298,13 +298,45 @@
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">phsym_zerolog</td>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_zap</td>
+                        <td class="extra" style="background-color:lightcyan;">&#39;debug&#39;</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCasesamber_zap" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">samber_zap</td>
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCasesamber_zap" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_zap</td>
                         <td class="extra" style="background-color:lightcyan;">&#39;warn&#39;</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasephsym_zerolog" style="display:none;">
+                      <tr id="LevelCasesamber_zap" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -316,7 +348,7 @@
                       
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">samber_zap</td>
-                        <td class="extra" style="background-color:lightgray;">&#39;debug&#39;</td>
+                        <td class="extra" style="background-color:lightgray;">&#39;error&#39;</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
@@ -330,45 +362,13 @@
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_zap</td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_zerolog</td>
+                        <td class="extra" style="background-color:lightcyan;">&#39;debug&#39;</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasesamber_zap" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                      
-                        
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">samber_zap</td>
-                        <td class="extra" style="background-color:lightgray;">&#39;warn&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
-                          
-                        </td>
-                      </tr>
-                      <tr id="LevelCasesamber_zap" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_zap</td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;error&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
-                          
-                        </td>
-                      </tr>
-                      <tr id="LevelCasesamber_zap" style="display:none;">
+                      <tr id="LevelCasesamber_zerolog" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -421,20 +421,46 @@
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  LevelWrong
+                </td>
+                <td class="extra">
+                  Log level is incorrect
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="30%"/>
+                      <col width="50%"/>
+                      <col width="7%"/>
+                    </colgroup>
                     
                       
                       
                       
+                        
+                      
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_zerolog</td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;debug&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">samber_logrus</td>
+                        <td class="extra" style="background-color:lightgray;">should be &#39;WARN&#39;, not &#39;warning&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasesamber_zerolog" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="LevelWrongsamber_logrus" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
