@@ -3,7 +3,6 @@ package warning
 import (
 	"bufio"
 	"bytes"
-	"fmt"
 	"html/template"
 	"log/slog"
 	"math"
@@ -64,7 +63,6 @@ func (w *Warning) HasSummary() bool {
 
 // Summary converts the Markdown summary data into HTML and returns it.
 func (w *Warning) Summary() template.HTML {
-	fmt.Printf(">>> %v\n", w)
 	return MD2HTML(w.summary)
 }
 

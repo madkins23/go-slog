@@ -1,7 +1,6 @@
 package warning
 
 import (
-	"fmt"
 	"html/template"
 	"strings"
 
@@ -18,7 +17,6 @@ func init() {
 }
 
 func MD2HTML(md string) template.HTML {
-	fmt.Printf(">-> %s\n", md)
 	// Can't pre-build the parser in init(), it fails the second time it's used.
 	mdParser := parser.NewWithExtensions(
 		parser.CommonExtensions | parser.AutoHeadingIDs | parser.NoEmptyLineBeforeBlock)
