@@ -519,6 +519,1016 @@ from a test suite as issues are fixed in the tested handler.</p>
       </table>
     </td>
   </tr>
+  <tr>
+    <td colspan=2><h1>Warnings vs. Handlers</h1></td>
+  </tr>
+  <tr>
+    <td colspan=2 align="center">
+      <table class="handler-v-warning">
+        <tr>
+          <td colspan=2></td>
+          
+            <th><div><span>chanchal/ZapHandler</span></div></th>
+          
+            <th><div><span>log/slog.JSONHandler</span></div></th>
+          
+            <th><div><span>phsym/zeroslog</span></div></th>
+          
+            <th><div><span>samber/slog-logrus</span></div></th>
+          
+            <th><div><span>samber/slog-zap</span></div></th>
+          
+            <th><div><span>samber/slog-zerolog</span></div></th>
+          
+        </tr>
+        
+          <tr><td colspan=2 class="level">Required</td></tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">EmptyAttributes</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>2</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>2</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>2</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>2</span></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">GroupEmpty</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">GroupInline</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">Mismatch</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">NotDisabled</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">Resolver</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>4</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>4</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>4</span></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">ZeroPC</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">ZeroTime</td>
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+            </tr>
+          
+        
+          <tr><td colspan=2 class="level">Implied</td></tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">Canceled Context</td>
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">DefaultLevel</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>2</span></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">LevelMath</td>
+              
+                
+                
+                  <td class="count"><span>8</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">MessageKey</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>7</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>7</span></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">NoReplAttr</td>
+              
+                
+                
+                  <td class="count"><span>3</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>4</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">NoReplAttrBasic</td>
+              
+                
+                
+                  <td class="count"><span>2</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>3</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>3</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>3</span></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">SourceKey</td>
+              
+                
+                
+                  <td class="count"><span>2</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>2</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>2</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">WithGroup</td>
+              
+                
+                
+                  <td class="count"><span>2</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+        
+          <tr><td colspan=2 class="level">Suggested</td></tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">Duplicates</td>
+              
+                
+                
+                  <td class="count"><span>2</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>2</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>2</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">DurationMillis</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">DurationSeconds</td>
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">LevelCase</td>
+              
+                
+                
+                  <td class="count"><span>10</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>11</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>10</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>11</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>11</span></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">LevelWrong</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">TimeMillis</td>
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+            </tr>
+          
+        
+          <tr><td colspan=2 class="level">Administrative</td></tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">NoHandlerCreation</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">SkippingTest</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">TestError</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">Undefined</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">Unused</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+        
+      </table>
+    </td>
+  </tr>
 </table>
 </body>
 </html>
