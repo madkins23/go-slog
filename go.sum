@@ -130,6 +130,8 @@ github.com/vicanso/go-charts/v2 v2.6.4/go.mod h1:Ii2KDI3udTG1wPtiTnntzjlUBJVJTqN
 github.com/wcharczuk/go-chart/v2 v2.1.1 h1:2u7na789qiD5WzccZsFz4MJWOJP72G+2kUuJoSNqWnE=
 github.com/wcharczuk/go-chart/v2 v2.1.1/go.mod h1:CyCAUt2oqvfhCl6Q5ZvAZwItgpQKZOkCJGb+VGv6l14=
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
+go.mrchanchal.com/zaphandler v0.0.0-20230611140024-bd4fd80897ad h1:e06B5x0w6Z+5UhSas+6ywH0dm0i6QaIge1Bjx+aXaVM=
+go.mrchanchal.com/zaphandler v0.0.0-20230611140024-bd4fd80897ad/go.mod h1:cH+8mqXs/fUx1WkDnEF1Dbj2i4Y6C3qeIjhhFGY4eV8=
 go.uber.org/goleak v1.2.1 h1:NBol2c7O1ZokfZ0LEU9K6Whx/KnwvepVetCUhtKja4A=
 go.uber.org/goleak v1.2.1/go.mod h1:qlT2yGI9QafXHhZZLxlSuNsMw3FFLxBr+tBRlmO1xH4=
 go.uber.org/multierr v1.11.0 h1:blXXJkSxSSfBVBlC76pxqeO+LN3aDfLQo+309xJstO0=

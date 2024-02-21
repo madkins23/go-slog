@@ -3,13 +3,26 @@ package tests
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 
-	"github.com/madkins23/go-slog/internal/test"
 	testJSON "github.com/madkins23/go-slog/json"
 )
 
 // -----------------------------------------------------------------------------
 // Utility methods.
+
+func (suite *SlogTestSuite) adjustExpected(expected, logMap map[string]any) {
+	if t, found := logMap[slog.TimeKey]; found {
+		expected["time"] = t
+	}
+	if l, found := logMap[slog.LevelKey]; found {
+		expected["level"] = l
+	}
+	if _, found := logMap["message"]; found {
+		expected["message"] = expected[slog.MessageKey]
+		delete(expected, slog.MessageKey)
+	}
+}
 
 // bufferReset clears the test suite's output capture buffer.
 // This allows multiple log statements to be generated and evaluated in the same test.
@@ -26,9 +39,12 @@ func (suite *SlogTestSuite) fieldCounter() *testJSON.FieldCounter {
 // logMap unmarshals JSON in the output capture buffer into a map[string]any.
 // The buffer is sent to test logging output if the -debug=<level> flag is >= 1.
 func (suite *SlogTestSuite) logMap() map[string]any {
-	test.Debugf(1, ">>> JSON (%d) %s", suite.Buffer.Len(), suite.Buffer.Bytes())
 	var results map[string]any
-	suite.Require().NoError(json.Unmarshal(suite.Buffer.Bytes(), &results))
+	err := json.Unmarshal(suite.Buffer.Bytes(), &results)
+	if err != nil {
+		err = fmt.Errorf("%w: '%s'", err, suite.Buffer.Bytes())
+	}
+	suite.Require().NoError(err)
 	return results
 }
 

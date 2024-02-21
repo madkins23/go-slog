@@ -51,6 +51,7 @@ require (
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	github.com/wcharczuk/go-chart/v2 v2.1.1 // indirect
+	go.mrchanchal.com/zaphandler v0.0.0-20230611140024-bd4fd80897ad // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.7.0 // indirect
 	golang.org/x/crypto v0.19.0 // indirect

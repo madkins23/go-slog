@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"context"
 	"fmt"
 	"log/slog"
 	"strings"
@@ -49,6 +50,18 @@ func (suite *SlogTestSuite) checkLevelKey(level string, logMap map[string]any) {
 		return
 	}
 	suite.Assert().Equal(level, logMap[slog.LevelKey])
+}
+
+func (suite *SlogTestSuite) checkLevelMath(
+	logger *slog.Logger, level slog.Level, wantEnabled bool, message string) {
+	good := logger.Enabled(context.Background(), level) == wantEnabled
+	if !suite.HasWarning(warning.LevelMath) {
+		suite.Assert().True(good)
+	} else if good {
+		suite.AddUnused(warning.LevelMath, "")
+	} else {
+		suite.AddWarning(warning.LevelMath, message, "")
+	}
 }
 
 func (suite *SlogTestSuite) checkMessageKey(message string, logMap map[string]any) {

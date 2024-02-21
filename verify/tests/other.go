@@ -25,7 +25,8 @@ func (suite *SlogTestSuite) TestLevelConfigured() {
 		logger := suite.Logger(options)
 		suite.Assert().False(logger.Enabled(context.Background(), -1))
 		suite.Assert().True(logger.Enabled(context.Background(), slog.LevelInfo))
-		suite.Assert().True(logger.Enabled(context.Background(), 1))
+		suite.checkLevelMath(logger, 1, true,
+			"1  is not enabled when INFO is set")
 		suite.Assert().True(logger.Enabled(context.Background(), slog.LevelWarn))
 		suite.Assert().True(logger.Enabled(context.Background(), slog.LevelError))
 	}
@@ -41,7 +42,8 @@ func (suite *SlogTestSuite) TestLevelDifferent() {
 	suite.Assert().False(logger.Enabled(context.Background(), slog.LevelInfo))
 	suite.Assert().False(logger.Enabled(context.Background(), 3))
 	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelWarn))
-	suite.Assert().True(logger.Enabled(context.Background(), 5))
+	suite.checkLevelMath(logger, 5, true,
+		"5  is not enabled when WARN is set")
 	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelError))
 	logger = suite.Logger(&slog.HandlerOptions{
 		Level:     slog.LevelWarn,
@@ -51,7 +53,8 @@ func (suite *SlogTestSuite) TestLevelDifferent() {
 	suite.Assert().False(logger.Enabled(context.Background(), slog.LevelInfo))
 	suite.Assert().False(logger.Enabled(context.Background(), 1))
 	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelWarn))
-	suite.Assert().True(logger.Enabled(context.Background(), 5))
+	suite.checkLevelMath(logger, 5, true,
+		"5  is not enabled when WARN is set")
 	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelError))
 }
 

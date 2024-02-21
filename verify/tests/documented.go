@@ -17,9 +17,9 @@ import (
 //  https://pkg.go.dev/log/slog@master#Handler
 //  https://github.com/golang/example/blob/master/slog-handler-guide/README.md
 
-// TestCancelledContext verifies that a cancelled context will not affect logging.
-//   - https://github.com/golang/example/blob/master/slog-handler-guide/README.md
-func (suite *SlogTestSuite) TestCancelledContext() {
+// TestCanceledContext verifies that a cancelled context will not affect logging.
+//   - https://github.com/golang/example/blob/master/slog-handler-guide/README.md#the-handle-method
+func (suite *SlogTestSuite) TestCanceledContext() {
 	logger := suite.Logger(infra.SimpleOptions())
 	ctx, cancelFn := context.WithCancel(context.Background())
 	logger.InfoContext(ctx, message)
@@ -28,14 +28,29 @@ func (suite *SlogTestSuite) TestCancelledContext() {
 	suite.checkLevelKey("INFO", logMap)
 	suite.checkMessageKey(message, logMap)
 	suite.Assert().NotNil(logMap[slog.TimeKey])
-	cancelFn()
 	suite.bufferReset()
+	// Do it again to make sure it is still working.
 	logger.InfoContext(ctx, message)
 	logMap = suite.logMap()
 	suite.checkFieldCount(3, logMap)
 	suite.checkLevelKey("INFO", logMap)
 	suite.checkMessageKey(message, logMap)
 	suite.Assert().NotNil(logMap[slog.TimeKey])
+	suite.bufferReset()
+	// Cancel the context. The logger/handler should ignore this.
+	cancelFn()
+	logger.InfoContext(ctx, message)
+	if !suite.HasWarning(warning.CanceledContext) {
+		logMap = suite.logMap()
+		suite.checkFieldCount(3, logMap)
+		suite.checkLevelKey("INFO", logMap)
+		suite.checkMessageKey(message, logMap)
+		suite.Assert().NotNil(logMap[slog.TimeKey])
+	} else if suite.Buffer.Len() > 0 {
+		suite.AddUnused(warning.CanceledContext, suite.Buffer.String())
+	} else {
+		suite.AddWarning(warning.CanceledContext, suite.Buffer.String(), "")
+	}
 }
 
 // TestDefaultLevel tests whether the handler under test
@@ -78,7 +93,8 @@ func (suite *SlogTestSuite) TestDefaultLevel() {
 		suite.Assert().False(logger.Enabled(ctx, slog.LevelDebug))
 		suite.Assert().False(logger.Enabled(ctx, slog.LevelInfo-1))
 		suite.Assert().True(logger.Enabled(ctx, slog.LevelInfo))
-		suite.Assert().True(logger.Enabled(ctx, slog.LevelInfo+1))
+		suite.checkLevelMath(logger, slog.LevelInfo+1, true,
+			"INFO+1 is not enabled when WARN is set")
 		suite.Assert().True(logger.Enabled(ctx, slog.LevelWarn))
 		suite.Assert().True(logger.Enabled(ctx, slog.LevelError))
 	}
@@ -168,13 +184,15 @@ func (suite *SlogTestSuite) TestLevelVar() {
 	suite.Assert().Equal(slog.LevelInfo, programLevel.Level())
 	suite.Assert().False(logger.Enabled(ctx, -1))
 	suite.Assert().True(logger.Enabled(ctx, slog.LevelInfo))
-	suite.Assert().True(logger.Enabled(ctx, 1))
+	suite.checkLevelMath(logger, slog.LevelInfo+1, true,
+		"INFO+1  is not enabled when INFO is set")
 	// Change the level.
 	programLevel.Set(slog.LevelWarn)
 	suite.Assert().Equal(slog.LevelWarn, programLevel.Level())
 	suite.Assert().False(logger.Enabled(ctx, 3))
 	suite.Assert().True(logger.Enabled(ctx, slog.LevelWarn))
-	suite.Assert().True(logger.Enabled(ctx, 5))
+	suite.checkLevelMath(logger, 5, true,
+		"5  is not enabled when WARN is enabled")
 }
 
 // TestLogAttributes tests the LogAttrs call with all attribute objects.

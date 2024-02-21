@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 	"math"
+	"reflect"
 	"strings"
 	"time"
 
@@ -166,20 +167,27 @@ func (suite *SlogTestSuite) TestGroupWithMulti() {
 		WithGroup("group").With("second", 2, "third", "3").
 		WithGroup("subGroup").Info(message, "fourth", "forth", "pi", math.Pi)
 	logMap := suite.logMap()
-	suite.checkFieldCount(5, logMap)
-	if group, ok := logMap["group"].(map[string]any); ok {
-		suite.Assert().Len(group, 3)
-		suite.Assert().Equal(float64(2), group["second"])
-		suite.Assert().Equal("3", group["third"])
-		if group, ok := group["subGroup"].(map[string]any); ok {
-			suite.Assert().Len(group, 2)
-			suite.Assert().Equal("forth", group["fourth"])
-			suite.Assert().Equal(math.Pi, group["pi"])
-		} else {
-			suite.Fail("Sub-group not map[string]any")
-		}
+	expected := map[string]any{
+		"level": "info",
+		"msg":   "This is a message",
+		"first": "one",
+		"group": map[string]any{
+			"second": float64(2),
+			"third":  "3",
+			"subGroup": map[string]any{
+				"fourth": "forth",
+				"pi":     math.Pi,
+			},
+		},
+	}
+	suite.adjustExpected(expected, logMap)
+	if !suite.HasWarning(warning.WithGroup) {
+		suite.checkFieldCount(5, logMap)
+		suite.Assert().Equal(expected, logMap)
+	} else if reflect.DeepEqual(expected, logMap) {
+		suite.AddUnused(warning.WithGroup, "")
 	} else {
-		suite.Fail("Group not map[string]any")
+		suite.AddWarning(warning.WithGroup, "", suite.Buffer.String())
 	}
 }
 
@@ -193,28 +201,31 @@ func (suite *SlogTestSuite) TestGroupWithMultiSubEmpty() {
 		WithGroup("group").With("second", 2, "third", "3").
 		WithGroup("subGroup").Info(message)
 	logMap := suite.logMap()
-	suite.checkFieldCount(5, logMap)
-	_, found := logMap["subGroup"]
-	suite.Assert().False(found, "subGroup found at top level")
-	if group, ok := logMap["group"].(map[string]any); ok {
-		suite.Assert().Equal(float64(2), group["second"])
-		suite.Assert().Equal("3", group["third"])
-		if suite.HasWarning(warning.GroupEmpty) {
-			if len(group) > 2 {
-				if subGroup, found := group["subGroup"]; found {
-					if sg, ok := subGroup.(map[string]any); ok && len(sg) < 1 {
-						suite.AddWarning(warning.GroupEmpty, "", suite.Buffer.String())
-						return
-					}
-				}
-			}
-			suite.AddUnused(warning.GroupEmpty, "")
-		}
-		suite.Assert().Len(group, 2)
-		_, found := group["subGroup"]
-		suite.Assert().False(found)
+	expected := map[string]any{
+		"level": "info",
+		"msg":   "This is a message",
+		"first": "one",
+		"group": map[string]any{
+			"second": float64(2),
+			"third":  "3",
+			// no sub group here
+		},
+	}
+	suite.adjustExpected(expected, logMap)
+	if !suite.HasWarning(warning.WithGroup) && !suite.HasWarning(warning.GroupEmpty) {
+		suite.checkFieldCount(5, logMap)
+		suite.Assert().Equal(expected, logMap)
+	} else if reflect.DeepEqual(expected, logMap) {
+		suite.AddUnused(warning.WithGroup, "")
+		suite.AddUnused(warning.GroupEmpty, "")
+	} else if grpAny, found := logMap["group"]; !found {
+		suite.AddWarning(warning.WithGroup, "no 'group' group", suite.Buffer.String())
+	} else if group, ok := grpAny.(map[string]any); !ok {
+		suite.AddWarning(warning.WithGroup, "'group' group not map", suite.Buffer.String())
+	} else if _, found := group["subGroup"]; found {
+		suite.AddWarning(warning.GroupEmpty, "found 'subGroup' group", suite.Buffer.String())
 	} else {
-		suite.Fail("Group not map[string]any")
+		suite.AddWarning(warning.WithGroup, "", suite.Buffer.String())
 	}
 }
 
