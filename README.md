@@ -187,10 +187,6 @@ The following handlers are currently under test in this repository:
 * [`samber/slog-zerolog`](https://github.com/samber/slog-zerolog)
 * [`samber/slog-logrus`](https://github.com/samber/slog-logrus)
 
-These handlers are not yet under test:
-
-* [`evanphx/go-hclog-slog`](https://github.com/evanphx/go-hclog-slog)
-
 Handlers that have been investigated and found wanting:
 
 * `darvaza` handlers are based on a different definition of `log/slog`
@@ -201,8 +197,10 @@ Handlers that have been investigated and found wanting:
   * [`darvaza/zap`](https://pkg.go.dev/darvaza.org/slog/handlers/zap)
   * [`darvaza/zerolog`](https://pkg.go.dev/darvaza.org/slog/handlers/zerolog)
 
-* [`galecore/xslog`](https://github.com/galecore/xslog)
-  - Doesn't currently work properly (2024-02-20).
+* Some handlers are still using `golang.org/x/exp/slog`
+  instead of the standard library `log/slog`:
+  * [`galecore/xslog`](https://github.com/galecore/xslog)
+  * [`evanphx/go-hclog-slog`](https://github.com/evanphx/go-hclog-slog)
 
 Console handlers are not tested in this repository, but the author likes this one:
 
