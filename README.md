@@ -180,7 +180,7 @@ Editing every log statement in a large project can be a real pain.
 
 The following handlers are currently under test in this repository:
 
-* [`chanchal1987/zaphandler`](https://github.com/chanchal1987/zaphandler)
+* [`chanchal/zaphandler`](https://github.com/chanchal1987/zaphandler)
 * [`log/slog.JSONHandler`](https://pkg.go.dev/log/slog#JSONHandler)
 * [`phsym/zeroslog`](https://github.com/phsym/zeroslog)
 * [`samber/slog-zap`](https://github.com/samber/slog-zap)
