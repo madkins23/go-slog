@@ -36,6 +36,8 @@
                 <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
+                    <option value="chanchal_zap" >chanchal/ZapHandler</option>
+                  
                     <option value="slog_JSONHandler" >log/slog.JSONHandler</option>
                   
                     <option value="phsym_zerolog" >phsym/zeroslog</option>
@@ -100,17 +102,25 @@
                   
                     <option value="Verify:AttributesEmpty" >Attributes Empty</option>
                   
-                    <option value="Verify:CancelledContext" >Cancelled Context</option>
+                    <option value="Verify:CanceledContext" >Canceled Context</option>
                   
                     <option value="Verify:DefaultLevel" >Default Level</option>
                   
                     <option value="Verify:GroupInline" >Group Inline</option>
+                  
+                    <option value="Verify:GroupWithMulti" >Group With Multi</option>
                   
                     <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
                   
                     <option value="Verify:KeyCase" >Key Case</option>
                   
                     <option value="Verify:Keys" >Keys</option>
+                  
+                    <option value="Verify:LevelConfigured" >Level Configured</option>
+                  
+                    <option value="Verify:LevelDifferent" >Level Different</option>
+                  
+                    <option value="Verify:LevelVar" >Level Var</option>
                   
                     <option value="Verify:LogAttributes" >Log Attributes</option>
                   
@@ -119,6 +129,8 @@
                     <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
                   
                     <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                  
+                    <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
                   
                     <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
                   
@@ -157,48 +169,57 @@
           </tr>
           
             <tr>
+              <td class="fixed">chanchal/ZapHandler</td>
+              <td class="number">756,702</td>
+              <td class="number">1,551.00</td>
+              <td class="number">5</td>
+              <td class="number">416</td>
+              <td class="number">189,790.80</td>
+            </tr>
+          
+            <tr>
               <td class="fixed">phsym/zeroslog</td>
               <td class="number">1,000,000</td>
-              <td class="number">1,055.00</td>
+              <td class="number">1,061.00</td>
               <td class="number">2</td>
               <td class="number">272</td>
-              <td class="number">375,308.23</td>
+              <td class="number">373,238.24</td>
             </tr>
           
             <tr>
               <td class="fixed">samber/slog-logrus</td>
-              <td class="number">68,148</td>
-              <td class="number">17,614.00</td>
+              <td class="number">66,465</td>
+              <td class="number">17,996.00</td>
               <td class="number">96</td>
               <td class="number">9,064</td>
-              <td class="number">1,578.51</td>
+              <td class="number">1,506.84</td>
             </tr>
           
             <tr>
               <td class="fixed">samber/slog-zap</td>
-              <td class="number">252,762</td>
-              <td class="number">4,848.00</td>
+              <td class="number">241,705</td>
+              <td class="number">4,951.00</td>
               <td class="number">49</td>
               <td class="number">6,620</td>
-              <td class="number">20,283.34</td>
+              <td class="number">18,990.59</td>
             </tr>
           
             <tr>
               <td class="fixed">samber/slog-zerolog</td>
-              <td class="number">277,011</td>
-              <td class="number">4,347.00</td>
+              <td class="number">269,776</td>
+              <td class="number">4,499.00</td>
               <td class="number">58</td>
               <td class="number">4,973</td>
-              <td class="number">25,237.78</td>
+              <td class="number">23,747.40</td>
             </tr>
           
             <tr>
               <td class="fixed">log/slog.JSONHandler</td>
-              <td class="number">825,231</td>
-              <td class="number">1,501.00</td>
+              <td class="number">776,871</td>
+              <td class="number">1,530.00</td>
               <td class="number">6</td>
               <td class="number">472</td>
-              <td class="number">229,676.43</td>
+              <td class="number">212,140.83</td>
             </tr>
           
         </table>

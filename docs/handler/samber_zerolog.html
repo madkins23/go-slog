@@ -36,6 +36,8 @@
                 <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
+                    <option value="chanchal_zap" >chanchal/ZapHandler</option>
+                  
                     <option value="slog_JSONHandler" >log/slog.JSONHandler</option>
                   
                     <option value="phsym_zerolog" >phsym/zeroslog</option>
@@ -100,17 +102,25 @@
                   
                     <option value="Verify:AttributesEmpty" >Attributes Empty</option>
                   
-                    <option value="Verify:CancelledContext" >Cancelled Context</option>
+                    <option value="Verify:CanceledContext" >Canceled Context</option>
                   
                     <option value="Verify:DefaultLevel" >Default Level</option>
                   
                     <option value="Verify:GroupInline" >Group Inline</option>
+                  
+                    <option value="Verify:GroupWithMulti" >Group With Multi</option>
                   
                     <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
                   
                     <option value="Verify:KeyCase" >Key Case</option>
                   
                     <option value="Verify:Keys" >Keys</option>
+                  
+                    <option value="Verify:LevelConfigured" >Level Configured</option>
+                  
+                    <option value="Verify:LevelDifferent" >Level Different</option>
+                  
+                    <option value="Verify:LevelVar" >Level Var</option>
                   
                     <option value="Verify:LogAttributes" >Log Attributes</option>
                   
@@ -119,6 +129,8 @@
                     <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
                   
                     <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                  
+                    <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
                   
                     <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
                   
@@ -159,8 +171,8 @@
           
             <tr>
               <td class="fixed">Attributes</td>
-              <td class="number">277,011</td>
-              <td class="number">4,347.00</td>
+              <td class="number">269,776</td>
+              <td class="number">4,499.00</td>
               <td class="number">58</td>
              <td class="number">4,973</td>
               <td class="number">0.00</td>
@@ -168,17 +180,17 @@
           
             <tr>
               <td class="fixed">Big Group</td>
-              <td class="number">1,846</td>
-              <td class="number">703,764.00</td>
-              <td class="number">10,657</td>
-             <td class="number">642,581</td>
+              <td class="number">1,843</td>
+              <td class="number">712,851.00</td>
+              <td class="number">10,489</td>
+             <td class="number">633,253</td>
               <td class="number">0.00</td>
             </tr>
           
             <tr>
               <td class="fixed">Disabled</td>
-              <td class="number">309,013,416</td>
-              <td class="number">3.88</td>
+              <td class="number">322,531,254</td>
+              <td class="number">3.72</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -186,8 +198,8 @@
           
             <tr>
               <td class="fixed">Key Values</td>
-              <td class="number">267,994</td>
-              <td class="number">4,546.00</td>
+              <td class="number">241,312</td>
+              <td class="number">4,583.00</td>
               <td class="number">59</td>
              <td class="number">5,358</td>
               <td class="number">0.00</td>
@@ -195,17 +207,17 @@
           
             <tr>
               <td class="fixed">Logging</td>
-              <td class="number">15,980</td>
-              <td class="number">74,283.00</td>
+              <td class="number">16,111</td>
+              <td class="number">76,222.00</td>
               <td class="number">1,173</td>
-             <td class="number">81,637</td>
+             <td class="number">81,636</td>
               <td class="number">0.00</td>
             </tr>
           
             <tr>
               <td class="fixed">Simple</td>
-              <td class="number">2,765,154</td>
-              <td class="number">433.60</td>
+              <td class="number">2,717,110</td>
+              <td class="number">446.30</td>
               <td class="number">3</td>
              <td class="number">360</td>
               <td class="number">0.00</td>
@@ -213,8 +225,8 @@
           
             <tr>
               <td class="fixed">Simple Source</td>
-              <td class="number">1,000,000</td>
-              <td class="number">1,142.00</td>
+              <td class="number">983,103</td>
+              <td class="number">1,161.00</td>
               <td class="number">12</td>
              <td class="number">1,225</td>
               <td class="number">0.00</td>
@@ -222,8 +234,8 @@
           
             <tr>
               <td class="fixed">With Attrs Attributes</td>
-              <td class="number">166,197</td>
-              <td class="number">7,200.00</td>
+              <td class="number">168,121</td>
+              <td class="number">7,571.00</td>
               <td class="number">86</td>
              <td class="number">8,713</td>
               <td class="number">0.00</td>
@@ -231,35 +243,35 @@
           
             <tr>
               <td class="fixed">With Attrs Key Values</td>
-              <td class="number">160,833</td>
-              <td class="number">7,432.00</td>
+              <td class="number">164,985</td>
+              <td class="number">7,358.00</td>
               <td class="number">87</td>
-             <td class="number">9,096</td>
+             <td class="number">9,097</td>
               <td class="number">0.00</td>
             </tr>
           
             <tr>
               <td class="fixed">With Attrs Simple</td>
-              <td class="number">302,389</td>
-              <td class="number">3,932.00</td>
+              <td class="number">302,084</td>
+              <td class="number">3,924.00</td>
               <td class="number">53</td>
-             <td class="number">3,933</td>
+             <td class="number">3,932</td>
               <td class="number">0.00</td>
             </tr>
           
             <tr>
               <td class="fixed">With Group Attributes</td>
-              <td class="number">128,529</td>
-              <td class="number">8,904.00</td>
+              <td class="number">125,678</td>
+              <td class="number">8,954.00</td>
               <td class="number">124</td>
-             <td class="number">13,069</td>
+             <td class="number">13,070</td>
               <td class="number">0.00</td>
             </tr>
           
             <tr>
               <td class="fixed">With Group Key Values</td>
-              <td class="number">133,245</td>
-              <td class="number">9,000.00</td>
+              <td class="number">125,434</td>
+              <td class="number">9,164.00</td>
               <td class="number">125</td>
              <td class="number">13,454</td>
               <td class="number">0.00</td>
@@ -343,7 +355,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T16:26:07Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -367,7 +379,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T16:26:07Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -421,7 +433,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T16:26:07Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -472,7 +484,7 @@
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T16:26:07Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -497,7 +509,7 @@
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T16:26:07Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -521,7 +533,7 @@
 	&#34;hidden&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T16:26:07Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -543,7 +555,7 @@
 	&#34;hidden&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T16:26:07Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -595,7 +607,7 @@
 		&#34;function&#34;: &#34;&#34;,
 		&#34;line&#34;: 0
 	},
-	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T16:26:07Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -737,13 +749,13 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:CancelledContext</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:CanceledContext</td>
                         <td class="extra" style="background-color:lightgray;">`message`</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="MessageKeyVerify:CancelledContext" style="display:none;">
+                      <tr id="MessageKeyVerify:CanceledContext" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -752,13 +764,13 @@
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:CancelledContext</td>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:CanceledContext</td>
                         <td class="extra" style="background-color:lightcyan;">`message`</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
                         </td>
                       </tr>
-                      <tr id="MessageKeyVerify:CancelledContext" style="display:none;">
+                      <tr id="MessageKeyVerify:CanceledContext" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -769,28 +781,28 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:Keys</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:CanceledContext</td>
                         <td class="extra" style="background-color:lightgray;">`message`</td>
                         <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="MessageKeyVerify:CanceledContext" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:Keys</td>
+                        <td class="extra" style="background-color:lightcyan;">`message`</td>
+                        <td class="logLink" style="background-color:lightcyan;">
                           
                         </td>
                       </tr>
                       <tr id="MessageKeyVerify:Keys" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:SourceKey</td>
-                        <td class="extra" style="background-color:lightcyan;">`message`</td>
-                        <td class="logLink" style="background-color:lightcyan;">
-                          
-                        </td>
-                      </tr>
-                      <tr id="MessageKeyVerify:SourceKey" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -801,13 +813,13 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:ZeroPC</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:SourceKey</td>
                         <td class="extra" style="background-color:lightgray;">`message`</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="MessageKeyVerify:ZeroPC" style="display:none;">
+                      <tr id="MessageKeyVerify:SourceKey" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -816,15 +828,32 @@
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:ZeroTime</td>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:ZeroPC</td>
                         <td class="extra" style="background-color:lightcyan;">`message`</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
                         </td>
                       </tr>
-                      <tr id="MessageKeyVerify:ZeroTime" style="display:none;">
+                      <tr id="MessageKeyVerify:ZeroPC" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:ZeroTime</td>
+                        <td class="extra" style="background-color:lightgray;">`message`</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="MessageKeyVerify:ZeroTime" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -976,13 +1005,13 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:CancelledContext</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:CanceledContext</td>
                         <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseVerify:CancelledContext" style="display:none;">
+                      <tr id="LevelCaseVerify:CanceledContext" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -991,13 +1020,45 @@
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:CancelledContext</td>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:CanceledContext</td>
                         <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseVerify:CancelledContext" style="display:none;">
+                      <tr id="LevelCaseVerify:CanceledContext" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:CanceledContext</td>
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseVerify:CanceledContext" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:KeyCase</td>
+                        <td class="extra" style="background-color:lightcyan;">&#39;error&#39;</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseVerify:KeyCase" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -1055,45 +1116,13 @@
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:KeyCase</td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;error&#39;</td>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:Keys</td>
+                        <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
                         <td class="logLink" style="background-color:lightcyan;">
-                          
-                        </td>
-                      </tr>
-                      <tr id="LevelCaseVerify:KeyCase" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                      
-                        
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:Keys</td>
-                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
                       <tr id="LevelCaseVerify:Keys" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:SourceKey</td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
-                          
-                        </td>
-                      </tr>
-                      <tr id="LevelCaseVerify:SourceKey" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -1104,13 +1133,13 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:ZeroPC</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:SourceKey</td>
                         <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseVerify:ZeroPC" style="display:none;">
+                      <tr id="LevelCaseVerify:SourceKey" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -1119,15 +1148,32 @@
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:ZeroTime</td>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">Verify:ZeroPC</td>
                         <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseVerify:ZeroTime" style="display:none;">
+                      <tr id="LevelCaseVerify:ZeroPC" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:ZeroTime</td>
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseVerify:ZeroTime" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -1161,7 +1207,7 @@
                       
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">Verify:LogAttributes</td>
-                        <td class="extra" style="background-color:lightgray;">2024-02-21T00:17:39Z</td>
+                        <td class="extra" style="background-color:lightgray;">2024-02-21T16:26:07Z</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>

@@ -36,6 +36,8 @@
                 <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
+                    <option value="chanchal_zap" >chanchal/ZapHandler</option>
+                  
                     <option value="slog_JSONHandler" >log/slog.JSONHandler</option>
                   
                     <option value="phsym_zerolog" >phsym/zeroslog</option>
@@ -100,17 +102,25 @@
                   
                     <option value="Verify:AttributesEmpty" >Attributes Empty</option>
                   
-                    <option value="Verify:CancelledContext" >Cancelled Context</option>
+                    <option value="Verify:CanceledContext" >Canceled Context</option>
                   
                     <option value="Verify:DefaultLevel" >Default Level</option>
                   
                     <option value="Verify:GroupInline" >Group Inline</option>
+                  
+                    <option value="Verify:GroupWithMulti" >Group With Multi</option>
                   
                     <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
                   
                     <option value="Verify:KeyCase" >Key Case</option>
                   
                     <option value="Verify:Keys" >Keys</option>
+                  
+                    <option value="Verify:LevelConfigured" >Level Configured</option>
+                  
+                    <option value="Verify:LevelDifferent" >Level Different</option>
+                  
+                    <option value="Verify:LevelVar" >Level Var</option>
                   
                     <option value="Verify:LogAttributes" >Log Attributes</option>
                   
@@ -119,6 +129,8 @@
                     <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
                   
                     <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                  
+                    <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
                   
                     <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
                   
@@ -157,48 +169,57 @@
           </tr>
           
             <tr>
+              <td class="fixed">chanchal/ZapHandler</td>
+              <td class="number">2,612,073</td>
+              <td class="number">457.30</td>
+              <td class="number">1</td>
+              <td class="number">32</td>
+              <td class="number">416,947.14</td>
+            </tr>
+          
+            <tr>
               <td class="fixed">phsym/zeroslog</td>
-              <td class="number">2,174,304</td>
-              <td class="number">552.40</td>
+              <td class="number">2,125,116</td>
+              <td class="number">558.00</td>
               <td class="number">4</td>
               <td class="number">312</td>
-              <td class="number">594,347.85</td>
+              <td class="number">575,106.57</td>
             </tr>
           
             <tr>
               <td class="fixed">samber/slog-logrus</td>
-              <td class="number">212,230</td>
-              <td class="number">5,648.00</td>
+              <td class="number">199,774</td>
+              <td class="number">5,645.00</td>
               <td class="number">39</td>
               <td class="number">2,994</td>
-              <td class="number">10,107.11</td>
+              <td class="number">9,519.14</td>
             </tr>
           
             <tr>
               <td class="fixed">samber/slog-zap</td>
-              <td class="number">1,628,097</td>
-              <td class="number">736.50</td>
+              <td class="number">1,627,125</td>
+              <td class="number">737.00</td>
               <td class="number">5</td>
               <td class="number">592</td>
-              <td class="number">236,537.38</td>
+              <td class="number">236,226.69</td>
             </tr>
           
             <tr>
               <td class="fixed">samber/slog-zerolog</td>
-              <td class="number">1,000,000</td>
-              <td class="number">1,142.00</td>
+              <td class="number">983,103</td>
+              <td class="number">1,161.00</td>
               <td class="number">12</td>
               <td class="number">1,225</td>
-              <td class="number">239,101.03</td>
+              <td class="number">231,164.95</td>
             </tr>
           
             <tr>
               <td class="fixed">log/slog.JSONHandler</td>
-              <td class="number">1,336,020</td>
-              <td class="number">897.50</td>
+              <td class="number">1,304,743</td>
+              <td class="number">915.50</td>
               <td class="number">6</td>
               <td class="number">568</td>
-              <td class="number">415,166.23</td>
+              <td class="number">397,469.36</td>
             </tr>
           
         </table>
@@ -262,21 +283,20 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">phsym_zerolog</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">chanchal_zap</td>
                         <td class="extra" style="background-color:lightgray;">no source key</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
-                            <button type="button" onclick="toggleTableRow('SourceKeyphsym_zerolog')">Log</button>
+                            <button type="button" onclick="toggleTableRow('SourceKeychanchal_zap')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="SourceKeyphsym_zerolog" style="display:none;">
+                      <tr id="SourceKeychanchal_zap" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
-	&#34;caller&#34;: &#34;/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:70&#34;,
 	&#34;level&#34;: &#34;info&#34;,
-	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-21T00:16:23Z&#34;
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-21T16:24:35Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -284,21 +304,45 @@
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_zap</td>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">phsym_zerolog</td>
                         <td class="extra" style="background-color:lightcyan;">no source key</td>
                         <td class="logLink" style="background-color:lightcyan;">
+                          
+                            <button type="button" onclick="toggleTableRow('SourceKeyphsym_zerolog')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="SourceKeyphsym_zerolog" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
+	&#34;caller&#34;: &#34;/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:70&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-21T16:24:51Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">samber_zap</td>
+                        <td class="extra" style="background-color:lightgray;">no source key</td>
+                        <td class="logLink" style="background-color:lightgray;">
                           
                             <button type="button" onclick="toggleTableRow('SourceKeysamber_zap')">Log</button>
                           
                         </td>
                       </tr>
                       <tr id="SourceKeysamber_zap" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
 	&#34;caller&#34;: &#34;tests/benchmarks.go:70&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-21T00:16:57Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T16:25:25Z&#34;
 }</pre></td>
                       </tr>
                      

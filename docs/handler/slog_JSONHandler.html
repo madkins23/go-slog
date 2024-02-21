@@ -36,6 +36,8 @@
                 <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
+                    <option value="chanchal_zap" >chanchal/ZapHandler</option>
+                  
                     <option value="slog_JSONHandler" selected>log/slog.JSONHandler</option>
                   
                     <option value="phsym_zerolog" >phsym/zeroslog</option>
@@ -100,17 +102,25 @@
                   
                     <option value="Verify:AttributesEmpty" >Attributes Empty</option>
                   
-                    <option value="Verify:CancelledContext" >Cancelled Context</option>
+                    <option value="Verify:CanceledContext" >Canceled Context</option>
                   
                     <option value="Verify:DefaultLevel" >Default Level</option>
                   
                     <option value="Verify:GroupInline" >Group Inline</option>
+                  
+                    <option value="Verify:GroupWithMulti" >Group With Multi</option>
                   
                     <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
                   
                     <option value="Verify:KeyCase" >Key Case</option>
                   
                     <option value="Verify:Keys" >Keys</option>
+                  
+                    <option value="Verify:LevelConfigured" >Level Configured</option>
+                  
+                    <option value="Verify:LevelDifferent" >Level Different</option>
+                  
+                    <option value="Verify:LevelVar" >Level Var</option>
                   
                     <option value="Verify:LogAttributes" >Log Attributes</option>
                   
@@ -119,6 +129,8 @@
                     <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
                   
                     <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                  
+                    <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
                   
                     <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
                   
@@ -159,8 +171,8 @@
           
             <tr>
               <td class="fixed">Attributes</td>
-              <td class="number">825,231</td>
-              <td class="number">1,501.00</td>
+              <td class="number">776,871</td>
+              <td class="number">1,530.00</td>
               <td class="number">6</td>
              <td class="number">472</td>
               <td class="number">0.00</td>
@@ -168,17 +180,17 @@
           
             <tr>
               <td class="fixed">Big Group</td>
-              <td class="number">4,761</td>
-              <td class="number">250,447.00</td>
-              <td class="number">3,772</td>
-             <td class="number">276,469</td>
+              <td class="number">4,964</td>
+              <td class="number">261,559.00</td>
+              <td class="number">3,889</td>
+             <td class="number">285,198</td>
               <td class="number">0.00</td>
             </tr>
           
             <tr>
               <td class="fixed">Disabled</td>
-              <td class="number">309,885,924</td>
-              <td class="number">3.88</td>
+              <td class="number">321,455,696</td>
+              <td class="number">3.73</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -186,8 +198,8 @@
           
             <tr>
               <td class="fixed">Key Values</td>
-              <td class="number">711,870</td>
-              <td class="number">1,634.00</td>
+              <td class="number">656,989</td>
+              <td class="number">1,684.00</td>
               <td class="number">7</td>
              <td class="number">856</td>
               <td class="number">0.00</td>
@@ -195,8 +207,8 @@
           
             <tr>
               <td class="fixed">Logging</td>
-              <td class="number">39,970</td>
-              <td class="number">34,117.00</td>
+              <td class="number">37,903</td>
+              <td class="number">31,118.00</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -204,8 +216,8 @@
           
             <tr>
               <td class="fixed">Simple</td>
-              <td class="number">3,203,350</td>
-              <td class="number">354.30</td>
+              <td class="number">3,194,169</td>
+              <td class="number">376.10</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -213,8 +225,8 @@
           
             <tr>
               <td class="fixed">Simple Source</td>
-              <td class="number">1,336,020</td>
-              <td class="number">897.50</td>
+              <td class="number">1,304,743</td>
+              <td class="number">915.50</td>
               <td class="number">6</td>
              <td class="number">568</td>
               <td class="number">0.00</td>
@@ -222,8 +234,8 @@
           
             <tr>
               <td class="fixed">With Attrs Attributes</td>
-              <td class="number">805,210</td>
-              <td class="number">1,517.00</td>
+              <td class="number">752,148</td>
+              <td class="number">1,522.00</td>
               <td class="number">6</td>
              <td class="number">472</td>
               <td class="number">0.00</td>
@@ -231,8 +243,8 @@
           
             <tr>
               <td class="fixed">With Attrs Key Values</td>
-              <td class="number">706,650</td>
-              <td class="number">1,652.00</td>
+              <td class="number">673,658</td>
+              <td class="number">1,703.00</td>
               <td class="number">7</td>
              <td class="number">856</td>
               <td class="number">0.00</td>
@@ -240,8 +252,8 @@
           
             <tr>
               <td class="fixed">With Attrs Simple</td>
-              <td class="number">3,182,547</td>
-              <td class="number">372.70</td>
+              <td class="number">3,115,677</td>
+              <td class="number">367.00</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -249,8 +261,8 @@
           
             <tr>
               <td class="fixed">With Group Attributes</td>
-              <td class="number">741,094</td>
-              <td class="number">1,555.00</td>
+              <td class="number">772,573</td>
+              <td class="number">1,512.00</td>
               <td class="number">6</td>
              <td class="number">472</td>
               <td class="number">0.00</td>
@@ -258,8 +270,8 @@
           
             <tr>
               <td class="fixed">With Group Key Values</td>
-              <td class="number">711,950</td>
-              <td class="number">1,665.00</td>
+              <td class="number">699,135</td>
+              <td class="number">1,702.00</td>
               <td class="number">7</td>
              <td class="number">856</td>
               <td class="number">0.00</td>

@@ -36,6 +36,8 @@
                 <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
+                    <option value="chanchal_zap" >chanchal/ZapHandler</option>
+                  
                     <option value="slog_JSONHandler" >log/slog.JSONHandler</option>
                   
                     <option value="phsym_zerolog" >phsym/zeroslog</option>
@@ -100,17 +102,25 @@
                   
                     <option value="Verify:AttributesEmpty" >Attributes Empty</option>
                   
-                    <option value="Verify:CancelledContext" >Cancelled Context</option>
+                    <option value="Verify:CanceledContext" >Canceled Context</option>
                   
                     <option value="Verify:DefaultLevel" >Default Level</option>
                   
                     <option value="Verify:GroupInline" >Group Inline</option>
+                  
+                    <option value="Verify:GroupWithMulti" >Group With Multi</option>
                   
                     <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
                   
                     <option value="Verify:KeyCase" >Key Case</option>
                   
                     <option value="Verify:Keys" >Keys</option>
+                  
+                    <option value="Verify:LevelConfigured" >Level Configured</option>
+                  
+                    <option value="Verify:LevelDifferent" >Level Different</option>
+                  
+                    <option value="Verify:LevelVar" >Level Var</option>
                   
                     <option value="Verify:LogAttributes" >Log Attributes</option>
                   
@@ -119,6 +129,8 @@
                     <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
                   
                     <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                  
+                    <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
                   
                     <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
                   
@@ -187,17 +199,38 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">phsym_zerolog</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">chanchal_zap</td>
                         <td class="extra" style="background-color:lightgray;">0001-01-01T00:00:00Z</td>
                         <td class="logLink" style="background-color:lightgray;">
+                          
+                            <button type="button" onclick="toggleTableRow('ZeroTimechanchal_zap')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="ZeroTimechanchal_zap" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;0001-01-01T00:00:00Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">phsym_zerolog</td>
+                        <td class="extra" style="background-color:lightcyan;">0001-01-01T00:00:00Z</td>
+                        <td class="logLink" style="background-color:lightcyan;">
                           
                             <button type="button" onclick="toggleTableRow('ZeroTimephsym_zerolog')">Log</button>
                           
                         </td>
                       </tr>
                       <tr id="ZeroTimephsym_zerolog" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;time&#34;: &#34;0001-01-01T00:00:00Z&#34;
@@ -207,21 +240,44 @@
                       
                       
                       
+                        
+                      
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_logrus</td>
-                        <td class="extra" style="background-color:lightcyan;">2024-02-21T00:17:39Z</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">samber_logrus</td>
+                        <td class="extra" style="background-color:lightgray;">2024-02-21T16:26:07Z</td>
+                        <td class="logLink" style="background-color:lightgray;">
                           
                             <button type="button" onclick="toggleTableRow('ZeroTimesamber_logrus')">Log</button>
                           
                         </td>
                       </tr>
                       <tr id="ZeroTimesamber_logrus" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-21T16:26:07Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_zap</td>
+                        <td class="extra" style="background-color:lightcyan;">2024-02-21T16:26:07Z</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                            <button type="button" onclick="toggleTableRow('ZeroTimesamber_zap')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="ZeroTimesamber_zap" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
+	&#34;time&#34;: &#34;2024-02-21T16:26:07Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -231,38 +287,17 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">samber_zap</td>
-                        <td class="extra" style="background-color:lightgray;">2024-02-21T00:17:39Z</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">samber_zerolog</td>
+                        <td class="extra" style="background-color:lightgray;">0001-01-01T00:00:00Z</td>
                         <td class="logLink" style="background-color:lightgray;">
-                          
-                            <button type="button" onclick="toggleTableRow('ZeroTimesamber_zap')">Log</button>
-                          
-                        </td>
-                      </tr>
-                      <tr id="ZeroTimesamber_zap" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
-	&#34;level&#34;: &#34;info&#34;,
-	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-21T00:17:39Z&#34;
-}</pre></td>
-                      </tr>
-                    
-                      
-                      
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_zerolog</td>
-                        <td class="extra" style="background-color:lightcyan;">0001-01-01T00:00:00Z</td>
-                        <td class="logLink" style="background-color:lightcyan;">
                           
                             <button type="button" onclick="toggleTableRow('ZeroTimesamber_zerolog')">Log</button>
                           
                         </td>
                       </tr>
                       <tr id="ZeroTimesamber_zerolog" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;time&#34;: &#34;0001-01-01T00:00:00Z&#34;
@@ -365,13 +400,13 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">phsym_zerolog</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">chanchal_zap</td>
                         <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasephsym_zerolog" style="display:none;">
+                      <tr id="LevelCasechanchal_zap" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -380,13 +415,13 @@
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_logrus</td>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">phsym_zerolog</td>
                         <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasesamber_logrus" style="display:none;">
+                      <tr id="LevelCasephsym_zerolog" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -397,13 +432,13 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">samber_zap</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">samber_logrus</td>
                         <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasesamber_zap" style="display:none;">
+                      <tr id="LevelCasesamber_logrus" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
@@ -412,15 +447,32 @@
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_zerolog</td>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_zap</td>
                         <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasesamber_zerolog" style="display:none;">
+                      <tr id="LevelCasesamber_zap" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">samber_zerolog</td>
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCasesamber_zerolog" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
