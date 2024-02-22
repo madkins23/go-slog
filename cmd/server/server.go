@@ -1,3 +1,4 @@
+// Reads benchmark and verification output and displays it via web pages.
 package main
 
 import (
@@ -55,6 +56,22 @@ var (
 	home []byte
 )
 
+/*
+server parses benchmark test and verification test output and displays it via web pages.
+
+Usage:
+
+	go run cmd/server/server.go [flags]
+
+The flags are:
+
+	-bench=<file>
+	    Load benchmark test output from the specified file.
+	-verify=<file>
+	    Load verification test output from the specified file.
+
+See scripts/bench, scripts/verify and scripts/server for usage examples.
+*/
 func main() {
 	flag.Parse() // Necessary for -bench=<file> argument defined in internal/bench package.
 

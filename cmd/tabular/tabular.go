@@ -1,3 +1,4 @@
+// Reads benchmark output and displays prints it as text tables.
 package main
 
 import (
@@ -15,11 +16,22 @@ import (
 	"github.com/madkins23/go-slog/internal/language"
 )
 
-// Tabular reads output from `test -bench` and formats it into simple tables.
-// See scripts/bench and scripts/tabulate for usage examples.
+/*
+tabular parses benchmark test output and formats it into simple tables.
 
+Usage:
+
+	go run cmd/tabular/tabular.go [flags]
+
+The flags are:
+
+	-bench=<file>
+	    Load benchmark test output from the specified file.
+
+See scripts/bench and scripts/tabulate for usage examples.
+*/
 func main() {
-	flag.Parse() // Necessary for -json=<file> argument defined in infra package.
+	flag.Parse() // Necessary for -bench=<file> argument defined in infra package.
 
 	logger := slog.New(console.NewHandler(os.Stderr, &console.HandlerOptions{
 		Level:      slog.LevelInfo,
