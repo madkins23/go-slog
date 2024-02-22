@@ -199,18 +199,18 @@ table.warning td.logLine pre {
     outline-offset: -2px;
 }
 
-table.warning td.summary {
+table.warning td.description {
     background-color: antiquewhite;
     outline: 2px inset antiquewhite;
     outline-offset: -2px;
 }
 
-table.warning td.summary p {
+table.warning td.description p {
     margin-block-start: 0;
     margin-block-end: 0.5em;
 }
 
-table.warning td.summary ul {
+table.warning td.description ul {
     margin-block-start: 0;
     margin-block-end: 0;
 }

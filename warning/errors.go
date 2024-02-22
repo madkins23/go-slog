@@ -5,7 +5,7 @@ import "fmt"
 var _ error = &Warning{}
 
 func (w *Warning) Error() string {
-	return fmt.Sprintf("%s [%s] %s", w.Level.String(), w.Name, w.Description)
+	return fmt.Sprintf("%s [%s] %s", w.Level.String(), w.Name, w.Summary)
 }
 
 func (w *Warning) ErrorExtra(extra string) error {

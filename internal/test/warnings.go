@@ -52,8 +52,8 @@ type Warnings struct {
 	// Name of warning.
 	Name string
 
-	// Description of warning.
-	Description string
+	// Summary of warning.
+	Summary string
 
 	// Count of times warning is issued.
 	Count uint
@@ -104,8 +104,8 @@ func (wrnMgr *WarningManager) Predefine(warnings ...*warning.Warning) {
 // and it must be predefined to the manager.
 func (wrnMgr *WarningManager) WarnOnly(w *warning.Warning) {
 	if _, found := wrnMgr.predefined[w.Name]; !found {
-		wrnMgr.AddWarning(warning.Undefined, w.Description, "")
-		slog.Warn("Undefined warning", "warning", w.Description)
+		wrnMgr.AddWarning(warning.Undefined, w.Summary, "")
+		slog.Warn("Undefined warning", "warning", w.Summary)
 	}
 	if wrnMgr.warnOnly == nil {
 		wrnMgr.warnOnly = make(map[string]bool)
@@ -146,9 +146,9 @@ func (wrnMgr *WarningManager) AddWarningFnText(w *warning.Warning, fnName string
 	record, found := wrnMgr.warnings[w.Name]
 	if !found {
 		record = &Warnings{
-			Level:       w.Level,
-			Name:        w.Name,
-			Description: w.Description,
+			Level:   w.Level,
+			Name:    w.Name,
+			Summary: w.Summary,
 		}
 		wrnMgr.warnings[w.Name] = record
 	}
@@ -190,8 +190,8 @@ func (wrnMgr *WarningManager) HasWarnings(warnings ...*warning.Warning) []*warni
 // The first warning is for skipping a test with the text set to the 'because' warning argument.
 // The second warning is for the 'because' warning with the text set to skipping the test.
 func (wrnMgr *WarningManager) SkipTest(because *warning.Warning) {
-	wrnMgr.AddWarning(warning.SkippingTest, because.Description, "")
-	wrnMgr.AddWarning(because, warning.SkippingTest.Description, "")
+	wrnMgr.AddWarning(warning.SkippingTest, because.Summary, "")
+	wrnMgr.AddWarning(because, warning.SkippingTest.Summary, "")
 }
 
 // SkipTestIf checks the warning provided to see if any have been set in the suite,
@@ -200,8 +200,8 @@ func (wrnMgr *WarningManager) SkipTest(because *warning.Warning) {
 func (wrnMgr *WarningManager) SkipTestIf(warns ...*warning.Warning) bool {
 	for _, w := range warns {
 		if wrnMgr.warnOnly[w.Name] {
-			wrnMgr.AddWarning(warning.SkippingTest, w.Description, "")
-			wrnMgr.AddWarning(w, warning.SkippingTest.Description, "")
+			wrnMgr.AddWarning(warning.SkippingTest, w.Summary, "")
+			wrnMgr.AddWarning(w, warning.SkippingTest.Summary, "")
 			return true
 		}
 	}
@@ -307,7 +307,7 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 					}
 					byWarning[warn][wrnMgr.Name] = true
 
-					_, _ = fmt.Fprintf(output, "%s  %4d [%s] %s\n", wrnMgr.showPrefix, w.Count, w.Name, w.Description)
+					_, _ = fmt.Fprintf(output, "%s  %4d [%s] %s\n", wrnMgr.showPrefix, w.Count, w.Name, w.Summary)
 					for _, data := range w.Data {
 						if data.Text != "" {
 							_, _ = fmt.Fprintf(output, "%s         %s: %s\n", wrnMgr.showPrefix, data.Function, data.Text)
@@ -349,7 +349,7 @@ func ShowHandlersByWarning(showPrefix string) {
 			}
 			sort.Strings(names)
 			for _, name := range names {
-				fmt.Printf("%s    [%s] %s\n", showPrefix, name, byName[name].Description)
+				fmt.Printf("%s    [%s] %s\n", showPrefix, name, byName[name].Summary)
 				handlers := byWarning[byName[name]]
 				hdlrNames := make([]string, 0, len(handlers))
 				for handler := range handlers {

@@ -217,7 +217,7 @@ func (l *dataLevel) findWarningGroup(warningName string) *dataWarning {
 
 type dataWarning struct {
 	warning struct {
-		name, description string
+		name, summary string
 	}
 	instances []*dataInstance
 	sorted    bool
@@ -227,8 +227,8 @@ func (w *dataWarning) Name() string {
 	return w.warning.name
 }
 
-func (w *dataWarning) Description() string {
-	return w.warning.description
+func (w *dataWarning) Summary() string {
+	return w.warning.summary
 }
 
 func (w *dataWarning) AddInstance(instance *dataInstance) {

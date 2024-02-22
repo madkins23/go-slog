@@ -49,7 +49,7 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 			} else {
 				dWarning.AddInstance(instance)
 				tWarning := w.findTest(TestTag(instance.name), level, dWarning.warning.name)
-				tWarning.warning.description = dWarning.warning.description
+				tWarning.warning.summary = dWarning.warning.summary
 				tWarning.AddInstance(
 					&dataInstance{
 						name:  string(handler),
@@ -120,7 +120,7 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 			warningName := string(matches[1])
 			saveInstance(line)
 			dWarning = w.findHandler(handler, level, warningName)
-			dWarning.warning.description = string(matches[2])
+			dWarning.warning.summary = string(matches[2])
 			instance = nil
 			continue
 		}

@@ -20,11 +20,11 @@ type Warning struct {
 	// Name of the warning.
 	Name string
 
-	// Description of the warning.
-	Description string
+	// Summary of the warning.
+	Summary string
 
-	// Summary of warning in Markdown
-	summary string
+	// Description of warning in Markdown
+	description string
 }
 
 var (
@@ -35,7 +35,7 @@ var (
 	warningLock sync.Mutex
 )
 
-func NewWarning(level Level, name string, description string, summary string) *Warning {
+func NewWarning(level Level, name, summary, description string) *Warning {
 	warningLock.Lock()
 	defer warningLock.Unlock()
 	var found bool
@@ -47,8 +47,8 @@ func NewWarning(level Level, name string, description string, summary string) *W
 		warning = &Warning{
 			Level:       level,
 			Name:        name,
-			Description: description,
-			summary:     fixSummary(summary),
+			Summary:     summary,
+			description: fixDescription(description),
 		}
 		allWarnings = append(allWarnings, warning)
 		byName[name] = warning
@@ -56,14 +56,14 @@ func NewWarning(level Level, name string, description string, summary string) *W
 	return warning
 }
 
-// HasSummary returns true if there is summary data.
-func (w *Warning) HasSummary() bool {
-	return len(w.summary) > 0
+// HasDescription returns true if there is description data.
+func (w *Warning) HasDescription() bool {
+	return len(w.description) > 0
 }
 
-// Summary converts the Markdown summary data into HTML and returns it.
-func (w *Warning) Summary() template.HTML {
-	return MD2HTML(w.summary)
+// Description converts the Markdown description data into HTML and returns it.
+func (w *Warning) Description() template.HTML {
+	return MD2HTML(w.description)
 }
 
 // WarningsForLevel returns a list of warnings for the specified level.
@@ -96,9 +96,9 @@ func buildTree() {
 	}
 }
 
-func fixSummary(summary string) string {
+func fixDescription(description string) string {
 	prefixSpaces := math.MaxInt
-	scanner := bufio.NewScanner(strings.NewReader(summary))
+	scanner := bufio.NewScanner(strings.NewReader(description))
 	for scanner.Scan() {
 		line := scanner.Text()
 		onlySpaces := true
@@ -115,7 +115,7 @@ func fixSummary(summary string) string {
 		}
 	}
 	var result bytes.Buffer
-	scanner = bufio.NewScanner(strings.NewReader(summary))
+	scanner = bufio.NewScanner(strings.NewReader(description))
 	for scanner.Scan() {
 		line := scanner.Text()
 		if len(line) > prefixSpaces {

@@ -49,15 +49,15 @@ func (l Level) String() string {
 	}
 }
 
-var levelDescriptions = map[Level]string{
+var levelSummaries = map[Level]string{
 	LevelRequired:  "The following warnings can be justified from requirements in the [`slog.Handler`](https://pkg.go.dev/log/slog@master#Handler) documentation.",
 	LevelImplied:   "Warnings that seem to be implied by documentation but can't be considered required.",
 	LevelSuggested: "These warnings are not AFAIK mandated by any documentation or requirements.",
 	LevelAdmin:     "Warnings that provide information about the tests or conflicts with other warnings.",
 }
 
-func (l Level) Description() template.HTML {
-	return MD2HTML(levelDescriptions[l])
+func (l Level) Summary() template.HTML {
+	return MD2HTML(levelSummaries[l])
 }
 
 func (l Level) Warnings() []*Warning {

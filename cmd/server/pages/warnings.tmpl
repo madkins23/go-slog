@@ -34,18 +34,18 @@
           </tr>
           <tr>
             <td></td>
-            <td colspan=3>{{ $level.Description }}</td>
+            <td colspan=3>{{ $level.Summary }}</td>
           </tr>
           {{ range $warning := $level.Warnings }}
             <tr>
               <td></td>
               <td colspan=2 class="warning">{{ $warning.Name }}</td>
-              <td class="extra">{{ $warning.Description }}</td>
+              <td class="extra">{{ $warning.Summary }}</td>
             </tr>
-            {{ if $warning.HasSummary }}
+            {{ if $warning.HasDescription }}
               <tr>
                 <td colspan=2></td>
-                <td colspan=2 class="summary">{{ $warning.Summary }}</td>
+                <td colspan=2 class="description">{{ $warning.Description }}</td>
               </tr>
             {{ end }}
           {{ end }}
