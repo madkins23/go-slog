@@ -22,11 +22,8 @@ jobs:
           go-version: '1.21'
           check-latest: true
 
-# Not using now because updates to zerolog 1.32 break phsym/zeroslog.
-#      - name: Install the latest versions of each library
-#        run: go get -u ./... && go mod tidy
-# TODO: that kind of thing shouldn't break bench and verify functionality,
-#       should just be a warning of some sort
+      - name: Install the latest versions of each library
+        run: go get -u ./... && go mod tidy
 
       - name: Benchmark Go logging libraries
         run: go test -bench=. bench/*.go > ${{ runner.temp }}/bench.txt
