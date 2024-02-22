@@ -31,6 +31,8 @@ Usage details for this facility are provided in
 the [`README`](bench/README.md) file located in the `bench` package directory.
 
 Benchmarks are intended to compare multiple handlers.
+This repository is configured to test all known, functional `slog` handlers that generate JSON.
+
 The benchmark data generated can be processed by two applications:
 * [`tabular`](cmd/tabular/tabular.go)  
   generates a set of tables, each of which compares handlers for a given benchmark test.
@@ -47,6 +49,9 @@ Usage details for this facility are provided in
 the [`README`](verify/README.md) file
 located in the [`verify`](https://pkg.go.dev/github.com/madkins23/go-slog@v0.7.1-alpha-gin/verify) package directory.
 
+Verification testing is intended to test a single handler or to compare multiple handlers.
+This repository is configured to test all known, functional `slog` handlers that generate JSON.
+
 The tests implemented herein were inspired by:
 * the [`slogtest`](https://pkg.go.dev/golang.org/x/exp/slog/slogtest) application,
 * rules specified in
@@ -59,24 +64,41 @@ The tests implemented herein were inspired by:
 
 ## Web Server
 
-:construction: **TBD** :construction:
+The [`cmd/server`](https://pkg.go.dev/github.com/madkins23/go-slog/cmd/server)
+application is intended to process the benchmark and verification output and
+display it on a series of web pages.
+The pages display:
+* handler data: benchmarks and warnings
+* bench test data: benchmarks and warnings
+* verification test data: warnings
+* warning definitions and coverage
+
+The benchmark data is displayed as a table (similar to `cmd/tabular`) and
+as a series of bar charts comparing tests for a handler or handlers for a test.
 
 ### Generating GitHub Pages
 
-:construction: **TBD** :construction:
+Server pages are generated on a weekly basis using
+GitHub [Actions](https://docs.github.com/en/actions) and
+[Pages](https://pages.github.com/).
+The GitHub Action:
 
-[Recent benchmark data](https://madkins23.github.io/go-slog/index.html).
-This set of web pages is generated on a weekly basis using github actions and pages.
-The pages are generate using the `server` command defined herein and
-then scraped into the repository from which the [GitHub Pages](https://pages.github.com/) are served.
+* builds and runs:
+  * handler benchmarks,
+  * handler verifications, and
+  * the `cmd/server` application
+* at which point the `wget` tool is used to copy the server pages into the `docs` subdirectory.
+
+The pages in the `docs` subdirectory are then
+[vended by GitHub Pages](https://madkins23.github.io/go-slog/index.html).
 
 ## Replace Attributes Functions
 
 A small collection of functions in the [`replace`](replace) package
 can be used with `slog.HandlerOptions.ReplaceAttr`.
+These functions were intended to "fix" some of the verification issues with various handlers.
+Unfortunately, other issues prevent these issues from being fixed:
 
-These were intended to "fix" some of the verification issues with various handlers.
-Unfortunately, other issues prevent them from being fixed:
 * Attributes can't be directly removed, they can only be made empty,
   but some handlers tested don't remove empty attributes as they should
   so this fix doesn't work for them.
@@ -84,47 +106,11 @@ Unfortunately, other issues prevent them from being fixed:
 * Those that do don't always recognize them for the basic fields
   (`time`, `level`, `message`, and `source`).
 
-## Gin Logging Redirect
+## Gin Integration
 
-Package `gin` contains utilities for using `slog` with `gin-gonic/gin`.
-In particular, this package provides `gin.Writer` which can be used to redirect Gin-internal logging:
-```go
-import (
-    "github.com/gin-gonic/gin"
-    ginslog "github.com/madkins23/go-slog/gin"
-)
-
-gin.DefaultWriter = ginslog.NewWriter(&ginslog.Options{})
-gin.DefaultErrorWriter = ginslog.NewWriter(&ginslog.Options{Level: slog.LevelError})
-```
-Configure this before starting Gin and all the Gin-internal logging
-should be redirected to the new `io.Writer` objects.
-These objects will parse the Gin-internal logging formats and
-use `slog` to do the actual logging, so the log output will all look the same.
-
-The `gin.Writer` objects can further parse the "standard" Gin traffic lines containing:
-```
-200 |  5.529751605s |             ::1 | GET      "/chart.svg?tag=With_Attrs_Attributes&item=MemBytes"
-```
-To embed the traffic data at the top level of the log messages:
-```go
-gin.DefaultWriter = ginslog.NewWriter(&ginslog.Options{
-	Traffic: ginslog.Traffic{Parse: true, Embed: true},
-})
-```
-To aggregate the traffic data into a group named by `ginslog.DefaultTrafficGroup`:
-```go
-gin.DefaultWriter = ginslog.NewWriter(&ginslog.Options{
-	Traffic: ginslog.Traffic{Parse: true},
-})
-```
-To aggregate the traffic data into a group named `"bob"`:
-```go
-gin.DefaultWriter = ginslog.NewWriter(&ginslog.Options{
-	Traffic: ginslog.Traffic{Parse: true, Group: "bob"},
-})
-```
-Further options can be found in the code documentation of `go-slog/gin.Options`.
+Package `gin` contains utilities for using `slog` with
+[`gin-gonic/gin`](https://github.com/gin-gonic/gin).
+In particular, this package provides `gin.Writer` which can be used to redirect Gin-internal logging.
 
 ## Caveats
 
@@ -190,13 +176,13 @@ Editing every log statement in a large project can be a real pain.
 
 ## Links
 
-### Slog Documentation
+**Slog Documentation**
 
 * [Documentation of `log/slog`](https://pkg.go.dev/log/slog@master)
 * [Guide to Implementation of `slog` Handlers](https://github.com/golang/example/tree/master/slog-handler-guide)
 * [Test Harness `slogtest`](https://pkg.go.dev/golang.org/x/exp/slog/slogtest)
 
-### Slog Handlers
+**Slog Handlers**
 
 The following handlers are currently under test in this repository:
 
@@ -212,7 +198,7 @@ Handlers that have been investigated and found wanting:
 * `darvaza` handlers are based on a different definition of `log/slog`
   as an interface that is not compatible with the "real" `log/slog/Logger`.
   Since the latter is _not_ an interface there is no way to build a shim.
-  In addition, there is no separate 'Handler' object.
+  In addition, there is no separate `Handler` object.
   * [`darvaza/logrus`](https://pkg.go.dev/darvaza.org/slog/handlers/logrus)
   * [`darvaza/zap`](https://pkg.go.dev/darvaza.org/slog/handlers/zap)
   * [`darvaza/zerolog`](https://pkg.go.dev/darvaza.org/slog/handlers/zerolog)
@@ -222,14 +208,16 @@ Handlers that have been investigated and found wanting:
   * [`galecore/xslog`](https://github.com/galecore/xslog)
   * [`evanphx/go-hclog-slog`](https://github.com/evanphx/go-hclog-slog)
 
-Console handlers are not tested in this repository, but the author likes this one:
+Console handlers are not tested in this repository,
+but the author likes this one (and uses it in `cmd/server`):
 
 * [`phsym/console-slog`](https://github.com/phsym/console-slog)
 
-### Miscellaneous
+**Miscellaneous**
 
 * [Awesome `slog`](https://github.com/go-slog/awesome-slog)
+  list of link to various `slog`-related projects and resources.
 * [Go Logging Benchmarks](https://github.com/betterstack-community/go-logging-benchmarks)
-  - Benchmarks of various Go logging packages, not just `slog` loggers.
-  - Used github action in this project as template for
-    generating github [pages](https://pages.github.com/).
+  - Benchmarks of various Go logging packages (not just `slog` loggers).
+  - Used GitHub Action in this project as template for
+    generating [GitHub Pages](https://pages.github.com/) for the current repository.
