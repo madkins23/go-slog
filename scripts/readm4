@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Use m4 to convert files ending in .m4 to .md.
+# This provides a way to insert files into the .md file.
+
+m4 bench/README.m4 > bench/README.md

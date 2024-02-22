@@ -28,7 +28,7 @@ Benchmarks of `slog` handlers can be done by creating
 simple `_test.go` files that utilize the `bench/test.SlogBenchmarkSuite`
 located in this repository.
 Usage details for this facility are provided in
-the [`README`](bench/README.md) file located in the `bench` package directory.
+the [`README`](bench/README.m4) file located in the `bench` package directory.
 
 Benchmarks are intended to compare multiple handlers.
 This repository is configured to test all known, functional `slog` handlers that generate JSON.

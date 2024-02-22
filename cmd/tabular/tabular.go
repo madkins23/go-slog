@@ -83,8 +83,8 @@ func tableDefs() table.TableDef {
 				ColumnLines: 1,
 			},
 			{ // Nanoseconds/Op
-				Width:  11,
-				Format: "%11.2f",
+				Width:  13,
+				Format: "%13.2f",
 			},
 			{ // Allocs/Op
 				Width:  11,

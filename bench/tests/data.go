@@ -23,36 +23,36 @@ func expectedBasic() map[string]any {
 
 // -----------------------------------------------------------------------------
 
+// Thing is a test object used in logging tests.
+// The struct and its fields are public since they must be accessible via reflection.
 type Thing struct {
 	Name string
 	Num  int
 }
 
 const (
-	valBool        = true
-	valInt         = 17
-	valInt64       = int64(-654)
-	valUInt64      = uint64(29399459393)
-	valFloat64     = math.Pi
-	valDuration    = time.Hour
-	valString      = "The only Thing we have to fear is fear itself."
-	valGroupName   = "group"
-	valGroupOthers = "others"
-	valGroupKey1   = "alpha"
-	valGroupVal1   = "omega"
-	valGroupKey2   = "never"
-	valGroupVal2   = "mind"
+	valBool      = true
+	valInt       = 17
+	valInt64     = int64(-654)
+	valUInt64    = uint64(29399459393)
+	valFloat64   = math.Pi
+	valDuration  = time.Hour
+	valString    = "The only Thing we have to fear is fear itself."
+	valGroupName = "group"
+	valGroupKey1 = "alpha"
+	valGroupVal1 = "omega"
+	valGroupKey2 = "never"
+	valGroupVal2 = "mind"
 )
 
 var (
 	valKVs   = []any{valGroupKey1, valGroupVal1, valGroupKey2, valGroupVal2}
-	valGroup = slog.Group(valGroupName, valKVs...)
 	valTime  = time.Now()
 	valAny   = &Thing{Name: "Skidoo", Num: 23}
 	valError = errors.New("I'm sorry, Dave. I'm afraid I can't do that.")
 )
 
-var allKeyValues []any = []any{
+var allKeyValues = []any{
 	"Bool", valBool,
 	"Int", valInt,
 	"Int64", valInt64,
@@ -66,7 +66,7 @@ var allKeyValues []any = []any{
 	"Error", valError,
 }
 
-var allAttributes []slog.Attr = []slog.Attr{
+var allAttributes = []slog.Attr{
 	slog.Bool("Bool", valBool),
 	slog.Int("Int", valInt),
 	slog.Int64("Int64", valInt64),
@@ -133,8 +133,6 @@ func withValuesMap() map[string]any {
 }
 
 // -----------------------------------------------------------------------------
-
-var bigGroup slog.Attr
 
 func BigGroup() slog.Attr {
 	return bigGroupBuilder(0, bigGroupLimit, valGroupName)

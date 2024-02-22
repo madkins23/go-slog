@@ -1,4 +1,4 @@
-
+changequote(`{{', `}}')
 # Benchmarking `log/slog` Handlers
 
 The `bench` package provides various `log/slog` (henceforth just `slog`) handler benchmark suites.
@@ -14,21 +14,7 @@ The following [code](https://github.com/madkins23/go-slog/blob/main/bench/slog_t
 runs the test suite on `slog.JSONHandler`:
 
 ```go
-package bench
-
-import (
-	"testing"
-
-	"github.com/madkins23/go-slog/bench/tests"
-	"github.com/madkins23/go-slog/creator"
-)
-
-// Benchmark_slog runs benchmarks for the log/slog JSON handler.
-func Benchmark_slog(b *testing.B) {
-	slogSuite := tests.NewSlogBenchmarkSuite(creator.Slog())
-	tests.Run(b, slogSuite)
-}
-
+include({{bench/slog_test.go}})
 ```
 
 The file itself must have the `_test.go` suffix and

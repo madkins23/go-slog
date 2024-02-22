@@ -15,6 +15,10 @@ The main files are:
   Declares `SlogBenchmarkSuite` and a few top-level methods.
 * `benchmarks.go`  
   Actual benchmark tests.
+* `checks.go`  
+  Common checks used by various benchmark tests.
+* `logging.go`  
+  Code to load test data cases from `logging.txt`
 * `utility.go`  
   `SlogTestSuite` utility methods used in multiple places in the test suite.
 
@@ -31,8 +35,8 @@ Supporting files:
 
 Inherited:
 
-* [`infra.WarningManager`](https://github.com/madkins23/go-slog/blob/main/infra/warnings.go)  
-  The code that manages benchmark warnings is currently located in the `infra` package.
+* [`test.WarningManager`](https://github.com/madkins23/go-slog/blob/main/internal/test/warnings.go)  
+  The code that manages benchmark warnings is currently located in the `internal/test` package.
 
 ## Benchmark Tests
 
@@ -50,7 +54,8 @@ and _may_ have:
 For example:
 
 ```Go
-func (suite *SlogBenchmarkSuite) Benchmark_Simple() Benchmark {
+//goland:noinspection GoSnakeCaseUsage
+func (suite *SlogBenchmarkSuite) Benchmark_Simple() *Benchmark {
     return &Benchmark{
         Options: infra.SimpleOptions(),
         BenchmarkFn: func(logger *slog.Logger) {
@@ -58,5 +63,4 @@ func (suite *SlogBenchmarkSuite) Benchmark_Simple() Benchmark {
         },
         VerifyFn: matcher("Simple", expectedBasic()),
     }
-}
-```
+}```
