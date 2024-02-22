@@ -2,12 +2,23 @@
 Tools and testing for `log/slog` (hereafter just `slog`) handlers.
 
 [Recent benchmark data](https://madkins23.github.io/go-slog/index.html)
-is available via github Pages.
+is available via [GitHub Pages](https://pages.github.com/).
+
+See the [source](https://github.com/madkins23/go-slog)
+or [godoc](https://godoc.org/github.com/madkins23/go-slog) for more detailed documentation.
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/madkins23/go-slog)](https://goreportcard.com/report/github.com/madkins23/go-slog)
+![GitHub](https://img.shields.io/github/license/madkins23/go-slog)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/madkins23/go-slog)
+[![Go Reference](https://pkg.go.dev/badge/github.com/madkins23/go-slog.svg)](https://pkg.go.dev/github.com/madkins23/go-slog)
+
 
 ## Repository Contents
 
 * [Test harness for benchmarking `slog` handler performance](#handler-benchmarks)
 * [Test harness for verifying `slog` handler functionality](#handler-verification)
+* Web Server that processes output of previous two steps and provides access to result.
+* Static copies of server pages provided via [GitHub Pages](https://pages.github.com/).
 * [Functions for use with `slog.HandlerOptions.ReplaceAttr`](#replace-attributes-functions)
 * [Utility to redirect internal `gin` logging to `slog`](#gin-logging-redirect)
 
@@ -16,9 +27,8 @@ is available via github Pages.
 Benchmarks of `slog` handlers can be done by creating
 simple `_test.go` files that utilize the `bench/test.SlogBenchmarkSuite`
 located in this repository.
-Use details for this facility are provided in
-the [`README`](bench/README.md) file
-located in the [`bench`](bench) package directory.
+Usage details for this facility are provided in
+the [`README`](bench/README.md) file located in the `bench` package directory.
 
 Benchmarks are intended to compare multiple handlers.
 The benchmark data generated can be processed by two applications:
@@ -28,11 +38,6 @@ The benchmark data generated can be processed by two applications:
   runs a simple web server showing the same tables plus bar charts and
   handler verification warnings.
 
-[Recent benchmark data](https://madkins23.github.io/go-slog/index.html).
-This set of web pages is generated on a weekly basis using github actions and pages.
-The pages are generate using the `server` command defined herein and
-then scraped into the repository from which the github pages are served.
-
 ## Handler Verification
 
 Verification of `slog` handlers can be done by creating
@@ -40,7 +45,7 @@ simple `_test.go` files that utilize the `verify/test.SlogTestSuite`
 located in this repository.
 Usage details for this facility are provided in
 the [`README`](verify/README.md) file
-located in the [`verify`](verify) package directory.
+located in the [`verify`](https://pkg.go.dev/github.com/madkins23/go-slog@v0.7.1-alpha-gin/verify) package directory.
 
 The tests implemented herein were inspired by:
 * the [`slogtest`](https://pkg.go.dev/golang.org/x/exp/slog/slogtest) application,
@@ -51,6 +56,19 @@ The tests implemented herein were inspired by:
 * issues I noticed while exploring
   [`go-logging-benchmark`](https://github.com/betterstack-community/go-logging-benchmarks)
 * as well as some other test cases that seemed useful.
+
+## Web Server
+
+:construction: **TBD** :construction:
+
+### Generating GitHub Pages
+
+:construction: **TBD** :construction:
+
+[Recent benchmark data](https://madkins23.github.io/go-slog/index.html).
+This set of web pages is generated on a weekly basis using github actions and pages.
+The pages are generate using the `server` command defined herein and
+then scraped into the repository from which the [GitHub Pages](https://pages.github.com/) are served.
 
 ## Replace Attributes Functions
 
@@ -64,7 +82,7 @@ Unfortunately, other issues prevent them from being fixed:
   so this fix doesn't work for them.
 * Some handlers don't recognize `slog.HandlerOptions.ReplaceAttr`.
 * Those that do don't always recognize them for the basic fields
-  (time, level, message, and source).
+  (`time`, `level`, `message`, and `source`).
 
 ## Gin Logging Redirect
 
@@ -164,11 +182,13 @@ The several levels of verification tests are defined based on the strength of ju
   - Should your code use only generally supported features even if more useful ones are available?
   - Are you prepared to change logging statements to use a less functional handler?
 
+#### IMHO
+
 The author considers the interoperability of logging via `slog` to be very important,
 and possibly the best aspect of `slog` logging.
 Editing every log statement in a large project can be a real pain.
 
-## References
+## Links
 
 ### Slog Documentation
 
