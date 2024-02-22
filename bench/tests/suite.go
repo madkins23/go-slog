@@ -21,6 +21,7 @@ import (
 
 var justTests = flag.Bool("justTests", false, "Don't run benchmarks, just tests")
 
+// SlogBenchmarkSuite implements the benchmark test harness.
 type SlogBenchmarkSuite struct {
 	infra.Creator
 	*test.WarningManager
@@ -67,6 +68,10 @@ func (suite *SlogBenchmarkSuite) logger(b *Benchmark, w io.Writer) *slog.Logger 
 
 const benchmarkMethodPrefix = "Benchmark"
 
+// Run all benchmark tests in the suite for the specified suite.
+//
+// This is the core algorithm for the benchmark test harness.
+// It handles running all tests using reflection.
 func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 	defer recoverAndFailOnPanic(b)
 
@@ -81,9 +86,12 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 	stdoutLogger := suite.NewLogger(os.Stdout, infra.SimpleOptions())
 	suite.SetB(b)
 	suiteType := reflect.TypeOf(suite)
+	// For each method name...
 	for i := 0; i < suiteType.NumMethod(); i++ {
 		method := suiteType.Method(i)
+		// ...beginning with `Benchmark`:
 		if strings.HasPrefix(method.Name, benchmarkMethodPrefix) {
+			// Execute the method, returning an pointer to an object of class `Benchmark`.
 			results := method.Func.Call([]reflect.Value{reflect.ValueOf(suite)})
 			if len(results) < 1 {
 				b.Fatalf("Unable to acquire benchmark definition")
@@ -98,6 +106,8 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				continue
 			}
 
+			// If the `Benchmark` has a handler function
+			// then the `Creator` must be able to provide a `Handler`:
 			if benchmark.HandlerFn != nil && !suite.CanMakeHandler() {
 				// This test requires the handler to be adjusted before creating the logger
 				// but the Creator object doesn't provide a handler so skip the test.
@@ -107,16 +117,21 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				continue
 			}
 
+			// If the `Benchmark` has a verify function to test the log output:
 			if benchmark.VerifyFn != nil {
 				var buffer bytes.Buffer
+				// Get a logger, using the handler function if present.
 				logger := suite.logger(benchmark, &buffer)
+				// Run a single test using that logger.
 				benchmark.BenchmarkFn(logger)
+				// Verify the output with the function.
 				if err := benchmark.VerifyFn(buffer.Bytes(), nil, suite.WarningManager); err != nil {
 					slog.Warn("Verification Error", "err", err)
 				}
 			}
 
 			if *justTests {
+				// The -justTests flag is set, don't do the actual benchmarks.
 				continue
 			}
 
@@ -134,7 +149,11 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				// Now move on to the actual test.
 				// TODO: This doesn't seem to make any difference?
 				b.ResetTimer()
+				// Get a logger, using the handler function if present.
 				logger := suite.logger(benchmark, &count)
+				// The Go test harness is used to run the `Benchmark` test function
+				// in parallel in ever-larger batches until enough testing has been done.
+				// The test harness emits a line of data with results of the test.
 				b.RunParallel(func(pb *testing.PB) {
 					for pb.Next() {
 						function(logger)

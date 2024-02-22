@@ -55,6 +55,7 @@ func init() {
 	}
 }
 
+// logData returns the array of log structures loaded at startup.
 func logData() [][]any {
 	return logDataMap
 }

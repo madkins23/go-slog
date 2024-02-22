@@ -18,6 +18,7 @@ import (
 
 // -----------------------------------------------------------------------------
 
+// bigGroupChecker checks the captured/logMap data to see if it is a big group.
 func bigGroupChecker(testName string) VerifyFn {
 	return func(captured []byte, logMap map[string]any, manager *test.WarningManager) error {
 		logMap = getLogMap(captured, logMap, manager)
@@ -77,6 +78,9 @@ func finder(testName string, expected map[string]any) VerifyFn {
 	}
 }
 
+// finderDeep matches the parts of the actual map against what is expected.
+// The actual map can have other unspecified fields.
+// This function is the recursive workhorse for finder.
 func finderDeep(expected map[string]any, actual map[string]any, prefix string) []string {
 	badFields := make([]string, 0)
 	for field, value := range expected {
@@ -120,7 +124,8 @@ func noDuplicates(testName string) VerifyFn {
 	}
 }
 
-func sorcerer(testName string) VerifyFn {
+// sourcerer checks to see if the slog.SourceKey is present and properly configured.
+func sourcerer(testName string) VerifyFn {
 	return func(captured []byte, logMap map[string]any, manager *test.WarningManager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		if srcVal, found := logMap[slog.SourceKey]; !found {

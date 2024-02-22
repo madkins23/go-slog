@@ -18,12 +18,16 @@ import (
 
 var _ HandlerFn = withAllAttributes
 
+// withAllAttributes derives a handler with the specified attributes.
+// Intended for use as a HandlerFn when creating Benchmark objects.
 func withAllAttributes(handler slog.Handler) slog.Handler {
 	return handler.WithAttrs(withAttributes)
 }
 
 var _ HandlerFn = withGroup
 
+// withAllAttributes derives a handler with the specified group open.
+// Intended for use as a HandlerFn when creating Benchmark objects.
 func withGroup(handler slog.Handler) slog.Handler {
 	return handler.WithGroup("withGroup")
 }
