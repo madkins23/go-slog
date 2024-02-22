@@ -98,8 +98,6 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				continue
 			}
 
-			// TODO: Is this first clause correct or should it be:
-			//       benchmark.HandlerFn == nil || !suite.CanMakeHandler()
 			if benchmark.HandlerFn != nil && !suite.CanMakeHandler() {
 				// This test requires the handler to be adjusted before creating the logger
 				// but the Creator object doesn't provide a handler so skip the test.

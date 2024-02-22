@@ -13,6 +13,11 @@ for more detailed documentation.
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/madkins23/go-slog)
 [![Go Reference](https://pkg.go.dev/badge/github.com/madkins23/go-slog.svg)](https://pkg.go.dev/github.com/madkins23/go-slog)
 
+## Table of Contents?
+
+* auto-gen TOC:
+  {:toc}
+
 ## Repository Contents
 
 * [Test harness for benchmarking `slog` handler performance](#handler-benchmarks)

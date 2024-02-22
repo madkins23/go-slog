@@ -63,4 +63,34 @@ func (suite *SlogBenchmarkSuite) Benchmark_Simple() *Benchmark {
         },
         VerifyFn: matcher("Simple", expectedBasic()),
     }
-}```
+}
+```
+
+## Test Execution
+
+The main part of the test harness is in the
+[`SlogBenchmarkSuite.Run`](https://github.com/madkins23/go-slog/blob/main/bench/tests/suite.go#:~:text=func%20Run) function.
+
+* For each method name beginning with `Benchmark`:
+  * Execute the method, returning an pointer to an object of class `Benchmark`.
+  * If the `Benchmark` has a handler function[^1]  
+    then the `Creator` must be able to provide a `Handler` (not all are),  
+    or else a `Warning` is logged and the test is skipped.
+  * If the `Benchmark` has a verify function to test the log output
+    (or more accurately, to test the test itself) then:
+    * Get a logger, using the handler function if present.
+    * Run a single test using that logger.
+    * Verify the output with the function.
+  * If the `-justTests` flag is false (not set):
+    * Get a logger, using the handler function if present.
+    * The Go test harness is used to run the `Benchmark` test function
+      in parallel in ever-larger batches until enough testing has been done.
+    * The test harness emits a line of data with results of the test.
+
+---
+
+[^1]: A `HandlerFn` is used to adjust a newly created `Handler`
+      prior to using it to create a custom `Logger`,
+      instead of the normal mechanism which returns a generic `Logger`.
+      Some `Logger` customisations must be done by
+      manipulating the `Handler` in this fashion.

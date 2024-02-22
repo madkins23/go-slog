@@ -7,6 +7,21 @@ Technical details for the test suite are provided in
 the [`README.md`](tests/README.m4) file in
 the [`tests`](https://pkg.go.dev/github.com/madkins23/go-slog/bench/tests) package subdirectory.
 
+## Making a Benchmark Test
+
+Benchmark tests can live in any repository,
+though it may not make as much sense to run benchmarks for a single handler.
+Handler authors may want to do this when making changes to the code.
+
+:construction: **TBD** :construction:
+
+* Build a `Creator` object
+* Build a Benchmark test function
+* Run the benchmark tests
+* Process the data for consumption using
+  - tabular generates text output in tabular form
+  - server provides tabular and chart data plus warnings
+
 ### Simple Example
 
 Benchmarking a `slog` handler using the `benchmark` test suite is fairly simple.
@@ -39,6 +54,7 @@ The first line in `Benchmark_slog` creates a new test suite.
 The argument to the `NewSlogBenchmarkSuite` function is an [`infra.Creator`](../infra/creator.go) object,
 which is responsible for creating new `slog.Logger`
 (and optionally `slog.Handler`) objects for benchmarks.
+
 In this case an appropriate factory is created by the `creator.Slog` function
 that is already defined in the `creator` package.
 In order to test a new handler instance
@@ -52,7 +68,7 @@ In short:
 * The test function configures a `SlogTestSuite` using an `infra.Creator` factory object.
 * The test function executes the test suite via its `Run` method.
 
-### More Examples
+#### More Examples
 
 This package contains several examples, including the one above:
 * [`slog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_test.go)
@@ -64,10 +80,11 @@ This package contains several examples, including the one above:
 * [`slog_samber_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
   Verifies the [`samber slog-zerolog` handler](https://github.com/samber/slog-zerolog).
 
-In addition, there is a [`main_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/main_test.go) file which exists to provide
+In addition to the test files for individual handlers,
+there is a [`main_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/main_test.go) file which exists to provide
 a global resource to the other tests ([described below](#testmain)).
 
-### Running Benchmarks
+## Running Benchmarks
 
 Run the handler verification tests installed in this repository with:
 ```shell
@@ -106,7 +123,7 @@ The supporting tests are not the same as normal Go test harness tests:
 * they don't use the standard test assertions and
 * they report issues via the [`WarningManager`](../infra/warnings.go).
 
-When running benchmarks the warning data is specified at the end of the output (as of 2024-02-22):
+When running benchmarks the warning data from supporting tests is specified at the end of the output (as of 2024-02-22):
 ```
 # Warnings for chanchal/ZapHandler:
 #   Implied
@@ -141,7 +158,7 @@ result display commands (e.g.
 [`tabular`](https://pkg.go.dev/github.com/madkins23/go-slog/cmd/tabular) and
 [`server`](https://pkg.go.dev/github.com/madkins23/go-slog/cmd/server)).
 
-### Caveats
+## Caveats
 
 * Actual testing is done by calling through a `slog.Logger` object.
 * Documentation for functions in `_test.go` files in this directory
