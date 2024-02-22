@@ -24,6 +24,7 @@ require (
 	golang.org/x/text v0.14.0
 )
 
+// This breaks phsym/zeroslog
 exclude github.com/rs/zerolog v1.32.0
 
 require (
