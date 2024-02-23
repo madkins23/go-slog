@@ -24,7 +24,7 @@ var justTests = flag.Bool("justTests", false, "Don't run benchmarks, just tests"
 // SlogBenchmarkSuite implements the benchmark test harness.
 type SlogBenchmarkSuite struct {
 	infra.Creator
-	*test.WarningManager
+	*warning.Manager
 
 	b  *testing.B
 	mu sync.RWMutex
@@ -32,8 +32,8 @@ type SlogBenchmarkSuite struct {
 
 func NewSlogBenchmarkSuite(creator infra.Creator) *SlogBenchmarkSuite {
 	suite := &SlogBenchmarkSuite{
-		Creator:        creator,
-		WarningManager: NewWarningManager(creator.Name()),
+		Creator: creator,
+		Manager: NewWarningManager(creator.Name()),
 	}
 	suite.WarnOnly(warning.NoHandlerCreation)
 	return suite
@@ -125,7 +125,7 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				// Run a single test using that logger.
 				benchmark.BenchmarkFn(logger)
 				// Verify the output with the function.
-				if err := benchmark.VerifyFn(buffer.Bytes(), nil, suite.WarningManager); err != nil {
+				if err := benchmark.VerifyFn(buffer.Bytes(), nil, suite.Manager); err != nil {
 					slog.Warn("Verification Error", "err", err)
 				}
 			}

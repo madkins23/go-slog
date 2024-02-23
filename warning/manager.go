@@ -1,4 +1,4 @@
-package test
+package warning
 
 import (
 	"flag"
@@ -11,7 +11,6 @@ import (
 	"testing"
 
 	"github.com/madkins23/go-slog/internal/misc"
-	"github.com/madkins23/go-slog/warning"
 )
 
 // -----------------------------------------------------------------------------
@@ -32,22 +31,22 @@ var useWarnings = flag.Bool("useWarnings", false, "Show warning instead of known
 
 // -----------------------------------------------------------------------------
 
-// WarningManager manages the warning set for a test run.
-type WarningManager struct {
+// Manager manages the warning set for a test run.
+type Manager struct {
 	// Name of Handler for warning display.
 	Name string
 
 	fnPrefix   string
 	showPrefix string
-	predefined map[string]*warning.Warning
+	predefined map[string]*Warning
 	warnOnly   map[string]bool
-	warnings   map[string]*Warnings
+	warnings   map[string]*Instances
 }
 
-// Warnings gathers instances for a specific Warning.
-type Warnings struct {
+// Instances gathers instances for a specific Warning.
+type Instances struct {
 	// Level is the warning level.
-	Level warning.Level
+	Level Level
 
 	// Name of warning.
 	Name string
@@ -59,11 +58,11 @@ type Warnings struct {
 	Count uint
 
 	// Data associated with the specific instances of the warning, if any.
-	Data []WarningInstance
+	Data []Instance
 }
 
-// WarningInstance encapsulates data for a specific warning instance.
-type WarningInstance struct {
+// Instance encapsulates data for a specific warning instance.
+type Instance struct {
 	Function string
 	Record   string
 	Text     string
@@ -76,41 +75,41 @@ type WarningInstance struct {
 // Due to the way benchmarking works there will be more than one with the same name,
 // but this doesn't matter as they should all be the same.
 // This map is used when showing data at the end.
-var managers = make(map[string]*WarningManager)
+var managers = make(map[string]*Manager)
 
-func NewWarningManager(name string, fnPrefix string, showPrefix string) *WarningManager {
-	mgr := &WarningManager{
+func NewWarningManager(name string, fnPrefix string, showPrefix string) *Manager {
+	mgr := &Manager{
 		Name:       name,
 		fnPrefix:   fnPrefix,
 		showPrefix: showPrefix,
 	}
-	mgr.Predefine(warning.Administrative()...)
+	mgr.Predefine(Administrative()...)
 	managers[name] = mgr // Overwrite each time per above comment.
 	return mgr
 }
 
 // Predefine warning that can be referenced during testing.
-func (wrnMgr *WarningManager) Predefine(warnings ...*warning.Warning) {
-	if wrnMgr.predefined == nil {
-		wrnMgr.predefined = make(map[string]*warning.Warning, len(warnings))
+func (mgr *Manager) Predefine(warnings ...*Warning) {
+	if mgr.predefined == nil {
+		mgr.predefined = make(map[string]*Warning, len(warnings))
 	}
 	for _, w := range warnings {
-		wrnMgr.predefined[w.Name] = w
+		mgr.predefined[w.Name] = w
 	}
 }
 
 // WarnOnly sets a flag to collect warning instead of failing tests.
 // The warning argument is one of the global constants beginning with 'Warn'
 // and it must be predefined to the manager.
-func (wrnMgr *WarningManager) WarnOnly(w *warning.Warning) {
-	if _, found := wrnMgr.predefined[w.Name]; !found {
-		wrnMgr.AddWarning(warning.Undefined, w.Summary, "")
+func (mgr *Manager) WarnOnly(w *Warning) {
+	if _, found := mgr.predefined[w.Name]; !found {
+		mgr.AddWarning(Undefined, w.Summary, "")
 		slog.Warn("Undefined warning", "warning", w.Summary)
 	}
-	if wrnMgr.warnOnly == nil {
-		wrnMgr.warnOnly = make(map[string]bool)
+	if mgr.warnOnly == nil {
+		mgr.warnOnly = make(map[string]bool)
 	}
-	wrnMgr.warnOnly[w.Name] = true
+	mgr.warnOnly[w.Name] = true
 }
 
 // -----------------------------------------------------------------------------
@@ -118,45 +117,45 @@ func (wrnMgr *WarningManager) WarnOnly(w *warning.Warning) {
 
 // AddUnused adds a Unused warning to the results list.
 // The warning added is Unused and the extra text is the name of the specified warning.
-func (wrnMgr *WarningManager) AddUnused(w *warning.Warning, logRecordJSON string) {
-	wrnMgr.AddWarning(warning.Unused, w.Name, logRecordJSON)
+func (mgr *Manager) AddUnused(w *Warning, logRecordJSON string) {
+	mgr.AddWarning(Unused, w.Name, logRecordJSON)
 }
 
 // AddWarning to results list, specifying warning string and optional extra text.
 // If the addLogRecord flag is true the current log record JSON is also stored.
 // The current function name is acquired from the currentFunctionName() and stored.
-func (wrnMgr *WarningManager) AddWarning(w *warning.Warning, text string, logRecordJSON string) {
-	wrnMgr.AddWarningFnText(w, misc.CurrentFunctionName(wrnMgr.fnPrefix), text, logRecordJSON)
+func (mgr *Manager) AddWarning(w *Warning, text string, logRecordJSON string) {
+	mgr.AddWarningFnText(w, misc.CurrentFunctionName(mgr.fnPrefix), text, logRecordJSON)
 }
 
 // AddWarningFn adds a warning to the results list, specifying warning string and function name.
 // If the addLogRecord flag is true the current log record JSON is also stored.
 // The current function name is acquired from the currentFunctionName() and stored.
-func (wrnMgr *WarningManager) AddWarningFn(w *warning.Warning, fnName string, logRecordJSON string) {
-	wrnMgr.AddWarningFnText(w, fnName, "", logRecordJSON)
+func (mgr *Manager) AddWarningFn(w *Warning, fnName string, logRecordJSON string) {
+	mgr.AddWarningFnText(w, fnName, "", logRecordJSON)
 }
 
 // AddWarningFnText to results list, specifying warning string, function name, and optional extra text.
 // If the addLogRecord flag is true the current log record JSON is also stored.
 // The current function name is acquired from the currentFunctionName() and stored.
-func (wrnMgr *WarningManager) AddWarningFnText(w *warning.Warning, fnName string, text string, logRecordJSON string) {
-	if wrnMgr.warnings == nil {
-		wrnMgr.warnings = make(map[string]*Warnings)
+func (mgr *Manager) AddWarningFnText(w *Warning, fnName string, text string, logRecordJSON string) {
+	if mgr.warnings == nil {
+		mgr.warnings = make(map[string]*Instances)
 	}
-	record, found := wrnMgr.warnings[w.Name]
+	record, found := mgr.warnings[w.Name]
 	if !found {
-		record = &Warnings{
+		record = &Instances{
 			Level:   w.Level,
 			Name:    w.Name,
 			Summary: w.Summary,
 		}
-		wrnMgr.warnings[w.Name] = record
+		mgr.warnings[w.Name] = record
 	}
 	record.Count++
 	if record.Data == nil {
-		record.Data = make([]WarningInstance, 0)
+		record.Data = make([]Instance, 0)
 	}
-	instance := WarningInstance{
+	instance := Instance{
 		Function: fnName,
 		Text:     text,
 	}
@@ -167,18 +166,18 @@ func (wrnMgr *WarningManager) AddWarningFnText(w *warning.Warning, fnName string
 }
 
 // HasWarning returns true if the specified warning has been set in the test suite.
-func (wrnMgr *WarningManager) HasWarning(w *warning.Warning) bool {
-	return *useWarnings && wrnMgr.warnOnly[w.Name]
+func (mgr *Manager) HasWarning(w *Warning) bool {
+	return *useWarnings && mgr.warnOnly[w.Name]
 }
 
 // HasWarnings checks all specified warning and returns an array of
 // any that have been set in the test suite in the same order.
 // If none are found an empty array is returned.
-func (wrnMgr *WarningManager) HasWarnings(warnings ...*warning.Warning) []*warning.Warning {
-	found := make([]*warning.Warning, 0, len(warnings))
+func (mgr *Manager) HasWarnings(warnings ...*Warning) []*Warning {
+	found := make([]*Warning, 0, len(warnings))
 	if *useWarnings {
 		for _, w := range warnings {
-			if wrnMgr.HasWarning(w) {
+			if mgr.HasWarning(w) {
 				found = append(found, w)
 			}
 		}
@@ -189,19 +188,19 @@ func (wrnMgr *WarningManager) HasWarnings(warnings ...*warning.Warning) []*warni
 // SkipTest adds warning for a test that is being skipped.
 // The first warning is for skipping a test with the text set to the 'because' warning argument.
 // The second warning is for the 'because' warning with the text set to skipping the test.
-func (wrnMgr *WarningManager) SkipTest(because *warning.Warning) {
-	wrnMgr.AddWarning(warning.SkippingTest, because.Summary, "")
-	wrnMgr.AddWarning(because, warning.SkippingTest.Summary, "")
+func (mgr *Manager) SkipTest(because *Warning) {
+	mgr.AddWarning(SkippingTest, because.Summary, "")
+	mgr.AddWarning(because, SkippingTest.Summary, "")
 }
 
 // SkipTestIf checks the warning provided to see if any have been set in the suite,
 // adding SkipTest warning for the first one and returning true.
 // False is returned if none of the warning are found.
-func (wrnMgr *WarningManager) SkipTestIf(warns ...*warning.Warning) bool {
+func (mgr *Manager) SkipTestIf(warns ...*Warning) bool {
 	for _, w := range warns {
-		if wrnMgr.warnOnly[w.Name] {
-			wrnMgr.AddWarning(warning.SkippingTest, w.Summary, "")
-			wrnMgr.AddWarning(w, warning.SkippingTest.Summary, "")
+		if mgr.warnOnly[w.Name] {
+			mgr.AddWarning(SkippingTest, w.Summary, "")
+			mgr.AddWarning(w, SkippingTest.Summary, "")
 			return true
 		}
 	}
@@ -211,21 +210,21 @@ func (wrnMgr *WarningManager) SkipTestIf(warns ...*warning.Warning) bool {
 // -----------------------------------------------------------------------------
 // Display warning at end of testing.
 
-// GetWarnings returns an array of Warnings records sorted by warning level and text.
+// GetWarnings returns an array of Instances records sorted by warning level and text.
 // If there are no warning the result array will be nil.
 // Use this method if manual processing of warning is required,
 // otherwise use the WithWarnings method.
-func (wrnMgr *WarningManager) GetWarnings() []*Warnings {
-	if wrnMgr.warnings == nil || len(wrnMgr.warnings) < 1 {
+func (mgr *Manager) GetWarnings() []*Instances {
+	if mgr.warnings == nil || len(mgr.warnings) < 1 {
 		return nil
 	}
 
-	if unused, found := wrnMgr.warnings[warning.Unused.Name]; found {
+	if unused, found := mgr.warnings[Unused.Name]; found {
 		// Clean up Unused warning instances.
-		really := make([]WarningInstance, 0)
+		really := make([]Instance, 0)
 		for _, instance := range unused.Data {
-			if _, found := wrnMgr.warnings[instance.Text]; !found {
-				// OK, there are no such wrnMgr.
+			if _, found := mgr.warnings[instance.Text]; !found {
+				// OK, there are no such mgr.
 				really = append(really, instance)
 			}
 		}
@@ -233,18 +232,18 @@ func (wrnMgr *WarningManager) GetWarnings() []*Warnings {
 			unused.Data = really
 			unused.Count = uint(len(really))
 		} else {
-			delete(wrnMgr.warnings, warning.Unused.Name)
+			delete(mgr.warnings, Unused.Name)
 		}
 	}
 
 	// Sort warning by warning level and string.
-	warningStrings := make([]string, 0, len(wrnMgr.warnings))
-	for w := range wrnMgr.warnings {
+	warningStrings := make([]string, 0, len(mgr.warnings))
+	for w := range mgr.warnings {
 		warningStrings = append(warningStrings, w)
 	}
 	sort.Slice(warningStrings, func(i, j int) bool {
-		iWarning := wrnMgr.warnings[warningStrings[i]]
-		jWarning := wrnMgr.warnings[warningStrings[j]]
+		iWarning := mgr.warnings[warningStrings[i]]
+		jWarning := mgr.warnings[warningStrings[j]]
 		if iWarning.Level > jWarning.Level {
 			return true
 		} else if iWarning.Level < jWarning.Level {
@@ -253,40 +252,40 @@ func (wrnMgr *WarningManager) GetWarnings() []*Warnings {
 		return iWarning.Name < jWarning.Name
 	})
 
-	warnings := make([]*Warnings, len(warningStrings))
+	warnings := make([]*Instances, len(warningStrings))
 	for i, w := range warningStrings {
-		warnings[i] = wrnMgr.warnings[w]
+		warnings[i] = mgr.warnings[w]
 	}
 	return warnings
 }
 
 // Track handlers that invoke warning for use in TestMain.
-var byWarning = make(map[*warning.Warning]map[string]bool)
+var byWarning = make(map[*Warning]map[string]bool)
 
 // ShowWarnings prints any warning to Stdout in a preformatted manner.
-// Use the WarningManager method if more control over output is required.
+// Use the Manager method if more control over output is required.
 //
 // Note: Both Stdout and Stderr are captured by the the 'go test' command and
 // shunted into Stdout (see https://pkg.go.dev/cmd/go#hdr-Test_packages).
 // This output stream is only visible when the 'go test -v flag' is used.
-func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
+func (mgr *Manager) ShowWarnings(output io.Writer) {
 	if output == nil {
 		output = os.Stdout
 	}
 
 	forHandler := ""
-	if wrnMgr.Name != "" {
-		forHandler = " for " + wrnMgr.Name
+	if mgr.Name != "" {
+		forHandler = " for " + mgr.Name
 	}
 
-	warnings := wrnMgr.GetWarnings()
+	warnings := mgr.GetWarnings()
 	if warnings != nil && len(warnings) > 0 {
 		// Warnings grouped by level.
-		warningTree := make(map[warning.Level][]*Warnings)
+		warningTree := make(map[Level][]*Instances)
 		for _, w := range warnings {
 			list, found := warningTree[w.Level]
 			if !found {
-				list = make([]*Warnings, 0)
+				list = make([]*Instances, 0)
 			}
 			warningTree[w.Level] = append(list, w)
 		}
@@ -295,27 +294,27 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 				return list[i].Name < list[j].Name
 			})
 		}
-		_, _ = fmt.Fprintf(output, "%s\n%sWarnings%s:\n", wrnMgr.showPrefix, wrnMgr.showPrefix, forHandler)
-		for _, level := range warning.LevelOrder {
+		_, _ = fmt.Fprintf(output, "%s\n%sWarnings%s:\n", mgr.showPrefix, mgr.showPrefix, forHandler)
+		for _, level := range LevelOrder {
 			if list, ok := warningTree[level]; ok {
-				_, _ = fmt.Fprintf(output, "%s  %s\n", wrnMgr.showPrefix, level.String())
+				_, _ = fmt.Fprintf(output, "%s  %s\n", mgr.showPrefix, level.String())
 				for _, w := range list {
 					// Track handlers that invoke warning for use in TestMain.
-					warn := wrnMgr.predefined[w.Name]
+					warn := mgr.predefined[w.Name]
 					if byWarning[warn] == nil {
 						byWarning[warn] = make(map[string]bool)
 					}
-					byWarning[warn][wrnMgr.Name] = true
+					byWarning[warn][mgr.Name] = true
 
-					_, _ = fmt.Fprintf(output, "%s  %4d [%s] %s\n", wrnMgr.showPrefix, w.Count, w.Name, w.Summary)
+					_, _ = fmt.Fprintf(output, "%s  %4d [%s] %s\n", mgr.showPrefix, w.Count, w.Name, w.Summary)
 					for _, data := range w.Data {
 						if data.Text != "" {
-							_, _ = fmt.Fprintf(output, "%s         %s: %s\n", wrnMgr.showPrefix, data.Function, data.Text)
+							_, _ = fmt.Fprintf(output, "%s         %s: %s\n", mgr.showPrefix, data.Function, data.Text)
 						} else {
-							_, _ = fmt.Fprintf(output, "%s         %s\n", wrnMgr.showPrefix, data.Function)
+							_, _ = fmt.Fprintf(output, "%s         %s\n", mgr.showPrefix, data.Function)
 						}
 						if data.Record != "" {
-							_, _ = fmt.Fprintf(output, "%s           %s\n", wrnMgr.showPrefix, data.Record)
+							_, _ = fmt.Fprintf(output, "%s           %s\n", mgr.showPrefix, data.Record)
 						}
 					}
 				}
@@ -327,11 +326,11 @@ func (wrnMgr *WarningManager) ShowWarnings(output io.Writer) {
 // ShowHandlersByWarning uses the global byWarning map to
 // show the handlers that issue each warning.
 func ShowHandlersByWarning(showPrefix string) {
-	byLevel := make(map[warning.Level][]*warning.Warning)
-	byName := make(map[string]*warning.Warning)
+	byLevel := make(map[Level][]*Warning)
+	byName := make(map[string]*Warning)
 	for w := range byWarning {
 		if byLevel[w.Level] == nil {
-			byLevel[w.Level] = make([]*warning.Warning, 0)
+			byLevel[w.Level] = make([]*Warning, 0)
 		}
 		byLevel[w.Level] = append(byLevel[w.Level], w)
 		byName[w.Name] = w
@@ -340,7 +339,7 @@ func ShowHandlersByWarning(showPrefix string) {
 		return
 	}
 	fmt.Printf("%s\n%s Handlers by warning:\n", showPrefix, showPrefix)
-	for _, level := range warning.LevelOrder {
+	for _, level := range LevelOrder {
 		if warnings, found := byLevel[level]; found {
 			fmt.Printf("%s  %s\n", showPrefix, level.String())
 			names := make([]string, 0, len(warnings))
@@ -395,6 +394,3 @@ func WithWarnings(m *testing.M) {
 
 	os.Exit(exitVal)
 }
-
-// -----------------------------------------------------------------------------
-// Utility

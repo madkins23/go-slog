@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 
-	testJSON "github.com/madkins23/go-slog/json"
+	testJSON "github.com/madkins23/go-slog/internal/json"
 )
 
 // -----------------------------------------------------------------------------

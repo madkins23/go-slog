@@ -11,8 +11,8 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/madkins23/go-slog/internal/json"
 	"github.com/madkins23/go-slog/internal/test"
-	"github.com/madkins23/go-slog/json"
 	"github.com/madkins23/go-slog/warning"
 )
 
@@ -20,7 +20,7 @@ import (
 
 // bigGroupChecker checks the captured/logMap data to see if it is a big group.
 func bigGroupChecker(testName string) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *test.WarningManager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		if groupMap, found := logMap[valGroupName]; found {
 			if group, ok := groupMap.(map[string]any); !ok {
@@ -43,7 +43,7 @@ func bigGroupChecker(testName string) VerifyFn {
 
 // fields checks the captured/logMap data to see if the specified fields exist.
 func fields(testName string, fields ...string) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *test.WarningManager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		missing := make([]string, 0, len(fields))
 		for _, field := range fields {
@@ -63,7 +63,7 @@ func fields(testName string, fields ...string) VerifyFn {
 // finder matches the parts of the actual map against what is expected.
 // The actual map can have other unspecified fields.
 func finder(testName string, expected map[string]any) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *test.WarningManager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		badFields := finderDeep(expected, logMap, "")
 		if len(badFields) > 0 {
@@ -99,7 +99,7 @@ func finderDeep(expected map[string]any, actual map[string]any, prefix string) [
 // matcher matches the parts entirety of the actual map against
 // the entirety of the expected map using reflect.DeepEqual.
 func matcher(testName string, expected map[string]any) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *test.WarningManager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		if !reflect.DeepEqual(expected, fixLogMap(logMap)) {
 			test.Debugf(2, ">?> %v\n", expected)
@@ -113,7 +113,7 @@ func matcher(testName string, expected map[string]any) VerifyFn {
 
 // noDuplicates checks to see if there are duplicate fields in the logMap.
 func noDuplicates(testName string) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *test.WarningManager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		counter := json.NewFieldCounter(captured)
 		if len(counter.Duplicates()) > 0 {
@@ -126,10 +126,10 @@ func noDuplicates(testName string) VerifyFn {
 
 // sourcerer checks to see if the slog.SourceKey is present and properly configured.
 func sourcerer(testName string) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *test.WarningManager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		if srcVal, found := logMap[slog.SourceKey]; !found {
-			text := fmt.Sprintf("no %s key", slog.SourceKey)
+			text := fmt.Sprintf("no '%s' key", slog.SourceKey)
 			manager.AddWarningFnText(warning.SourceKey, testName, text, string(captured))
 			return warning.SourceKey.ErrorExtra(text)
 		} else if srcMap, ok := srcVal.(map[string]any); !ok {
@@ -155,7 +155,7 @@ func sourcerer(testName string) VerifyFn {
 
 // verify runs the specified functions against the captured/logMap data.
 func verify(fns ...VerifyFn) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *test.WarningManager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		errs := make([]error, 0, len(fns))
 		for _, fn := range fns {
@@ -172,7 +172,7 @@ func verify(fns ...VerifyFn) VerifyFn {
 
 // verifyLines applies the specified function(s) to each line in the captured bytes.
 func verifyLines(fns ...VerifyFn) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *test.WarningManager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		var buffer bytes.Buffer
 		lineReader := bufio.NewReader(bytes.NewReader(captured))
 		for {

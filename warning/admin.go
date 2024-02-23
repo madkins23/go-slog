@@ -15,7 +15,7 @@ var (
 
 	Undefined = NewWarning(LevelAdmin, "Undefined", "Undefined Warnings(s)", `
 		An attempt to call ^WarnOnly^ with an undefined warning.
-		Warnings must be predefined to the ^WarningManager^ prior to use.`)
+		Warnings must be predefined to the ^Manager^ prior to use.`)
 
 	Unused = NewWarning(LevelAdmin, "Unused", "Unused Warnings(s)", `
 		If a warning is specified but the condition is not actually present

@@ -5,7 +5,6 @@ import (
 	"log/slog"
 
 	"github.com/madkins23/go-slog/infra"
-	"github.com/madkins23/go-slog/internal/test"
 	"github.com/madkins23/go-slog/warning"
 )
 
@@ -20,7 +19,7 @@ import (
 
 type BenchmarkFn func(logger *slog.Logger)
 type HandlerFn func(handler slog.Handler) slog.Handler
-type VerifyFn func(captured []byte, logMap map[string]any, manager *test.WarningManager) error
+type VerifyFn func(captured []byte, logMap map[string]any, manager *warning.Manager) error
 
 type Benchmark struct {
 	Options     *slog.HandlerOptions
@@ -43,7 +42,7 @@ func (suite *SlogBenchmarkSuite) Benchmark_Disabled() *Benchmark {
 		BenchmarkFn: func(logger *slog.Logger) {
 			logger.Debug(message)
 		},
-		VerifyFn: func(captured []byte, logMap map[string]any, manager *test.WarningManager) error {
+		VerifyFn: func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 			if len(captured) > 0 {
 				manager.AddWarning(warning.NotDisabled, "Disabled", string(captured))
 				return warning.NotDisabled
@@ -261,7 +260,7 @@ func (suite *SlogBenchmarkSuite) Benchmark_Logging() *Benchmark {
 
 // getLogMap returns the specified logMap, if not empty, or a new one created from the captured bytes.
 // If a new logMap is created it is run through fixLogMap before returning it.
-func getLogMap(captured []byte, logMap map[string]any, manager *test.WarningManager) map[string]any {
+func getLogMap(captured []byte, logMap map[string]any, manager *warning.Manager) map[string]any {
 	var err error
 	if logMap == nil {
 		if logMap, err = parseLogMap(captured); err != nil {
