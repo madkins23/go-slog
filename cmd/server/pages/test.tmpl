@@ -15,7 +15,13 @@
   <tr>
     <td>
       <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
-      <h1 class="home">Test {{ .Benchmarks.TestName .Test }}</h1>
+      <h2 class="home">Test <span class="fixed">
+        {{ if .Benchmarks.HasTest .Test }}
+          {{ .Benchmarks.TestName .Test }}
+        {{ else }}
+          {{ .Warnings.TestName .Test }}
+        {{ end }}
+      </span></h2>
     </td>
     <td align="right">
       {{ template "partChoices" $ }}
