@@ -65,10 +65,14 @@ Usage:
 
 The flags are:
 
-	-bench=<file>
-	    Load benchmark test output from the specified file.
-	-verify=<file>
-	    Load verification test output from the specified file.
+	-bench string
+	    Load benchmark data from path (optional)
+	-language value
+	    One or more language tags to be tried, defaults to US English.
+	-useWarnings
+	    Show warning instead of known errors
+	-verify string
+	    Load verification data from path (optional)
 
 See scripts/bench, scripts/verify and scripts/server for usage examples.
 */

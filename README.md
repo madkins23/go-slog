@@ -11,6 +11,7 @@ for more detailed documentation.
 [![Go Report Card](https://goreportcard.com/badge/github.com/madkins23/go-slog)](https://goreportcard.com/report/github.com/madkins23/go-slog)
 ![GitHub](https://img.shields.io/github/license/madkins23/go-slog)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/madkins23/go-slog)
+[![Go Documentation](https://godocs.io/github.com/madkins23/go-slog?status.svg)](https://godocs.io/github.com/madkins23/go-slog)
 [![Go Reference](https://pkg.go.dev/badge/github.com/madkins23/go-slog.svg)](https://pkg.go.dev/github.com/madkins23/go-slog)
 
 ## Table of Contents?
