@@ -1,4 +1,4 @@
-package creator
+package slog
 
 import (
 	"io"
@@ -7,9 +7,9 @@ import (
 	"github.com/madkins23/go-slog/infra"
 )
 
-// Slog returns a Creator object for the log/slog.JSONHandler.
+// Slog returns a Creator object for the slog/json.
 func Slog() infra.Creator {
-	return infra.NewCreator("log/slog.JSONHandler", SlogHandlerFn, nil)
+	return infra.NewCreator("slog/json", SlogHandlerFn, nil)
 }
 
 func SlogHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {

@@ -1,4 +1,4 @@
-package creator
+package phsym
 
 import (
 	"io"
@@ -9,9 +9,9 @@ import (
 	"github.com/madkins23/go-slog/infra"
 )
 
-// SlogPhsymZerolog returns a Creator object for the phsym/zeroslog handler.
+// SlogPhsymZerolog returns a Creator object for the phsym/zerolog handler.
 func SlogPhsymZerolog() infra.Creator {
-	return infra.NewCreator("phsym/zeroslog", SlogPhsymZerologHandlerFn, nil)
+	return infra.NewCreator("phsym/zerolog", SlogPhsymZerologHandlerFn, nil)
 }
 
 func SlogPhsymZerologHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {

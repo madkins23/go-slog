@@ -1,4 +1,4 @@
-package creator
+package samber
 
 import (
 	"io"
@@ -7,12 +7,13 @@ import (
 	slogrus "github.com/samber/slog-logrus/v2"
 	"github.com/sirupsen/logrus"
 
+	"github.com/madkins23/go-slog/creator/logrus/utility"
 	"github.com/madkins23/go-slog/infra"
 )
 
-// SlogSamberLogrus returns a Creator object for the samber/slog-logrus handler.
+// SlogSamberLogrus returns a Creator object for the samber/logrus handler.
 func SlogSamberLogrus() infra.Creator {
-	return infra.NewCreator("samber/slog-logrus", SlogSamberLogrusHandlerFn, nil)
+	return infra.NewCreator("samber/logrus", SlogSamberLogrusHandlerFn, nil)
 }
 
 func SlogSamberLogrusHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
@@ -21,7 +22,7 @@ func SlogSamberLogrusHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.H
 		level = slog.LevelInfo
 	}
 	log := logrus.New()
-	log.SetLevel(convertSlogLevel2Logrus(level.Level()))
+	log.SetLevel(utility.ConvertSlogLevel2Logrus(level.Level()))
 	log.SetOutput(w)
 	log.SetFormatter(&logrus.JSONFormatter{})
 	return slogrus.Option{

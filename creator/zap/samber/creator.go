@@ -1,4 +1,4 @@
-package creator
+package samber
 
 import (
 	"io"
@@ -8,12 +8,13 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
+	"github.com/madkins23/go-slog/creator/zap/utility"
 	"github.com/madkins23/go-slog/infra"
 )
 
-// SlogSamberZap returns a Creator object for the samber/slog-zerolog handler.
+// SlogSamberZap returns a Creator object for the samber/zap handler.
 func SlogSamberZap() infra.Creator {
-	return infra.NewCreator("samber/slog-zap", SlogSamberZapHandlerFn, nil)
+	return infra.NewCreator("samber/zap", SlogSamberZapHandlerFn, nil)
 }
 
 func SlogSamberZapHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
@@ -29,7 +30,7 @@ func SlogSamberZapHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Hand
 		Logger: zap.New(zapcore.NewCore(
 			zapcore.NewJSONEncoder(productionCfg),
 			zapcore.AddSync(w),
-			zap.NewAtomicLevelAt(convertLevelToZap(level.Level())))),
+			zap.NewAtomicLevelAt(utility.ConvertLevelToZap(level.Level())))),
 		Converter:   nil,
 		AddSource:   options.AddSource,
 		ReplaceAttr: options.ReplaceAttr,

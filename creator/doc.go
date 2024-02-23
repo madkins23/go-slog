@@ -1,4 +1,5 @@
 // Package creator provides a common location for defining infra.Creator objects.
 // Each object is a factory for generating slog.Handler instances.
-// Each factory is defined in its own file.
+// Declarations are kept in separate packages so that they can be reused in
+// other projects without dragging in all the various handlers and logging packages.
 package creator

@@ -1,4 +1,4 @@
-package creator
+package chanchal
 
 import (
 	"io"
@@ -8,12 +8,13 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
+	"github.com/madkins23/go-slog/creator/zap/utility"
 	"github.com/madkins23/go-slog/infra"
 )
 
-// SlogChanchalZapHandler returns a Creator object for the samber/slog-zerolog handler.
+// SlogChanchalZapHandler returns a Creator object for the chanchal/zap handler.
 func SlogChanchalZapHandler() infra.Creator {
-	return infra.NewCreator("chanchal/ZapHandler", SlogChanchalZapHandlerFn, nil)
+	return infra.NewCreator("chanchal/zap", SlogChanchalZapHandlerFn, nil)
 }
 
 func SlogChanchalZapHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
@@ -29,5 +30,5 @@ func SlogChanchalZapHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Ha
 			zapcore.NewCore(
 				zapcore.NewJSONEncoder(productionCfg),
 				zapcore.AddSync(w),
-				zap.NewAtomicLevelAt(convertLevelToZap(level.Level())))))
+				zap.NewAtomicLevelAt(utility.ConvertLevelToZap(level.Level())))))
 }

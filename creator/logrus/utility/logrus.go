@@ -1,4 +1,4 @@
-package creator
+package utility
 
 import (
 	"log/slog"
@@ -6,8 +6,8 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-// convertSlogLevel2Logrus maps slog Levels to logrus Levels.
-func convertSlogLevel2Logrus(l slog.Level) logrus.Level {
+// ConvertSlogLevel2Logrus maps slog Levels to logrus Levels.
+func ConvertSlogLevel2Logrus(l slog.Level) logrus.Level {
 	switch {
 	case l >= slog.LevelError:
 		return logrus.ErrorLevel
