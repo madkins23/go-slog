@@ -23,6 +23,5 @@ func Test_slog_chanchak_zap(t *testing.T) {
 	sLogSuite.WarnOnly(warning.NoReplAttrBasic)
 	sLogSuite.WarnOnly(warning.SourceKey)
 	sLogSuite.WarnOnly(warning.WithGroup)
-	sLogSuite.WarnOnly(warning.ZeroTime)
 	suite.Run(t, sLogSuite)
 }
