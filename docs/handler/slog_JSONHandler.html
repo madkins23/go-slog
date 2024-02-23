@@ -15,7 +15,7 @@
   <tr>
     <td>
       <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
-      <h1 class="home">Handler log/slog.JSONHandler</h1>
+      <h1 class="home">Handler slog/json</h1>
     </td>
     <td align="right">
               <script>
@@ -36,17 +36,17 @@
                 <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
-                    <option value="chanchal_zap" >chanchal/ZapHandler</option>
+                    <option value="chanchal_zap" >chanchal/zap</option>
                   
-                    <option value="slog_JSONHandler" selected>log/slog.JSONHandler</option>
+                    <option value="phsym_zerolog" >phsym/zerolog</option>
                   
-                    <option value="phsym_zerolog" >phsym/zeroslog</option>
+                    <option value="samber_logrus" >samber/logrus</option>
                   
-                    <option value="samber_logrus" >samber/slog-logrus</option>
+                    <option value="samber_zap" >samber/zap</option>
                   
-                    <option value="samber_zap" >samber/slog-zap</option>
+                    <option value="samber_zerolog" >samber/zerolog</option>
                   
-                    <option value="samber_zerolog" >samber/slog-zerolog</option>
+                    <option value="slog_JSONHandler" selected>slog/json</option>
                   
                 </select>
               </form>
@@ -171,8 +171,8 @@
           
             <tr>
               <td class="fixed">Attributes</td>
-              <td class="number">692,907</td>
-              <td class="number">1,853.00</td>
+              <td class="number">772,860</td>
+              <td class="number">1,531.00</td>
               <td class="number">6</td>
              <td class="number">472</td>
               <td class="number">0.00</td>
@@ -180,17 +180,17 @@
           
             <tr>
               <td class="fixed">Big Group</td>
-              <td class="number">4,219</td>
-              <td class="number">287,822.00</td>
-              <td class="number">3,859</td>
-             <td class="number">283,093</td>
+              <td class="number">4,615</td>
+              <td class="number">269,412.00</td>
+              <td class="number">3,924</td>
+             <td class="number">288,795</td>
               <td class="number">0.00</td>
             </tr>
           
             <tr>
               <td class="fixed">Disabled</td>
-              <td class="number">285,813,582</td>
-              <td class="number">4.23</td>
+              <td class="number">309,649,207</td>
+              <td class="number">3.88</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -198,8 +198,8 @@
           
             <tr>
               <td class="fixed">Key Values</td>
-              <td class="number">636,531</td>
-              <td class="number">1,857.00</td>
+              <td class="number">707,029</td>
+              <td class="number">1,706.00</td>
               <td class="number">7</td>
              <td class="number">856</td>
               <td class="number">0.00</td>
@@ -207,8 +207,8 @@
           
             <tr>
               <td class="fixed">Logging</td>
-              <td class="number">36,704</td>
-              <td class="number">37,685.00</td>
+              <td class="number">38,996</td>
+              <td class="number">31,619.00</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -216,8 +216,8 @@
           
             <tr>
               <td class="fixed">Simple</td>
-              <td class="number">3,012,945</td>
-              <td class="number">390.10</td>
+              <td class="number">3,183,129</td>
+              <td class="number">364.30</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -225,8 +225,8 @@
           
             <tr>
               <td class="fixed">Simple Source</td>
-              <td class="number">1,000,000</td>
-              <td class="number">1,076.00</td>
+              <td class="number">1,340,929</td>
+              <td class="number">901.60</td>
               <td class="number">6</td>
              <td class="number">568</td>
               <td class="number">0.00</td>
@@ -234,8 +234,8 @@
           
             <tr>
               <td class="fixed">With Attrs Attributes</td>
-              <td class="number">700,108</td>
-              <td class="number">1,829.00</td>
+              <td class="number">804,555</td>
+              <td class="number">1,535.00</td>
               <td class="number">6</td>
              <td class="number">472</td>
               <td class="number">0.00</td>
@@ -243,8 +243,8 @@
           
             <tr>
               <td class="fixed">With Attrs Key Values</td>
-              <td class="number">613,243</td>
-              <td class="number">1,954.00</td>
+              <td class="number">712,029</td>
+              <td class="number">1,670.00</td>
               <td class="number">7</td>
              <td class="number">856</td>
               <td class="number">0.00</td>
@@ -252,8 +252,8 @@
           
             <tr>
               <td class="fixed">With Attrs Simple</td>
-              <td class="number">2,787,408</td>
-              <td class="number">405.10</td>
+              <td class="number">3,140,784</td>
+              <td class="number">374.70</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -261,8 +261,8 @@
           
             <tr>
               <td class="fixed">With Group Attributes</td>
-              <td class="number">636,412</td>
-              <td class="number">1,770.00</td>
+              <td class="number">775,162</td>
+              <td class="number">1,551.00</td>
               <td class="number">6</td>
              <td class="number">472</td>
               <td class="number">0.00</td>
@@ -270,8 +270,8 @@
           
             <tr>
               <td class="fixed">With Group Key Values</td>
-              <td class="number">645,801</td>
-              <td class="number">1,991.00</td>
+              <td class="number">721,796</td>
+              <td class="number">1,676.00</td>
               <td class="number">7</td>
              <td class="number">856</td>
               <td class="number">0.00</td>
@@ -285,12 +285,12 @@
         <h2 align="left">Benchmark Charts</h2>
         <table>
           <tr>
-            <td><img src="/go-slog/chart/slog_JSONHandler/Nanos.svg" alt="log/slog.JSONHandler Ns/Op" class="chart" /></td>
-            <td><img src="/go-slog/chart/slog_JSONHandler/MemAllocs.svg" alt="log/slog.JSONHandler Allocs/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/slog_JSONHandler/Nanos.svg" alt="slog/json Ns/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/slog_JSONHandler/MemAllocs.svg" alt="slog/json Allocs/Op" class="chart" /></td>
           </tr>
           <tr>
-            <td><img src="/go-slog/chart/slog_JSONHandler/MemBytes.svg" alt="log/slog.JSONHandler Bytes/Op" class="chart" /></td>
-            <td><img src="/go-slog/chart/slog_JSONHandler/GbPerSec.svg" alt="log/slog.JSONHandler GB/Sec" class="chart" /></td>
+            <td><img src="/go-slog/chart/slog_JSONHandler/MemBytes.svg" alt="slog/json Bytes/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/slog_JSONHandler/GbPerSec.svg" alt="slog/json GB/Sec" class="chart" /></td>
           </tr>
         </table>
       </td>

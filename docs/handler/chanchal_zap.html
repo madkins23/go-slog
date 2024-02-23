@@ -15,7 +15,7 @@
   <tr>
     <td>
       <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
-      <h1 class="home">Handler chanchal/ZapHandler</h1>
+      <h1 class="home">Handler chanchal/zap</h1>
     </td>
     <td align="right">
               <script>
@@ -36,17 +36,17 @@
                 <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
-                    <option value="chanchal_zap" selected>chanchal/ZapHandler</option>
+                    <option value="chanchal_zap" selected>chanchal/zap</option>
                   
-                    <option value="slog_JSONHandler" >log/slog.JSONHandler</option>
+                    <option value="phsym_zerolog" >phsym/zerolog</option>
                   
-                    <option value="phsym_zerolog" >phsym/zeroslog</option>
+                    <option value="samber_logrus" >samber/logrus</option>
                   
-                    <option value="samber_logrus" >samber/slog-logrus</option>
+                    <option value="samber_zap" >samber/zap</option>
                   
-                    <option value="samber_zap" >samber/slog-zap</option>
+                    <option value="samber_zerolog" >samber/zerolog</option>
                   
-                    <option value="samber_zerolog" >samber/slog-zerolog</option>
+                    <option value="slog_JSONHandler" >slog/json</option>
                   
                 </select>
               </form>
@@ -171,8 +171,8 @@
           
             <tr>
               <td class="fixed">Attributes</td>
-              <td class="number">616,815</td>
-              <td class="number">1,803.00</td>
+              <td class="number">738,711</td>
+              <td class="number">1,570.00</td>
               <td class="number">5</td>
              <td class="number">416</td>
               <td class="number">0.00</td>
@@ -180,17 +180,17 @@
           
             <tr>
               <td class="fixed">Big Group</td>
-              <td class="number">4,392</td>
-              <td class="number">290,487.00</td>
-              <td class="number">4,238</td>
-             <td class="number">249,892</td>
+              <td class="number">5,072</td>
+              <td class="number">258,212.00</td>
+              <td class="number">4,170</td>
+             <td class="number">246,544</td>
               <td class="number">0.00</td>
             </tr>
           
             <tr>
               <td class="fixed">Disabled</td>
-              <td class="number">41,544,180</td>
-              <td class="number">28.36</td>
+              <td class="number">42,728,569</td>
+              <td class="number">25.96</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -198,8 +198,8 @@
           
             <tr>
               <td class="fixed">Key Values</td>
-              <td class="number">594,936</td>
-              <td class="number">1,957.00</td>
+              <td class="number">658,987</td>
+              <td class="number">1,703.00</td>
               <td class="number">6</td>
              <td class="number">801</td>
               <td class="number">0.00</td>
@@ -207,8 +207,8 @@
           
             <tr>
               <td class="fixed">Logging</td>
-              <td class="number">31,128</td>
-              <td class="number">38,571.00</td>
+              <td class="number">34,677</td>
+              <td class="number">34,195.00</td>
               <td class="number">51</td>
              <td class="number">1,635</td>
               <td class="number">0.00</td>
@@ -216,8 +216,8 @@
           
             <tr>
               <td class="fixed">Simple</td>
-              <td class="number">2,400,688</td>
-              <td class="number">546.30</td>
+              <td class="number">2,240,541</td>
+              <td class="number">474.30</td>
               <td class="number">1</td>
              <td class="number">32</td>
               <td class="number">0.00</td>
@@ -225,8 +225,8 @@
           
             <tr>
               <td class="fixed">Simple Source</td>
-              <td class="number">2,392,003</td>
-              <td class="number">534.40</td>
+              <td class="number">2,617,326</td>
+              <td class="number">460.80</td>
               <td class="number">1</td>
              <td class="number">32</td>
               <td class="number">0.00</td>
@@ -234,8 +234,8 @@
           
             <tr>
               <td class="fixed">With Attrs Attributes</td>
-              <td class="number">649,594</td>
-              <td class="number">1,851.00</td>
+              <td class="number">731,974</td>
+              <td class="number">1,666.00</td>
               <td class="number">5</td>
              <td class="number">416</td>
               <td class="number">0.00</td>
@@ -243,8 +243,8 @@
           
             <tr>
               <td class="fixed">With Attrs Key Values</td>
-              <td class="number">590,000</td>
-              <td class="number">2,001.00</td>
+              <td class="number">676,618</td>
+              <td class="number">1,829.00</td>
               <td class="number">6</td>
              <td class="number">801</td>
               <td class="number">0.00</td>
@@ -252,8 +252,8 @@
           
             <tr>
               <td class="fixed">With Attrs Simple</td>
-              <td class="number">2,347,874</td>
-              <td class="number">504.50</td>
+              <td class="number">2,584,802</td>
+              <td class="number">475.80</td>
               <td class="number">1</td>
              <td class="number">32</td>
               <td class="number">0.00</td>
@@ -261,8 +261,8 @@
           
             <tr>
               <td class="fixed">With Group Attributes</td>
-              <td class="number">636,700</td>
-              <td class="number">1,990.00</td>
+              <td class="number">692,167</td>
+              <td class="number">1,645.00</td>
               <td class="number">7</td>
              <td class="number">504</td>
               <td class="number">0.00</td>
@@ -270,8 +270,8 @@
           
             <tr>
               <td class="fixed">With Group Key Values</td>
-              <td class="number">521,731</td>
-              <td class="number">2,042.00</td>
+              <td class="number">666,514</td>
+              <td class="number">1,784.00</td>
               <td class="number">8</td>
              <td class="number">889</td>
               <td class="number">0.00</td>
@@ -285,12 +285,12 @@
         <h2 align="left">Benchmark Charts</h2>
         <table>
           <tr>
-            <td><img src="/go-slog/chart/chanchal_zap/Nanos.svg" alt="chanchal/ZapHandler Ns/Op" class="chart" /></td>
-            <td><img src="/go-slog/chart/chanchal_zap/MemAllocs.svg" alt="chanchal/ZapHandler Allocs/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/chanchal_zap/Nanos.svg" alt="chanchal/zap Ns/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/chanchal_zap/MemAllocs.svg" alt="chanchal/zap Allocs/Op" class="chart" /></td>
           </tr>
           <tr>
-            <td><img src="/go-slog/chart/chanchal_zap/MemBytes.svg" alt="chanchal/ZapHandler Bytes/Op" class="chart" /></td>
-            <td><img src="/go-slog/chart/chanchal_zap/GbPerSec.svg" alt="chanchal/ZapHandler GB/Sec" class="chart" /></td>
+            <td><img src="/go-slog/chart/chanchal_zap/MemBytes.svg" alt="chanchal/zap Bytes/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/chanchal_zap/GbPerSec.svg" alt="chanchal/zap GB/Sec" class="chart" /></td>
           </tr>
         </table>
       </td>
@@ -662,7 +662,7 @@
                       
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">Bench:Simple_Source</td>
-                        <td class="extra" style="background-color:lightgray;">no source key</td>
+                        <td class="extra" style="background-color:lightgray;">no &#39;source&#39; key</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                             <button type="button" onclick="toggleTableRow('SourceKeyBench:Simple_Source')">Log</button>
@@ -674,7 +674,7 @@
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-22T17:26:23Z&#34;
+	&#34;time&#34;: &#34;2024-02-23T17:19:10Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -695,7 +695,7 @@
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-22T17:27:57Z&#34;
+	&#34;time&#34;: &#34;2024-02-23T17:20:43Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -751,7 +751,7 @@
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;second&#34;: 2,
 	&#34;third&#34;: &#34;3&#34;,
-	&#34;time&#34;: &#34;2024-02-22T17:27:57Z&#34;
+	&#34;time&#34;: &#34;2024-02-23T17:20:43Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -776,7 +776,7 @@
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;second&#34;: 2,
 	&#34;third&#34;: &#34;3&#34;,
-	&#34;time&#34;: &#34;2024-02-22T17:27:57Z&#34;
+	&#34;time&#34;: &#34;2024-02-23T17:20:43Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -945,7 +945,7 @@
                       
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">Verify:KeyCase</td>
-                        <td class="extra" style="background-color:lightgray;">&#39;warn&#39;</td>
+                        <td class="extra" style="background-color:lightgray;">&#39;error&#39;</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
@@ -960,7 +960,7 @@
                       
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightcyan;">Verify:KeyCase</td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;error&#39;</td>
+                        <td class="extra" style="background-color:lightcyan;">&#39;debug&#39;</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
                         </td>
@@ -977,7 +977,7 @@
                       
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">Verify:KeyCase</td>
-                        <td class="extra" style="background-color:lightgray;">&#39;debug&#39;</td>
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
@@ -992,7 +992,7 @@
                       
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightcyan;">Verify:KeyCase</td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
+                        <td class="extra" style="background-color:lightcyan;">&#39;warn&#39;</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
                         </td>
@@ -1097,58 +1097,12 @@
                       
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">Verify:LogAttributes</td>
-                        <td class="extra" style="background-color:lightgray;">2024-02-22T17:27:57Z</td>
+                        <td class="extra" style="background-color:lightgray;">2024-02-23T17:20:43Z</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
                       <tr id="TimeMillisVerify:LogAttributes" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                     
-                  </table>
-                </td>
-              </tr>
-             
-          
-            <tr>
-              <td colspan=4 class="level">Administrative</td>
-            </tr>
-            
-              <tr>
-                <td></td>
-                <td colspan=2 class="warning">
-                  Unused
-                </td>
-                <td class="extra">
-                  Unused Warnings(s)
-                </td>
-              </tr>
-              <tr class="instance">
-                <td colspan=2></td>
-                <td colspan=2>
-                  <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="30%"/>
-                      <col width="50%"/>
-                      <col width="7%"/>
-                    </colgroup>
-                    
-                      
-                      
-                      
-                        
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">Verify:ZeroTime</td>
-                        <td class="extra" style="background-color:lightgray;">ZeroTime</td>
-                        <td class="logLink" style="background-color:lightgray;">
-                          
-                        </td>
-                      </tr>
-                      <tr id="UnusedVerify:ZeroTime" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
                       </tr>

@@ -15,7 +15,7 @@
   <tr>
     <td>
       <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
-      <h1 class="home">Handler phsym/zeroslog</h1>
+      <h1 class="home">Handler phsym/zerolog</h1>
     </td>
     <td align="right">
               <script>
@@ -36,17 +36,17 @@
                 <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
-                    <option value="chanchal_zap" >chanchal/ZapHandler</option>
+                    <option value="chanchal_zap" >chanchal/zap</option>
                   
-                    <option value="slog_JSONHandler" >log/slog.JSONHandler</option>
+                    <option value="phsym_zerolog" selected>phsym/zerolog</option>
                   
-                    <option value="phsym_zerolog" selected>phsym/zeroslog</option>
+                    <option value="samber_logrus" >samber/logrus</option>
                   
-                    <option value="samber_logrus" >samber/slog-logrus</option>
+                    <option value="samber_zap" >samber/zap</option>
                   
-                    <option value="samber_zap" >samber/slog-zap</option>
+                    <option value="samber_zerolog" >samber/zerolog</option>
                   
-                    <option value="samber_zerolog" >samber/slog-zerolog</option>
+                    <option value="slog_JSONHandler" >slog/json</option>
                   
                 </select>
               </form>
@@ -172,7 +172,7 @@
             <tr>
               <td class="fixed">Attributes</td>
               <td class="number">1,000,000</td>
-              <td class="number">1,199.00</td>
+              <td class="number">1,076.00</td>
               <td class="number">2</td>
              <td class="number">272</td>
               <td class="number">0.00</td>
@@ -180,17 +180,17 @@
           
             <tr>
               <td class="fixed">Big Group</td>
-              <td class="number">4,791</td>
-              <td class="number">257,711.00</td>
-              <td class="number">3,886</td>
-             <td class="number">240,579</td>
+              <td class="number">4,975</td>
+              <td class="number">243,164.00</td>
+              <td class="number">3,861</td>
+             <td class="number">239,991</td>
               <td class="number">0.00</td>
             </tr>
           
             <tr>
               <td class="fixed">Disabled</td>
-              <td class="number">297,948,490</td>
-              <td class="number">4.10</td>
+              <td class="number">316,421,751</td>
+              <td class="number">3.73</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -198,8 +198,8 @@
           
             <tr>
               <td class="fixed">Key Values</td>
-              <td class="number">849,670</td>
-              <td class="number">1,345.00</td>
+              <td class="number">918,442</td>
+              <td class="number">1,208.00</td>
               <td class="number">3</td>
              <td class="number">656</td>
               <td class="number">0.00</td>
@@ -207,8 +207,8 @@
           
             <tr>
               <td class="fixed">Logging</td>
-              <td class="number">51,603</td>
-              <td class="number">23,115.00</td>
+              <td class="number">54,558</td>
+              <td class="number">21,933.00</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -216,8 +216,8 @@
           
             <tr>
               <td class="fixed">Simple</td>
-              <td class="number">3,953,863</td>
-              <td class="number">308.20</td>
+              <td class="number">4,125,775</td>
+              <td class="number">306.40</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -225,8 +225,8 @@
           
             <tr>
               <td class="fixed">Simple Source</td>
-              <td class="number">1,782,246</td>
-              <td class="number">632.80</td>
+              <td class="number">2,176,542</td>
+              <td class="number">556.80</td>
               <td class="number">4</td>
              <td class="number">312</td>
               <td class="number">0.00</td>
@@ -235,7 +235,7 @@
             <tr>
               <td class="fixed">With Attrs Attributes</td>
               <td class="number">1,000,000</td>
-              <td class="number">1,193.00</td>
+              <td class="number">1,089.00</td>
               <td class="number">2</td>
              <td class="number">272</td>
               <td class="number">0.00</td>
@@ -243,8 +243,8 @@
           
             <tr>
               <td class="fixed">With Attrs Key Values</td>
-              <td class="number">837,057</td>
-              <td class="number">1,383.00</td>
+              <td class="number">929,908</td>
+              <td class="number">1,234.00</td>
               <td class="number">3</td>
              <td class="number">656</td>
               <td class="number">0.00</td>
@@ -252,8 +252,8 @@
           
             <tr>
               <td class="fixed">With Attrs Simple</td>
-              <td class="number">3,804,069</td>
-              <td class="number">316.40</td>
+              <td class="number">4,054,460</td>
+              <td class="number">297.00</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -261,8 +261,8 @@
           
             <tr>
               <td class="fixed">With Group Attributes</td>
-              <td class="number">877,665</td>
-              <td class="number">1,341.00</td>
+              <td class="number">960,974</td>
+              <td class="number">1,186.00</td>
               <td class="number">3</td>
              <td class="number">560</td>
               <td class="number">0.00</td>
@@ -270,8 +270,8 @@
           
             <tr>
               <td class="fixed">With Group Key Values</td>
-              <td class="number">822,375</td>
-              <td class="number">1,477.00</td>
+              <td class="number">853,832</td>
+              <td class="number">1,324.00</td>
               <td class="number">4</td>
              <td class="number">944</td>
               <td class="number">0.00</td>
@@ -285,12 +285,12 @@
         <h2 align="left">Benchmark Charts</h2>
         <table>
           <tr>
-            <td><img src="/go-slog/chart/phsym_zerolog/Nanos.svg" alt="phsym/zeroslog Ns/Op" class="chart" /></td>
-            <td><img src="/go-slog/chart/phsym_zerolog/MemAllocs.svg" alt="phsym/zeroslog Allocs/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/phsym_zerolog/Nanos.svg" alt="phsym/zerolog Ns/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/phsym_zerolog/MemAllocs.svg" alt="phsym/zerolog Allocs/Op" class="chart" /></td>
           </tr>
           <tr>
-            <td><img src="/go-slog/chart/phsym_zerolog/MemBytes.svg" alt="phsym/zeroslog Bytes/Op" class="chart" /></td>
-            <td><img src="/go-slog/chart/phsym_zerolog/GbPerSec.svg" alt="phsym/zeroslog GB/Sec" class="chart" /></td>
+            <td><img src="/go-slog/chart/phsym_zerolog/MemBytes.svg" alt="phsym/zerolog Bytes/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/phsym_zerolog/GbPerSec.svg" alt="phsym/zerolog GB/Sec" class="chart" /></td>
           </tr>
         </table>
       </td>
@@ -355,7 +355,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-22T17:27:57Z&#34;
+	&#34;time&#34;: &#34;2024-02-23T17:20:43Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -379,7 +379,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-22T17:27:57Z&#34;
+	&#34;time&#34;: &#34;2024-02-23T17:20:43Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -432,7 +432,7 @@
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-22T17:27:57Z&#34;
+	&#34;time&#34;: &#34;2024-02-23T17:20:43Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -486,7 +486,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-22T17:27:57Z&#34;
+	&#34;time&#34;: &#34;2024-02-23T17:20:43Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -798,7 +798,7 @@
                       
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">Bench:Simple_Source</td>
-                        <td class="extra" style="background-color:lightgray;">no source key</td>
+                        <td class="extra" style="background-color:lightgray;">no &#39;source&#39; key</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                             <button type="button" onclick="toggleTableRow('SourceKeyBench:Simple_Source')">Log</button>
@@ -808,10 +808,10 @@
                       <tr id="SourceKeyBench:Simple_Source" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
-	&#34;caller&#34;: &#34;/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:70&#34;,
+	&#34;caller&#34;: &#34;/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:77&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-22T17:26:40Z&#34;
+	&#34;time&#34;: &#34;2024-02-23T17:19:27Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -833,7 +833,7 @@
 	&#34;caller&#34;: &#34;/opt/hostedtoolcache/go/1.21.7/x64/src/reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-22T17:27:57Z&#34;
+	&#34;time&#34;: &#34;2024-02-23T17:20:43Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1171,7 +1171,7 @@
                       
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">Verify:LogAttributes</td>
-                        <td class="extra" style="background-color:lightgray;">2024-02-22T17:27:57Z</td>
+                        <td class="extra" style="background-color:lightgray;">2024-02-23T17:20:43Z</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
