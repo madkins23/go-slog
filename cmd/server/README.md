@@ -43,7 +43,7 @@ GOPATH=/home/marc/go #gosetup
 12:31:19 INF 200 |     169.933µs |             ::1 | GET      "/go-slog/style.css"
 ```
 
-## Pages
+## Server Pages
 
 The root page shows links to various test data pages and the warnings:
 ![The root page shows links to various test data pages and the warnings.](images/root.png)
@@ -51,4 +51,10 @@ The root page shows links to various test data pages and the warnings:
 Test pages show the same tables as `tabular` plus charts comparing the results:
 ![Test pages show the same tables as `tabular` plus charts comparing the results.](images/test.png)
 
-[Recent benchmark data](https://madkins23.github.io/go-slog/index.html).
+## GitHub Pages
+
+Once a week (or whenever code is committed to the `go-slog` repository)
+the server is run and all pages are copied to the `docs` directory.
+This is committed back into the repository and
+[GitHub Pages](https://pages.github.com/) serves the
+[recent benchmark data](https://madkins23.github.io/go-slog/index.html).
