@@ -73,7 +73,9 @@ The flags are:
 See scripts/bench, scripts/verify and scripts/server for usage examples.
 */
 func main() {
-	flag.Parse() // Necessary for -bench=<file> argument defined in internal/bench package.
+	// Necessary for -bench=<file> and -verify=<file> arguments
+	// defined in internal/bench and internal/verify packages.
+	flag.Parse()
 
 	gin.DefaultWriter = ginslog.NewWriter(&ginslog.Options{})
 	gin.DefaultErrorWriter = ginslog.NewWriter(&ginslog.Options{Level: slog.LevelError})
@@ -154,6 +156,7 @@ var (
 	tmplPartWarnings string
 )
 
+// setup server data structures and templates.
 func setup() error {
 	if err := language.Setup(); err != nil {
 		return fmt.Errorf("language setup: %w", err)
@@ -228,6 +231,7 @@ var (
 	chartCacheMutex sync.Mutex
 )
 
+// chartFunction generates an SVG chart for the current object tags.
 func chartFunction(c *gin.Context) {
 	itemArg := strings.TrimSuffix(c.Param("item"), ".svg")
 	item, err := data.BenchItemsString(itemArg)
@@ -289,6 +293,7 @@ func chartFunction(c *gin.Context) {
 	c.Data(http.StatusOK, "image/svg+xml", ch)
 }
 
+// charTest returns labels and values for a Test chart.
 func chartTest(records data.HandlerRecords, item data.BenchItems) (labels []string, values []float64) {
 	labels = make([]string, 0, len(records))
 	values = make([]float64, 0, len(records))
@@ -301,6 +306,7 @@ func chartTest(records data.HandlerRecords, item data.BenchItems) (labels []stri
 	return
 }
 
+// chartHandler returns labels and values for a Handler chart.
 func chartHandler(records data.TestRecords, item data.BenchItems) (labels []string, values []float64) {
 	labels = make([]string, 0, len(records))
 	values = make([]float64, 0, len(records))
@@ -315,6 +321,7 @@ func chartHandler(records data.TestRecords, item data.BenchItems) (labels []stri
 
 // -----------------------------------------------------------------------------
 
+// templateData is all the data that will be available during template execution.
 type templateData struct {
 	*data.Benchmarks
 	*data.Warnings
@@ -324,14 +331,22 @@ type templateData struct {
 	Printer *message.Printer
 }
 
+// FixUint converts a uint64 into a string using the language printer.
+// This will apply the proper numeric separators.
 func (pd *templateData) FixUint(number uint64) string {
 	return pd.Printer.Sprintf("%d", number)
 }
 
+// FixFloat converts a float64 into a string using the language printer.
+// This will apply the proper decimal and numeric separators.
 func (pd *templateData) FixFloat(number float64) string {
 	return pd.Printer.Sprintf("%0.2f", number)
 }
 
+// pageFunction returns a Gin handler function for generating an HTML page for the server.
+// During execution of the handler function,
+// URL parameter values will be read and appropriate object tags configured as template data.
+// The appropriate template will be executed using the template data to generate the HTML page.
 func pageFunction(page pageType) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tmplData := &templateData{
@@ -361,6 +376,8 @@ func pageFunction(page pageType) gin.HandlerFunc {
 	}
 }
 
+// svgFunction returns a Gin handler function for generating an SVG image.
+// During execution of the handler function the SVG image will be generated from the specified string.
 func svgFunction(svg []byte) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		slog.Debug("svgFunction()", "svg", string(svg))
@@ -368,6 +385,8 @@ func svgFunction(svg []byte) gin.HandlerFunc {
 	}
 }
 
+// textFunction returns a Gin handler function to return a block of ASCII text.
+// During execution of the handler function the text will be generated from the specified string.
 func textFunction(text string) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		slog.Debug("textFunction()", "text", text)
