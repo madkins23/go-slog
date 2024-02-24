@@ -35,12 +35,12 @@ import (
 	"testing"
 
 	"github.com/madkins23/go-slog/bench/tests"
-	"github.com/madkins23/go-slog/creator"
+	"github.com/madkins23/go-slog/creator/slog_json"
 )
 
 // Benchmark_slog runs benchmarks for the log/slog JSON handler.
 func Benchmark_slog(b *testing.B) {
-	slogSuite := tests.NewSlogBenchmarkSuite(creator.Slog())
+	slogSuite := tests.NewSlogBenchmarkSuite(slog_json.SlogJson())
 	tests.Run(b, slogSuite)
 }
 
@@ -109,10 +109,11 @@ with appropriate post-processing via
 
 #### Test Flags
 
-There is one flag defined for testing the verification code:
-
-* `-debug=<level>`  
+* `-debug=<level>`
   Sets an integer level for showing any `Debugf()` statements in the code.
+* `-justTests`
+  Just run benchmark verification tests, not the actual benchmarks.
+
 
 ### Supporting Tests
 
