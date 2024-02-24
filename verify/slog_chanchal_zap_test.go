@@ -11,7 +11,7 @@ import (
 )
 
 // Test_slog_samber_zap runs tests for the samber zerolog handler.
-func Test_slog_chanchak_zap(t *testing.T) {
+func Test_slog_chanchal_zap(t *testing.T) {
 	sLogSuite := tests.NewSlogTestSuite(chanchalzap.Creator())
 	sLogSuite.WarnOnly(warning.CanceledContext)
 	sLogSuite.WarnOnly(warning.Duplicates)

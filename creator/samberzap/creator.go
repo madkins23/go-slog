@@ -12,10 +12,9 @@ import (
 	"github.com/madkins23/go-slog/infra"
 )
 
-// SlogSamberZap returns a Creator object for the samber/zap handler.
-func SlogSamberZap() infra.Creator {
-	return infra.NewCreator("samber/slog-zap", handlerFn, nil,
-		"https://github.com/samber/slog-zap")
+// Creator returns a Creator object for the samber/zap handler.
+func Creator() infra.Creator {
+	return infra.NewCreator("samber/slog-zap", handlerFn, nil, "https://github.com/samber/slog-zap")
 }
 
 func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {

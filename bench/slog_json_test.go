@@ -9,6 +9,6 @@ import (
 
 // Benchmark_slog_json runs benchmarks for the log/slog JSON handler.
 func Benchmark_slog_json(b *testing.B) {
-	slogSuite := tests.NewSlogBenchmarkSuite(slogjson.Creator())
+	slogSuite := tests.NewSlogBenchmarkSuite(slogjson.Creator(), "slog_json")
 	tests.Run(b, slogSuite)
 }

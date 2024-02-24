@@ -14,7 +14,6 @@ import (
 
 	"github.com/madkins23/go-slog/infra"
 	"github.com/madkins23/go-slog/internal/data"
-	"github.com/madkins23/go-slog/internal/misc"
 	"github.com/madkins23/go-slog/internal/test"
 	"github.com/madkins23/go-slog/warning"
 )
@@ -26,14 +25,22 @@ type SlogBenchmarkSuite struct {
 	infra.Creator
 	*warning.Manager
 
-	b  *testing.B
-	mu sync.RWMutex
+	b       *testing.B
+	mu      sync.RWMutex
+	handler data.HandlerTag
 }
 
-func NewSlogBenchmarkSuite(creator infra.Creator) *SlogBenchmarkSuite {
+// NewSlogBenchmarkSuite creates a new benchmark test suite for the specified Creator.
+// The handler string must match the suffix of the name of the enclosing test.
+// This is:
+//   - the string that will be matched from benchmark test output data,
+//   - the string that will be conveyed to the parser to match against warning data, and
+//   - the string that will be used as a tag for displaying server pages.
+func NewSlogBenchmarkSuite(creator infra.Creator, handler data.HandlerTag) *SlogBenchmarkSuite {
 	suite := &SlogBenchmarkSuite{
 		Creator: creator,
 		Manager: NewWarningManager(creator.Name()),
+		handler: handler,
 	}
 	suite.WarnOnly(warning.NoHandlerCreation)
 	return suite
@@ -54,12 +61,13 @@ func (suite *SlogBenchmarkSuite) SetB(b *testing.B) {
 }
 
 // logger for testing with handler tweaks if HandlerFn is specified in the benchmark.
-// Assumes that if HandlerFn is present CanMakeHandler() is true.
 func (suite *SlogBenchmarkSuite) logger(b *Benchmark, w io.Writer) *slog.Logger {
 	if b.HandlerFn != nil {
-		// Since we're here we know that CanMakeHandler() must be true.
-		// Otherwise we would have hit the continue above.
-		return slog.New(b.HandlerFn(suite.NewHandler(w, b.Options)))
+		if suite.CanMakeHandler() {
+			return slog.New(b.HandlerFn(suite.NewHandler(w, b.Options)))
+		} else {
+			slog.Warn("b.handlerFn without suite.CanMakeHandler()")
+		}
 	}
 	return suite.NewLogger(w, b.Options)
 }
@@ -75,13 +83,11 @@ const benchmarkMethodPrefix = "Benchmark"
 func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 	defer recoverAndFailOnPanic(b)
 
-	fn := misc.CurrentFunctionName("Benchmark_slog")
-	handler := data.FixBenchHandlerTag([]byte(fn))
 	// Capture relationship between handler name in benchmark function vs. Creator.
 	// This way the handler name field is populated by the Creator name string.
 	// The data will be parsed by internal/data.Benchmarks.ParseBenchmarkData() and
 	// passed into Warnings.ParseWarningData().
-	fmt.Printf("# Handler[%s]=\"%s\"\n", handler, suite.Creator.Name())
+	fmt.Printf("# Handler[%s]=\"%s\"\n", suite.handler, suite.Creator.Name())
 
 	stdoutLogger := suite.NewLogger(os.Stdout, infra.SimpleOptions())
 	suite.SetB(b)

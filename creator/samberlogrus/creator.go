@@ -13,8 +13,7 @@ import (
 
 // Creator returns a Creator object for the samber/logrus handler.
 func Creator() infra.Creator {
-	return infra.NewCreator("samber/slog-logrus", handlerFn, nil,
-		"https://github.com/samber/slog-logrus")
+	return infra.NewCreator("samber/slog-logrus", handlerFn, nil, "https://github.com/samber/slog-logrus")
 }
 
 func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {

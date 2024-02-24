@@ -9,6 +9,6 @@ import (
 
 // Benchmark_slog_samber_logrus runs benchmarks for the samber/slog-logrus handler.
 func Benchmark_slog_samber_logrus(b *testing.B) {
-	slogSuite := tests.NewSlogBenchmarkSuite(samberlogrus.Creator())
+	slogSuite := tests.NewSlogBenchmarkSuite(samberlogrus.Creator(), "samber_logrus")
 	tests.Run(b, slogSuite)
 }

@@ -11,7 +11,7 @@ import (
 )
 
 // Test_slog runs tests for the log/slog JSON handler.
-func Test_slog(t *testing.T) {
+func Test_slog_json(t *testing.T) {
 	slogSuite := tests.NewSlogTestSuite(slogjson.Creator())
 	slogSuite.WarnOnly(warning.Duplicates)
 	suite.Run(t, slogSuite)

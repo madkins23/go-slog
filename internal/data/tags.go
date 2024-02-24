@@ -45,9 +45,9 @@ func (ht HandlerTag) Name() string {
 }
 
 func FixBenchHandlerTag(hdlrBytes []byte) HandlerTag {
-	if string(hdlrBytes) == "Benchmark_slog" {
+	if string(hdlrBytes) == "Benchmark_slog_json" {
 		// Fix this so the handler name doesn't get edited down to nothing.
-		hdlrBytes = []byte("Benchmark_slog_slog_JSONHandler")
+		hdlrBytes = []byte("Benchmark_slog_slog_json")
 	}
 	tagString := strings.TrimPrefix(string(hdlrBytes), "Benchmark_slog_")
 	return HandlerTag(tagString)

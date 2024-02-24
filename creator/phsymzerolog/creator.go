@@ -11,8 +11,7 @@ import (
 
 // Creator returns a Creator object for the phsym/zerolog handler.
 func Creator() infra.Creator {
-	return infra.NewCreator("phsym/zeroslog", handlerFn, nil,
-		"https://github.com/phsym/zeroslog")
+	return infra.NewCreator("phsym/zeroslog", handlerFn, nil, "https://github.com/phsym/zeroslog")
 }
 
 func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {

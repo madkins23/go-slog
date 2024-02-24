@@ -12,7 +12,7 @@ import (
 
 // Test_slog_samber_zap runs tests for the samber zerolog handler.
 func Test_slog_samber_zap(t *testing.T) {
-	sLogSuite := tests.NewSlogTestSuite(samberzap.SlogSamberZap())
+	sLogSuite := tests.NewSlogTestSuite(samberzap.Creator())
 	sLogSuite.WarnOnly(warning.DurationMillis)
 	sLogSuite.WarnOnly(warning.DurationSeconds)
 	sLogSuite.WarnOnly(warning.EmptyAttributes)
