@@ -1,4 +1,4 @@
-//go:build bench
+//go:build tools
 
 package internal
 
