@@ -5,14 +5,14 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/madkins23/go-slog/creator/phsym_zerolog"
+	"github.com/madkins23/go-slog/creator/phsymzerolog"
 	"github.com/madkins23/go-slog/verify/tests"
 	"github.com/madkins23/go-slog/warning"
 )
 
 // Test_slog_zerolog_phsym runs tests for the physym zerolog handler.
 func Test_slog_zerolog_phsym(t *testing.T) {
-	slogSuite := tests.NewSlogTestSuite(phsym_zerolog.SlogPhsymZerolog())
+	slogSuite := tests.NewSlogTestSuite(phsymzerolog.Creator())
 	slogSuite.WarnOnly(warning.Duplicates)
 	slogSuite.WarnOnly(warning.DurationMillis)
 	slogSuite.WarnOnly(warning.EmptyAttributes)

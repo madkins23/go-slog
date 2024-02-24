@@ -5,14 +5,14 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/madkins23/go-slog/creator/samber_zap"
+	"github.com/madkins23/go-slog/creator/samberzap"
 	"github.com/madkins23/go-slog/verify/tests"
 	"github.com/madkins23/go-slog/warning"
 )
 
 // Test_slog_samber_zap runs tests for the samber zerolog handler.
 func Test_slog_samber_zap(t *testing.T) {
-	sLogSuite := tests.NewSlogTestSuite(samber_zap.SlogSamberZap())
+	sLogSuite := tests.NewSlogTestSuite(samberzap.SlogSamberZap())
 	sLogSuite.WarnOnly(warning.DurationMillis)
 	sLogSuite.WarnOnly(warning.DurationSeconds)
 	sLogSuite.WarnOnly(warning.EmptyAttributes)

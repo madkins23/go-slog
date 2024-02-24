@@ -1,4 +1,4 @@
-package chanchal_zap
+package chanchalzap
 
 import (
 	"io"
@@ -8,16 +8,16 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
-	"github.com/madkins23/go-slog/creator/util_zap"
+	"github.com/madkins23/go-slog/creator/utilzap"
 	"github.com/madkins23/go-slog/infra"
 )
 
-// SlogChanchalZapHandler returns a Creator object for the chanchal/zap handler.
-func SlogChanchalZapHandler() infra.Creator {
-	return infra.NewCreator("chanchal/zap", SlogChanchalZapHandlerFn, nil)
+// Creator returns a Creator object for the chanchal/zap handler.
+func Creator() infra.Creator {
+	return infra.NewCreator("chanchal/zap", handlerFn, nil)
 }
 
-func SlogChanchalZapHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
+func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
 	level := options.Level
 	if level == nil {
 		level = slog.LevelInfo
@@ -30,5 +30,5 @@ func SlogChanchalZapHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Ha
 			zapcore.NewCore(
 				zapcore.NewJSONEncoder(productionCfg),
 				zapcore.AddSync(w),
-				zap.NewAtomicLevelAt(util_zap.ConvertLevelToZap(level.Level())))))
+				zap.NewAtomicLevelAt(utilzap.ConvertLevelToZap(level.Level())))))
 }

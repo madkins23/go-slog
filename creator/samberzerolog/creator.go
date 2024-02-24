@@ -1,4 +1,4 @@
-package samber_zerolog
+package samberzerolog
 
 import (
 	"io"
@@ -10,12 +10,12 @@ import (
 	"github.com/madkins23/go-slog/infra"
 )
 
-// SlogSamberZerolog returns a Creator object for the samber/zerolog handler.
-func SlogSamberZerolog() infra.Creator {
-	return infra.NewCreator("samber/zerolog", SlogSamberZerologHandlerFn, nil)
+// Creator returns a Creator object for the samber/zerolog handler.
+func Creator() infra.Creator {
+	return infra.NewCreator("samber/zerolog", handlerFn, nil)
 }
 
-func SlogSamberZerologHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
+func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
 	zeroLogger := zerolog.New(w)
 	return samber.Option{
 		Logger:      &zeroLogger,

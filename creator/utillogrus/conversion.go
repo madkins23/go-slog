@@ -1,4 +1,4 @@
-package util_logrus
+package utillogrus
 
 import (
 	"log/slog"
