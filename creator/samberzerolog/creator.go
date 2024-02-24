@@ -12,7 +12,8 @@ import (
 
 // Creator returns a Creator object for the samber/zerolog handler.
 func Creator() infra.Creator {
-	return infra.NewCreator("samber/zerolog", handlerFn, nil)
+	return infra.NewCreator("samber/slog-zerolog", handlerFn, nil,
+		"https://github.com/samber/slog-zerolog")
 }
 
 func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {

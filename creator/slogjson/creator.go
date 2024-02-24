@@ -9,7 +9,8 @@ import (
 
 // Creator returns a Creator object for the slog/json.
 func Creator() infra.Creator {
-	return infra.NewCreator("slog/json", handlerFn, nil)
+	return infra.NewCreator("slog/JSONHandler", handlerFn, nil,
+		"https://pkg.go.dev/log/slog#JSONHandler")
 }
 
 func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {

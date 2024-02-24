@@ -14,7 +14,8 @@ import (
 
 // Creator returns a Creator object for the chanchal/zap handler.
 func Creator() infra.Creator {
-	return infra.NewCreator("chanchal/zap", handlerFn, nil)
+	return infra.NewCreator("chanchal/zaphandler", handlerFn, nil,
+		"https://github.com/chanchal1987/zaphandler")
 }
 
 func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
