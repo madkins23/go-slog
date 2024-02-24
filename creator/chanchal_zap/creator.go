@@ -1,4 +1,4 @@
-package chanchal
+package chanchal_zap
 
 import (
 	"io"
@@ -8,7 +8,7 @@ import (
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 
-	"github.com/madkins23/go-slog/creator/zap/utility"
+	"github.com/madkins23/go-slog/creator/util_zap"
 	"github.com/madkins23/go-slog/infra"
 )
 
@@ -30,5 +30,5 @@ func SlogChanchalZapHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Ha
 			zapcore.NewCore(
 				zapcore.NewJSONEncoder(productionCfg),
 				zapcore.AddSync(w),
-				zap.NewAtomicLevelAt(utility.ConvertLevelToZap(level.Level())))))
+				zap.NewAtomicLevelAt(util_zap.ConvertLevelToZap(level.Level())))))
 }

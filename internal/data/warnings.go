@@ -2,7 +2,6 @@ package data
 
 import (
 	"flag"
-	"log/slog"
 	"sort"
 	"strings"
 
@@ -38,13 +37,11 @@ func NewWarningData() *Warnings {
 
 func (w *Warnings) HasTest(test TestTag) bool {
 	_, found := w.byTest[test]
-	slog.Info("HasTest()", "test", test, "found", found)
 	return found
 }
 
 func (w *Warnings) HasHandler(handler HandlerTag) bool {
 	_, found := w.byHandler[handler]
-	slog.Info("HasHandler()", "handler", handler, "found", found)
 	return found
 }
 

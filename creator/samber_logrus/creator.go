@@ -1,4 +1,4 @@
-package samber
+package samber_logrus
 
 import (
 	"io"
@@ -7,7 +7,7 @@ import (
 	slogrus "github.com/samber/slog-logrus/v2"
 	"github.com/sirupsen/logrus"
 
-	"github.com/madkins23/go-slog/creator/logrus/utility"
+	"github.com/madkins23/go-slog/creator/util_logrus"
 	"github.com/madkins23/go-slog/infra"
 )
 
@@ -22,7 +22,7 @@ func SlogSamberLogrusHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.H
 		level = slog.LevelInfo
 	}
 	log := logrus.New()
-	log.SetLevel(utility.ConvertSlogLevel2Logrus(level.Level()))
+	log.SetLevel(util_logrus.ConvertSlogLevel2Logrus(level.Level()))
 	log.SetOutput(w)
 	log.SetFormatter(&logrus.JSONFormatter{})
 	return slogrus.Option{

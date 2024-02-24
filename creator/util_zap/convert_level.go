@@ -1,4 +1,4 @@
-package utility
+package util_zap
 
 import (
 	"log/slog"

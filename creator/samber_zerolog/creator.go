@@ -1,4 +1,4 @@
-package samber
+package samber_zerolog
 
 import (
 	"io"

@@ -1,4 +1,4 @@
-package phsym
+package phsym_zerolog
 
 import (
 	"io"
