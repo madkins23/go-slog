@@ -4,4 +4,6 @@
 // Declarations are kept in separate packages so that they can be reused in
 // other projects without dragging in all the various handlers and logging packages.
 // This applies to the utility packages as well, which are shared by creators.
+//
+// Package names are in snake-case. Mea culpa.
 package creator
