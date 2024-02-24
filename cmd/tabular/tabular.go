@@ -17,7 +17,8 @@ import (
 )
 
 /*
-tabular parses benchmark test output and formats it into simple tables.
+tabular parses benchmark test and verification test output and
+formats it into simple tables and warning listings.
 
 Usage:
 
@@ -25,10 +26,16 @@ Usage:
 
 The flags are:
 
-	-bench=<file>
-	    Load benchmark test output from the specified file.
+	-bench string
+	    Load benchmark data from path (optional)
+	-language value
+	    One or more language tags to be tried, defaults to US English.
+	-useWarnings
+	    Show warning instead of known errors
+	-verify string
+	    Load verification data from path (optional)
 
-See scripts/bench and scripts/tabulate for usage examples.
+See scripts/bench, scripts/verify and scripts/server for usage examples.
 */
 func main() {
 	flag.Parse() // Necessary for -bench=<file> argument defined in infra package.
@@ -45,8 +52,9 @@ func main() {
 	}
 
 	bench := data.NewBenchmarks()
-	if err := bench.ParseBenchmarkData(nil); err != nil {
-		slog.Error("Error parsing -bench data", "err", err)
+	warns := data.NewWarningData()
+	if err := data.Setup(bench, warns); err != nil {
+		slog.Error("Setup error", "err", err)
 		return
 	}
 
@@ -75,8 +83,25 @@ func main() {
 		fmt.Println(tableMgr.BorderString(table.Bottom))
 	}
 
-	if bench.HasWarningText() {
-		fmt.Println(string(bench.WarningText()))
+	for _, tag := range warns.HandlerTags() {
+		fmt.Printf("\nWarnings for %s:\n", warns.HandlerName(tag))
+		levels := warns.ForHandler(tag)
+		for _, level := range levels.Levels() {
+			fmt.Printf("  %s\n", level.Name())
+			for _, warn := range level.Warnings() {
+				fmt.Printf("  %4d [%s] %s\n", len(warn.Instances()), warn.Name(), warn.Summary())
+				for _, instance := range warn.Instances() {
+					line := instance.Name()
+					if extra := instance.Extra(); extra != "" {
+						line += ": " + extra
+					}
+					fmt.Printf("         %s\n", line)
+					if line := instance.Line(); line != "" {
+						fmt.Printf("           %s\n", line)
+					}
+				}
+			}
+		}
 	}
 
 	fmt.Println()

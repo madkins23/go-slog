@@ -1,3 +1,4 @@
 #!/bin/bash
 
-go run cmd/tabular/tabular.go -bench=/tmp/go-slog/bench.txt
+clear
+go run cmd/tabular/tabular.go -bench=/tmp/go-slog/bench.txt -verify=/tmp/go-slog/verify.txt

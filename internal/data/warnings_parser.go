@@ -31,9 +31,14 @@ var (
 // in which case the data will be loaded from the specified path.
 func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[string]HandlerTag) error {
 	var err error
-	if in == nil && *verifyFile != "" {
-		if in, err = os.Open(*verifyFile); err != nil {
-			return fmt.Errorf("open --verify=%s: %s\n", *verifyFile, err)
+	if in == nil {
+		if *verifyFile != "" {
+			if in, err = os.Open(*verifyFile); err != nil {
+				return fmt.Errorf("open --verify=%s: %s\n", *verifyFile, err)
+			}
+		} else {
+			slog.Warn("unable to parse verification data without -verify flag")
+			return nil
 		}
 	}
 	scanner := bufio.NewScanner(in)
@@ -126,7 +131,7 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 		}
 		// Do this before ptnInstance as they can otherwise get confused.
 		if ptnLogLine.Match(line) {
-			instance.log = string(line)
+			instance.line = string(line)
 			// Attempt to pretty-print the log line.
 			var jm map[string]any
 			if json.Unmarshal(line, &jm) == nil {

@@ -250,7 +250,8 @@ func (w *dataWarning) Instances() []*dataInstance {
 type dataInstance struct {
 	name  string
 	extra string
-	log   string
+	line  string // log in one line
+	log   string // log indented
 }
 
 func (di *dataInstance) Name() string {
@@ -265,8 +266,15 @@ func (di *dataInstance) HasLog() bool {
 	return len(strings.Trim(di.log, " ")) > 0
 }
 
+func (di *dataInstance) Line() string {
+	return di.line
+}
+
 func (di *dataInstance) Log() string {
-	return di.log
+	if di.log != "" {
+		return di.log
+	}
+	return di.line
 }
 
 // -----------------------------------------------------------------------------

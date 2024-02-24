@@ -2,7 +2,6 @@
 package main
 
 import (
-	"bytes"
 	_ "embed"
 	"flag"
 	"fmt"
@@ -90,7 +89,7 @@ func main() {
 	slog.SetDefault(logger)
 
 	if err := setup(); err != nil {
-		slog.Error("Error during setup", "err", err)
+		slog.Error("Setup error", "err", err)
 		return
 	}
 
@@ -166,17 +165,8 @@ func setup() error {
 		return fmt.Errorf("language setup: %w", err)
 	}
 
-	if err := bench.ParseBenchmarkData(nil); err != nil {
-		return fmt.Errorf("parse -bench data: %w", err)
-	}
-
-	if err := warns.ParseWarningData(
-		bytes.NewReader(bench.WarningText()), "Bench", bench.HandlerLookup()); err != nil {
-		return fmt.Errorf("parse -bench warnings: %w", err)
-	}
-
-	if err := warns.ParseWarningData(nil, "Verify", bench.HandlerLookup()); err != nil {
-		return fmt.Errorf("parse -verify warnings: %w", err)
+	if err := data.Setup(bench, warns); err != nil {
+		return fmt.Errorf("data setup: %w", err)
 	}
 
 	templates = make(map[pageType]*template.Template)

@@ -1,16 +1,17 @@
 # `server`
 
-The [`server`](../cmd/server/server.go) application consumes the output of
-`go test -bench` and serves several web pages
+The [`server`](../cmd/server/server.go) application consumes the output saved in a temporary directory by
+`scripts/bench` and `scripts/verify` and serves various web pages
 that provide the output as tables and charts.
 
-## Running the Server
+## Running `server`
 
 Usage:
 
 	go run cmd/server/server.go [flags]
 
 The flags are:
+
 	-bench string
 	    Load benchmark data from path (optional)
 	-language value
