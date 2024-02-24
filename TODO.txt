@@ -1,8 +1,13 @@
 TODO
 
-* Move package-specific Readme notes into package doc.go files where possible.
-* Re-check bench warnings for missing methods ?!?
-* Is there a way to avoid crashing when update to slog handlers blow up?
+* Get rid of snake-case?
+  - Utility to scan for snake-case in code.
+  - Utility to scan for snake_case in file names.
+  - Code to split on camel-case.
+* Check for package compilation
+  - Utility to process entries from Go package-linkage whatever
+    in order to create usable tree view.
+* Is there a way to avoid crashing when updates to slog handlers blow up?
   - Currently this is an issue with zerolog 1.32 breaking phsym/zeroslog.
 
 Notes

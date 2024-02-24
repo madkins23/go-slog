@@ -14,11 +14,6 @@ for more detailed documentation.
 [![Go Documentation](https://godocs.io/github.com/madkins23/go-slog?status.svg)](https://godocs.io/github.com/madkins23/go-slog)
 [![Go Reference](https://pkg.go.dev/badge/github.com/madkins23/go-slog.svg)](https://pkg.go.dev/github.com/madkins23/go-slog)
 
-## Table of Contents?
-
-* auto-gen TOC:
-  {:toc}
-
 ## Repository Contents
 
 * [Test harness for benchmarking `slog` handler performance](#handler-benchmarks)
