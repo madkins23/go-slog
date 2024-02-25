@@ -1,18 +1,7 @@
 TODO
 
-* Fix Benchmark Test Name:
-  - Bench<tagName>
-  - <tagName> can be PhsymZerolog
-  - and that's all,
-    all running in same package and nothing else,
-    only half a dozen test names,
-    no need for '_slog_' in test name to fix pattern
-  - no more special case w/slogJson
-  - go back to pulling it from function name
-  - get rid of special handler string when creating suite
-  - fix inserted code in bench/README.md
-* Fix Verification test names in the same fashion?
-* Document Benchmark and Verification test name conventions.
+* Warnings on test page show handler tags, not names
+* Add "Guts" (nee "debug") page to "Other" section on root
 * README.md in internal/data
   - discuss relationship between benchmark handler tag and warnings handler name
     - bench generates output
