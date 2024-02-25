@@ -297,6 +297,8 @@ func chartTest(records data.HandlerRecords, item data.BenchItems) (labels []stri
 			values = append(values, record.ItemValue(item))
 		}
 	}
+	reverse(labels)
+	reverse(values)
 	return
 }
 
@@ -310,6 +312,8 @@ func chartHandler(records data.TestRecords, item data.BenchItems) (labels []stri
 			values = append(values, record.ItemValue(item))
 		}
 	}
+	reverse(labels)
+	reverse(values)
 	return
 }
 
@@ -367,6 +371,17 @@ func pageFunction(page pageType) gin.HandlerFunc {
 				"ErrorTitle":   "Template failed execution",
 				"ErrorMessage": err.Error()})
 		}
+	}
+}
+
+// reverse an array.
+func reverse[T any](array []T) {
+	i := 0
+	j := len(array) - 1
+	for i < j {
+		array[i], array[j] = array[j], array[i]
+		i++
+		j--
 	}
 }
 
