@@ -1,4 +1,3 @@
-
 # Benchmarking `log/slog` Handlers
 
 The `bench` package provides various `log/slog` (henceforth just `slog`) handler benchmark suites.

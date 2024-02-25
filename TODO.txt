@@ -1,19 +1,6 @@
 TODO
 
-* Add "Guts" (nee "debug") page to "Other" section on root
 * Warnings on test page show handler tags, not names
-* README.md in internal/data
-  - discuss relationship between benchmark handler tag and warnings handler name
-    - bench generates output
-      - relationship for each handler tag name = handler name
-        # Handler[SamberLogrus]="samber/slog-logrus"
-      - <test function name>/<benchmark test name> <benchmark data>
-      - some warnings
-    - verification tests generate warnings
-    - bench data parser consumes bench output
-    - warning parser gets handler tag name = handler name output from bench parser
-    - warning parser consumes verification test output
-    - warning parser consumes benchmark warnings
 * Check for package compilation
   - Utility to process entries from Go package-linkage whatever
     in order to create usable tree view.
