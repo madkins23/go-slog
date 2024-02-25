@@ -32,25 +32,24 @@ runs the test suite on `slog.JSONHandler`:
 package bench
 
 import (
-	"testing"
+    "testing"
 
-	"github.com/madkins23/go-slog/bench/tests"
-	"github.com/madkins23/go-slog/creator/slog_json"
+    "github.com/madkins23/go-slog/bench/tests"
+    "github.com/madkins23/go-slog/creator/slogjson"
 )
 
-// Benchmark_slog runs benchmarks for the log/slog JSON handler.
-func Benchmark_slog(b *testing.B) {
-	slogSuite := tests.NewSlogBenchmarkSuite(slog_json.SlogJson())
-	tests.Run(b, slogSuite)
+// BenchmarkSlogJSON runs benchmarks for the log/slog JSON handler.
+func BenchmarkSlogJSON(b *testing.B) {
+    slogSuite := tests.NewSlogBenchmarkSuite(slogjson.Creator(), "SlogJSON")
+    tests.Run(b, slogSuite)
 }
-
 ```
 
 The file itself must have the `_test.go` suffix and
-contain a function with a name beginning with `Benchmark` in order to be executed as a benchmark.
-In this instance `slog_test.go` contains function `Benchmark_slog`.
+contain a function with a name of the pattern `Benchmark<tag_name>`
+where `<tag_name>` will likely be something like `PhsymZerolog` or `SlogJSON`.
 
-The first line in `Benchmark_slog` creates a new test suite.
+The first line in `BenchmarkSlogJSON` creates a new test suite.
 The argument to the `NewSlogBenchmarkSuite` function is an [`infra.Creator`](../infra/creator.go) object,
 which is responsible for creating new `slog.Logger`
 (and optionally `slog.Handler`) objects for benchmarks.

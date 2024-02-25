@@ -7,8 +7,8 @@ import (
 	"github.com/madkins23/go-slog/creator/slogjson"
 )
 
-// Benchmark_slog_json runs benchmarks for the log/slog JSON handler.
-func Benchmark_slog_json(b *testing.B) {
-	slogSuite := tests.NewSlogBenchmarkSuite(slogjson.Creator(), "slog_json")
+// BenchmarkSlogJSON runs benchmarks for the log/slog JSON handler.
+func BenchmarkSlogJSON(b *testing.B) {
+	slogSuite := tests.NewSlogBenchmarkSuite(slogjson.Creator(), "SlogJSON")
 	tests.Run(b, slogSuite)
 }

@@ -7,8 +7,8 @@ import (
 	"github.com/madkins23/go-slog/creator/chanchalzap"
 )
 
-// Benchmark_slog_chanchal_zap runs benchmarks for the chanchal/zap handler.
-func Benchmark_slog_chanchal_zap(b *testing.B) {
-	slogSuite := tests.NewSlogBenchmarkSuite(chanchalzap.Creator(), "chanchal_zap")
+// BenchmarkChanchalZap runs benchmarks for the chanchal/zap handler.
+func BenchmarkChanchalZap(b *testing.B) {
+	slogSuite := tests.NewSlogBenchmarkSuite(chanchalzap.Creator(), "ChanchalZap")
 	tests.Run(b, slogSuite)
 }

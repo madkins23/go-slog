@@ -7,8 +7,8 @@ import (
 	"github.com/madkins23/go-slog/creator/samberzerolog"
 )
 
-// Benchmark_slog_samber_zerolog runs benchmarks for the samber/slog-zerolog handler.
-func Benchmark_slog_samber_zerolog(b *testing.B) {
-	slogSuite := tests.NewSlogBenchmarkSuite(samberzerolog.Creator(), "samber_zerolog")
+// BenchmarkSamberZerolog runs benchmarks for the samber/slog-zerolog handler.
+func BenchmarkSamberZerolog(b *testing.B) {
+	slogSuite := tests.NewSlogBenchmarkSuite(samberzerolog.Creator(), "SamberZerolog")
 	tests.Run(b, slogSuite)
 }

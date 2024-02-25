@@ -7,8 +7,8 @@ import (
 	"github.com/madkins23/go-slog/creator/samberlogrus"
 )
 
-// Benchmark_slog_samber_logrus runs benchmarks for the samber/slog-logrus handler.
-func Benchmark_slog_samber_logrus(b *testing.B) {
-	slogSuite := tests.NewSlogBenchmarkSuite(samberlogrus.Creator(), "samber_logrus")
+// BenchmarkSamberLogrus runs benchmarks for the samber/slog-logrus handler.
+func BenchmarkSamberLogrus(b *testing.B) {
+	slogSuite := tests.NewSlogBenchmarkSuite(samberlogrus.Creator(), "SamberLogrus")
 	tests.Run(b, slogSuite)
 }
