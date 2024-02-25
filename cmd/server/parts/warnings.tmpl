@@ -18,8 +18,8 @@
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
-                      <col width="30%"/>
-                      <col width="50%"/>
+                      <col width="35%"/>
+                      <col width="45%"/>
                       <col width="7%"/>
                     </colgroup>
                     {{ range $index, $instance := $warning.Instances }}
@@ -29,7 +29,12 @@
                         {{ $color = "lightgray" }}
                       {{ end }}
                       <tr>
-                        <td colspan=2 class="name" style="background-color:{{ $color }};">{{  $instance.Name  }}</td>
+                        <td colspan=2 class="name" style="background-color:{{ $color }};">
+                          {{ if $instance.HasSource }}
+                            {{ $instance.Source }}:
+                          {{ end }}
+                          {{  $instance.Name  }}
+                        </td>
                         <td class="extra" style="background-color:{{ $color }};">{{  $instance.Extra  }}</td>
                         <td class="logLink" style="background-color:{{ $color }};">
                           {{ if $instance.HasLog }}

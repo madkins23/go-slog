@@ -92,6 +92,9 @@ func main() {
 				fmt.Printf("  %4d [%s] %s\n", len(warn.Instances()), warn.Name(), warn.Summary())
 				for _, instance := range warn.Instances() {
 					line := instance.Name()
+					if instance.HasSource() {
+						line = instance.Source() + ": " + line
+					}
 					if extra := instance.Extra(); extra != "" {
 						line += ": " + extra
 					}

@@ -45,15 +45,15 @@ func (suite *ParserTestSuite) TestData_Parse_Bench_phsym_zerolog() {
 	suite.Assert().Len(warning.instances, 1)
 	instance := warning.instances[0]
 	suite.Assert().NotNil(instance)
-	suite.Assert().Equal("SimpleSource", instance.name)
+	suite.Assert().Equal("Simple Source", instance.name)
 	suite.Assert().Equal("no 'source' key", instance.extra)
 	suite.Assert().Contains(instance.log, "{")
 }
 
 func (suite *ParserTestSuite) TestData_Parse_Verify_phsym_zerolog() {
 	var expectedTestNames = []string{
-		"AttributeWithEmpty",
-		"AttributesEmpty",
+		"Attribute With Empty",
+		"Attributes Empty",
 	}
 	levels := suite.verify.ForHandler(HandlerTag("phsym/zeroslog"))
 	suite.Assert().NotNil(levels)
@@ -88,7 +88,7 @@ func (suite *ParserTestSuite) TestData_Parse_Verify_samber_slog_zap() {
 	suite.Assert().Len(warning.Instances(), 1)
 	instance := warning.instances[0]
 	suite.Assert().NotNil(instance)
-	suite.Assert().Equal("ZeroPC", instance.name)
+	suite.Assert().Equal("Zero PC", instance.name)
 	suite.Assert().Equal("non-standard key 'caller'", instance.extra)
 	suite.Assert().Contains(instance.log, "{")
 }

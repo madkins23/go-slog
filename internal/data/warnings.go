@@ -245,26 +245,23 @@ func (w *dataWarning) Instances() []*dataInstance {
 // -----------------------------------------------------------------------------
 
 type dataInstance struct {
-	name  string
-	extra string
-	line  string // log in one line
-	log   string // log indented
-}
-
-func (di *dataInstance) Name() string {
-	return di.name
+	source string
+	name   string
+	extra  string
+	line   string // log in one line
+	log    string // log indented
 }
 
 func (di *dataInstance) Extra() string {
 	return di.extra
 }
 
-func (di *dataInstance) HasLog() bool {
-	return len(strings.Trim(di.log, " ")) > 0
-}
-
 func (di *dataInstance) Line() string {
 	return di.line
+}
+
+func (di *dataInstance) HasLog() bool {
+	return len(strings.Trim(di.log, " ")) > 0
 }
 
 func (di *dataInstance) Log() string {
@@ -272,6 +269,18 @@ func (di *dataInstance) Log() string {
 		return di.log
 	}
 	return di.line
+}
+
+func (di *dataInstance) Name() string {
+	return di.name
+}
+
+func (di *dataInstance) HasSource() bool {
+	return len(strings.Trim(di.source, " ")) > 0
+}
+
+func (di *dataInstance) Source() string {
+	return di.source
 }
 
 // -----------------------------------------------------------------------------

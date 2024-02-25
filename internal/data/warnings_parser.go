@@ -44,6 +44,7 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 	scanner := bufio.NewScanner(in)
 
 	var handler HandlerTag
+	var test TestTag
 	var level warning.Level
 	var dWarning *dataWarning
 	var instance *dataInstance
@@ -53,11 +54,11 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 				slog.Warn("Nil dataWarning", "line", line, "instance", instance)
 			} else {
 				dWarning.AddInstance(instance)
-				tWarning := w.findTest(TestTag(instance.name), level, dWarning.warning.name)
+				tWarning := w.findTest(test, level, dWarning.warning.name)
 				tWarning.warning.summary = dWarning.warning.summary
 				tWarning.AddInstance(
 					&dataInstance{
-						name:  string(handler),
+						name:  handler.Name(),
 						extra: instance.extra,
 						log:   instance.log,
 					})
@@ -143,18 +144,15 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 		}
 		if matches := ptnInstance.FindSubmatch(line); len(matches) == 3 {
 			saveInstance(line)
-			instance = &dataInstance{
-				extra: string(matches[2]),
-			}
-			instance.name = string(matches[1])
+			testTagStr := string(matches[1])
 			for {
 				changed := false
 				for _, src := range []string{
 					"Benchmark_", "Benchmark",
 					"Test_", "Test",
 				} {
-					if strings.HasPrefix(instance.name, src) {
-						instance.name = strings.TrimPrefix(instance.name, src)
+					if strings.HasPrefix(testTagStr, src) {
+						testTagStr = strings.TrimPrefix(testTagStr, src)
 						changed = true
 					}
 				}
@@ -162,14 +160,17 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 					break
 				}
 			}
-			baseTag := TestTag(instance.name)
-			testTag := baseTag
-			if source != "" {
-				instance.name = source + ":" + string(baseTag)
-				testTag = TestTag(instance.name)
+			instance = &dataInstance{
+				source: source,
+				name:   TestTag(testTagStr).Name(),
+				extra:  string(matches[2]),
 			}
-			if _, found := w.testNames[testTag]; !found {
-				w.testNames[testTag] = baseTag.Name()
+			if source != "" {
+				testTagStr = source + ":" + testTagStr
+			}
+			test = TestTag(testTagStr)
+			if _, found := w.testNames[test]; !found {
+				w.testNames[test] = instance.name
 			}
 			continue
 		}
