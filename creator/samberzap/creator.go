@@ -12,9 +12,13 @@ import (
 	"github.com/madkins23/go-slog/infra"
 )
 
-// Creator returns a Creator object for the samber/slog-zap.
+// Creator returns a Creator object for the [samber/slog-zap] handler
+// that wraps the [uber-go/zap] logger.
+//
+// [samber/slog-zap]: https://pkg.go.dev/github.com/samber/slog-zap
+// [uber-go/zap]: https://pkg.go.dev/go.uber.org/zap
 func Creator() infra.Creator {
-	return infra.NewCreator("samber/slog-zap", handlerFn, nil, "https://github.com/samber/slog-zap")
+	return infra.NewCreator("samber/slog-zap", handlerFn, nil)
 }
 
 func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {

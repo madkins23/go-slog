@@ -18,11 +18,10 @@ type Creator struct {
 	name      string
 	handlerFn CreateHandlerFn
 	loggerFn  CreateLoggerFn
-	docURL    string
 }
 
 // NewCreator returns a new Creator object for the specified name and CreateLoggerFn.
-func NewCreator(name string, handlerFn CreateHandlerFn, loggerFn CreateLoggerFn, docURL string) Creator {
+func NewCreator(name string, handlerFn CreateHandlerFn, loggerFn CreateLoggerFn) Creator {
 	if handlerFn == nil && loggerFn == nil {
 		slog.Error("Creator must have either handlerFn or loggerFn")
 		os.Exit(1)
@@ -31,7 +30,6 @@ func NewCreator(name string, handlerFn CreateHandlerFn, loggerFn CreateLoggerFn,
 		name:      name,
 		handlerFn: handlerFn,
 		loggerFn:  loggerFn,
-		docURL:    docURL,
 	}
 }
 
@@ -63,9 +61,4 @@ func (c *Creator) CanMakeHandler() bool {
 // Name returns the name of the slog package.
 func (c *Creator) Name() string {
 	return c.name
-}
-
-// DocURL returns the documentation URL of the slog package.
-func (c *Creator) DocURL() string {
-	return c.docURL
 }

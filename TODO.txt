@@ -1,12 +1,5 @@
 TODO
 
-* Remove handler URL field from Creator and move data into comments
-  * Create comments with links for each Creator:
-    // ... [Handler] ... [Logger] ...
-    // [Handler]: URL (taken from current Creator argument)
-    // [Logger]:  URL
-  * Remove Creator argument
-  * Remove DocURL from Creator
 * More complex logging cases
 * Check for package compilation
   - Utility to process entries from Go package-linkage whatever
