@@ -54,8 +54,7 @@ and _may_ have:
 For example:
 
 ```Go
-//goland:noinspection GoSnakeCaseUsage
-func (suite *SlogBenchmarkSuite) Benchmark_Simple() *Benchmark {
+func (suite *SlogBenchmarkSuite) BenchmarkSimple() *Benchmark {
     return &Benchmark{
         Options: infra.SimpleOptions(),
         BenchmarkFn: func(logger *slog.Logger) {

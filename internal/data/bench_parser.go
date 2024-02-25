@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"io"
+	"log/slog"
 	"os"
 	"regexp"
 	"strconv"
@@ -13,7 +14,7 @@ import (
 var (
 	ptnHandlerDef = regexp.MustCompile(`^#\s*Handler\[(\S+)\]\s*=\s*"(\S+)"\s*$`)
 	ptnWarnLine   = regexp.MustCompile(`^# (.*)`)
-	ptnDataLine   = regexp.MustCompile(`^([^/]+)/(Benchmark_[^-]+)-(\d+)\s+(\d+)\s+(\d+(?:\.\d+)?)\s+ns/op\b`)
+	ptnDataLine   = regexp.MustCompile(`^([^/]+)/(Benchmark[^-]+)-(\d+)\s+(\d+)\s+(\d+(?:\.\d+)?)\s+ns/op\b`)
 	ptnAllocsOp   = regexp.MustCompile(`\s(\d+)\s+allocs/op\b`)
 	ptnBytesOp    = regexp.MustCompile(`\s(\d+)\s+B/op\b`)
 	ptnMbSec      = regexp.MustCompile(`\s(\d+(?:\.\d+)?)\s+MB/s`)
@@ -86,9 +87,13 @@ func (b *Benchmarks) ParseBenchmarkData(in io.Reader) error {
 		}
 
 		if ok {
-			tagName := strings.TrimPrefix(string(testBytes), "Benchmark_")
+			tagName := strings.TrimPrefix(string(testBytes), "Benchmark")
+			if strings.HasPrefix(tagName, "_") {
+				slog.Warn("Still trimming prefix underscores", "tagName", tagName)
+				tagName = strings.TrimLeft(tagName, "_")
+			}
 			test := TestTag("Bench:" + tagName)
-			b.testNames[test] = strings.Replace(tagName, "_", " ", -1)
+			b.testNames[test] = test.Name()
 
 			handler := FixBenchHandlerTag(hdlrBytes)
 			if _, found := b.handlerNames[handler]; !found {

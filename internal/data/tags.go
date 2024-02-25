@@ -12,17 +12,27 @@ import (
 // The type is an alias for string so that types can't be confused.
 type TestTag string
 
+var testTagNames = make(map[TestTag]string)
+
 func (tt TestTag) Name() string {
-	var builder strings.Builder
-	for _, part1 := range strings.Split(string(tt), "_") {
-		for _, part2 := range camelcase.Split(part1) {
+	name, found := testTagNames[tt]
+	if !found {
+		var builder strings.Builder
+		tagString := string(tt)
+		if parts := strings.Split(string(tt), ":"); len(parts) == 2 {
+			tagString = parts[1]
+		}
+		for _, part := range camelcase.Split(tagString) {
 			if builder.Len() > 0 {
 				builder.WriteString(" ")
 			}
-			builder.WriteString(strings.ToUpper(part2[:1]) + strings.ToLower(part2[1:]))
+			builder.WriteString(part)
 		}
+		name = builder.String()
+		testTagNames[tt] = name
 	}
-	return builder.String()
+	return name
+
 }
 
 // -----------------------------------------------------------------------------
@@ -31,17 +41,23 @@ func (tt TestTag) Name() string {
 // The type is an alias for string so that types can't be confused.
 type HandlerTag string
 
+var handlerTagNames = make(map[HandlerTag]string)
+
 func (ht HandlerTag) Name() string {
-	var builder strings.Builder
-	for _, part1 := range strings.Split(string(ht), "_") {
-		for _, part2 := range camelcase.Split(part1) {
+	name, found := handlerTagNames[ht]
+	if !found {
+		var builder strings.Builder
+		tagString := string(ht)
+		for _, part := range camelcase.Split(tagString) {
 			if builder.Len() > 0 {
 				builder.WriteString(" ")
 			}
-			builder.WriteString(strings.ToUpper(part2[:1]) + strings.ToUpper(part2[1:]))
+			builder.WriteString(part)
 		}
+		name = builder.String()
+		handlerTagNames[ht] = name
 	}
-	return builder.String()
+	return name
 }
 
 func FixBenchHandlerTag(hdlrBytes []byte) HandlerTag {
