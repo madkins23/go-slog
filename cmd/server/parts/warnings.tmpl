@@ -38,7 +38,7 @@
                         <td class="extra" style="background-color:{{ $color }};">{{  $instance.Extra  }}</td>
                         <td class="logLink" style="background-color:{{ $color }};">
                           {{ if $instance.HasLog }}
-                            <button type="button" onclick="toggleTableRow('{{ $id }}')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('{{ $id }}')">Log</button>
                           {{ end }}
                         </td>
                       </tr>

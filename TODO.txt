@@ -1,5 +1,10 @@
 TODO
 
+* Shouldn't the warnings package really be in internal?
+* More complex logging cases
+* Use handler URL field for something
+  * DocURL is on Creator, so it's only accessible during benchmark testing
+  * Add hover text
 * Check for package compilation
   - Utility to process entries from Go package-linkage whatever
     in order to create usable tree view.
