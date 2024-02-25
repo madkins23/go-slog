@@ -14,6 +14,7 @@ import (
 
 	"github.com/madkins23/go-slog/infra"
 	"github.com/madkins23/go-slog/internal/data"
+	"github.com/madkins23/go-slog/internal/misc"
 	"github.com/madkins23/go-slog/internal/test"
 	"github.com/madkins23/go-slog/warning"
 )
@@ -25,9 +26,8 @@ type SlogBenchmarkSuite struct {
 	infra.Creator
 	*warning.Manager
 
-	b       *testing.B
-	mu      sync.RWMutex
-	handler data.HandlerTag
+	b  *testing.B
+	mu sync.RWMutex
 }
 
 // NewSlogBenchmarkSuite creates a new benchmark test suite for the specified Creator.
@@ -36,11 +36,10 @@ type SlogBenchmarkSuite struct {
 //   - the string that will be matched from benchmark test output data,
 //   - the string that will be conveyed to the parser to match against warning data, and
 //   - the string that will be used as a tag for displaying server pages.
-func NewSlogBenchmarkSuite(creator infra.Creator, handler data.HandlerTag) *SlogBenchmarkSuite {
+func NewSlogBenchmarkSuite(creator infra.Creator) *SlogBenchmarkSuite {
 	suite := &SlogBenchmarkSuite{
 		Creator: creator,
 		Manager: NewWarningManager(creator.Name()),
-		handler: handler,
 	}
 	suite.WarnOnly(warning.NoHandlerCreation)
 	return suite
@@ -87,7 +86,9 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 	// This way the handler name field is populated by the Creator name string.
 	// The data will be parsed by internal/data.Benchmarks.ParseBenchmarkData() and
 	// passed into Warnings.ParseWarningData().
-	fmt.Printf("# Handler[%s]=\"%s\"\n", suite.handler, suite.Creator.Name())
+	functionName := misc.CurrentFunctionName(benchmarkMethodPrefix)
+	handler := data.HandlerTag(strings.TrimPrefix(functionName, benchmarkMethodPrefix))
+	fmt.Printf("# Handler[%s]=\"%s\"\n", handler, suite.Creator.Name())
 
 	stdoutLogger := suite.NewLogger(os.Stdout, infra.SimpleOptions())
 	suite.SetB(b)

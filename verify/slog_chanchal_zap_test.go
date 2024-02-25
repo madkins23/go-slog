@@ -10,8 +10,8 @@ import (
 	"github.com/madkins23/go-slog/warning"
 )
 
-// Test_slog_samber_zap runs tests for the samber zerolog handler.
-func Test_slog_chanchal_zap(t *testing.T) {
+// TestVerifyChanchalZap runs tests for the chanchal/zaphandler handler.
+func TestVerifyChanchalZap(t *testing.T) {
 	sLogSuite := tests.NewSlogTestSuite(chanchalzap.Creator())
 	sLogSuite.WarnOnly(warning.CanceledContext)
 	sLogSuite.WarnOnly(warning.Duplicates)

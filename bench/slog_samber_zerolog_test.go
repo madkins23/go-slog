@@ -9,6 +9,6 @@ import (
 
 // BenchmarkSamberZerolog runs benchmarks for the samber/slog-zerolog handler.
 func BenchmarkSamberZerolog(b *testing.B) {
-	slogSuite := tests.NewSlogBenchmarkSuite(samberzerolog.Creator(), "SamberZerolog")
+	slogSuite := tests.NewSlogBenchmarkSuite(samberzerolog.Creator())
 	tests.Run(b, slogSuite)
 }

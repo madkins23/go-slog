@@ -9,6 +9,6 @@ import (
 
 // BenchmarkPhsymZerolog runs benchmarks for the phsym/zeroslog handler.
 func BenchmarkPhsymZerolog(b *testing.B) {
-	slogSuite := tests.NewSlogBenchmarkSuite(phsymzerolog.Creator(), "PhsymZerolog")
+	slogSuite := tests.NewSlogBenchmarkSuite(phsymzerolog.Creator())
 	tests.Run(b, slogSuite)
 }

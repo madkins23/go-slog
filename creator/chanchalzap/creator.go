@@ -12,7 +12,7 @@ import (
 	"github.com/madkins23/go-slog/infra"
 )
 
-// Creator returns a Creator object for the chanchal/zap handler.
+// Creator returns a Creator object for the chanchal/zaphandler handler.
 func Creator() infra.Creator {
 	return infra.NewCreator("chanchal/zaphandler", handlerFn, nil, "https://github.com/chanchal1987/zaphandler")
 }

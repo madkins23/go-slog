@@ -128,19 +128,19 @@ When running benchmarks the warning data from supporting tests is specified at t
 # Warnings for chanchal/ZapHandler:
 #   Implied
 #      1 [SourceKey] Source data not logged when AddSource flag set
-#          Simple_Source: no source key
+#          SimpleSource: no source key
 #            {"level":"info","time":"2024-02-21T12:21:40-08:00","msg":"This is a message"}
 #
 # Warnings for phsym/zeroslog:
 #   Implied
 #      1 [SourceKey] Source data not logged when AddSource flag set
-#          Simple_Source: no source key
+#          SimpleSource: no source key
 #            {"level":"info","caller":"/home/marc/work/go/src/github.com/madkins23/go-slog/bench/tests/benchmarks.go:70","time":"2024-02-21T12:21:58-08:00","message":"This is a message"}
 #
 # Warnings for samber/slog-zap:
 #   Implied
 #      1 [SourceKey] Source data not logged when AddSource flag set
-#          Simple_Source: no source key
+#          SimpleSource: no source key
 #            {"level":"info","time":"2024-02-21T12:22:33-08:00","caller":"tests/benchmarks.go:70","msg":"This is a message"}
 #
 #  Handlers by warning:

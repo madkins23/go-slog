@@ -1,7 +1,7 @@
 package warning
 
 var (
-	CanceledContext = NewWarning(LevelImplied, "Canceled Context", "Canceled context blocks logging", `
+	CanceledContext = NewWarning(LevelImplied, "CanceledContext", "Canceled context blocks logging", `
 		["The context is provided to support applications that provide logging information along the call chain. In a break with usual Go practice,
 		the Handle method should not treat a canceled context as a signal to stop work."](https://github.com/golang/example/tree/master/slog-handler-guide#the-handle-method)`)
 

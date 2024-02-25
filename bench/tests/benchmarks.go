@@ -71,8 +71,8 @@ func (suite *SlogBenchmarkSuite) BenchmarkSimpleSource() *Benchmark {
 			logger.Info(message)
 		},
 		VerifyFn: verify(
-			finder("Simple_Source", expectedBasic()),
-			sourcerer("Simple_Source")),
+			finder("SimpleSource", expectedBasic()),
+			sourcerer("SimpleSource")),
 	}
 }
 
@@ -101,9 +101,9 @@ func (suite *SlogBenchmarkSuite) BenchmarkKeyValues() *Benchmark {
 			logger.Info(message, allKeyValues...)
 		},
 		VerifyFn: verify(
-			finder("Key_Values", expectedBasic()),
-			finder("Key_Values", allValuesMap()),
-			noDuplicates("Key_Values"),
+			finder("KeyValues", expectedBasic()),
+			finder("KeyValues", allValuesMap()),
+			noDuplicates("KeyValues"),
 		),
 	}
 }
@@ -120,9 +120,9 @@ func (suite *SlogBenchmarkSuite) BenchmarkWithAttrsSimple() *Benchmark {
 		},
 		HandlerFn: withAllAttributes,
 		VerifyFn: verify(
-			finder("With_Attrs_Simple:Basic", expectedBasic()),
-			finder("With_Attrs_Simple:With", withValuesMap()),
-			noDuplicates("With_Attrs_Simple"),
+			finder("WithAttrsSimple:Basic", expectedBasic()),
+			finder("WithAttrsSimple:With", withValuesMap()),
+			noDuplicates("WithAttrsSimple"),
 		),
 	}
 }
@@ -137,10 +137,10 @@ func (suite *SlogBenchmarkSuite) BenchmarkWithAttrsAttributes() *Benchmark {
 		},
 		HandlerFn: withAllAttributes,
 		VerifyFn: verify(
-			finder("With_Attrs_Attributes:Basic", expectedBasic()),
-			finder("With_Attrs_Attributes:All", allValuesMap()),
-			finder("With_Attrs_Attributes:With", withValuesMap()),
-			noDuplicates("With_Attrs_Attributes"),
+			finder("WithAttrsAttributes:Basic", expectedBasic()),
+			finder("WithAttrsAttributes:All", allValuesMap()),
+			finder("WithAttrsAttributes:With", withValuesMap()),
+			noDuplicates("WithAttrsAttributes"),
 		),
 	}
 }
@@ -155,10 +155,10 @@ func (suite *SlogBenchmarkSuite) BenchmarkWithAttrsKeyValues() *Benchmark {
 		},
 		HandlerFn: withAllAttributes,
 		VerifyFn: verify(
-			finder("With_Attrs_Key_Values:Basic", expectedBasic()),
-			finder("With_Attrs_Key_Values:All", allValuesMap()),
-			finder("With_Attrs_Key_Values:With", withValuesMap()),
-			noDuplicates("With_Attrs_Key_Values"),
+			finder("WithAttrsKeyValues:Basic", expectedBasic()),
+			finder("WithAttrsKeyValues:All", allValuesMap()),
+			finder("WithAttrsKeyValues:With", withValuesMap()),
+			noDuplicates("WithAttrsKeyValues"),
 		),
 	}
 }
@@ -175,8 +175,8 @@ func (suite *SlogBenchmarkSuite) BenchmarkWithGroupAttributes() *Benchmark {
 		},
 		HandlerFn: withGroup,
 		VerifyFn: verify(
-			finder("With_Group_Attributes:Basic", expectedBasic()),
-			finder("With_Group_Attributes:All", map[string]any{
+			finder("WithGroupAttributes:Basic", expectedBasic()),
+			finder("WithGroupAttributes:All", map[string]any{
 				"withGroup": allValuesMap(),
 			}),
 			noDuplicates("With_Group_Attributes"),
@@ -194,11 +194,11 @@ func (suite *SlogBenchmarkSuite) BenchmarkWithGroupKeyValues() *Benchmark {
 		},
 		HandlerFn: withGroup,
 		VerifyFn: verify(
-			finder("With_Group_Key_Values:Basic", expectedBasic()),
-			finder("With_Group_Key_Values:All", map[string]any{
+			finder("WithGroupKeyValues:Basic", expectedBasic()),
+			finder("WithGroupKeyValues:All", map[string]any{
 				"withGroup": allValuesMap(),
 			}),
-			noDuplicates("With_Group_Key_Values"),
+			noDuplicates("WithGroupKeyValues"),
 		),
 	}
 }
@@ -214,7 +214,7 @@ func (suite *SlogBenchmarkSuite) BenchmarkBigGroup() *Benchmark {
 			bg := BigGroup()
 			logger.Info(message, bg)
 		},
-		VerifyFn: bigGroupChecker("Big_Group"),
+		VerifyFn: bigGroupChecker("BigGroup"),
 	}
 }
 

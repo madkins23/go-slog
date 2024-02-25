@@ -151,7 +151,6 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 				changed := false
 				for _, src := range []string{
 					"Benchmark_", "Benchmark",
-					"Bench_", "Bench",
 					"Test_", "Test",
 				} {
 					if strings.HasPrefix(instance.name, src) {

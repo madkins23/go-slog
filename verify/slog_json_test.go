@@ -10,8 +10,8 @@ import (
 	"github.com/madkins23/go-slog/warning"
 )
 
-// Test_slog runs tests for the log/slog JSON handler.
-func Test_slog_json(t *testing.T) {
+// TestVerifySlogJSON runs tests for the slog/JSONHandler JSON handler.
+func TestVerifySlogJSON(t *testing.T) {
 	slogSuite := tests.NewSlogTestSuite(slogjson.Creator())
 	slogSuite.WarnOnly(warning.Duplicates)
 	suite.Run(t, slogSuite)

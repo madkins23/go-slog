@@ -10,7 +10,7 @@ import (
 	"github.com/madkins23/go-slog/infra"
 )
 
-// Creator returns a Creator object for the samber/zerolog handler.
+// Creator returns a Creator object for the samber/slog-zerolog handler.
 func Creator() infra.Creator {
 	return infra.NewCreator("samber/slog-zerolog", handlerFn, nil, "https://github.com/samber/slog-zerolog")
 }

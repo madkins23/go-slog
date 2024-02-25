@@ -4,4 +4,4 @@
 # The verification tests require the -useWarnings flag which blows up other tests.
 
 clear
-go test -skip=Test_slog -v ./... "$@"
+go test -skip=TestVerify -v ./... "$@"

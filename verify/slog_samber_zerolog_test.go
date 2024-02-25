@@ -10,8 +10,8 @@ import (
 	"github.com/madkins23/go-slog/warning"
 )
 
-// Test_slog_samber_zerolog runs tests for the samber zerolog handler.
-func Test_slog_samber_zerolog(t *testing.T) {
+// TestVerifySamberZerolog runs tests for the samber/slog-zerolog handler.
+func TestVerifySamberZerolog(t *testing.T) {
 	sLogSuite := tests.NewSlogTestSuite(samberzerolog.Creator())
 	sLogSuite.WarnOnly(warning.DefaultLevel)
 	sLogSuite.WarnOnly(warning.DurationMillis)

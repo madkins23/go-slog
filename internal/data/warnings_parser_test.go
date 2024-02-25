@@ -31,33 +31,6 @@ func TestParserTestSuite(t *testing.T) {
 	suite.Run(t, new(ParserTestSuite))
 }
 
-func (suite *ParserTestSuite) TestData_Parse_Bench_darvaza_zerolog() {
-	var expectedTestNames = []string{
-		"With_Attrs_Attributes",
-		"With_Attrs_Key_Values",
-		"With_Attrs_Simple",
-		"With_Group_Attributes",
-		"With_Group_Key_Values",
-	}
-	levels := suite.bench.ForHandler(HandlerTag("darvaza/zerolog"))
-	suite.Assert().NotNil(levels)
-	suite.Assert().Len(levels.Levels(), 1)
-	admin, found := levels.lookup["Administrative"]
-	suite.Assert().True(found)
-	suite.Assert().NotNil(admin)
-	suite.Assert().Len(admin.Warnings(), 1)
-	warning, found := admin.lookup["NoHandlerCreation"]
-	suite.Assert().True(found)
-	suite.Assert().NotNil(warning)
-	suite.Require().Len(warning.Instances(), 5)
-	for i, instance := range warning.Instances() {
-		suite.Assert().NotNil(instance)
-		suite.Assert().Equal(expectedTestNames[i], instance.name)
-		suite.Assert().Equal("", instance.extra)
-		suite.Assert().Equal("", instance.log)
-	}
-}
-
 func (suite *ParserTestSuite) TestData_Parse_Bench_phsym_zerolog() {
 	levels := suite.bench.ForHandler(HandlerTag("phsym/zeroslog"))
 	suite.Assert().NotNil(levels)
@@ -72,8 +45,8 @@ func (suite *ParserTestSuite) TestData_Parse_Bench_phsym_zerolog() {
 	suite.Assert().Len(warning.instances, 1)
 	instance := warning.instances[0]
 	suite.Assert().NotNil(instance)
-	suite.Assert().Equal("slog_phsym_zerolog", instance.name)
-	suite.Assert().Equal("Simple_Source: no 'source' key", instance.extra)
+	suite.Assert().Equal("SimpleSource", instance.name)
+	suite.Assert().Equal("no 'source' key", instance.extra)
 	suite.Assert().Contains(instance.log, "{")
 }
 
@@ -88,7 +61,7 @@ func (suite *ParserTestSuite) TestData_Parse_Verify_phsym_zerolog() {
 	required, found := levels.lookup["Required"]
 	suite.Assert().True(found)
 	suite.Assert().NotNil(required)
-	suite.Assert().Len(required.Warnings(), 3)
+	suite.Assert().Len(required.Warnings(), 4)
 	warning, found := required.lookup["EmptyAttributes"]
 	suite.Assert().True(found)
 	suite.Assert().NotNil(warning)

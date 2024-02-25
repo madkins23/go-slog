@@ -11,7 +11,7 @@ import (
 	"github.com/madkins23/go-slog/infra"
 )
 
-// Creator returns a Creator object for the samber/logrus handler.
+// Creator returns a Creator object for the samber/slog-logrus handler.
 func Creator() infra.Creator {
 	return infra.NewCreator("samber/slog-logrus", handlerFn, nil, "https://github.com/samber/slog-logrus")
 }
