@@ -1,0 +1,1240 @@
+<html>
+<head>
+  <title>Benchmark Data</title>
+  <link rel="stylesheet" href="/go-slog/style.css">
+  <script>
+    function toggleTableRow(id) {
+        var elem = document.getElementById(id);
+        elem.style.display = elem.style.display == "none" ? "table-row" : "none";
+    }
+  </script>
+</head>
+
+<body>
+<table class="top">
+  <tr>
+    <td>
+      <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+      <h2 class="home">Handler <span class="fixed">samber/slog-zap</span></h2>
+    </td>
+    <td align="right">
+              <script>
+          function testChoice(form) {
+            window.location.href = "/go-slog/test/" + form.tag.value + ".html";
+            return true;
+          }
+          function hdlrChoice(form) {
+            window.location.href = "/go-slog/handler/" + form.tag.value + ".html";
+            return true;
+          }
+        </script>
+        <table>
+          <tr>
+            <td align="right">Handlers</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="ChanchalZap" >chanchal/zaphandler</option>
+                  
+                    <option value="PhsymZerolog" >phsym/zeroslog</option>
+                  
+                    <option value="SamberLogrus" >samber/slog-logrus</option>
+                  
+                    <option value="SamberZap" selected>samber/slog-zap</option>
+                  
+                    <option value="SamberZerolog" >samber/slog-zerolog</option>
+                  
+                    <option value="SlogJSON" >slog/JSONHandler</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Bench Tests</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="Bench:Attributes" >Attributes</option>
+                  
+                    <option value="Bench:BigGroup" >Big Group</option>
+                  
+                    <option value="Bench:Disabled" >Disabled</option>
+                  
+                    <option value="Bench:KeyValues" >Key Values</option>
+                  
+                    <option value="Bench:Logging" >Logging</option>
+                  
+                    <option value="Bench:Simple" >Simple</option>
+                  
+                    <option value="Bench:SimpleSource" >Simple Source</option>
+                  
+                    <option value="Bench:WithAttrsAttributes" >With Attrs Attributes</option>
+                  
+                    <option value="Bench:WithAttrsKeyValues" >With Attrs Key Values</option>
+                  
+                    <option value="Bench:WithAttrsSimple" >With Attrs Simple</option>
+                  
+                    <option value="Bench:WithGroupAttributes" >With Group Attributes</option>
+                  
+                    <option value="Bench:WithGroupKeyValues" >With Group Key Values</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Verify Tests</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
+                  
+                    <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
+                  
+                    <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
+                  
+                    <option value="Verify:AttributesEmpty" >Attributes Empty</option>
+                  
+                    <option value="Verify:CanceledContext" >Canceled Context</option>
+                  
+                    <option value="Verify:DefaultLevel" >Default Level</option>
+                  
+                    <option value="Verify:GroupInline" >Group Inline</option>
+                  
+                    <option value="Verify:GroupWithMulti" >Group With Multi</option>
+                  
+                    <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                  
+                    <option value="Verify:KeyCase" >Key Case</option>
+                  
+                    <option value="Verify:Keys" >Keys</option>
+                  
+                    <option value="Verify:LevelConfigured" >Level Configured</option>
+                  
+                    <option value="Verify:LevelDifferent" >Level Different</option>
+                  
+                    <option value="Verify:LevelVar" >Level Var</option>
+                  
+                    <option value="Verify:LogAttributes" >Log Attributes</option>
+                  
+                    <option value="Verify:ReplaceAttr" >Replace Attr</option>
+                  
+                    <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
+                  
+                    <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                  
+                    <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
+                  
+                    <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                  
+                    <option value="Verify:ResolveGroup" >Resolve Group</option>
+                  
+                    <option value="Verify:ResolveGroupWith" >Resolve Group With</option>
+                  
+                    <option value="Verify:ResolveValuer" >Resolve Valuer</option>
+                  
+                    <option value="Verify:ResolveWith" >Resolve With</option>
+                  
+                    <option value="Verify:SourceKey" >Source Key</option>
+                  
+                    <option value="Verify:ZeroPC" >Zero PC</option>
+                  
+                    <option value="Verify:ZeroTime" >Zero Time</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+        </table>
+    </td>
+  </tr>
+  
+    <tr>
+      <td colspan=2 align="center">
+        <h2 align="left">Benchmark Data</h2>
+        <table class="data">
+          <tr>
+            <th>Benchmark</th>
+            <th>Runs</th>
+            <th>Ns/Op</th>
+            <th>Allocs/Op</th>
+            <th>Bytes/Op</th>
+            <th>GB/Sec</th>
+          </tr>
+          
+            <tr>
+              <td class="fixed">Attributes</td>
+              <td class="number">232,014</td>
+              <td class="number">5,078.00</td>
+              <td class="number">49</td>
+             <td class="number">6,620</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Big Group</td>
+              <td class="number">1,806</td>
+              <td class="number">685,327.00</td>
+              <td class="number">10,606</td>
+             <td class="number">628,430</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Disabled</td>
+              <td class="number">321,903,543</td>
+              <td class="number">3.72</td>
+              <td class="number">0</td>
+             <td class="number">0</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Key Values</td>
+              <td class="number">209,654</td>
+              <td class="number">5,295.00</td>
+              <td class="number">50</td>
+             <td class="number">7,005</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Logging</td>
+              <td class="number">13,111</td>
+              <td class="number">91,157.00</td>
+              <td class="number">1,020</td>
+             <td class="number">121,308</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Simple</td>
+              <td class="number">2,368,561</td>
+              <td class="number">510.00</td>
+              <td class="number">2</td>
+             <td class="number">336</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Simple Source</td>
+              <td class="number">1,618,162</td>
+              <td class="number">739.60</td>
+              <td class="number">5</td>
+             <td class="number">592</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Attrs Attributes</td>
+              <td class="number">144,439</td>
+              <td class="number">8,683.00</td>
+              <td class="number">70</td>
+             <td class="number">12,139</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Attrs Key Values</td>
+              <td class="number">143,479</td>
+              <td class="number">8,481.00</td>
+              <td class="number">71</td>
+             <td class="number">12,525</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Attrs Simple</td>
+              <td class="number">249,799</td>
+              <td class="number">4,516.00</td>
+              <td class="number">44</td>
+             <td class="number">5,579</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Group Attributes</td>
+              <td class="number">133,734</td>
+              <td class="number">9,214.00</td>
+              <td class="number">122</td>
+             <td class="number">12,865</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Group Key Values</td>
+              <td class="number">129,289</td>
+              <td class="number">9,361.00</td>
+              <td class="number">123</td>
+             <td class="number">13,251</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=2 align="center">
+        <h2 align="left">Benchmark Charts</h2>
+        <table>
+          <tr>
+            <td><img src="/go-slog/chart/SamberZap/Nanos.svg" alt="samber/slog-zap Ns/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/SamberZap/MemAllocs.svg" alt="samber/slog-zap Allocs/Op" class="chart" /></td>
+          </tr>
+          <tr>
+            <td><img src="/go-slog/chart/SamberZap/MemBytes.svg" alt="samber/slog-zap Bytes/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/SamberZap/GbPerSec.svg" alt="samber/slog-zap GB/Sec" class="chart" /></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  
+  
+    <tr>
+      <td colspan=2 align="center">
+        <h2 align="left" style="padding-top: 1em;">Warnings</h2>
+        <table class="warning">
+          <colgroup>
+            <col width="3%"/>
+            <col width="3%"/>
+            <col width="30%"/>
+            <col width="64%"/>
+          </colgroup>
+          
+                    
+            <tr>
+              <td colspan=4 class="level">Required</td>
+            </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  EmptyAttributes
+                </td>
+                <td class="extra">
+                  Empty attribute(s) logged (&#34;&#34;:null)
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="35%"/>
+                      <col width="45%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Attribute With Empty
+                        </td>
+                        <td class="extra" style="background-color:lightgray;"></td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                            <button type="button" onclick="toggleTableRow('EmptyAttributesAttribute With Empty')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="EmptyAttributesAttribute With Empty" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+	&#34;&#34;: null,
+	&#34;first&#34;: &#34;one&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;pi&#34;: 3.141592653589793,
+	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                          
+                            Verify:
+                          
+                          Attributes Empty
+                        </td>
+                        <td class="extra" style="background-color:lightcyan;"></td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                            <button type="button" onclick="toggleTableRow('EmptyAttributesAttributes Empty')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="EmptyAttributesAttributes Empty" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
+	&#34;&#34;: null,
+	&#34;first&#34;: &#34;one&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;pi&#34;: 3.141592653589793,
+	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  GroupInline
+                </td>
+                <td class="extra">
+                  Group with empty key does not inline subfields
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="35%"/>
+                      <col width="45%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Group Inline
+                        </td>
+                        <td class="extra" style="background-color:lightgray;"></td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                            <button type="button" onclick="toggleTableRow('GroupInlineGroup Inline')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="GroupInlineGroup Inline" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+	&#34;&#34;: {
+		&#34;fourth&#34;: &#34;forth&#34;,
+		&#34;second&#34;: 2,
+		&#34;third&#34;: &#34;3&#34;
+	},
+	&#34;first&#34;: &#34;one&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;pi&#34;: 3.141592653589793,
+	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  Resolver
+                </td>
+                <td class="extra">
+                  LogValuer objects are not resolved
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="35%"/>
+                      <col width="45%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Resolve Group
+                        </td>
+                        <td class="extra" style="background-color:lightgray;"></td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                            <button type="button" onclick="toggleTableRow('ResolverResolve Group')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="ResolverResolve Group" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+	&#34;group&#34;: {
+		&#34;hidden&#34;: {},
+		&#34;pi&#34;: 3.141592653589793
+	},
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                          
+                            Verify:
+                          
+                          Resolve Group With
+                        </td>
+                        <td class="extra" style="background-color:lightcyan;"></td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                            <button type="button" onclick="toggleTableRow('ResolverResolve Group With')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="ResolverResolve Group With" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
+	&#34;group&#34;: {
+		&#34;hidden&#34;: {},
+		&#34;pi&#34;: 3.141592653589793
+	},
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Resolve Valuer
+                        </td>
+                        <td class="extra" style="background-color:lightgray;"></td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                            <button type="button" onclick="toggleTableRow('ResolverResolve Valuer')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="ResolverResolve Valuer" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+	&#34;hidden&#34;: {},
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                          
+                            Verify:
+                          
+                          Resolve With
+                        </td>
+                        <td class="extra" style="background-color:lightcyan;"></td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                            <button type="button" onclick="toggleTableRow('ResolverResolve With')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="ResolverResolve With" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
+	&#34;hidden&#34;: {},
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  ZeroPC
+                </td>
+                <td class="extra">
+                  SourceKey logged for zero PC
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="35%"/>
+                      <col width="45%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Zero PC
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">non-standard key &#39;caller&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                            <button type="button" onclick="toggleTableRow('ZeroPCZero PC')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="ZeroPCZero PC" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+	&#34;caller&#34;: &#34;:0&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  ZeroTime
+                </td>
+                <td class="extra">
+                  Zero time is logged
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="35%"/>
+                      <col width="45%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Zero Time
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">2024-02-25T19:02:38Z</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                            <button type="button" onclick="toggleTableRow('ZeroTimeZero Time')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="ZeroTimeZero Time" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+             
+          
+            <tr>
+              <td colspan=4 class="level">Implied</td>
+            </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  NoReplAttrBasic
+                </td>
+                <td class="extra">
+                  HandlerOptions.ReplaceAttr not available for basic fields
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="35%"/>
+                      <col width="45%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Replace Attr Basic
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">too many attributes: 4, time field still exists, msg field still exists, source == &lt;nil&gt;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="NoReplAttrBasicReplace Attr Basic" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                          
+                            Verify:
+                          
+                          Replace Attr Fn Level Case
+                        </td>
+                        <td class="extra" style="background-color:lightcyan;">level value not null</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="NoReplAttrBasicReplace Attr Fn Level Case" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Replace Attr Fn Remove Time
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">time value not empty string</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="NoReplAttrBasicReplace Attr Fn Remove Time" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  SourceKey
+                </td>
+                <td class="extra">
+                  Source data not logged when AddSource flag set
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="35%"/>
+                      <col width="45%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Bench:
+                          
+                          Simple Source
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">no &#39;source&#39; key</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                            <button type="button" onclick="toggleTableRow('SourceKeySimple Source')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="SourceKeySimple Source" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+	&#34;caller&#34;: &#34;tests/benchmarks.go:71&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-25T19:02:13Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                          
+                            Verify:
+                          
+                          Source Key
+                        </td>
+                        <td class="extra" style="background-color:lightcyan;">no &#39;source&#39; key</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                            <button type="button" onclick="toggleTableRow('SourceKeySource Key')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="SourceKeySource Key" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
+	&#34;caller&#34;: &#34;reflect/value.go:596&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+             
+          
+            <tr>
+              <td colspan=4 class="level">Suggested</td>
+            </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  DurationSeconds
+                </td>
+                <td class="extra">
+                  slog.Duration() logs seconds instead of nanoseconds
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="35%"/>
+                      <col width="45%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Log Attributes
+                        </td>
+                        <td class="extra" style="background-color:lightgray;"></td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="DurationSecondsLog Attributes" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  LevelCase
+                </td>
+                <td class="extra">
+                  Log level in lowercase
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="35%"/>
+                      <col width="45%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Canceled Context
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseCanceled Context" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                          
+                            Verify:
+                          
+                          Canceled Context
+                        </td>
+                        <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseCanceled Context" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Canceled Context
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseCanceled Context" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                          
+                            Verify:
+                          
+                          Key Case
+                        </td>
+                        <td class="extra" style="background-color:lightcyan;">&#39;debug&#39;</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseKey Case" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Key Case
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseKey Case" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                          
+                            Verify:
+                          
+                          Key Case
+                        </td>
+                        <td class="extra" style="background-color:lightcyan;">&#39;warn&#39;</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseKey Case" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Key Case
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">&#39;error&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseKey Case" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                          
+                            Verify:
+                          
+                          Keys
+                        </td>
+                        <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseKeys" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Source Key
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseSource Key" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                          
+                            Verify:
+                          
+                          Zero PC
+                        </td>
+                        <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseZero PC" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Zero Time
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseZero Time" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  TimeMillis
+                </td>
+                <td class="extra">
+                  slog.Time() logs milliseconds instead of nanoseconds
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="35%"/>
+                      <col width="45%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Log Attributes
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">2024-02-25T19:02:38Z</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="TimeMillisLog Attributes" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+             
+           
+
+        </table>
+      </td>
+   
+</table>
+</div>
+</body>
+</html>

@@ -1,0 +1,475 @@
+<html>
+<head>
+  <title>Guts</title>
+  <link rel="stylesheet" href="/go-slog/style.css">
+</head>
+
+<body>
+<table class="top">
+  <tr>
+    <td>
+      <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+      <h2 class="home">Data and Warnings</h2>
+    </td>
+    <td align="right">
+              <script>
+          function testChoice(form) {
+            window.location.href = "/go-slog/test/" + form.tag.value + ".html";
+            return true;
+          }
+          function hdlrChoice(form) {
+            window.location.href = "/go-slog/handler/" + form.tag.value + ".html";
+            return true;
+          }
+        </script>
+        <table>
+          <tr>
+            <td align="right">Handlers</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="ChanchalZap" >chanchal/zaphandler</option>
+                  
+                    <option value="PhsymZerolog" >phsym/zeroslog</option>
+                  
+                    <option value="SamberLogrus" >samber/slog-logrus</option>
+                  
+                    <option value="SamberZap" >samber/slog-zap</option>
+                  
+                    <option value="SamberZerolog" >samber/slog-zerolog</option>
+                  
+                    <option value="SlogJSON" >slog/JSONHandler</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Bench Tests</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="Bench:Attributes" >Attributes</option>
+                  
+                    <option value="Bench:BigGroup" >Big Group</option>
+                  
+                    <option value="Bench:Disabled" >Disabled</option>
+                  
+                    <option value="Bench:KeyValues" >Key Values</option>
+                  
+                    <option value="Bench:Logging" >Logging</option>
+                  
+                    <option value="Bench:Simple" >Simple</option>
+                  
+                    <option value="Bench:SimpleSource" >Simple Source</option>
+                  
+                    <option value="Bench:WithAttrsAttributes" >With Attrs Attributes</option>
+                  
+                    <option value="Bench:WithAttrsKeyValues" >With Attrs Key Values</option>
+                  
+                    <option value="Bench:WithAttrsSimple" >With Attrs Simple</option>
+                  
+                    <option value="Bench:WithGroupAttributes" >With Group Attributes</option>
+                  
+                    <option value="Bench:WithGroupKeyValues" >With Group Key Values</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Verify Tests</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
+                  
+                    <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
+                  
+                    <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
+                  
+                    <option value="Verify:AttributesEmpty" >Attributes Empty</option>
+                  
+                    <option value="Verify:CanceledContext" >Canceled Context</option>
+                  
+                    <option value="Verify:DefaultLevel" >Default Level</option>
+                  
+                    <option value="Verify:GroupInline" >Group Inline</option>
+                  
+                    <option value="Verify:GroupWithMulti" >Group With Multi</option>
+                  
+                    <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                  
+                    <option value="Verify:KeyCase" >Key Case</option>
+                  
+                    <option value="Verify:Keys" >Keys</option>
+                  
+                    <option value="Verify:LevelConfigured" >Level Configured</option>
+                  
+                    <option value="Verify:LevelDifferent" >Level Different</option>
+                  
+                    <option value="Verify:LevelVar" >Level Var</option>
+                  
+                    <option value="Verify:LogAttributes" >Log Attributes</option>
+                  
+                    <option value="Verify:ReplaceAttr" >Replace Attr</option>
+                  
+                    <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
+                  
+                    <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                  
+                    <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
+                  
+                    <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                  
+                    <option value="Verify:ResolveGroup" >Resolve Group</option>
+                  
+                    <option value="Verify:ResolveGroupWith" >Resolve Group With</option>
+                  
+                    <option value="Verify:ResolveValuer" >Resolve Valuer</option>
+                  
+                    <option value="Verify:ResolveWith" >Resolve With</option>
+                  
+                    <option value="Verify:SourceKey" >Source Key</option>
+                  
+                    <option value="Verify:ZeroPC" >Zero PC</option>
+                  
+                    <option value="Verify:ZeroTime" >Zero Time</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+        </table>
+    </td>
+  </tr>
+  <tr>
+    <td colspan=2>
+      <h2>Benchmark Data</h2>
+    </td>
+  </tr>
+    <tr>
+    <td><h3>Handlers</h3></td>
+    <td><h3>Tests</h3></td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <table class="debug">
+        <tr>
+          <th>Tag</th>
+          <th>Name</th>
+        </tr>
+        
+          <tr>
+            <td>ChanchalZap</td>
+            <td>chanchal/zaphandler</td>
+          </tr>
+        
+          <tr>
+            <td>PhsymZerolog</td>
+            <td>phsym/zeroslog</td>
+          </tr>
+        
+          <tr>
+            <td>SamberLogrus</td>
+            <td>samber/slog-logrus</td>
+          </tr>
+        
+          <tr>
+            <td>SamberZap</td>
+            <td>samber/slog-zap</td>
+          </tr>
+        
+          <tr>
+            <td>SamberZerolog</td>
+            <td>samber/slog-zerolog</td>
+          </tr>
+        
+          <tr>
+            <td>SlogJSON</td>
+            <td>slog/JSONHandler</td>
+          </tr>
+        
+      </table>
+    </td>
+    <td valign="top">
+      <table class="debug">
+        <tr>
+          <th>Tag</th>
+          <th>Name</th>
+        </tr>
+        
+          <tr>
+            <td>Bench:Attributes</td>
+            <td>Attributes</td>
+          </tr>
+        
+          <tr>
+            <td>Bench:BigGroup</td>
+            <td>Big Group</td>
+          </tr>
+        
+          <tr>
+            <td>Bench:Disabled</td>
+            <td>Disabled</td>
+          </tr>
+        
+          <tr>
+            <td>Bench:KeyValues</td>
+            <td>Key Values</td>
+          </tr>
+        
+          <tr>
+            <td>Bench:Logging</td>
+            <td>Logging</td>
+          </tr>
+        
+          <tr>
+            <td>Bench:Simple</td>
+            <td>Simple</td>
+          </tr>
+        
+          <tr>
+            <td>Bench:SimpleSource</td>
+            <td>Simple Source</td>
+          </tr>
+        
+          <tr>
+            <td>Bench:WithAttrsAttributes</td>
+            <td>With Attrs Attributes</td>
+          </tr>
+        
+          <tr>
+            <td>Bench:WithAttrsKeyValues</td>
+            <td>With Attrs Key Values</td>
+          </tr>
+        
+          <tr>
+            <td>Bench:WithAttrsSimple</td>
+            <td>With Attrs Simple</td>
+          </tr>
+        
+          <tr>
+            <td>Bench:WithGroupAttributes</td>
+            <td>With Group Attributes</td>
+          </tr>
+        
+          <tr>
+            <td>Bench:WithGroupKeyValues</td>
+            <td>With Group Key Values</td>
+          </tr>
+        
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td colspan=2>
+      <h2>Warnings</h2>
+    </td>
+  </tr>
+    <tr>
+    <td><h3>Handlers</h3></td>
+    <td><h3>Tests</h3></td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <table class="debug">
+        <tr>
+          <th>Tag</th>
+          <th>Name</th>
+        </tr>
+        
+          <tr>
+            <td>ChanchalZap</td>
+            <td>chanchal/zaphandler</td>
+          </tr>
+        
+          <tr>
+            <td>PhsymZerolog</td>
+            <td>phsym/zeroslog</td>
+          </tr>
+        
+          <tr>
+            <td>SamberLogrus</td>
+            <td>samber/slog-logrus</td>
+          </tr>
+        
+          <tr>
+            <td>SamberZap</td>
+            <td>samber/slog-zap</td>
+          </tr>
+        
+          <tr>
+            <td>SamberZerolog</td>
+            <td>samber/slog-zerolog</td>
+          </tr>
+        
+          <tr>
+            <td>SlogJSON</td>
+            <td>slog/JSONHandler</td>
+          </tr>
+        
+      </table>
+    </td>
+    <td valign="top">
+      <table class="debug">
+        <tr>
+          <th>Tag</th>
+          <th>Name</th>
+        </tr>
+        
+          <tr>
+            <td>Verify:AttributeDuplicate</td>
+            <td>Attribute Duplicate</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:AttributeWithDuplicate</td>
+            <td>Attribute With Duplicate</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:AttributeWithEmpty</td>
+            <td>Attribute With Empty</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:AttributesEmpty</td>
+            <td>Attributes Empty</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:CanceledContext</td>
+            <td>Canceled Context</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:DefaultLevel</td>
+            <td>Default Level</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:GroupInline</td>
+            <td>Group Inline</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:GroupWithMulti</td>
+            <td>Group With Multi</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:GroupWithMultiSubEmpty</td>
+            <td>Group With Multi Sub Empty</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:KeyCase</td>
+            <td>Key Case</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:Keys</td>
+            <td>Keys</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:LevelConfigured</td>
+            <td>Level Configured</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:LevelDifferent</td>
+            <td>Level Different</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:LevelVar</td>
+            <td>Level Var</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:LogAttributes</td>
+            <td>Log Attributes</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:ReplaceAttr</td>
+            <td>Replace Attr</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:ReplaceAttrBasic</td>
+            <td>Replace Attr Basic</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:ReplaceAttrFnLevelCase</td>
+            <td>Replace Attr Fn Level Case</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:ReplaceAttrFnRemoveEmptyKey</td>
+            <td>Replace Attr Fn Remove Empty Key</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:ReplaceAttrFnRemoveTime</td>
+            <td>Replace Attr Fn Remove Time</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:ResolveGroup</td>
+            <td>Resolve Group</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:ResolveGroupWith</td>
+            <td>Resolve Group With</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:ResolveValuer</td>
+            <td>Resolve Valuer</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:ResolveWith</td>
+            <td>Resolve With</td>
+          </tr>
+        
+          <tr>
+            <td>Bench:SimpleSource</td>
+            <td>Simple Source</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:SourceKey</td>
+            <td>Source Key</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:ZeroPC</td>
+            <td>Zero PC</td>
+          </tr>
+        
+          <tr>
+            <td>Verify:ZeroTime</td>
+            <td>Zero Time</td>
+          </tr>
+        
+      </table>
+    </td>
+  </tr>
+
+</table>
+</div>
+</body>
+</html>

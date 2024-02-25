@@ -40,17 +40,17 @@
                 <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                   <option value="" selected disabled hidden>- Choose -</option>
                   
-                    <option value="chanchal_zap" >chanchal/zap</option>
+                    <option value="ChanchalZap" >chanchal/zaphandler</option>
                   
-                    <option value="phsym_zerolog" >phsym/zerolog</option>
+                    <option value="PhsymZerolog" >phsym/zeroslog</option>
                   
-                    <option value="samber_logrus" >samber/logrus</option>
+                    <option value="SamberLogrus" >samber/slog-logrus</option>
                   
-                    <option value="samber_zap" >samber/zap</option>
+                    <option value="SamberZap" >samber/slog-zap</option>
                   
-                    <option value="samber_zerolog" >samber/zerolog</option>
+                    <option value="SamberZerolog" >samber/slog-zerolog</option>
                   
-                    <option value="slog_JSONHandler" >slog/json</option>
+                    <option value="SlogJSON" >slog/JSONHandler</option>
                   
                 </select>
               </form>
@@ -65,27 +65,27 @@
                   
                     <option value="Bench:Attributes" >Attributes</option>
                   
-                    <option value="Bench:Big_Group" >Big Group</option>
+                    <option value="Bench:BigGroup" >Big Group</option>
                   
                     <option value="Bench:Disabled" >Disabled</option>
                   
-                    <option value="Bench:Key_Values" >Key Values</option>
+                    <option value="Bench:KeyValues" >Key Values</option>
                   
                     <option value="Bench:Logging" >Logging</option>
                   
                     <option value="Bench:Simple" >Simple</option>
                   
-                    <option value="Bench:Simple_Source" >Simple Source</option>
+                    <option value="Bench:SimpleSource" >Simple Source</option>
                   
-                    <option value="Bench:With_Attrs_Attributes" >With Attrs Attributes</option>
+                    <option value="Bench:WithAttrsAttributes" >With Attrs Attributes</option>
                   
-                    <option value="Bench:With_Attrs_Key_Values" >With Attrs Key Values</option>
+                    <option value="Bench:WithAttrsKeyValues" >With Attrs Key Values</option>
                   
-                    <option value="Bench:With_Attrs_Simple" >With Attrs Simple</option>
+                    <option value="Bench:WithAttrsSimple" >With Attrs Simple</option>
                   
-                    <option value="Bench:With_Group_Attributes" >With Group Attributes</option>
+                    <option value="Bench:WithGroupAttributes" >With Group Attributes</option>
                   
-                    <option value="Bench:With_Group_Key_Values" >With Group Key Values</option>
+                    <option value="Bench:WithGroupKeyValues" >With Group Key Values</option>
                   
                 </select>
               </form>
@@ -148,7 +148,7 @@
                   
                     <option value="Verify:SourceKey" >Source Key</option>
                   
-                    <option value="Verify:ZeroPC" >Zero Pc</option>
+                    <option value="Verify:ZeroPC" >Zero PC</option>
                   
                     <option value="Verify:ZeroTime" >Zero Time</option>
                   
@@ -192,8 +192,8 @@
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
-                      <col width="30%"/>
-                      <col width="50%"/>
+                      <col width="35%"/>
+                      <col width="45%"/>
                       <col width="7%"/>
                     </colgroup>
                     
@@ -203,21 +203,24 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">samber_logrus</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                          Samber Logrus
+                        </td>
                         <td class="extra" style="background-color:lightgray;"></td>
                         <td class="logLink" style="background-color:lightgray;">
                           
-                            <button type="button" onclick="toggleTableRow('Resolversamber_logrus')">Log</button>
+                            <button type="button" onclick="toggleTableRow('ResolverSamber Logrus')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="Resolversamber_logrus" style="display:none;">
+                      <tr id="ResolverSamber Logrus" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
 	&#34;hidden&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-25T01:07:46Z&#34;
+	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -225,21 +228,24 @@
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">samber_zap</td>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                          
+                          Samber Zap
+                        </td>
                         <td class="extra" style="background-color:lightcyan;"></td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
-                            <button type="button" onclick="toggleTableRow('Resolversamber_zap')">Log</button>
+                            <button type="button" onclick="toggleTableRow('ResolverSamber Zap')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="Resolversamber_zap" style="display:none;">
+                      <tr id="ResolverSamber Zap" style="display:none;">
                         <td style="background-color:lightcyan;"></td>
                         <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
 	&#34;hidden&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-25T01:07:46Z&#34;
+	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -249,21 +255,24 @@
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">samber_zerolog</td>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                          Samber Zerolog
+                        </td>
                         <td class="extra" style="background-color:lightgray;"></td>
                         <td class="logLink" style="background-color:lightgray;">
                           
-                            <button type="button" onclick="toggleTableRow('Resolversamber_zerolog')">Log</button>
+                            <button type="button" onclick="toggleTableRow('ResolverSamber Zerolog')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="Resolversamber_zerolog" style="display:none;">
+                      <tr id="ResolverSamber Zerolog" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
 	&#34;hidden&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-25T01:07:46Z&#34;
+	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
 }</pre></td>
                       </tr>
                      

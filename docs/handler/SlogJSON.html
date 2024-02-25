@@ -1,0 +1,390 @@
+<html>
+<head>
+  <title>Benchmark Data</title>
+  <link rel="stylesheet" href="/go-slog/style.css">
+  <script>
+    function toggleTableRow(id) {
+        var elem = document.getElementById(id);
+        elem.style.display = elem.style.display == "none" ? "table-row" : "none";
+    }
+  </script>
+</head>
+
+<body>
+<table class="top">
+  <tr>
+    <td>
+      <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+      <h2 class="home">Handler <span class="fixed">slog/JSONHandler</span></h2>
+    </td>
+    <td align="right">
+              <script>
+          function testChoice(form) {
+            window.location.href = "/go-slog/test/" + form.tag.value + ".html";
+            return true;
+          }
+          function hdlrChoice(form) {
+            window.location.href = "/go-slog/handler/" + form.tag.value + ".html";
+            return true;
+          }
+        </script>
+        <table>
+          <tr>
+            <td align="right">Handlers</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="ChanchalZap" >chanchal/zaphandler</option>
+                  
+                    <option value="PhsymZerolog" >phsym/zeroslog</option>
+                  
+                    <option value="SamberLogrus" >samber/slog-logrus</option>
+                  
+                    <option value="SamberZap" >samber/slog-zap</option>
+                  
+                    <option value="SamberZerolog" >samber/slog-zerolog</option>
+                  
+                    <option value="SlogJSON" selected>slog/JSONHandler</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Bench Tests</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="Bench:Attributes" >Attributes</option>
+                  
+                    <option value="Bench:BigGroup" >Big Group</option>
+                  
+                    <option value="Bench:Disabled" >Disabled</option>
+                  
+                    <option value="Bench:KeyValues" >Key Values</option>
+                  
+                    <option value="Bench:Logging" >Logging</option>
+                  
+                    <option value="Bench:Simple" >Simple</option>
+                  
+                    <option value="Bench:SimpleSource" >Simple Source</option>
+                  
+                    <option value="Bench:WithAttrsAttributes" >With Attrs Attributes</option>
+                  
+                    <option value="Bench:WithAttrsKeyValues" >With Attrs Key Values</option>
+                  
+                    <option value="Bench:WithAttrsSimple" >With Attrs Simple</option>
+                  
+                    <option value="Bench:WithGroupAttributes" >With Group Attributes</option>
+                  
+                    <option value="Bench:WithGroupKeyValues" >With Group Key Values</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td align="right">Verify Tests</td>
+            <td>
+              <form class="choice">
+                <select name="tag" id="tag" onchange="testChoice(this.form);">
+                  <option value="" selected disabled hidden>- Choose -</option>
+                  
+                    <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
+                  
+                    <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
+                  
+                    <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
+                  
+                    <option value="Verify:AttributesEmpty" >Attributes Empty</option>
+                  
+                    <option value="Verify:CanceledContext" >Canceled Context</option>
+                  
+                    <option value="Verify:DefaultLevel" >Default Level</option>
+                  
+                    <option value="Verify:GroupInline" >Group Inline</option>
+                  
+                    <option value="Verify:GroupWithMulti" >Group With Multi</option>
+                  
+                    <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                  
+                    <option value="Verify:KeyCase" >Key Case</option>
+                  
+                    <option value="Verify:Keys" >Keys</option>
+                  
+                    <option value="Verify:LevelConfigured" >Level Configured</option>
+                  
+                    <option value="Verify:LevelDifferent" >Level Different</option>
+                  
+                    <option value="Verify:LevelVar" >Level Var</option>
+                  
+                    <option value="Verify:LogAttributes" >Log Attributes</option>
+                  
+                    <option value="Verify:ReplaceAttr" >Replace Attr</option>
+                  
+                    <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
+                  
+                    <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                  
+                    <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
+                  
+                    <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                  
+                    <option value="Verify:ResolveGroup" >Resolve Group</option>
+                  
+                    <option value="Verify:ResolveGroupWith" >Resolve Group With</option>
+                  
+                    <option value="Verify:ResolveValuer" >Resolve Valuer</option>
+                  
+                    <option value="Verify:ResolveWith" >Resolve With</option>
+                  
+                    <option value="Verify:SourceKey" >Source Key</option>
+                  
+                    <option value="Verify:ZeroPC" >Zero PC</option>
+                  
+                    <option value="Verify:ZeroTime" >Zero Time</option>
+                  
+                </select>
+              </form>
+            </td>
+          </tr>
+        </table>
+    </td>
+  </tr>
+  
+    <tr>
+      <td colspan=2 align="center">
+        <h2 align="left">Benchmark Data</h2>
+        <table class="data">
+          <tr>
+            <th>Benchmark</th>
+            <th>Runs</th>
+            <th>Ns/Op</th>
+            <th>Allocs/Op</th>
+            <th>Bytes/Op</th>
+            <th>GB/Sec</th>
+          </tr>
+          
+            <tr>
+              <td class="fixed">Attributes</td>
+              <td class="number">786,810</td>
+              <td class="number">1,548.00</td>
+              <td class="number">6</td>
+             <td class="number">472</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Big Group</td>
+              <td class="number">4,208</td>
+              <td class="number">267,760.00</td>
+              <td class="number">3,887</td>
+             <td class="number">285,673</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Disabled</td>
+              <td class="number">309,949,893</td>
+              <td class="number">3.88</td>
+              <td class="number">0</td>
+             <td class="number">0</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Key Values</td>
+              <td class="number">720,854</td>
+              <td class="number">1,670.00</td>
+              <td class="number">7</td>
+             <td class="number">856</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Logging</td>
+              <td class="number">38,242</td>
+              <td class="number">29,143.00</td>
+              <td class="number">0</td>
+             <td class="number">0</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Simple</td>
+              <td class="number">3,299,410</td>
+              <td class="number">362.90</td>
+              <td class="number">0</td>
+             <td class="number">0</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">Simple Source</td>
+              <td class="number">1,345,268</td>
+              <td class="number">898.20</td>
+              <td class="number">6</td>
+             <td class="number">568</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Attrs Attributes</td>
+              <td class="number">751,016</td>
+              <td class="number">1,595.00</td>
+              <td class="number">6</td>
+             <td class="number">472</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Attrs Key Values</td>
+              <td class="number">732,140</td>
+              <td class="number">1,672.00</td>
+              <td class="number">7</td>
+             <td class="number">856</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Attrs Simple</td>
+              <td class="number">3,255,146</td>
+              <td class="number">366.20</td>
+              <td class="number">0</td>
+             <td class="number">0</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Group Attributes</td>
+              <td class="number">785,414</td>
+              <td class="number">1,538.00</td>
+              <td class="number">6</td>
+             <td class="number">472</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+            <tr>
+              <td class="fixed">With Group Key Values</td>
+              <td class="number">720,951</td>
+              <td class="number">1,659.00</td>
+              <td class="number">7</td>
+             <td class="number">856</td>
+              <td class="number">0.00</td>
+            </tr>
+          
+        </table>
+      </td>
+    </tr>
+    <tr>
+      <td colspan=2 align="center">
+        <h2 align="left">Benchmark Charts</h2>
+        <table>
+          <tr>
+            <td><img src="/go-slog/chart/SlogJSON/Nanos.svg" alt="slog/JSONHandler Ns/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/SlogJSON/MemAllocs.svg" alt="slog/JSONHandler Allocs/Op" class="chart" /></td>
+          </tr>
+          <tr>
+            <td><img src="/go-slog/chart/SlogJSON/MemBytes.svg" alt="slog/JSONHandler Bytes/Op" class="chart" /></td>
+            <td><img src="/go-slog/chart/SlogJSON/GbPerSec.svg" alt="slog/JSONHandler GB/Sec" class="chart" /></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  
+  
+    <tr>
+      <td colspan=2 align="center">
+        <h2 align="left" style="padding-top: 1em;">Warnings</h2>
+        <table class="warning">
+          <colgroup>
+            <col width="3%"/>
+            <col width="3%"/>
+            <col width="30%"/>
+            <col width="64%"/>
+          </colgroup>
+          
+                    
+            <tr>
+              <td colspan=4 class="level">Suggested</td>
+            </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  Duplicates
+                </td>
+                <td class="extra">
+                  Duplicate field(s) found
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="35%"/>
+                      <col width="45%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Attribute Duplicate
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">map[alpha:2 charlie:3]</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="DuplicatesAttribute Duplicate" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                          
+                            Verify:
+                          
+                          Attribute With Duplicate
+                        </td>
+                        <td class="extra" style="background-color:lightcyan;">map[alpha:2 charlie:3]</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="DuplicatesAttribute With Duplicate" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+             
+           
+
+        </table>
+      </td>
+   
+</table>
+</div>
+</body>
+</html>
