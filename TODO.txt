@@ -1,7 +1,7 @@
 TODO
 
-* Warnings on test page show handler tags, not names
 * Add "Guts" (nee "debug") page to "Other" section on root
+* Warnings on test page show handler tags, not names
 * README.md in internal/data
   - discuss relationship between benchmark handler tag and warnings handler name
     - bench generates output

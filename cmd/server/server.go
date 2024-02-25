@@ -39,7 +39,7 @@ const (
 	pageTest     = "pageBench"
 	pageHandler  = "pageHandler"
 	pageWarnings = "pageWarnings"
-	pageDebug    = "pageDebug"
+	pageGuts     = "pageGuts"
 	pageError    = "pageError"
 
 	partChoices  = "partChoices"
@@ -104,7 +104,7 @@ func main() {
 	router.GET("/go-slog/test/:tag", pageFunction(pageTest))
 	router.GET("/go-slog/handler/:tag", pageFunction(pageHandler))
 	router.GET("/go-slog/warnings.html", pageFunction(pageWarnings))
-	router.GET("/go-slog/debug", pageFunction(pageDebug))
+	router.GET("/go-slog/guts.html", pageFunction(pageGuts))
 	router.GET("/go-slog/chart/:tag/:item", chartFunction)
 	router.GET("/go-slog/home.svg", svgFunction(home))
 	router.GET("/go-slog/style.css", textFunction(css))
@@ -128,7 +128,7 @@ func main() {
 var (
 	bench     = data.NewBenchmarks()
 	warns     = data.NewWarningData()
-	pages     = []pageType{pageRoot, pageTest, pageHandler, pageWarnings, pageDebug}
+	pages     = []pageType{pageRoot, pageTest, pageHandler, pageWarnings, pageGuts}
 	templates map[pageType]*template.Template
 
 	//go:embed pages/root.tmpl
@@ -143,8 +143,8 @@ var (
 	//go:embed pages/warnings.tmpl
 	tmplPageWarnings string
 
-	//go:embed pages/debug.tmpl
-	tmplPageDebug string
+	//go:embed pages/guts.tmpl
+	tmplPageGuts string
 
 	//go:embed pages/error.tmpl
 	tmplPageError string
@@ -193,8 +193,8 @@ func setup() error {
 			if err == nil {
 				_, err = tmpl.New(partWarnings).Parse(tmplPartWarnings)
 			}
-		case pageDebug:
-			tmpl, err = tmpl.Parse(tmplPageDebug)
+		case pageGuts:
+			tmpl, err = tmpl.Parse(tmplPageGuts)
 			if err == nil {
 				_, err = tmpl.New(partChoices).Parse(tmplPartChoices)
 			}
