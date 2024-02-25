@@ -1,21 +1,3 @@
-// Reads benchmark output and displays prints it as text tables.
-package main
-
-import (
-	"flag"
-	"fmt"
-	"log/slog"
-	"os"
-	"time"
-
-	"github.com/phsym/console-slog"
-
-	"github.com/madkins23/go-utils/text/table"
-
-	"github.com/madkins23/go-slog/internal/data"
-	"github.com/madkins23/go-slog/internal/language"
-)
-
 /*
 tabular parses benchmark test and verification test output and
 formats it into simple tables and warning listings.
@@ -37,6 +19,23 @@ The flags are:
 
 See scripts/bench, scripts/verify and scripts/server for usage examples.
 */
+package main
+
+import (
+	"flag"
+	"fmt"
+	"log/slog"
+	"os"
+	"time"
+
+	"github.com/phsym/console-slog"
+
+	"github.com/madkins23/go-utils/text/table"
+
+	"github.com/madkins23/go-slog/internal/data"
+	"github.com/madkins23/go-slog/internal/language"
+)
+
 func main() {
 	flag.Parse() // Necessary for -bench=<file> argument defined in infra package.
 
