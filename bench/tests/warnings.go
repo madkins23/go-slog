@@ -1,7 +1,7 @@
 package tests
 
 import (
-	"github.com/madkins23/go-slog/warning"
+	"github.com/madkins23/go-slog/internal/warning"
 )
 
 // NewWarningManager generates an infra.Manager configured for SlogBenchmarkSuite.

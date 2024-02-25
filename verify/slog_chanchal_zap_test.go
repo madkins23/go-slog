@@ -6,8 +6,8 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/madkins23/go-slog/creator/chanchalzap"
+	"github.com/madkins23/go-slog/internal/warning"
 	"github.com/madkins23/go-slog/verify/tests"
-	"github.com/madkins23/go-slog/warning"
 )
 
 // TestVerifyChanchalZap runs tests for the chanchal/zaphandler handler.

@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/madkins23/go-slog/warning"
+	"github.com/madkins23/go-slog/internal/warning"
 )
 
 var verifyFile = flag.String("verify", "", "Load verification data from path (optional)")

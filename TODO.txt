@@ -1,6 +1,5 @@
 TODO
 
-* Shouldn't the warnings package really be in internal?
 * More complex logging cases
 * Use handler URL field for something
   * DocURL is on Creator, so it's only accessible during benchmark testing

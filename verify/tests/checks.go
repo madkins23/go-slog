@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/madkins23/go-slog/warning"
+	"github.com/madkins23/go-slog/internal/warning"
 )
 
 // -----------------------------------------------------------------------------

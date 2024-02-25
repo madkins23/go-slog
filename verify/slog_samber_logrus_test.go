@@ -6,8 +6,8 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/madkins23/go-slog/creator/samberlogrus"
+	"github.com/madkins23/go-slog/internal/warning"
 	"github.com/madkins23/go-slog/verify/tests"
-	"github.com/madkins23/go-slog/warning"
 )
 
 // TestVerifySamberLogrus runs tests for the samber/slog-logrus handler.

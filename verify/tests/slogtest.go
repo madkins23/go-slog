@@ -10,7 +10,7 @@ import (
 	"time"
 
 	"github.com/madkins23/go-slog/infra"
-	"github.com/madkins23/go-slog/warning"
+	"github.com/madkins23/go-slog/internal/warning"
 )
 
 // -----------------------------------------------------------------------------

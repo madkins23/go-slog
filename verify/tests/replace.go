@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/madkins23/go-slog/infra"
+	"github.com/madkins23/go-slog/internal/warning"
 	"github.com/madkins23/go-slog/replace"
-	"github.com/madkins23/go-slog/warning"
 )
 
 // -----------------------------------------------------------------------------

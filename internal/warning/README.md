@@ -10,9 +10,9 @@ A "warning" facility is built into many of the tests to provide a way to:
 * provide a list of known issues in the test suite.
 
 Since this code is currently used primary in handler verification,
-there are better examples in the [`verify` `README`](../verify/README.md) file.
+there are better examples in the [`verify` `README`](../../verify/README.md) file.
 
-The actual warnings are defined in the [`warning`](../warning) package.
+The actual warnings are defined in the [`warning`]() package.
 
 ### Usage
 
@@ -28,4 +28,4 @@ The actual warnings are defined in the [`warning`](../warning) package.
   and test assertions will raise conventional errors.
 
 Usage of the `WarningManager` is described in more detail
-in the [`verify` `README`](../verify/README.md).
+in the [`verify` `README`](../../verify/README.md).

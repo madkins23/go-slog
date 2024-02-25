@@ -32,7 +32,7 @@ import (
 
     "github.com/madkins23/go-slog/creator/slogjson"
     "github.com/madkins23/go-slog/verify/tests"
-    "github.com/madkins23/go-slog/warning"
+    "github.com/madkins23/go-slog/internal/warning"
 )
 
 // TestVerifySlogJSON runs tests for the slog/JSONHandler JSON handler.

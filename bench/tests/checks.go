@@ -13,7 +13,7 @@ import (
 
 	"github.com/madkins23/go-slog/internal/json"
 	"github.com/madkins23/go-slog/internal/test"
-	"github.com/madkins23/go-slog/warning"
+	"github.com/madkins23/go-slog/internal/warning"
 )
 
 // -----------------------------------------------------------------------------

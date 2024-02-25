@@ -16,7 +16,7 @@ import (
 	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/misc"
 	"github.com/madkins23/go-slog/internal/test"
-	"github.com/madkins23/go-slog/warning"
+	"github.com/madkins23/go-slog/internal/warning"
 )
 
 var justTests = flag.Bool("justTests", false, "Don't run benchmarks, just tests")
