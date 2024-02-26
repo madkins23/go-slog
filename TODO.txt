@@ -4,6 +4,8 @@ TODO
 * Check for package compilation
   - Utility to process entries from Go package-linkage whatever
     in order to create usable tree view.
+  - `go mod graph` only shows the `go.mod` dependencies.
+  - Package repository doesn't generate executable.
 * Is there a way to avoid crashing when updates to slog handlers blow up?
   - Currently this is an issue with zerolog 1.32 breaking phsym/zeroslog.
 
