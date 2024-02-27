@@ -1,6 +1,9 @@
 TODO
 
 * More complex logging cases
+* slog.Handler that traces calls to Handler
+  - Push indent / pop on defer?
+  - Use that to trace calls.
 * Check for package compilation
   - Utility to process entries from Go package-linkage whatever
     in order to create usable tree view.

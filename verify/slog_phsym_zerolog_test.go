@@ -10,8 +10,8 @@ import (
 	"github.com/madkins23/go-slog/verify/tests"
 )
 
-// TestVerifyZerologPhsym runs tests for the phsym/zeroslog handler.
-func TestVerifyZerologPhsym(t *testing.T) {
+// TestVerifyPhsymZerolog runs tests for the phsym/zeroslog handler.
+func TestVerifyPhsymZerolog(t *testing.T) {
 	slogSuite := tests.NewSlogTestSuite(phsymzerolog.Creator())
 	slogSuite.WarnOnly(warning.Duplicates)
 	slogSuite.WarnOnly(warning.DurationMillis)
