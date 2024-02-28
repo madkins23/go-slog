@@ -12,6 +12,7 @@ import (
 	"github.com/madkins23/go-slog/infra"
 	intTest "github.com/madkins23/go-slog/internal/test"
 	"github.com/madkins23/go-slog/internal/warning"
+	"github.com/madkins23/go-slog/trace"
 )
 
 var tests = []string{
@@ -24,6 +25,7 @@ var tests = []string{
 	//"G1+A M",
 	//"G1+A M+B",
 	//"G1+C M+B",
+
 	"M+B",
 	"G1 M+B",
 	"W+A M+B",
@@ -35,6 +37,12 @@ func (suite *SlogTestSuite) TestComplexCases() {
 	mismatches := make([]string, 0)
 	for _, test := range tests {
 		intTest.Debugf(1, "Complex: %s\n", test)
+		if intTest.DebugLevel() > 4 {
+			fmt.Println("  Trace:")
+			logger := slog.New(trace.NewHandler("    "))
+			parser := newParser(suite.Manager, logger, test)
+			suite.Assert().NoError(parser.parse())
+		}
 		suite.Buffer.Reset()
 		parser := newParser(suite.Manager, logger, test)
 		suite.Assert().NoError(parser.parse())
