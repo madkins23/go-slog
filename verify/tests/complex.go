@@ -23,10 +23,11 @@ var tests = []string{
 	"W+A  M+B",
 	"G1   M",
 	"G1   M+A",
-	"G1   M+B", //              samber/zap&zerolog
-	"G1+A M",   // chanchal/zap
-	"G1+A M+B", // chanchal/zap samber/zap&zerolog
-	"G1+C M+B", // chanchal/zap samber/zap&zerolog
+	"G1   M+B",
+	"G1+A M",
+	"G1+A M+B",
+	"G1+C M+B",
+	"G1+A G2+B M+C",
 }
 
 func (suite *SlogTestSuite) TestComplexCases() {
