@@ -110,11 +110,15 @@
                   
                     <option value="Verify:DefaultLevel" >Default Level</option>
                   
+                    <option value="Verify:GroupDuration" >Group Duration</option>
+                  
                     <option value="Verify:GroupInline" >Group Inline</option>
                   
                     <option value="Verify:GroupWithMulti" >Group With Multi</option>
                   
                     <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                  
+                    <option value="Verify:GroupWithTop" >Group With Top</option>
                   
                     <option value="Verify:KeyCase" >Key Case</option>
                   
@@ -148,6 +152,8 @@
                   
                     <option value="Verify:SourceKey" >Source Key</option>
                   
+                    <option value="Verify:WithGroupEmpty" >With Group Empty</option>
+                  
                     <option value="Verify:ZeroPC" >Zero PC</option>
                   
                     <option value="Verify:ZeroTime" >Zero Time</option>
@@ -174,56 +180,56 @@
           
             <tr>
               <td class="fixed">chanchal/zaphandler</td>
-              <td class="number">2,603,542</td>
-              <td class="number">457.20</td>
+              <td class="number">2,567,239</td>
+              <td class="number">456.90</td>
               <td class="number">1</td>
               <td class="number">32</td>
-              <td class="number">415,712.22</td>
+              <td class="number">410,203.00</td>
             </tr>
           
             <tr>
               <td class="fixed">phsym/zeroslog</td>
-              <td class="number">2,148,169</td>
-              <td class="number">557.50</td>
+              <td class="number">2,213,788</td>
+              <td class="number">550.30</td>
               <td class="number">4</td>
               <td class="number">312</td>
-              <td class="number">581,837.93</td>
+              <td class="number">607,480.77</td>
             </tr>
           
             <tr>
               <td class="fixed">samber/slog-logrus</td>
-              <td class="number">206,901</td>
-              <td class="number">5,687.00</td>
+              <td class="number">208,664</td>
+              <td class="number">5,716.00</td>
               <td class="number">39</td>
               <td class="number">2,995</td>
-              <td class="number">9,713.53</td>
+              <td class="number">9,746.11</td>
             </tr>
           
             <tr>
               <td class="fixed">samber/slog-zap</td>
-              <td class="number">1,618,162</td>
-              <td class="number">739.60</td>
+              <td class="number">1,609,981</td>
+              <td class="number">762.80</td>
               <td class="number">5</td>
               <td class="number">592</td>
-              <td class="number">234,094.39</td>
+              <td class="number">225,823.19</td>
             </tr>
           
             <tr>
               <td class="fixed">samber/slog-zerolog</td>
-              <td class="number">965,616</td>
-              <td class="number">1,154.00</td>
+              <td class="number">1,000,000</td>
+              <td class="number">1,162.00</td>
               <td class="number">12</td>
               <td class="number">1,225</td>
-              <td class="number">226,714.95</td>
+              <td class="number">233,211.05</td>
             </tr>
           
             <tr>
               <td class="fixed">slog/JSONHandler</td>
-              <td class="number">1,345,268</td>
-              <td class="number">898.20</td>
+              <td class="number">1,315,878</td>
+              <td class="number">925.70</td>
               <td class="number">6</td>
               <td class="number">568</td>
-              <td class="number">414,701.75</td>
+              <td class="number">393,590.70</td>
             </tr>
           
         </table>
@@ -294,7 +300,7 @@
                         <td class="extra" style="background-color:lightgray;">no &#39;source&#39; key</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
-                            <button type="button" onclick="toggleTableRow('SourceKeyChanchal Zap')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKeyChanchal Zap')">Log</button>
                           
                         </td>
                       </tr>
@@ -303,7 +309,7 @@
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-25T19:01:06Z&#34;
+	&#34;time&#34;: &#34;2024-02-29T14:29:14Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -318,7 +324,7 @@
                         <td class="extra" style="background-color:lightcyan;">no &#39;source&#39; key</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
-                            <button type="button" onclick="toggleTableRow('SourceKeyPhsym Zerolog')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKeyPhsym Zerolog')">Log</button>
                           
                         </td>
                       </tr>
@@ -328,7 +334,7 @@
 	&#34;caller&#34;: &#34;/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:71&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-25T19:01:39Z&#34;
+	&#34;time&#34;: &#34;2024-02-29T14:29:48Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -345,7 +351,7 @@
                         <td class="extra" style="background-color:lightgray;">no &#39;source&#39; key</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
-                            <button type="button" onclick="toggleTableRow('SourceKeySamber Zap')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKeySamber Zap')">Log</button>
                           
                         </td>
                       </tr>
@@ -355,7 +361,7 @@
 	&#34;caller&#34;: &#34;tests/benchmarks.go:71&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-25T19:02:13Z&#34;
+	&#34;time&#34;: &#34;2024-02-29T14:30:22Z&#34;
 }</pre></td>
                       </tr>
                      

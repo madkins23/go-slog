@@ -110,11 +110,15 @@
                   
                     <option value="Verify:DefaultLevel" >Default Level</option>
                   
+                    <option value="Verify:GroupDuration" >Group Duration</option>
+                  
                     <option value="Verify:GroupInline" >Group Inline</option>
                   
                     <option value="Verify:GroupWithMulti" >Group With Multi</option>
                   
                     <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                  
+                    <option value="Verify:GroupWithTop" >Group With Top</option>
                   
                     <option value="Verify:KeyCase" >Key Case</option>
                   
@@ -147,6 +151,8 @@
                     <option value="Verify:ResolveWith" >Resolve With</option>
                   
                     <option value="Verify:SourceKey" selected>Source Key</option>
+                  
+                    <option value="Verify:WithGroupEmpty" >With Group Empty</option>
                   
                     <option value="Verify:ZeroPC" >Zero PC</option>
                   
@@ -272,7 +278,7 @@
                         <td class="extra" style="background-color:lightgray;">no &#39;source&#39; key</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
-                            <button type="button" onclick="toggleTableRow('SourceKeyChanchal Zap')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKeyChanchal Zap')">Log</button>
                           
                         </td>
                       </tr>
@@ -281,7 +287,7 @@
                         <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+	&#34;time&#34;: &#34;2024-02-29T14:30:47Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -296,7 +302,7 @@
                         <td class="extra" style="background-color:lightcyan;">no &#39;source&#39; key</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
-                            <button type="button" onclick="toggleTableRow('SourceKeyPhsym Zerolog')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKeyPhsym Zerolog')">Log</button>
                           
                         </td>
                       </tr>
@@ -306,7 +312,7 @@
 	&#34;caller&#34;: &#34;/opt/hostedtoolcache/go/1.21.7/x64/src/reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+	&#34;time&#34;: &#34;2024-02-29T14:30:47Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -323,7 +329,7 @@
                         <td class="extra" style="background-color:lightgray;">no &#39;source&#39; key</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
-                            <button type="button" onclick="toggleTableRow('SourceKeySamber Zap')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKeySamber Zap')">Log</button>
                           
                         </td>
                       </tr>
@@ -333,7 +339,7 @@
 	&#34;caller&#34;: &#34;reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+	&#34;time&#34;: &#34;2024-02-29T14:30:47Z&#34;
 }</pre></td>
                       </tr>
                      

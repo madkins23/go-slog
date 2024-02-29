@@ -63,8 +63,7 @@
             
               <tr>
                 <td colspan=2></td>
-                <td colspan=2 class="description"><p>Handlers should not log groups (or subgroups) without fields,
-whether or not the have non-empty names.</p>
+                <td colspan=2 class="description"><p>Handlers should not log groups (or subgroups) without fields, whether or not they have non-empty names.</p>
 
 <ul>
 <li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If a group has no Attrs (even if it has a non-empty key), ignore it.&quot;</a></li>
@@ -133,6 +132,23 @@ This is a powerful feature which can customize logging of objects and
 
 <ul>
 <li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- Attr's values should be resolved.&quot;</a></li>
+</ul>
+</td>
+              </tr>
+            
+          
+            <tr>
+              <td></td>
+              <td colspan=2 class="warning">WithGroupEmpty</td>
+              <td class="extra">Empty WithGroup() logged</td>
+            </tr>
+            
+              <tr>
+                <td colspan=2></td>
+                <td colspan=2 class="description"><p>Handlers should not log WithGroup() groups with no fields, whether or not they have non-empty names.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If a group has no Attrs (even if it has a non-empty key), ignore it.&quot;</a></li>
 </ul>
 </td>
               </tr>
@@ -381,6 +397,34 @@ is currently expected in February 2024).</p>
 <ul>
 <li><a href="https://github.com/golang/go/issues/59345" target="_blank">Go issue 59345: Nanoseconds is a recent change with Go 1.21</a></li>
 </ul>
+</td>
+              </tr>
+            
+          
+            <tr>
+              <td></td>
+              <td colspan=2 class="warning">GroupDuration</td>
+              <td class="extra"></td>
+            </tr>
+            
+              <tr>
+                <td colspan=2></td>
+                <td colspan=2 class="description"><p>Some handlers that change the way <code>time.Duration</code> objects are logged (see warnings <code>DurationMillis</code> and <code>DurationSeconds</code>)
+only manage to make the change at the top level of the logged record, duration objects in groups are still in nanoseconds.</p>
+</td>
+              </tr>
+            
+          
+            <tr>
+              <td></td>
+              <td colspan=2 class="warning">GroupWithTop</td>
+              <td class="extra">WithGroup().With() ends up at top level of log record instead of in the group</td>
+            </tr>
+            
+              <tr>
+                <td colspan=2></td>
+                <td colspan=2 class="description"><p>Almost all handlers treat <code>logger.WithGroup(&lt;name&gt;).With(&lt;attrs&gt;) as writing</code><attrs><code>to the group</code><name><code>.
+Some handlers write</code><attrs>` to the top level of the log record.</p>
 </td>
               </tr>
             
@@ -751,6 +795,42 @@ from a test suite as issues are fixed in the tested handler.</p>
                 
                 
                   <td class="count"><span>4</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">WithGroupEmpty</td>
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
                 
               
                 
@@ -1188,7 +1268,7 @@ from a test suite as issues are fixed in the tested handler.</p>
               
                 
                 
-                  <td class="count"><span>1</span></td>
+                  <td class="count"><span>2</span></td>
                 
               
                 
@@ -1219,7 +1299,79 @@ from a test suite as issues are fixed in the tested handler.</p>
               
                 
                 
+                  <td class="count"><span>2</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">GroupDuration</td>
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+            </tr>
+          
+            <tr>
+              <td width=5%></td>
+              <td class="name">GroupWithTop</td>
+              
+                
+                
                   <td class="count"><span>1</span></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
+                
+              
+                
+                
+                  <td class="blank"></td>
                 
               
                 

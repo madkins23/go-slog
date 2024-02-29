@@ -17,7 +17,7 @@
       <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
       <h2 class="home">Test <span class="fixed">
         
-          Replace Attr Fn Remove Empty Key
+          With Group Empty
         
       </span></h2>
     </td>
@@ -138,7 +138,7 @@
                   
                     <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
                   
-                    <option value="Verify:ReplaceAttrFnRemoveEmptyKey" selected>Replace Attr Fn Remove Empty Key</option>
+                    <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
                   
                     <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
                   
@@ -152,7 +152,7 @@
                   
                     <option value="Verify:SourceKey" >Source Key</option>
                   
-                    <option value="Verify:WithGroupEmpty" >With Group Empty</option>
+                    <option value="Verify:WithGroupEmpty" selected>With Group Empty</option>
                   
                     <option value="Verify:ZeroPC" >Zero PC</option>
                   
@@ -180,16 +180,16 @@
           
                     
             <tr>
-              <td colspan=4 class="level">Implied</td>
+              <td colspan=4 class="level">Required</td>
             </tr>
             
               <tr>
                 <td></td>
                 <td colspan=2 class="warning">
-                  NoReplAttr
+                  WithGroupEmpty
                 </td>
                 <td class="extra">
-                  HandlerOptions.ReplaceAttr not available
+                  Empty WithGroup() logged
                 </td>
               </tr>
               <tr class="instance">
@@ -213,14 +213,48 @@
                           
                           Chanchal Zap
                         </td>
-                        <td class="extra" style="background-color:lightgray;">too few attributes: 3, no empty key</td>
+                        <td class="extra" style="background-color:lightgray;">too many fields, found field &#39;group1&#39;, value is group, length: 0</td>
                         <td class="logLink" style="background-color:lightgray;">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('WithGroupEmptyChanchal Zap')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="NoReplAttrChanchal Zap" style="display:none;">
+                      <tr id="WithGroupEmptyChanchal Zap" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+	&#34;group1&#34;: {},
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-29T14:30:47Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                          
+                          Phsym Zerolog
+                        </td>
+                        <td class="extra" style="background-color:lightcyan;">too many fields, found field &#39;group1&#39;, value is group, length: 1</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('WithGroupEmptyPhsym Zerolog')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="WithGroupEmptyPhsym Zerolog" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
+	&#34;group1&#34;: {
+		&#34;group2&#34;: {}
+	},
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-29T14:30:47Z&#34;
+}</pre></td>
                       </tr>
                      
                   </table>

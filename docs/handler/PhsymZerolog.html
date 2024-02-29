@@ -106,11 +106,15 @@
                   
                     <option value="Verify:DefaultLevel" >Default Level</option>
                   
+                    <option value="Verify:GroupDuration" >Group Duration</option>
+                  
                     <option value="Verify:GroupInline" >Group Inline</option>
                   
                     <option value="Verify:GroupWithMulti" >Group With Multi</option>
                   
                     <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                  
+                    <option value="Verify:GroupWithTop" >Group With Top</option>
                   
                     <option value="Verify:KeyCase" >Key Case</option>
                   
@@ -144,6 +148,8 @@
                   
                     <option value="Verify:SourceKey" >Source Key</option>
                   
+                    <option value="Verify:WithGroupEmpty" >With Group Empty</option>
+                  
                     <option value="Verify:ZeroPC" >Zero PC</option>
                   
                     <option value="Verify:ZeroTime" >Zero Time</option>
@@ -172,7 +178,7 @@
             <tr>
               <td class="fixed">Attributes</td>
               <td class="number">1,000,000</td>
-              <td class="number">1,081.00</td>
+              <td class="number">1,071.00</td>
               <td class="number">2</td>
              <td class="number">272</td>
               <td class="number">0.00</td>
@@ -180,17 +186,17 @@
           
             <tr>
               <td class="fixed">Big Group</td>
-              <td class="number">4,906</td>
-              <td class="number">239,225.00</td>
-              <td class="number">3,902</td>
-             <td class="number">242,084</td>
+              <td class="number">4,881</td>
+              <td class="number">232,003.00</td>
+              <td class="number">3,847</td>
+             <td class="number">237,617</td>
               <td class="number">0.00</td>
             </tr>
           
             <tr>
               <td class="fixed">Disabled</td>
-              <td class="number">322,199,438</td>
-              <td class="number">3.73</td>
+              <td class="number">307,839,735</td>
+              <td class="number">3.91</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -198,8 +204,8 @@
           
             <tr>
               <td class="fixed">Key Values</td>
-              <td class="number">927,511</td>
-              <td class="number">1,221.00</td>
+              <td class="number">929,700</td>
+              <td class="number">1,203.00</td>
               <td class="number">3</td>
              <td class="number">656</td>
               <td class="number">0.00</td>
@@ -207,8 +213,8 @@
           
             <tr>
               <td class="fixed">Logging</td>
-              <td class="number">55,108</td>
-              <td class="number">21,862.00</td>
+              <td class="number">55,730</td>
+              <td class="number">21,364.00</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -216,8 +222,8 @@
           
             <tr>
               <td class="fixed">Simple</td>
-              <td class="number">4,130,648</td>
-              <td class="number">289.70</td>
+              <td class="number">4,268,448</td>
+              <td class="number">284.10</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -225,8 +231,8 @@
           
             <tr>
               <td class="fixed">Simple Source</td>
-              <td class="number">2,148,169</td>
-              <td class="number">557.50</td>
+              <td class="number">2,213,788</td>
+              <td class="number">550.30</td>
               <td class="number">4</td>
              <td class="number">312</td>
               <td class="number">0.00</td>
@@ -235,7 +241,7 @@
             <tr>
               <td class="fixed">With Attrs Attributes</td>
               <td class="number">1,000,000</td>
-              <td class="number">1,086.00</td>
+              <td class="number">1,078.00</td>
               <td class="number">2</td>
              <td class="number">272</td>
               <td class="number">0.00</td>
@@ -243,8 +249,8 @@
           
             <tr>
               <td class="fixed">With Attrs Key Values</td>
-              <td class="number">907,616</td>
-              <td class="number">1,235.00</td>
+              <td class="number">930,855</td>
+              <td class="number">1,244.00</td>
               <td class="number">3</td>
              <td class="number">656</td>
               <td class="number">0.00</td>
@@ -252,8 +258,8 @@
           
             <tr>
               <td class="fixed">With Attrs Simple</td>
-              <td class="number">3,976,677</td>
-              <td class="number">300.50</td>
+              <td class="number">4,043,964</td>
+              <td class="number">290.50</td>
               <td class="number">0</td>
              <td class="number">0</td>
               <td class="number">0.00</td>
@@ -261,8 +267,8 @@
           
             <tr>
               <td class="fixed">With Group Attributes</td>
-              <td class="number">968,812</td>
-              <td class="number">1,194.00</td>
+              <td class="number">980,725</td>
+              <td class="number">1,182.00</td>
               <td class="number">3</td>
              <td class="number">560</td>
               <td class="number">0.00</td>
@@ -270,7 +276,7 @@
           
             <tr>
               <td class="fixed">With Group Key Values</td>
-              <td class="number">818,401</td>
+              <td class="number">870,272</td>
               <td class="number">1,339.00</td>
               <td class="number">4</td>
              <td class="number">944</td>
@@ -348,7 +354,7 @@
                         <td class="extra" style="background-color:lightgray;"></td>
                         <td class="logLink" style="background-color:lightgray;">
                           
-                            <button type="button" onclick="toggleTableRow('EmptyAttributesAttribute With Empty')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('EmptyAttributesAttribute With Empty')">Log</button>
                           
                         </td>
                       </tr>
@@ -360,7 +366,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+	&#34;time&#34;: &#34;2024-02-29T14:30:47Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -377,7 +383,7 @@
                         <td class="extra" style="background-color:lightcyan;"></td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
-                            <button type="button" onclick="toggleTableRow('EmptyAttributesAttributes Empty')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('EmptyAttributesAttributes Empty')">Log</button>
                           
                         </td>
                       </tr>
@@ -389,7 +395,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+	&#34;time&#34;: &#34;2024-02-29T14:30:47Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -432,7 +438,7 @@
                         <td class="extra" style="background-color:lightgray;">found &#39;subGroup&#39; group</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
-                            <button type="button" onclick="toggleTableRow('GroupEmptyGroup With Multi Sub Empty')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupEmptyGroup With Multi Sub Empty')">Log</button>
                           
                         </td>
                       </tr>
@@ -447,7 +453,7 @@
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+	&#34;time&#34;: &#34;2024-02-29T14:30:47Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -490,7 +496,7 @@
                         <td class="extra" style="background-color:lightgray;"></td>
                         <td class="logLink" style="background-color:lightgray;">
                           
-                            <button type="button" onclick="toggleTableRow('GroupInlineGroup Inline')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupInlineGroup Inline')">Log</button>
                           
                         </td>
                       </tr>
@@ -506,7 +512,62 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+	&#34;time&#34;: &#34;2024-02-29T14:30:47Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  WithGroupEmpty
+                </td>
+                <td class="extra">
+                  Empty WithGroup() logged
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="35%"/>
+                      <col width="45%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          With Group Empty
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">too many fields, found field &#39;group1&#39;, value is group, length: 1</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('WithGroupEmptyWith Group Empty')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="WithGroupEmptyWith Group Empty" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+	&#34;group1&#34;: {
+		&#34;group2&#34;: {}
+	},
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-02-29T14:30:47Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -549,7 +610,7 @@
                         <td class="extra" style="background-color:lightgray;">0001-01-01T00:00:00Z</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
-                            <button type="button" onclick="toggleTableRow('ZeroTimeZero Time')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('ZeroTimeZero Time')">Log</button>
                           
                         </td>
                       </tr>
@@ -886,7 +947,7 @@
                         <td class="extra" style="background-color:lightgray;">no &#39;source&#39; key</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
-                            <button type="button" onclick="toggleTableRow('SourceKeySimple Source')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKeySimple Source')">Log</button>
                           
                         </td>
                       </tr>
@@ -896,7 +957,7 @@
 	&#34;caller&#34;: &#34;/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:71&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-25T19:01:39Z&#34;
+	&#34;time&#34;: &#34;2024-02-29T14:29:48Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -913,7 +974,7 @@
                         <td class="extra" style="background-color:lightcyan;">no &#39;source&#39; key</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
-                            <button type="button" onclick="toggleTableRow('SourceKeySource Key')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKeySource Key')">Log</button>
                           
                         </td>
                       </tr>
@@ -923,7 +984,7 @@
 	&#34;caller&#34;: &#34;/opt/hostedtoolcache/go/1.21.7/x64/src/reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-25T19:02:38Z&#34;
+	&#34;time&#34;: &#34;2024-02-29T14:30:47Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1142,48 +1203,6 @@
                           
                           Key Case
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;warn&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
-                          
-                        </td>
-                      </tr>
-                      <tr id="LevelCaseKey Case" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                      
-                        
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
-                          
-                            Verify:
-                          
-                          Key Case
-                        </td>
-                        <td class="extra" style="background-color:lightgray;">&#39;error&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
-                          
-                        </td>
-                      </tr>
-                      <tr id="LevelCaseKey Case" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
-                          
-                            Verify:
-                          
-                          Key Case
-                        </td>
                         <td class="extra" style="background-color:lightcyan;">&#39;debug&#39;</td>
                         <td class="logLink" style="background-color:lightcyan;">
                           
@@ -1207,6 +1226,48 @@
                           Key Case
                         </td>
                         <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseKey Case" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                          
+                            Verify:
+                          
+                          Key Case
+                        </td>
+                        <td class="extra" style="background-color:lightcyan;">&#39;warn&#39;</td>
+                        <td class="logLink" style="background-color:lightcyan;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCaseKey Case" style="display:none;">
+                        <td style="background-color:lightcyan;"></td>
+                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                            Verify:
+                          
+                          Key Case
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">&#39;error&#39;</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
@@ -1336,7 +1397,7 @@
                           
                           Log Attributes
                         </td>
-                        <td class="extra" style="background-color:lightgray;">2024-02-25T19:02:38Z</td>
+                        <td class="extra" style="background-color:lightgray;">2024-02-29T14:30:47Z</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>

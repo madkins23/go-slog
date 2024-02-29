@@ -17,7 +17,7 @@
       <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
       <h2 class="home">Test <span class="fixed">
         
-          Replace Attr Fn Remove Empty Key
+          Group Duration
         
       </span></h2>
     </td>
@@ -110,7 +110,7 @@
                   
                     <option value="Verify:DefaultLevel" >Default Level</option>
                   
-                    <option value="Verify:GroupDuration" >Group Duration</option>
+                    <option value="Verify:GroupDuration" selected>Group Duration</option>
                   
                     <option value="Verify:GroupInline" >Group Inline</option>
                   
@@ -138,7 +138,7 @@
                   
                     <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
                   
-                    <option value="Verify:ReplaceAttrFnRemoveEmptyKey" selected>Replace Attr Fn Remove Empty Key</option>
+                    <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
                   
                     <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
                   
@@ -180,16 +180,16 @@
           
                     
             <tr>
-              <td colspan=4 class="level">Implied</td>
+              <td colspan=4 class="level">Suggested</td>
             </tr>
             
               <tr>
                 <td></td>
                 <td colspan=2 class="warning">
-                  NoReplAttr
+                  DurationMillis
                 </td>
                 <td class="extra">
-                  HandlerOptions.ReplaceAttr not available
+                  slog.Duration() logs milliseconds instead of nanoseconds
                 </td>
               </tr>
               <tr class="instance">
@@ -211,16 +211,80 @@
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">
                           
-                          Chanchal Zap
+                          Samber Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightgray;">too few attributes: 3, no empty key</td>
+                        <td class="extra" style="background-color:lightgray;">29002000.000000 != 29002000000000.000000</td>
                         <td class="logLink" style="background-color:lightgray;">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('DurationMillisSamber Zerolog')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="NoReplAttrChanchal Zap" style="display:none;">
+                      <tr id="DurationMillisSamber Zerolog" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+	&#34;group&#34;: {
+		&#34;inner&#34;: 29002000000000
+	},
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;outer&#34;: 29002000,
+	&#34;time&#34;: &#34;2024-02-29T14:30:47Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  DurationSeconds
+                </td>
+                <td class="extra">
+                  slog.Duration() logs seconds instead of nanoseconds
+                </td>
+              </tr>
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=2>
+                  <table class="instance">
+                    <colgroup>
+                      <col width="3%"/>
+                      <col width="35%"/>
+                      <col width="45%"/>
+                      <col width="7%"/>
+                    </colgroup>
+                    
+                      
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                          Samber Zap
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">29002.000000 != 29002000000000.000000</td>
+                        <td class="logLink" style="background-color:lightgray;">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('DurationSecondsSamber Zap')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="DurationSecondsSamber Zap" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+	&#34;group&#34;: {
+		&#34;inner&#34;: 29002000000000
+	},
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;outer&#34;: 29002,
+	&#34;time&#34;: &#34;2024-02-29T14:30:47Z&#34;
+}</pre></td>
                       </tr>
                      
                   </table>
