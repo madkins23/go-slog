@@ -16,6 +16,7 @@ func TestVerifySamberZerolog(t *testing.T) {
 	sLogSuite.WarnOnly(warning.DefaultLevel)
 	sLogSuite.WarnOnly(warning.DurationMillis)
 	sLogSuite.WarnOnly(warning.EmptyAttributes)
+	sLogSuite.WarnOnly(warning.GroupDuration)
 	sLogSuite.WarnOnly(warning.GroupInline)
 	sLogSuite.WarnOnly(warning.LevelCase)
 	sLogSuite.WarnOnly(warning.MessageKey)

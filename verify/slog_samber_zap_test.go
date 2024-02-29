@@ -13,9 +13,9 @@ import (
 // TestVerifySamberZap runs tests for the samber/slog-zap handler.
 func TestVerifySamberZap(t *testing.T) {
 	sLogSuite := tests.NewSlogTestSuite(samberzap.Creator())
-	sLogSuite.WarnOnly(warning.DurationMillis)
 	sLogSuite.WarnOnly(warning.DurationSeconds)
 	sLogSuite.WarnOnly(warning.EmptyAttributes)
+	sLogSuite.WarnOnly(warning.GroupDuration)
 	sLogSuite.WarnOnly(warning.GroupInline)
 	sLogSuite.WarnOnly(warning.LevelCase)
 	sLogSuite.WarnOnly(warning.TimeMillis)

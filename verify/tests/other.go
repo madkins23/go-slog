@@ -2,10 +2,12 @@ package tests
 
 import (
 	"context"
+	"fmt"
 	"log/slog"
 	"time"
 
 	"github.com/madkins23/go-slog/infra"
+	"github.com/madkins23/go-slog/internal/warning"
 )
 
 // -----------------------------------------------------------------------------
@@ -56,6 +58,74 @@ func (suite *SlogTestSuite) TestLevelDifferent() {
 	suite.checkLevelMath(logger, 5, true,
 		"5  is not enabled when WARN is set")
 	suite.Assert().True(logger.Enabled(context.Background(), slog.LevelError))
+}
+
+// TestGroupDuration checks to see if time.Duration objects are logged the same
+// whether they are in a Group or at the top level of the log item.
+//   - Based on common sense, duration objects should log the same everywhere.
+func (suite *SlogTestSuite) TestGroupDuration() {
+	duration := 8*time.Hour + 3*time.Minute + 22*time.Second
+	logger := suite.Logger(infra.SimpleOptions())
+	logger.With("outer", duration).WithGroup("group").Info(message, "inner", duration)
+	logMap := suite.logMap()
+	out, found := logMap["outer"]
+	suite.Require().True(found)
+	outer, ok := out.(float64)
+	suite.Require().True(ok)
+	grp, found := logMap["group"]
+	suite.Require().True(found)
+	group, ok := grp.(map[string]any)
+	suite.Require().True(ok)
+	in, found := group["inner"]
+	suite.Require().True(found)
+	inner, ok := in.(float64)
+	suite.Require().True(ok)
+	if !suite.HasWarning(warning.GroupDuration) {
+		suite.Assert().Equal(outer, inner)
+	} else if outer == inner {
+		suite.AddUnused(warning.GroupDuration, suite.Buffer.String())
+	} else {
+		suite.AddWarning(warning.GroupDuration,
+			fmt.Sprintf("%f != %f", outer, inner), suite.Buffer.String())
+	}
+}
+
+// TestGroupWithTop tests ...
+func (suite *SlogTestSuite) TestGroupWithTop() {
+	logger := suite.Logger(infra.SimpleOptions())
+	logger.WithGroup("group").With(slog.String("key", "value")).Info(message)
+	logMap := suite.logMap()
+	if !suite.HasWarning(warning.GroupWithTop) {
+		grp, found := logMap["group"]
+		suite.Require().True(found)
+		group, ok := grp.(map[string]any)
+		suite.Require().True(ok)
+		str, found := group["key"]
+		suite.Require().True(found)
+		suite.Assert().Equal("value", str)
+		return
+	}
+	if grp, found := logMap["group"]; found {
+		if group, ok := grp.(map[string]any); ok {
+			if str, found := group["key"]; found {
+				if val, ok := str.(string); ok {
+					if "value" == val {
+						suite.AddUnused(warning.GroupWithTop, "")
+						return
+					}
+				}
+			}
+		}
+	}
+	if str, found := logMap["key"]; found {
+		if val, ok := str.(string); ok {
+			if val == "value" {
+				suite.AddWarning(warning.GroupWithTop, "", suite.Buffer.String())
+				return
+			}
+		}
+	}
+	// TODO: should there be a warning or fail() here?
 }
 
 // TestTimestampFormat tests whether a timestamp can be parsed.

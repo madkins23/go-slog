@@ -16,20 +16,17 @@ import (
 )
 
 var tests = []string{
-	//"M",
-	//"M+A",
-	//"W+A M",
-	//"W+A M+B",
-	//"G1 M",
-	//"G1 M+A",
-	//"G1+A M",
-	//"G1+A M+B",
-	//"G1+C M+B",
-
-	"M+B",
-	"G1 M+B",
-	"W+A M+B",
-	"G1+A M+B",
+	"     M",
+	"     M+A",
+	"     M+B",
+	"W+A  M",
+	"W+A  M+B",
+	"G1   M",
+	"G1   M+A",
+	"G1   M+B", //              samber/zap&zerolog
+	"G1+A M",   // chanchal/zap
+	"G1+A M+B", // chanchal/zap samber/zap&zerolog
+	"G1+C M+B", // chanchal/zap samber/zap&zerolog
 }
 
 func (suite *SlogTestSuite) TestComplexCases() {
@@ -52,14 +49,17 @@ func (suite *SlogTestSuite) TestComplexCases() {
 		if intTest.DebugLevel() > 1 {
 			suite.Assert().NoError(show(expected, actual))
 		}
+		if !reflect.DeepEqual(expected, actual) {
+			mismatches = append(mismatches, test)
+		}
 		if !suite.HasWarning(warning.Mismatch) {
 			suite.Assert().Equal(expected, actual, test)
-		} else if !reflect.DeepEqual(expected, actual) {
-			mismatches = append(mismatches, test)
 		}
 	}
 	if len(mismatches) > 0 {
-		suite.AddWarning(warning.Mismatch, strings.Join(mismatches, " | "), suite.Buffer.String())
+		failed := strings.Join(mismatches, " | ")
+		intTest.Debugf(1, ">>> Mismatches: %s", failed)
+		suite.AddWarning(warning.Mismatch, failed, suite.Buffer.String())
 	}
 }
 
@@ -67,6 +67,7 @@ func (suite *SlogTestSuite) TestComplexCases() {
 
 type parser struct {
 	*warning.Manager
+	inGroup          bool
 	name, definition string
 	logger           *slog.Logger
 	logMap, ptrMap   map[string]any
@@ -104,8 +105,7 @@ func (p *parser) pushLog(logger *slog.Logger) {
 	p.logger = logger
 }
 
-func (p *parser) pushStack(logger *slog.Logger, logMap map[string]any) {
-	p.logger = logger
+func (p *parser) pushMap(logMap map[string]any) {
 	p.ptrMap = logMap
 }
 
@@ -135,14 +135,21 @@ func (p *parser) execute() error {
 		}
 		newMap := make(map[string]any)
 		p.currMap()[grpName] = newMap
-		p.pushStack(p.currLog().WithGroup(grpName), newMap)
+		p.pushLog(p.currLog().WithGroup(grpName))
+		p.pushMap(newMap)
+		p.inGroup = true
 		attrs, err = p.getAttrs()
 		if err != nil {
 			return fmt.Errorf("get attributes: %w", err)
 		}
 		if len(attrs) > 0 {
 			p.pushLog(p.currLog().With(anyList(attrs)...))
-			if err := p.addAttrs(attrs); err != nil {
+			if p.HasWarning(warning.GroupWithTop) {
+				err = p.addAttrsToMap(p.logMap, attrs...)
+			} else {
+				err = p.addAttrs(attrs...)
+			}
+			if err != nil {
 				return fmt.Errorf("add attributes: %w", err)
 			}
 		}
@@ -154,7 +161,7 @@ func (p *parser) execute() error {
 		p.currLog().Info(message, anyList(attrs)...)
 		p.logMap[slog.LevelKey] = "INFO"
 		p.logMap[slog.MessageKey] = message
-		if err := p.addAttrs(attrs); err != nil {
+		if err = p.addAttrs(attrs...); err != nil {
 			return fmt.Errorf("add attributes: %w", err)
 		}
 	case 'W':
@@ -163,7 +170,7 @@ func (p *parser) execute() error {
 			return fmt.Errorf("get attributes: %w", err)
 		}
 		p.pushLog(p.currLog().With(anyList(attrs)...))
-		if err := p.addAttrs(attrs); err != nil {
+		if err := p.addAttrs(attrs...); err != nil {
 			return fmt.Errorf("add attributes: %w", err)
 		}
 	default:
@@ -217,7 +224,7 @@ var attributes = map[byte][]slog.Attr{
 		slog.Duration("duration", time.Hour+3*time.Minute+22*time.Second),
 	},
 	'C': {
-		slog.Group("groupX",
+		slog.Group("groupC",
 			"name", "Goober Snoofus",
 			"skidoo", 23,
 			"pi", math.Pi),
@@ -227,22 +234,8 @@ var attributes = map[byte][]slog.Attr{
 	},
 }
 
-func (p *parser) addAttrs(attrs []slog.Attr) error {
+func (p *parser) addAttrs(attrs ...slog.Attr) error {
 	return p.addAttrsToMap(p.currMap(), attrs...)
-}
-
-func (p *parser) getAttrs() ([]slog.Attr, error) {
-	result := make([]slog.Attr, 0)
-	if len(p.definition) > 1 && p.definition[0] == '+' {
-		x := p.definition[1]
-		p.definition = p.definition[2:]
-		if attrs, found := attributes[x]; !found {
-			return nil, fmt.Errorf("non-existent attribute list '%c'", x)
-		} else {
-			result = append(result, attrs...)
-		}
-	}
-	return result, nil
 }
 
 func (p *parser) addAttrToMap(logMap map[string]any, attr slog.Attr) error {
@@ -253,7 +246,9 @@ func (p *parser) addAttrToMap(logMap map[string]any, attr slog.Attr) error {
 	case slog.KindBool:
 		value = attr.Value.Bool()
 	case slog.KindDuration:
-		if p.Manager.HasWarning(warning.DurationSeconds) {
+		if p.HasWarning(warning.GroupDuration) && p.inGroup {
+			value = float64(attr.Value.Duration().Nanoseconds())
+		} else if p.Manager.HasWarning(warning.DurationSeconds) {
 			value = attr.Value.Duration().Seconds()
 		} else if p.Manager.HasWarning(warning.DurationMillis) {
 			value = float64(attr.Value.Duration().Milliseconds())
@@ -273,11 +268,11 @@ func (p *parser) addAttrToMap(logMap map[string]any, attr slog.Attr) error {
 		// JSON converts all numbers to float64.
 		value = float64(attr.Value.Uint64())
 	case slog.KindGroup:
-		logMap := make(map[string]any)
-		if err := p.addAttrsToMap(logMap, attr.Value.Group()...); err != nil {
+		subMap := make(map[string]any)
+		if err := p.addAttrsToMap(subMap, attr.Value.Group()...); err != nil {
 			return fmt.Errorf("add attributes: %w", err)
 		}
-		value = logMap
+		value = subMap
 	case slog.KindLogValuer:
 		if p.HasWarning(warning.Resolver) {
 			value = attr.Value.LogValuer()
@@ -298,6 +293,20 @@ func (p *parser) addAttrsToMap(logMap map[string]any, attrs ...slog.Attr) error 
 		}
 	}
 	return nil
+}
+
+func (p *parser) getAttrs() ([]slog.Attr, error) {
+	result := make([]slog.Attr, 0)
+	if len(p.definition) > 1 && p.definition[0] == '+' {
+		x := p.definition[1]
+		p.definition = p.definition[2:]
+		if attrs, found := attributes[x]; !found {
+			return nil, fmt.Errorf("non-existent attribute list '%c'", x)
+		} else {
+			result = append(result, attrs...)
+		}
+	}
+	return result, nil
 }
 
 // -----------------------------------------------------------------------------

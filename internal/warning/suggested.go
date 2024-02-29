@@ -19,6 +19,14 @@ var (
 		The ^slog.JSONHandler^ uses nanoseconds for ^time.Duration^ but some other handlers use seconds.
 		* [Go issue 59345: Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)`)
 
+	GroupWithTop = NewWarning(LevelSuggested, "GroupWithTop", "WithGroup().With() ends up at top level of log record", `
+		Almost all handlers treat ^logger.WithGroup(<name>).With(<attrs>) as writing ^<attrs>^ to the group ^<name>^.
+		Some handlers write ^<attrs>^ to the top level of the log record.`)
+
+	GroupDuration = NewWarning(LevelSuggested, "GroupDuration", "", `
+		Some handlers that change the way ^time.Duration^ objects are logged (see warnings ^DurationMillis^ and ^DurationSeconds^)
+		only manage to make the change at the top level of the logged record, duration objects in groups are still in nanoseconds.`)
+
 	LevelCase = NewWarning(LevelSuggested, "LevelCase", "Log level in lowercase", `
 		Each JSON log record contains the logging level of the log statement as a string.
 		Different handlers provide that string in uppercase or lowercase.
@@ -40,7 +48,7 @@ var (
 
 func init() {
 	// Always update this number when adding or removing Warning objects.
-	addTestCount(LevelSuggested, 6)
+	addTestCount(LevelSuggested, 8)
 }
 
 func Suggested() []*Warning {
