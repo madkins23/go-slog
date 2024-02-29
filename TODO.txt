@@ -1,9 +1,5 @@
 TODO
 
-* Samber/Zerolog and Samber/Zap print duration in nanos WithGroup
-  but millis in normal message functions (e.g. Info()).
-* Chanchal/Zap prints the message function attributes at the top level
-  instead of WithGroup as expected.
 * Is GroupInline general or specific to Info() and the like?
 * Check for package compilation
   - Utility to process entries from Go package-linkage whatever
