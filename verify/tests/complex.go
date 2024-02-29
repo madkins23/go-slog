@@ -27,6 +27,9 @@ var tests = []string{
 	"G1+A M",
 	"G1+A M+B",
 	"G1+C M+B",
+	// TODO: chanchal/zerolog fails these
+	//"G1+A G2   M",
+	//"G1+A G2+B M",
 	"G1+A G2+B M+C",
 }
 
