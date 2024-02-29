@@ -68,7 +68,7 @@ var tests = []string{
 // However, once the algorithmic strings/programs were working it was really simple
 // to generate a bunch of tests by pattern of characters.
 // This in turn surfaced a bunch of new discrepancies between logger implementations,
-// resulting a several new warnings.
+// resulting in several new warnings.
 func (suite *SlogTestSuite) TestComplexCases() {
 	logger := suite.Logger(infra.SimpleOptions())
 	mismatches := make([]string, 0)

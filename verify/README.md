@@ -16,7 +16,7 @@ There are two main benefits to using `slog`:
 
 The second benefit justifies a strong verification suite.
 
-### Simple Example
+## Simple Example
 
 Verification of a `slog` handler using the `verify` test suite is fairly simple.
 The following [code](https://github.com/madkins23/go-slog/blob/main/verify/slog_test.go)
@@ -47,12 +47,12 @@ The file itself must have the `_test.go` suffix and
 contain a function with a name of the pattern `TestVerify<tag_name>`
 where `<tag_name>` will likely be something like `PhsymZerolog` or `SlogJSON`.
 
-The first line in `Test_slog` creates a new test suite.
+The first line in `TestVerifySlogJSON` creates a new test suite.
 The argument to the `NewSlogTestSuite` function is an [`infra.Creator`](../infra/creator.go) object,
 which is responsible for creating new `slog.Logger`
 (and optionally `slog.Handler`) objects during testing.
-In this case an appropriate factory is created by the `creator.Slog` function
-that is already defined in the `creator` package.
+In this case an appropriate factory is created by the `Creator` function
+that is already defined in the `slogjson` package.
 In order to test a new handler instance
 (one that has not been tested in this repository)
 it is necessary to [create a new `infra.Creator`](#creators) for it.
@@ -101,8 +101,6 @@ the other tests in the repository don't recognize the `-useWarnings` flag.
 There are two flags defined for testing the verification code:
 * `-debug=<level>`  
   Sets an integer level for showing any `Debugf()` statements in the code.
-  As of 2024-01-11 there is only one in the test suite code at a level of `1`.
-  This statement dumps the current JSON log record.[^1]
 * `-useWarnings`  
   Activates the warning system (see [**Warnings**](#warnings)) below.
   Without this flag the tests fail on errors in the usual manner.
@@ -117,13 +115,11 @@ _Verification only makes sense for JSON handlers_,
 which are generally used to feed log records into downstream processing.
 Text and console handlers don't have a consistent format.
 While it might be useful to test those handlers as well,
-the difficulty of parsing various output formats argues against it.[^2]
+the difficulty of parsing various output formats argues against it.[^1]
 
 ## Creators
 
 `Creator` objects are factories for generating new `slog.Logger` objects.
-
-
 Detailed documentation on this is provided in the [`README`](../infra/README.md)
 for the [`infra` package](../infra).
 
@@ -137,13 +133,14 @@ A "warning" facility is built into many of the tests to provide a way to:
 ### Example
 
 Compare the simple example [above](#simple-example) with the following excerpt from
-the current (2024-01-15) test suite for
-[`phsym/zeroslog`](https://github.com/phsym/zeroslog):[^3]
+the current (2024-02-29) test suite for
+[`phsym/zeroslog`](https://github.com/phsym/zeroslog):[^2]
 ```go
-// Test_slog_zerolog_phsym runs tests for the physym zerolog handler.
-func Test_slog_zerolog_phsym(t *testing.T) {
-    slogSuite := tests.NewSlogTestSuite(creator.SlogPhsymZerolog())
+// TestVerifyPhsymZerolog runs tests for the phsym/zeroslog handler.
+func TestVerifyPhsymZerolog(t *testing.T) {
+    slogSuite := tests.NewSlogTestSuite(phsymzerolog.Creator())
     slogSuite.WarnOnly(warning.Duplicates)
+    slogSuite.WarnOnly(warning.DurationMillis)
     slogSuite.WarnOnly(warning.EmptyAttributes)
     slogSuite.WarnOnly(warning.GroupEmpty)
     slogSuite.WarnOnly(warning.GroupInline)
@@ -152,6 +149,7 @@ func Test_slog_zerolog_phsym(t *testing.T) {
     slogSuite.WarnOnly(warning.TimeMillis)
     slogSuite.WarnOnly(warning.NoReplAttr)
     slogSuite.WarnOnly(warning.SourceKey)
+    slogSuite.WarnOnly(warning.WithGroupEmpty)
     slogSuite.WarnOnly(warning.ZeroTime)
     suite.Run(t, slogSuite)
 }
@@ -247,11 +245,11 @@ Each of the warnings is intended to represent a feature that is required,
 might be expected, or provides administrative information.
 [Details on individual warnings](https://madkins23.github.io/go-slog/warnings.html).
 
-### Caveats
+## Caveats
 
 Warnings have been defined for cases that I have seen thus far for the rather
 limited number of handlers for which I have configured tests.
-I can think of other possible warnings, but I am loath to configure them unless they are needed.[^4]
+I can think of other possible warnings, but I am loath to configure them unless they are needed.[^3]
 If your handler comes up with a new error condition for which there are tests but no warning
 you can either fix your handler or file a ticket.
 
@@ -340,12 +338,10 @@ after the call to `Run` the test suite.
 
 ---
 
-[^1]: The `--debug` flag and `Debugf` function are defined in the `test` package in this repository.
-
-[^2]: An additional argument is that using a non-JSON output is generally only done
+[^1]: An additional argument is that using a non-JSON output is generally only done
 when writing/testing/debugging code manually and doesn't require the verification level
 as JSON output which is generally done to support downstream processing of logs.
 
-[^3]: Respect to the handler's author, I'm not picking on you, I just need an example here. :wink:
+[^2]: Respect to the handler's author, I'm not picking on you, I just need an example here. :wink:
 
-[^4]: I am lazy.
+[^3]: I am lazy.
