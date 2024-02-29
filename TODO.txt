@@ -17,3 +17,5 @@ Notes
 
 > List of goland:noinspection codes (doesn't always work):
   - https://github.com/JetBrains/qodana-profiles/blob/master/.idea/inspectionProfiles/qodana.recommended.full.xml
+> How to kick off pkg.go.dev:
+  - curl https://sum.golang.org/lookup/github.com/madkins23/go-slog@<release-tag>
