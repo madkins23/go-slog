@@ -15,44 +15,60 @@ import (
 	"github.com/madkins23/go-slog/trace"
 )
 
+// Test algorithms represented as strings.
 var tests = []string{
-	"     M",
-	"     M+A",
-	"     M+B",
-	"W+A  M",
-	"W+A  M+B",
-	"G1   M",
-	"G1   M+A",
-	"G1   M+B",
-	"G1+A M",
-	"G1+A M+B",
-	"G1+C M+B",
-	"G1 G2 M",
-	"G1 G2 M+C",
-	"G1+A G2   M",
-	"G1+A G2   M+C",
-	"G1 G2+B M",
-	"G1 G2+B M+C",
-	"G1+A G2+B M",
-	"G1+A G2+B M+C",
-	"G1 G2 G3 M",
-	"G1 G2 G3 M+C",
-	"G1+A G2 G3 M",
-	"G1+A G2 G3 M+C",
-	"G1 G2+B G3 M",
-	"G1 G2+B G3 M+C",
-	"G1 G2 G3+C M",
-	"G1 G2 G3+C M+B",
-	"G1+A G2+B G3 M",
-	"G1+A G2+B G3 M+C",
-	"G1+A G2 G3+C M",
-	"G1+A G2 G3+C M+B",
-	"G1 G2+B G3+C M",
-	"G1 G2+B G3+C M+A",
+	"               M",
+	"               M+A",
+	"               M+B",
+	"W+A            M",
+	"W+A            M+B",
+	"G1             M",
+	"G1             M+A",
+	"G1             M+B",
+	"G1+A           M",
+	"G1+A           M+B",
+	"G1+C           M+B",
+	"G1   G2        M",
+	"G1   G2        M+C",
+	"G1+A G2        M",
+	"G1+A G2        M+C",
+	"G1   G2+B      M",
+	"G1   G2+B      M+C",
+	"G1+A G2+B      M",
+	"G1+A G2+B      M+C",
+	"G1   G2   G3   M",
+	"G1   G2   G3   M+C",
+	"G1+A G2   G3   M",
+	"G1+A G2   G3   M+C",
+	"G1   G2+B G3   M",
+	"G1   G2+B G3   M+C",
+	"G1   G2   G3+C M",
+	"G1   G2   G3+C M+B",
+	"G1+A G2+B G3   M",
+	"G1+A G2+B G3   M+C",
+	"G1+A G2   G3+C M",
+	"G1+A G2   G3+C M+B",
+	"G1   G2+B G3+C M",
+	"G1   G2+B G3+C M+A",
 	"G1+A G2+B G3+C M",
 	"G1+A G2+B G3+C M+D",
 }
 
+// TestComplexCases executes a series of algorithmically generated test cases.
+// Each test case is represented by a sequence of characters that is a 'program'.
+// For each test case two things are done:
+//   - a log statement is generated and
+//   - an expected data structure of nested map[string]any is generated.
+//
+// The expectation is that the logMap from the log statement matches the expected data.
+// Various special code bits are used to handle discrepancies marked by warnings.
+//
+// This may seem a bit like cheating as the log statement and expected result are
+// generated from the same algorithm for each test case.
+// However, once the algorithmic strings/programs were working it was really simple
+// to generate a bunch of tests by pattern of characters.
+// This in turn surfaced a bunch of new discrepancies between logger implementations,
+// resulting a several new warnings.
 func (suite *SlogTestSuite) TestComplexCases() {
 	logger := suite.Logger(infra.SimpleOptions())
 	mismatches := make([]string, 0)

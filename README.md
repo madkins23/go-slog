@@ -21,7 +21,8 @@ for more detailed documentation.
 * Web Server that processes output of previous two steps and provides access to result.
 * Static copies of server pages provided via [GitHub Pages](https://pages.github.com/).
 * [Functions for use with `slog.HandlerOptions.ReplaceAttr`](#replace-attributes-functions)
-* [Utility to redirect internal `gin` logging to `slog`](#gin-logging-redirect)
+* [Utility to redirect internal `gin` logging to `slog`](#gin-integration)
+* Test handler [`trace.Handler`](#trace-handler)
 
 ## Handler Benchmarks
 
@@ -112,6 +113,11 @@ Unfortunately, other issues prevent these issues from being fixed:
 Package `gin` contains utilities for using `slog` with
 [`gin-gonic/gin`](https://github.com/gin-gonic/gin).
 In particular, this package provides `gin.Writer` which can be used to redirect Gin-internal logging.
+
+## Trace Handler
+
+The "trace" handler `trace.Handler` doesn't log anything,
+it just prints out the `slog.Handler` interface calls it receives.
 
 ## Caveats
 
