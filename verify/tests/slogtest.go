@@ -114,7 +114,6 @@ func (suite *SlogTestSuite) TestWithGroupEmpty() {
 	logger := suite.Logger(infra.SimpleOptions())
 	logger.WithGroup("group1").WithGroup("group2").Info(message, slog.Group("subGroup"))
 	logMap := suite.logMap()
-	fmt.Printf(">>> Count: %d\n>>> %s\n", len(logMap), suite.Buffer.String())
 	if !suite.HasWarning(warning.WithGroupEmpty) {
 		suite.checkFieldCount(3, logMap)
 		_, found := logMap["group"]
@@ -123,8 +122,8 @@ func (suite *SlogTestSuite) TestWithGroupEmpty() {
 		issues := make([]string, 0, 4)
 		if len(logMap) > 3 {
 			issues = append(issues, "too many fields")
-			if grp, found := logMap["group"]; found {
-				issues = append(issues, "found field")
+			if grp, found := logMap["group1"]; found {
+				issues = append(issues, "found field 'group1'")
 				if group, ok := grp.(map[string]any); ok {
 					issues = append(issues, "value is group")
 					issues = append(issues, fmt.Sprintf("length: %d", len(group)))
