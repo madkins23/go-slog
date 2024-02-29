@@ -108,7 +108,6 @@ func (suite *SlogTestSuite) TestGroupEmpty() {
 
 // TestWithGroupEmpty tests logging an empty group added using WithGroup.
 //   - Based on the existing behavior of log/slog the group field is not logged.
-//   - Implements slogtest "empty-group" test.
 //   - From https://pkg.go.dev/log/slog@master#Handler
 func (suite *SlogTestSuite) TestWithGroupEmpty() {
 	logger := suite.Logger(infra.SimpleOptions())
@@ -149,6 +148,47 @@ func (suite *SlogTestSuite) TestGroupInline() {
 		slog.Group("", "second", 2, slog.String("third", "3"), "fourth", "forth"),
 		"pi", math.Pi)
 	logMap := suite.logMap()
+	suite.Assert().Equal("one", logMap["first"])
+	suite.Assert().Equal(math.Pi, logMap["pi"])
+	checkFieldFn := func(fieldMap map[string]any) {
+		suite.Assert().Equal(float64(2), fieldMap["second"])
+		suite.Assert().Equal("3", fieldMap["third"])
+		suite.Assert().Equal("forth", fieldMap["fourth"])
+	}
+	if !suite.HasWarning(warning.GroupInline) {
+		suite.checkFieldCount(8, logMap)
+		checkFieldFn(logMap)
+	} else {
+		counter := suite.fieldCounter()
+		suite.Require().NoError(counter.Parse())
+		if counter.NumFields() == 6 {
+			if group, ok := logMap[""].(map[string]any); ok {
+				suite.Assert().Len(group, 3)
+				checkFieldFn(group)
+			} else {
+				suite.Fail("Group not map[string]any")
+			}
+			suite.AddWarning(warning.GroupInline, "", suite.Buffer.String())
+		} else {
+			suite.AddUnused(warning.GroupInline, "")
+		}
+	}
+}
+
+// TestWithGroupInline tests the use of WithGroup() with an empty name.
+//   - Based on the existing behavior of log/slog the group field is not logged and
+//     the fields within the group are moved to the top level.
+//   - From https://pkg.go.dev/log/slog@master#Handler
+func (suite *SlogTestSuite) TestWithGroupInline() {
+	logger := suite.Logger(infra.SimpleOptions())
+	logger.WithGroup("").Info(message,
+		"first", "one",
+		"second", 2,
+		slog.String("third", "3"),
+		"fourth", "forth",
+		"pi", math.Pi)
+	logMap := suite.logMap()
+	fmt.Printf(">>> %s\n", suite.String())
 	suite.Assert().Equal("one", logMap["first"])
 	suite.Assert().Equal(math.Pi, logMap["pi"])
 	checkFieldFn := func(fieldMap map[string]any) {
@@ -241,7 +281,7 @@ func (suite *SlogTestSuite) TestGroupWithMultiSubEmpty() {
 		"group": map[string]any{
 			"second": float64(2),
 			"third":  "3",
-			// no sub group here
+			// no subgroup here
 		},
 	}
 	suite.adjustExpected(expected, logMap)
