@@ -19,7 +19,8 @@ var (
 		The ^slog.JSONHandler^ uses nanoseconds for ^time.Duration^ but some other handlers use seconds.
 		* [Go issue 59345: Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)`)
 
-	GroupWithTop = NewWarning(LevelSuggested, "GroupWithTop", "WithGroup().With() ends up at top level of log record", `
+	GroupWithTop = NewWarning(LevelSuggested, "GroupWithTop",
+		"WithGroup().With() ends up at top level of log record instead of in the group", `
 		Almost all handlers treat ^logger.WithGroup(<name>).With(<attrs>) as writing ^<attrs>^ to the group ^<name>^.
 		Some handlers write ^<attrs>^ to the top level of the log record.`)
 

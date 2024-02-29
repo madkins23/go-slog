@@ -90,7 +90,8 @@ func (suite *SlogTestSuite) TestGroupDuration() {
 	}
 }
 
-// TestGroupWithTop tests ...
+// TestGroupWithTop tests for cases where attributes sent via WithGroup().With()
+// don't go into the group but end up at the top level of the log record.
 func (suite *SlogTestSuite) TestGroupWithTop() {
 	logger := suite.Logger(infra.SimpleOptions())
 	logger.WithGroup("group").With(slog.String("key", "value")).Info(message)
@@ -105,6 +106,7 @@ func (suite *SlogTestSuite) TestGroupWithTop() {
 		suite.Assert().Equal("value", str)
 		return
 	}
+	failures := make([]any, 0)
 	if grp, found := logMap["group"]; found {
 		if group, ok := grp.(map[string]any); ok {
 			if str, found := group["key"]; found {
@@ -113,9 +115,18 @@ func (suite *SlogTestSuite) TestGroupWithTop() {
 						suite.AddUnused(warning.GroupWithTop, "")
 						return
 					}
+					failures = append(failures, "group[\"key\"] != \"value\"")
+				} else {
+					failures = append(failures, "group[\"key\"] not a string")
 				}
+			} else {
+				failures = append(failures, "group[\"key\"] not found")
 			}
+		} else {
+			failures = append(failures, "logMap[\"group\"] not a group")
 		}
+	} else {
+		failures = append(failures, "logMap[\"group\"] not found")
 	}
 	if str, found := logMap["key"]; found {
 		if val, ok := str.(string); ok {
@@ -123,9 +134,14 @@ func (suite *SlogTestSuite) TestGroupWithTop() {
 				suite.AddWarning(warning.GroupWithTop, "", suite.Buffer.String())
 				return
 			}
+			failures = append(failures, "logMap[\"key\"] != \"value\"")
+		} else {
+			failures = append(failures, "logMap[\"key\"] not a string")
 		}
+	} else {
+		failures = append(failures, "logMap[\"key\"] not found")
 	}
-	// TODO: should there be a warning or fail() here?
+	suite.Fail("Unable to find key 'key'", failures...)
 }
 
 // TestTimestampFormat tests whether a timestamp can be parsed.
