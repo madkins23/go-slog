@@ -37,7 +37,8 @@ var (
 		* [Behavior defined for ^JSONHandler.Handle()^](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)
 		* [Definition of source data record](https://pkg.go.dev/log/slog@master#Source)`)
 
-	WithGroup = NewWarning(LevelImplied, "WithGroup", "WithGroup doesn't embed following attributes into group", `
+	WithGroup = NewWarning(LevelImplied, "WithGroup",
+		"WithGroup doesn't embed following attributes into group", `
 		Complex log statements involving ^WithGroup^ require attributes to be attached to groups.
 		This warning represents situations where the attributes are attached to the wrong log group.`)
 )

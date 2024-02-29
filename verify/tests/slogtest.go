@@ -74,7 +74,7 @@ func (suite *SlogTestSuite) TestGroup() {
 	suite.Assert().Equal(math.Pi, logMap["pi"])
 }
 
-// TestGroupEmpty tests logging an empty group.
+// TestGroupEmpty tests logging an empty group added as a group attribute.
 //   - Based on the existing behavior of log/slog the group field is not logged.
 //   - Implements slogtest "empty-group" test.
 //   - From https://pkg.go.dev/log/slog@master#Handler
@@ -82,7 +82,11 @@ func (suite *SlogTestSuite) TestGroupEmpty() {
 	logger := suite.Logger(infra.SimpleOptions())
 	logger.Info(message, slog.Group("group"))
 	logMap := suite.logMap()
-	if suite.HasWarning(warning.GroupEmpty) {
+	if !suite.HasWarning(warning.GroupEmpty) {
+		suite.checkFieldCount(3, logMap)
+		_, found := logMap["group"]
+		suite.Assert().False(found)
+	} else {
 		issues := make([]string, 0, 4)
 		if len(logMap) > 3 {
 			issues = append(issues, "too many fields")
@@ -96,19 +100,48 @@ func (suite *SlogTestSuite) TestGroupEmpty() {
 		}
 		if len(issues) > 0 {
 			suite.AddWarning(warning.GroupEmpty, strings.Join(issues, ", "), suite.Buffer.String())
-			return
+		} else {
+			suite.AddUnused(warning.GroupEmpty, "")
 		}
-		suite.AddUnused(warning.GroupEmpty, "")
 	}
-	suite.checkFieldCount(3, logMap)
-	_, found := logMap["group"]
-	suite.Assert().False(found)
+}
+
+// TestWithGroupEmpty tests logging an empty group added using WithGroup.
+//   - Based on the existing behavior of log/slog the group field is not logged.
+//   - Implements slogtest "empty-group" test.
+//   - From https://pkg.go.dev/log/slog@master#Handler
+func (suite *SlogTestSuite) TestWithGroupEmpty() {
+	logger := suite.Logger(infra.SimpleOptions())
+	logger.WithGroup("group1").WithGroup("group2").Info(message, slog.Group("subGroup"))
+	logMap := suite.logMap()
+	fmt.Printf(">>> Count: %d\n>>> %s\n", len(logMap), suite.Buffer.String())
+	if !suite.HasWarning(warning.WithGroupEmpty) {
+		suite.checkFieldCount(3, logMap)
+		_, found := logMap["group"]
+		suite.Assert().False(found)
+	} else {
+		issues := make([]string, 0, 4)
+		if len(logMap) > 3 {
+			issues = append(issues, "too many fields")
+			if grp, found := logMap["group"]; found {
+				issues = append(issues, "found field")
+				if group, ok := grp.(map[string]any); ok {
+					issues = append(issues, "value is group")
+					issues = append(issues, fmt.Sprintf("length: %d", len(group)))
+				}
+			}
+		}
+		if len(issues) > 0 {
+			suite.AddWarning(warning.WithGroupEmpty, strings.Join(issues, ", "), suite.Buffer.String())
+		} else {
+			suite.AddUnused(warning.WithGroupEmpty, "")
+		}
+	}
 }
 
 // TestGroupInline tests the use of a group with an empty name.
 //   - Based on the existing behavior of log/slog the group field is not logged and
-//
-// the fields within the group are moved to the top level.
+//     the fields within the group are moved to the top level.
 //   - Implements slogtest "inline-group" test.
 //   - From https://pkg.go.dev/log/slog@master#Handler
 func (suite *SlogTestSuite) TestGroupInline() {
@@ -124,7 +157,10 @@ func (suite *SlogTestSuite) TestGroupInline() {
 		suite.Assert().Equal("3", fieldMap["third"])
 		suite.Assert().Equal("forth", fieldMap["fourth"])
 	}
-	if suite.HasWarning(warning.GroupInline) {
+	if !suite.HasWarning(warning.GroupInline) {
+		suite.checkFieldCount(8, logMap)
+		checkFieldFn(logMap)
+	} else {
 		counter := suite.fieldCounter()
 		suite.Require().NoError(counter.Parse())
 		if counter.NumFields() == 6 {
@@ -135,12 +171,10 @@ func (suite *SlogTestSuite) TestGroupInline() {
 				suite.Fail("Group not map[string]any")
 			}
 			suite.AddWarning(warning.GroupInline, "", suite.Buffer.String())
-			return
+		} else {
+			suite.AddUnused(warning.GroupInline, "")
 		}
-		suite.AddUnused(warning.GroupInline, "")
 	}
-	suite.checkFieldCount(8, logMap)
-	checkFieldFn(logMap)
 }
 
 // TestGroupWith tests the use of a logging group specified using WithGroup.

@@ -27,32 +27,30 @@ var tests = []string{
 	"G1+A M",
 	"G1+A M+B",
 	"G1+C M+B",
-	// TODO: chanchal/zerolog fails these
-	//       Presumably the +C at the end of the last one keeps G2 open in actual.
-	//"G1 G2 M", // slog/json &C
+	"G1 G2 M",
 	"G1 G2 M+C",
-	//"G1+A G2   M", // chanchal/zerolog
-	"G1+A G2   M+C", // chanchal/zerolog
-	//"G1 G2+B M",     // chanchal/zerolog
+	"G1+A G2   M",
+	"G1+A G2   M+C",
+	"G1 G2+B M",
 	"G1 G2+B M+C",
-	//"G1+A G2+B M", // chanchal/zerolog
+	"G1+A G2+B M",
 	"G1+A G2+B M+C",
-	//"G1 G2 G3 M",   // slog/json &c
+	"G1 G2 G3 M",
 	"G1 G2 G3 M+C",
-	//"G1+A G2 G3 M", // slog/json &c
+	"G1+A G2 G3 M",
 	"G1+A G2 G3 M+C",
-	//"G1 G2+B G3 M",   // chanchal/zerolog
+	"G1 G2+B G3 M",
 	"G1 G2+B G3 M+C",
-	//"G1 G2 G3+C M",   // chanchal/zerolog
+	"G1 G2 G3+C M",
 	"G1 G2 G3+C M+B",
-	//"G1+A G2+B G3 M", // chanchal/zerolog
+	"G1+A G2+B G3 M",
 	"G1+A G2+B G3 M+C",
-	//"G1+A G2 G3+C M", // chanchal/zerolog
+	"G1+A G2 G3+C M",
 	"G1+A G2 G3+C M+B",
-	//"G1 G2+B G3+C M", // chanchal/zerolog
+	"G1 G2+B G3+C M",
 	"G1 G2+B G3+C M+A",
-	//"G1+A G2+B G3+C M", // chanchal/zerolog
-	//"G1+A G2+B G3+C M+D", // ???
+	"G1+A G2+B G3+C M",
+	"G1+A G2+B G3+C M+D",
 }
 
 func (suite *SlogTestSuite) TestComplexCases() {
@@ -121,9 +119,7 @@ func (p *parser) currMap() map[string]any {
 
 // expected returns the original logMap as the expected result.
 func (p *parser) expected() map[string]any {
-	if !p.HasWarning(warning.GroupEmpty) {
-		p.removeEmptyGroups(p.logMap)
-	}
+	p.removeEmptyGroups(p.logMap, 1)
 	return p.logMap
 }
 
@@ -220,15 +216,23 @@ func (p *parser) fixActual(actual map[string]any) {
 			}
 		}
 	}
+	p.removeEmptyGroups(actual, 0)
 }
 
-func (p *parser) removeEmptyGroups(logMap map[string]any) {
+func (p *parser) removeEmptyGroups(logMap map[string]any, depth int) {
 	for key, val := range logMap {
 		if group, ok := val.(map[string]any); ok {
-			if len(group) < 1 {
-				delete(logMap, key)
-			} else {
-				p.removeEmptyGroups(group)
+			if len(group) > 0 {
+				p.removeEmptyGroups(group, depth+1)
+			}
+			if depth > 0 || !p.HasWarning(warning.GroupEmpty) {
+				if len(group) < 1 {
+					delete(logMap, key)
+				}
+			} else if p.HasWarning(warning.GroupEmpty) {
+				if len(group) < 1 {
+					delete(logMap, key)
+				}
 			}
 		} else if _, ok := val.(slog.LogValuer); ok && p.HasWarning(warning.Resolver) {
 			logMap[key] = make(map[string]any)
@@ -257,6 +261,10 @@ var attributes = map[byte][]slog.Attr{
 		slog.Bool("bool", false),
 		slog.Any("valuer", &hiddenValuer{"Big Tree"}),
 		slog.Duration("duration", 23*time.Minute+49*time.Second),
+	},
+	'D': {
+		slog.Float64("E", math.E),
+		slog.Uint64("uint64", 79),
 	},
 }
 
@@ -301,10 +309,9 @@ func (p *parser) addAttrToMap(logMap map[string]any, attr slog.Attr) error {
 		value = subMap
 	case slog.KindLogValuer:
 		if p.HasWarning(warning.Resolver) {
-			value = attr.Value.LogValuer()
-		} else {
-			value = attr.Value.LogValuer().LogValue().String()
+			return nil
 		}
+		value = attr.Value.LogValuer().LogValue().String()
 	default:
 		slog.Warn("Unknown slog.Attr.Value.Kind", "kind", attr.Value.Kind().String())
 	}

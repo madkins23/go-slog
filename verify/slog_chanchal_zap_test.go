@@ -16,8 +16,6 @@ func TestVerifyChanchalZap(t *testing.T) {
 	slogSuite.WarnOnly(warning.CanceledContext)
 	slogSuite.WarnOnly(warning.Duplicates)
 	slogSuite.WarnOnly(warning.DurationSeconds)
-	slogSuite.WarnOnly(warning.GroupEmpty)
-	slogSuite.WarnOnly(warning.GroupInline)
 	slogSuite.WarnOnly(warning.GroupWithTop)
 	slogSuite.WarnOnly(warning.LevelCase)
 	slogSuite.WarnOnly(warning.LevelMath)
@@ -26,5 +24,6 @@ func TestVerifyChanchalZap(t *testing.T) {
 	slogSuite.WarnOnly(warning.NoReplAttrBasic)
 	slogSuite.WarnOnly(warning.SourceKey)
 	slogSuite.WarnOnly(warning.WithGroup)
+	slogSuite.WarnOnly(warning.WithGroupEmpty)
 	suite.Run(t, slogSuite)
 }

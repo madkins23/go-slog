@@ -6,8 +6,7 @@ var (
 		* ["- If an Attr's key and value are both the zero value, ignore the Attr."](https://pkg.go.dev/log/slog@master#Handler)`)
 
 	GroupEmpty = NewWarning(LevelRequired, "GroupEmpty", "Empty (sub)group(s) logged", `
-		Handlers should not log groups (or subgroups) without fields,
-		whether or not the have non-empty names.
+		Handlers should not log groups (or subgroups) without fields, whether or not they have non-empty names.
 		* ["- If a group has no Attrs (even if it has a non-empty key), ignore it."](https://pkg.go.dev/log/slog@master#Handler)`)
 
 	GroupInline = NewWarning(LevelRequired, "GroupInline", "Group with empty key does not inline subfields", `
@@ -21,6 +20,10 @@ var (
 		This is a powerful feature which can customize logging of objects and
 		[speed up logging by delaying argument resolution until logging time](https://pkg.go.dev/log/slog@master#hdr-Performance_considerations).
 		* ["- Attr's values should be resolved."](https://pkg.go.dev/log/slog@master#Handler)`)
+
+	WithGroupEmpty = NewWarning(LevelRequired, "WithGroupEmpty", "Empty WithGroup() logged", `
+		Handlers should not log WithGroup() groups with no fields, whether or not they have non-empty names.
+		* ["- If a group has no Attrs (even if it has a non-empty key), ignore it."](https://pkg.go.dev/log/slog@master#Handler)`)
 
 	ZeroPC = NewWarning(LevelRequired, "ZeroPC", "SourceKey logged for zero PC", `
 		The ^slog.Record.PC^ field can be loaded with a program counter (PC).
