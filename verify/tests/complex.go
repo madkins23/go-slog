@@ -29,13 +29,22 @@ var tests = []string{
 	"G1+C M+B",
 	// TODO: chanchal/zerolog fails these
 	//       Presumably the +C at the end of the last one keeps G2 open in actual.
+	//"G1 G2 M", // slog/json &C
+	"G1 G2 M+C",
 	//"G1+A G2   M", // chanchal/zerolog
+	"G1+A G2   M+C", // chanchal/zerolog
+	//"G1 G2+B M",     // chanchal/zerolog
+	"G1 G2+B M+C",
 	//"G1+A G2+B M", // chanchal/zerolog
 	"G1+A G2+B M+C",
 	//"G1 G2 G3 M",   // slog/json &c
+	"G1 G2 G3 M+C",
 	//"G1+A G2 G3 M", // slog/json &c
+	"G1+A G2 G3 M+C",
 	//"G1 G2+B G3 M",   // chanchal/zerolog
+	"G1 G2+B G3 M+C",
 	//"G1 G2 G3+C M",   // chanchal/zerolog
+	"G1 G2 G3+C M+B",
 	//"G1+A G2+B G3 M", // chanchal/zerolog
 	"G1+A G2+B G3 M+C",
 	//"G1+A G2 G3+C M", // chanchal/zerolog
@@ -43,6 +52,7 @@ var tests = []string{
 	//"G1 G2+B G3+C M", // chanchal/zerolog
 	"G1 G2+B G3+C M+A",
 	//"G1+A G2+B G3+C M", // chanchal/zerolog
+	//"G1+A G2+B G3+C M+D", // ???
 }
 
 func (suite *SlogTestSuite) TestComplexCases() {
