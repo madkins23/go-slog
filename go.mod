@@ -17,7 +17,7 @@ require (
 	github.com/samber/slog-zap/v2 v2.3.0
 	github.com/samber/slog-zerolog/v2 v2.2.0
 	github.com/sirupsen/logrus v1.9.3
-	github.com/stretchr/testify v1.8.4
+	github.com/stretchr/testify v1.9.0
 	github.com/vicanso/go-charts/v2 v2.6.4
 	go.mrchanchal.com/zaphandler v0.0.0-20230611140024-bd4fd80897ad
 	go.uber.org/zap v1.27.0

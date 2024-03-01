@@ -2,129 +2,277 @@
 <head>
   <title>Benchmark Data</title>
   <link rel="stylesheet" href="/go-slog/style.css">
-  <script>
-    function toggleTableRow(id) {
-        var elem = document.getElementById(id);
-        elem.style.display = elem.style.display == "none" ? "table-row" : "none";
-    }
-  </script>
+  <script src="/go-slog/scripts.js"></script>
 </head>
 
 <body>
-<table class="top">
-  <tr>
-    <td>
-      <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
-      <h2 class="home">Warnings</h2>
-    </td>
-    <td align="right"></td>
-  </tr>
-  <tr>
-    <td colspan=2 align="center">
-      <table class="warning">
-        <colgroup>
-          <col width="3%"/>
-          <col width="3%"/>
-          <col width="30%"/>
-          <col width="64%"/>
-        </colgroup>
+<div class="wrapper">
+  <div class="header">
         
-          <tr>
-            <td colspan=4 class="level">Required</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td colspan=3><p>The following warnings can be justified from requirements in the <a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank"><code>slog.Handler</code></a> documentation.</p>
-</td>
-          </tr>
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">EmptyAttributes</td>
-              <td class="extra">Empty attribute(s) logged (&#34;&#34;:null)</td>
-            </tr>
-            
+    <table class="header">
+        <tr>
+          <td>
+            <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+            <h2 class="home">Warnings</h2>
+          </td>
+          <td align="right">
+            <table>
               <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>Handlers are supposed to avoid logging empty attributes.</p>
+                <td align="right">Handlers</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="ChanchalZap" >chanchal/zaphandler</option>
+                      
+                        <option value="PhsymZerolog" >phsym/zeroslog</option>
+                      
+                        <option value="SamberLogrus" >samber/slog-logrus</option>
+                      
+                        <option value="SamberZap" >samber/slog-zap</option>
+                      
+                        <option value="SamberZerolog" >samber/slog-zerolog</option>
+                      
+                        <option value="SlogJSON" >slog/JSONHandler</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td align="right">Bench Tests</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Bench:Attributes" >Attributes</option>
+                      
+                        <option value="Bench:BigGroup" >Big Group</option>
+                      
+                        <option value="Bench:Disabled" >Disabled</option>
+                      
+                        <option value="Bench:KeyValues" >Key Values</option>
+                      
+                        <option value="Bench:Logging" >Logging</option>
+                      
+                        <option value="Bench:Simple" >Simple</option>
+                      
+                        <option value="Bench:SimpleSource" >Simple Source</option>
+                      
+                        <option value="Bench:WithAttrsAttributes" >With Attrs Attributes</option>
+                      
+                        <option value="Bench:WithAttrsKeyValues" >With Attrs Key Values</option>
+                      
+                        <option value="Bench:WithAttrsSimple" >With Attrs Simple</option>
+                      
+                        <option value="Bench:WithGroupAttributes" >With Group Attributes</option>
+                      
+                        <option value="Bench:WithGroupKeyValues" >With Group Key Values</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td align="right">Verify Tests</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
+                      
+                        <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
+                      
+                        <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
+                      
+                        <option value="Verify:AttributesEmpty" >Attributes Empty</option>
+                      
+                        <option value="Verify:CanceledContext" >Canceled Context</option>
+                      
+                        <option value="Verify:DefaultLevel" >Default Level</option>
+                      
+                        <option value="Verify:GroupDuration" >Group Duration</option>
+                      
+                        <option value="Verify:GroupInline" >Group Inline</option>
+                      
+                        <option value="Verify:GroupWithMulti" >Group With Multi</option>
+                      
+                        <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                      
+                        <option value="Verify:GroupWithTop" >Group With Top</option>
+                      
+                        <option value="Verify:KeyCase" >Key Case</option>
+                      
+                        <option value="Verify:Keys" >Keys</option>
+                      
+                        <option value="Verify:LevelConfigured" >Level Configured</option>
+                      
+                        <option value="Verify:LevelDifferent" >Level Different</option>
+                      
+                        <option value="Verify:LevelVar" >Level Var</option>
+                      
+                        <option value="Verify:LogAttributes" >Log Attributes</option>
+                      
+                        <option value="Verify:ReplaceAttr" >Replace Attr</option>
+                      
+                        <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
+                      
+                        <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                      
+                        <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
+                      
+                        <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                      
+                        <option value="Verify:ResolveGroup" >Resolve Group</option>
+                      
+                        <option value="Verify:ResolveGroupWith" >Resolve Group With</option>
+                      
+                        <option value="Verify:ResolveValuer" >Resolve Valuer</option>
+                      
+                        <option value="Verify:ResolveWith" >Resolve With</option>
+                      
+                        <option value="Verify:SourceKey" >Source Key</option>
+                      
+                        <option value="Verify:WithGroupEmpty" >With Group Empty</option>
+                      
+                        <option value="Verify:ZeroPC" >Zero PC</option>
+                      
+                        <option value="Verify:ZeroTime" >Zero Time</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td align="right">Other Links</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="otherChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      <option value="index.html"    >Home</option>
+                      <option value="guts.html"     >Guts</option>
+                      <option value="warnings.html" selected>Warnings</option>
+                    </select>
+                  </form>
+              </tr>
+            </table>
+          </td>
+        </tr>
+    </table>
+
+  </div>
+  <div class="content">
+    <div>
+      <table class="top">
+        <tr>
+          <td colspan=2 align="center">
+            <table class="warning">
+              <colgroup>
+                <col width="3%"/>
+                <col width="3%"/>
+                <col width="30%"/>
+                <col width="64%"/>
+              </colgroup>
+              
+                <tr>
+                  <td colspan=4 class="level">Required</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td colspan=3><p>The following warnings can be justified from requirements in the <a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank"><code>slog.Handler</code></a> documentation.</p>
+</td>
+                </tr>
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">EmptyAttributes</td>
+                    <td class="extra">Empty attribute(s) logged (&#34;&#34;:null)</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Handlers are supposed to avoid logging empty attributes.</p>
 
 <ul>
 <li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If an Attr's key and value are both the zero value, ignore the Attr.&quot;</a></li>
 </ul>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">GroupEmpty</td>
-              <td class="extra">Empty (sub)group(s) logged</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>Handlers should not log groups (or subgroups) without fields, whether or not they have non-empty names.</p>
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">GroupEmpty</td>
+                    <td class="extra">Empty (sub)group(s) logged</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Handlers should not log groups (or subgroups) without fields, whether or not they have non-empty names.</p>
 
 <ul>
 <li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If a group has no Attrs (even if it has a non-empty key), ignore it.&quot;</a></li>
 </ul>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">GroupInline</td>
-              <td class="extra">Group with empty key does not inline subfields</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>Handlers should expand groups named &quot;&quot; (the empty string) into the enclosing log record.</p>
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">GroupInline</td>
+                    <td class="extra">Group with empty key does not inline subfields</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Handlers should expand groups named &quot;&quot; (the empty string) into the enclosing log record.</p>
 
 <ul>
 <li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If a group's key is empty, inline the group's Attrs.&quot;</a></li>
 </ul>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">Mismatch</td>
-              <td class="extra">Logged record does not match expected</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>During benchmark testing the test is run once to see if the logged record matches expectations.</p>
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">Mismatch</td>
+                    <td class="extra">Logged record does not match expected</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>During benchmark testing the test is run once to see if the logged record matches expectations.</p>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">NotDisabled</td>
-              <td class="extra">Logging was not properly disabled</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>During benchmark testing a Debug log line is made with the current level set to Info.
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">NotDisabled</td>
+                    <td class="extra">Logging was not properly disabled</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>During benchmark testing a Debug log line is made with the current level set to Info.
 This warning is thrown if there is any logged output.</p>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">Resolver</td>
-              <td class="extra">LogValuer objects are not resolved</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>Handlers should resolve all objects implementing the
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">Resolver</td>
+                    <td class="extra">LogValuer objects are not resolved</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Handlers should resolve all objects implementing the
 <a href="https://pkg.go.dev/log/slog@master#LogValuer" target="_blank"><code>LogValuer</code></a> or
 <a href="https://pkg.go.dev/fmt#Stringer" target="_blank"><code>Stringer</code></a> interfaces.
 This is a powerful feature which can customize logging of objects and
@@ -134,35 +282,35 @@ This is a powerful feature which can customize logging of objects and
 <li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- Attr's values should be resolved.&quot;</a></li>
 </ul>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">WithGroupEmpty</td>
-              <td class="extra">Empty WithGroup() logged</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>Handlers should not log WithGroup() groups with no fields, whether or not they have non-empty names.</p>
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">WithGroupEmpty</td>
+                    <td class="extra">Empty WithGroup() logged</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Handlers should not log WithGroup() groups with no fields, whether or not they have non-empty names.</p>
 
 <ul>
 <li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If a group has no Attrs (even if it has a non-empty key), ignore it.&quot;</a></li>
 </ul>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">ZeroPC</td>
-              <td class="extra">SourceKey logged for zero PC</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>The <code>slog.Record.PC</code> field can be loaded with a program counter (PC).
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">ZeroPC</td>
+                    <td class="extra">SourceKey logged for zero PC</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>The <code>slog.Record.PC</code> field can be loaded with a program counter (PC).
 This is normally done by the <code>slog.Logger</code> code.
 If the PC is non-zero and the <code>slog.HandlerOptions.AddSource</code> flag is set
 the <code>source</code> field will contain a <a href="https://pkg.go.dev/log/slog@master#Source" target="_blank"><code>slog.Source</code></a> record
@@ -173,90 +321,90 @@ If the PC is zero then this field and its associated group should not be logged.
 <li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If r.PC is zero, ignore it.&quot;</a></li>
 </ul>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">ZeroTime</td>
-              <td class="extra">Zero time is logged</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>Handlers should not log the basic <code>time</code> field if it is zero.</p>
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">ZeroTime</td>
+                    <td class="extra">Zero time is logged</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Handlers should not log the basic <code>time</code> field if it is zero.</p>
 
 <ul>
 <li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If r.Time is the zero time, ignore the time.&quot;</a></li>
 </ul>
 </td>
-              </tr>
-            
-          
-        
-          <tr>
-            <td colspan=4 class="level">Implied</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td colspan=3><p>Warnings that seem to be implied by documentation but can't be considered required.</p>
+                    </tr>
+                  
+                
+              
+                <tr>
+                  <td colspan=4 class="level">Implied</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td colspan=3><p>Warnings that seem to be implied by documentation but can't be considered required.</p>
 </td>
-          </tr>
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">CanceledContext</td>
-              <td class="extra">Canceled context blocks logging</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p><a href="https://github.com/golang/example/tree/master/slog-handler-guide#the-handle-method" target="_blank">&quot;The context is provided to support applications that provide logging information along the call chain. In a break with usual Go practice,
+                </tr>
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">CanceledContext</td>
+                    <td class="extra">Canceled context blocks logging</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p><a href="https://github.com/golang/example/tree/master/slog-handler-guide#the-handle-method" target="_blank">&quot;The context is provided to support applications that provide logging information along the call chain. In a break with usual Go practice,
 the Handle method should not treat a canceled context as a signal to stop work.&quot;</a></p>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">DefaultLevel</td>
-              <td class="extra">Handler doesn&#39;t default to slog.LevelInfo</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>A new <code>slog.Handler</code> should default to <code>slog.LevelInfo</code>.</p>
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">DefaultLevel</td>
+                    <td class="extra">Handler doesn&#39;t default to slog.LevelInfo</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>A new <code>slog.Handler</code> should default to <code>slog.LevelInfo</code>.</p>
 
 <ul>
 <li><a href="https://pkg.go.dev/log/slog@master#Level" target="_blank">&quot;First, we wanted the default level to be Info, Since Levels are ints, Info is the default value for int, zero.&quot;</a></li>
 </ul>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">LevelMath</td>
-              <td class="extra">Log levels are not properly treated as integers</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p><a href="https://pkg.go.dev/log/slog@master#Level" target="_blank">Log levels are actually numbers</a>, with space between them for user-defined levels.
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">LevelMath</td>
+                    <td class="extra">Log levels are not properly treated as integers</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p><a href="https://pkg.go.dev/log/slog@master#Level" target="_blank">Log levels are actually numbers</a>, with space between them for user-defined levels.
 Handlers should properly handle numeric levels and math applied to level values.</p>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">MessageKey</td>
-              <td class="extra">Wrong message key (should be &#39;msg&#39;)</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>The field name of the &quot;message&quot; key should be <code>msg</code>.</p>
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">MessageKey</td>
+                    <td class="extra">Wrong message key (should be &#39;msg&#39;)</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>The field name of the &quot;message&quot; key should be <code>msg</code>.</p>
 
 <ul>
 <li><a href="https://pkg.go.dev/log/slog@master#pkg-constants" target="_blank">Constant values are defined for <code>slog/log</code></a><br>
@@ -264,18 +412,18 @@ Handlers should properly handle numeric levels and math applied to level values.
 <li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Field values are defined for the <code>JSONHandler.Handle()</code> implementation</a></li>
 </ul>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">NoReplAttr</td>
-              <td class="extra">HandlerOptions.ReplaceAttr not available</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>If <a href="https://pkg.go.dev/log/slog@master#HandlerOptions" target="_blank"><code>HandlerOptions.ReplaceAttr</code></a>
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">NoReplAttr</td>
+                    <td class="extra">HandlerOptions.ReplaceAttr not available</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>If <a href="https://pkg.go.dev/log/slog@master#HandlerOptions" target="_blank"><code>HandlerOptions.ReplaceAttr</code></a>
 is provided it should be honored by the handler.
 However, documentation on implementing handler methods seems to suggest it is optional.</p>
 
@@ -285,34 +433,34 @@ However, documentation on implementing handler methods seems to suggest it is op
 <li><a href="https://github.com/golang/example/tree/master/slog-handler-guide#implementing-handler-methods" target="_blank">&quot;You might also consider adding a ReplaceAttr option to your handler, like the one for the built-in handlers.&quot;</a></li>
 </ul>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">NoReplAttrBasic</td>
-              <td class="extra">HandlerOptions.ReplaceAttr not available for basic fields</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>Some handlers (e.g. <code>phsym/zeroslog</code>) support
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">NoReplAttrBasic</td>
+                    <td class="extra">HandlerOptions.ReplaceAttr not available for basic fields</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Some handlers (e.g. <code>phsym/zeroslog</code>) support
 <a href="https://pkg.go.dev/log/slog@master#HandlerOptions" target="_blank"><code>HandlerOptions.ReplaceAttr</code></a>
 except for the four main fields <code>time</code>, <code>level</code>, <code>msg</code>, and <code>source</code>.
 When that is the case it is better to use this (<code>WarnNoReplAttrBasic</code>) warning.</p>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">SourceKey</td>
-              <td class="extra">Source data not logged when AddSource flag set</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>Handlers should log source data when the <code>slog.HandlerOptions.AddSource</code> flag is set.</p>
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">SourceKey</td>
+                    <td class="extra">Source data not logged when AddSource flag set</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Handlers should log source data when the <code>slog.HandlerOptions.AddSource</code> flag is set.</p>
 
 <ul>
 <li><a href="https://pkg.go.dev/log/slog@master#HandlerOptions" target="_blank">Flag declaration as <code>slog.HandlerOptions</code> field</a></li>
@@ -320,42 +468,42 @@ When that is the case it is better to use this (<code>WarnNoReplAttrBasic</code>
 <li><a href="https://pkg.go.dev/log/slog@master#Source" target="_blank">Definition of source data record</a></li>
 </ul>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">WithGroup</td>
-              <td class="extra">WithGroup doesn&#39;t embed following attributes into group</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>Complex log statements involving <code>WithGroup</code> require attributes to be attached to groups.
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">WithGroup</td>
+                    <td class="extra">WithGroup doesn&#39;t embed following attributes into group</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Complex log statements involving <code>WithGroup</code> require attributes to be attached to groups.
 This warning represents situations where the attributes are attached to the wrong log group.</p>
 </td>
-              </tr>
-            
-          
-        
-          <tr>
-            <td colspan=4 class="level">Suggested</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td colspan=3><p>These warnings are not AFAIK mandated by any documentation or requirements.</p>
+                    </tr>
+                  
+                
+              
+                <tr>
+                  <td colspan=4 class="level">Suggested</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td colspan=3><p>These warnings are not AFAIK mandated by any documentation or requirements.</p>
 </td>
-          </tr>
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">Duplicates</td>
-              <td class="extra">Duplicate field(s) found</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>Some handlers (e.g. <code>slog.JSONHandler</code>)
+                </tr>
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">Duplicates</td>
+                    <td class="extra">Duplicate field(s) found</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Some handlers (e.g. <code>slog.JSONHandler</code>)
 will output multiple occurrences of the same field name
 if the logger is called with multiple instances of the same field.
 This behavior is currently <a href="https://github.com/golang/go/issues/59365" target="_blank">under debate</a>
@@ -364,1323 +512,1352 @@ with no resolution at this time (2024-01-15) and a
 (whereas <a href="https://tip.golang.org/doc/go1.22" target="_blank">Go Release 1.22</a>
 is currently expected in February 2024).</p>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">DurationMillis</td>
-              <td class="extra">slog.Duration() logs milliseconds instead of nanoseconds</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>The <code>slog.JSONHandler</code> uses nanoseconds for <code>time.Duration</code> but some other handlers use seconds.</p>
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">DurationMillis</td>
+                    <td class="extra">slog.Duration() logs milliseconds instead of nanoseconds</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>The <code>slog.JSONHandler</code> uses nanoseconds for <code>time.Duration</code> but some other handlers use seconds.</p>
 
 <ul>
 <li><a href="https://github.com/golang/go/issues/59345" target="_blank">Go issue 59345: Nanoseconds is a recent change with Go 1.21</a></li>
 </ul>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">DurationSeconds</td>
-              <td class="extra">slog.Duration() logs seconds instead of nanoseconds</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>The <code>slog.JSONHandler</code> uses nanoseconds for <code>time.Duration</code> but some other handlers use seconds.</p>
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">DurationSeconds</td>
+                    <td class="extra">slog.Duration() logs seconds instead of nanoseconds</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>The <code>slog.JSONHandler</code> uses nanoseconds for <code>time.Duration</code> but some other handlers use seconds.</p>
 
 <ul>
 <li><a href="https://github.com/golang/go/issues/59345" target="_blank">Go issue 59345: Nanoseconds is a recent change with Go 1.21</a></li>
 </ul>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">GroupDuration</td>
-              <td class="extra"></td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>Some handlers that change the way <code>time.Duration</code> objects are logged (see warnings <code>DurationMillis</code> and <code>DurationSeconds</code>)
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">GroupDuration</td>
+                    <td class="extra"></td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Some handlers that change the way <code>time.Duration</code> objects are logged (see warnings <code>DurationMillis</code> and <code>DurationSeconds</code>)
 only manage to make the change at the top level of the logged record, duration objects in groups are still in nanoseconds.</p>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">GroupWithTop</td>
-              <td class="extra">WithGroup().With() ends up at top level of log record instead of in the group</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>Almost all handlers treat <code>logger.WithGroup(&lt;name&gt;).With(&lt;attrs&gt;) as writing</code><attrs><code>to the group</code><name><code>.
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">GroupWithTop</td>
+                    <td class="extra">WithGroup().With() ends up at top level of log record instead of in the group</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Almost all handlers treat <code>logger.WithGroup(&lt;name&gt;).With(&lt;attrs&gt;) as writing</code><attrs><code>to the group</code><name><code>.
 Some handlers write</code><attrs>` to the top level of the log record.</p>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">LevelCase</td>
-              <td class="extra">Log level in lowercase</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>Each JSON log record contains the logging level of the log statement as a string.
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">LevelCase</td>
+                    <td class="extra">Log level in lowercase</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Each JSON log record contains the logging level of the log statement as a string.
 Different handlers provide that string in uppercase or lowercase.
 Documentation for <a href="https://pkg.go.dev/log/slog@master#Level" target="_blank"><code>slog.Level</code></a>
 says that its <code>String()</code> and <code>MarshalJSON()</code> methods will return uppercase
 but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">LevelWrong</td>
-              <td class="extra">Log level is incorrect</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>The log level name is not what was expected (e.g. &quot;WARNING&quot; instead of &quot;WARN&quot;).
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">LevelWrong</td>
+                    <td class="extra">Log level is incorrect</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>The log level name is not what was expected (e.g. &quot;WARNING&quot; instead of &quot;WARN&quot;).
 This is different from the LevelCase warning which is from the right level name but the wrong character case.</p>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">TimeMillis</td>
-              <td class="extra">slog.Time() logs milliseconds instead of nanoseconds</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>The <code>slog.JSONHandler</code> uses nanoseconds for <code>time.Time</code> but some other handlers use seconds.
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">TimeMillis</td>
+                    <td class="extra">slog.Time() logs milliseconds instead of nanoseconds</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>The <code>slog.JSONHandler</code> uses nanoseconds for <code>time.Time</code> but some other handlers use seconds.
 This does <em>not</em> apply to the basic <code>time</code> field, only attribute fields.
 I can't find any supporting documentation or bug on this but
 <a href="https://github.com/golang/go/issues/59345" target="_blank">Go issue 59345</a> (see previous warning)
 may have fixed this as well in Go 1.21.</p>
 </td>
-              </tr>
-            
-          
-        
-          <tr>
-            <td colspan=4 class="level">Administrative</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td colspan=3><p>Warnings that provide information about the tests or conflicts with other warnings.</p>
+                    </tr>
+                  
+                
+              
+                <tr>
+                  <td colspan=4 class="level">Administrative</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td colspan=3><p>Warnings that provide information about the tests or conflicts with other warnings.</p>
 </td>
-          </tr>
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">NoHandlerCreation</td>
-              <td class="extra">Test depends on unavailable handler creation</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>Some benchmark tests depend on access to a <code>slog.Handler</code> object.
+                </tr>
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">NoHandlerCreation</td>
+                    <td class="extra">Test depends on unavailable handler creation</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Some benchmark tests depend on access to a <code>slog.Handler</code> object.
 Some <code>slog</code> implementations create a <code>slog.Logger</code> but no <code>slog.Handler</code>.
 In this case the relevant benchmark tests can't be run.</p>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">SkippingTest</td>
-              <td class="extra">Skipping test</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>A test has been skipped, likely due to the specification of some other warning.</p>
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">SkippingTest</td>
+                    <td class="extra">Skipping test</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>A test has been skipped, likely due to the specification of some other warning.</p>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">TestError</td>
-              <td class="extra">Test harness error</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>Some sort of error has occurred during testing.
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">TestError</td>
+                    <td class="extra">Test harness error</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Some sort of error has occurred during testing.
 This will generally require a programming fix.</p>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">Undefined</td>
-              <td class="extra">Undefined Warnings(s)</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>An attempt to call <code>WarnOnly</code> with an undefined warning.
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">Undefined</td>
+                    <td class="extra">Undefined Warnings(s)</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>An attempt to call <code>WarnOnly</code> with an undefined warning.
 Warnings must be predefined to the <code>Manager</code> prior to use.</p>
 </td>
-              </tr>
-            
-          
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">Unused</td>
-              <td class="extra">Unused Warnings(s)</td>
-            </tr>
-            
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description"><p>If a warning is specified but the condition is not actually present
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">Unused</td>
+                    <td class="extra">Unused Warnings(s)</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>If a warning is specified but the condition is not actually present
 one of these warnings will be issued with the specified warning.
 These are intended to help clean out unnecessary <code>WarnOnly</code> settings
 from a test suite as issues are fixed in the tested handler.</p>
 </td>
-              </tr>
-            
-          
-        
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td colspan=2><h2>Warnings vs. Handlers</h2></td>
-  </tr>
-  <tr>
-    <td colspan=2 align="center">
-      <table class="handler-v-warning">
-        <tr>
-          <td colspan=2></td>
-          
-            <th><div><span>chanchal/zaphandler</span></div></th>
-          
-            <th><div><span>phsym/zeroslog</span></div></th>
-          
-            <th><div><span>samber/slog-logrus</span></div></th>
-          
-            <th><div><span>samber/slog-zap</span></div></th>
-          
-            <th><div><span>samber/slog-zerolog</span></div></th>
-          
-            <th><div><span>slog/JSONHandler</span></div></th>
-          
+                    </tr>
+                  
+                
+              
+            </table>
+          </td>
         </tr>
-        
-          <tr><td colspan=2 class="level">Required</td></tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">EmptyAttributes</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>2</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>2</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>2</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>2</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">GroupEmpty</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">GroupInline</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">Mismatch</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">NotDisabled</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">Resolver</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>4</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>4</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>4</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">WithGroupEmpty</td>
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">ZeroPC</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">ZeroTime</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-        
-          <tr><td colspan=2 class="level">Implied</td></tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">CanceledContext</td>
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">DefaultLevel</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>2</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">LevelMath</td>
-              
-                
-                
-                  <td class="count"><span>8</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">MessageKey</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>7</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>7</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">NoReplAttr</td>
-              
-                
-                
-                  <td class="count"><span>3</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>4</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">NoReplAttrBasic</td>
-              
-                
-                
-                  <td class="count"><span>2</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>3</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>3</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>3</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">SourceKey</td>
-              
-                
-                
-                  <td class="count"><span>2</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>2</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>2</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">WithGroup</td>
-              
-                
-                
-                  <td class="count"><span>2</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-        
-          <tr><td colspan=2 class="level">Suggested</td></tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">Duplicates</td>
-              
-                
-                
-                  <td class="count"><span>2</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>2</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>2</span></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">DurationMillis</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>2</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">DurationSeconds</td>
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>2</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">GroupDuration</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">GroupWithTop</td>
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">LevelCase</td>
-              
-                
-                
-                  <td class="count"><span>10</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>11</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>10</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>11</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>11</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">LevelWrong</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">TimeMillis</td>
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="count"><span>1</span></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-        
-          <tr><td colspan=2 class="level">Administrative</td></tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">NoHandlerCreation</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">SkippingTest</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">TestError</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">Undefined</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-            <tr>
-              <td width=5%></td>
-              <td class="name">Unused</td>
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-                
-                
-                  <td class="blank"></td>
-                
-              
-            </tr>
-          
-        
+        <tr><td colspan=2><hr/></td></tr>
+        <tr>
+          <td colspan=2><h2>Warnings vs. Handlers</h2></td>
+        </tr>
+        <tr>
+          <td colspan=2 align="center">
+            <table class="handler-v-warning">
+              <tr>
+                <td colspan=2></td>
+                
+                  <th><div><span>chanchal/zaphandler</span></div></th>
+                
+                  <th><div><span>phsym/zeroslog</span></div></th>
+                
+                  <th><div><span>samber/slog-logrus</span></div></th>
+                
+                  <th><div><span>samber/slog-zap</span></div></th>
+                
+                  <th><div><span>samber/slog-zerolog</span></div></th>
+                
+                  <th><div><span>slog/JSONHandler</span></div></th>
+                
+              </tr>
+              
+                <tr><td colspan=2 class="level">Required</td></tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">EmptyAttributes</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">GroupEmpty</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">GroupInline</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">Mismatch</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">NotDisabled</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">Resolver</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>4</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>4</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>4</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">WithGroupEmpty</td>
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">ZeroPC</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">ZeroTime</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+              
+                <tr><td colspan=2 class="level">Implied</td></tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">CanceledContext</td>
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">DefaultLevel</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">LevelMath</td>
+                    
+                      
+                      
+                        <td class="count"><span>8</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">MessageKey</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>7</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>7</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">NoReplAttr</td>
+                    
+                      
+                      
+                        <td class="count"><span>3</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>4</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">NoReplAttrBasic</td>
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>3</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>3</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>3</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">SourceKey</td>
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">WithGroup</td>
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+              
+                <tr><td colspan=2 class="level">Suggested</td></tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">Duplicates</td>
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">DurationMillis</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">DurationSeconds</td>
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">GroupDuration</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">GroupWithTop</td>
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">LevelCase</td>
+                    
+                      
+                      
+                        <td class="count"><span>10</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>11</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>10</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>11</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>11</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">LevelWrong</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">TimeMillis</td>
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+              
+                <tr><td colspan=2 class="level">Administrative</td></tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">NoHandlerCreation</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">SkippingTest</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">TestError</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">Undefined</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">Unused</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+              
+            </table>
+          </td>
+        </tr>
       </table>
-    </td>
-  </tr>
-</table>
+    </div>
+  </div>
+  <div class="footer">
+        <table class="footer">
+        <tr>
+          <td>
+            <div class="hover-text">
+              <span class="tooltip-text">Code Repository</span>
+              <a href="https://github.com/madkins23/go-slog" target="_blank">Repository</a>
+            </div>
+          </td>
+          <td align="center">
+            <div class="hover-text">
+              <span class="tooltip-text">Date/time when this data was generated</span>
+              <span class="fixed">2024-03-01 17:42:16</span>
+            </div>
+          </td>
+          <td align="right">
+            <div class="hover-text">
+              <span class="tooltip-text">Code Documentation</span>
+              <a href="https://pkg.go.dev/github.com/madkins23/go-slog" target="_blank">Documentation</a>
+            </div>
+          </td>
+        </tr>
+    </table>
+
+  </div>
+</div>
 </body>
 </html>

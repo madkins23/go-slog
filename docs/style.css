@@ -1,7 +1,39 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
 body {
     background-color: gray;
     justify-content: center;
     height: fit-content;
+    display: flex;
+}
+
+div.wrapper {
+    height: 100%;
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
+}
+
+div.header {
+    border-bottom: 2px solid black;
+    margin-bottom: 5px;
+}
+
+div.footer {
+    border-top: 2px solid black;
+    margin-top: 5px;
+}
+
+div.content {
+    flex: 1;
+    overflow: auto;
+}
+
+div.content > div {
+    height: 100%;
 }
 
 fieldset {
@@ -114,6 +146,12 @@ table.handler-v-warning td.level {
     font-weight: bold;
 }
 
+table.header, table.footer {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
 table.instance {
     margin: 5px;
     padding: 5px;
@@ -162,6 +200,7 @@ table.root td.warnings pre {
 table.top {
     margin-left: auto;
     margin-right: auto;
+    width: 100%;
 }
 
 table.warning {
@@ -229,4 +268,30 @@ table.warning td.warning {
 .number {
     font-family: monospace;
     text-align: right;
+}
+
+.hover-text {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+}
+
+.tooltip-text {
+    visibility: hidden;
+    background-color: #192733;
+    border-radius: 10px;
+    color: white;
+    font-size: 12px;
+    position: absolute;
+    z-index: 1;
+    width: 100px;
+    line-height: 0;
+}
+
+.hover-text:hover .tooltip-text {
+    left: -40px;
+    top: -40px;
+    line-height: normal;
+    padding: 10px 15px 10px 15px;
+    visibility: visible;
 }

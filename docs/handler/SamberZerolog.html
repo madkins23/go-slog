@@ -2,319 +2,330 @@
 <head>
   <title>Benchmark Data</title>
   <link rel="stylesheet" href="/go-slog/style.css">
-  <script>
-    function toggleTableRow(id) {
-        var elem = document.getElementById(id);
-        elem.style.display = elem.style.display == "none" ? "table-row" : "none";
-    }
-  </script>
+  <script src="/go-slog/scripts.js"></script>
 </head>
 
 <body>
-<table class="top">
-  <tr>
-    <td>
-      <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
-      <h2 class="home">Handler <span class="fixed">samber/slog-zerolog</span></h2>
-    </td>
-    <td align="right">
-              <script>
-          function testChoice(form) {
-            window.location.href = "/go-slog/test/" + form.tag.value + ".html";
-            return true;
-          }
-          function hdlrChoice(form) {
-            window.location.href = "/go-slog/handler/" + form.tag.value + ".html";
-            return true;
-          }
-        </script>
-        <table>
+<div class="wrapper">
+  <div class="header">
+    
+        
+    <table class="header">
+        <tr>
+          <td>
+            <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+            <h2 class="home">Handler <span class="fixed">samber/slog-zerolog</span></h2>
+          </td>
+          <td align="right">
+            <table>
+              <tr>
+                <td align="right">Handlers</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="ChanchalZap" >chanchal/zaphandler</option>
+                      
+                        <option value="PhsymZerolog" >phsym/zeroslog</option>
+                      
+                        <option value="SamberLogrus" >samber/slog-logrus</option>
+                      
+                        <option value="SamberZap" >samber/slog-zap</option>
+                      
+                        <option value="SamberZerolog" selected>samber/slog-zerolog</option>
+                      
+                        <option value="SlogJSON" >slog/JSONHandler</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td align="right">Bench Tests</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Bench:Attributes" >Attributes</option>
+                      
+                        <option value="Bench:BigGroup" >Big Group</option>
+                      
+                        <option value="Bench:Disabled" >Disabled</option>
+                      
+                        <option value="Bench:KeyValues" >Key Values</option>
+                      
+                        <option value="Bench:Logging" >Logging</option>
+                      
+                        <option value="Bench:Simple" >Simple</option>
+                      
+                        <option value="Bench:SimpleSource" >Simple Source</option>
+                      
+                        <option value="Bench:WithAttrsAttributes" >With Attrs Attributes</option>
+                      
+                        <option value="Bench:WithAttrsKeyValues" >With Attrs Key Values</option>
+                      
+                        <option value="Bench:WithAttrsSimple" >With Attrs Simple</option>
+                      
+                        <option value="Bench:WithGroupAttributes" >With Group Attributes</option>
+                      
+                        <option value="Bench:WithGroupKeyValues" >With Group Key Values</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td align="right">Verify Tests</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
+                      
+                        <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
+                      
+                        <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
+                      
+                        <option value="Verify:AttributesEmpty" >Attributes Empty</option>
+                      
+                        <option value="Verify:CanceledContext" >Canceled Context</option>
+                      
+                        <option value="Verify:DefaultLevel" >Default Level</option>
+                      
+                        <option value="Verify:GroupDuration" >Group Duration</option>
+                      
+                        <option value="Verify:GroupInline" >Group Inline</option>
+                      
+                        <option value="Verify:GroupWithMulti" >Group With Multi</option>
+                      
+                        <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                      
+                        <option value="Verify:GroupWithTop" >Group With Top</option>
+                      
+                        <option value="Verify:KeyCase" >Key Case</option>
+                      
+                        <option value="Verify:Keys" >Keys</option>
+                      
+                        <option value="Verify:LevelConfigured" >Level Configured</option>
+                      
+                        <option value="Verify:LevelDifferent" >Level Different</option>
+                      
+                        <option value="Verify:LevelVar" >Level Var</option>
+                      
+                        <option value="Verify:LogAttributes" >Log Attributes</option>
+                      
+                        <option value="Verify:ReplaceAttr" >Replace Attr</option>
+                      
+                        <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
+                      
+                        <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                      
+                        <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
+                      
+                        <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                      
+                        <option value="Verify:ResolveGroup" >Resolve Group</option>
+                      
+                        <option value="Verify:ResolveGroupWith" >Resolve Group With</option>
+                      
+                        <option value="Verify:ResolveValuer" >Resolve Valuer</option>
+                      
+                        <option value="Verify:ResolveWith" >Resolve With</option>
+                      
+                        <option value="Verify:SourceKey" >Source Key</option>
+                      
+                        <option value="Verify:WithGroupEmpty" >With Group Empty</option>
+                      
+                        <option value="Verify:ZeroPC" >Zero PC</option>
+                      
+                        <option value="Verify:ZeroTime" >Zero Time</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td align="right">Other Links</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="otherChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      <option value="index.html"    >Home</option>
+                      <option value="guts.html"     >Guts</option>
+                      <option value="warnings.html" >Warnings</option>
+                    </select>
+                  </form>
+              </tr>
+            </table>
+          </td>
+        </tr>
+    </table>
+
+  </div>
+  <div class="content">
+    <div>
+      <table class="top">
+        
           <tr>
-            <td align="right">Handlers</td>
-            <td>
-              <form class="choice">
-                <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
-                  <option value="" selected disabled hidden>- Choose -</option>
-                  
-                    <option value="ChanchalZap" >chanchal/zaphandler</option>
-                  
-                    <option value="PhsymZerolog" >phsym/zeroslog</option>
-                  
-                    <option value="SamberLogrus" >samber/slog-logrus</option>
-                  
-                    <option value="SamberZap" >samber/slog-zap</option>
-                  
-                    <option value="SamberZerolog" selected>samber/slog-zerolog</option>
-                  
-                    <option value="SlogJSON" >slog/JSONHandler</option>
-                  
-                </select>
-              </form>
+            <td colspan=2 align="center">
+              <h2 align="left">Benchmark Data</h2>
+              <table class="data">
+                <tr>
+                  <th>Benchmark</th>
+                  <th>Runs</th>
+                  <th>Ns/Op</th>
+                  <th>Allocs/Op</th>
+                  <th>Bytes/Op</th>
+                  <th>GB/Sec</th>
+                </tr>
+                
+                  <tr>
+                    <td class="fixed">Attributes</td>
+                    <td class="number">272,636</td>
+                    <td class="number">4,458.00</td>
+                      <td class="number">58</td>
+                     <td class="number">4,973</td>
+                    <td class="number">0.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Big Group</td>
+                    <td class="number">1,752</td>
+                    <td class="number">699,738.00</td>
+                      <td class="number">10,500</td>
+                     <td class="number">634,534</td>
+                    <td class="number">0.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Disabled</td>
+                    <td class="number">322,886,340</td>
+                    <td class="number">3.73</td>
+                      <td class="number">0</td>
+                     <td class="number">0</td>
+                    <td class="number">0.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Key Values</td>
+                    <td class="number">245,715</td>
+                    <td class="number">4,642.00</td>
+                      <td class="number">59</td>
+                     <td class="number">5,358</td>
+                    <td class="number">0.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Logging</td>
+                    <td class="number">15,858</td>
+                    <td class="number">76,491.00</td>
+                      <td class="number">1,173</td>
+                     <td class="number">81,637</td>
+                    <td class="number">0.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Simple</td>
+                    <td class="number">2,716,221</td>
+                    <td class="number">440.90</td>
+                      <td class="number">3</td>
+                     <td class="number">360</td>
+                    <td class="number">0.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Simple Source</td>
+                    <td class="number">950,631</td>
+                    <td class="number">1,161.00</td>
+                      <td class="number">12</td>
+                     <td class="number">1,225</td>
+                    <td class="number">0.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Attrs Attributes</td>
+                    <td class="number">160,454</td>
+                    <td class="number">7,313.00</td>
+                      <td class="number">86</td>
+                     <td class="number">8,712</td>
+                    <td class="number">0.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Attrs Key Values</td>
+                    <td class="number">159,895</td>
+                    <td class="number">7,423.00</td>
+                      <td class="number">87</td>
+                     <td class="number">9,097</td>
+                    <td class="number">0.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Attrs Simple</td>
+                    <td class="number">269,641</td>
+                    <td class="number">3,939.00</td>
+                      <td class="number">53</td>
+                     <td class="number">3,932</td>
+                    <td class="number">0.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Group Attributes</td>
+                    <td class="number">127,978</td>
+                    <td class="number">9,431.00</td>
+                      <td class="number">124</td>
+                     <td class="number">13,070</td>
+                    <td class="number">0.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Group Key Values</td>
+                    <td class="number">129,393</td>
+                    <td class="number">9,584.00</td>
+                      <td class="number">125</td>
+                     <td class="number">13,455</td>
+                    <td class="number">0.00</td>
+                  </tr>
+                
+              </table>
             </td>
           </tr>
+          
+            <tr><td colspan=2><hr/></td></tr>
+          
           <tr>
-            <td align="right">Bench Tests</td>
-            <td>
-              <form class="choice">
-                <select name="tag" id="tag" onchange="testChoice(this.form);">
-                  <option value="" selected disabled hidden>- Choose -</option>
-                  
-                    <option value="Bench:Attributes" >Attributes</option>
-                  
-                    <option value="Bench:BigGroup" >Big Group</option>
-                  
-                    <option value="Bench:Disabled" >Disabled</option>
-                  
-                    <option value="Bench:KeyValues" >Key Values</option>
-                  
-                    <option value="Bench:Logging" >Logging</option>
-                  
-                    <option value="Bench:Simple" >Simple</option>
-                  
-                    <option value="Bench:SimpleSource" >Simple Source</option>
-                  
-                    <option value="Bench:WithAttrsAttributes" >With Attrs Attributes</option>
-                  
-                    <option value="Bench:WithAttrsKeyValues" >With Attrs Key Values</option>
-                  
-                    <option value="Bench:WithAttrsSimple" >With Attrs Simple</option>
-                  
-                    <option value="Bench:WithGroupAttributes" >With Group Attributes</option>
-                  
-                    <option value="Bench:WithGroupKeyValues" >With Group Key Values</option>
-                  
-                </select>
-              </form>
+            <td colspan=2 align="center">
+              <h2 align="left">Benchmark Charts</h2>
+              <table>
+                <tr>
+                  <td><img src="/go-slog/chart/SamberZerolog/Nanos.svg" alt="samber/slog-zerolog Ns/Op" class="chart" /></td>
+                  <td><img src="/go-slog/chart/SamberZerolog/MemAllocs.svg" alt="samber/slog-zerolog Allocs/Op" class="chart" /></td>
+                </tr>
+                <tr>
+                  <td><img src="/go-slog/chart/SamberZerolog/MemBytes.svg" alt="samber/slog-zerolog Bytes/Op" class="chart" /></td>
+                  <td><img src="/go-slog/chart/SamberZerolog/GbPerSec.svg" alt="samber/slog-zerolog GB/Sec" class="chart" /></td>
+                </tr>
+              </table>
             </td>
           </tr>
+        
+        
+          <tr><td colspan=2><hr/></td></tr>
           <tr>
-            <td align="right">Verify Tests</td>
-            <td>
-              <form class="choice">
-                <select name="tag" id="tag" onchange="testChoice(this.form);">
-                  <option value="" selected disabled hidden>- Choose -</option>
-                  
-                    <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
-                  
-                    <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
-                  
-                    <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
-                  
-                    <option value="Verify:AttributesEmpty" >Attributes Empty</option>
-                  
-                    <option value="Verify:CanceledContext" >Canceled Context</option>
-                  
-                    <option value="Verify:DefaultLevel" >Default Level</option>
-                  
-                    <option value="Verify:GroupDuration" >Group Duration</option>
-                  
-                    <option value="Verify:GroupInline" >Group Inline</option>
-                  
-                    <option value="Verify:GroupWithMulti" >Group With Multi</option>
-                  
-                    <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
-                  
-                    <option value="Verify:GroupWithTop" >Group With Top</option>
-                  
-                    <option value="Verify:KeyCase" >Key Case</option>
-                  
-                    <option value="Verify:Keys" >Keys</option>
-                  
-                    <option value="Verify:LevelConfigured" >Level Configured</option>
-                  
-                    <option value="Verify:LevelDifferent" >Level Different</option>
-                  
-                    <option value="Verify:LevelVar" >Level Var</option>
-                  
-                    <option value="Verify:LogAttributes" >Log Attributes</option>
-                  
-                    <option value="Verify:ReplaceAttr" >Replace Attr</option>
-                  
-                    <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
-                  
-                    <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
-                  
-                    <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
-                  
-                    <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
-                  
-                    <option value="Verify:ResolveGroup" >Resolve Group</option>
-                  
-                    <option value="Verify:ResolveGroupWith" >Resolve Group With</option>
-                  
-                    <option value="Verify:ResolveValuer" >Resolve Valuer</option>
-                  
-                    <option value="Verify:ResolveWith" >Resolve With</option>
-                  
-                    <option value="Verify:SourceKey" >Source Key</option>
-                  
-                    <option value="Verify:WithGroupEmpty" >With Group Empty</option>
-                  
-                    <option value="Verify:ZeroPC" >Zero PC</option>
-                  
-                    <option value="Verify:ZeroTime" >Zero Time</option>
-                  
-                </select>
-              </form>
-            </td>
-          </tr>
-        </table>
-    </td>
-  </tr>
-  
-    <tr>
-      <td colspan=2 align="center">
-        <h2 align="left">Benchmark Data</h2>
-        <table class="data">
-          <tr>
-            <th>Benchmark</th>
-            <th>Runs</th>
-            <th>Ns/Op</th>
-            <th>Allocs/Op</th>
-            <th>Bytes/Op</th>
-            <th>GB/Sec</th>
-          </tr>
-          
-            <tr>
-              <td class="fixed">Attributes</td>
-              <td class="number">275,794</td>
-              <td class="number">4,465.00</td>
-              <td class="number">58</td>
-             <td class="number">4,973</td>
-              <td class="number">0.00</td>
-            </tr>
-          
-            <tr>
-              <td class="fixed">Big Group</td>
-              <td class="number">2,008</td>
-              <td class="number">709,577.00</td>
-              <td class="number">10,588</td>
-             <td class="number">638,042</td>
-              <td class="number">0.00</td>
-            </tr>
-          
-            <tr>
-              <td class="fixed">Disabled</td>
-              <td class="number">309,489,824</td>
-              <td class="number">3.88</td>
-              <td class="number">0</td>
-             <td class="number">0</td>
-              <td class="number">0.00</td>
-            </tr>
-          
-            <tr>
-              <td class="fixed">Key Values</td>
-              <td class="number">252,768</td>
-              <td class="number">4,664.00</td>
-              <td class="number">59</td>
-             <td class="number">5,358</td>
-              <td class="number">0.00</td>
-            </tr>
-          
-            <tr>
-              <td class="fixed">Logging</td>
-              <td class="number">15,981</td>
-              <td class="number">77,696.00</td>
-              <td class="number">1,173</td>
-             <td class="number">81,638</td>
-              <td class="number">0.00</td>
-            </tr>
-          
-            <tr>
-              <td class="fixed">Simple</td>
-              <td class="number">2,748,794</td>
-              <td class="number">438.50</td>
-              <td class="number">3</td>
-             <td class="number">360</td>
-              <td class="number">0.00</td>
-            </tr>
-          
-            <tr>
-              <td class="fixed">Simple Source</td>
-              <td class="number">1,000,000</td>
-              <td class="number">1,150.00</td>
-              <td class="number">12</td>
-             <td class="number">1,225</td>
-              <td class="number">0.00</td>
-            </tr>
-          
-            <tr>
-              <td class="fixed">With Attrs Attributes</td>
-              <td class="number">165,896</td>
-              <td class="number">7,187.00</td>
-              <td class="number">86</td>
-             <td class="number">8,712</td>
-              <td class="number">0.00</td>
-            </tr>
-          
-            <tr>
-              <td class="fixed">With Attrs Key Values</td>
-              <td class="number">163,946</td>
-              <td class="number">7,483.00</td>
-              <td class="number">87</td>
-             <td class="number">9,096</td>
-              <td class="number">0.00</td>
-            </tr>
-          
-            <tr>
-              <td class="fixed">With Attrs Simple</td>
-              <td class="number">303,796</td>
-              <td class="number">3,928.00</td>
-              <td class="number">53</td>
-             <td class="number">3,932</td>
-              <td class="number">0.00</td>
-            </tr>
-          
-            <tr>
-              <td class="fixed">With Group Attributes</td>
-              <td class="number">134,602</td>
-              <td class="number">9,178.00</td>
-              <td class="number">124</td>
-             <td class="number">13,070</td>
-              <td class="number">0.00</td>
-            </tr>
-          
-            <tr>
-              <td class="fixed">With Group Key Values</td>
-              <td class="number">131,007</td>
-              <td class="number">9,325.00</td>
-              <td class="number">125</td>
-             <td class="number">13,455</td>
-              <td class="number">0.00</td>
-            </tr>
-          
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td colspan=2 align="center">
-        <h2 align="left">Benchmark Charts</h2>
-        <table>
-          <tr>
-            <td><img src="/go-slog/chart/SamberZerolog/Nanos.svg" alt="samber/slog-zerolog Ns/Op" class="chart" /></td>
-            <td><img src="/go-slog/chart/SamberZerolog/MemAllocs.svg" alt="samber/slog-zerolog Allocs/Op" class="chart" /></td>
-          </tr>
-          <tr>
-            <td><img src="/go-slog/chart/SamberZerolog/MemBytes.svg" alt="samber/slog-zerolog Bytes/Op" class="chart" /></td>
-            <td><img src="/go-slog/chart/SamberZerolog/GbPerSec.svg" alt="samber/slog-zerolog GB/Sec" class="chart" /></td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  
-  
-    <tr>
-      <td colspan=2 align="center">
-        <h2 align="left" style="padding-top: 1em;">Warnings</h2>
-        <table class="warning">
-          <colgroup>
-            <col width="3%"/>
-            <col width="3%"/>
-            <col width="30%"/>
-            <col width="64%"/>
-          </colgroup>
-          
-                    
+            <td colspan=2 align="center">
+              <h2 align="left">Warnings</h2>
+              <table class="warning">
+                <colgroup>
+                  <col width="3%"/>
+                  <col width="3%"/>
+                  <col width="30%"/>
+                  <col width="64%"/>
+                </colgroup>
+                
+                          
             <tr>
               <td colspan=4 class="level">Required</td>
             </tr>
@@ -366,7 +377,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-29T15:04:03Z&#34;
+	&#34;time&#34;: &#34;2024-03-01T17:42:11Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -395,7 +406,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-29T15:04:03Z&#34;
+	&#34;time&#34;: &#34;2024-03-01T17:42:11Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -454,7 +465,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-02-29T15:04:03Z&#34;
+	&#34;time&#34;: &#34;2024-03-01T17:42:11Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -510,7 +521,7 @@
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-29T15:04:03Z&#34;
+	&#34;time&#34;: &#34;2024-03-01T17:42:11Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -540,7 +551,7 @@
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-29T15:04:03Z&#34;
+	&#34;time&#34;: &#34;2024-03-01T17:42:11Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -569,7 +580,7 @@
 	&#34;hidden&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-29T15:04:03Z&#34;
+	&#34;time&#34;: &#34;2024-03-01T17:42:11Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -596,7 +607,7 @@
 	&#34;hidden&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-02-29T15:04:03Z&#34;
+	&#34;time&#34;: &#34;2024-03-01T17:42:11Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -653,7 +664,7 @@
 		&#34;function&#34;: &#34;&#34;,
 		&#34;line&#34;: 0
 	},
-	&#34;time&#34;: &#34;2024-02-29T15:04:03Z&#34;
+	&#34;time&#34;: &#34;2024-03-01T17:42:11Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1097,7 +1108,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;outer&#34;: 29002000,
-	&#34;time&#34;: &#34;2024-02-29T15:04:03Z&#34;
+	&#34;time&#34;: &#34;2024-03-01T17:42:11Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -1413,7 +1424,7 @@
                           
                           Log Attributes
                         </td>
-                        <td class="extra" style="background-color:lightgray;">2024-02-29T15:04:03Z</td>
+                        <td class="extra" style="background-color:lightgray;">2024-03-01T17:42:11Z</td>
                         <td class="logLink" style="background-color:lightgray;">
                           
                         </td>
@@ -1429,10 +1440,37 @@
              
            
 
-        </table>
-      </td>
-   
-</table>
+              </table>
+            </td>
+         
+      </table>
+    </div>
+  </div>
+  <div class="footer">
+        <table class="footer">
+        <tr>
+          <td>
+            <div class="hover-text">
+              <span class="tooltip-text">Code Repository</span>
+              <a href="https://github.com/madkins23/go-slog" target="_blank">Repository</a>
+            </div>
+          </td>
+          <td align="center">
+            <div class="hover-text">
+              <span class="tooltip-text">Date/time when this data was generated</span>
+              <span class="fixed">2024-03-01 17:42:16</span>
+            </div>
+          </td>
+          <td align="right">
+            <div class="hover-text">
+              <span class="tooltip-text">Code Documentation</span>
+              <a href="https://pkg.go.dev/github.com/madkins23/go-slog" target="_blank">Documentation</a>
+            </div>
+          </td>
+        </tr>
+    </table>
+
+  </div>
 </div>
 </body>
 </html>
