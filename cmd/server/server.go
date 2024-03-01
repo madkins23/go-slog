@@ -382,7 +382,7 @@ func pageFunction(page pageType) gin.HandlerFunc {
 			Levels:     warning.LevelOrder,
 			Printer:    language.Printer(),
 			Page:       string(page),
-			Timestamp:  time.Now().Format(time.DateTime),
+			Timestamp:  time.Now().Format(time.DateTime + " MST"),
 		}
 		if page == pageTest || page == pageHandler {
 			if tag := c.Param("tag"); tag == "" {
