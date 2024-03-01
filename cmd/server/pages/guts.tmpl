@@ -2,32 +2,37 @@
 <head>
   <title>Guts</title>
   <link rel="stylesheet" href="/go-slog/style.css">
+  <script src="/go-slog/scripts.js"></script>
 </head>
 
 <body>
-<table class="top">
-  <tr>
-    <td>
-      <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
-      <h2 class="home">Data and Warnings</h2>
-    </td>
-    <td align="right">
-      {{ template "partChoices" $ }}
-    </td>
-  </tr>
-  <tr>
-    <td colspan=2>
-      <h2>Benchmark Data</h2>
-    </td>
-  </tr>
-  {{ template "partSource" $.Benchmarks }}
-  <tr>
-    <td colspan=2>
-      <h2>Warnings</h2>
-    </td>
-  </tr>
-  {{ template "partSource" $.Warnings }}
-</table>
+<div class="wrapper">
+  <div class="header">
+    {{ template "partHeader" dict "root" $ "title" "Data and Warnings" }}
+  </div>
+  <div class="content">
+    <div style="height:1000px;">
+      <table class="top">
+        <tr>
+          <td colspan=2>
+            <h2>Benchmark Data</h2>
+          </td>
+        </tr>
+        {{ template "partSource" $.Benchmarks }}
+        <tr><td colspan=2><hr/></td></tr>
+        <tr>
+          <td colspan=2>
+            <h2>Warnings</h2>
+          </td>
+        </tr>
+        {{ template "partSource" $.Warnings }}
+      </table>
+    </div>
+  </div>
+  <div class="footer">
+    {{ template "partFooter" $ }}
+  </div>
+</div>
 </div>
 </body>
 </html>

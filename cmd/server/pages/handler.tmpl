@@ -2,84 +2,86 @@
 <head>
   <title>Benchmark Data</title>
   <link rel="stylesheet" href="/go-slog/style.css">
-  <script>
-    function toggleTableRow(id) {
-        var elem = document.getElementById(id);
-        elem.style.display = elem.style.display == "none" ? "table-row" : "none";
-    }
-  </script>
+  <script src="/go-slog/scripts.js"></script>
 </head>
 
 <body>
-<table class="top">
-  <tr>
-    <td>
-      <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
-      <h2 class="home">Handler <span class="fixed">{{ .Benchmarks.HandlerName .Handler }}</span></h2>
-    </td>
-    <td align="right">
-      {{ template "partChoices" $ }}
-    </td>
-  </tr>
-  {{ if .Benchmarks.HasHandler .Handler }}
-    <tr>
-      <td colspan=2 align="center">
-        <h2 align="left">Benchmark Data</h2>
-        <table class="data">
+<div class="wrapper">
+  <div class="header">
+    {{ $name := .Benchmarks.HandlerName .Handler }}
+    {{ template "partHeader" dict "root" $ "title" (printf "Handler <span class=\"fixed\">%s</span>" $name) }}
+  </div>
+  <div class="content">
+    <div>
+      <table class="top">
+        {{ if .Benchmarks.HasHandler .Handler }}
           <tr>
-            <th>Benchmark</th>
-            <th>Runs</th>
-            <th>Ns/Op</th>
-            <th>Allocs/Op</th>
-            <th>Bytes/Op</th>
-            <th>GB/Sec</th>
+            <td colspan=2 align="center">
+              <h2 align="left">Benchmark Data</h2>
+              <table class="data">
+                <tr>
+                  <th>Benchmark</th>
+                  <th>Runs</th>
+                  <th>Ns/Op</th>
+                  <th>Allocs/Op</th>
+                  <th>Bytes/Op</th>
+                  <th>GB/Sec</th>
+                </tr>
+                {{ range $tag, $record := .Benchmarks.TestRecords .Handler }}
+                  <tr>
+                    <td class="fixed">{{ $.Benchmarks.TestName $tag }}</td>
+                    <td class="number">{{ $.FixUint $record.Runs }}</td>
+                    <td class="number">{{ $.FixFloat $record.NanosPerOp }}</td>
+                      <td class="number">{{ $.FixUint $record.MemAllocsPerOp }}</td>
+                     <td class="number">{{ $.FixUint $record.MemBytesPerOp }}</td>
+                    <td class="number">{{ $.FixFloat $record.GbPerSec }}</td>
+                  </tr>
+                {{ end }}
+              </table>
+            </td>
           </tr>
-          {{ range $tag, $record := .Benchmarks.TestRecords .Handler }}
-            <tr>
-              <td class="fixed">{{ $.Benchmarks.TestName $tag }}</td>
-              <td class="number">{{ $.FixUint $record.Runs }}</td>
-              <td class="number">{{ $.FixFloat $record.NanosPerOp }}</td>
-              <td class="number">{{ $.FixUint $record.MemAllocsPerOp }}</td>
-             <td class="number">{{ $.FixUint $record.MemBytesPerOp }}</td>
-              <td class="number">{{ $.FixFloat $record.GbPerSec }}</td>
-            </tr>
+          {{ if .Benchmarks.HasHandler .Handler }}
+            <tr><td colspan=2><hr/></td></tr>
           {{ end }}
-        </table>
-      </td>
-    </tr>
-    <tr>
-      <td colspan=2 align="center">
-        <h2 align="left">Benchmark Charts</h2>
-        <table>
           <tr>
-            <td><img src="/go-slog/chart/{{ .Handler }}/Nanos.svg" alt="{{ .Benchmarks.HandlerName .Handler }} Ns/Op" class="chart" /></td>
-            <td><img src="/go-slog/chart/{{ .Handler }}/MemAllocs.svg" alt="{{ .Benchmarks.HandlerName .Handler }} Allocs/Op" class="chart" /></td>
+            <td colspan=2 align="center">
+              <h2 align="left">Benchmark Charts</h2>
+              <table>
+                <tr>
+                  <td><img src="/go-slog/chart/{{ .Handler }}/Nanos.svg" alt="{{ .Benchmarks.HandlerName .Handler }} Ns/Op" class="chart" /></td>
+                  <td><img src="/go-slog/chart/{{ .Handler }}/MemAllocs.svg" alt="{{ .Benchmarks.HandlerName .Handler }} Allocs/Op" class="chart" /></td>
+                </tr>
+                <tr>
+                  <td><img src="/go-slog/chart/{{ .Handler }}/MemBytes.svg" alt="{{ .Benchmarks.HandlerName .Handler }} Bytes/Op" class="chart" /></td>
+                  <td><img src="/go-slog/chart/{{ .Handler }}/GbPerSec.svg" alt="{{ .Benchmarks.HandlerName .Handler }} GB/Sec" class="chart" /></td>
+                </tr>
+              </table>
+            </td>
           </tr>
+        {{ end }}
+        {{ if .Warnings.HasHandler .Handler }}
+          <tr><td colspan=2><hr/></td></tr>
           <tr>
-            <td><img src="/go-slog/chart/{{ .Handler }}/MemBytes.svg" alt="{{ .Benchmarks.HandlerName .Handler }} Bytes/Op" class="chart" /></td>
-            <td><img src="/go-slog/chart/{{ .Handler }}/GbPerSec.svg" alt="{{ .Benchmarks.HandlerName .Handler }} GB/Sec" class="chart" /></td>
-          </tr>
-        </table>
-      </td>
-    </tr>
-  {{ end }}
-  {{ if .Warnings.HasHandler .Handler }}
-    <tr>
-      <td colspan=2 align="center">
-        <h2 align="left" style="padding-top: 1em;">Warnings</h2>
-        <table class="warning">
-          <colgroup>
-            <col width="3%"/>
-            <col width="3%"/>
-            <col width="30%"/>
-            <col width="64%"/>
-          </colgroup>
-          {{ $data := .Warnings.ForHandler .Handler }}
-          {{ template "partWarnings" $data }}
-        </table>
-      </td>
-  {{ end }} {{/* if there are warnings for this handler */}}
-</table>
+            <td colspan=2 align="center">
+              <h2 align="left">Warnings</h2>
+              <table class="warning">
+                <colgroup>
+                  <col width="3%"/>
+                  <col width="3%"/>
+                  <col width="30%"/>
+                  <col width="64%"/>
+                </colgroup>
+                {{ $data := .Warnings.ForHandler .Handler }}
+                {{ template "partWarnings" $data }}
+              </table>
+            </td>
+        {{ end }} {{/* if there are warnings for this handler */}}
+      </table>
+    </div>
+  </div>
+  <div class="footer">
+    {{ template "partFooter" $ }}
+  </div>
 </div>
 </body>
 </html>

@@ -2,49 +2,69 @@
 <head>
   <title>Benchmarks</title>
   <link rel="stylesheet" href="/go-slog/style.css">
+  <script src="/go-slog/scripts.js"></script>
 </head>
 
 <body>
-  <table class="root">
-    <tr>
-      <td>
-        <fieldset>
-          <legend>Handlers</legend>
-          <table>
-            {{ range .Benchmarks.HandlerTags }}
-              <tr><td><a href="/go-slog/handler/{{ . }}.html">{{ $.Benchmarks.HandlerName . }}</a></td></tr>
-            {{ end }}
-          </table>
-        </fieldset>
-        <fieldset>
-          <legend>Other</legend>
-          <table>
-            <tr><td><a href="/go-slog/guts.html">Guts</a></td></tr>
-            <tr><td><a href="/go-slog/warnings.html">Warnings</a></td></tr>
-          </table>
-        </fieldset>
-      </td>
-      <td>
-        <fieldset>
-          <legend>Bench Tests</legend>
-          <table>
-            {{ range .Benchmarks.TestTags }}
-              <tr><td><a href="/go-slog/test/{{ . }}.html">{{ $.Benchmarks.TestName . }}</a></td></tr>
-            {{ end }}
-          </table>
-        </fieldset>
-      </td>
-      <td>
-        <fieldset>
-          <legend>Verify Tests</legend>
-          <table>
-            {{ range .Warnings.TestTagsForSource "Verify" }}
-              <tr><td><a href="/go-slog/test/{{ . }}.html">{{ $.Warnings.TestName . }}</a></td></tr>
-            {{ end }}
-          </table>
-        </fieldset>
-      </td>
-    </tr>
-  </table>
+<div class="wrapper">
+  <div class="header">
+    {{ template "partHeader" dict "root" $ "title" "Quick Links" }}
+  </div>
+  <div class="content">
+    <div>
+      <table class="root">
+        <tr>
+          <td colspan=4>
+            Links below are also accessible via the drop-down controls at the upper right.
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <fieldset>
+              <legend>Handlers</legend>
+              <table>
+                {{ range .Benchmarks.HandlerTags }}
+                  <tr><td><a href="/go-slog/handler/{{ . }}.html">{{ $.Benchmarks.HandlerName . }}</a></td></tr>
+                {{ end }}
+              </table>
+            </fieldset>
+          </td>
+          <td>
+            <fieldset>
+              <legend>Bench Tests</legend>
+              <table>
+                {{ range .Benchmarks.TestTags }}
+                  <tr><td><a href="/go-slog/test/{{ . }}.html">{{ $.Benchmarks.TestName . }}</a></td></tr>
+                {{ end }}
+              </table>
+            </fieldset>
+          </td>
+          <td>
+            <fieldset>
+              <legend>Verify Tests</legend>
+              <table>
+                {{ range .Warnings.TestTagsForSource "Verify" }}
+                  <tr><td><a href="/go-slog/test/{{ . }}.html">{{ $.Warnings.TestName . }}</a></td></tr>
+                {{ end }}
+              </table>
+            </fieldset>
+          </td>
+          <td>
+            <fieldset>
+              <legend>Other</legend>
+              <table>
+                <tr><td><a href="/go-slog/guts.html">Guts</a></td></tr>
+                <tr><td><a href="/go-slog/warnings.html">Warnings</a></td></tr>
+              </table>
+            </fieldset>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <div class="footer">
+    {{ template "partFooter" $ }}
+  </div>
+</div>
 </body>
 </html>

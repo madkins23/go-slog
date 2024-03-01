@@ -2,89 +2,90 @@
 <head>
   <title>Benchmark Data</title>
   <link rel="stylesheet" href="/go-slog/style.css">
-  <script>
-    function toggleTableRow(id) {
-        var elem = document.getElementById(id);
-        elem.style.display = elem.style.display == "none" ? "table-row" : "none";
-    }
-  </script>
+  <script src="/go-slog/scripts.js"></script>
 </head>
 
 <body>
-<table class="top">
-  <tr>
-    <td>
-      <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
-      <h2 class="home">Warnings</h2>
-    </td>
-    <td align="right"></td>
-  </tr>
-  <tr>
-    <td colspan=2 align="center">
-      <table class="warning">
-        <colgroup>
-          <col width="3%"/>
-          <col width="3%"/>
-          <col width="30%"/>
-          <col width="64%"/>
-        </colgroup>
-        {{ range $level := .Levels }}
-          <tr>
-            <td colspan=4 class="level">{{ $level }}</td>
-          </tr>
-          <tr>
-            <td></td>
-            <td colspan=3>{{ $level.Summary }}</td>
-          </tr>
-          {{ range $warning := $level.Warnings }}
-            <tr>
-              <td></td>
-              <td colspan=2 class="warning">{{ $warning.Name }}</td>
-              <td class="extra">{{ $warning.Summary }}</td>
-            </tr>
-            {{ if $warning.HasDescription }}
-              <tr>
-                <td colspan=2></td>
-                <td colspan=2 class="description">{{ $warning.Description }}</td>
-              </tr>
-            {{ end }}
-          {{ end }}
-        {{ end }}
-      </table>
-    </td>
-  </tr>
-  <tr>
-    <td colspan=2><h2>Warnings vs. Handlers</h2></td>
-  </tr>
-  <tr>
-    <td colspan=2 align="center">
-      <table class="handler-v-warning">
+<div class="wrapper">
+  <div class="header">
+    {{ template "partHeader" dict "root" $ "title" "Warnings" }}
+  </div>
+  <div class="content">
+    <div>
+      <table class="top">
         <tr>
-          <td colspan=2></td>
-          {{ range $handler := .Warnings.HandlerTags }}
-            <th><div><span>{{ $.Warnings.HandlerName $handler }}</span></div></th>
-          {{ end }}
-        </tr>
-        {{ range $level := .Levels }}
-          <tr><td colspan=2 class="level">{{ $level }}</td></tr>
-          {{ range $warning := $level.Warnings }}
-            <tr>
-              <td width=5%></td>
-              <td class="name">{{ $warning.Name }}</td>
-              {{ range $handler := $.Warnings.HandlerTags }}
-                {{ $count := $.Warnings.HandlerWarningCount $handler $warning }}
-                {{ if gt $count 0 }}
-                  <td class="count"><span>{{ $.Warnings.HandlerWarningCount $handler $warning }}</span></td>
-                {{ else }}
-                  <td class="blank"></td>
+          <td colspan=2 align="center">
+            <table class="warning">
+              <colgroup>
+                <col width="3%"/>
+                <col width="3%"/>
+                <col width="30%"/>
+                <col width="64%"/>
+              </colgroup>
+              {{ range $level := .Levels }}
+                <tr>
+                  <td colspan=4 class="level">{{ $level }}</td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td colspan=3>{{ $level.Summary }}</td>
+                </tr>
+                {{ range $warning := $level.Warnings }}
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">{{ $warning.Name }}</td>
+                    <td class="extra">{{ $warning.Summary }}</td>
+                  </tr>
+                  {{ if $warning.HasDescription }}
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description">{{ $warning.Description }}</td>
+                    </tr>
+                  {{ end }}
                 {{ end }}
               {{ end }}
-            </tr>
-          {{ end }}
-        {{ end }}
+            </table>
+          </td>
+        </tr>
+        <tr><td colspan=2><hr/></td></tr>
+        <tr>
+          <td colspan=2><h2>Warnings vs. Handlers</h2></td>
+        </tr>
+        <tr>
+          <td colspan=2 align="center">
+            <table class="handler-v-warning">
+              <tr>
+                <td colspan=2></td>
+                {{ range $handler := .Warnings.HandlerTags }}
+                  <th><div><span>{{ $.Warnings.HandlerName $handler }}</span></div></th>
+                {{ end }}
+              </tr>
+              {{ range $level := .Levels }}
+                <tr><td colspan=2 class="level">{{ $level }}</td></tr>
+                {{ range $warning := $level.Warnings }}
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">{{ $warning.Name }}</td>
+                    {{ range $handler := $.Warnings.HandlerTags }}
+                      {{ $count := $.Warnings.HandlerWarningCount $handler $warning }}
+                      {{ if gt $count 0 }}
+                        <td class="count"><span>{{ $.Warnings.HandlerWarningCount $handler $warning }}</span></td>
+                      {{ else }}
+                        <td class="blank"></td>
+                      {{ end }}
+                    {{ end }}
+                  </tr>
+                {{ end }}
+              {{ end }}
+            </table>
+          </td>
+        </tr>
       </table>
-    </td>
-  </tr>
-</table>
+    </div>
+  </div>
+  <div class="footer">
+    {{ template "partFooter" $ }}
+  </div>
+</div>
 </body>
 </html>

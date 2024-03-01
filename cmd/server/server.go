@@ -61,7 +61,8 @@ const (
 	pageGuts     = "pageGuts"
 	pageError    = "pageError"
 
-	partChoices  = "partChoices"
+	partFooter   = "partFooter"
+	partHeader   = "partHeader"
 	partSource   = "partSource"
 	partWarnings = "partWarnings"
 )
@@ -72,6 +73,9 @@ var (
 
 	//go:embed parts/home.svg
 	home []byte
+
+	//go:embed parts/scripts.js
+	scripts string
 )
 
 func main() {
@@ -106,6 +110,7 @@ func main() {
 	router.GET("/go-slog/guts.html", pageFunction(pageGuts))
 	router.GET("/go-slog/chart/:tag/:item", chartFunction)
 	router.GET("/go-slog/home.svg", svgFunction(home))
+	router.GET("/go-slog/scripts.js", textFunction(scripts))
 	router.GET("/go-slog/style.css", textFunction(css))
 	router.GET("/go-slog/exit", handler.Exit)
 
@@ -148,8 +153,11 @@ var (
 	//go:embed pages/error.tmpl
 	tmplPageError string
 
-	//go:embed parts/choices.tmpl
-	tmplPartChoices string
+	//go:embed parts/footer.tmpl
+	tmplPartFooter string
+
+	//go:embed parts/header.tmpl
+	tmplPartHeader string
 
 	//go:embed parts/source.tmpl
 	tmplPartSource string
@@ -172,14 +180,23 @@ func setup() error {
 	for _, page := range pages {
 		var err error
 		tmpl := template.New(string(page))
-		tmpl.Funcs(map[string]any{"mod": func(a, b int) int { return a % b }})
+		tmpl.Funcs(functions())
 		switch page {
 		case pageRoot:
 			tmpl, err = tmpl.Parse(tmplPageRoot)
+			if err == nil {
+				_, err = tmpl.New(partHeader).Parse(tmplPartHeader)
+			}
+			if err == nil {
+				_, err = tmpl.New(partFooter).Parse(tmplPartFooter)
+			}
 		case pageTest:
 			_, err = tmpl.Parse(tmplPageTest)
 			if err == nil {
-				_, err = tmpl.New(partChoices).Parse(tmplPartChoices)
+				_, err = tmpl.New(partHeader).Parse(tmplPartHeader)
+			}
+			if err == nil {
+				_, err = tmpl.New(partFooter).Parse(tmplPartFooter)
 			}
 			if err == nil {
 				_, err = tmpl.New(partWarnings).Parse(tmplPartWarnings)
@@ -187,7 +204,10 @@ func setup() error {
 		case pageHandler:
 			tmpl, err = tmpl.Parse(tmplPageHandler)
 			if err == nil {
-				_, err = tmpl.New(partChoices).Parse(tmplPartChoices)
+				_, err = tmpl.New(partHeader).Parse(tmplPartHeader)
+			}
+			if err == nil {
+				_, err = tmpl.New(partFooter).Parse(tmplPartFooter)
 			}
 			if err == nil {
 				_, err = tmpl.New(partWarnings).Parse(tmplPartWarnings)
@@ -195,16 +215,24 @@ func setup() error {
 		case pageGuts:
 			tmpl, err = tmpl.Parse(tmplPageGuts)
 			if err == nil {
-				_, err = tmpl.New(partChoices).Parse(tmplPartChoices)
+				_, err = tmpl.New(partHeader).Parse(tmplPartHeader)
+			}
+			if err == nil {
+				_, err = tmpl.New(partFooter).Parse(tmplPartFooter)
 			}
 			if err == nil {
 				_, err = tmpl.New(partSource).Parse(tmplPartSource)
 			}
 		case pageWarnings:
 			tmpl, err = tmpl.Parse(tmplPageWarnings)
+			if err == nil {
+				_, err = tmpl.New(partHeader).Parse(tmplPartHeader)
+			}
+			if err == nil {
+				_, err = tmpl.New(partFooter).Parse(tmplPartFooter)
+			}
 		case pageError:
 			tmpl, err = tmpl.Parse(tmplPageError)
-		case partChoices:
 		default:
 			return fmt.Errorf("unknown page name: %s", page)
 		}
@@ -322,10 +350,12 @@ func chartHandler(records data.TestRecords, item data.BenchItems) (labels []stri
 type templateData struct {
 	*data.Benchmarks
 	*data.Warnings
-	Levels  []warning.Level
-	Test    data.TestTag
-	Handler data.HandlerTag
-	Printer *message.Printer
+	Handler   data.HandlerTag
+	Test      data.TestTag
+	Levels    []warning.Level
+	Printer   *message.Printer
+	Page      string
+	Timestamp string
 }
 
 // FixUint converts a uint64 into a string using the language printer.
@@ -351,6 +381,8 @@ func pageFunction(page pageType) gin.HandlerFunc {
 			Warnings:   warns,
 			Levels:     warning.LevelOrder,
 			Printer:    language.Printer(),
+			Page:       string(page),
+			Timestamp:  time.Now().Format(time.DateTime),
 		}
 		if page == pageTest || page == pageHandler {
 			if tag := c.Param("tag"); tag == "" {
@@ -370,6 +402,28 @@ func pageFunction(page pageType) gin.HandlerFunc {
 				"ErrorTitle":   "Template failed execution",
 				"ErrorMessage": err.Error()})
 		}
+	}
+}
+
+// functions returns required template functions.
+func functions() map[string]any {
+	return map[string]any{
+		"mod": func(a, b int) int {
+			return a % b
+		},
+		"dict": func(v ...interface{}) map[string]any {
+			dict := map[string]interface{}{}
+			vLen := len(v)
+			for i := 0; i < vLen; i += 2 {
+				if key, ok := v[i].(string); ok && i+1 < vLen {
+					dict[key] = v[i+1]
+				}
+			}
+			return dict
+		},
+		"unescape": func(s string) template.HTML {
+			return template.HTML(s)
+		},
 	}
 }
 
