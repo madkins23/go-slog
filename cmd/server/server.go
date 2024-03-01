@@ -54,7 +54,7 @@ type pageType string
 const port = 8080
 
 const (
-	pageRoot     = "pageRoot"
+	pageHome     = "pageHome"
 	pageTest     = "pageBench"
 	pageHandler  = "pageHandler"
 	pageWarnings = "pageWarnings"
@@ -101,9 +101,9 @@ func main() {
 	defer graceful.Close()
 
 	router := gin.Default()
-	rootPageFn := pageFunction(pageRoot)
-	router.GET("/go-slog/", rootPageFn)
-	router.GET("/go-slog/index.html", rootPageFn)
+	homePageFn := pageFunction(pageHome)
+	router.GET("/go-slog/", homePageFn)
+	router.GET("/go-slog/index.html", homePageFn)
 	router.GET("/go-slog/test/:tag", pageFunction(pageTest))
 	router.GET("/go-slog/handler/:tag", pageFunction(pageHandler))
 	router.GET("/go-slog/warnings.html", pageFunction(pageWarnings))
@@ -132,11 +132,11 @@ func main() {
 var (
 	bench     = data.NewBenchmarks()
 	warns     = data.NewWarningData()
-	pages     = []pageType{pageRoot, pageTest, pageHandler, pageWarnings, pageGuts}
+	pages     = []pageType{pageHome, pageTest, pageHandler, pageWarnings, pageGuts}
 	templates map[pageType]*template.Template
 
-	//go:embed pages/root.tmpl
-	tmplPageRoot string
+	//go:embed pages/home.tmpl
+	tmplPageHome string
 
 	//go:embed pages/test.tmpl
 	tmplPageTest string
@@ -182,8 +182,8 @@ func setup() error {
 		tmpl := template.New(string(page))
 		tmpl.Funcs(functions())
 		switch page {
-		case pageRoot:
-			tmpl, err = tmpl.Parse(tmplPageRoot)
+		case pageHome:
+			tmpl, err = tmpl.Parse(tmplPageHome)
 			if err == nil {
 				_, err = tmpl.New(partHeader).Parse(tmplPartHeader)
 			}

@@ -9,7 +9,7 @@
 <div class="wrapper">
   <div class="header">
     {{ $name := .Benchmarks.HandlerName .Handler }}
-    {{ template "partHeader" dict "root" $ "title" (printf "Handler <span class=\"fixed\">%s</span>" $name) }}
+    {{ template "partHeader" dict "top" $ "title" (printf "Handler <span class=\"fixed\">%s</span>" $name) }}
   </div>
   <div class="content">
     <div>

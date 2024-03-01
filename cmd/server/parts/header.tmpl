@@ -1,8 +1,12 @@
-    {{ $root := .root }}
+    {{ $top := .top }}
     <table class="header">
         <tr>
           <td>
-            <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+            {{ if eq $top.Page "pageHome" }}
+              <img src="/go-slog/home.svg" alt="Home" class="home" />
+            {{ else }}
+              <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+            {{ end }}
             <h2 class="home">{{ unescape .title }}</h2>
           </td>
           <td align="right">
@@ -13,8 +17,8 @@
                   <form class="choice">
                     <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
-                      {{ range $root.Benchmarks.HandlerTags }}
-                        <option value="{{ . }}" {{ if eq $root.Handler . }}selected{{ end }}>{{ $root.Benchmarks.HandlerName . }}</option>
+                      {{ range $top.Benchmarks.HandlerTags }}
+                        <option value="{{ . }}" {{ if eq $top.Handler . }}selected{{ end }}>{{ $top.Benchmarks.HandlerName . }}</option>
                       {{ end }}
                     </select>
                   </form>
@@ -26,8 +30,8 @@
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
-                      {{ range $root.Benchmarks.TestTags }}
-                        <option value="{{ . }}" {{ if eq $root.Test . }}selected{{ end }}>{{ $root.Benchmarks.TestName . }}</option>
+                      {{ range $top.Benchmarks.TestTags }}
+                        <option value="{{ . }}" {{ if eq $top.Test . }}selected{{ end }}>{{ $top.Benchmarks.TestName . }}</option>
                       {{ end }}
                     </select>
                   </form>
@@ -39,8 +43,8 @@
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
-                      {{ range $root.Warnings.TestTagsForSource "Verify" }}
-                        <option value="{{ . }}" {{ if eq $root.Test . }}selected{{ end }}>{{ $root.Warnings.TestName . }}</option>
+                      {{ range $top.Warnings.TestTagsForSource "Verify" }}
+                        <option value="{{ . }}" {{ if eq $top.Test . }}selected{{ end }}>{{ $top.Warnings.TestName . }}</option>
                       {{ end }}
                     </select>
                   </form>
@@ -52,9 +56,9 @@
                   <form class="choice">
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
-                      <option value="index.html"    {{ if eq $root.Page "pageRoot" }}selected{{ end}}>Home</option>
-                      <option value="guts.html"     {{ if eq $root.Page "pageGuts" }}selected{{ end}}>Guts</option>
-                      <option value="warnings.html" {{ if eq $root.Page "pageWarnings" }}selected{{ end}}>Warnings</option>
+                      <option value="index.html"    {{ if eq $top.Page "pageHome" }}selected{{ end}}>Home</option>
+                      <option value="guts.html"     {{ if eq $top.Page "pageGuts" }}selected{{ end}}>Guts</option>
+                      <option value="warnings.html" {{ if eq $top.Page "pageWarnings" }}selected{{ end}}>Warnings</option>
                     </select>
                   </form>
               </tr>

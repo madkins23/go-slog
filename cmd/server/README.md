@@ -46,8 +46,8 @@ GOPATH=/home/marc/go #gosetup
 
 ## Server Pages
 
-The root page shows links to various test data pages and the warnings:
-![The root page shows links to various test data pages and the warnings.](images/root.png)
+The home page shows links to various test data pages and the warnings:
+![The home page shows links to various test data pages and the warnings.](images/home.png)
 
 Test pages show the same tables as `tabular` plus charts comparing the results:
 ![Test pages show the same tables as `tabular` plus charts comparing the results.](images/test.png)

@@ -14,7 +14,7 @@
     {{ else }}
       {{ $name = .Warnings.TestName .Test }}
     {{ end }}
-    {{ template "partHeader" dict "root" $ "title" (printf "Test <span class=\"fixed\">%s</span>" $name) }}
+    {{ template "partHeader" dict "top" $ "title" (printf "Test <span class=\"fixed\">%s</span>" $name) }}
   </div>
   <div class="content">
     <div>
