@@ -152,6 +152,26 @@ table.header, table.footer {
     width: 100%;
 }
 
+table.home {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.home td {
+    vertical-align: top;
+}
+
+table.home td.warnings {
+    background-color: antiquewhite;
+    outline: 2px inset antiquewhite;
+    outline-offset: -2px;
+    overflow: scroll;
+}
+
+table.home td.warnings pre {
+    width: 800px;
+}
+
 table.instance {
     margin: 5px;
     padding: 5px;
@@ -175,26 +195,6 @@ table.instance td.name {
 table.instance td.extra {
     font-family: monospace;
     font-size: 1em;
-}
-
-table.root {
-    margin-left: auto;
-    margin-right: auto;
-}
-
-table.root td {
-    vertical-align: top;
-}
-
-table.root td.warnings {
-    background-color: antiquewhite;
-    outline: 2px inset antiquewhite;
-    outline-offset: -2px;
-    overflow: scroll;
-}
-
-table.root td.warnings pre {
-    width: 800px;
 }
 
 table.top {
