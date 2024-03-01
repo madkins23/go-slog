@@ -52,6 +52,12 @@ The home page shows links to various test data pages and the warnings:
 Test pages show the same tables as `tabular` plus charts comparing the results:
 ![Test pages show the same tables as `tabular` plus charts comparing the results.](images/test.png)
 
+Handler pages show similar tables plus charts comparing the results:
+![Handler pages show similar tables plus charts comparing the results.](images/handler.png)
+
+The warning page shows all the defined warnings with descriptions:
+![The warning page shows all the defined warnings with descriptions.](images/warnings.png)
+
 ## GitHub Pages
 
 Once a week (or whenever code is committed to the `go-slog` repository)
