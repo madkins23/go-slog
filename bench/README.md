@@ -6,11 +6,11 @@ Technical details for the test suite are provided in
 the [`README.md`](tests/README.m4) file in
 the [`tests`](https://pkg.go.dev/github.com/madkins23/go-slog/bench/tests) package subdirectory.
 
-### Simple Example
+## Simple Example
 
-Verification of a `slog` handler using the `bench` test suite is fairly simple.
+Benchmarking a `slog` handler using the `benchmark` test suite is fairly simple.
 The following [code](https://github.com/madkins23/go-slog/blob/main/bench/slog_json_test.go)
-runs the benchmark suite on `slog.JSONHandler`:
+runs the test suite on `slog.JSONHandler`:
 
 ```go
 package bench
@@ -36,86 +36,6 @@ where `<tag_name>` will likely be something like `PhsymZerolog` or `SlogJSON`.
 The first line in `BenchmarkSlogJSON` creates a new test suite.
 The argument to the `NewSlogBenchmarkSuite` function is an [`infra.Creator`](../infra/creator.go) object,
 which is responsible for creating new `slog.Logger`
-(and optionally `slog.Handler`) objects during testing.
-In this case an appropriate factory is created by the `Creator` function
-that is already defined in the `slogjson` package.
-In order to test a new handler instance
-(one that has not been tested in this repository)
-it is necessary to [create a new `infra.Creator`](#creators) for it.
-Existing examples can be found in the `creator` package.
-
-Once the test suite exists the second line configures a warning to be tracked.
-The meaning of `WarnOnly` is to only warn about an error condition, not fail the test.
-The warning mechanism [documented below](#warnings) describes this in more detail.
-
-Finally the suite is run via its `Run` method.
-In short:
-* The `TestXxxxxx` function is executed by the [Go test harness](https://pkg.go.dev/testing).
-* The test function configures a `SlogTestSuite` using an `infra.Creator` factory object.
-* The test function executes the test suite via its `Run` method.
-
-### More Examples
-
-This package contains several examples, including the one above:
-* [`slog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_test.go)
-  Verifies the [standard `slog.JSONHandler`](https://pkg.go.dev/log/slog@master#JSONHandler).
-* [`slog_phsym_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_phsym_zerolog_test.go)
-  Verifies the [`phsym zeroslog` handler](https://github.com/phsym/zeroslog/tree/2bf737d6422a5de048845cd3bdd2db6363555eb4).
-* [`slog_samber_zap_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
-  Verifies the [`samber slog-zap` handler](https://github.com/samber/slog-zap).
-* [`slog_samber_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
-  Verifies the [`samber slog-zerolog` handler](https://github.com/samber/slog-zerolog).
-
-In addition, there is a [`main_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/main_test.go) file which exists to provide
-a global resource to the other tests ([described below](#testmain)).
-
-
-
-## Making a Benchmark Test
-
-Benchmark tests can live in any repository,
-though it may not make as much sense to run benchmarks for a single handler.
-Handler authors may want to do this when making changes to the code.
-
-:construction: **TBD** :construction:
-
-* Build a `Creator` object
-* Build a Benchmark test function
-* Run the benchmark tests
-* Process the data for consumption using
-  - tabular generates text output in tabular form
-  - server provides tabular and chart data plus warnings
-
-## Simple Example
-
-Benchmarking a `slog` handler using the `benchmark` test suite is fairly simple.
-The following [code](https://github.com/madkins23/go-slog/blob/main/bench/slog_test.go)
-runs the test suite on `slog.JSONHandler`:
-
-```go
-package bench
-
-import (
-    "testing"
-
-    "github.com/madkins23/go-slog/bench/tests"
-    "github.com/madkins23/go-slog/creator/slogjson"
-)
-
-// BenchmarkSlogJSON runs benchmarks for the log/slog JSON handler.
-func BenchmarkSlogJSON(b *testing.B) {
-    slogSuite := tests.NewSlogBenchmarkSuite(slogjson.Creator(), "SlogJSON")
-    tests.Run(b, slogSuite)
-}
-```
-
-The file itself must have the `_test.go` suffix and
-contain a function with a name of the pattern `Benchmark<tag_name>`
-where `<tag_name>` will likely be something like `PhsymZerolog` or `SlogJSON`.
-
-The first line in `BenchmarkSlogJSON` creates a new test suite.
-The argument to the `NewSlogBenchmarkSuite` function is an [`infra.Creator`](../infra/creator.go) object,
-which is responsible for creating new `slog.Logger`
 (and optionally `slog.Handler`) objects for benchmarks.
 
 In this case an appropriate factory is created by the `creator.Slog` function
@@ -126,6 +46,7 @@ it is necessary to [create a new `infra.Creator`](#creators) for it.
 Existing examples can be found in the `creator` package.
 
 Finally, the suite is run via its `Run` method.
+
 In short:
 * The `BenchmarkXxx` function is executed by the [Go test harness](https://pkg.go.dev/testing).
 * The test function configures a `SlogTestSuite` using an `infra.Creator` factory object.
@@ -134,17 +55,16 @@ In short:
 ### More Examples
 
 This package contains several examples, including the one above:
-* [`slog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_test.go)
+* [`slog_json_test.go`](https://github.com/madkins23/go-slog/blob/main/bench/slog_json_test.go)
   Verifies the [standard `slog.JSONHandler`](https://pkg.go.dev/log/slog@master#JSONHandler).
-* [`slog_phsym_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_phsym_zerolog_test.go)
+* [`slog_phsym_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/bench/slog_phsym_zerolog_test.go)
   Verifies the [`phsym zeroslog` handler](https://github.com/phsym/zeroslog/tree/2bf737d6422a5de048845cd3bdd2db6363555eb4).
-* [`slog_samber_zap_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
+* [`slog_samber_zap_test.go`](https://github.com/madkins23/go-slog/blob/main/bench/slog_samber_zap_test.go)
   Verifies the [`samber slog-zap` handler](https://github.com/samber/slog-zap).
-* [`slog_samber_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
+* [`slog_samber_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/bench/slog_samber_zerolog_test.go)
   Verifies the [`samber slog-zerolog` handler](https://github.com/samber/slog-zerolog).
 
-In addition to the test files for individual handlers,
-there is a [`main_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/main_test.go) file which exists to provide
+In addition, there is a [`main_test.go`](https://github.com/madkins23/go-slog/blob/main/bench/main_test.go) file which exists to provide
 a global resource to the other tests ([described below](#testmain)).
 
 ### Running Benchmarks
@@ -222,11 +142,49 @@ result display commands (e.g.
 [`tabular`](https://pkg.go.dev/github.com/madkins23/go-slog/cmd/tabular) and
 [`server`](https://pkg.go.dev/github.com/madkins23/go-slog/cmd/server)).
 
-### Caveats
+### Making a Benchmark Test
+
+Benchmark tests can live in any repository,
+though it may not make as much sense to run benchmarks for a single handler.
+Handler authors may want to do this when making changes to the code.
+
+:construction: **TBD** :construction:
+
+* Build a `Creator` object
+* Build a Benchmark test function
+* Run the benchmark tests
+* Process the data for consumption using
+  - tabular generates text output in tabular form
+  - server provides tabular and chart data plus warnings
+
+## Caveats
 
 * Actual testing is done by calling through a `slog.Logger` object.
 * Documentation for functions in `_test.go` files in this directory
   is not included in [`pkg.go.dev`](https://pkg.go.dev/github.com/madkins23/go-slog/bench)
+
+### `TestMain`
+
+Normally the warning results will show up in a block in the middle of `go test` output.
+This is due to the way the default test harness works.
+
+It is possible to override the default test harness by defining a global function
+[`TestMain()`](https://pkg.go.dev/testing#hdr-Main).
+The `bench/tests` package provides a convenient function to support this.
+Define the following `TestMain()` function:
+```go
+func TestMain(m *testing.M) {
+    tests.WithWarnings(m)
+}
+```
+
+This function may be defined in the same `_test.go` file as the handler test.
+If multiple handler tests are in the same directory:
+
+* It will be necessary to move the `TestMain()` definition to a separate file,
+  such as the [`bench/main_test.go`](main_test.go).
+* An addition listing of which handlers throw each warning
+  will be added after the normal output:
 
 ## Creators
 
