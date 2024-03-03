@@ -184,12 +184,14 @@
                   <col width="3%"/>
                   <col width="3%"/>
                   <col width="30%"/>
-                  <col width="64%"/>
+                  <col width="58%"/>
+                  <col width="6%"/>
                 </colgroup>
                 
                           
+          
             <tr>
-              <td colspan=4 class="level">Implied</td>
+              <td colspan=5 class="level">Implied</td>
             </tr>
             
               <tr>
@@ -200,19 +202,31 @@
                 <td class="extra">
                   Log levels are not properly treated as integers
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('LevelMath-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="LevelMath-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p><a href="https://pkg.go.dev/log/slog@master#Level" target="_blank">Log levels are actually numbers</a>, with space between them for user-defined levels.
+Handlers should properly handle numeric levels and math applied to level values.</p>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
-                      
                       
                       
                         
@@ -223,31 +237,30 @@
                           Chanchal Zap
                         </td>
                         <td class="extra" style="background-color:lightgray;">1  is not enabled when INFO is set</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelMathChanchal Zap" style="display:none;">
+                      <tr id="LevelMath-Chanchal Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
-                      
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Chanchal Zap
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">1  is not enabled when INFO is set</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">1  is not enabled when INFO is set</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelMathChanchal Zap" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="LevelMath-Chanchal Zap-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -275,7 +288,7 @@
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-01 18:32:40</span>
+              <span class="fixed">2024-03-03 00:43:37 UTC</span>
             </div>
           </td>
           <td align="right">

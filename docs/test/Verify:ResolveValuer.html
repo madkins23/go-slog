@@ -184,12 +184,14 @@
                   <col width="3%"/>
                   <col width="3%"/>
                   <col width="30%"/>
-                  <col width="64%"/>
+                  <col width="58%"/>
+                  <col width="6%"/>
                 </colgroup>
                 
                           
+          
             <tr>
-              <td colspan=4 class="level">Required</td>
+              <td colspan=5 class="level">Required</td>
             </tr>
             
               <tr>
@@ -200,19 +202,38 @@
                 <td class="extra">
                   LogValuer objects are not resolved
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('Resolver-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="Resolver-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Handlers should resolve all objects implementing the
+<a href="https://pkg.go.dev/log/slog@master#LogValuer" target="_blank"><code>LogValuer</code></a> or
+<a href="https://pkg.go.dev/fmt#Stringer" target="_blank"><code>Stringer</code></a> interfaces.
+This is a powerful feature which can customize logging of objects and
+<a href="https://pkg.go.dev/log/slog@master#hdr-Performance_considerations" target="_blank">speed up logging by delaying argument resolution until logging time</a>.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- Attr's values should be resolved.&quot;</a></li>
+</ul>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
-                      
                       
                       
                         
@@ -223,48 +244,46 @@
                           Samber Logrus
                         </td>
                         <td class="extra" style="background-color:lightgray;"></td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('ResolverSamber Logrus')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('Resolver-Samber Logrus-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="ResolverSamber Logrus" style="display:none;">
+                      <tr id="Resolver-Samber Logrus-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;hidden&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-01T18:32:30Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:32Z&#34;
 }</pre></td>
                       </tr>
                     
-                      
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Samber Zap
                         </td>
-                        <td class="extra" style="background-color:lightcyan;"></td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;"></td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('ResolverSamber Zap')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('Resolver-Samber Zap-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="ResolverSamber Zap" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
+                      <tr id="Resolver-Samber Zap-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;hidden&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-01T18:32:30Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:32Z&#34;
 }</pre></td>
                       </tr>
                     
-                      
                       
                       
                         
@@ -275,19 +294,19 @@
                           Samber Zerolog
                         </td>
                         <td class="extra" style="background-color:lightgray;"></td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('ResolverSamber Zerolog')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('Resolver-Samber Zerolog-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="ResolverSamber Zerolog" style="display:none;">
+                      <tr id="Resolver-Samber Zerolog-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;hidden&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-01T18:32:30Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:32Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -316,7 +335,7 @@
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-01 18:32:40</span>
+              <span class="fixed">2024-03-03 00:43:37 UTC</span>
             </div>
           </td>
           <td align="right">

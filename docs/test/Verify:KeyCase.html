@@ -184,12 +184,14 @@
                   <col width="3%"/>
                   <col width="3%"/>
                   <col width="30%"/>
-                  <col width="64%"/>
+                  <col width="58%"/>
+                  <col width="6%"/>
                 </colgroup>
                 
                           
+          
             <tr>
-              <td colspan=4 class="level">Suggested</td>
+              <td colspan=5 class="level">Suggested</td>
             </tr>
             
               <tr>
@@ -200,21 +202,36 @@
                 <td class="extra">
                   Log level in lowercase
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('LevelCase-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="LevelCase-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Each JSON log record contains the logging level of the log statement as a string.
+Different handlers provide that string in uppercase or lowercase.
+Documentation for <a href="https://pkg.go.dev/log/slog@master#Level" target="_blank"><code>slog.Level</code></a>
+says that its <code>String()</code> and <code>MarshalJSON()</code> methods will return uppercase
+but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
                       
                       
-                      
                         
                       
                       <tr>
@@ -223,34 +240,32 @@
                           Chanchal Zap
                         </td>
                         <td class="extra" style="background-color:lightgray;">&#39;debug&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseChanchal Zap" style="display:none;">
+                      <tr id="LevelCase-Chanchal Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Chanchal Zap
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseChanchal Zap" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Chanchal Zap-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                         
@@ -261,34 +276,32 @@
                           Chanchal Zap
                         </td>
                         <td class="extra" style="background-color:lightgray;">&#39;warn&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseChanchal Zap" style="display:none;">
+                      <tr id="LevelCase-Chanchal Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Chanchal Zap
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;error&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">&#39;error&#39;</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseChanchal Zap" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Chanchal Zap-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                         
@@ -299,34 +312,32 @@
                           Phsym Zerolog
                         </td>
                         <td class="extra" style="background-color:lightgray;">&#39;warn&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasePhsym Zerolog" style="display:none;">
+                      <tr id="LevelCase-Phsym Zerolog-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;error&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">&#39;error&#39;</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasePhsym Zerolog" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Phsym Zerolog-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                         
@@ -337,34 +348,32 @@
                           Phsym Zerolog
                         </td>
                         <td class="extra" style="background-color:lightgray;">&#39;debug&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasePhsym Zerolog" style="display:none;">
+                      <tr id="LevelCase-Phsym Zerolog-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasePhsym Zerolog" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Phsym Zerolog-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                         
@@ -375,34 +384,32 @@
                           Samber Logrus
                         </td>
                         <td class="extra" style="background-color:lightgray;">&#39;debug&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseSamber Logrus" style="display:none;">
+                      <tr id="LevelCase-Samber Logrus-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Samber Logrus
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseSamber Logrus" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Samber Logrus-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                         
@@ -413,37 +420,52 @@
                           Samber Logrus
                         </td>
                         <td class="extra" style="background-color:lightgray;">&#39;error&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseSamber Logrus" style="display:none;">
+                      <tr id="LevelCase-Samber Logrus-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Samber Zap
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;debug&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">&#39;error&#39;</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseSamber Zap" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Samber Zap-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
-                      
                         
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
+                          Samber Zap
+                        </td>
+                        <td class="extra" style="background-color:lightgray;">&#39;debug&#39;</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Samber Zap-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
                       
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">
@@ -451,34 +473,15 @@
                           Samber Zap
                         </td>
                         <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseSamber Zap" style="display:none;">
+                      <tr id="LevelCase-Samber Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
-                      
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
-                          
-                          Samber Zap
-                        </td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;warn&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
-                          
-                        </td>
-                      </tr>
-                      <tr id="LevelCaseSamber Zap" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
                       
                       
                         
@@ -488,35 +491,33 @@
                           
                           Samber Zap
                         </td>
-                        <td class="extra" style="background-color:lightgray;">&#39;error&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="extra" style="background-color:lightgray;">&#39;warn&#39;</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseSamber Zap" style="display:none;">
+                      <tr id="LevelCase-Samber Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Samber Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;debug&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">&#39;debug&#39;</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseSamber Zerolog" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Samber Zerolog-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                         
@@ -527,34 +528,32 @@
                           Samber Zerolog
                         </td>
                         <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseSamber Zerolog" style="display:none;">
+                      <tr id="LevelCase-Samber Zerolog-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Samber Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;warn&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">&#39;warn&#39;</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseSamber Zerolog" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Samber Zerolog-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                         
@@ -565,13 +564,13 @@
                           Samber Zerolog
                         </td>
                         <td class="extra" style="background-color:lightgray;">&#39;error&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseSamber Zerolog" style="display:none;">
+                      <tr id="LevelCase-Samber Zerolog-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -586,19 +585,31 @@
                 <td class="extra">
                   Log level is incorrect
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('LevelWrong-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="LevelWrong-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>The log level name is not what was expected (e.g. &quot;WARNING&quot; instead of &quot;WARN&quot;).
+This is different from the LevelCase warning which is from the right level name but the wrong character case.</p>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
-                      
                       
                       
                         
@@ -609,13 +620,13 @@
                           Samber Logrus
                         </td>
                         <td class="extra" style="background-color:lightgray;">should be &#39;WARN&#39;, not &#39;warning&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelWrongSamber Logrus" style="display:none;">
+                      <tr id="LevelWrong-Samber Logrus-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -643,7 +654,7 @@
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-01 18:32:40</span>
+              <span class="fixed">2024-03-03 00:43:37 UTC</span>
             </div>
           </td>
           <td align="right">

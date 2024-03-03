@@ -184,12 +184,14 @@
                   <col width="3%"/>
                   <col width="3%"/>
                   <col width="30%"/>
-                  <col width="64%"/>
+                  <col width="58%"/>
+                  <col width="6%"/>
                 </colgroup>
                 
                           
+          
             <tr>
-              <td colspan=4 class="level">Suggested</td>
+              <td colspan=5 class="level">Suggested</td>
             </tr>
             
               <tr>
@@ -200,19 +202,37 @@
                 <td class="extra">
                   Duplicate field(s) found
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('Duplicates-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="Duplicates-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Some handlers (e.g. <code>slog.JSONHandler</code>)
+will output multiple occurrences of the same field name
+if the logger is called with multiple instances of the same field.
+This behavior is currently <a href="https://github.com/golang/go/issues/59365" target="_blank">under debate</a>
+with no resolution at this time (2024-01-15) and a
+<a href="https://github.com/golang/go/milestone/212" target="_blank">release milestone of (currently unscheduled) Go 1.23</a>,
+(whereas <a href="https://tip.golang.org/doc/go1.22" target="_blank">Go Release 1.22</a>
+is currently expected in February 2024).</p>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
-                      
                       
                       
                         
@@ -223,34 +243,32 @@
                           Chanchal Zap
                         </td>
                         <td class="extra" style="background-color:lightgray;">map[alpha:2 charlie:3]</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="DuplicatesChanchal Zap" style="display:none;">
+                      <tr id="Duplicates-Chanchal Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">map[alpha:2 charlie:3]</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">map[alpha:2 charlie:3]</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="DuplicatesPhsym Zerolog" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="Duplicates-Phsym Zerolog-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                         
@@ -261,13 +279,13 @@
                           Slog JSON
                         </td>
                         <td class="extra" style="background-color:lightgray;">map[alpha:2 charlie:3]</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="DuplicatesSlog JSON" style="display:none;">
+                      <tr id="Duplicates-Slog JSON-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -295,7 +313,7 @@
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-01 18:32:40</span>
+              <span class="fixed">2024-03-03 00:43:37 UTC</span>
             </div>
           </td>
           <td align="right">

@@ -184,12 +184,14 @@
                   <col width="3%"/>
                   <col width="3%"/>
                   <col width="30%"/>
-                  <col width="64%"/>
+                  <col width="58%"/>
+                  <col width="6%"/>
                 </colgroup>
                 
                           
+          
             <tr>
-              <td colspan=4 class="level">Required</td>
+              <td colspan=5 class="level">Required</td>
             </tr>
             
               <tr>
@@ -200,19 +202,34 @@
                 <td class="extra">
                   Group with empty key does not inline subfields
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('GroupInline-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="GroupInline-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Handlers should expand groups named &quot;&quot; (the empty string) into the enclosing log record.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If a group's key is empty, inline the group's Attrs.&quot;</a></li>
+</ul>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
-                      
                       
                       
                         
@@ -223,15 +240,15 @@
                           Phsym Zerolog
                         </td>
                         <td class="extra" style="background-color:lightgray;"></td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupInlinePhsym Zerolog')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupInline-Phsym Zerolog-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="GroupInlinePhsym Zerolog" style="display:none;">
+                      <tr id="GroupInline-Phsym Zerolog-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;&#34;: {
 		&#34;fourth&#34;: &#34;forth&#34;,
 		&#34;second&#34;: 2,
@@ -241,28 +258,27 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-03-01T18:32:30Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:32Z&#34;
 }</pre></td>
                       </tr>
                     
                       
                       
-                      
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Samber Logrus
                         </td>
-                        <td class="extra" style="background-color:lightcyan;"></td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;"></td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupInlineSamber Logrus')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupInline-Samber Logrus-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="GroupInlineSamber Logrus" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
+                      <tr id="GroupInline-Samber Logrus-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;&#34;: {
 		&#34;fourth&#34;: &#34;forth&#34;,
 		&#34;second&#34;: 2,
@@ -272,11 +288,10 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-03-01T18:32:30Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:32Z&#34;
 }</pre></td>
                       </tr>
                     
-                      
                       
                       
                         
@@ -287,15 +302,15 @@
                           Samber Zap
                         </td>
                         <td class="extra" style="background-color:lightgray;"></td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupInlineSamber Zap')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupInline-Samber Zap-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="GroupInlineSamber Zap" style="display:none;">
+                      <tr id="GroupInline-Samber Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;&#34;: {
 		&#34;fourth&#34;: &#34;forth&#34;,
 		&#34;second&#34;: 2,
@@ -305,28 +320,27 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-03-01T18:32:30Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:32Z&#34;
 }</pre></td>
                       </tr>
                     
                       
                       
-                      
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Samber Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightcyan;"></td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;"></td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupInlineSamber Zerolog')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupInline-Samber Zerolog-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="GroupInlineSamber Zerolog" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
+                      <tr id="GroupInline-Samber Zerolog-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;&#34;: {
 		&#34;fourth&#34;: &#34;forth&#34;,
 		&#34;second&#34;: 2,
@@ -336,7 +350,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-03-01T18:32:30Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:32Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -365,7 +379,7 @@
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-01 18:32:40</span>
+              <span class="fixed">2024-03-03 00:43:37 UTC</span>
             </div>
           </td>
           <td align="right">

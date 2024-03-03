@@ -184,12 +184,14 @@
                   <col width="3%"/>
                   <col width="3%"/>
                   <col width="30%"/>
-                  <col width="64%"/>
+                  <col width="58%"/>
+                  <col width="6%"/>
                 </colgroup>
                 
                           
+          
             <tr>
-              <td colspan=4 class="level">Implied</td>
+              <td colspan=5 class="level">Implied</td>
             </tr>
             
               <tr>
@@ -200,19 +202,38 @@
                 <td class="extra">
                   HandlerOptions.ReplaceAttr not available
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('NoReplAttr-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="NoReplAttr-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>If <a href="https://pkg.go.dev/log/slog@master#HandlerOptions" target="_blank"><code>HandlerOptions.ReplaceAttr</code></a>
+is provided it should be honored by the handler.
+However, documentation on implementing handler methods seems to suggest it is optional.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#HandlerOptions" target="_blank">Behavior defined for <code>slog.HandlerOptions</code></a><br>
+</li>
+<li><a href="https://github.com/golang/example/tree/master/slog-handler-guide#implementing-handler-methods" target="_blank">&quot;You might also consider adding a ReplaceAttr option to your handler, like the one for the built-in handlers.&quot;</a></li>
+</ul>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
-                      
                       
                       
                         
@@ -223,31 +244,30 @@
                           Chanchal Zap
                         </td>
                         <td class="extra" style="background-color:lightgray;">time field still exists, msg field still exists, source == &lt;nil&gt;</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="NoReplAttrChanchal Zap" style="display:none;">
+                      <tr id="NoReplAttr-Chanchal Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
-                      
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">too many attributes: 4, time field still exists, message field still exists, source == &lt;nil&gt;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">too many attributes: 4, time field still exists, message field still exists, source == &lt;nil&gt;</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="NoReplAttrPhsym Zerolog" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="NoReplAttr-Phsym Zerolog-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -262,19 +282,33 @@
                 <td class="extra">
                   HandlerOptions.ReplaceAttr not available for basic fields
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('NoReplAttrBasic-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="NoReplAttrBasic-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Some handlers (e.g. <code>phsym/zeroslog</code>) support
+<a href="https://pkg.go.dev/log/slog@master#HandlerOptions" target="_blank"><code>HandlerOptions.ReplaceAttr</code></a>
+except for the four main fields <code>time</code>, <code>level</code>, <code>msg</code>, and <code>source</code>.
+When that is the case it is better to use this (<code>WarnNoReplAttrBasic</code>) warning.</p>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
-                      
                       
                       
                         
@@ -285,34 +319,32 @@
                           Samber Logrus
                         </td>
                         <td class="extra" style="background-color:lightgray;">too many attributes: 4, time field still exists, msg field still exists</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="NoReplAttrBasicSamber Logrus" style="display:none;">
+                      <tr id="NoReplAttrBasic-Samber Logrus-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Samber Zap
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">too many attributes: 4, time field still exists, msg field still exists, source == &lt;nil&gt;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">too many attributes: 4, time field still exists, msg field still exists, source == &lt;nil&gt;</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="NoReplAttrBasicSamber Zap" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="NoReplAttrBasic-Samber Zap-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                         
@@ -323,13 +355,13 @@
                           Samber Zerolog
                         </td>
                         <td class="extra" style="background-color:lightgray;">too many attributes: 4, time field still exists, message field still exists</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="NoReplAttrBasicSamber Zerolog" style="display:none;">
+                      <tr id="NoReplAttrBasic-Samber Zerolog-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -357,7 +389,7 @@
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-01 18:32:40</span>
+              <span class="fixed">2024-03-03 00:43:37 UTC</span>
             </div>
           </td>
           <td align="right">

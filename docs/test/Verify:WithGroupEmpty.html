@@ -184,12 +184,14 @@
                   <col width="3%"/>
                   <col width="3%"/>
                   <col width="30%"/>
-                  <col width="64%"/>
+                  <col width="58%"/>
+                  <col width="6%"/>
                 </colgroup>
                 
                           
+          
             <tr>
-              <td colspan=4 class="level">Required</td>
+              <td colspan=5 class="level">Required</td>
             </tr>
             
               <tr>
@@ -200,19 +202,34 @@
                 <td class="extra">
                   Empty WithGroup() logged
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('WithGroupEmpty-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="WithGroupEmpty-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Handlers should not log WithGroup() groups with no fields, whether or not they have non-empty names.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If a group has no Attrs (even if it has a non-empty key), ignore it.&quot;</a></li>
+</ul>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
-                      
                       
                       
                         
@@ -223,46 +240,45 @@
                           Chanchal Zap
                         </td>
                         <td class="extra" style="background-color:lightgray;">too many fields, found field &#39;group1&#39;, value is group, length: 0</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('WithGroupEmptyChanchal Zap')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('WithGroupEmpty-Chanchal Zap-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="WithGroupEmptyChanchal Zap" style="display:none;">
+                      <tr id="WithGroupEmpty-Chanchal Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;group1&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-01T18:32:30Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:32Z&#34;
 }</pre></td>
                       </tr>
                     
                       
                       
-                      
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">too many fields, found field &#39;group1&#39;, value is group, length: 1</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">too many fields, found field &#39;group1&#39;, value is group, length: 1</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('WithGroupEmptyPhsym Zerolog')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('WithGroupEmpty-Phsym Zerolog-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="WithGroupEmptyPhsym Zerolog" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
+                      <tr id="WithGroupEmpty-Phsym Zerolog-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;group1&#34;: {
 		&#34;group2&#34;: {}
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-01T18:32:30Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:32Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -291,7 +307,7 @@
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-01 18:32:40</span>
+              <span class="fixed">2024-03-03 00:43:37 UTC</span>
             </div>
           </td>
           <td align="right">

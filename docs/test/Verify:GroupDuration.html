@@ -184,12 +184,14 @@
                   <col width="3%"/>
                   <col width="3%"/>
                   <col width="30%"/>
-                  <col width="64%"/>
+                  <col width="58%"/>
+                  <col width="6%"/>
                 </colgroup>
                 
                           
+          
             <tr>
-              <td colspan=4 class="level">Suggested</td>
+              <td colspan=5 class="level">Suggested</td>
             </tr>
             
               <tr>
@@ -200,19 +202,34 @@
                 <td class="extra">
                   slog.Duration() logs milliseconds instead of nanoseconds
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('DurationMillis-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="DurationMillis-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>The <code>slog.JSONHandler</code> uses nanoseconds for <code>time.Duration</code> but some other handlers use seconds.</p>
+
+<ul>
+<li><a href="https://github.com/golang/go/issues/59345" target="_blank">Go issue 59345: Nanoseconds is a recent change with Go 1.21</a></li>
+</ul>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
-                      
                       
                       
                         
@@ -223,22 +240,22 @@
                           Samber Zerolog
                         </td>
                         <td class="extra" style="background-color:lightgray;">29002000.000000 != 29002000000000.000000</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('DurationMillisSamber Zerolog')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('DurationMillis-Samber Zerolog-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="DurationMillisSamber Zerolog" style="display:none;">
+                      <tr id="DurationMillis-Samber Zerolog-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;group&#34;: {
 		&#34;inner&#34;: 29002000000000
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;outer&#34;: 29002000,
-	&#34;time&#34;: &#34;2024-03-01T18:32:30Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:32Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -254,19 +271,34 @@
                 <td class="extra">
                   slog.Duration() logs seconds instead of nanoseconds
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('DurationSeconds-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="DurationSeconds-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>The <code>slog.JSONHandler</code> uses nanoseconds for <code>time.Duration</code> but some other handlers use seconds.</p>
+
+<ul>
+<li><a href="https://github.com/golang/go/issues/59345" target="_blank">Go issue 59345: Nanoseconds is a recent change with Go 1.21</a></li>
+</ul>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
-                      
                       
                       
                         
@@ -277,22 +309,22 @@
                           Samber Zap
                         </td>
                         <td class="extra" style="background-color:lightgray;">29002.000000 != 29002000000000.000000</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('DurationSecondsSamber Zap')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('DurationSeconds-Samber Zap-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="DurationSecondsSamber Zap" style="display:none;">
+                      <tr id="DurationSeconds-Samber Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;group&#34;: {
 		&#34;inner&#34;: 29002000000000
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;outer&#34;: 29002,
-	&#34;time&#34;: &#34;2024-03-01T18:32:30Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:32Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -321,7 +353,7 @@
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-01 18:32:40</span>
+              <span class="fixed">2024-03-03 00:43:37 UTC</span>
             </div>
           </td>
           <td align="right">

@@ -184,12 +184,14 @@
                   <col width="3%"/>
                   <col width="3%"/>
                   <col width="30%"/>
-                  <col width="64%"/>
+                  <col width="58%"/>
+                  <col width="6%"/>
                 </colgroup>
                 
                           
+          
             <tr>
-              <td colspan=4 class="level">Suggested</td>
+              <td colspan=5 class="level">Suggested</td>
             </tr>
             
               <tr>
@@ -200,19 +202,31 @@
                 <td class="extra">
                   WithGroup().With() ends up at top level of log record instead of in the group
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('GroupWithTop-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="GroupWithTop-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Almost all handlers treat <code>logger.WithGroup(&lt;name&gt;).With(&lt;attrs&gt;) as writing</code><attrs><code>to the group</code><name><code>.
+Some handlers write</code><attrs>` to the top level of the log record.</p>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
-                      
                       
                       
                         
@@ -223,20 +237,20 @@
                           Chanchal Zap
                         </td>
                         <td class="extra" style="background-color:lightgray;"></td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupWithTopChanchal Zap')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupWithTop-Chanchal Zap-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="GroupWithTopChanchal Zap" style="display:none;">
+                      <tr id="GroupWithTop-Chanchal Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;group&#34;: {},
 	&#34;key&#34;: &#34;value&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-01T18:32:30Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:32Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -265,7 +279,7 @@
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-01 18:32:40</span>
+              <span class="fixed">2024-03-03 00:43:37 UTC</span>
             </div>
           </td>
           <td align="right">

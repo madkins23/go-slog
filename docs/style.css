@@ -183,7 +183,18 @@ table.instance {
     background-color: lightgray;
 }
 
-table.instance td.logLink {
+table.instance td {
+    margin: 5px;
+    padding: 5px;
+}
+
+table.instance td.logLine pre {
+    margin: 5px;
+    padding: 5px;
+    overflow: auto;
+}
+
+table.instance td.toggleButton {
     text-align: center;
 }
 

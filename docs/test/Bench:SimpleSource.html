@@ -189,38 +189,38 @@
                 
                   <tr>
                     <td class="fixed">chanchal/zaphandler</td>
-                    <td class="number">2,640,007</td>
-                    <td class="number">454.50</td>
+                    <td class="number">2,615,148</td>
+                    <td class="number">453.90</td>
                     <td class="number">1</td>
                     <td class="number">32</td>
-                    <td class="number">424,017.00</td>
+                    <td class="number">420,628.16</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">phsym/zeroslog</td>
-                    <td class="number">2,163,560</td>
-                    <td class="number">554.30</td>
+                    <td class="number">2,144,253</td>
+                    <td class="number">557.00</td>
                     <td class="number">4</td>
                     <td class="number">312</td>
-                    <td class="number">589,360.40</td>
+                    <td class="number">581,258.45</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-logrus</td>
-                    <td class="number">207,414</td>
-                    <td class="number">5,635.00</td>
+                    <td class="number">209,078</td>
+                    <td class="number">5,666.00</td>
                     <td class="number">39</td>
                     <td class="number">2,995</td>
-                    <td class="number">9,827.99</td>
+                    <td class="number">9,853.17</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-zap</td>
-                    <td class="number">1,616,239</td>
-                    <td class="number">736.60</td>
+                    <td class="number">1,615,015</td>
+                    <td class="number">737.50</td>
                     <td class="number">5</td>
                     <td class="number">592</td>
-                    <td class="number">234,770.63</td>
+                    <td class="number">234,320.49</td>
                   </tr>
                 
                   <tr>
@@ -229,16 +229,16 @@
                     <td class="number">1,170.00</td>
                     <td class="number">12</td>
                     <td class="number">1,225</td>
-                    <td class="number">231,531.42</td>
+                    <td class="number">231,623.13</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">slog/JSONHandler</td>
-                    <td class="number">1,326,967</td>
-                    <td class="number">913.80</td>
+                    <td class="number">1,310,053</td>
+                    <td class="number">911.20</td>
                     <td class="number">6</td>
                     <td class="number">568</td>
-                    <td class="number">402,059.45</td>
+                    <td class="number">398,091.19</td>
                   </tr>
                 
               </table>
@@ -273,12 +273,14 @@
                   <col width="3%"/>
                   <col width="3%"/>
                   <col width="30%"/>
-                  <col width="64%"/>
+                  <col width="58%"/>
+                  <col width="6%"/>
                 </colgroup>
                 
                           
+          
             <tr>
-              <td colspan=4 class="level">Implied</td>
+              <td colspan=5 class="level">Implied</td>
             </tr>
             
               <tr>
@@ -289,19 +291,36 @@
                 <td class="extra">
                   Source data not logged when AddSource flag set
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SourceKey-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="SourceKey-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Handlers should log source data when the <code>slog.HandlerOptions.AddSource</code> flag is set.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#HandlerOptions" target="_blank">Flag declaration as <code>slog.HandlerOptions</code> field</a></li>
+<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Behavior defined for <code>JSONHandler.Handle()</code></a></li>
+<li><a href="https://pkg.go.dev/log/slog@master#Source" target="_blank">Definition of source data record</a></li>
+</ul>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
-                      
                       
                       
                         
@@ -312,47 +331,45 @@
                           Chanchal Zap
                         </td>
                         <td class="extra" style="background-color:lightgray;">no &#39;source&#39; key</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKeyChanchal Zap')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKey-Chanchal Zap-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="SourceKeyChanchal Zap" style="display:none;">
+                      <tr id="SourceKey-Chanchal Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-01T18:30:58Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:42:01Z&#34;
 }</pre></td>
                       </tr>
                     
-                      
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">no &#39;source&#39; key</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">no &#39;source&#39; key</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKeyPhsym Zerolog')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKey-Phsym Zerolog-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="SourceKeyPhsym Zerolog" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
+                      <tr id="SourceKey-Phsym Zerolog-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;caller&#34;: &#34;/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:71&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-01T18:31:31Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:42:33Z&#34;
 }</pre></td>
                       </tr>
                     
-                      
                       
                       
                         
@@ -363,19 +380,19 @@
                           Samber Zap
                         </td>
                         <td class="extra" style="background-color:lightgray;">no &#39;source&#39; key</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKeySamber Zap')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKey-Samber Zap-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="SourceKeySamber Zap" style="display:none;">
+                      <tr id="SourceKey-Samber Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;caller&#34;: &#34;tests/benchmarks.go:71&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-01T18:32:05Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:07Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -404,7 +421,7 @@
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-01 18:32:40</span>
+              <span class="fixed">2024-03-03 00:43:37 UTC</span>
             </div>
           </td>
           <td align="right">

@@ -184,12 +184,14 @@
                   <col width="3%"/>
                   <col width="3%"/>
                   <col width="30%"/>
-                  <col width="64%"/>
+                  <col width="58%"/>
+                  <col width="6%"/>
                 </colgroup>
                 
                           
+          
             <tr>
-              <td colspan=4 class="level">Implied</td>
+              <td colspan=5 class="level">Implied</td>
             </tr>
             
               <tr>
@@ -200,19 +202,36 @@
                 <td class="extra">
                   Wrong message key (should be &#39;msg&#39;)
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('MessageKey-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="MessageKey-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>The field name of the &quot;message&quot; key should be <code>msg</code>.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#pkg-constants" target="_blank">Constant values are defined for <code>slog/log</code></a><br>
+</li>
+<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Field values are defined for the <code>JSONHandler.Handle()</code> implementation</a></li>
+</ul>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
-                      
                       
                       
                         
@@ -223,31 +242,30 @@
                           Phsym Zerolog
                         </td>
                         <td class="extra" style="background-color:lightgray;">`message`</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="MessageKeyPhsym Zerolog" style="display:none;">
+                      <tr id="MessageKey-Phsym Zerolog-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
-                      
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Samber Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">`message`</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">`message`</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="MessageKeySamber Zerolog" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="MessageKey-Samber Zerolog-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -262,19 +280,36 @@
                 <td class="extra">
                   Source data not logged when AddSource flag set
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SourceKey-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="SourceKey-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Handlers should log source data when the <code>slog.HandlerOptions.AddSource</code> flag is set.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#HandlerOptions" target="_blank">Flag declaration as <code>slog.HandlerOptions</code> field</a></li>
+<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Behavior defined for <code>JSONHandler.Handle()</code></a></li>
+<li><a href="https://pkg.go.dev/log/slog@master#Source" target="_blank">Definition of source data record</a></li>
+</ul>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
-                      
                       
                       
                         
@@ -285,47 +320,45 @@
                           Chanchal Zap
                         </td>
                         <td class="extra" style="background-color:lightgray;">no &#39;source&#39; key</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKeyChanchal Zap')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKey-Chanchal Zap-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="SourceKeyChanchal Zap" style="display:none;">
+                      <tr id="SourceKey-Chanchal Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-01T18:32:30Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:32Z&#34;
 }</pre></td>
                       </tr>
                     
-                      
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">no &#39;source&#39; key</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">no &#39;source&#39; key</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKeyPhsym Zerolog')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKey-Phsym Zerolog-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="SourceKeyPhsym Zerolog" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre>{
+                      <tr id="SourceKey-Phsym Zerolog-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;caller&#34;: &#34;/opt/hostedtoolcache/go/1.21.7/x64/src/reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-01T18:32:30Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:32Z&#34;
 }</pre></td>
                       </tr>
                     
-                      
                       
                       
                         
@@ -336,19 +369,19 @@
                           Samber Zap
                         </td>
                         <td class="extra" style="background-color:lightgray;">no &#39;source&#39; key</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKeySamber Zap')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKey-Samber Zap-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="SourceKeySamber Zap" style="display:none;">
+                      <tr id="SourceKey-Samber Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre>{
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
 	&#34;caller&#34;: &#34;reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-01T18:32:30Z&#34;
+	&#34;time&#34;: &#34;2024-03-03T00:43:32Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -358,7 +391,7 @@
              
           
             <tr>
-              <td colspan=4 class="level">Suggested</td>
+              <td colspan=5 class="level">Suggested</td>
             </tr>
             
               <tr>
@@ -369,19 +402,34 @@
                 <td class="extra">
                   Log level in lowercase
                 </td>
+                <td class="toggleButton">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('LevelCase-doc')">Doc</button>
+                  
+                </td>
               </tr>
+              
+                <tr id="LevelCase-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Each JSON log record contains the logging level of the log statement as a string.
+Different handlers provide that string in uppercase or lowercase.
+Documentation for <a href="https://pkg.go.dev/log/slog@master#Level" target="_blank"><code>slog.Level</code></a>
+says that its <code>String()</code> and <code>MarshalJSON()</code> methods will return uppercase
+but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
+</td>
+                </tr>
+              
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     
-                      
                       
                       
                         
@@ -392,34 +440,32 @@
                           Chanchal Zap
                         </td>
                         <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseChanchal Zap" style="display:none;">
+                      <tr id="LevelCase-Chanchal Zap-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCasePhsym Zerolog" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Phsym Zerolog-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                         
@@ -430,34 +476,32 @@
                           Samber Logrus
                         </td>
                         <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseSamber Logrus" style="display:none;">
+                      <tr id="LevelCase-Samber Logrus-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightcyan;">
+                        <td colspan=2 class="name" style="background-color:lightgray;">
                           
                           Samber Zap
                         </td>
-                        <td class="extra" style="background-color:lightcyan;">&#39;info&#39;</td>
-                        <td class="logLink" style="background-color:lightcyan;">
+                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseSamber Zap" style="display:none;">
-                        <td style="background-color:lightcyan;"></td>
-                        <td style="background-color:lightcyan;" colspan=3 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Samber Zap-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
-                      
                       
                       
                         
@@ -468,13 +512,13 @@
                           Samber Zerolog
                         </td>
                         <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
-                        <td class="logLink" style="background-color:lightgray;">
+                        <td class="toggleButton" style="background-color:lightgray;">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCaseSamber Zerolog" style="display:none;">
+                      <tr id="LevelCase-Samber Zerolog-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=3 class="logLine"><pre></pre></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -502,7 +546,7 @@
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-01 18:32:40</span>
+              <span class="fixed">2024-03-03 00:43:37 UTC</span>
             </div>
           </td>
           <td align="right">
