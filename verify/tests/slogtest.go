@@ -226,7 +226,6 @@ func (suite *SlogTestSuite) TestWithGroupInline() {
 		"fourth", "forth",
 		"pi", math.Pi)
 	logMap := suite.logMap()
-	fmt.Printf(">>> %s\n", suite.String())
 	suite.Assert().Equal("one", logMap["first"])
 	suite.Assert().Equal(math.Pi, logMap["pi"])
 	checkFieldFn := func(fieldMap map[string]any) {

@@ -47,9 +47,3 @@ func (suite *SlogTestSuite) logMap() map[string]any {
 	suite.Require().NoError(err)
 	return results
 }
-
-// showLog sends the output capture buffer to test logging output.
-// This is not dependent on the use of the -debug flag.
-func (suite *SlogTestSuite) showLog() {
-	fmt.Printf(">>> %s", suite.Buffer)
-}
