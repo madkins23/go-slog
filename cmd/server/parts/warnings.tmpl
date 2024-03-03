@@ -1,6 +1,7 @@
+          {{ $color := "lightcyan" }}
           {{ range $level := $.Levels }}
             <tr>
-              <td colspan=4 class="level">{{ $level.Name }}</td>
+              <td colspan=5 class="level">{{ $level.Name }}</td>
             </tr>
             {{ range $warning := $level.Warnings }}
               <tr>
@@ -11,20 +12,30 @@
                 <td class="extra">
                   {{ $warning.Summary }}
                 </td>
+                <td class="toggleButton">
+                  {{ if $warning.HasDescription }}
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('{{ $warning.Name }}-doc')">Doc</button>
+                  {{ end }}
+                </td>
               </tr>
+              {{ if $warning.HasDescription }}
+                <tr id="{{ $warning.Name }}-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description">{{ $warning.Description }}</td>
+                </tr>
+              {{ end }}
               <tr class="instance">
                 <td colspan=2></td>
-                <td colspan=2>
+                <td colspan=3>
                   <table class="instance">
                     <colgroup>
                       <col width="3%"/>
                       <col width="35%"/>
-                      <col width="45%"/>
+                      <col width="55%"/>
                       <col width="7%"/>
                     </colgroup>
                     {{ range $index, $instance := $warning.Instances }}
-                      {{ $id := printf "%v%v" $warning.Name $instance.Name }}
-                      {{ $color := "lightcyan" }}
+                      {{ $id := printf "%v-%v" $warning.Name $instance.Name }}
                       {{ if eq (mod $index 2) 0 }}
                         {{ $color = "lightgray" }}
                       {{ end }}
@@ -36,15 +47,15 @@
                           {{  $instance.Name  }}
                         </td>
                         <td class="extra" style="background-color:{{ $color }};">{{  $instance.Extra  }}</td>
-                        <td class="logLink" style="background-color:{{ $color }};">
+                        <td class="toggleButton" style="background-color:{{ $color }};">
                           {{ if $instance.HasLog }}
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('{{ $id }}')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('{{ $id }}-log')">Log</button>
                           {{ end }}
                         </td>
                       </tr>
-                      <tr id="{{ $id }}" style="display:none;">
+                      <tr id="{{ $id }}-log" style="display:none;">
                         <td style="background-color:{{ $color }};"></td>
-                        <td style="background-color:{{ $color }};" colspan=3 class="logLine"><pre>{{ $instance.Log }}</pre></td>
+                        <td style="background-color:{{ $color }};" colspan=4 class="logLine"><pre>{{ $instance.Log }}</pre></td>
                       </tr>
                     {{ end }} {{/* range over instances */}}
                   </table>

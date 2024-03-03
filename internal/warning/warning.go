@@ -56,9 +56,14 @@ func NewWarning(level Level, name, summary, description string) *Warning {
 	return warning
 }
 
+// ByName returns the warning with the specified name, if any, else nil.
+func ByName(name string) *Warning {
+	return byName[name]
+}
+
 // HasDescription returns true if there is description data.
 func (w *Warning) HasDescription() bool {
-	return len(w.description) > 0
+	return w != nil && len(w.description) > 0
 }
 
 // Description converts the Markdown description data into HTML and returns it.

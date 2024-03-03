@@ -2,6 +2,7 @@ package data
 
 import (
 	"flag"
+	"html/template"
 	"sort"
 	"strings"
 
@@ -215,6 +216,7 @@ func (l *dataLevel) findWarningGroup(warningName string) *dataWarning {
 type dataWarning struct {
 	warning struct {
 		name, summary string
+		instance      *warning.Warning
 	}
 	instances []*dataInstance
 	sorted    bool
@@ -222,6 +224,20 @@ type dataWarning struct {
 
 func (w *dataWarning) Name() string {
 	return w.warning.name
+}
+
+func (w *dataWarning) HasDescription() bool {
+	if w.warning.instance == nil {
+		w.warning.instance = warning.ByName(w.warning.name)
+	}
+	return w.warning.instance.HasDescription()
+}
+
+func (w *dataWarning) Description() template.HTML {
+	if w.warning.instance == nil {
+		w.warning.instance = warning.ByName(w.warning.name)
+	}
+	return w.warning.instance.Description()
 }
 
 func (w *dataWarning) Summary() string {
