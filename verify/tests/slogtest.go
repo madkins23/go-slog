@@ -28,7 +28,7 @@ func (suite *SlogTestSuite) TestAttributes() {
 	suite.Assert().Equal(math.Pi, logMap["pi"])
 }
 
-// TestAttributesEmpty tests whether attributes with empty names and nil values are logged properly.
+// TestAttributesEmpty tests whether attributes with empty names and nil values are ignored.
 //   - Based on the existing behavior of log/slog the field is hot created.
 //   - Implements slogtest "empty-attr" test.
 //   - From https://pkg.go.dev/log/slog@master#Handler
@@ -41,6 +41,18 @@ func (suite *SlogTestSuite) TestAttributesEmpty() {
 	suite.checkNoEmptyAttribute(5, logMap)
 }
 
+// TestAttributesNotEmpty tests whether attributes with empty names and non-nil values are logged properly.
+//   - Based on the existing behavior of log/slog the field IS created.
+//   - https://github.com/golang/go/issues/59282
+func (suite *SlogTestSuite) TestAttributesNotEmpty() {
+	logger := suite.Logger(infra.SimpleOptions())
+	logger.Info(message, "first", "one", "", "NOT NIL", "pi", math.Pi)
+	logMap := suite.logMap()
+	suite.Assert().Equal("one", logMap["first"])
+	suite.Assert().Equal(math.Pi, logMap["pi"])
+	suite.Assert().Equal("NOT NIL", logMap[""])
+}
+
 // TestAttributesWith tests whether attributes in With() are logged properly.
 //   - Implements slogtest "WithAttrs" test.
 func (suite *SlogTestSuite) TestAttributesWith() {
@@ -51,6 +63,32 @@ func (suite *SlogTestSuite) TestAttributesWith() {
 	suite.Assert().Equal("one", logMap["first"])
 	suite.Assert().Equal(float64(2), logMap["second"])
 	suite.Assert().Equal(math.Pi, logMap["pi"])
+}
+
+// TestAttributesWithEmpty tests whether empty attributes in With() are ignored.
+//   - Based on the existing behavior of log/slog the field is hot created.
+//   - From https://pkg.go.dev/log/slog@master#Handler
+func (suite *SlogTestSuite) TestAttributesWithEmpty() {
+	logger := suite.Logger(infra.SimpleOptions())
+	logger.With("first", "one", "second", 2, "", nil).Info(message, "pi", math.Pi)
+	logMap := suite.logMap()
+	suite.Assert().Equal("one", logMap["first"])
+	suite.Assert().Equal(float64(2), logMap["second"])
+	suite.Assert().Equal(math.Pi, logMap["pi"])
+	suite.checkNoEmptyAttribute(6, logMap)
+}
+
+// TestAttributesWithNotEmpty tests whether attribute with empty names but non-nil value in With() are properly logged.
+//   - https://github.com/golang/go/issues/59282
+func (suite *SlogTestSuite) TestAttributesWithNotEmpty() {
+	logger := suite.Logger(infra.SimpleOptions())
+	logger.With("first", "one", "second", 2, "", "NOT NIL").Info(message, "pi", math.Pi)
+	logMap := suite.logMap()
+	suite.checkFieldCount(7, logMap)
+	suite.Assert().Equal("one", logMap["first"])
+	suite.Assert().Equal(float64(2), logMap["second"])
+	suite.Assert().Equal(math.Pi, logMap["pi"])
+	suite.Assert().Equal("NOT NIL", logMap[""])
 }
 
 // TestGroup tests the use of a logging group.

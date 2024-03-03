@@ -86,7 +86,7 @@ func (suite *SlogTestSuite) checkNoEmptyAttribute(fieldCount uint, logMap map[st
 		counter := suite.fieldCounter()
 		suite.Require().NoError(counter.Parse())
 		if counter.NumFields() == fieldCount+1 {
-			if _, found := logMap[""]; found {
+			if value, found := logMap[""]; found && value == nil {
 				suite.AddWarning(warning.EmptyAttributes, "", suite.Buffer.String())
 				return
 			}
