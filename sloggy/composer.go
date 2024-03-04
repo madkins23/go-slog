@@ -21,19 +21,26 @@ var (
 	colonSpace  = []byte{':', ' '}
 	commaSpace  = []byte{',', ' '}
 	doubleQuote = []byte{'"'}
+	emptyString []byte
 )
 
 // -----------------------------------------------------------------------------
 
+// composer handles writing attributes to an io.Writer.
 type composer struct {
 	io.Writer
 	started bool
 }
 
-func newComposer(writer io.Writer) *composer {
+func newComposer(writer io.Writer, started bool) *composer {
 	return &composer{
-		Writer: writer,
+		Writer:  writer,
+		started: started,
 	}
+}
+
+func (c *composer) setStarted(started bool) {
+	c.started = started
 }
 
 // -----------------------------------------------------------------------------
@@ -177,7 +184,7 @@ func (c *composer) addGroup(attrs []slog.Attr) error {
 		return fmt.Errorf("begin: %w", err)
 	}
 	// Local composer object resets started flag
-	cg := newComposer(c.Writer)
+	cg := newComposer(c.Writer, false)
 	if err := cg.addAttributes(attrs); err != nil {
 		return fmt.Errorf("add attributes: %w", err)
 	}

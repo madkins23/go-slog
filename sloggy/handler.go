@@ -36,7 +36,7 @@ func (h *Handler) Enabled(_ context.Context, level slog.Level) bool {
 }
 
 func (h *Handler) Handle(_ context.Context, record slog.Record) error {
-	c := newComposer(h.writer)
+	c := newComposer(h.writer, false)
 	if err := c.begin(); err != nil {
 		return fmt.Errorf("begin: %w", err)
 	}
@@ -51,6 +51,18 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 		return fmt.Errorf("add basic attributes: %w", err)
 	}
 
+	if h.prefix.Len() > 0 {
+		if _, err := c.Write(commaSpace); err != nil {
+			return fmt.Errorf("comma space: %w", err)
+		}
+		if _, err := c.Write(h.prefix.Bytes()); err != nil {
+			return fmt.Errorf("write prefix: %w", err)
+		}
+		if bytes.HasSuffix(h.prefix.Bytes(), []byte{'{'}) {
+			c.setStarted(false)
+		}
+	}
+
 	var err error
 	record.Attrs(func(attr slog.Attr) bool {
 		if err = c.addAttribute(attr); err != nil {
@@ -62,21 +74,7 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 		return fmt.Errorf("add attributes: %w", err)
 	}
 
-	if _, err := h.writer.Write(h.prefix.Bytes()); err != nil {
-		return fmt.Errorf("write prefix: %w", err)
-	}
-
-	record.Attrs(func(attr slog.Attr) bool {
-		if err = c.addAttribute(attr); err != nil {
-			return false
-		}
-		return true // keep going
-	})
-	if err != nil {
-		return fmt.Errorf("add attributes: %w", err)
-	}
-
-	if _, err := h.writer.Write(h.suffix.Bytes()); err != nil {
+	if _, err := c.Write(h.suffix.Bytes()); err != nil {
 		return fmt.Errorf("write suffix: %w", err)
 	}
 
@@ -88,13 +86,53 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 }
 
 func (h *Handler) WithAttrs(attrs []slog.Attr) slog.Handler {
-	//TODO implement me
-	panic("implement me")
+	hdlr := &Handler{
+		options: h.options,
+		writer:  h.writer,
+		prefix:  bytes.Buffer{},
+		suffix:  bytes.Buffer{},
+	}
+	var prefixStarted bool
+	if h.prefix.Len() > 0 {
+		hdlr.prefix.Write(h.prefix.Bytes())
+		prefixStarted = true
+	}
+	if h.suffix.Len() > 0 {
+		hdlr.prefix.Write(h.suffix.Bytes())
+	}
+	if err := newComposer(&hdlr.prefix, prefixStarted).addAttributes(attrs); err != nil {
+		slog.Error("adding with attributes", "err", err)
+	}
+
+	return hdlr
 }
 
 func (h *Handler) WithGroup(name string) slog.Handler {
-	//TODO implement me
-	panic("implement me")
+	hdlr := &Handler{
+		options: h.options,
+		writer:  h.writer,
+		prefix:  bytes.Buffer{},
+		suffix:  bytes.Buffer{},
+	}
+	prefixStart := emptyString
+	if h.prefix.Len() > 0 {
+		hdlr.prefix.Write(h.prefix.Bytes())
+		if !bytes.HasSuffix(h.prefix.Bytes(), braceLeft) {
+			prefixStart = commaSpace
+		}
+	}
+	if h.suffix.Len() > 0 {
+		hdlr.suffix.Write(h.suffix.Bytes())
+	}
+
+	if _, err := fmt.Fprintf(&hdlr.prefix, "%s\"%s\": {", prefixStart, name); err != nil {
+		slog.Error("open group", "err", err)
+	}
+	if _, err := hdlr.suffix.Write(braceRight); err != nil {
+		slog.Error("group right brace", "err", err)
+	}
+
+	return hdlr
 }
 
 // -----------------------------------------------------------------------------

@@ -144,3 +144,72 @@ func (suite *HandlerTestSuite) TestAttributes() {
 	suite.Assert().Len(subGroup, 1)
 	suite.Assert().Equal("Rolling Stones", subGroup["name"])
 }
+
+func (suite *HandlerTestSuite) TestWithAttrs() {
+	hdlr := suite.newHandler(nil).
+		WithAttrs([]slog.Attr{
+			slog.String("make", "Ford"),
+			infra.EmptyAttr(),
+			slog.Int("year", 1957)})
+	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)
+	suite.Assert().NoError(hdlr.Handle(context.Background(), record))
+	logMap := suite.logMap()
+	suite.Assert().Len(logMap, 5)
+	// Basic fields tested in Test_Enabled.
+	suite.Assert().Equal("Ford", logMap["make"])
+	suite.Assert().Equal(float64(1957), logMap["year"])
+	// Add another layer.
+	hdlr = hdlr.WithAttrs([]slog.Attr{
+		infra.EmptyAttr(),
+		slog.Float64("price", 3456.98),
+		slog.String("owner", "Elvis Presley"),
+		infra.EmptyAttr()})
+	suite.Reset()
+	suite.Assert().NoError(hdlr.Handle(context.Background(), record))
+	logMap = suite.logMap()
+	suite.Assert().Len(logMap, 7)
+	suite.Assert().Equal("Ford", logMap["make"])
+	suite.Assert().Equal(float64(1957), logMap["year"])
+	suite.Assert().Equal(3456.98, logMap["price"])
+	suite.Assert().Equal("Elvis Presley", logMap["owner"])
+}
+
+func (suite *HandlerTestSuite) TestWithGroup() {
+	hdlr := suite.newHandler(nil).WithGroup("group")
+	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)
+	record.AddAttrs(
+		infra.EmptyAttr(),
+		slog.String("Goober", "Snoofus"),
+		infra.EmptyAttr(),
+		slog.Float64("pi", math.Pi),
+		infra.EmptyAttr())
+	suite.Assert().NoError(hdlr.Handle(context.Background(), record))
+	logMap := suite.logMap()
+	suite.Assert().Len(logMap, 4)
+	// Basic fields tested in Test_Enabled.
+	grp, found := logMap["group"]
+	suite.Assert().True(found)
+	group, ok := grp.(map[string]any)
+	suite.Assert().True(ok)
+	suite.Assert().Len(group, 2)
+	suite.Assert().Equal("Snoofus", group["Goober"])
+	suite.Assert().Equal(math.Pi, group["pi"])
+	// Add another layer.
+	hdlr = hdlr.WithGroup("subGroup")
+	suite.Reset()
+	suite.Assert().NoError(hdlr.Handle(context.Background(), record))
+	logMap = suite.logMap()
+	suite.Assert().Len(logMap, 4)
+	grp, found = logMap["group"]
+	suite.Assert().True(found)
+	group, ok = grp.(map[string]any)
+	suite.Assert().True(ok)
+	suite.Assert().Len(group, 1)
+	sub, found := group["subGroup"]
+	suite.Assert().True(found)
+	subGroup, ok := sub.(map[string]any)
+	suite.Assert().True(ok)
+	suite.Assert().Len(subGroup, 2)
+	suite.Assert().Equal("Snoofus", subGroup["Goober"])
+	suite.Assert().Equal(math.Pi, subGroup["pi"])
+}
