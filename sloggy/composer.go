@@ -68,6 +68,7 @@ func (c *composer) addAttribute(attr slog.Attr) error {
 			if err := c.addAttributes(value.Group()); err != nil {
 				return fmt.Errorf("inline group attributes: %w", err)
 			}
+			return nil
 		}
 	}
 	if !c.started {
