@@ -18,9 +18,10 @@ type Handler struct {
 
 func NewHandler(writer io.Writer, options *slog.HandlerOptions) *Handler {
 	if options == nil {
-		options = &slog.HandlerOptions{
-			Level: slog.LevelInfo,
-		}
+		options = &slog.HandlerOptions{}
+	}
+	if options.Level == nil {
+		options.Level = slog.LevelInfo
 	}
 	hdlr := &Handler{
 		options: options,
@@ -45,7 +46,7 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 	if !record.Time.IsZero() {
 		basic = append(basic, slog.Time(slog.TimeKey, record.Time))
 	}
-	basic = append(basic, slog.String(slog.LevelKey, h.options.Level.Level().String()))
+	basic = append(basic, slog.String(slog.LevelKey, record.Level.String()))
 	basic = append(basic, slog.String(slog.MessageKey, record.Message))
 	if err := c.addAttributes(basic); err != nil {
 		return fmt.Errorf("add basic attributes: %w", err)

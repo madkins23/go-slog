@@ -272,8 +272,8 @@ func (c *composer) addTextMarshaler(m encoding.TextMarshaler) error {
 }
 
 func (c *composer) addTime(t time.Time) error {
-	if _, err := c.Write(strconv.AppendInt([]byte{}, int64(t.Nanosecond()), 10)); err != nil {
-		return fmt.Errorf("uint64: %w", err)
+	if err := c.addString(t.Format(time.RFC3339Nano)); err != nil {
+		return fmt.Errorf("time: %w", err)
 	}
 	return nil
 }
@@ -290,12 +290,15 @@ func (c *composer) addUint64(i uint64) error {
 func emptyGroup(attrs []slog.Attr) bool {
 	for _, attr := range attrs {
 		if attr.Equal(infra.EmptyAttr()) {
-			return false
+			continue
 		}
 		if attr.Value.Kind() == slog.KindGroup {
 			if !emptyGroup(attr.Value.Group()) {
 				return false
 			}
+		} else {
+			// Attribute is not empty and not a group.
+			return false
 		}
 	}
 	return true
