@@ -110,7 +110,12 @@ func (suite *HandlerTestSuite) TestAttributes() {
 		slog.Group("group",
 			slog.String("name", "Beatles"),
 			infra.EmptyAttr(),
-			slog.Float64("pi", math.Pi)))
+			slog.Float64("pi", math.Pi),
+			infra.EmptyAttr(),
+			slog.Group("subGroup",
+				infra.EmptyAttr(),
+				slog.String("name", "Rolling Stones"),
+				infra.EmptyAttr())))
 	suite.Assert().NoError(hdlr.Handle(context.Background(), record))
 	logMap := suite.logMap()
 	// Basic fields tested in Test_Enabled.
@@ -128,7 +133,14 @@ func (suite *HandlerTestSuite) TestAttributes() {
 	suite.Assert().True(found)
 	group, ok := grp.(map[string]any)
 	suite.Assert().True(ok)
-	suite.Assert().Len(group, 2)
+	suite.Assert().Len(group, 3)
 	suite.Assert().Equal("Beatles", group["name"])
 	suite.Assert().Equal(math.Pi, group["pi"])
+	sub, found := group["subGroup"]
+	suite.Assert().True(found)
+	subGroup, ok := sub.(map[string]any)
+	suite.Assert().True(ok)
+	suite.Assert().True(ok)
+	suite.Assert().Len(subGroup, 1)
+	suite.Assert().Equal("Rolling Stones", subGroup["name"])
 }
