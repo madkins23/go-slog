@@ -60,8 +60,15 @@ func (c *composer) addAttribute(attr slog.Attr) error {
 	if attr.Equal(infra.EmptyAttr()) {
 		return nil
 	}
-	if value.Kind() == slog.KindGroup && emptyGroup(value.Group()) {
-		return nil
+	if value.Kind() == slog.KindGroup {
+		if emptyGroup(value.Group()) {
+			return nil
+		}
+		if attr.Key == "" {
+			if err := c.addAttributes(value.Group()); err != nil {
+				return fmt.Errorf("inline group attributes: %w", err)
+			}
+		}
 	}
 	if !c.started {
 		c.started = true

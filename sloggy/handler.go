@@ -109,6 +109,10 @@ func (h *Handler) WithAttrs(attrs []slog.Attr) slog.Handler {
 }
 
 func (h *Handler) WithGroup(name string) slog.Handler {
+	if name == "" {
+		// Groups with empty names are to be inlined.
+		return h
+	}
 	hdlr := &Handler{
 		options: h.options,
 		writer:  h.writer,

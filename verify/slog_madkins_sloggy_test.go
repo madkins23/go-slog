@@ -14,7 +14,6 @@ import (
 func TestVerifyMadkinsSloggy(t *testing.T) {
 	slogSuite := tests.NewSlogTestSuite(madkinssloggy.Creator())
 	slogSuite.WarnOnly(warning.Duplicates)
-	slogSuite.WarnOnly(warning.GroupInline)
 	slogSuite.WarnOnly(warning.GroupWithTop)
 	slogSuite.WarnOnly(warning.NoReplAttr)
 	slogSuite.WarnOnly(warning.SourceKey)
