@@ -87,7 +87,7 @@ func (suite *HandlerTestSuite) TestBasicAttributes() {
 	suite.Assert().NoError(hdlr.Handle(context.Background(),
 		slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)))
 	logMap := suite.logMap()
-	suite.Assert().IsType(1.23, logMap[slog.TimeKey])
+	suite.Assert().IsType("string", logMap[slog.TimeKey])
 	suite.Require().Equal(slog.LevelInfo.String(), logMap[slog.LevelKey])
 	suite.Require().Equal(message, logMap[slog.MessageKey])
 }
@@ -120,7 +120,7 @@ func (suite *HandlerTestSuite) TestAttributes() {
 	logMap := suite.logMap()
 	// Basic fields tested in Test_Enabled.
 	suite.Assert().Len(logMap, 13)
-	suite.Assert().Equal(float64(now.Nanosecond()), logMap["when"])
+	suite.Assert().Equal(now.Format(time.RFC3339Nano), logMap["when"])
 	suite.Assert().Equal(float64(time.Minute.Nanoseconds()), logMap["howLong"])
 	suite.Assert().Equal("snoofus", logMap["goober"])
 	suite.Assert().Equal(true, logMap["boolean"])
@@ -212,4 +212,56 @@ func (suite *HandlerTestSuite) TestWithGroup() {
 	suite.Assert().Len(subGroup, 2)
 	suite.Assert().Equal("Snoofus", subGroup["Goober"])
 	suite.Assert().Equal(math.Pi, subGroup["pi"])
+}
+
+func (suite *HandlerTestSuite) TestWithGroupAttr() {
+	hdlr := suite.newHandler(nil).
+		WithAttrs([]slog.Attr{slog.String("first", "one")}).
+		WithGroup("group").
+		WithAttrs([]slog.Attr{slog.Int("second", 2), slog.String("third", "3")}).
+		WithGroup("subGroup")
+	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)
+	record.AddAttrs(
+		slog.String("fourth", "forth"),
+		slog.Float64("pi", math.Pi))
+	suite.Assert().NoError(hdlr.Handle(context.Background(), record))
+	logMap := suite.logMap()
+	suite.Assert().Len(logMap, 5)
+	// Basic fields tested in Test_Enabled.
+	suite.Assert().Equal("one", logMap["first"])
+	grp, found := logMap["group"]
+	suite.Assert().True(found)
+	group, ok := grp.(map[string]any)
+	suite.Assert().True(ok)
+	suite.Assert().Len(group, 3)
+	suite.Assert().Equal(float64(2), group["second"])
+	suite.Assert().Equal("3", group["third"])
+	sub, found := group["subGroup"]
+	suite.Assert().True(found)
+	subGroup, ok := sub.(map[string]any)
+	suite.Assert().True(ok)
+	suite.Assert().Len(subGroup, 2)
+	suite.Assert().Equal("forth", subGroup["fourth"])
+	suite.Assert().Equal(math.Pi, subGroup["pi"])
+}
+
+func (suite *HandlerTestSuite) TestWithGroupAttrSubEmpty() {
+	hdlr := suite.newHandler(nil).
+		WithAttrs([]slog.Attr{slog.String("first", "one")}).
+		WithGroup("group").
+		WithAttrs([]slog.Attr{slog.Int("second", 2), slog.String("third", "3")}).
+		WithGroup("subGroup")
+	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)
+	suite.Assert().NoError(hdlr.Handle(context.Background(), record))
+	logMap := suite.logMap()
+	suite.Assert().Len(logMap, 5)
+	// Basic fields tested in Test_Enabled.
+	suite.Assert().Equal("one", logMap["first"])
+	grp, found := logMap["group"]
+	suite.Assert().True(found)
+	group, ok := grp.(map[string]any)
+	suite.Assert().True(ok)
+	suite.Assert().Len(group, 2)
+	suite.Assert().Equal(float64(2), group["second"])
+	suite.Assert().Equal("3", group["third"])
 }

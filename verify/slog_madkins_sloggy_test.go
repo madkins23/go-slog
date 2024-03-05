@@ -18,6 +18,15 @@ func TestVerifyMadkinsSloggy(t *testing.T) {
 	slogSuite.WarnOnly(warning.NoReplAttr)
 	slogSuite.WarnOnly(warning.SourceKey)
 	slogSuite.WarnOnly(warning.WithGroup)
+
+	// If group start strings are cached in prefix,
+	// no way of knowing if group is empty or not
+	// (so that it can be removed entirely)
+	// until the final Handle() call.
 	slogSuite.WarnOnly(warning.WithGroupEmpty)
+	// If this situation can be detected
+	// then the parent's prefix might be used
+	// (if a parent link is kept).
+
 	suite.Run(t, slogSuite)
 }

@@ -96,10 +96,12 @@ func (h *Handler) WithAttrs(attrs []slog.Attr) slog.Handler {
 	var prefixStarted bool
 	if h.prefix.Len() > 0 {
 		hdlr.prefix.Write(h.prefix.Bytes())
-		prefixStarted = true
+		if !bytes.HasSuffix(hdlr.prefix.Bytes(), braceLeft) {
+			prefixStarted = true
+		}
 	}
 	if h.suffix.Len() > 0 {
-		hdlr.prefix.Write(h.suffix.Bytes())
+		hdlr.suffix.Write(h.suffix.Bytes())
 	}
 	if err := newComposer(&hdlr.prefix, prefixStarted).addAttributes(attrs); err != nil {
 		slog.Error("adding with attributes", "err", err)

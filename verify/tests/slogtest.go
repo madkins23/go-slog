@@ -184,6 +184,7 @@ func (suite *SlogTestSuite) TestWithGroupEmpty() {
 	logger := suite.Logger(infra.SimpleOptions())
 	logger.WithGroup("group1").WithGroup("group2").Info(message, slog.Group("subGroup"))
 	logMap := suite.logMap()
+	fmt.Printf(">>> %s\n", suite.String())
 	if !suite.HasWarning(warning.WithGroupEmpty) {
 		suite.checkFieldCount(3, logMap)
 		_, found := logMap["group"]
@@ -310,6 +311,7 @@ func (suite *SlogTestSuite) TestGroupWithMulti() {
 		WithGroup("group").With("second", 2, "third", "3").
 		WithGroup("subGroup").Info(message, "fourth", "forth", "pi", math.Pi)
 	logMap := suite.logMap()
+	fmt.Printf(">>> %s\n", suite.String())
 	expected := map[string]any{
 		"level": "info",
 		"msg":   "This is a message",
