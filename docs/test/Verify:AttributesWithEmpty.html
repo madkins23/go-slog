@@ -19,7 +19,7 @@
             
               <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
             
-            <h2 class="home">Test <span class="fixed">Resolve Valuer</span></h2>
+            <h2 class="home">Test <span class="fixed">Attributes With Empty</span></h2>
           </td>
           <td align="right">
             <table>
@@ -96,7 +96,7 @@
                       
                         <option value="Verify:AttributesEmpty" >Attributes Empty</option>
                       
-                        <option value="Verify:AttributesWithEmpty" >Attributes With Empty</option>
+                        <option value="Verify:AttributesWithEmpty" selected>Attributes With Empty</option>
                       
                         <option value="Verify:CanceledContext" >Canceled Context</option>
                       
@@ -138,7 +138,7 @@
                       
                         <option value="Verify:ResolveGroupWith" >Resolve Group With</option>
                       
-                        <option value="Verify:ResolveValuer" selected>Resolve Valuer</option>
+                        <option value="Verify:ResolveValuer" >Resolve Valuer</option>
                       
                         <option value="Verify:ResolveWith" >Resolve With</option>
                       
@@ -199,28 +199,24 @@
               <tr>
                 <td></td>
                 <td colspan=2 class="warning">
-                  Resolver
+                  EmptyAttributes
                 </td>
                 <td class="extra">
-                  LogValuer objects are not resolved
+                  Empty attribute(s) logged (&#34;&#34;:null)
                 </td>
                 <td class="toggleButton">
                   
-                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('Resolver-doc')">Doc</button>
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('EmptyAttributes-doc')">Doc</button>
                   
                 </td>
               </tr>
               
-                <tr id="Resolver-doc" style="display:none;">
+                <tr id="EmptyAttributes-doc" style="display:none;">
                   <td></td>
-                  <td colspan=4 class="description"><p>Handlers should resolve all objects implementing the
-<a href="https://pkg.go.dev/log/slog@master#LogValuer" target="_blank"><code>LogValuer</code></a> or
-<a href="https://pkg.go.dev/fmt#Stringer" target="_blank"><code>Stringer</code></a> interfaces.
-This is a powerful feature which can customize logging of objects and
-<a href="https://pkg.go.dev/log/slog@master#hdr-Performance_considerations" target="_blank">speed up logging by delaying argument resolution until logging time</a>.</p>
+                  <td colspan=4 class="description"><p>Handlers are supposed to avoid logging empty attributes.</p>
 
 <ul>
-<li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- Attr's values should be resolved.&quot;</a></li>
+<li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If an Attr's key and value are both the zero value, ignore the Attr.&quot;</a></li>
 </ul>
 </td>
                 </tr>
@@ -243,21 +239,24 @@ This is a powerful feature which can customize logging of objects and
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">
                           
-                          Samber Logrus
+                          Phsym Zerolog
                         </td>
                         <td class="extra" style="background-color:lightgray;"></td>
                         <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('Resolver-Samber Logrus-log')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('EmptyAttributes-Phsym Zerolog-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="Resolver-Samber Logrus-log" style="display:none;">
+                      <tr id="EmptyAttributes-Phsym Zerolog-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
-	&#34;hidden&#34;: {},
+	&#34;&#34;: null,
+	&#34;first&#34;: &#34;one&#34;,
 	&#34;level&#34;: &#34;info&#34;,
-	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;pi&#34;: 3.141592653589793,
+	&#34;second&#34;: 2,
 	&#34;time&#34;: &#34;2024-03-05T20:09:23Z&#34;
 }</pre></td>
                       </tr>
@@ -267,21 +266,24 @@ This is a powerful feature which can customize logging of objects and
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">
                           
-                          Samber Zap
+                          Samber Logrus
                         </td>
                         <td class="extra" style="background-color:lightgray;"></td>
                         <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('Resolver-Samber Zap-log')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('EmptyAttributes-Samber Logrus-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="Resolver-Samber Zap-log" style="display:none;">
+                      <tr id="EmptyAttributes-Samber Logrus-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
-	&#34;hidden&#34;: {},
+	&#34;&#34;: null,
+	&#34;first&#34;: &#34;one&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;pi&#34;: 3.141592653589793,
+	&#34;second&#34;: 2,
 	&#34;time&#34;: &#34;2024-03-05T20:09:23Z&#34;
 }</pre></td>
                       </tr>
@@ -293,21 +295,51 @@ This is a powerful feature which can customize logging of objects and
                       <tr>
                         <td colspan=2 class="name" style="background-color:lightgray;">
                           
+                          Samber Zap
+                        </td>
+                        <td class="extra" style="background-color:lightgray;"></td>
+                        <td class="toggleButton" style="background-color:lightgray;">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('EmptyAttributes-Samber Zap-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="EmptyAttributes-Samber Zap-log" style="display:none;">
+                        <td style="background-color:lightgray;"></td>
+                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
+	&#34;&#34;: null,
+	&#34;first&#34;: &#34;one&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;pi&#34;: 3.141592653589793,
+	&#34;second&#34;: 2,
+	&#34;time&#34;: &#34;2024-03-05T20:09:23Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:lightgray;">
+                          
                           Samber Zerolog
                         </td>
                         <td class="extra" style="background-color:lightgray;"></td>
                         <td class="toggleButton" style="background-color:lightgray;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('Resolver-Samber Zerolog-log')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('EmptyAttributes-Samber Zerolog-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="Resolver-Samber Zerolog-log" style="display:none;">
+                      <tr id="EmptyAttributes-Samber Zerolog-log" style="display:none;">
                         <td style="background-color:lightgray;"></td>
                         <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
-	&#34;hidden&#34;: {},
+	&#34;&#34;: null,
+	&#34;first&#34;: &#34;one&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;pi&#34;: 3.141592653589793,
+	&#34;second&#34;: 2,
 	&#34;time&#34;: &#34;2024-03-05T20:09:23Z&#34;
 }</pre></td>
                       </tr>
