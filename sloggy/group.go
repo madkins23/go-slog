@@ -16,7 +16,10 @@ type group struct {
 func (g *group) Handle(ctx context.Context, record slog.Record) error {
 	count := 0
 	var dead = false
-	deadGroup := ctx.Value("deadGroup")
+	var deadGroup string
+	if deadVal := ctx.Value("deadGroup"); deadVal != nil {
+		deadGroup = deadVal.(string)
+	}
 	record.Attrs(func(attr slog.Attr) bool {
 		if !attr.Equal(infra.EmptyAttr()) {
 			count++
@@ -37,4 +40,16 @@ func (g *group) Handle(ctx context.Context, record slog.Record) error {
 		return g.parent.Handle(context.WithValue(ctx, "deadGroup", g.name), record)
 	}
 	return g.Handler.Handle(ctx, record)
+}
+
+func (g *group) WithGroup(name string) slog.Handler {
+	hdlr := g.Handler.WithGroup(name)
+	if group, ok := hdlr.(*group); ok {
+		// Override the previously set parent to be this object.
+		group.parent = g
+	} else {
+		// Shouldn't happen but method has no error result.
+		slog.Error("not a *group")
+	}
+	return hdlr
 }
