@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
+	"runtime"
 )
 
 var _ slog.Handler = &Handler{}
@@ -42,12 +43,22 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 		return fmt.Errorf("begin: %w", err)
 	}
 
-	basic := make([]slog.Attr, 0, 3)
+	basic := make([]slog.Attr, 0, 4)
 	if !record.Time.IsZero() {
 		basic = append(basic, slog.Time(slog.TimeKey, record.Time))
 	}
 	basic = append(basic, slog.String(slog.LevelKey, record.Level.String()))
 	basic = append(basic, slog.String(slog.MessageKey, record.Message))
+	if h.options.AddSource && record.PC != 0 {
+		fs := runtime.CallersFrames([]uintptr{record.PC})
+		f, _ := fs.Next()
+		source := map[string]any{
+			"function": f.Function,
+			"file":     f.File,
+			"line":     f.Line,
+		}
+		basic = append(basic, slog.Any(slog.SourceKey, source))
+	}
 	if err := c.addAttributes(basic); err != nil {
 		return fmt.Errorf("add basic attributes: %w", err)
 	}
@@ -115,11 +126,15 @@ func (h *Handler) WithGroup(name string) slog.Handler {
 		// Groups with empty names are to be inlined.
 		return h
 	}
-	hdlr := &Handler{
-		options: h.options,
-		writer:  h.writer,
-		prefix:  bytes.Buffer{},
-		suffix:  bytes.Buffer{},
+	hdlr := &group{
+		Handler: &Handler{
+			options: h.options,
+			writer:  h.writer,
+			prefix:  bytes.Buffer{},
+			suffix:  bytes.Buffer{},
+		},
+		name:   name,
+		parent: h,
 	}
 	prefixStart := emptyString
 	if h.prefix.Len() > 0 {
