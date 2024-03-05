@@ -15,6 +15,7 @@ type Handler struct {
 	options        *slog.HandlerOptions
 	writer         io.Writer
 	prefix, suffix bytes.Buffer
+	groups         []string
 }
 
 func NewHandler(writer io.Writer, options *slog.HandlerOptions) *Handler {
@@ -38,7 +39,7 @@ func (h *Handler) Enabled(_ context.Context, level slog.Level) bool {
 }
 
 func (h *Handler) Handle(_ context.Context, record slog.Record) error {
-	c := newComposer(h.writer, false)
+	c := newComposer(h.writer, false, h.options.ReplaceAttr, h.groups)
 	if err := c.begin(); err != nil {
 		return fmt.Errorf("begin: %w", err)
 	}
@@ -59,7 +60,7 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 		}
 		basic = append(basic, slog.Any(slog.SourceKey, source))
 	}
-	if err := c.addAttributes(basic); err != nil {
+	if err := c.addAttributes(basic, h.groups); err != nil {
 		return fmt.Errorf("add basic attributes: %w", err)
 	}
 
@@ -77,7 +78,7 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 
 	var err error
 	record.Attrs(func(attr slog.Attr) bool {
-		if err = c.addAttribute(attr); err != nil {
+		if err = c.addAttribute(attr, h.groups); err != nil {
 			return false
 		}
 		return true // keep going
@@ -114,7 +115,8 @@ func (h *Handler) WithAttrs(attrs []slog.Attr) slog.Handler {
 	if h.suffix.Len() > 0 {
 		hdlr.suffix.Write(h.suffix.Bytes())
 	}
-	if err := newComposer(&hdlr.prefix, prefixStarted).addAttributes(attrs); err != nil {
+	c := newComposer(&hdlr.prefix, prefixStarted, h.options.ReplaceAttr, h.groups)
+	if err := c.addAttributes(attrs, h.groups); err != nil {
 		slog.Error("adding with attributes", "err", err)
 	}
 
@@ -132,6 +134,7 @@ func (h *Handler) WithGroup(name string) slog.Handler {
 			writer:  h.writer,
 			prefix:  bytes.Buffer{},
 			suffix:  bytes.Buffer{},
+			groups:  append(h.groups, name),
 		},
 		name:   name,
 		parent: h,

@@ -30,12 +30,16 @@ var (
 type composer struct {
 	io.Writer
 	started bool
+	replace infra.AttrFn
+	groups  []string
 }
 
-func newComposer(writer io.Writer, started bool) *composer {
+func newComposer(writer io.Writer, started bool, replace infra.AttrFn, groups []string) *composer {
 	return &composer{
 		Writer:  writer,
 		started: started,
+		replace: replace,
+		groups:  groups,
 	}
 }
 
@@ -52,11 +56,14 @@ func (c *composer) begin() error {
 	return nil
 }
 
-func (c *composer) addAttribute(attr slog.Attr) error {
+func (c *composer) addAttribute(attr slog.Attr, groups []string) error {
 	if attr.Equal(infra.EmptyAttr()) {
 		return nil
 	}
 	value := attr.Value.Resolve()
+	if c.replace != nil {
+		attr = c.replace(c.groups, attr)
+	}
 	if attr.Equal(infra.EmptyAttr()) {
 		return nil
 	}
@@ -65,7 +72,7 @@ func (c *composer) addAttribute(attr slog.Attr) error {
 			return nil
 		}
 		if attr.Key == "" {
-			if err := c.addAttributes(value.Group()); err != nil {
+			if err := c.addAttributes(value.Group(), c.groups); err != nil {
 				return fmt.Errorf("inline group attributes: %w", err)
 			}
 			return nil
@@ -84,7 +91,7 @@ func (c *composer) addAttribute(attr slog.Attr) error {
 	}
 	switch value.Kind() {
 	case slog.KindGroup:
-		return c.addGroup(value.Group())
+		return c.addGroup(attr.Key, value.Group())
 	case slog.KindBool:
 		return c.addBool(value.Bool())
 	case slog.KindDuration:
@@ -106,9 +113,9 @@ func (c *composer) addAttribute(attr slog.Attr) error {
 	}
 }
 
-func (c *composer) addAttributes(attrs []slog.Attr) error {
+func (c *composer) addAttributes(attrs []slog.Attr, groups []string) error {
 	for _, attr := range attrs {
-		if err := c.addAttribute(attr); err != nil {
+		if err := c.addAttribute(attr, c.groups); err != nil {
 			return fmt.Errorf("add attribute '%s': %w", attr.String(), err)
 		}
 	}
@@ -187,13 +194,13 @@ func (c *composer) addFloat64(f float64) error {
 	return nil
 }
 
-func (c *composer) addGroup(attrs []slog.Attr) error {
+func (c *composer) addGroup(name string, attrs []slog.Attr) error {
 	if err := c.begin(); err != nil {
 		return fmt.Errorf("begin: %w", err)
 	}
 	// Local composer object resets started flag
-	cg := newComposer(c.Writer, false)
-	if err := cg.addAttributes(attrs); err != nil {
+	cg := newComposer(c.Writer, false, c.replace, c.groups)
+	if err := cg.addAttributes(attrs, append(c.groups, name)); err != nil {
 		return fmt.Errorf("add attributes: %w", err)
 	}
 	if err := c.end(); err != nil {
