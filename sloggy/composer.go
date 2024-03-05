@@ -63,6 +63,7 @@ func (c *composer) addAttribute(attr slog.Attr, groups []string) error {
 	value := attr.Value.Resolve()
 	if c.replace != nil {
 		attr = c.replace(c.groups, attr)
+		value = attr.Value
 	}
 	if attr.Equal(infra.EmptyAttr()) {
 		return nil
