@@ -182,10 +182,7 @@ func (c *composer) addDuration(d time.Duration) error {
 }
 
 func (c *composer) addError(e error) error {
-	if _, err := c.Write([]byte(e.Error())); err != nil {
-		return fmt.Errorf("error '%v': %w", e, err)
-	}
-	return nil
+	return c.addString(e.Error())
 }
 
 func (c *composer) addFloat64(f float64) error {
@@ -247,16 +244,7 @@ func (c *composer) addMacAddress(mac net.HardwareAddr) error {
 }
 
 func (c *composer) addString(str string) error {
-	if _, err := c.Write(doubleQuote); err != nil {
-		return fmt.Errorf("left double quote: %w", err)
-	}
-	if _, err := c.Write([]byte(str)); err != nil {
-		return fmt.Errorf("string '%s': %w", str, err)
-	}
-	if _, err := c.Write(doubleQuote); err != nil {
-		return fmt.Errorf("right double quote: %w", err)
-	}
-	return nil
+	return c.addStringAsBytes([]byte(str))
 }
 
 func (c *composer) addStringAsBytes(str []byte) error {
@@ -273,7 +261,7 @@ func (c *composer) addStringAsBytes(str []byte) error {
 }
 
 func (c *composer) addStringer(s fmt.Stringer) error {
-	if _, err := c.Write([]byte(s.String())); err != nil {
+	if err := c.addString(s.String()); err == nil {
 		return fmt.Errorf("stringer '%v': %w", s, err)
 	}
 	return nil
