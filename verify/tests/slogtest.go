@@ -1,17 +1,45 @@
 package tests
 
 import (
+	"bytes"
 	"context"
+	"encoding/json"
 	"fmt"
 	"log/slog"
 	"math"
 	"reflect"
 	"strings"
+	"testing/slogtest"
 	"time"
 
 	"github.com/madkins23/go-slog/infra"
 	"github.com/madkins23/go-slog/internal/warning"
 )
+
+// -----------------------------------------------------------------------------
+// Run the actual slogtest suite.
+
+func (suite *SlogTestSuite) TestSlogTest() {
+	if suite.Creator.CanMakeHandler() {
+		var buf bytes.Buffer
+		fmt.Println(slogtest.TestHandler(
+			suite.Creator.NewHandler(&buf, infra.SimpleOptions()),
+			func() []map[string]any {
+				var ms []map[string]any
+				for _, line := range bytes.Split(buf.Bytes(), []byte{'\n'}) {
+					if len(line) == 0 {
+						continue
+					}
+					var m map[string]any
+					if err := json.Unmarshal(line, &m); err != nil {
+						panic(err) // In a real test, use t.Fatal.
+					}
+					ms = append(ms, m)
+				}
+				return ms
+			}))
+	}
+}
 
 // -----------------------------------------------------------------------------
 // These tests are intended to mimic: src/testing/slogtest/slogtest.go (2024-01-07).

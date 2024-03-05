@@ -29,10 +29,15 @@ func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
 	productionCfg := zap.NewProductionEncoderConfig()
 	productionCfg.TimeKey = "time"
 	productionCfg.EncodeTime = zapcore.RFC3339TimeEncoder
+	var opts []zaphandler.Option
+	if options.AddSource {
+		opts = append(opts, zaphandler.AddSource())
+	}
 	return zaphandler.New(
 		zap.New(
 			zapcore.NewCore(
 				zapcore.NewJSONEncoder(productionCfg),
 				zapcore.AddSync(w),
-				zap.NewAtomicLevelAt(utilzap.ConvertLevelToZap(level.Level())))))
+				zap.NewAtomicLevelAt(utilzap.ConvertLevelToZap(level.Level())))),
+		opts...)
 }

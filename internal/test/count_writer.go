@@ -17,8 +17,12 @@ type CountWriter struct {
 
 // Write supplies the required io.Writer interface method.
 func (cw *CountWriter) Write(p []byte) (n int, err error) {
-	cw.bytes.Add(uint64(len(p)))
-	cw.count.Add(1)
+	if len(p) > 0 {
+		cw.bytes.Add(uint64(len(p)))
+		if p[len(p)-1] == '\n' {
+			cw.count.Add(1)
+		}
+	}
 	return len(p), nil
 }
 

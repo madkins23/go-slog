@@ -29,7 +29,11 @@ func (suite *SlogTestSuite) TestReplaceAttr() {
 	}))
 	logger.Info(message, "alpha", "beta", "change", "my key", "remove", "me")
 	logMap := suite.logMap()
-	if suite.HasWarning(warning.NoReplAttr) {
+	if !suite.HasWarning(warning.NoReplAttr) {
+		suite.Assert().Equal("omega", logMap["alpha"])
+		suite.Assert().Equal("my key", logMap["bravo"])
+		suite.Assert().Nil(logMap["remove"])
+	} else {
 		issues := make([]string, 0, 4)
 		if len(logMap) > 5 {
 			issues = append(issues, fmt.Sprintf("too many attributes: %d", len(logMap)))
@@ -56,9 +60,6 @@ func (suite *SlogTestSuite) TestReplaceAttr() {
 	} else {
 		suite.checkFieldCount(5, logMap)
 	}
-	suite.Assert().Equal("omega", logMap["alpha"])
-	suite.Assert().Equal("my key", logMap["bravo"])
-	suite.Assert().Nil(logMap["remove"])
 }
 
 // TestReplaceAttrBasic tests the use of HandlerOptions.ReplaceAttr
