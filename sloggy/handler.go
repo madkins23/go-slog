@@ -95,6 +95,10 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 		return fmt.Errorf("end: %w", err)
 	}
 
+	if _, err := c.Write(newLine); err != nil {
+		return fmt.Errorf("newLine: %w", err)
+	}
+
 	return nil
 }
 

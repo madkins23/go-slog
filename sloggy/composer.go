@@ -22,6 +22,7 @@ var (
 	commaSpace  = []byte{',', ' '}
 	doubleQuote = []byte{'"'}
 	emptyString []byte
+	newLine     = []byte{'\r', '\n'}
 )
 
 // -----------------------------------------------------------------------------
