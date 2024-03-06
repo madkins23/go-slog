@@ -70,7 +70,7 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 
 	if len(h.prefix) > 0 {
 		c.addBytes(',', ' ')
-		c.addByteString(h.prefix)
+		c.addByteArray(h.prefix)
 		if bytes.HasSuffix(h.prefix, []byte{'{'}) {
 			c.setStarted(false)
 		}
@@ -87,7 +87,7 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 		return fmt.Errorf("add attributes: %w", err)
 	}
 	if len(h.suffix) > 0 {
-		c.addByteString(h.suffix)
+		c.addByteArray(h.suffix)
 	}
 	c.addBytes('}', '\n')
 	if _, err := h.writer.Write(c.getBytes()); err != nil {

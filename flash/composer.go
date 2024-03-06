@@ -143,7 +143,7 @@ func (c *composer) addBytes(b ...byte) {
 	c.buffer = append(c.buffer, b...)
 }
 
-func (c *composer) addByteString(b []byte) {
+func (c *composer) addByteArray(b []byte) {
 	c.buffer = append(c.buffer, b...)
 }
 
