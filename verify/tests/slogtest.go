@@ -22,7 +22,7 @@ import (
 func (suite *SlogTestSuite) TestSlogTest() {
 	if suite.Creator.CanMakeHandler() {
 		var buf bytes.Buffer
-		fmt.Println(slogtest.TestHandler(
+		err := slogtest.TestHandler(
 			suite.Creator.NewHandler(&buf, infra.SimpleOptions()),
 			func() []map[string]any {
 				var ms []map[string]any
@@ -31,13 +31,18 @@ func (suite *SlogTestSuite) TestSlogTest() {
 						continue
 					}
 					var m map[string]any
-					if err := json.Unmarshal(line, &m); err != nil {
-						panic(err) // In a real test, use t.Fatal.
-					}
+					suite.Require().NoError(json.Unmarshal(line, &m))
 					ms = append(ms, m)
 				}
 				return ms
-			}))
+			})
+		if !suite.HasWarning(warning.SlogTest) {
+			suite.Require().NoError(err)
+		} else if err == nil {
+			suite.AddUnused(warning.SlogTest, "")
+		} else {
+			suite.AddWarning(warning.SlogTest, err.Error(), "")
+		}
 	}
 }
 

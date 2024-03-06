@@ -22,6 +22,7 @@ func TestVerifyPhsymZerolog(t *testing.T) {
 	slogSuite.WarnOnly(warning.MessageKey)
 	slogSuite.WarnOnly(warning.TimeMillis)
 	slogSuite.WarnOnly(warning.NoReplAttr)
+	slogSuite.WarnOnly(warning.SlogTest)
 	slogSuite.WarnOnly(warning.SourceKey)
 	slogSuite.WarnOnly(warning.WithGroupEmpty)
 	slogSuite.WarnOnly(warning.ZeroTime)

@@ -22,6 +22,7 @@ func TestVerifyChanchalZap(t *testing.T) {
 	slogSuite.WarnOnly(warning.TimeMillis)
 	slogSuite.WarnOnly(warning.NoReplAttr)
 	slogSuite.WarnOnly(warning.NoReplAttrBasic)
+	slogSuite.WarnOnly(warning.SlogTest)
 	slogSuite.WarnOnly(warning.SourceKey)
 	slogSuite.WarnOnly(warning.WithGroup)
 	slogSuite.WarnOnly(warning.WithGroupEmpty)

@@ -21,6 +21,16 @@ var (
 		[speed up logging by delaying argument resolution until logging time](https://pkg.go.dev/log/slog@master#hdr-Performance_considerations).
 		* ["- Attr's values should be resolved."](https://pkg.go.dev/log/slog@master#Handler)`)
 
+	SlogTest = NewWarning(LevelRequired, "SlogTest",
+		"Failure of embedded slog/slogtest", `
+		Documentation on building a handler suggests testing using ^slog/slogtest^, part of the Go release since 1.21.
+		While the verification suite includes tests patterned after those in ^slogtest^,
+		a single test invokes the ^slogtest^ testing sequence involving multiple tests.
+		Since this is a separate package, all error messages are returned at once.
+		This is the only warning that affects ^TestSlogTest^ and all of its error messages.
+		* ["To verify that your handler follows these rules and generally produces proper output, use the testing/slogtest package."](https://github.com/golang/example/tree/master/slog-handler-guide#testing)
+		* [^slog/slogtest^](https://pkg.go.dev/golang.org/x/exp@v0.0.0-20240222234643-814bf88cf225/slog/slogtest)`)
+
 	WithGroupEmpty = NewWarning(LevelRequired, "WithGroupEmpty", "Empty WithGroup() logged", `
 		Handlers should not log WithGroup() groups with no fields, whether or not they have non-empty names.
 		* ["- If a group has no Attrs (even if it has a non-empty key), ignore it."](https://pkg.go.dev/log/slog@master#Handler)`)
@@ -41,7 +51,7 @@ var (
 
 func init() {
 	// Always update this number when adding or removing Warning objects.
-	addTestCount(LevelRequired, 7)
+	addTestCount(LevelRequired, 8)
 }
 
 func Required() []*Warning {
