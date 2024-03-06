@@ -20,8 +20,9 @@ import (
 var (
 	ptnWarningsFor = regexp.MustCompile(`^\s*Warnings\s+for\s+(.*):\s*$`)
 	ptnLevel       = regexp.MustCompile(`^\s*(\S+)\s*$`)
-	ptnWarning     = regexp.MustCompile(`^\s*\d+\s+\[(.*)]\s+(.*?)\s*$`)
+	ptnWarning     = regexp.MustCompile(`^\s*\d+\s+\[(.*)]\s*(.*?)\s*$`)
 	ptnInstance    = regexp.MustCompile(`^\s*(\S+)(?::\s*(.*?))?\s*$`)
+	ptnExtra       = regexp.MustCompile(`^\s*\+(.*?)\s*$`)
 	ptnLogLine     = regexp.MustCompile(`^\s*\{`)
 	ptnByWarning   = regexp.MustCompile(`^\s*Handlers\s+by\s+warning:\s*$`)
 )
@@ -139,6 +140,12 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 				if indented, err := json.MarshalIndent(jm, "", "\t"); err == nil {
 					instance.log = string(indented)
 				}
+			}
+			continue
+		}
+		if matches := ptnExtra.FindSubmatch(line); len(matches) == 2 {
+			if instance != nil {
+				instance.extra = instance.extra + "\n" + string(matches[1])
 			}
 			continue
 		}

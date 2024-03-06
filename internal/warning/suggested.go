@@ -4,7 +4,8 @@ var (
 	Duplicates = NewWarning(LevelSuggested, "Duplicates", "Duplicate field(s) found", `
 		Some handlers (e.g. ^slog.JSONHandler^)
 		will output multiple occurrences of the same field name
-		if the logger is called with multiple instances of the same field.
+		if the logger is called with multiple instances of the same field,
+		generally by using WithAttrs and then the same fields in the eventual log call (e.g. Info).
 		This behavior is currently [under debate](https://github.com/golang/go/issues/59365)
 		with no resolution at this time (2024-01-15) and a
 		[release milestone of (currently unscheduled) Go 1.23](https://github.com/golang/go/milestone/212),

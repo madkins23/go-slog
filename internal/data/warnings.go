@@ -2,7 +2,9 @@ package data
 
 import (
 	"flag"
+	"fmt"
 	"html/template"
+	"regexp"
 	"sort"
 	"strings"
 
@@ -270,6 +272,28 @@ type dataInstance struct {
 
 func (di *dataInstance) Extra() string {
 	return di.extra
+}
+
+const srcRoot = "https://cs.opensource.google/go/go/+/master:src"
+
+// test message: longer description (/snap/go/10535/src/testing/slogtest/slogtest.go:61)
+var ptnCaller = regexp.MustCompile(`^\s*(.+?):(.+?)\s*\(.*/(testing/.*\.go):(\d+)\)`)
+
+func (di *dataInstance) ExtraHTML() template.HTML {
+	fix := func(lines []string) []string {
+		for i, line := range lines {
+			if matches := ptnCaller.FindStringSubmatch(line); len(matches) == 5 {
+				// Error from slog/slogtest.
+				line = fmt.Sprintf(
+					"%s<br/><a href=\"%s/%s;l=%s\">%s</a>",
+					matches[1], srcRoot, matches[3], matches[4], matches[2])
+			}
+			lines[i] = "<p>" + line + "</p>"
+		}
+		return lines
+	}
+	x := template.HTML(strings.Join(fix(strings.Split(di.extra, "\n")), "\n"))
+	return x
 }
 
 func (di *dataInstance) Line() string {

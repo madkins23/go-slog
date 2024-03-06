@@ -25,7 +25,7 @@ var (
 		"Failure of embedded slog/slogtest", `
 		Documentation on building a handler suggests testing using ^slog/slogtest^, part of the Go release since 1.21.
 		While the verification suite includes tests patterned after those in ^slogtest^,
-		a single test invokes the ^slogtest^ testing sequence involving multiple tests.
+		an additional single test invokes the ^slogtest^ testing sequence (involving multiple tests).
 		Since this is a separate package, all error messages are returned at once.
 		This is the only warning that affects ^TestSlogTest^ and all of its error messages.
 		* ["To verify that your handler follows these rules and generally produces proper output, use the testing/slogtest package."](https://github.com/golang/example/tree/master/slog-handler-guide#testing)

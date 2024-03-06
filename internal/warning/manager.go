@@ -307,9 +307,11 @@ func (mgr *Manager) ShowWarnings(output io.Writer) {
 					byWarning[warn][mgr.Name] = true
 
 					_, _ = fmt.Fprintf(output, "%s  %4d [%s] %s\n", mgr.showPrefix, w.Count, w.Name, w.Summary)
+					lineSep := "\n" + mgr.showPrefix + "           +"
 					for _, data := range w.Data {
+						text := strings.Join(strings.Split(data.Text, "\n"), lineSep)
 						if data.Text != "" {
-							_, _ = fmt.Fprintf(output, "%s         %s: %s\n", mgr.showPrefix, data.Function, data.Text)
+							_, _ = fmt.Fprintf(output, "%s         %s: %s\n", mgr.showPrefix, data.Function, text)
 						} else {
 							_, _ = fmt.Fprintf(output, "%s         %s\n", mgr.showPrefix, data.Function)
 						}
