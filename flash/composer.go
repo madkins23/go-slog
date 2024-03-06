@@ -5,19 +5,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"log/slog"
-	"net"
 	"strconv"
 	"time"
 
 	"github.com/madkins23/go-slog/infra"
-)
-
-var (
-	boolFalse   = []byte("false")
-	boolTrue    = []byte("true")
-	braceLeft   = []byte{'{'}
-	commaSpace  = []byte{',', ' '}
-	emptyString []byte
 )
 
 // -----------------------------------------------------------------------------
@@ -50,24 +41,20 @@ func (c *composer) getBytes() []byte {
 // -----------------------------------------------------------------------------
 
 func (c *composer) addAttribute(attr slog.Attr) error {
-	var err error
-	if attr.Equal(infra.EmptyAttr()) {
-		return nil
-	}
-	value := attr.Value.Resolve()
+	attr.Value = attr.Value.Resolve()
 	if c.replace != nil {
 		attr = c.replace(c.groups, attr)
-		value = attr.Value
 	}
 	if attr.Equal(infra.EmptyAttr()) {
 		return nil
 	}
+	value := attr.Value
 	if value.Kind() == slog.KindGroup {
 		if emptyGroup(value.Group()) {
 			return nil
 		}
 		if attr.Key == "" {
-			if err = c.addAttributes(value.Group()); err != nil {
+			if err := c.addAttributes(value.Group()); err != nil {
 				return fmt.Errorf("inline group attributes: %w", err)
 			}
 			return nil
@@ -123,16 +110,10 @@ var boolImage = map[bool][]byte{
 
 func (c *composer) addAny(a any) error {
 	switch v := a.(type) {
-	case net.IP:
-		c.addIPAddress(v)
-	case net.IPNet:
-		c.addIPNet(v)
-	case net.HardwareAddr:
-		c.addMacAddress(v)
-	case error:
-		c.addError(v)
 	case fmt.Stringer:
-		c.addStringer(v)
+		c.addString(v.String())
+	case error:
+		c.addString(v.Error())
 	case json.Marshaler:
 		return c.addJSONMarshaler(v)
 	case encoding.TextMarshaler:
@@ -151,6 +132,11 @@ func (c *composer) addAny(a any) error {
 	return nil
 }
 
+var (
+	boolFalse = []byte("false")
+	boolTrue  = []byte("true")
+)
+
 func (c *composer) addBool(b bool) {
 	c.buffer = append(c.buffer, boolImage[b]...)
 }
@@ -167,10 +153,6 @@ func (c *composer) addDuration(d time.Duration) {
 	c.buffer = strconv.AppendInt(c.buffer, d.Nanoseconds(), 10)
 }
 
-func (c *composer) addError(e error) {
-	c.addString(e.Error())
-}
-
 func (c *composer) addFloat64(f float64) {
 	c.buffer = strconv.AppendFloat(c.buffer, f, 'f', -1, 64)
 }
@@ -178,25 +160,16 @@ func (c *composer) addFloat64(f float64) {
 func (c *composer) addGroup(attrs []slog.Attr) error {
 	var err error
 	c.buffer = append(c.buffer, '{')
-	// Local composer object resets started flag
-	cg := newComposer(c.buffer, false, c.replace, c.groups)
-	if err = cg.addAttributes(attrs); err != nil {
+	c.setStarted(false)
+	if err = c.addAttributes(attrs); err != nil {
 		return fmt.Errorf("add attributes: %w", err)
 	}
-	c.buffer = append(cg.getBytes(), '}')
+	c.addBytes('}')
 	return nil
 }
 
 func (c *composer) addInt64(i int64) {
 	c.buffer = strconv.AppendInt(c.buffer, i, 10)
-}
-
-func (c *composer) addIPAddress(ip net.IP) {
-	c.addString(ip.String())
-}
-
-func (c *composer) addIPNet(ip net.IPNet) {
-	c.addString(ip.String())
 }
 
 func (c *composer) addJSONMarshaler(m json.Marshaler) error {
@@ -210,10 +183,6 @@ func (c *composer) addJSONMarshaler(m json.Marshaler) error {
 	}
 }
 
-func (c *composer) addMacAddress(mac net.HardwareAddr) {
-	c.addString(mac.String())
-}
-
 func (c *composer) addString(str string) {
 	c.addStringAsBytes([]byte(str))
 }
@@ -222,10 +191,6 @@ func (c *composer) addStringAsBytes(str []byte) {
 	c.buffer = append(c.buffer, '"')
 	c.buffer = append(c.buffer, str...)
 	c.buffer = append(c.buffer, '"')
-}
-
-func (c *composer) addStringer(s fmt.Stringer) {
-	c.addString(s.String())
 }
 
 func (c *composer) addTextMarshaler(m encoding.TextMarshaler) error {

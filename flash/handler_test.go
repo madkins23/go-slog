@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"log/slog"
 	"math"
+	"net"
 	"testing"
 	"time"
 
@@ -96,6 +97,9 @@ func (suite *HandlerTestSuite) TestAttributes() {
 	anything := []any{"alpha", "omega"}
 	hdlr := suite.newHandler(nil)
 	now := time.Now()
+	ip := net.IPv4(123, 231, 213, 23)
+	mac, err := net.ParseMAC("00:00:5e:00:53:01")
+	suite.Require().NoError(err)
 	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)
 	record.AddAttrs(
 		slog.Time("when", now),
@@ -107,6 +111,9 @@ func (suite *HandlerTestSuite) TestAttributes() {
 		slog.Int64("minus", -64),
 		slog.Uint64("unsigned", 79),
 		slog.Any("any", anything),
+		slog.Any("ip", ip),
+		slog.Any("ipNet", &net.IPNet{IP: ip, Mask: []byte{123}}),
+		slog.Any("macAddr", mac),
 		slog.Group("group",
 			slog.String("name", "Beatles"),
 			infra.EmptyAttr(),
@@ -119,7 +126,7 @@ func (suite *HandlerTestSuite) TestAttributes() {
 	suite.Assert().NoError(hdlr.Handle(context.Background(), record))
 	logMap := suite.logMap()
 	// Basic fields tested in Test_Enabled.
-	suite.Assert().Len(logMap, 13)
+	suite.Assert().Len(logMap, 16)
 	suite.Assert().Equal(now.Format(time.RFC3339Nano), logMap["when"])
 	suite.Assert().Equal(float64(time.Minute.Nanoseconds()), logMap["howLong"])
 	suite.Assert().Equal("Snoofus", logMap["Goober"])

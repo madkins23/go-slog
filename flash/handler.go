@@ -139,11 +139,11 @@ func (h *Handler) WithGroup(name string) slog.Handler {
 		name:   name,
 		parent: h,
 	}
-	prefixStart := emptyString
+	prefixStart := ""
 	if len(h.prefix) > 0 {
 		hdlr.prefix = h.prefix
-		if !bytes.HasSuffix(h.prefix, braceLeft) {
-			prefixStart = commaSpace
+		if !bytes.HasSuffix(h.prefix, []byte{'{'}) {
+			prefixStart = ", "
 		}
 	}
 	if len(h.suffix) > 0 {
