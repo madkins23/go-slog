@@ -142,6 +142,8 @@
                       
                         <option value="Verify:ResolveWith" >Resolve With</option>
                       
+                        <option value="Verify:SlogTest" >Slog Test</option>
+                      
                         <option value="Verify:SourceKey" >Source Key</option>
                       
                         <option value="Verify:WithGroupEmpty" >With Group Empty</option>
@@ -242,20 +244,20 @@ If the PC is zero then this field and its associated group should not be logged.
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
+                        <td colspan=2 class="name" style="background-color:cornsilk;">
                           
                           Samber Logrus
                         </td>
-                        <td class="extra" style="background-color:lightgray;"></td>
-                        <td class="toggleButton" style="background-color:lightgray;">
+                        <td class="extra" style="background-color:cornsilk;"><p></p></td></td>
+                        <td class="toggleButton" style="background-color:cornsilk;">
                           
                             <button type="button" title="Toggle Log Data" onclick="toggleTableRow('ZeroPC-Samber Logrus-log')">Log</button>
                           
                         </td>
                       </tr>
                       <tr id="ZeroPC-Samber Logrus-log" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
+                        <td style="background-color:cornsilk;"></td>
+                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre>{
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;source&#34;: {
@@ -263,31 +265,7 @@ If the PC is zero then this field and its associated group should not be logged.
 		&#34;function&#34;: &#34;&#34;,
 		&#34;line&#34;: 0
 	},
-	&#34;time&#34;: &#34;2024-03-05T20:09:23Z&#34;
-}</pre></td>
-                      </tr>
-                    
-                      
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
-                          
-                          Samber Zap
-                        </td>
-                        <td class="extra" style="background-color:lightgray;">non-standard key &#39;caller&#39;</td>
-                        <td class="toggleButton" style="background-color:lightgray;">
-                          
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('ZeroPC-Samber Zap-log')">Log</button>
-                          
-                        </td>
-                      </tr>
-                      <tr id="ZeroPC-Samber Zap-log" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
-	&#34;caller&#34;: &#34;:0&#34;,
-	&#34;level&#34;: &#34;info&#34;,
-	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-05T20:09:23Z&#34;
+	&#34;time&#34;: &#34;2024-03-06T13:29:53Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -296,20 +274,46 @@ If the PC is zero then this field and its associated group should not be logged.
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
+                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                          
+                          Samber Zap
+                        </td>
+                        <td class="extra" style="background-color:antiquewhite;"><p>non-standard key 'caller'</p></td></td>
+                        <td class="toggleButton" style="background-color:antiquewhite;">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('ZeroPC-Samber Zap-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="ZeroPC-Samber Zap-log" style="display:none;">
+                        <td style="background-color:antiquewhite;"></td>
+                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre>{
+	&#34;caller&#34;: &#34;:0&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-03-06T13:29:53Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:cornsilk;">
                           
                           Samber Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightgray;"></td>
-                        <td class="toggleButton" style="background-color:lightgray;">
+                        <td class="extra" style="background-color:cornsilk;"><p></p></td></td>
+                        <td class="toggleButton" style="background-color:cornsilk;">
                           
                             <button type="button" title="Toggle Log Data" onclick="toggleTableRow('ZeroPC-Samber Zerolog-log')">Log</button>
                           
                         </td>
                       </tr>
                       <tr id="ZeroPC-Samber Zerolog-log" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre>{
+                        <td style="background-color:cornsilk;"></td>
+                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre>{
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;source&#34;: {
@@ -317,7 +321,7 @@ If the PC is zero then this field and its associated group should not be logged.
 		&#34;function&#34;: &#34;&#34;,
 		&#34;line&#34;: 0
 	},
-	&#34;time&#34;: &#34;2024-03-05T20:09:23Z&#34;
+	&#34;time&#34;: &#34;2024-03-06T13:29:53Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -373,35 +377,37 @@ If the PC is zero then this field and its associated group should not be logged.
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
+                        <td colspan=2 class="name" style="background-color:cornsilk;">
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightgray;">`message`</td>
-                        <td class="toggleButton" style="background-color:lightgray;">
+                        <td class="extra" style="background-color:cornsilk;"><p>`message`</p></td></td>
+                        <td class="toggleButton" style="background-color:cornsilk;">
                           
                         </td>
                       </tr>
                       <tr id="MessageKey-Phsym Zerolog-log" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
+                        <td style="background-color:cornsilk;"></td>
+                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
+                        
+                      
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
+                        <td colspan=2 class="name" style="background-color:antiquewhite;">
                           
                           Samber Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightgray;">`message`</td>
-                        <td class="toggleButton" style="background-color:lightgray;">
+                        <td class="extra" style="background-color:antiquewhite;"><p>`message`</p></td></td>
+                        <td class="toggleButton" style="background-color:antiquewhite;">
                           
                         </td>
                       </tr>
                       <tr id="MessageKey-Samber Zerolog-log" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
+                        <td style="background-color:antiquewhite;"></td>
+                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -454,35 +460,37 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
+                        <td colspan=2 class="name" style="background-color:cornsilk;">
                           
                           Chanchal Zap
                         </td>
-                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
-                        <td class="toggleButton" style="background-color:lightgray;">
+                        <td class="extra" style="background-color:cornsilk;"><p>'info'</p></td></td>
+                        <td class="toggleButton" style="background-color:cornsilk;">
                           
                         </td>
                       </tr>
                       <tr id="LevelCase-Chanchal Zap-log" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
+                        <td style="background-color:cornsilk;"></td>
+                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
+                        
+                      
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
+                        <td colspan=2 class="name" style="background-color:antiquewhite;">
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
-                        <td class="toggleButton" style="background-color:lightgray;">
+                        <td class="extra" style="background-color:antiquewhite;"><p>'info'</p></td></td>
+                        <td class="toggleButton" style="background-color:antiquewhite;">
                           
                         </td>
                       </tr>
                       <tr id="LevelCase-Phsym Zerolog-log" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
+                        <td style="background-color:antiquewhite;"></td>
+                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
@@ -490,35 +498,18 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
+                        <td colspan=2 class="name" style="background-color:cornsilk;">
                           
                           Samber Logrus
                         </td>
-                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
-                        <td class="toggleButton" style="background-color:lightgray;">
+                        <td class="extra" style="background-color:cornsilk;"><p>'info'</p></td></td>
+                        <td class="toggleButton" style="background-color:cornsilk;">
                           
                         </td>
                       </tr>
                       <tr id="LevelCase-Samber Logrus-log" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
-                          
-                          Samber Zap
-                        </td>
-                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
-                        <td class="toggleButton" style="background-color:lightgray;">
-                          
-                        </td>
-                      </tr>
-                      <tr id="LevelCase-Samber Zap-log" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
+                        <td style="background-color:cornsilk;"></td>
+                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
@@ -526,18 +517,37 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
+                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                          
+                          Samber Zap
+                        </td>
+                        <td class="extra" style="background-color:antiquewhite;"><p>'info'</p></td></td>
+                        <td class="toggleButton" style="background-color:antiquewhite;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Samber Zap-log" style="display:none;">
+                        <td style="background-color:antiquewhite;"></td>
+                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:cornsilk;">
                           
                           Samber Zerolog
                         </td>
-                        <td class="extra" style="background-color:lightgray;">&#39;info&#39;</td>
-                        <td class="toggleButton" style="background-color:lightgray;">
+                        <td class="extra" style="background-color:cornsilk;"><p>'info'</p></td></td>
+                        <td class="toggleButton" style="background-color:cornsilk;">
                           
                         </td>
                       </tr>
                       <tr id="LevelCase-Samber Zerolog-log" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
+                        <td style="background-color:cornsilk;"></td>
+                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -565,7 +575,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-05 20:09:28 UTC</span>
+              <span class="fixed">2024-03-06 13:30:03 UTC</span>
             </div>
           </td>
           <td align="right">

@@ -142,6 +142,8 @@
                       
                         <option value="Verify:ResolveWith" >Resolve With</option>
                       
+                        <option value="Verify:SlogTest" >Slog Test</option>
+                      
                         <option value="Verify:SourceKey" >Source Key</option>
                       
                         <option value="Verify:WithGroupEmpty" >With Group Empty</option>
@@ -215,7 +217,8 @@
                   <td></td>
                   <td colspan=4 class="description"><p>Some handlers (e.g. <code>slog.JSONHandler</code>)
 will output multiple occurrences of the same field name
-if the logger is called with multiple instances of the same field.
+if the logger is called with multiple instances of the same field,
+generally by using WithAttrs and then the same fields in the eventual log call (e.g. Info).
 This behavior is currently <a href="https://github.com/golang/go/issues/59365" target="_blank">under debate</a>
 with no resolution at this time (2024-01-15) and a
 <a href="https://github.com/golang/go/milestone/212" target="_blank">release milestone of (currently unscheduled) Go 1.23</a>,
@@ -240,35 +243,18 @@ is currently expected in February 2024).</p>
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
+                        <td colspan=2 class="name" style="background-color:cornsilk;">
                           
                           Chanchal Zap
                         </td>
-                        <td class="extra" style="background-color:lightgray;">map[alpha:2 charlie:3]</td>
-                        <td class="toggleButton" style="background-color:lightgray;">
+                        <td class="extra" style="background-color:cornsilk;"><p>map[alpha:2 charlie:3]</p></td></td>
+                        <td class="toggleButton" style="background-color:cornsilk;">
                           
                         </td>
                       </tr>
                       <tr id="Duplicates-Chanchal Zap-log" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
-                          
-                          Phsym Zerolog
-                        </td>
-                        <td class="extra" style="background-color:lightgray;">map[alpha:2 charlie:3]</td>
-                        <td class="toggleButton" style="background-color:lightgray;">
-                          
-                        </td>
-                      </tr>
-                      <tr id="Duplicates-Phsym Zerolog-log" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
+                        <td style="background-color:cornsilk;"></td>
+                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
@@ -276,18 +262,37 @@ is currently expected in February 2024).</p>
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
+                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                          
+                          Phsym Zerolog
+                        </td>
+                        <td class="extra" style="background-color:antiquewhite;"><p>map[alpha:2 charlie:3]</p></td></td>
+                        <td class="toggleButton" style="background-color:antiquewhite;">
+                          
+                        </td>
+                      </tr>
+                      <tr id="Duplicates-Phsym Zerolog-log" style="display:none;">
+                        <td style="background-color:antiquewhite;"></td>
+                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr>
+                        <td colspan=2 class="name" style="background-color:cornsilk;">
                           
                           Slog JSON
                         </td>
-                        <td class="extra" style="background-color:lightgray;">map[alpha:2 charlie:3]</td>
-                        <td class="toggleButton" style="background-color:lightgray;">
+                        <td class="extra" style="background-color:cornsilk;"><p>map[alpha:2 charlie:3]</p></td></td>
+                        <td class="toggleButton" style="background-color:cornsilk;">
                           
                         </td>
                       </tr>
                       <tr id="Duplicates-Slog JSON-log" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
+                        <td style="background-color:cornsilk;"></td>
+                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -315,7 +320,7 @@ is currently expected in February 2024).</p>
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-05 20:09:28 UTC</span>
+              <span class="fixed">2024-03-06 13:30:03 UTC</span>
             </div>
           </td>
           <td align="right">

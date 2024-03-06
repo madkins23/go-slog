@@ -139,6 +139,8 @@
                       
                         <option value="Verify:ResolveWith" >Resolve With</option>
                       
+                        <option value="Verify:SlogTest" >Slog Test</option>
+                      
                         <option value="Verify:SourceKey" >Source Key</option>
                       
                         <option value="Verify:WithGroupEmpty" >With Group Empty</option>
@@ -188,8 +190,8 @@
                 
                   <tr>
                     <td class="fixed">Attributes</td>
-                    <td class="number">774,763</td>
-                    <td class="number">1,542.00</td>
+                    <td class="number">772,558</td>
+                    <td class="number">1,505.00</td>
                       <td class="number">6</td>
                      <td class="number">472</td>
                     <td class="number">0.00</td>
@@ -197,17 +199,17 @@
                 
                   <tr>
                     <td class="fixed">Big Group</td>
-                    <td class="number">4,581</td>
-                    <td class="number">268,496.00</td>
-                      <td class="number">3,896</td>
-                     <td class="number">287,186</td>
+                    <td class="number">4,875</td>
+                    <td class="number">258,251.00</td>
+                      <td class="number">3,873</td>
+                     <td class="number">284,356</td>
                     <td class="number">0.00</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Disabled</td>
-                    <td class="number">306,066,056</td>
-                    <td class="number">4.14</td>
+                    <td class="number">309,648,277</td>
+                    <td class="number">3.88</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
                     <td class="number">0.00</td>
@@ -215,8 +217,8 @@
                 
                   <tr>
                     <td class="fixed">Key Values</td>
-                    <td class="number">693,456</td>
-                    <td class="number">1,678.00</td>
+                    <td class="number">733,791</td>
+                    <td class="number">1,639.00</td>
                       <td class="number">7</td>
                      <td class="number">856</td>
                     <td class="number">0.00</td>
@@ -224,8 +226,8 @@
                 
                   <tr>
                     <td class="fixed">Logging</td>
-                    <td class="number">37,615</td>
-                    <td class="number">30,213.00</td>
+                    <td class="number">39,685</td>
+                    <td class="number">29,551.00</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
                     <td class="number">0.00</td>
@@ -233,8 +235,8 @@
                 
                   <tr>
                     <td class="fixed">Simple</td>
-                    <td class="number">3,294,850</td>
-                    <td class="number">361.70</td>
+                    <td class="number">3,274,687</td>
+                    <td class="number">390.30</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
                     <td class="number">0.00</td>
@@ -242,8 +244,8 @@
                 
                   <tr>
                     <td class="fixed">Simple Source</td>
-                    <td class="number">1,336,186</td>
-                    <td class="number">911.20</td>
+                    <td class="number">1,332,723</td>
+                    <td class="number">894.20</td>
                       <td class="number">6</td>
                      <td class="number">568</td>
                     <td class="number">0.00</td>
@@ -251,8 +253,8 @@
                 
                   <tr>
                     <td class="fixed">With Attrs Attributes</td>
-                    <td class="number">769,160</td>
-                    <td class="number">1,536.00</td>
+                    <td class="number">766,710</td>
+                    <td class="number">1,501.00</td>
                       <td class="number">6</td>
                      <td class="number">472</td>
                     <td class="number">0.00</td>
@@ -260,8 +262,8 @@
                 
                   <tr>
                     <td class="fixed">With Attrs Key Values</td>
-                    <td class="number">708,639</td>
-                    <td class="number">1,676.00</td>
+                    <td class="number">710,277</td>
+                    <td class="number">1,662.00</td>
                       <td class="number">7</td>
                      <td class="number">856</td>
                     <td class="number">0.00</td>
@@ -269,8 +271,8 @@
                 
                   <tr>
                     <td class="fixed">With Attrs Simple</td>
-                    <td class="number">3,233,319</td>
-                    <td class="number">367.10</td>
+                    <td class="number">3,202,299</td>
+                    <td class="number">365.20</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
                     <td class="number">0.00</td>
@@ -278,8 +280,8 @@
                 
                   <tr>
                     <td class="fixed">With Group Attributes</td>
-                    <td class="number">788,354</td>
-                    <td class="number">1,508.00</td>
+                    <td class="number">798,830</td>
+                    <td class="number">1,538.00</td>
                       <td class="number">6</td>
                      <td class="number">472</td>
                     <td class="number">0.00</td>
@@ -287,8 +289,8 @@
                 
                   <tr>
                     <td class="fixed">With Group Key Values</td>
-                    <td class="number">704,653</td>
-                    <td class="number">1,650.00</td>
+                    <td class="number">709,136</td>
+                    <td class="number">1,644.00</td>
                       <td class="number">7</td>
                      <td class="number">856</td>
                     <td class="number">0.00</td>
@@ -355,7 +357,8 @@
                   <td></td>
                   <td colspan=4 class="description"><p>Some handlers (e.g. <code>slog.JSONHandler</code>)
 will output multiple occurrences of the same field name
-if the logger is called with multiple instances of the same field.
+if the logger is called with multiple instances of the same field,
+generally by using WithAttrs and then the same fields in the eventual log call (e.g. Info).
 This behavior is currently <a href="https://github.com/golang/go/issues/59365" target="_blank">under debate</a>
 with no resolution at this time (2024-01-15) and a
 <a href="https://github.com/golang/go/milestone/212" target="_blank">release milestone of (currently unscheduled) Go 1.23</a>,
@@ -380,39 +383,41 @@ is currently expected in February 2024).</p>
                         
                       
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
+                        <td colspan=2 class="name" style="background-color:cornsilk;">
                           
                             Verify:
                           
                           Attribute Duplicate
                         </td>
-                        <td class="extra" style="background-color:lightgray;">map[alpha:2 charlie:3]</td>
-                        <td class="toggleButton" style="background-color:lightgray;">
+                        <td class="extra" style="background-color:cornsilk;"><p>map[alpha:2 charlie:3]</p></td></td>
+                        <td class="toggleButton" style="background-color:cornsilk;">
                           
                         </td>
                       </tr>
                       <tr id="Duplicates-Attribute Duplicate-log" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
+                        <td style="background-color:cornsilk;"></td>
+                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
+                        
+                      
                       <tr>
-                        <td colspan=2 class="name" style="background-color:lightgray;">
+                        <td colspan=2 class="name" style="background-color:antiquewhite;">
                           
                             Verify:
                           
                           Attribute With Duplicate
                         </td>
-                        <td class="extra" style="background-color:lightgray;">map[alpha:2 charlie:3]</td>
-                        <td class="toggleButton" style="background-color:lightgray;">
+                        <td class="extra" style="background-color:antiquewhite;"><p>map[alpha:2 charlie:3]</p></td></td>
+                        <td class="toggleButton" style="background-color:antiquewhite;">
                           
                         </td>
                       </tr>
                       <tr id="Duplicates-Attribute With Duplicate-log" style="display:none;">
-                        <td style="background-color:lightgray;"></td>
-                        <td style="background-color:lightgray;" colspan=4 class="logLine"><pre></pre></td>
+                        <td style="background-color:antiquewhite;"></td>
+                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -439,7 +444,7 @@ is currently expected in February 2024).</p>
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-05 20:09:28 UTC</span>
+              <span class="fixed">2024-03-06 13:30:03 UTC</span>
             </div>
           </td>
           <td align="right">

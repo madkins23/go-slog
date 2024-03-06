@@ -138,6 +138,8 @@
                       
                         <option value="Verify:ResolveWith" >Resolve With</option>
                       
+                        <option value="Verify:SlogTest" >Slog Test</option>
+                      
                         <option value="Verify:SourceKey" >Source Key</option>
                       
                         <option value="Verify:WithGroupEmpty" >With Group Empty</option>
@@ -284,6 +286,28 @@ This is a powerful feature which can customize logging of objects and
 
 <ul>
 <li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- Attr's values should be resolved.&quot;</a></li>
+</ul>
+</td>
+                    </tr>
+                  
+                
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">SlogTest</td>
+                    <td class="extra">Failure of embedded slog/slogtest</td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=2 class="description"><p>Documentation on building a handler suggests testing using <code>slog/slogtest</code>, part of the Go release since 1.21.
+While the verification suite includes tests patterned after those in <code>slogtest</code>,
+an additional single test invokes the <code>slogtest</code> testing sequence (involving multiple tests).
+Since this is a separate package, all error messages are returned at once.
+This is the only warning that affects <code>TestSlogTest</code> and all of its error messages.</p>
+
+<ul>
+<li><a href="https://github.com/golang/example/tree/master/slog-handler-guide#testing" target="_blank">&quot;To verify that your handler follows these rules and generally produces proper output, use the testing/slogtest package.&quot;</a></li>
+<li><a href="https://pkg.go.dev/golang.org/x/exp@v0.0.0-20240222234643-814bf88cf225/slog/slogtest" target="_blank"><code>slog/slogtest</code></a></li>
 </ul>
 </td>
                     </tr>
@@ -509,7 +533,8 @@ This warning represents situations where the attributes are attached to the wron
                       <td colspan=2></td>
                       <td colspan=2 class="description"><p>Some handlers (e.g. <code>slog.JSONHandler</code>)
 will output multiple occurrences of the same field name
-if the logger is called with multiple instances of the same field.
+if the logger is called with multiple instances of the same field,
+generally by using WithAttrs and then the same fields in the eventual log call (e.g. Info).
 This behavior is currently <a href="https://github.com/golang/go/issues/59365" target="_blank">under debate</a>
 with no resolution at this time (2024-01-15) and a
 <a href="https://github.com/golang/go/milestone/212" target="_blank">release milestone of (currently unscheduled) Go 1.23</a>,
@@ -948,6 +973,42 @@ from a test suite as issues are fixed in the tested handler.</p>
                       
                       
                         <td class="count"><span>4</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td width=5%></td>
+                    <td class="name">SlogTest</td>
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>1</span></td>
                       
                     
                       
@@ -1421,7 +1482,7 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
-                        <td class="count"><span>2</span></td>
+                        <td class="count"><span>1</span></td>
                       
                     
                       
@@ -1452,7 +1513,7 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
-                        <td class="count"><span>2</span></td>
+                        <td class="count"><span>1</span></td>
                       
                     
                       
@@ -1488,12 +1549,12 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
-                        <td class="blank"></td>
+                        <td class="count"><span>1</span></td>
                       
                     
                       
                       
-                        <td class="blank"></td>
+                        <td class="count"><span>1</span></td>
                       
                     
                       
@@ -1849,7 +1910,7 @@ from a test suite as issues are fixed in the tested handler.</p>
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-05 20:09:28 UTC</span>
+              <span class="fixed">2024-03-06 13:30:03 UTC</span>
             </div>
           </td>
           <td align="right">
