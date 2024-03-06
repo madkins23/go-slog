@@ -134,9 +134,14 @@ func withValuesMap() map[string]any {
 
 // -----------------------------------------------------------------------------
 
+var bigGroup slog.Attr
+
 // BigGroup returns a nested group structure as an attribute.
 func BigGroup() slog.Attr {
-	return bigGroupBuilder(0, bigGroupLimit, valGroupName)
+	if bigGroup.Equal(infra.EmptyAttr()) {
+		bigGroup = bigGroupBuilder(0, bigGroupLimit, valGroupName)
+	}
+	return bigGroup
 }
 
 const (
