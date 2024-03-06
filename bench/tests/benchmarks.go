@@ -211,8 +211,7 @@ func (suite *SlogBenchmarkSuite) BenchmarkBigGroup() *Benchmark {
 	return &Benchmark{
 		Options: infra.SimpleOptions(),
 		BenchmarkFn: func(logger *slog.Logger) {
-			bg := BigGroup()
-			logger.Info(message, bg)
+			logger.Info(message, BigGroup())
 		},
 		VerifyFn: bigGroupChecker("BigGroup"),
 	}

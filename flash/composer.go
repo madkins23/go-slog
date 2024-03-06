@@ -40,6 +40,11 @@ func (c *composer) getBytes() []byte {
 
 // -----------------------------------------------------------------------------
 
+var boolImage = map[bool][]byte{
+	false: boolFalse,
+	true:  boolTrue,
+}
+
 func (c *composer) addAttribute(attr slog.Attr) error {
 	attr.Value = attr.Value.Resolve()
 	if c.replace != nil {
@@ -71,19 +76,21 @@ func (c *composer) addAttribute(attr slog.Attr) error {
 	case slog.KindGroup:
 		return c.addGroup(value.Group())
 	case slog.KindBool:
-		c.addBool(value.Bool())
+		c.buffer = append(c.buffer, boolImage[value.Bool()]...)
 	case slog.KindDuration:
-		c.addDuration(value.Duration())
+		c.buffer = strconv.AppendInt(c.buffer, value.Duration().Nanoseconds(), 10)
 	case slog.KindFloat64:
-		c.addFloat64(value.Float64())
+		c.buffer = strconv.AppendFloat(c.buffer, value.Float64(), 'f', -1, 64)
 	case slog.KindInt64:
-		c.addInt64(value.Int64())
+		c.buffer = strconv.AppendInt(c.buffer, value.Int64(), 10)
 	case slog.KindString:
 		c.addString(value.String())
 	case slog.KindTime:
-		c.addTime(value.Time())
+		c.buffer = append(c.buffer, '"')
+		c.buffer = value.Time().AppendFormat(c.buffer, time.RFC3339Nano)
+		c.buffer = append(c.buffer, '"')
 	case slog.KindUint64:
-		c.addUint64(value.Uint64())
+		c.buffer = strconv.AppendUint(c.buffer, value.Uint64(), 10)
 	case slog.KindAny:
 		fallthrough
 	default:
@@ -102,11 +109,6 @@ func (c *composer) addAttributes(attrs []slog.Attr) error {
 }
 
 // -----------------------------------------------------------------------------
-
-var boolImage = map[bool][]byte{
-	false: boolFalse,
-	true:  boolTrue,
-}
 
 func (c *composer) addAny(a any) error {
 	switch v := a.(type) {
@@ -137,24 +139,12 @@ var (
 	boolTrue  = []byte("true")
 )
 
-func (c *composer) addBool(b bool) {
-	c.buffer = append(c.buffer, boolImage[b]...)
-}
-
 func (c *composer) addBytes(b ...byte) {
 	c.buffer = append(c.buffer, b...)
 }
 
 func (c *composer) addByteString(b []byte) {
 	c.buffer = append(c.buffer, b...)
-}
-
-func (c *composer) addDuration(d time.Duration) {
-	c.buffer = strconv.AppendInt(c.buffer, d.Nanoseconds(), 10)
-}
-
-func (c *composer) addFloat64(f float64) {
-	c.buffer = strconv.AppendFloat(c.buffer, f, 'f', -1, 64)
 }
 
 func (c *composer) addGroup(attrs []slog.Attr) error {
@@ -166,10 +156,6 @@ func (c *composer) addGroup(attrs []slog.Attr) error {
 	}
 	c.addBytes('}')
 	return nil
-}
-
-func (c *composer) addInt64(i int64) {
-	c.buffer = strconv.AppendInt(c.buffer, i, 10)
 }
 
 func (c *composer) addJSONMarshaler(m json.Marshaler) error {
@@ -184,7 +170,9 @@ func (c *composer) addJSONMarshaler(m json.Marshaler) error {
 }
 
 func (c *composer) addString(str string) {
-	c.addStringAsBytes([]byte(str))
+	c.buffer = append(c.buffer, '"')
+	c.buffer = append(c.buffer, str...)
+	c.buffer = append(c.buffer, '"')
 }
 
 func (c *composer) addStringAsBytes(str []byte) {
@@ -202,14 +190,6 @@ func (c *composer) addTextMarshaler(m encoding.TextMarshaler) error {
 		c.addStringAsBytes(txt)
 		return nil
 	}
-}
-
-func (c *composer) addTime(t time.Time) {
-	c.addString(t.Format(time.RFC3339Nano))
-}
-
-func (c *composer) addUint64(i uint64) {
-	c.buffer = strconv.AppendUint(c.buffer, i, 10)
 }
 
 // -----------------------------------------------------------------------------
