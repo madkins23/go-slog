@@ -11,6 +11,8 @@ import (
 	"github.com/madkins23/go-slog/infra"
 )
 
+var composerPool = newGenPool[composer]()
+
 // -----------------------------------------------------------------------------
 
 // composer handles writing attributes to an io.Writer.
@@ -21,13 +23,13 @@ type composer struct {
 	groups  []string
 }
 
-func newComposer(buffer []byte, started bool, replace infra.AttrFn, groups []string) *composer {
-	return &composer{
-		buffer:  buffer,
-		started: started,
-		replace: replace,
-		groups:  groups,
-	}
+func newComposer(buffer []byte, started bool, replace infra.AttrFn, groups []string) (*composer, func()) {
+	comp, returnFn := composerPool.borrow()
+	comp.buffer = buffer
+	comp.started = started
+	comp.replace = replace
+	comp.groups = groups
+	return comp, returnFn
 }
 
 func (c *composer) setStarted(started bool) {
