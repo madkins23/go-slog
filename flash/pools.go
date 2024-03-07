@@ -18,16 +18,6 @@ func newGenPool[T any]() genPool[T] {
 	}
 }
 
-// borrow returns an object like get as well as
-// a function that will return that object via put.
-// The latter is convenient for defer statements.
-func (p *genPool[T]) borrow() (*T, func()) {
-	x := p.pool.Get().(*T)
-	return x, func() {
-		p.put(x)
-	}
-}
-
 // get is a generic wrapper around sync.Pool's Get method.
 func (p *genPool[T]) get() *T {
 	return p.pool.Get().(*T)
@@ -57,16 +47,6 @@ func newArrayPool[T any](size uint) arrayPool[T] {
 				return make([]T, 0, size)
 			},
 		},
-	}
-}
-
-// borrow returns an object like get as well as
-// a function that will return that object via put.
-// The latter is convenient for defer statements.
-func (p *arrayPool[T]) borrow() ([]T, func()) {
-	x := p.pool.Get().([]T)
-	return x, func() {
-		p.put(x)
 	}
 }
 

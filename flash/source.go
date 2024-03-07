@@ -10,12 +10,16 @@ type source struct {
 	Line     int    `json:"line"`
 }
 
-func newSource(pc uintptr) (*source, func()) {
+func newSource(pc uintptr) *source {
 	fs := runtime.CallersFrames([]uintptr{pc})
 	f, _ := fs.Next()
-	src, rtnFn := sourcePool.borrow()
+	src := sourcePool.get()
 	src.File = f.File
 	src.Function = f.Function
 	src.Line = f.Line
-	return src, rtnFn
+	return src
+}
+
+func reuseSource(src *source) {
+	sourcePool.put(src)
 }

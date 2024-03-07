@@ -23,13 +23,17 @@ type composer struct {
 	groups  []string
 }
 
-func newComposer(buffer []byte, started bool, replace infra.AttrFn, groups []string) (*composer, func()) {
-	comp, returnFn := composerPool.borrow()
+func newComposer(buffer []byte, started bool, replace infra.AttrFn, groups []string) *composer {
+	comp := composerPool.get()
 	comp.buffer = buffer
 	comp.started = started
 	comp.replace = replace
 	comp.groups = groups
-	return comp, returnFn
+	return comp
+}
+
+func reuseComposer(comp *composer) {
+	composerPool.put(comp)
 }
 
 func (c *composer) setStarted(started bool) {

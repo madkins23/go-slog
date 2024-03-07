@@ -51,15 +51,15 @@ func (h *Handler) Enabled(_ context.Context, level slog.Level) bool {
 }
 
 func (h *Handler) Handle(_ context.Context, record slog.Record) error {
-	buffer, returnFn := logPool.borrow()
-	defer returnFn()
+	buffer := logPool.get()
+	defer func() { logPool.put(buffer) }()
 
-	c, returnFn := newComposer(buffer, false, h.options.ReplaceAttr, h.groups)
-	defer returnFn()
+	c := newComposer(buffer, false, h.options.ReplaceAttr, h.groups)
+	defer reuseComposer(c)
 	c.addBytes('{')
 
-	basic, returnFn := basicPool.borrow()
-	defer returnFn()
+	basic := basicPool.get()
+	defer func() { basicPool.put(basic) }()
 
 	if !record.Time.IsZero() {
 		basic = append(basic, slog.Time(slog.TimeKey, record.Time))
@@ -67,8 +67,8 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 	basic = append(basic, slog.String(slog.LevelKey, record.Level.String()))
 	basic = append(basic, slog.String(slog.MessageKey, record.Message))
 	if h.options.AddSource && record.PC != 0 {
-		src, returnFn := newSource(record.PC)
-		defer returnFn()
+		src := newSource(record.PC)
+		defer reuseSource(src)
 		basic = append(basic, slog.Any(slog.SourceKey, src))
 	}
 	if err := c.addAttributes(basic); err != nil {
@@ -128,8 +128,8 @@ func (h *Handler) WithAttrs(attrs []slog.Attr) slog.Handler {
 		hdlr.suffix = make([]byte, 0, lenSuffix)
 	}
 
-	c, returnFn := newComposer(hdlr.prefix, prefixStarted, h.options.ReplaceAttr, h.groups)
-	defer returnFn()
+	c := newComposer(hdlr.prefix, prefixStarted, h.options.ReplaceAttr, h.groups)
+	defer reuseComposer(c)
 
 	if err := c.addAttributes(attrs); err != nil {
 		slog.Error("adding with attributes", "err", err)
