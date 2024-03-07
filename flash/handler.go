@@ -51,14 +51,16 @@ func (h *Handler) Enabled(_ context.Context, level slog.Level) bool {
 }
 
 func (h *Handler) Handle(_ context.Context, record slog.Record) error {
-	buffer := logPool.get()
+	// The x[:0] is supposed to reset len(x) to zero but leave cap(x) and
+	// the underlying array space intact for reuse.
+	buffer := logPool.get()[:0]
 	defer func() { logPool.put(buffer) }()
 
 	c := newComposer(buffer, false, h.options.ReplaceAttr, h.groups)
 	defer reuseComposer(c)
 	c.addBytes('{')
 
-	basic := basicPool.get()
+	basic := basicPool.get()[:0]
 	defer func() { basicPool.put(basic) }()
 
 	if !record.Time.IsZero() {
