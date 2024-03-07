@@ -98,7 +98,7 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 		method := suiteType.Method(i)
 		// ...beginning with `Benchmark`:
 		if strings.HasPrefix(method.Name, benchmarkMethodPrefix) {
-			// Execute the method, returning an pointer to an object of class `Benchmark`.
+			// Execute the method, returning a pointer to an object of class `Benchmark`.
 			results := method.Func.Call([]reflect.Value{reflect.ValueOf(suite)})
 			if len(results) < 1 {
 				b.Fatalf("Unable to acquire benchmark definition")
