@@ -53,17 +53,13 @@ func (h *Handler) Enabled(_ context.Context, level slog.Level) bool {
 
 func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 	buffer := logPool.get()
-	defer func() {
-		logPool.put(buffer)
-	}()
+	defer func() { logPool.put(buffer) }()
 
 	c := newComposer(buffer, false, h.options.ReplaceAttr, h.groups)
 	c.addBytes('{')
 
 	basic := basicPool.get()
-	defer func() {
-		basicPool.put(basic)
-	}()
+	defer func() { basicPool.put(basic) }()
 	if !record.Time.IsZero() {
 		basic = append(basic, slog.Time(slog.TimeKey, record.Time))
 	}
@@ -72,9 +68,7 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 	if h.options.AddSource && record.PC != 0 {
 		src := newSource(record.PC)
 		basic = append(basic, slog.Any(slog.SourceKey, src))
-		defer func() {
-			sourcePool.put(src)
-		}()
+		defer func() { sourcePool.put(src) }()
 	}
 	if err := c.addAttributes(basic); err != nil {
 		return fmt.Errorf("add basic attributes: %w", err)
