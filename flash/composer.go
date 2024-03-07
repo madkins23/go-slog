@@ -46,11 +46,6 @@ func (c *composer) getBytes() []byte {
 
 // -----------------------------------------------------------------------------
 
-var boolImage = map[bool][]byte{
-	false: boolFalse,
-	true:  boolTrue,
-}
-
 func (c *composer) addAttribute(attr slog.Attr) error {
 	attr.Value = attr.Value.Resolve()
 	if c.replace != nil {
@@ -82,7 +77,11 @@ func (c *composer) addAttribute(attr slog.Attr) error {
 	case slog.KindGroup:
 		return c.addGroup(value.Group())
 	case slog.KindBool:
-		c.buffer = append(c.buffer, boolImage[value.Bool()]...)
+		if value.Bool() {
+			c.buffer = append(c.buffer, "true"...)
+		} else {
+			c.buffer = append(c.buffer, "false"...)
+		}
 	case slog.KindDuration:
 		c.buffer = strconv.AppendInt(c.buffer, value.Duration().Nanoseconds(), 10)
 	case slog.KindFloat64:
@@ -139,11 +138,6 @@ func (c *composer) addAny(a any) error {
 	}
 	return nil
 }
-
-var (
-	boolFalse = []byte("false")
-	boolTrue  = []byte("true")
-)
 
 func (c *composer) addBytes(b ...byte) {
 	c.buffer = append(c.buffer, b...)
