@@ -10,10 +10,12 @@ import (
 )
 
 const lenLog = 1024
+const lenBasic = 4
 const lenPrefix = 512
 const lenSuffix = 32
 
 var logPool = newArrayPool[byte](lenLog)
+var basicPool = newArrayPool[slog.Attr](lenBasic)
 
 var _ slog.Handler = &Handler{}
 
@@ -55,7 +57,10 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 	c := newComposer(buffer, false, h.options.ReplaceAttr, h.groups)
 	c.addBytes('{')
 
-	basic := make([]slog.Attr, 0, 4)
+	basic := basicPool.get()
+	defer func() {
+		basicPool.put(basic)
+	}()
 	if !record.Time.IsZero() {
 		basic = append(basic, slog.Time(slog.TimeKey, record.Time))
 	}
@@ -108,8 +113,6 @@ func (h *Handler) WithAttrs(attrs []slog.Attr) slog.Handler {
 	hdlr := &Handler{
 		options: h.options,
 		writer:  h.writer,
-		prefix:  make([]byte, 0, lenPrefix),
-		suffix:  make([]byte, 0, lenSuffix),
 	}
 	var prefixStarted bool
 	if len(h.prefix) > 0 {
@@ -117,11 +120,15 @@ func (h *Handler) WithAttrs(attrs []slog.Attr) slog.Handler {
 		if !bytes.HasSuffix(hdlr.prefix, []byte{'{'}) {
 			prefixStarted = true
 		}
+	} else {
+		hdlr.prefix = make([]byte, 0, lenPrefix)
 	}
 	if len(h.suffix) > 0 {
 		hdlr.suffix = h.suffix
+	} else {
+		hdlr.suffix = make([]byte, 0, lenSuffix)
 	}
-	c := newComposer(h.prefix, prefixStarted, h.options.ReplaceAttr, h.groups)
+	c := newComposer(hdlr.prefix, prefixStarted, h.options.ReplaceAttr, h.groups)
 	if err := c.addAttributes(attrs); err != nil {
 		slog.Error("adding with attributes", "err", err)
 	}
@@ -139,8 +146,6 @@ func (h *Handler) WithGroup(name string) slog.Handler {
 		Handler: &Handler{
 			options: h.options,
 			writer:  h.writer,
-			prefix:  make([]byte, 0, lenPrefix),
-			suffix:  make([]byte, 0, lenSuffix),
 			groups:  append(h.groups, name),
 		},
 		name:   name,
@@ -152,9 +157,13 @@ func (h *Handler) WithGroup(name string) slog.Handler {
 		if !bytes.HasSuffix(h.prefix, []byte{'{'}) {
 			prefixStart = ", "
 		}
+	} else {
+		hdlr.prefix = make([]byte, 0, lenPrefix)
 	}
 	if len(h.suffix) > 0 {
 		hdlr.suffix = h.suffix
+	} else {
+		hdlr.suffix = make([]byte, 0, lenSuffix)
 	}
 	hdlr.prefix = append(hdlr.prefix, []byte(fmt.Sprintf("%s\"%s\": {", prefixStart, name))...)
 	// Should really be prepending the right brace into the suffix,

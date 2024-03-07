@@ -5,6 +5,8 @@ import "sync"
 // -----------------------------------------------------------------------------
 
 // A arrayPool is a generic wrapper around a sync.Pool.
+//
+// Inspired by https://github.com/mkmik/syncpool
 type arrayPool[T any] struct {
 	pool sync.Pool
 }
@@ -29,5 +31,7 @@ func (p *arrayPool[T]) get() []T {
 
 // Put is a generic wrapper around sync.Pool's Put method.
 func (p *arrayPool[T]) put(x []T) {
+	// The x[:0] is supposed to reset len(x) to zero but leave cap(x) and
+	// the underlying array space intact for reuse.
 	p.pool.Put(x[:0])
 }
