@@ -4,27 +4,30 @@ import "sync"
 
 // -----------------------------------------------------------------------------
 
-type bufferPool sync.Pool
+// A arrayPool is a generic wrapper around a sync.Pool.
+type arrayPool[T any] struct {
+	pool sync.Pool
+}
 
-func newBufferPool(size uint) *bufferPool {
-	return &bufferPool{
-		New: func() any {
-			return make([]byte, 0, size)
+// New creates a new arrayPool with the provided new function.
+//
+// The equivalent sync.Pool construct is "sync.Pool{New: fn}"
+func newArrayPool[T any](size uint) arrayPool[T] {
+	return arrayPool[T]{
+		pool: sync.Pool{
+			New: func() interface{} {
+				return make([]T, 0, size)
+			},
 		},
 	}
 }
 
-// GetBuffer acquires a new or recycled buffer via sync.Pool.
-func (p *bufferPool) GetBuffer() []byte {
-	return (*sync.Pool)(p).Get().([]byte)
+// Get is a generic wrapper around sync.Pool's Get method.
+func (p *arrayPool[T]) get() []T {
+	return p.pool.Get().([]T)
 }
 
-// PutBuffer returns a used buffer for reuse via sync.Pool.
-func (p *bufferPool) PutBuffer(b []byte) {
-	// Using b[:0] should set len=0 but leave capacity and underlying array intact.
-	// This should be what make([], 0, size) would generate, but reuses the buffer.
-	// The result should be a "clean up" and refresh of the buffer for reuse.
-	(*sync.Pool)(p).Put(b[:0])
+// Put is a generic wrapper around sync.Pool's Put method.
+func (p *arrayPool[T]) put(x []T) {
+	p.pool.Put(x[:0])
 }
-
-// -----------------------------------------------------------------------------

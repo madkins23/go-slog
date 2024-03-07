@@ -13,7 +13,7 @@ const lenLog = 1024
 const lenPrefix = 512
 const lenSuffix = 32
 
-var logPool = newBufferPool(lenLog)
+var logPool = newArrayPool[byte](lenLog)
 
 var _ slog.Handler = &Handler{}
 
@@ -47,9 +47,9 @@ func (h *Handler) Enabled(_ context.Context, level slog.Level) bool {
 }
 
 func (h *Handler) Handle(_ context.Context, record slog.Record) error {
-	buffer := logPool.GetBuffer()
+	buffer := logPool.get()
 	defer func() {
-		logPool.PutBuffer(buffer)
+		logPool.put(buffer)
 	}()
 
 	c := newComposer(buffer, false, h.options.ReplaceAttr, h.groups)
