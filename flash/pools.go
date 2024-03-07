@@ -4,14 +4,40 @@ import "sync"
 
 // -----------------------------------------------------------------------------
 
-// A arrayPool is a generic wrapper around a sync.Pool.
+type genPool[T any] struct {
+	pool sync.Pool
+}
+
+func newGenPool[T any]() genPool[T] {
+	return genPool[T]{
+		pool: sync.Pool{
+			New: func() interface{} {
+				return new(T)
+			},
+		},
+	}
+}
+
+// Get is a generic wrapper around sync.Pool's Get method.
+func (p *genPool[T]) get() *T {
+	return p.pool.Get().(*T)
+}
+
+// Put is a generic wrapper around sync.Pool's Put method.
+func (p *genPool[T]) put(x *T) {
+	p.pool.Put(x)
+}
+
+// -----------------------------------------------------------------------------
+
+// arrayPool is a generic wrapper around a sync.Pool.
 //
 // Inspired by https://github.com/mkmik/syncpool
 type arrayPool[T any] struct {
 	pool sync.Pool
 }
 
-// New creates a new arrayPool with the provided new function.
+// New creates a new arrayPool with the provided new Function.
 //
 // The equivalent sync.Pool construct is "sync.Pool{New: fn}"
 func newArrayPool[T any](size uint) arrayPool[T] {

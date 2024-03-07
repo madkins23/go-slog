@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"io"
 	"log/slog"
-	"runtime"
 	"sync"
 )
 
@@ -17,6 +16,7 @@ const lenSuffix = 32
 
 var logPool = newArrayPool[byte](lenLog)
 var basicPool = newArrayPool[slog.Attr](lenBasic)
+var sourcePool = newGenPool[source]()
 
 var _ slog.Handler = &Handler{}
 
@@ -70,14 +70,11 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 	basic = append(basic, slog.String(slog.LevelKey, record.Level.String()))
 	basic = append(basic, slog.String(slog.MessageKey, record.Message))
 	if h.options.AddSource && record.PC != 0 {
-		fs := runtime.CallersFrames([]uintptr{record.PC})
-		f, _ := fs.Next()
-		source := map[string]any{
-			"function": f.Function,
-			"file":     f.File,
-			"line":     f.Line,
-		}
-		basic = append(basic, slog.Any(slog.SourceKey, source))
+		src := newSource(record.PC)
+		basic = append(basic, slog.Any(slog.SourceKey, src))
+		defer func() {
+			sourcePool.put(src)
+		}()
 	}
 	if err := c.addAttributes(basic); err != nil {
 		return fmt.Errorf("add basic attributes: %w", err)
@@ -109,7 +106,7 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 	h.mutex.Lock()
 	defer h.mutex.Unlock()
 	if _, err := h.writer.Write(c.getBytes()); err != nil {
-		return fmt.Errorf("write log line: %w", err)
+		return fmt.Errorf("write log Line: %w", err)
 	}
 
 	return nil
