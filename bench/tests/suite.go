@@ -156,6 +156,9 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 					function(stdoutLogger)
 				}
 				// Get a logger, using the handler function if present.
+				// NOTE: the creation of the logger,
+				//       which may involve Handler.WithAttrs() and/or Handler.WithGroup(),
+				//       is NOT counted towards results.
 				logger := suite.logger(benchmark, &count)
 				// Now move on to the actual test.
 				b.ReportAllocs()

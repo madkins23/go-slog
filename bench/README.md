@@ -162,6 +162,12 @@ Handler authors may want to do this when making changes to the code.
 * Actual testing is done by calling through a `slog.Logger` object.
 * Documentation for functions in `_test.go` files in this directory
   is not included in [`pkg.go.dev`](https://pkg.go.dev/github.com/madkins23/go-slog/bench)
+* Benchmark tests only operate against the final call (e.g. `Info()`).
+  The initial creation of a `slog.Logger` object,
+  which may include the use of `Handler.WithAttrs()` and/or
+  `Handler.WithGroup()` calls is not measured
+  as it is generally an initialization step and (in theory) only called once,
+  whereas the logging calls are done many times.
 
 ### `TestMain`
 
