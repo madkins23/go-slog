@@ -36,8 +36,8 @@ func reuseComposer(comp *composer) {
 	composerPool.put(comp)
 }
 
-func (c *composer) setStarted(started bool) {
-	c.started = started
+func (c *composer) reset() {
+	c.started = false
 }
 
 func (c *composer) getBytes() []byte {
@@ -150,7 +150,7 @@ func (c *composer) addByteArray(b []byte) {
 func (c *composer) addGroup(attrs []slog.Attr) error {
 	var err error
 	c.buffer = append(c.buffer, '{')
-	c.setStarted(false)
+	c.reset() // Reset composer (started = false) to avoid comma.
 	if err = c.addAttributes(attrs); err != nil {
 		return fmt.Errorf("add attributes: %w", err)
 	}

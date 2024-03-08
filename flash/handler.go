@@ -14,9 +14,6 @@ const lenBasic = 4
 const lenPrefix = 512
 const lenSuffix = 32
 
-var logPool = newArrayPool[byte](lenLog)
-var basicPool = newArrayPool[slog.Attr](lenBasic)
-
 var _ slog.Handler = &Handler{}
 
 type Handler struct {
@@ -50,8 +47,10 @@ func (h *Handler) Enabled(_ context.Context, level slog.Level) bool {
 	return level >= h.options.Level.Level()
 }
 
+var logPool = newArrayPool[byte](lenLog)
+
 func (h *Handler) Handle(_ context.Context, record slog.Record) error {
-	// The x[:0] is supposed to reset len(x) to zero but leave cap(x) and
+	// The x[:0] should reset len(x) to zero but leave cap(x) and
 	// the underlying array space intact for reuse.
 	buffer := logPool.get()[:0]
 	defer func() { logPool.put(buffer) }()
@@ -60,28 +59,34 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 	defer reuseComposer(c)
 	c.addBytes('{')
 
-	basic := basicPool.get()[:0]
-	defer func() { basicPool.put(basic) }()
-
 	if !record.Time.IsZero() {
-		basic = append(basic, slog.Time(slog.TimeKey, record.Time))
+		if err := c.addAttribute(slog.Time(slog.TimeKey, record.Time)); err != nil {
+			return fmt.Errorf("add time: %w", err)
+		}
 	}
-	basic = append(basic, slog.String(slog.LevelKey, record.Level.String()))
-	basic = append(basic, slog.String(slog.MessageKey, record.Message))
+	if err := c.addAttribute(slog.String(slog.LevelKey, record.Level.String())); err != nil {
+		return fmt.Errorf("add level: %w", err)
+	}
+	if err := c.addAttribute(slog.String(slog.MessageKey, record.Message)); err != nil {
+		return fmt.Errorf("add message: %w", err)
+	}
 	if h.options.AddSource && record.PC != 0 {
-		src := newSource(record.PC)
-		defer reuseSource(src)
-		basic = append(basic, slog.Any(slog.SourceKey, src))
-	}
-	if err := c.addAttributes(basic); err != nil {
-		return fmt.Errorf("add basic attributes: %w", err)
+		// TODO: Is one of these better than the other?
+		var src source
+		loadSource(record.PC, &src)
+		//src := newSource(record.PC)
+		//reuseSource(src)
+		if err := c.addAttribute(slog.Any(slog.SourceKey, &src)); err != nil {
+			return fmt.Errorf("add source: %w", err)
+		}
 	}
 
 	if len(h.prefix) > 0 {
 		c.addBytes(',', ' ')
 		c.addByteArray(h.prefix)
 		if bytes.HasSuffix(h.prefix, []byte{'{'}) {
-			c.setStarted(false)
+			// Inside a group, reset composer (started = false) to avoid comma.
+			c.reset()
 		}
 	}
 
