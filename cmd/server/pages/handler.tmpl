@@ -25,7 +25,7 @@
                   <th>Ns/Op</th>
                   <th>Allocs/Op</th>
                   <th>Bytes/Op</th>
-                  <th>GB/Sec</th>
+                  <th>MB/Sec</th>
                 </tr>
                 {{ range $tag, $record := .Benchmarks.TestRecords .Handler }}
                   <tr>
@@ -34,7 +34,7 @@
                     <td class="number">{{ $.FixFloat $record.NanosPerOp }}</td>
                       <td class="number">{{ $.FixUint $record.MemAllocsPerOp }}</td>
                      <td class="number">{{ $.FixUint $record.MemBytesPerOp }}</td>
-                    <td class="number">{{ $.FixFloat $record.GbPerSec }}</td>
+                    <td class="number">{{ $.FixFloat $record.MbPerSec }}</td>
                   </tr>
                 {{ end }}
               </table>

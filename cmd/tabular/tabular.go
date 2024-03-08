@@ -64,7 +64,7 @@ func main() {
 		fmt.Println(tableMgr.BorderString(table.Top))
 		fmt.Printf(tableMgr.HeaderFormat(), "Handler",
 			data.Runs.ShortName(), data.Nanos.ShortName(),
-			data.MemAllocs.ShortName(), data.MemBytes.ShortName(), data.GbPerSec.ShortName())
+			data.MemAllocs.ShortName(), data.MemBytes.ShortName(), data.MbPerSec.ShortName())
 		fmt.Println(tableMgr.SeparatorString(1))
 		handlerRecords := bench.HandlerRecords(test)
 		for _, handler := range bench.HandlerTags() {
@@ -73,7 +73,7 @@ func main() {
 				_, err := language.Printer().Printf(tableMgr.RowFormat(),
 					bench.HandlerName(handler), handlerRecord.Runs, handlerRecord.NanosPerOp,
 					handlerRecord.MemAllocsPerOp, handlerRecord.MemBytesPerOp,
-					handlerRecord.GbPerSec)
+					handlerRecord.MbPerSec)
 				if err != nil {
 					slog.Error("Unable to print data row", "err", err)
 				}
@@ -133,9 +133,9 @@ func tableDefs() table.TableDef {
 				Width:  11,
 				Format: "%11d",
 			},
-			{ // GB/Sec
-				Width:  15,
-				Format: "%15.2f",
+			{ // MB/Sec
+				Width:  11,
+				Format: "%11.2f",
 			},
 		},
 		Prefix:      "  ",
