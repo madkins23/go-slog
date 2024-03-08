@@ -71,11 +71,13 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 		return fmt.Errorf("add message: %w", err)
 	}
 	if h.options.AddSource && record.PC != 0 {
-		// TODO: Is one of these better than the other?
 		var src source
 		loadSource(record.PC, &src)
-		//src := newSource(record.PC)
-		//reuseSource(src)
+		// TODO: Seems to run slight slower?
+		//       See BenchmarkLoadSource() and BenchmarkNewSource() in speed_test.go.
+		//
+		// src := newSource(record.PC)
+		// reuseSource(src)
 		if err := c.addAttribute(slog.Any(slog.SourceKey, &src)); err != nil {
 			return fmt.Errorf("add source: %w", err)
 		}

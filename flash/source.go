@@ -2,8 +2,6 @@ package flash
 
 import "runtime"
 
-var sourcePool = newGenPool[source]()
-
 type source struct {
 	Function string `json:"function"`
 	File     string `json:"file"`
@@ -19,6 +17,9 @@ func loadSource(pc uintptr, src *source) {
 }
 
 // TODO: are newSource() and reuseSource() in use?
+//       See BenchmarkLoadSource() and BenchmarkNewSource() in speed_test.go.
+
+var sourcePool = newGenPool[source]()
 
 func newSource(pc uintptr) *source {
 	fs := runtime.CallersFrames([]uintptr{pc})
