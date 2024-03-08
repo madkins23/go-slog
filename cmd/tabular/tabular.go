@@ -133,7 +133,7 @@ func tableDefs() table.TableDef {
 				Width:  11,
 				Format: "%11d",
 			},
-			{ // MB/Sec
+			{ // MB/Op
 				Width:  11,
 				Format: "%11.2f",
 			},
