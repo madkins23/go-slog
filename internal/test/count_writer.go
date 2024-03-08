@@ -11,24 +11,15 @@ var _ io.Writer = &CountWriter{}
 // counts `Write` calls and the number of bytes that would have been written.
 // This is used during benchmarking.
 type CountWriter struct {
-	bytes atomic.Uint64
 	count atomic.Uint64
 }
 
 // Write supplies the required io.Writer interface method.
 func (cw *CountWriter) Write(p []byte) (n int, err error) {
-	if len(p) > 0 {
-		cw.bytes.Add(uint64(len(p)))
-		if p[len(p)-1] == '\n' {
-			cw.count.Add(1)
-		}
+	if len(p) > 0 && p[len(p)-1] == '\n' {
+		cw.count.Add(1)
 	}
 	return len(p), nil
-}
-
-// Bytes returns the number of bytes that the `CountWriter` ignored.
-func (cw *CountWriter) Bytes() uint64 {
-	return cw.bytes.Load()
 }
 
 // Written returns the number of `Write` calls that the `CountWriter` ignored.

@@ -124,13 +124,16 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				continue
 			}
 
+			var buffer bytes.Buffer
+			// Get a logger, using the handler function if present.
+			logger := suite.logger(benchmark, &buffer)
+			// Run a single test using that logger.
+			benchmark.BenchmarkFn(logger)
+			// Track the size of the output line.
+			bytesPerOp := int64(buffer.Len())
+
 			// If the `Benchmark` has a verify function to test the log output:
 			if benchmark.VerifyFn != nil {
-				var buffer bytes.Buffer
-				// Get a logger, using the handler function if present.
-				logger := suite.logger(benchmark, &buffer)
-				// Run a single test using that logger.
-				benchmark.BenchmarkFn(logger)
 				// Verify the output with the function.
 				if err := benchmark.VerifyFn(buffer.Bytes(), nil, suite.Manager); err != nil {
 					slog.Warn("Verification Error", "err", err)
@@ -147,17 +150,17 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 			b.Run(method.Name, func(b *testing.B) {
 				var count test.CountWriter
 				function := benchmark.BenchmarkFn
-				// TODO: I believe this is to capture warnings from a single run.
+				// Capture warnings from a single run.
 				if test.DebugLevel() > 0 {
 					// Print the log record to STDOUT.
 					function(stdoutLogger)
 				}
-				b.ReportAllocs()
-				// Now move on to the actual test.
-				// TODO: This doesn't seem to make any difference?
-				b.ResetTimer()
 				// Get a logger, using the handler function if present.
 				logger := suite.logger(benchmark, &count)
+				// Now move on to the actual test.
+				b.ReportAllocs()
+				b.SetBytes(bytesPerOp)
+				b.ResetTimer()
 				// The Go test harness is used to run the `Benchmark` test function
 				// in parallel in ever-larger batches until enough testing has been done.
 				// The test harness emits a line of data with results of the test.
@@ -167,7 +170,6 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 					}
 				})
 				b.StopTimer()
-				b.SetBytes(int64(count.Bytes()))
 				if !benchmark.DontCount && b.N != int(count.Written()) {
 					b.Fatalf("Mismatch in log write count. Expected: %d, Actual: %d",
 						b.N, count.Written())
