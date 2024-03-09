@@ -22,7 +22,7 @@ for more detailed documentation.
 * Static copies of server pages provided via [GitHub Pages](https://pages.github.com/).
 * [Functions for use with `slog.HandlerOptions.ReplaceAttr`](#replace-attributes-functions)
 * [Utility to redirect internal `gin` logging to `slog`](#gin-integration)
-* Demo Handler
+* Demo Handlers
 * Test handler [`trace.Handler`](#trace-handler)
 
 ## Handler Benchmarks
@@ -115,12 +115,19 @@ Package `gin` contains utilities for using `slog` with
 [`gin-gonic/gin`](https://github.com/gin-gonic/gin).
 In particular, this package provides `gin.Writer` which can be used to redirect Gin-internal logging.
 
-## Demo Handler
+## Demo Handlers
 
 The `sloggy` package defines a feature-complete `slog.Handler` implementation.
 This can be used as is, though it is admittedly slower than `slog.JSONHandler`
 (the other feature-complete implementation).
 It might be useful as a starting point for other, better implementations.
+
+The `flash` package is a copy of `sloggy` with subsequent performance-enhancing edits.
+It is just as feature-compliant and much faster, now in the group of "fastest" handlers
+(`slog/JSONHandler`, `phsym/zeroslog`, and `chanchal/zaphandler`,
+though only the first of these is feature-complete).
+At this point `flash` may be as usable as `slog.JSONHandler`,
+though the latter may be a smarter choice.
 
 ## Trace Handler
 
