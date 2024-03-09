@@ -7,13 +7,13 @@ import (
 	"fmt"
 	"log/slog"
 	"math"
-	"net"
 	"testing"
 	"time"
 
 	"github.com/stretchr/testify/suite"
 
 	"github.com/madkins23/go-slog/infra"
+	"github.com/madkins23/go-slog/sloggy/test"
 )
 
 const (
@@ -94,62 +94,16 @@ func (suite *HandlerTestSuite) TestBasicAttributes() {
 }
 
 func (suite *HandlerTestSuite) TestAttributes() {
-	anything := []any{"alpha", "omega"}
 	hdlr := suite.newHandler(nil)
-	now := time.Now()
-	ip := net.IPv4(123, 231, 213, 23)
-	mac, err := net.ParseMAC("00:00:5e:00:53:01")
-	suite.Require().NoError(err)
 	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)
-	record.AddAttrs(
-		slog.Time("when", now),
-		slog.Duration("howLong", time.Minute),
-		slog.String("Goober", "Snoofus"),
-		slog.Bool("boolean", true),
-		slog.Float64("pi", math.Pi),
-		slog.Int("skidoo", 23),
-		slog.Int64("minus", -64),
-		slog.Uint64("unsigned", 79),
-		slog.Any("any", anything),
-		slog.Any("ip", ip),
-		slog.Any("ipNet", &net.IPNet{IP: ip, Mask: []byte{123}}),
-		slog.Any("macAddr", mac),
-		slog.Group("group",
-			slog.String("name", "Beatles"),
-			infra.EmptyAttr(),
-			slog.Float64("pi", math.Pi),
-			infra.EmptyAttr(),
-			slog.Group("subGroup",
-				infra.EmptyAttr(),
-				slog.String("name", "Rolling Stones"),
-				infra.EmptyAttr())))
+	record.AddAttrs(test.Attributes...)
 	suite.Assert().NoError(hdlr.Handle(context.Background(), record))
 	logMap := suite.logMap()
 	// Basic fields tested in Test_Enabled.
-	suite.Assert().Len(logMap, 16)
-	suite.Assert().Equal(now.Format(time.RFC3339Nano), logMap["when"])
-	suite.Assert().Equal(float64(time.Minute.Nanoseconds()), logMap["howLong"])
-	suite.Assert().Equal("Snoofus", logMap["Goober"])
-	suite.Assert().Equal(true, logMap["boolean"])
-	suite.Assert().Equal(math.Pi, logMap["pi"])
-	suite.Assert().Equal(float64(23), logMap["skidoo"])
-	suite.Assert().Equal(float64(-64), logMap["minus"])
-	suite.Assert().Equal(float64(79), logMap["unsigned"])
-	suite.Assert().Equal(anything, logMap["any"])
-	grp, found := logMap["group"]
-	suite.Assert().True(found)
-	group, ok := grp.(map[string]any)
-	suite.Assert().True(ok)
-	suite.Assert().Len(group, 3)
-	suite.Assert().Equal("Beatles", group["name"])
-	suite.Assert().Equal(math.Pi, group["pi"])
-	sub, found := group["subGroup"]
-	suite.Assert().True(found)
-	subGroup, ok := sub.(map[string]any)
-	suite.Assert().True(ok)
-	suite.Assert().True(ok)
-	suite.Assert().Len(subGroup, 1)
-	suite.Assert().Equal("Rolling Stones", subGroup["name"])
+	delete(logMap, slog.TimeKey)
+	delete(logMap, slog.LevelKey)
+	delete(logMap, slog.MessageKey)
+	suite.Assert().Equal(test.AttributeMap, logMap)
 }
 
 func (suite *HandlerTestSuite) TestWithAttrs() {
