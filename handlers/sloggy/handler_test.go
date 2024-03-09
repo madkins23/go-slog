@@ -12,8 +12,8 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
+	"github.com/madkins23/go-slog/handlers/sloggy/test"
 	"github.com/madkins23/go-slog/infra"
-	"github.com/madkins23/go-slog/sloggy/test"
 )
 
 const (

@@ -117,10 +117,16 @@ In particular, this package provides `gin.Writer` which can be used to redirect 
 
 ## Demo Handlers
 
+Several `slog` handlers are available.
+
+### `sloggy` Handler
+
 The `sloggy` package defines a feature-complete `slog.Handler` implementation.
 This can be used as is, though it is admittedly slower than `slog.JSONHandler`
 (the other feature-complete implementation).
 It might be useful as a starting point for other, better implementations.
+
+### `flash` Handler
 
 The `flash` package is a copy of `sloggy` with subsequent performance-enhancing edits.
 It is just as feature-compliant and much faster, now in the group of "fastest" handlers
@@ -129,7 +135,7 @@ though only the first of these is feature-complete).
 At this point `flash` may be as usable as `slog.JSONHandler`,
 though the latter may be a smarter choice.
 
-## Trace Handler
+### `trace` Handler
 
 The "trace" handler `trace.Handler` doesn't log anything,
 it just prints out the `slog.Handler` interface calls it receives.

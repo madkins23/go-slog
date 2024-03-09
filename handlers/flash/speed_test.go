@@ -6,8 +6,8 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/madkins23/go-slog/sloggy"
-	"github.com/madkins23/go-slog/sloggy/test"
+	"github.com/madkins23/go-slog/handlers/sloggy"
+	"github.com/madkins23/go-slog/handlers/sloggy/test"
 )
 
 // -----------------------------------------------------------------------------

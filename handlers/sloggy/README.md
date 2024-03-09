@@ -17,7 +17,7 @@ A user could switch between the two handlers and be reasonably confident that
 the log output would be the same.
 
 Nor is it terribly slow, but it isn't in the top ranks in terms of performance.
-Given that, `slog.JSONHandler` is the better choice. :cry:
+Given that, `slog.JSONHandler` is the better choice. :frowning_face:
 
 ## Example
 

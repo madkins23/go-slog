@@ -1,19 +1,20 @@
 #!/bin/bash
 # Runs benchmark tests in the flash directory.
 
-if [ "$1" -eq "" ]; then
+if [ "$1" == "" ]; then
   echo "usage: flash-bench <test>"
   echo "       <test> is root name of tests, not including initial 'Benchmark'"
   echo "              for example:  flash-bench Memory"
+  exit
 fi
 
 clear
 echo 1 second
-go test -bench=Benchmark$1 -benchtime=1s flash/*.go
+go test -bench=Benchmark$1 -benchtime=1s handlers/flash/*.go
 echo 5 seconds
-go test -bench=Benchmark$1 -benchtime=5s flash/*.go
+go test -bench=Benchmark$1 -benchtime=5s handlers/flash/*.go
 echo 15 seconds
-go test -bench=Benchmark$1 -benchtime=15s flash/*.go
+go test -bench=Benchmark$1 -benchtime=15s handlers/flash/*.go
 echo 60 seconds
-go test -bench=Benchmark$1 -benchtime=60s flash/*.go
+go test -bench=Benchmark$1 -benchtime=60s handlers/flash/*.go
 echo done

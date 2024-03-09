@@ -4,8 +4,8 @@ import (
 	"io"
 	"log/slog"
 
+	"github.com/madkins23/go-slog/handlers/sloggy"
 	"github.com/madkins23/go-slog/infra"
-	"github.com/madkins23/go-slog/sloggy"
 )
 
 // Creator returns a Creator object for the [madkins/sloggy] handler.

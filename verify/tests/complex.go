@@ -9,10 +9,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/madkins23/go-slog/handlers/trace"
 	"github.com/madkins23/go-slog/infra"
 	intTest "github.com/madkins23/go-slog/internal/test"
 	"github.com/madkins23/go-slog/internal/warning"
-	"github.com/madkins23/go-slog/trace"
 )
 
 // Test algorithms represented as strings.

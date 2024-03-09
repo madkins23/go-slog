@@ -4,7 +4,7 @@ import (
 	"io"
 	"log/slog"
 
-	"github.com/madkins23/go-slog/flash"
+	"github.com/madkins23/go-slog/handlers/flash"
 	"github.com/madkins23/go-slog/infra"
 )
 
