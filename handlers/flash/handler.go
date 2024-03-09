@@ -17,16 +17,19 @@ const lenSuffix = 32
 var _ slog.Handler = &Handler{}
 
 type Handler struct {
-	options        *slog.HandlerOptions
+	options        *Options
 	writer         io.Writer
 	mutex          *sync.Mutex
 	prefix, suffix []byte
 	groups         []string
 }
 
-func NewHandler(writer io.Writer, options *slog.HandlerOptions) *Handler {
+func NewHandler(writer io.Writer, options *Options) *Handler {
 	if options == nil {
-		options = &slog.HandlerOptions{}
+		options = &Options{}
+	}
+	if options.HandlerOptions == nil {
+		options.HandlerOptions = &slog.HandlerOptions{}
 	}
 	if options.Level == nil {
 		options.Level = slog.LevelInfo

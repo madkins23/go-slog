@@ -18,6 +18,7 @@ logger.Info("hello", "count", 3)
 A series of edits were made to `sloggy` to turn it into `flash`.
 Some care has been taken to document these edits as they may be
 representative of more general performance-enhancing principles in some cases.
+Compare the `sloggy` code tree with the `flash` code tree to view the actual changes.
 
 ### Remove `bytes.Buffer` Usage
 

@@ -1,10 +1,7 @@
 TODO
 
-* Benchmark attribute resolution:
-  - skip resolution entirely if not specific class
-  - let current method work
-  - was there a third one?
-
+* Expand flash.Handler options
+* Pools in zap handler may have inspired me
 * Check for package compilation
   - Utility to process entries from Go package-linkage whatever
     in order to create usable tree view.

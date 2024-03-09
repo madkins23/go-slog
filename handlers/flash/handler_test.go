@@ -59,7 +59,7 @@ func (suite *HandlerTestSuite) logMap() map[string]any {
 }
 
 func (suite *HandlerTestSuite) newHandler(options *slog.HandlerOptions) *Handler {
-	hdlr := NewHandler(suite.Buffer, options)
+	hdlr := NewHandler(suite.Buffer, MakeOptions(options))
 	suite.Require().NotNil(hdlr)
 	return hdlr
 }
