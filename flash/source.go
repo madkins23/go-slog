@@ -16,8 +16,8 @@ func loadSource(pc uintptr, src *source) {
 	src.Line = f.Line
 }
 
-// TODO: are newSource() and reuseSource() in use?
-//       See BenchmarkLoadSource() and BenchmarkNewSource() in speed_test.go.
+// TODO: Not currently in use and may be removed later.
+//       See BenchmarkSourceLoad and BenchmarkSourceNewReuse in speed_test.go.
 
 var sourcePool = newGenPool[source]()
 

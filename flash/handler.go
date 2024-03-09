@@ -59,6 +59,10 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 	defer reuseComposer(c)
 	c.addBytes('{')
 
+	// Adding attributes to the composer one at a time instead of
+	// adding them to an array of attributes and
+	// adding the list to the composer all at once.
+	// See BenchmarkBasicManual and BenchmarkBasicMultiple in speed_test.go.
 	if !record.Time.IsZero() {
 		if err := c.addAttribute(slog.Time(slog.TimeKey, record.Time)); err != nil {
 			return fmt.Errorf("add time: %w", err)
@@ -71,13 +75,10 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 		return fmt.Errorf("add message: %w", err)
 	}
 	if h.options.AddSource && record.PC != 0 {
+		// Using local variable and loadSource instead of newSource and reuseSource.
+		// See BenchmarkSourceLoad and BenchmarkSourceNewReuse in speed_test.go.
 		var src source
 		loadSource(record.PC, &src)
-		// TODO: Seems to run slight slower?
-		//       See BenchmarkLoadSource() and BenchmarkNewSource() in speed_test.go.
-		//
-		// src := newSource(record.PC)
-		// reuseSource(src)
 		if err := c.addAttribute(slog.Any(slog.SourceKey, &src)); err != nil {
 			return fmt.Errorf("add source: %w", err)
 		}
