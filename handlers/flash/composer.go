@@ -47,7 +47,9 @@ func (c *composer) getBytes() []byte {
 // -----------------------------------------------------------------------------
 
 func (c *composer) addAttribute(attr slog.Attr) error {
-	attr.Value = attr.Value.Resolve()
+	if attr.Value.Kind() == slog.KindLogValuer {
+		attr.Value = attr.Value.Resolve()
+	}
 	if c.replace != nil {
 		attr = c.replace(c.groups, attr)
 	}

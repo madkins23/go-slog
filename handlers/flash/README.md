@@ -154,10 +154,49 @@ Manual evaluation of this test over different time periods suggests:
 * no change in bytes allocated
 * no change in the number of allocations
 
+### Call Before Visiting
+
+A very small change was to check before invoking `slog.Value.Resolve`:
+```go
+if attr.Value.Kind() == slog.KindLogValuer {
+    attr.Value.Resolve()
+}
+```
+
+The theory was that a quick check would rule out a method call over a lot of attributes.
+An assumption was made that such a quick check was possible but that is debatable.
+The call to `slog.Value.Kind` is going to do essentially
+the same check that `slog.Value.Resolve` will do right away,
+and immediately return the same value if it not a `LogValuer`.
+So this edit is basically only avoiding the method call and return overhead.
+
+[Benchmark tests](#benchmark-tests) have been added to compare the performance of the two approaches.
+The command to run these tests is:
+```
+scripts/flash-bench Resolve
+```
+Manual evaluation of this test over different time periods suggests:
+
+* ~72% decrease in execution time
+* no change in bytes allocated
+* no change in the number of allocations
+
+Caveats:
+
+* Due to the tiny amount of code involved this is likely `72%` of almost nothing.
+* This applies to cases where the attribute is not a `LogValuer`,
+  for any `LogValuer` attribute it actually _adds_ time for the additional conditional.
+  In all likelihood `LogValuer` attributes will be relatively rare and even when used
+  only apply to a small percentage of all attributes, reducing this overhead.
+
 ### Benchmark Tests
 
 The benchmark tests mentioned above have nothing to do with the `bench` package.
 They were created specifically to verify performance edits.
+
+**Note** that each test is focused on a specific part of the handler code.
+That part of the code may not be executed very much,
+so a great result for an individual performance edit may not mean much overall.
 
 Test names are of the form `Benchmark<group><specific>` where `<group>`
 specifies the related tests (different approaches to be compared) and
@@ -170,7 +209,9 @@ To run a group of tests:
 go test -bench=Benchmark<group> -benchtime=<duration> flash/*.go
 ```
 (where the `<duration>` any string that
-[`time.ParseDuration`](https://pkg.go.dev/time#ParseDuration) can handle) or:
+[`time.ParseDuration`](https://pkg.go.dev/time#ParseDuration) can handle).
+
+If you can run a `bash` shell script you can use:
 ```
 scripts/flash-bench <group>
 ```

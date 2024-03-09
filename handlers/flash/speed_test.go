@@ -51,8 +51,10 @@ func BenchmarkComposeBuffer(b *testing.B) {
 
 var memTestLen uint = 1024
 
+// BenchmarkMemoryAllocation allocates memory and leaves it to the garbage collector.
 func BenchmarkMemoryAllocation(b *testing.B) {
 	b.ReportAllocs()
+	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			x := make([]byte, 0, memTestLen)
@@ -62,9 +64,11 @@ func BenchmarkMemoryAllocation(b *testing.B) {
 	})
 }
 
+// BenchmarkMemoryPools acquires memory from a pool and returns it for reuse.
 func BenchmarkMemoryPools(b *testing.B) {
 	var logPool = newArrayPool[byte](memTestLen)
 	b.ReportAllocs()
+	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			x := logPool.get()
@@ -82,6 +86,7 @@ func BenchmarkMemoryPools(b *testing.B) {
 // BenchmarkBasicManual adds attributes to the composer one at a time using addAttribute.
 func BenchmarkBasicManual(b *testing.B) {
 	b.ReportAllocs()
+	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			c := newComposer([]byte{}, false, nil, nil)
@@ -105,6 +110,7 @@ var basicPool = newArrayPool[slog.Attr](lenBasic)
 // addAttributes to send them to the composer all at once.
 func BenchmarkBasicMultiple(b *testing.B) {
 	b.ReportAllocs()
+	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			basic := basicPool.get()[:0]
@@ -128,6 +134,7 @@ func BenchmarkBasicMultiple(b *testing.B) {
 func BenchmarkSourceLoad(b *testing.B) {
 	pc, _, _, _ := runtime.Caller(0)
 	b.ReportAllocs()
+	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			var src source
@@ -141,10 +148,42 @@ func BenchmarkSourceLoad(b *testing.B) {
 func BenchmarkSourceNewReuse(b *testing.B) {
 	pc, _, _, _ := runtime.Caller(0)
 	b.ReportAllocs()
+	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			var src = newSource(pc)
 			reuseSource(src)
+		}
+	})
+}
+
+// -----------------------------------------------------------------------------
+// Compare using a cut-out before calling for attribute resolution.
+
+// BenchmarkResolveAlways always calls slog.Attr.Value.Resolve.
+func BenchmarkResolveAlways(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			for _, attr := range test.Attributes {
+				attr.Value.Resolve()
+			}
+		}
+	})
+}
+
+// BenchmarkResolveConditional only calls attr.Value.Resolve if attr is a LogValuer.
+func BenchmarkResolveConditional(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			for _, attr := range test.Attributes {
+				if attr.Value.Kind() == slog.KindLogValuer {
+					attr.Value.Resolve()
+				}
+			}
 		}
 	})
 }

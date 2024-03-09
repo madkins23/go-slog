@@ -1,5 +1,10 @@
 TODO
 
+* Benchmark attribute resolution:
+  - skip resolution entirely if not specific class
+  - let current method work
+  - was there a third one?
+
 * Check for package compilation
   - Utility to process entries from Go package-linkage whatever
     in order to create usable tree view.
