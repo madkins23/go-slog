@@ -60,7 +60,7 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 		}
 		basic = append(basic, slog.Any(slog.SourceKey, source))
 	}
-	if err := c.addAttributes(basic, h.groups); err != nil {
+	if err := c.addAttributes(basic); err != nil {
 		return fmt.Errorf("add basic attributes: %w", err)
 	}
 
@@ -78,7 +78,7 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 
 	var err error
 	record.Attrs(func(attr slog.Attr) bool {
-		if err = c.addAttribute(attr, h.groups); err != nil {
+		if err = c.addAttribute(attr); err != nil {
 			return false
 		}
 		return true // keep going
@@ -120,7 +120,7 @@ func (h *Handler) WithAttrs(attrs []slog.Attr) slog.Handler {
 		hdlr.suffix.Write(h.suffix.Bytes())
 	}
 	c := newComposer(&hdlr.prefix, prefixStarted, h.options.ReplaceAttr, h.groups)
-	if err := c.addAttributes(attrs, h.groups); err != nil {
+	if err := c.addAttributes(attrs); err != nil {
 		slog.Error("adding with attributes", "err", err)
 	}
 

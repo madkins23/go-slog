@@ -22,7 +22,7 @@ Given that, `slog.JSONHandler` is the better choice. :cry:
 ## Example
 
 ```go
-logger := slog.New(flash.NewHandler(os.Stdout, nil))
+logger := slog.New(sloggy.NewHandler(os.Stdout, nil))
 logger.Info("hello", "count", 3)
 ```
 

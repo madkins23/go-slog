@@ -1,6 +1,7 @@
 package sloggy
 
 import (
+	"bytes"
 	"encoding"
 	"encoding/json"
 	"fmt"
@@ -57,7 +58,7 @@ func (c *composer) begin() error {
 	return nil
 }
 
-func (c *composer) addAttribute(attr slog.Attr, groups []string) error {
+func (c *composer) addAttribute(attr slog.Attr) error {
 	if attr.Equal(infra.EmptyAttr()) {
 		return nil
 	}
@@ -74,7 +75,7 @@ func (c *composer) addAttribute(attr slog.Attr, groups []string) error {
 			return nil
 		}
 		if attr.Key == "" {
-			if err := c.addAttributes(value.Group(), c.groups); err != nil {
+			if err := c.addAttributes(value.Group()); err != nil {
 				return fmt.Errorf("inline group attributes: %w", err)
 			}
 			return nil
@@ -115,9 +116,9 @@ func (c *composer) addAttribute(attr slog.Attr, groups []string) error {
 	}
 }
 
-func (c *composer) addAttributes(attrs []slog.Attr, groups []string) error {
+func (c *composer) addAttributes(attrs []slog.Attr) error {
 	for _, attr := range attrs {
-		if err := c.addAttribute(attr, c.groups); err != nil {
+		if err := c.addAttribute(attr); err != nil {
 			return fmt.Errorf("add attribute '%s': %w", attr.String(), err)
 		}
 	}
@@ -199,7 +200,7 @@ func (c *composer) addGroup(name string, attrs []slog.Attr) error {
 	}
 	// Local composer object resets started flag
 	cg := newComposer(c.Writer, false, c.replace, c.groups)
-	if err := cg.addAttributes(attrs, append(c.groups, name)); err != nil {
+	if err := cg.addAttributes(attrs); err != nil {
 		return fmt.Errorf("add attributes: %w", err)
 	}
 	if err := c.end(); err != nil {
@@ -262,7 +263,7 @@ func (c *composer) addStringAsBytes(str []byte) error {
 }
 
 func (c *composer) addStringer(s fmt.Stringer) error {
-	if err := c.addString(s.String()); err == nil {
+	if err := c.addString(s.String()); err != nil {
 		return fmt.Errorf("stringer '%v': %w", s, err)
 	}
 	return nil
@@ -307,4 +308,16 @@ func emptyGroup(attrs []slog.Attr) bool {
 		}
 	}
 	return true
+}
+
+// -----------------------------------------------------------------------------
+
+// ComposeAttributes is a public function provided to support benchmark testing
+// in the flash package. It is not intended for any other use.
+func ComposeAttributes(buffer *bytes.Buffer, attrs []slog.Attr) error {
+	c := newComposer(buffer, false, nil, nil)
+	if err := c.addAttributes(attrs); err != nil {
+		return fmt.Errorf("add attributes: %w", err)
+	}
+	return nil
 }
