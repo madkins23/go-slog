@@ -7,6 +7,7 @@ import (
 	"io"
 	"log/slog"
 	"runtime"
+	"sync"
 )
 
 var _ slog.Handler = &Handler{}
@@ -14,6 +15,7 @@ var _ slog.Handler = &Handler{}
 type Handler struct {
 	options        *slog.HandlerOptions
 	writer         io.Writer
+	mutex          *sync.Mutex
 	prefix, suffix bytes.Buffer
 	groups         []string
 }
@@ -28,6 +30,7 @@ func NewHandler(writer io.Writer, options *slog.HandlerOptions) *Handler {
 	hdlr := &Handler{
 		options: options,
 		writer:  writer,
+		mutex:   &sync.Mutex{},
 	}
 	return hdlr
 }
@@ -95,6 +98,9 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 		return fmt.Errorf("end: %w", err)
 	}
 
+	h.mutex.Lock()
+	defer h.mutex.Unlock()
+
 	if _, err := c.Write(newLine); err != nil {
 		return fmt.Errorf("newLine: %w", err)
 	}
@@ -106,6 +112,7 @@ func (h *Handler) WithAttrs(attrs []slog.Attr) slog.Handler {
 	hdlr := &Handler{
 		options: h.options,
 		writer:  h.writer,
+		mutex:   h.mutex,
 		prefix:  bytes.Buffer{},
 		suffix:  bytes.Buffer{},
 	}
@@ -136,6 +143,7 @@ func (h *Handler) WithGroup(name string) slog.Handler {
 		Handler: &Handler{
 			options: h.options,
 			writer:  h.writer,
+			mutex:   h.mutex,
 			prefix:  bytes.Buffer{},
 			suffix:  bytes.Buffer{},
 			groups:  append(h.groups, name),
