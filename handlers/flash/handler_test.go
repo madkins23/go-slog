@@ -58,8 +58,8 @@ func (suite *HandlerTestSuite) logMap() map[string]any {
 	return results
 }
 
-func (suite *HandlerTestSuite) newHandler(options *slog.HandlerOptions) *Handler {
-	hdlr := NewHandler(suite.Buffer, MakeOptions(options))
+func (suite *HandlerTestSuite) newHandler(options *slog.HandlerOptions, extras *Extras) *Handler {
+	hdlr := NewHandler(suite.Buffer, options, extras)
 	suite.Require().NotNil(hdlr)
 	return hdlr
 }
@@ -68,7 +68,7 @@ func (suite *HandlerTestSuite) newHandler(options *slog.HandlerOptions) *Handler
 
 func (suite *HandlerTestSuite) TestEnabled() {
 	ctx := context.Background()
-	hdlr := suite.newHandler(nil)
+	hdlr := suite.newHandler(nil, nil)
 	suite.Assert().False(hdlr.Enabled(ctx, slog.LevelDebug-1))
 	suite.Assert().False(hdlr.Enabled(ctx, slog.LevelDebug))
 	suite.Assert().False(hdlr.Enabled(ctx, slog.LevelDebug+1))
@@ -84,7 +84,7 @@ func (suite *HandlerTestSuite) TestEnabled() {
 }
 
 func (suite *HandlerTestSuite) TestBasicAttributes() {
-	hdlr := suite.newHandler(nil)
+	hdlr := suite.newHandler(nil, nil)
 	suite.Assert().NoError(hdlr.Handle(context.Background(),
 		slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)))
 	logMap := suite.logMap()
@@ -94,7 +94,7 @@ func (suite *HandlerTestSuite) TestBasicAttributes() {
 }
 
 func (suite *HandlerTestSuite) TestAttributes() {
-	hdlr := suite.newHandler(nil)
+	hdlr := suite.newHandler(nil, nil)
 	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)
 	record.AddAttrs(test.Attributes...)
 	suite.Assert().NoError(hdlr.Handle(context.Background(), record))
@@ -107,7 +107,7 @@ func (suite *HandlerTestSuite) TestAttributes() {
 }
 
 func (suite *HandlerTestSuite) TestWithAttrs() {
-	hdlr := suite.newHandler(nil).
+	hdlr := suite.newHandler(nil, nil).
 		WithAttrs([]slog.Attr{
 			slog.String("make", "Ford"),
 			infra.EmptyAttr(),
@@ -136,7 +136,7 @@ func (suite *HandlerTestSuite) TestWithAttrs() {
 }
 
 func (suite *HandlerTestSuite) TestWithGroup() {
-	hdlr := suite.newHandler(nil).WithGroup("group")
+	hdlr := suite.newHandler(nil, nil).WithGroup("group")
 	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)
 	record.AddAttrs(
 		infra.EmptyAttr(),
@@ -176,7 +176,7 @@ func (suite *HandlerTestSuite) TestWithGroup() {
 }
 
 func (suite *HandlerTestSuite) TestWithGroupAttr() {
-	hdlr := suite.newHandler(nil).
+	hdlr := suite.newHandler(nil, nil).
 		WithAttrs([]slog.Attr{slog.String("first", "one")}).
 		WithGroup("group").
 		WithAttrs([]slog.Attr{slog.Int("second", 2), slog.String("third", "3")}).
@@ -207,7 +207,7 @@ func (suite *HandlerTestSuite) TestWithGroupAttr() {
 }
 
 func (suite *HandlerTestSuite) TestWithGroupAttrSubEmpty() {
-	hdlr := suite.newHandler(nil).
+	hdlr := suite.newHandler(nil, nil).
 		WithAttrs([]slog.Attr{slog.String("first", "one")}).
 		WithGroup("group").
 		WithAttrs([]slog.Attr{slog.Int("second", 2), slog.String("third", "3")}).
@@ -225,4 +225,14 @@ func (suite *HandlerTestSuite) TestWithGroupAttrSubEmpty() {
 	suite.Assert().Len(group, 2)
 	suite.Assert().Equal(float64(2), group["second"])
 	suite.Assert().Equal("3", group["third"])
+}
+
+func (suite *HandlerTestSuite) TestExtras() {
+	hdlr := suite.newHandler(nil, &Extras{
+		TimeFormat: time.DateTime,
+	})
+	record := slog.NewRecord(test.Now, slog.LevelInfo, message, 0)
+	suite.Assert().NoError(hdlr.Handle(context.Background(), record))
+	logMap := suite.logMap()
+	suite.Assert().Equal(test.Now.Format(time.DateTime), logMap[slog.TimeKey])
 }

@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log/slog"
 	"strconv"
-	"time"
 
 	"github.com/madkins23/go-slog/infra"
 )
@@ -21,11 +20,13 @@ type composer struct {
 	started bool
 	replace infra.AttrFn
 	groups  []string
+	extras  *Extras
 }
 
-func newComposer(buffer []byte, started bool, replace infra.AttrFn, groups []string) *composer {
+func newComposer(buffer []byte, started bool, replace infra.AttrFn, groups []string, extras *Extras) *composer {
 	comp := composerPool.get()
 	comp.buffer = buffer
+	comp.extras = extras
 	comp.started = started
 	comp.replace = replace
 	comp.groups = groups
@@ -94,7 +95,7 @@ func (c *composer) addAttribute(attr slog.Attr) error {
 		c.addString(value.String())
 	case slog.KindTime:
 		c.buffer = append(c.buffer, '"')
-		c.buffer = value.Time().AppendFormat(c.buffer, time.RFC3339Nano)
+		c.buffer = value.Time().AppendFormat(c.buffer, c.extras.TimeFormat)
 		c.buffer = append(c.buffer, '"')
 	case slog.KindUint64:
 		c.buffer = strconv.AppendUint(c.buffer, value.Uint64(), 10)

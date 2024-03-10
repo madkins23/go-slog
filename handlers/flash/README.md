@@ -9,9 +9,15 @@ Then a series of edits were made to improve performance.
 ## Example
 
 ```go
-logger := slog.New(flash.NewHandler(os.Stdout, nil))
+logger := slog.New(flash.NewHandler(os.Stdout, nil, nil))
 logger.Info("hello", "count", 3)
 ```
+
+The `flash.NewHandler` function has an additional argument not found in `sloggy.NewHandler`.
+This argument points to an optional `flash.Extras` structure that provides
+options specific to the `flash` handler.
+It is possible to get the simplest possible `flash.Handler` using `nil`
+for both `options` and `extras` as in the above example.
 
 ## Performance Edits
 
@@ -66,6 +72,9 @@ Early profiling showed a memory allocation function taking a non-trivial amount 
 and memory allocation numbers were high.
 
 The `flash` implementation uses `sync.Pool` to recycle buffers of common sizes.
+The inspiration for this may well have come from the realization that the
+`uber-go/zap` logger uses them.[^2]
+
 Currently, (`2024-03-09`) the following buffers are reused:
 
 * log record output buffers and
@@ -119,7 +128,7 @@ Manual evaluation of this test over different time periods suggests:
 * ~29% decrease in the number of allocations
 
 In addition, the number of allocations for a simple log record,
-which had been stubbornly `2` for `flash`, dropped to `1`.[^2]
+which had been stubbornly `2` for `flash`, dropped to `1`.[^3]
 
 ### Use Generalized `Stringer` Interface
 
@@ -221,4 +230,6 @@ to run tests with 1 second, 5 second, 15 second, and 60 second durations.
 [^1]: Feature complete in this case being according to the verification test suite
 defined in `go-slog/verify` and the tests and warnings defined therein.
 
-[^2]: If only I knew where that last `1` came from.  :frowning_face:
+[^2]: Or great minds think along similar lines. :wink:
+
+[^3]: If only I knew where that last `1` came from.  :frowning_face:

@@ -17,25 +17,18 @@ const lenSuffix = 32
 var _ slog.Handler = &Handler{}
 
 type Handler struct {
-	options        *Options
+	options        *slog.HandlerOptions
+	extras         *Extras
 	writer         io.Writer
 	mutex          *sync.Mutex
 	prefix, suffix []byte
 	groups         []string
 }
 
-func NewHandler(writer io.Writer, options *Options) *Handler {
-	if options == nil {
-		options = &Options{}
-	}
-	if options.HandlerOptions == nil {
-		options.HandlerOptions = &slog.HandlerOptions{}
-	}
-	if options.Level == nil {
-		options.Level = slog.LevelInfo
-	}
+func NewHandler(writer io.Writer, options *slog.HandlerOptions, extras *Extras) *Handler {
 	hdlr := &Handler{
-		options: options,
+		options: fixOptions(options),
+		extras:  fixExtras(extras),
 		writer:  writer,
 		mutex:   &sync.Mutex{},
 		prefix:  make([]byte, 0, lenPrefix),
@@ -58,7 +51,7 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 	buffer := logPool.get()[:0]
 	defer func() { logPool.put(buffer) }()
 
-	c := newComposer(buffer, false, h.options.ReplaceAttr, h.groups)
+	c := newComposer(buffer, false, h.options.ReplaceAttr, h.groups, h.extras)
 	defer reuseComposer(c)
 	c.addBytes('{')
 
@@ -123,6 +116,7 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 func (h *Handler) WithAttrs(attrs []slog.Attr) slog.Handler {
 	hdlr := &Handler{
 		options: h.options,
+		extras:  h.extras,
 		writer:  h.writer,
 		mutex:   h.mutex,
 	}
@@ -141,7 +135,7 @@ func (h *Handler) WithAttrs(attrs []slog.Attr) slog.Handler {
 		hdlr.suffix = make([]byte, 0, lenSuffix)
 	}
 
-	c := newComposer(hdlr.prefix, prefixStarted, h.options.ReplaceAttr, h.groups)
+	c := newComposer(hdlr.prefix, prefixStarted, h.options.ReplaceAttr, h.groups, h.extras)
 	defer reuseComposer(c)
 
 	if err := c.addAttributes(attrs); err != nil {
@@ -160,6 +154,7 @@ func (h *Handler) WithGroup(name string) slog.Handler {
 	hdlr := &group{
 		Handler: &Handler{
 			options: h.options,
+			extras:  h.extras,
 			writer:  h.writer,
 			mutex:   h.mutex,
 			groups:  append(h.groups, name),
@@ -189,3 +184,13 @@ func (h *Handler) WithGroup(name string) slog.Handler {
 }
 
 // -----------------------------------------------------------------------------
+
+func fixOptions(options *slog.HandlerOptions) *slog.HandlerOptions {
+	if options == nil {
+		options = &slog.HandlerOptions{}
+	}
+	if options.Level == nil {
+		options.Level = slog.LevelInfo
+	}
+	return options
+}

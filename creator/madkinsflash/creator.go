@@ -15,5 +15,5 @@ func Creator() infra.Creator {
 }
 
 func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
-	return flash.NewHandler(w, flash.MakeOptions(options))
+	return flash.NewHandler(w, options, nil)
 }
