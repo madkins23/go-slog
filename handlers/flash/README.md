@@ -207,6 +207,14 @@ Caveats:
   In all likelihood `LogValuer` attributes will be relatively rare and even when used
   only apply to a small percentage of all attributes, reducing this overhead.
 
+### Mutex vs Goroutine
+
+The Interwebs suggest that using a channels and a goroutine
+is better than using a `sync.Mutex` to guard an `io.Writer`.
+Experimentation in this context suggests otherwise.
+Overall the goroutine version seems slower.
+Upping the channel buffer size made it closer but didn't fix it.
+
 ### Benchmark Tests
 
 The benchmark tests mentioned above have nothing to do with the `bench` package.

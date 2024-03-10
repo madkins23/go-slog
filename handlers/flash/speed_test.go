@@ -4,7 +4,9 @@ import (
 	"bytes"
 	"log/slog"
 	"runtime"
+	"sync"
 	"testing"
+	"time"
 
 	"github.com/madkins23/go-slog/handlers/sloggy"
 	"github.com/madkins23/go-slog/handlers/sloggy/test"
@@ -186,4 +188,52 @@ func BenchmarkResolveConditional(b *testing.B) {
 			}
 		}
 	})
+}
+
+// -----------------------------------------------------------------------------
+// TODO: Compare mutex-locking with goroutine and buffered channel
+//       Use delay of 50ms for actual writing? Or nothing? Or bytes.Buffer?
+
+const (
+	channelBufferSize = 1_048_576             // 16_384
+	writeDelayTime    = 100 * time.Nanosecond // 50 * time.Millisecond
+)
+
+func BenchmarkWriteMutex(b *testing.B) {
+	var mutex sync.Mutex
+	b.ReportAllocs()
+	b.ResetTimer()
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			func() {
+				mutex.Lock()
+				defer mutex.Unlock()
+				time.Sleep(writeDelayTime)
+			}()
+		}
+	})
+}
+
+func BenchmarkWriteGoroutine(b *testing.B) {
+	logLine := []byte("This is a fake log line\n")
+	data := make(chan []byte, channelBufferSize)
+	done := make(chan bool)
+	go func() {
+		for {
+			select {
+			case <-data:
+				time.Sleep(writeDelayTime)
+			case <-done:
+				return
+			}
+		}
+	}()
+	b.ReportAllocs()
+	b.ResetTimer()
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			data <- logLine
+		}
+	})
+	done <- true
 }
