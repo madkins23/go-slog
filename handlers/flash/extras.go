@@ -8,6 +8,8 @@ const (
 
 // Extras defines extra options specific to a flash.Handler.
 type Extras struct {
+	// Holds the format of the basic time field.
+	// If not set defaults to the value of flash.DefaultTimeFormat (= time.RFC3339Nano).
 	TimeFormat string
 }
 

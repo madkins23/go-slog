@@ -13,11 +13,19 @@ logger := slog.New(flash.NewHandler(os.Stdout, nil, nil))
 logger.Info("hello", "count", 3)
 ```
 
+### Extras
+
 The `flash.NewHandler` function has an additional argument not found in `sloggy.NewHandler`.
 This argument points to an optional `flash.Extras` structure that provides
 options specific to the `flash` handler.
 It is possible to get the simplest possible `flash.Handler` using `nil`
 for both `options` and `extras` as in the above example.
+
+The following fields are defined:
+
+* `TimeFormat string`  
+  Sets the format of the basic `time` field.
+  If not set defaults to the value of `flash.DefaultTimeFormat` (`time.RFC3339Nano`).
 
 ## Performance Edits
 
