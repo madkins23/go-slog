@@ -231,8 +231,37 @@ func (suite *HandlerTestSuite) TestExtras() {
 	hdlr := suite.newHandler(nil, &Extras{
 		TimeFormat: time.DateTime,
 	})
-	record := slog.NewRecord(test.Now, slog.LevelInfo, message, 0)
-	suite.Assert().NoError(hdlr.Handle(context.Background(), record))
+	suite.Assert().NoError(hdlr.Handle(context.Background(),
+		slog.NewRecord(test.Now, slog.LevelInfo, message, 0)))
 	logMap := suite.logMap()
 	suite.Assert().Equal(test.Now.Format(time.DateTime), logMap[slog.TimeKey])
+}
+
+var (
+	escapable   = "Stuff like \b, \f, \n, \r, \t, \\, and \""
+	exampleUTF8 = "ϢӦֆĒ͖̈́Ͳ     ظۇ"
+	escapedUTF8 = `\u03e2\u04e6\u0586\u0112\u0356\u0344\u0372     \u0638\u06c7`
+)
+
+func (suite *HandlerTestSuite) TestEscape() {
+	hdlr := suite.newHandler(nil, nil)
+	suite.Assert().NoError(hdlr.Handle(context.Background(),
+		slog.NewRecord(test.Now, slog.LevelInfo, escapable, 0)))
+	logMap := suite.logMap()
+	suite.Assert().Equal(escapable, logMap["msg"])
+
+	suite.Reset()
+	hdlr = suite.newHandler(nil, nil)
+	suite.Assert().NoError(hdlr.Handle(context.Background(),
+		slog.NewRecord(test.Now, slog.LevelInfo, exampleUTF8, 0)))
+	logMap = suite.logMap()
+	suite.Assert().Equal(exampleUTF8, logMap["msg"])
+
+	suite.Reset()
+	hdlr = suite.newHandler(nil, &Extras{EscapeUTF8: true})
+	suite.Assert().NoError(hdlr.Handle(context.Background(),
+		slog.NewRecord(test.Now, slog.LevelInfo, exampleUTF8, 0)))
+	suite.Assert().Contains(suite.String(), escapedUTF8)
+	suite.Assert().Equal(exampleUTF8, logMap["msg"])
+	fmt.Printf(">>> %s\n", logMap["msg"])
 }

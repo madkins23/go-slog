@@ -191,10 +191,10 @@ func BenchmarkResolveConditional(b *testing.B) {
 }
 
 // -----------------------------------------------------------------------------
-// TODO: Compare mutex-locking with goroutine and buffered channel
-//       Use delay of 50ms for actual writing? Or nothing? Or bytes.Buffer?
+// Compare mutex-locking with goroutine and buffered channel.
 
 const (
+	// Size of buffer doesn't make much difference.
 	channelBufferSize = 1_048_576             // 16_384
 	writeDelayTime    = 100 * time.Nanosecond // 50 * time.Millisecond
 )

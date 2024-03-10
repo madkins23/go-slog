@@ -9,6 +9,10 @@ TODO
 * Is there a way to avoid crashing when updates to slog handlers blow up?
   - Probably not.
 
+Global
+
+* Should slog.Attr cache the value of Kind()?
+
 Notes
 
 > List of goland:noinspection codes (doesn't always work):

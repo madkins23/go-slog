@@ -150,6 +150,92 @@ func (c *composer) addByteArray(b []byte) {
 	c.buffer = append(c.buffer, b...)
 }
 
+/* TODO: Is this still useful?
+
+var hexDigit = `0123456789ABCDEF`
+
+func (c *composer) addEscaped(s []byte) {
+	uniByte := make([]byte, 0, 4)
+	uniMore := 0
+	for _, b := range s {
+		if uniMore > 0 {
+			uniByte = append(uniByte, b)
+			uniMore--
+			if uniMore < 1 {
+				// All unicode bytes collected in uniByte array.
+				if !c.extras.escapeUnicode {
+					c.buffer = append(c.buffer, uniByte...)
+				} else {
+					// We're now trying to write unicode escape sequences.
+					switch len(uniByte) {
+					case 1:
+						c.buffer = append(c.buffer, `\u00`...)
+					case 2:
+						c.buffer = append(c.buffer, `\u`...)
+					case 3:
+						// Note: \U doesn't unmarshal
+						c.buffer = append(c.buffer, `\U00`...)
+					case 4:
+						// Note: \U doesn't unmarshal
+						c.buffer = append(c.buffer, `\U`...)
+					default:
+						slog.Error("Unknown unicode array length", "length", len(uniByte))
+						uniByte = uniByte[:0]
+						continue
+					}
+					for _, b := range uniByte {
+						c.buffer = append(c.buffer, hexDigit[b>>4])
+						c.buffer = append(c.buffer, hexDigit[b&0xF])
+					}
+				}
+				uniByte = uniByte[:0]
+			}
+			continue
+		}
+
+		switch b {
+		case '\\', '"':
+			c.buffer = append(c.buffer, '\\', b)
+		case '\b':
+			c.buffer = append(c.buffer, '\\', 'b')
+		case '\f':
+			c.buffer = append(c.buffer, '\\', 'f')
+		case '\n':
+			c.buffer = append(c.buffer, '\\', 'n')
+		case '\r':
+			c.buffer = append(c.buffer, '\\', 'r')
+		case '\t':
+			c.buffer = append(c.buffer, '\\', 't')
+		default:
+			if b >= 32 && b < 127 {
+				// Just a normal lower ASCII character.
+				c.buffer = append(c.buffer, b)
+			} else if b&0b11100000 == 0b11000000 {
+				// UTF8 two bytes
+				uniByte = append(uniByte, b)
+				uniMore = 1
+			} else if b&0b11110000 == 0b11100000 {
+				// UTF8 three bytes
+				uniByte = append(uniByte, b)
+				uniMore = 2
+			} else if b&0b11111000 == 0b11110000 {
+				// UTF8 four bytes
+				uniByte = append(uniByte, b)
+				uniMore = 3
+			} else if b < 128 {
+				// Control character from lower 7 bits not previously handled.
+				c.buffer = append(c.buffer, `\u00`...)
+				c.buffer = append(c.buffer, hexDigit[b>>4])
+				c.buffer = append(c.buffer, hexDigit[b&0xF])
+			} else {
+				// Some character from upper 7 bits not previously handled but likely printable.
+				c.buffer = append(c.buffer, b)
+			}
+		}
+	}
+}
+*/
+
 func (c *composer) addGroup(attrs []slog.Attr) error {
 	var err error
 	c.buffer = append(c.buffer, '{')
@@ -167,21 +253,19 @@ func (c *composer) addJSONMarshaler(m json.Marshaler) error {
 		c.addString("!ERROR:" + err.Error())
 		return fmt.Errorf("marshal JSON: %w", err)
 	} else {
-		c.addStringAsBytes(txt)
+		c.addString(string(txt))
 		return nil
 	}
 }
 
 func (c *composer) addString(str string) {
-	c.buffer = append(c.buffer, '"')
-	c.buffer = append(c.buffer, str...)
-	c.buffer = append(c.buffer, '"')
-}
-
-func (c *composer) addStringAsBytes(str []byte) {
-	c.buffer = append(c.buffer, '"')
-	c.buffer = append(c.buffer, str...)
-	c.buffer = append(c.buffer, '"')
+	// TODO: Is strconv.QuoteToASCII a good choice for this
+	//       or is it really better to have a custom solution?
+	if c.extras.EscapeUTF8 {
+		c.buffer = strconv.AppendQuoteToASCII(c.buffer, str)
+	} else {
+		c.buffer = strconv.AppendQuote(c.buffer, str)
+	}
 }
 
 func (c *composer) addTextMarshaler(m encoding.TextMarshaler) error {
@@ -190,7 +274,7 @@ func (c *composer) addTextMarshaler(m encoding.TextMarshaler) error {
 		c.addString("!ERROR:" + err.Error())
 		return fmt.Errorf("marshal text: %w", err)
 	} else {
-		c.addStringAsBytes(txt)
+		c.addString(string(txt))
 		return nil
 	}
 }
