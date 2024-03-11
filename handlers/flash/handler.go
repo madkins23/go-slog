@@ -185,6 +185,8 @@ func (h *Handler) WithGroup(name string) slog.Handler {
 
 // -----------------------------------------------------------------------------
 
+// fixOptions makes certain that a slog.HandlerOptions object has been properly created and
+// configured with default values.
 func fixOptions(options *slog.HandlerOptions) *slog.HandlerOptions {
 	if options == nil {
 		options = &slog.HandlerOptions{}
