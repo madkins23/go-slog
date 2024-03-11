@@ -150,91 +150,119 @@ func (c *composer) addByteArray(b []byte) {
 	c.buffer = append(c.buffer, b...)
 }
 
-/* TODO: Is this still useful?
-
 var hexDigit = `0123456789ABCDEF`
 
+// addEscaped appends the specified byte array, escaping certain ASCII characters
+// and carefully appending UTF8 sequences but not escaping them.
+//
+// This was originally stolen from:
+//
+//	https://cs.opensource.google/go/go/+/master:src/log/slog/json_handler.go;l=160
+//
+// which is in turn annotated as having borrowed it from
+//
+//	https://cs.opensource.google/go/go/+/master:src/encoding/json/encode.go;l=253
+//
+// Any changes from the source are the fault the author of this method and
+// should not reflect on the source material. ;-)
 func (c *composer) addEscaped(s []byte) {
+	var b byte
+	var begin, index int
 	uniByte := make([]byte, 0, 4)
 	uniMore := 0
-	for _, b := range s {
+	for index, b = range s {
 		if uniMore > 0 {
 			uniByte = append(uniByte, b)
 			uniMore--
 			if uniMore < 1 {
 				// All unicode bytes collected in uniByte array.
-				if !c.extras.escapeUnicode {
-					c.buffer = append(c.buffer, uniByte...)
-				} else {
-					// We're now trying to write unicode escape sequences.
-					switch len(uniByte) {
-					case 1:
-						c.buffer = append(c.buffer, `\u00`...)
-					case 2:
-						c.buffer = append(c.buffer, `\u`...)
-					case 3:
-						// Note: \U doesn't unmarshal
-						c.buffer = append(c.buffer, `\U00`...)
-					case 4:
-						// Note: \U doesn't unmarshal
-						c.buffer = append(c.buffer, `\U`...)
-					default:
-						slog.Error("Unknown unicode array length", "length", len(uniByte))
-						uniByte = uniByte[:0]
-						continue
-					}
-					for _, b := range uniByte {
-						c.buffer = append(c.buffer, hexDigit[b>>4])
-						c.buffer = append(c.buffer, hexDigit[b&0xF])
-					}
-				}
+				// When they are all collected push them out.
+				c.buffer = append(c.buffer, uniByte...)
 				uniByte = uniByte[:0]
+				begin = index + 1
 			}
 			continue
 		}
 
 		switch b {
-		case '\\', '"':
+		case '\\', '/', '"':
+			if index > begin {
+				c.buffer = append(c.buffer, s[begin:index]...)
+			}
 			c.buffer = append(c.buffer, '\\', b)
+			begin = index + 1
 		case '\b':
+			if index > begin {
+				c.buffer = append(c.buffer, s[begin:index]...)
+			}
 			c.buffer = append(c.buffer, '\\', 'b')
+			begin = index + 1
 		case '\f':
+			if index > begin {
+				c.buffer = append(c.buffer, s[begin:index]...)
+			}
 			c.buffer = append(c.buffer, '\\', 'f')
+			begin = index + 1
 		case '\n':
+			if index > begin {
+				c.buffer = append(c.buffer, s[begin:index]...)
+			}
 			c.buffer = append(c.buffer, '\\', 'n')
+			begin = index + 1
 		case '\r':
+			if index > begin {
+				c.buffer = append(c.buffer, s[begin:index]...)
+			}
 			c.buffer = append(c.buffer, '\\', 'r')
+			begin = index + 1
 		case '\t':
+			if index > begin {
+				c.buffer = append(c.buffer, s[begin:index]...)
+			}
 			c.buffer = append(c.buffer, '\\', 't')
+			begin = index + 1
 		default:
 			if b >= 32 && b < 127 {
 				// Just a normal lower ASCII character.
-				c.buffer = append(c.buffer, b)
 			} else if b&0b11100000 == 0b11000000 {
 				// UTF8 two bytes
+				if index > begin {
+					c.buffer = append(c.buffer, s[begin:index]...)
+				}
 				uniByte = append(uniByte, b)
 				uniMore = 1
 			} else if b&0b11110000 == 0b11100000 {
 				// UTF8 three bytes
+				if index > begin {
+					c.buffer = append(c.buffer, s[begin:index]...)
+				}
 				uniByte = append(uniByte, b)
 				uniMore = 2
 			} else if b&0b11111000 == 0b11110000 {
 				// UTF8 four bytes
+				if index > begin {
+					c.buffer = append(c.buffer, s[begin:index]...)
+				}
 				uniByte = append(uniByte, b)
 				uniMore = 3
 			} else if b < 128 {
 				// Control character from lower 7 bits not previously handled.
+				if index > begin {
+					c.buffer = append(c.buffer, s[begin:index]...)
+				}
 				c.buffer = append(c.buffer, `\u00`...)
 				c.buffer = append(c.buffer, hexDigit[b>>4])
 				c.buffer = append(c.buffer, hexDigit[b&0xF])
+				begin = index + 1
 			} else {
 				// Some character from upper 7 bits not previously handled but likely printable.
-				c.buffer = append(c.buffer, b)
 			}
 		}
 	}
+	if index >= begin && index < len(s) {
+		c.buffer = append(c.buffer, s[begin:index+1]...)
+	}
 }
-*/
 
 func (c *composer) addGroup(attrs []slog.Attr) error {
 	var err error
@@ -259,13 +287,9 @@ func (c *composer) addJSONMarshaler(m json.Marshaler) error {
 }
 
 func (c *composer) addString(str string) {
-	// TODO: Is strconv.QuoteToASCII a good choice for this
-	//       or is it really better to have a custom solution?
-	if c.extras.EscapeUTF8 {
-		c.buffer = strconv.AppendQuoteToASCII(c.buffer, str)
-	} else {
-		c.buffer = strconv.AppendQuote(c.buffer, str)
-	}
+	c.buffer = append(c.buffer, '"')
+	c.addEscaped([]byte(str))
+	c.buffer = append(c.buffer, '"')
 }
 
 func (c *composer) addTextMarshaler(m encoding.TextMarshaler) error {

@@ -256,12 +256,4 @@ func (suite *HandlerTestSuite) TestEscape() {
 		slog.NewRecord(test.Now, slog.LevelInfo, exampleUTF8, 0)))
 	logMap = suite.logMap()
 	suite.Assert().Equal(exampleUTF8, logMap["msg"])
-
-	suite.Reset()
-	hdlr = suite.newHandler(nil, &Extras{EscapeUTF8: true})
-	suite.Assert().NoError(hdlr.Handle(context.Background(),
-		slog.NewRecord(test.Now, slog.LevelInfo, exampleUTF8, 0)))
-	suite.Assert().Contains(suite.String(), escapedUTF8)
-	suite.Assert().Equal(exampleUTF8, logMap["msg"])
-	fmt.Printf(">>> %s\n", logMap["msg"])
 }

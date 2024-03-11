@@ -215,6 +215,29 @@ Experimentation in this context suggests otherwise.
 Overall the goroutine version seems slower.
 Upping the channel buffer size made it closer but didn't fix it.
 
+### Escaping Strings
+
+After stumbling across code in `slog.JSONHandler` it became rather
+blindingly obvious that `flash` must also do some amount of string escaping.
+The current solution escapes common control codes, double quote, and
+both forward and backward slashes using a backslash.
+
+UTF8 sequences are recognized and passed through.
+Some thought was given to providing an extra flag to escape them.
+A `flash.Extra` flag may be added at some point.
+
+[Benchmark tests](#benchmark-tests) have been added to compare
+the performance of `strconv.AppendQuote` vs. `flash.composer.addEcaped`.
+The command to run these tests is:
+```
+scripts/flash-bench Escape
+```
+Manual evaluation of this test over different time periods suggests:
+
+* ~60% decrease in execution time using `composer.addEscaped`
+* no change in bytes allocated
+* no change in the number of allocations
+
 ### Benchmark Tests
 
 The benchmark tests mentioned above have nothing to do with the `bench` package.

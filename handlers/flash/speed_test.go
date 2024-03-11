@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"log/slog"
 	"runtime"
+	"strconv"
 	"sync"
 	"testing"
 	"time"
@@ -20,7 +21,7 @@ func BenchmarkComposeArray(b *testing.B) {
 	b.ReportAllocs()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			c := newComposer([]byte{}, false, nil, nil, nil)
+			c := newComposer([]byte{}, false, nil, nil, fixExtras(nil))
 			if err := c.addAttributes(test.Attributes); err != nil {
 				b.Errorf("add attributes: %s", err.Error())
 			}
@@ -91,7 +92,7 @@ func BenchmarkBasicManual(b *testing.B) {
 	b.ResetTimer()
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
-			c := newComposer([]byte{}, false, nil, nil, nil)
+			c := newComposer([]byte{}, false, nil, nil, fixExtras(nil))
 			if err := c.addAttribute(slog.Time(slog.TimeKey, test.Now)); err != nil {
 				b.Errorf("add time: %s", err.Error())
 			}
@@ -116,7 +117,7 @@ func BenchmarkBasicMultiple(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			basic := basicPool.get()[:0]
-			c := newComposer([]byte{}, false, nil, nil, nil)
+			c := newComposer([]byte{}, false, nil, nil, fixExtras(nil))
 			basic = append(basic, slog.Time(slog.TimeKey, test.Now))
 			basic = append(basic, slog.String(slog.LevelKey, test.Level.String()))
 			basic = append(basic, slog.String(slog.MessageKey, test.Message))
@@ -199,6 +200,7 @@ const (
 	writeDelayTime    = 100 * time.Nanosecond // 50 * time.Millisecond
 )
 
+// BenchmarkWriteMutex protects the simulated writer with a sync.mutex.
 func BenchmarkWriteMutex(b *testing.B) {
 	var mutex sync.Mutex
 	b.ReportAllocs()
@@ -214,6 +216,7 @@ func BenchmarkWriteMutex(b *testing.B) {
 	})
 }
 
+// BenchmarkWriteGoroutine protects the simulated writer with a goroutine and a couple of channels.
 func BenchmarkWriteGoroutine(b *testing.B) {
 	logLine := []byte("This is a fake log line\n")
 	data := make(chan []byte, channelBufferSize)
@@ -236,4 +239,40 @@ func BenchmarkWriteGoroutine(b *testing.B) {
 		}
 	})
 	done <- true
+}
+
+// -----------------------------------------------------------------------------
+// Compare strconv.AppendQuote with custom composer.addEscaped.
+//
+// NOTE: Running scripts/flash-bench Escape dies at the 15s mark testing strconv.AppendQuote.
+
+// BenchmarkEscapeAppendQuote escapes various strings using  strconv.AppendQuote.
+func BenchmarkEscapeAppendQuote(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			c := newComposer([]byte{}, true, nil, nil, fixExtras(nil))
+			for escStr := range escapeCases {
+				c.buffer = strconv.AppendQuote(c.buffer, escStr)
+				c.addEscaped([]byte(escStr))
+				c.reset()
+			}
+		}
+	})
+}
+
+// BenchmarkEscapeAppendQuote escapes various strings using composer.addEscaped.
+func BenchmarkEscapeAddEscaped(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			c := newComposer([]byte{}, true, nil, nil, fixExtras(nil))
+			for escStr := range escapeCases {
+				c.addEscaped([]byte(escStr))
+				c.reset()
+			}
+		}
+	})
 }

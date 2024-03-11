@@ -17,4 +17,4 @@ echo 15 seconds
 go test -bench=Benchmark$1 -benchtime=15s handlers/flash/*.go
 echo 60 seconds
 go test -bench=Benchmark$1 -benchtime=60s handlers/flash/*.go
-echo done
+echo Done
