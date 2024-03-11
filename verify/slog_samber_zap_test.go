@@ -22,7 +22,7 @@ func TestVerifySamberZap(t *testing.T) {
 	slogSuite.WarnOnly(warning.NoReplAttrBasic)
 	slogSuite.WarnOnly(warning.Resolver)
 	slogSuite.WarnOnly(warning.SlogTest)
-	slogSuite.WarnOnly(warning.SourceKey)
+	slogSuite.WarnOnly(warning.SourceCaller)
 	slogSuite.WarnOnly(warning.ZeroPC)
 	slogSuite.WarnOnly(warning.ZeroTime)
 	suite.Run(t, slogSuite)

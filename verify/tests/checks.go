@@ -116,10 +116,31 @@ var sourceKeys = map[string]any{
 }
 
 func (suite *SlogTestSuite) checkSourceKey(fieldCount uint, logMap map[string]any) {
+	if suite.HasWarning(warning.SourceCaller) {
+		if sourceCaller, found := logMap["caller"]; found {
+			if text, ok := sourceCaller.(string); ok {
+				if suite.HasWarning(warning.SourceKey) {
+					suite.AddUnused(warning.SourceKey, "")
+				}
+				suite.AddWarning(warning.SourceCaller, text, suite.String())
+				return
+			}
+		}
+		suite.AddUnused(warning.SourceCaller, suite.String())
+	}
 	if suite.HasWarning(warning.SourceKey) {
-		sourceData := logMap[slog.SourceKey]
-		if sourceData == nil {
-			suite.AddWarning(warning.SourceKey, "no 'source' key", suite.Buffer.String())
+		if sourceCaller, found := logMap["caller"]; found {
+			if text, ok := sourceCaller.(string); ok {
+				suite.AddWarning(warning.SourceCaller, text, suite.String())
+			}
+		}
+		sourceData, found := logMap[slog.SourceKey]
+		if !found || sourceData == nil {
+			text := "no 'source' key"
+			if found {
+				text = "'source' key is nil"
+			}
+			suite.AddWarning(warning.SourceKey, text, suite.Buffer.String())
 			return
 		}
 		source, ok := sourceData.(map[string]any)
@@ -144,10 +165,10 @@ func (suite *SlogTestSuite) checkSourceKey(fieldCount uint, logMap map[string]an
 		}
 		if text.Len() > 0 {
 			suite.AddWarning(warning.SourceKey, text.String(), suite.Buffer.String())
+			return
 		}
-		suite.AddUnused(warning.SourceKey, "")
+		suite.AddUnused(warning.SourceKey, suite.String())
 	}
-
 	suite.checkFieldCount(fieldCount, logMap)
 	if group, ok := logMap[slog.SourceKey].(map[string]any); ok {
 		suite.Assert().Len(group, 3)

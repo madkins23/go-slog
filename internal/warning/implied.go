@@ -31,6 +31,13 @@ var (
 		except for the four main fields ^time^, ^level^, ^msg^, and ^source^.
 		When that is the case it is better to use this (^WarnNoReplAttrBasic^) warning.`)
 
+	SourceCaller = NewWarning(LevelImplied, "SourceCaller", "Source data logged as 'caller'", `
+		Some handlers return source data as a single string on the ^caller^ field
+		in the format ^<file>:<line>^ where ^<file>^ and ^<line>^ correspond
+		to the ^File^ and ^Line^ fields of the source data group and ^Function^ is not provided.
+		* [Behavior defined for ^JSONHandler.Handle()^](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)
+		* [Definition of source data record](https://pkg.go.dev/log/slog@master#Source)`)
+
 	SourceKey = NewWarning(LevelImplied, "SourceKey", "Source data not logged when AddSource flag set", `
 		Handlers should log source data when the ^slog.HandlerOptions.AddSource^ flag is set.
 		* [Flag declaration as ^slog.HandlerOptions^ field](https://pkg.go.dev/log/slog@master#HandlerOptions)
@@ -45,7 +52,7 @@ var (
 
 func init() {
 	// Always update this number when adding or removing Warning objects.
-	addTestCount(LevelImplied, 8)
+	addTestCount(LevelImplied, 9)
 }
 
 func Implied() []*Warning {

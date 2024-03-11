@@ -16,8 +16,7 @@ type Extras struct {
 // fixExtras makes certain that an Extras object has been properly created and
 // configured with default values.
 //
-// Use fixExtras(nil) to generate a new, otherwise blank Extras object
-// (mostly useful in testing).
+// Use fixExtras(nil) to generate a new, otherwise blank Extras object (mostly useful in testing).
 // Using &Extras{} for this purpose will likely end in tears and a pointer exception
 // when some piece of code goes looking for extras.TimeFormat.
 func fixExtras(extras *Extras) *Extras {
