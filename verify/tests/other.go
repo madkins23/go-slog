@@ -7,6 +7,7 @@ import (
 	"time"
 
 	"github.com/madkins23/go-slog/infra"
+	"github.com/madkins23/go-slog/internal/test"
 	"github.com/madkins23/go-slog/internal/warning"
 )
 
@@ -155,4 +156,16 @@ func (suite *SlogTestSuite) TestTimestampFormat() {
 	suite.Assert().Equal(time.Now().Year(), timeObj.Year())
 	suite.Assert().Equal(time.Now().Month(), timeObj.Month())
 	suite.Assert().Equal(time.Now().Day(), timeObj.Day())
+}
+
+func (suite *SlogTestSuite) TestStringEscape() {
+	logger := suite.Logger(infra.SimpleOptions())
+	for esc, exp := range test.EscapeCases {
+		logger.Info(message, "esc", esc, "exp", exp)
+		logMap := suite.logMap()
+		suite.checkFieldCount(5, logMap)
+		suite.Assert().Equal(esc, logMap["esc"])
+		suite.Assert().Equal(exp, logMap["exp"])
+		suite.Reset()
+	}
 }

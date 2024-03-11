@@ -246,20 +246,14 @@ func (c *composer) addMacAddress(mac net.HardwareAddr) error {
 }
 
 func (c *composer) addString(str string) error {
-	return c.addStringAsBytes([]byte(str))
+	if _, err := c.Write([]byte(strconv.Quote(str))); err != nil {
+		return fmt.Errorf("write quoted string: %w", err)
+	}
+	return nil
 }
 
 func (c *composer) addStringAsBytes(str []byte) error {
-	if _, err := c.Write(doubleQuote); err != nil {
-		return fmt.Errorf("left double quote: %w", err)
-	}
-	if _, err := c.Write(str); err != nil {
-		return fmt.Errorf("string '%s': %w", str, err)
-	}
-	if _, err := c.Write(doubleQuote); err != nil {
-		return fmt.Errorf("right double quote: %w", err)
-	}
-	return nil
+	return c.addString(string(str))
 }
 
 func (c *composer) addStringer(s fmt.Stringer) error {

@@ -11,6 +11,7 @@ import (
 
 	"github.com/madkins23/go-slog/handlers/sloggy"
 	"github.com/madkins23/go-slog/handlers/sloggy/test"
+	intTest "github.com/madkins23/go-slog/internal/test"
 )
 
 // -----------------------------------------------------------------------------
@@ -253,7 +254,7 @@ func BenchmarkEscapeAppendQuote(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			c := newComposer([]byte{}, true, nil, nil, fixExtras(nil))
-			for escStr := range escapeCases {
+			for escStr := range intTest.EscapeCases {
 				c.buffer = strconv.AppendQuote(c.buffer, escStr)
 				c.addEscaped([]byte(escStr))
 				c.reset()
@@ -269,7 +270,7 @@ func BenchmarkEscapeAddEscaped(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			c := newComposer([]byte{}, true, nil, nil, fixExtras(nil))
-			for escStr := range escapeCases {
+			for escStr := range intTest.EscapeCases {
 				c.addEscaped([]byte(escStr))
 				c.reset()
 			}
