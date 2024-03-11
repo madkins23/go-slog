@@ -21,7 +21,6 @@ var (
 	braceRight  = []byte{'}'}
 	colonSpace  = []byte{':', ' '}
 	commaSpace  = []byte{',', ' '}
-	doubleQuote = []byte{'"'}
 	emptyString []byte
 	newLine     = []byte{'\r', '\n'}
 )
@@ -194,7 +193,7 @@ func (c *composer) addFloat64(f float64) error {
 	return nil
 }
 
-func (c *composer) addGroup(name string, attrs []slog.Attr) error {
+func (c *composer) addGroup(_ string, attrs []slog.Attr) error {
 	if err := c.begin(); err != nil {
 		return fmt.Errorf("begin: %w", err)
 	}
