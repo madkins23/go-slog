@@ -20,9 +20,9 @@
     <div>
       <table class="top">
         {{ if .Benchmarks.HasTest .Test }}
+          <tr><td><h2>Benchmark Data</h2></td></tr>
           <tr>
             <td colspan=2 align="center">
-              <h2 align="left">Benchmark Data</h2>
               <table class="data">
                 <tr>
                   <th>Handler</th>
@@ -46,9 +46,9 @@
             </td>
           </tr>
           <tr><td colspan=2><hr/></td></tr>
+          <tr><td colspan=2><h2>Benchmark Charts</h2></td></tr>
           <tr>
-            <td colspan=2 align="center">
-              <h2 align="left">Benchmark Charts</h2>
+            <td colspan=2 class="score">
               <table>
                 <tr>
                   <td><img src="/go-slog/chart/{{ .Test }}/Nanos.svg" alt="{{ .Benchmarks.TestName .Test }} Ns/Op" class="chart" /></td>
@@ -66,9 +66,9 @@
           {{ if .Benchmarks.HasTest .Test }}
             <tr><td colspan=2><hr/></td></tr>
           {{ end }}
+          <tr><td colspan=2><h2 >Warnings</h2></td></tr>
           <tr>
             <td colspan=2 align="center">
-              <h2 align="left">Warnings</h2>
               <table class="warning">
                 <colgroup>
                   <col width="3%"/>

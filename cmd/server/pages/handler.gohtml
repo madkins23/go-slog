@@ -15,9 +15,13 @@
     <div>
       <table class="top">
         {{ if .Benchmarks.HasHandler .Handler }}
+          {{ $hdlrScore := .Benchmarks.HandlerScore .Handler }}
+          <tr>
+            <td><h2 class="score">Benchmark Data</h2></td>
+            <td class="score">Overall Score: <span>{{ $.FixFloat $hdlrScore.Overall }}</span></td>
+          </tr>
           <tr>
             <td colspan=2 align="center">
-              <h2 align="left">Benchmark Data</h2>
               <table class="data">
                 <tr>
                   <th>Benchmark</th>
@@ -26,6 +30,7 @@
                   <th>Allocs/Op</th>
                   <th>Bytes/Op</th>
                   <th>MB/Sec</th>
+                  <th>Score</th>
                 </tr>
                 {{ range $tag, $record := .Benchmarks.TestRecords .Handler }}
                   <tr>
@@ -35,15 +40,16 @@
                       <td class="number">{{ $.FixUint $record.MemAllocsPerOp }}</td>
                      <td class="number">{{ $.FixUint $record.MemBytesPerOp }}</td>
                     <td class="number">{{ $.FixFloat $record.MbPerSec }}</td>
+                    <td class="number">{{ $.FixFloat ($hdlrScore.ForTest $tag) }}</td>
                   </tr>
                 {{ end }} {{/* range $tag, $record */}}
               </table>
             </td>
           </tr>
           <tr><td colspan=2><hr/></td></tr>
+          <tr><td colspan=2><h2>Benchmark Charts</h2></td></tr>
           <tr>
-            <td colspan=2 align="center">
-              <h2 align="left">Benchmark Charts</h2>
+            <td colspan=2 class="score">
               <table>
                 <tr>
                   <td><img src="/go-slog/chart/{{ .Handler }}/Nanos.svg" alt="{{ .Benchmarks.HandlerName .Handler }} Ns/Op" class="chart" /></td>
@@ -59,9 +65,9 @@
         {{ end }} {{/* if .Benchmarks.HasHandler .Handler */}}
         {{ if .Warnings.HasHandler .Handler }}
           <tr><td colspan=2><hr/></td></tr>
+          <tr><td colspan=2><h2 >Warnings</h2></td></tr>
           <tr>
             <td colspan=2 align="center">
-              <h2 align="left">Warnings</h2>
               <table class="warning">
                 <colgroup>
                   <col width="3%"/>

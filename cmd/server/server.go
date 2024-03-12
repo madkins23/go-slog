@@ -68,13 +68,13 @@ const (
 )
 
 var (
-	//go:embed parts/style.css
+	//go:embed stuff/style.css
 	css string
 
-	//go:embed parts/home.svg
+	//go:embed stuff/home.svg
 	home []byte
 
-	//go:embed parts/scripts.js
+	//go:embed stuff/scripts.js
 	scripts string
 )
 
@@ -135,34 +135,34 @@ var (
 	pages     = []pageType{pageHome, pageTest, pageHandler, pageWarnings, pageGuts}
 	templates map[pageType]*template.Template
 
-	//go:embed pages/home.tmpl
+	//go:embed pages/home.gohtml
 	tmplPageHome string
 
-	//go:embed pages/test.tmpl
+	//go:embed pages/test.gohtml
 	tmplPageTest string
 
-	//go:embed pages/handler.tmpl
+	//go:embed pages/handler.gohtml
 	tmplPageHandler string
 
-	//go:embed pages/warnings.tmpl
+	//go:embed pages/warnings.gohtml
 	tmplPageWarnings string
 
-	//go:embed pages/guts.tmpl
+	//go:embed pages/guts.gohtml
 	tmplPageGuts string
 
-	//go:embed pages/error.tmpl
+	//go:embed pages/error.gohtml
 	tmplPageError string
 
-	//go:embed parts/footer.tmpl
+	//go:embed parts/footer.gohtml
 	tmplPartFooter string
 
-	//go:embed parts/header.tmpl
+	//go:embed parts/header.gohtml
 	tmplPartHeader string
 
-	//go:embed parts/source.tmpl
+	//go:embed parts/source.gohtml
 	tmplPartSource string
 
-	//go:embed parts/warnings.tmpl
+	//go:embed parts/warnings.gohtml
 	tmplPartWarnings string
 )
 

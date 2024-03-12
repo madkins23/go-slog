@@ -3,6 +3,7 @@ package data
 import (
 	"flag"
 	"log/slog"
+	"math"
 	"sort"
 )
 
@@ -66,6 +67,7 @@ type Benchmarks struct {
 	handlerNames map[HandlerTag]string
 	warningText  []byte
 	lookup       map[string]HandlerTag
+	ranges       testRanges
 }
 
 func NewBenchmarks() *Benchmarks {
@@ -169,4 +171,100 @@ func (b *Benchmarks) HasWarningText() bool {
 // WarningText from end of benchmark run.
 func (b *Benchmarks) WarningText() []byte {
 	return b.warningText
+}
+
+// -----------------------------------------------------------------------------
+
+// testRange collects high and low values for a given handler/test combination.
+type testRange struct {
+	allocLow, allocHigh uint64
+	bytesLow, bytesHigh uint64
+	nanosLow, nanosHigh float64
+}
+
+// testRanges maps test tags to TestRange objects.
+type testRanges map[TestTag]*testRange
+
+// TestScores maps test tags to scores for a handler.
+type TestScores struct {
+	Overall float64
+	byTest  map[TestTag]float64
+}
+
+func (ts *TestScores) ForTest(test TestTag) float64 {
+	return ts.byTest[test]
+}
+
+// -----------------------------------------------------------------------------
+
+// testRange returns a testRange object for the specified test tag.
+// If the test tag is bad the result will be nil.
+func (b *Benchmarks) testRange(test TestTag) *testRange {
+	if b.ranges == nil {
+		b.ranges = make(testRanges)
+		for _, test := range b.TestTags() {
+			aRange := &testRange{
+				allocLow: math.MaxUint64,
+				bytesLow: math.MaxUint64,
+				nanosLow: math.MaxFloat64,
+			}
+			for _, records := range b.HandlerRecords(test) {
+				if records.MemAllocsPerOp > aRange.allocHigh {
+					aRange.allocHigh = records.MemAllocsPerOp
+				}
+				if records.MemAllocsPerOp < aRange.allocLow {
+					aRange.allocLow = records.MemAllocsPerOp
+				}
+				if records.MemBytesPerOp > aRange.bytesHigh {
+					aRange.bytesHigh = records.MemBytesPerOp
+				}
+				if records.MemBytesPerOp < aRange.bytesLow {
+					aRange.bytesLow = records.MemBytesPerOp
+				}
+				if records.NanosPerOp > aRange.nanosHigh {
+					aRange.nanosHigh = records.NanosPerOp
+				}
+				if records.NanosPerOp < aRange.nanosLow {
+					aRange.nanosLow = records.NanosPerOp
+				}
+			}
+			b.ranges[test] = aRange
+		}
+	}
+	return b.ranges[test]
+}
+
+func (b *Benchmarks) HandlerScore(handler HandlerTag) *TestScores {
+	scores := &TestScores{
+		byTest: make(map[TestTag]float64),
+	}
+	for test, record := range b.byHandler[handler] {
+		rng := b.testRange(test)
+		var alloc uint64
+		if scoreRange := rng.allocHigh - rng.allocLow; scoreRange > 0 {
+			alloc = (record.MemAllocsPerOp - rng.allocLow) / scoreRange * 100.0
+		} else {
+			alloc = 1
+		}
+		var bytes uint64
+		if scoreRange := rng.bytesHigh - rng.bytesLow; scoreRange > 0 {
+			bytes = (record.MemBytesPerOp - rng.bytesLow) / scoreRange * 100.0
+		} else {
+			bytes = 1
+		}
+		var nanos float64
+		if scoreRange := rng.nanosHigh - rng.nanosLow; scoreRange > 0 {
+			nanos = (record.NanosPerOp - rng.nanosLow) / scoreRange * 100.0
+		} else {
+			nanos = 1.0
+		}
+		scores.byTest[test] = (float64(alloc) + float64(2*bytes) + 3.0*nanos) / 6.0
+	}
+	var count uint
+	for _, s := range scores.byTest {
+		count++
+		scores.Overall += s
+	}
+	scores.Overall /= float64(count)
+	return scores
 }
