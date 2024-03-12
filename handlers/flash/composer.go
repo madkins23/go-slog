@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log/slog"
 	"strconv"
+	"time"
 
 	"github.com/madkins23/go-slog/infra"
 )
@@ -48,7 +49,8 @@ func (c *composer) getBytes() []byte {
 // -----------------------------------------------------------------------------
 
 func (c *composer) addAttribute(attr slog.Attr) error {
-	if attr.Value.Kind() == slog.KindLogValuer {
+	kind := attr.Value.Kind()
+	if kind == slog.KindLogValuer {
 		attr.Value = attr.Value.Resolve()
 	}
 	if c.replace != nil {
@@ -58,7 +60,7 @@ func (c *composer) addAttribute(attr slog.Attr) error {
 		return nil
 	}
 	value := attr.Value
-	if value.Kind() == slog.KindGroup {
+	if kind == slog.KindGroup {
 		if emptyGroup(value.Group()) {
 			return nil
 		}
@@ -69,14 +71,9 @@ func (c *composer) addAttribute(attr slog.Attr) error {
 			return nil
 		}
 	}
-	if !c.started {
-		c.started = true
-	} else {
-		c.buffer = append(c.buffer, ',', ' ')
-	}
-	c.addString(attr.Key)
-	c.buffer = append(c.buffer, ':', ' ')
-	switch value.Kind() {
+	c.addSeparator()
+	c.addKey(attr.Key)
+	switch kind {
 	case slog.KindGroup:
 		return c.addGroup(value.Group())
 	case slog.KindBool:
@@ -94,9 +91,7 @@ func (c *composer) addAttribute(attr slog.Attr) error {
 	case slog.KindString:
 		c.addString(value.String())
 	case slog.KindTime:
-		c.buffer = append(c.buffer, '"')
-		c.buffer = value.Time().AppendFormat(c.buffer, c.extras.TimeFormat)
-		c.buffer = append(c.buffer, '"')
+		c.addTime(value.Time())
 	case slog.KindUint64:
 		c.buffer = strconv.AppendUint(c.buffer, value.Uint64(), 10)
 	case slog.KindAny:
@@ -275,6 +270,11 @@ func (c *composer) addGroup(attrs []slog.Attr) error {
 	return nil
 }
 
+func (c *composer) addKey(key string) {
+	c.addString(key)
+	c.buffer = append(c.buffer, ':', ' ')
+}
+
 func (c *composer) addJSONMarshaler(m json.Marshaler) error {
 	if txt, err := m.MarshalJSON(); err != nil {
 		slog.Error("MarshalJSON error", "err", err)
@@ -300,6 +300,20 @@ func (c *composer) addTextMarshaler(m encoding.TextMarshaler) error {
 	} else {
 		c.addString(string(txt))
 		return nil
+	}
+}
+
+func (c *composer) addTime(t time.Time) {
+	c.buffer = append(c.buffer, '"')
+	c.buffer = t.AppendFormat(c.buffer, c.extras.TimeFormat)
+	c.buffer = append(c.buffer, '"')
+}
+
+func (c *composer) addSeparator() {
+	if !c.started {
+		c.started = true
+	} else {
+		c.buffer = append(c.buffer, ',', ' ')
 	}
 }
 

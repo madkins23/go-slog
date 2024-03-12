@@ -60,14 +60,26 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 	// adding the list to the composer all at once.
 	// See BenchmarkBasicManual and BenchmarkBasicMultiple in speed_test.go.
 	if !record.Time.IsZero() {
-		if err := c.addAttribute(slog.Time(slog.TimeKey, record.Time)); err != nil {
+		if h.options.ReplaceAttr == nil {
+			c.addSeparator()
+			c.addKey(slog.TimeKey)
+			c.addTime(record.Time)
+		} else if err := c.addAttribute(slog.Time(slog.TimeKey, record.Time)); err != nil {
 			return fmt.Errorf("add time: %w", err)
 		}
 	}
-	if err := c.addAttribute(slog.String(slog.LevelKey, record.Level.String())); err != nil {
+	if h.options.ReplaceAttr == nil {
+		c.addSeparator()
+		c.addKey(slog.LevelKey)
+		c.addString(record.Level.String())
+	} else if err := c.addAttribute(slog.String(slog.LevelKey, record.Level.String())); err != nil {
 		return fmt.Errorf("add level: %w", err)
 	}
-	if err := c.addAttribute(slog.String(slog.MessageKey, record.Message)); err != nil {
+	if h.options.ReplaceAttr == nil {
+		c.addSeparator()
+		c.addKey(slog.MessageKey)
+		c.addString(record.Message)
+	} else if err := c.addAttribute(slog.String(slog.MessageKey, record.Message)); err != nil {
 		return fmt.Errorf("add message: %w", err)
 	}
 	if h.options.AddSource && record.PC != 0 {
@@ -75,13 +87,19 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 		// See BenchmarkSourceLoad and BenchmarkSourceNewReuse in speed_test.go.
 		var src source
 		loadSource(record.PC, &src)
-		if err := c.addAttribute(slog.Any(slog.SourceKey, &src)); err != nil {
+		if h.options.ReplaceAttr == nil {
+			c.addSeparator()
+			c.addKey(slog.SourceKey)
+			if err := c.addAny(&src); err != nil {
+				return fmt.Errorf("add any source: %w", err)
+			}
+		} else if err := c.addAttribute(slog.Any(slog.SourceKey, &src)); err != nil {
 			return fmt.Errorf("add source: %w", err)
 		}
 	}
 
 	if len(h.prefix) > 0 {
-		c.addBytes(',', ' ')
+		c.addSeparator()
 		c.addByteArray(h.prefix)
 		if bytes.HasSuffix(h.prefix, []byte{'{'}) {
 			// Inside a group, reset composer (started = false) to avoid comma.
@@ -97,7 +115,7 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 		return true // keep going
 	})
 	if err != nil {
-		return fmt.Errorf("add attributes: %w", err)
+		return fmt.Errorf("add attribute: %w", err)
 	}
 	if len(h.suffix) > 0 {
 		c.addByteArray(h.suffix)

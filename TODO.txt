@@ -1,5 +1,6 @@
 TODO
 
+* If ReplAttr is dead no need to track groups
 * ReplAttr filters:
   * caller -> source group
   * source group -> caller
@@ -14,6 +15,11 @@ TODO
 Global
 
 * Should slog.Attr cache the value of Kind()?
+* Why is there one number of allocs in benchmark results?
+  - there are 61 buckets in the data I found
+  - seems like it's just choosing one for some reason
+  - pick the biggest bucket?
+* Would slog speed up if slog.Attr cached the value of Keep()?
 
 Notes
 

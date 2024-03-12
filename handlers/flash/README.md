@@ -67,7 +67,7 @@ The command to run these tests is:
 ```
 scripts/flash-bench Compose
 ```
-Manual evaluation of this test over different time periods suggests:
+Evaluation of this test over different time periods suggests:
 
 * ~40% decrease in execution time
 * ~24% decrease in bytes allocated
@@ -103,7 +103,7 @@ The command to run these tests is:
 ```
 scripts/flash-bench Memory
 ```
-Manual evaluation of this test over different time periods suggests:
+Evaluation of this test over different time periods suggests:
 
 * ~88% decrease in execution time
 * ~97% decrease in bytes allocated
@@ -124,16 +124,20 @@ Later this was flattened out to four `composer.addAttribute` calls
 along with the requisite additional error result handling.
 This removed the `sync.Pool` for the small arrays, which were no longer required.
 
+Later analysis suggested that calling `composer.addAttribute` was necessary for
+the basic fields as they were predictable and didn't need as much overhead.
+A third test, `BenchmarkBasicAdd`, was added to the benchmark tests for this case.
+
 [Benchmark tests](#benchmark-tests) have been added to compare the performance of the two approaches.
 The command to run these tests is:
 ```
 scripts/flash-bench Basic
 ```
-Manual evaluation of this test over different time periods suggests:
+Evaluation of this test over different time periods suggests that the final version shows:
 
-* ~36% decrease in execution time
-* ~26% decrease in bytes allocated
-* ~29% decrease in the number of allocations
+* ~30% - 40% decrease in execution time
+* ~28% decrease in bytes allocated
+* ~25% decrease in the number of allocations
 
 In addition, the number of allocations for a simple log record,
 which had been stubbornly `2` for `flash`, dropped to `1`.[^3]
@@ -166,7 +170,7 @@ The command to run these tests is:
 ```
 scripts/flash-bench Source
 ```
-Manual evaluation of this test over different time periods suggests:
+Evaluation of this test over different time periods suggests:
 
 * ~10% decrease in execution time
 * no change in bytes allocated
@@ -193,7 +197,7 @@ The command to run these tests is:
 ```
 scripts/flash-bench Resolve
 ```
-Manual evaluation of this test over different time periods suggests:
+Evaluation of this test over different time periods suggests:
 
 * ~72% decrease in execution time
 * no change in bytes allocated
@@ -232,7 +236,7 @@ The command to run these tests is:
 ```
 scripts/flash-bench Escape
 ```
-Manual evaluation of this test over different time periods suggests:
+Evaluation of this test over different time periods suggests:
 
 * ~60% decrease in execution time using `composer.addEscaped`
 * no change in bytes allocated

@@ -87,6 +87,27 @@ func BenchmarkMemoryPools(b *testing.B) {
 // putting them in an array and adding them all at once with addAttributes.
 // In the latter case the arrays are managed and reused via a sync.Pool.
 
+// BenchmarkBasicAdd adds attributes to the composer one at a time using addAttribute.
+func BenchmarkBasicAdd(b *testing.B) {
+	b.ReportAllocs()
+	b.ResetTimer()
+	b.RunParallel(func(pb *testing.PB) {
+		for pb.Next() {
+			c := newComposer([]byte{}, false, nil, nil, fixExtras(nil))
+			c.addSeparator()
+			c.addKey(slog.TimeKey)
+			c.addTime(test.Now)
+			c.addSeparator()
+			c.addKey(slog.LevelKey)
+			c.addString(test.Level.String())
+			c.addSeparator()
+			c.addKey(slog.MessageKey)
+			c.addString(test.Message)
+			reuseComposer(c)
+		}
+	})
+}
+
 // BenchmarkBasicManual adds attributes to the composer one at a time using addAttribute.
 func BenchmarkBasicManual(b *testing.B) {
 	b.ReportAllocs()

@@ -25,13 +25,15 @@ var (
 		* [Behavior defined for ^slog.HandlerOptions^](https://pkg.go.dev/log/slog@master#HandlerOptions)  
 		* ["You might also consider adding a ReplaceAttr option to your handler, like the one for the built-in handlers."](https://github.com/golang/example/tree/master/slog-handler-guide#implementing-handler-methods)`)
 
-	NoReplAttrBasic = NewWarning(LevelImplied, "NoReplAttrBasic", "HandlerOptions.ReplaceAttr not available for basic fields", `
+	NoReplAttrBasic = NewWarning(LevelImplied, "NoReplAttrBasic",
+		"HandlerOptions.ReplaceAttr not available for basic fields", `
 		Some handlers (e.g. ^phsym/zeroslog^) support
 		[^HandlerOptions.ReplaceAttr^](https://pkg.go.dev/log/slog@master#HandlerOptions)
 		except for the four main fields ^time^, ^level^, ^msg^, and ^source^.
 		When that is the case it is better to use this (^WarnNoReplAttrBasic^) warning.`)
 
-	SourceCaller = NewWarning(LevelImplied, "SourceCaller", "Source data logged as 'caller'", `
+	SourceCaller = NewWarning(LevelImplied,
+		"SourceCaller", "Source data logged as 'caller' instead of 'source'", `
 		Some handlers return source data as a single string on the ^caller^ field
 		in the format ^<file>:<line>^ where ^<file>^ and ^<line>^ correspond
 		to the ^File^ and ^Line^ fields of the source data group and ^Function^ is not provided.
