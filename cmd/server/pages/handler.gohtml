@@ -36,13 +36,11 @@
                      <td class="number">{{ $.FixUint $record.MemBytesPerOp }}</td>
                     <td class="number">{{ $.FixFloat $record.MbPerSec }}</td>
                   </tr>
-                {{ end }}
+                {{ end }} {{/* range $tag, $record */}}
               </table>
             </td>
           </tr>
-          {{ if .Benchmarks.HasHandler .Handler }}
-            <tr><td colspan=2><hr/></td></tr>
-          {{ end }}
+          <tr><td colspan=2><hr/></td></tr>
           <tr>
             <td colspan=2 align="center">
               <h2 align="left">Benchmark Charts</h2>
@@ -58,7 +56,7 @@
               </table>
             </td>
           </tr>
-        {{ end }}
+        {{ end }} {{/* if .Benchmarks.HasHandler .Handler */}}
         {{ if .Warnings.HasHandler .Handler }}
           <tr><td colspan=2><hr/></td></tr>
           <tr>
