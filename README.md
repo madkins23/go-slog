@@ -22,7 +22,7 @@ for more detailed documentation.
 * Static copies of server pages provided via [GitHub Pages](https://pages.github.com/).
 * [Functions for use with `slog.HandlerOptions.ReplaceAttr`](#replace-attributes-functions)
 * [Utility to redirect internal `gin` logging to `slog`](#gin-integration)
-* Demo Handlers
+* [Demo Handlers](#demo-handlers)
 * Test handler [`trace.Handler`](#trace-handler)
 
 ## Handler Benchmarks
