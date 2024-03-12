@@ -32,6 +32,10 @@
                       
                         <option value="ChanchalZap" >chanchal/zaphandler</option>
                       
+                        <option value="MadkinsFlash" >madkins/flash</option>
+                      
+                        <option value="MadkinsSloggy" >madkins/sloggy</option>
+                      
                         <option value="PhsymZerolog" >phsym/zeroslog</option>
                       
                         <option value="SamberLogrus" >samber/slog-logrus</option>
@@ -281,24 +285,25 @@
               <tr>
                 <td></td>
                 <td colspan=2 class="warning">
-                  SourceKey
+                  SourceCaller
                 </td>
                 <td class="extra">
-                  Source data not logged when AddSource flag set
+                  Source data logged as &#39;caller&#39; instead of &#39;source&#39;
                 </td>
                 <td class="toggleButton">
                   
-                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SourceKey-doc')">Doc</button>
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SourceCaller-doc')">Doc</button>
                   
                 </td>
               </tr>
               
-                <tr id="SourceKey-doc" style="display:none;">
+                <tr id="SourceCaller-doc" style="display:none;">
                   <td></td>
-                  <td colspan=4 class="description"><p>Handlers should log source data when the <code>slog.HandlerOptions.AddSource</code> flag is set.</p>
+                  <td colspan=4 class="description"><p>Some handlers return source data as a single string on the <code>caller</code> field
+in the format <code>&lt;file&gt;:&lt;line&gt;</code> where <code>&lt;file&gt;</code> and <code>&lt;line&gt;</code> correspond
+to the <code>File</code> and <code>Line</code> fields of the source data group and <code>Function</code> is not provided.</p>
 
 <ul>
-<li><a href="https://pkg.go.dev/log/slog@master#HandlerOptions" target="_blank">Flag declaration as <code>slog.HandlerOptions</code> field</a></li>
 <li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Behavior defined for <code>JSONHandler.Handle()</code></a></li>
 <li><a href="https://pkg.go.dev/log/slog@master#Source" target="_blank">Definition of source data record</a></li>
 </ul>
@@ -325,20 +330,20 @@
                           
                           Chanchal Zap
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>no 'source' key</p></td></td>
+                        <td class="extra" style="background-color:cornsilk;"><p>reflect/value.go:596</p></td></td>
                         <td class="toggleButton" style="background-color:cornsilk;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKey-Chanchal Zap-log')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceCaller-Chanchal Zap-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="SourceKey-Chanchal Zap-log" style="display:none;">
+                      <tr id="SourceCaller-Chanchal Zap-log" style="display:none;">
                         <td style="background-color:cornsilk;"></td>
                         <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre>{
 	&#34;caller&#34;: &#34;reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-10T01:08:06Z&#34;
+	&#34;time&#34;: &#34;2024-03-12T14:34:00Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -351,20 +356,20 @@
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>no 'source' key</p></td></td>
+                        <td class="extra" style="background-color:antiquewhite;"><p>/opt/hostedtoolcache/go/1.21.8/x64/src/reflect/value.go:596</p></td></td>
                         <td class="toggleButton" style="background-color:antiquewhite;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKey-Phsym Zerolog-log')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceCaller-Phsym Zerolog-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="SourceKey-Phsym Zerolog-log" style="display:none;">
+                      <tr id="SourceCaller-Phsym Zerolog-log" style="display:none;">
                         <td style="background-color:antiquewhite;"></td>
                         <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre>{
 	&#34;caller&#34;: &#34;/opt/hostedtoolcache/go/1.21.8/x64/src/reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-10T01:08:07Z&#34;
+	&#34;time&#34;: &#34;2024-03-12T14:34:00Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -377,20 +382,20 @@
                           
                           Samber Zap
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>no 'source' key</p></td></td>
+                        <td class="extra" style="background-color:cornsilk;"><p>reflect/value.go:596</p></td></td>
                         <td class="toggleButton" style="background-color:cornsilk;">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKey-Samber Zap-log')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceCaller-Samber Zap-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="SourceKey-Samber Zap-log" style="display:none;">
+                      <tr id="SourceCaller-Samber Zap-log" style="display:none;">
                         <td style="background-color:cornsilk;"></td>
                         <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre>{
 	&#34;caller&#34;: &#34;reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-10T01:08:07Z&#34;
+	&#34;time&#34;: &#34;2024-03-12T14:34:00Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -559,7 +564,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-10 01:08:12 UTC</span>
+              <span class="fixed">2024-03-12 14:34:10 UTC</span>
             </div>
           </td>
           <td align="right">

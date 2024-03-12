@@ -32,6 +32,10 @@
                       
                         <option value="ChanchalZap" >chanchal/zaphandler</option>
                       
+                        <option value="MadkinsFlash" >madkins/flash</option>
+                      
+                        <option value="MadkinsSloggy" >madkins/sloggy</option>
+                      
                         <option value="PhsymZerolog" >phsym/zeroslog</option>
                       
                         <option value="SamberLogrus" >samber/slog-logrus</option>
@@ -188,61 +192,79 @@
                   <th>Ns/Op</th>
                   <th>Allocs/Op</th>
                   <th>Bytes/Op</th>
-                  <th>GB/Sec</th>
+                  <th>MB/Sec</th>
                 </tr>
                 
                   <tr>
                     <td class="fixed">chanchal/zaphandler</td>
-                    <td class="number">1,769,914</td>
-                    <td class="number">728.90</td>
+                    <td class="number">1,766,512</td>
+                    <td class="number">751.60</td>
                     <td class="number">3</td>
                     <td class="number">280</td>
-                    <td class="number">259,818.68</td>
+                    <td class="number">142.37</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">madkins/flash</td>
+                    <td class="number">1,361,468</td>
+                    <td class="number">879.60</td>
+                    <td class="number">5</td>
+                    <td class="number">496</td>
+                    <td class="number">322.88</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">madkins/sloggy</td>
+                    <td class="number">584,566</td>
+                    <td class="number">1,965.00</td>
+                    <td class="number">33</td>
+                    <td class="number">1,480</td>
+                    <td class="number">145.04</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">phsym/zeroslog</td>
-                    <td class="number">2,170,602</td>
-                    <td class="number">554.30</td>
+                    <td class="number">2,148,697</td>
+                    <td class="number">552.40</td>
                     <td class="number">4</td>
                     <td class="number">312</td>
-                    <td class="number">591,298.70</td>
+                    <td class="number">273.35</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-logrus</td>
-                    <td class="number">206,748</td>
-                    <td class="number">5,644.00</td>
+                    <td class="number">205,365</td>
+                    <td class="number">5,691.00</td>
                     <td class="number">39</td>
                     <td class="number">2,995</td>
-                    <td class="number">9,780.85</td>
+                    <td class="number">46.92</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-zap</td>
-                    <td class="number">1,632,639</td>
-                    <td class="number">741.20</td>
+                    <td class="number">1,558,810</td>
+                    <td class="number">767.10</td>
                     <td class="number">5</td>
                     <td class="number">592</td>
-                    <td class="number">235,691.08</td>
+                    <td class="number">139.48</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-zerolog</td>
-                    <td class="number">1,000,000</td>
-                    <td class="number">1,161.00</td>
+                    <td class="number">993,770</td>
+                    <td class="number">1,214.00</td>
                     <td class="number">12</td>
                     <td class="number">1,225</td>
-                    <td class="number">233,342.59</td>
+                    <td class="number">223.27</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">slog/JSONHandler</td>
-                    <td class="number">1,338,681</td>
-                    <td class="number">900.40</td>
+                    <td class="number">1,311,216</td>
+                    <td class="number">917.30</td>
                     <td class="number">6</td>
                     <td class="number">568</td>
-                    <td class="number">411,662.04</td>
+                    <td class="number">300.89</td>
                   </tr>
                 
               </table>
@@ -347,7 +369,7 @@
 	&#34;caller&#34;: &#34;tests/benchmarks.go:71&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-10T01:06:34Z&#34;
+	&#34;time&#34;: &#34;2024-03-12T14:31:52Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -373,7 +395,7 @@
 	&#34;caller&#34;: &#34;/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:71&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-10T01:07:07Z&#34;
+	&#34;time&#34;: &#34;2024-03-12T14:33:01Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -399,7 +421,7 @@
 	&#34;caller&#34;: &#34;tests/benchmarks.go:71&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-10T01:07:40Z&#34;
+	&#34;time&#34;: &#34;2024-03-12T14:33:35Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -428,7 +450,7 @@
           <td align="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-10 01:08:12 UTC</span>
+              <span class="fixed">2024-03-12 14:34:10 UTC</span>
             </div>
           </td>
           <td align="right">
