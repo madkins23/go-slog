@@ -1,0 +1,67 @@
+<html lang="en">
+<head>
+    <title>Handler Scores</title>
+    <link rel="stylesheet" href="/go-slog/style.css">
+    <script src="/go-slog/scripts.js"></script>
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="header">
+        {{ template "partHeader" dict "top" $ "title" (printf "Handler <span class=\"fixed\">%s</span>" "Handler Scores") }}
+    </div>
+    <div class="content">
+        <div>
+            <table class="top">
+                <tr class="title">
+                    <td>
+                        <h2>Scoring Data</h2>
+                        <p>These metrics are totally made up. See notes <a href="#scoring_algorithms">below</a></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table class="data">
+                            <tr>
+                                <th>Handler</th>
+                                <th>Benchmark</th>
+                                <th>Warnings</th>
+                            </tr>
+                            {{ range $tag := .Benchmarks.HandlerTags }}
+                                <tr>
+                                    <td>{{ $.Benchmarks.HandlerName $tag }}</td>
+                                    <td class="number">{{ $.FixFloat (($.Benchmarks.HandlerScore $tag).Overall) }}</td>
+                                    <td class="number">{{ $.FixFloat ($.Warnings.HandlerScore $tag) }}</td>
+                                </tr>
+                            {{ end }}
+                        </table>
+                    </td>
+                </tr>
+                <tr><td><hr/></td></tr>
+                <tr class="title"><td><h2>Scatter Plot of Scores</h2></td></tr>
+                <tr>
+                    <td>
+                        <table class="charts">
+                            <tr><td><img src="/go-slog/chart/scores" alt="Handler Scoring" class="chart" /></td></tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr><td><hr/></td></tr>
+                <tr class="title">
+                    <td>
+                        <h2 id="scoring_algorithms">Scoring Algorithms</h2>
+                        <h3>Benchmarks</h3>
+                        <p>TBD</p>
+                        <h3>Warnings</h3>
+                        <p>TBD</p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="footer">
+        {{ template "partFooter" $ }}
+    </div>
+</div>
+</body>
+</html>

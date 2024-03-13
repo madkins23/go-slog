@@ -65,9 +65,15 @@ legend {
     padding: 0.5em;
 }
 
+table.charts {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 table.data {
-    margin: 5px;
     padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 table.data td, th {
@@ -208,6 +214,15 @@ table.instance td.extra {
     font-size: 1em;
 }
 
+table.scores {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.scores td.fixed {
+
+}
+
 table.top {
     margin-left: auto;
     margin-right: auto;
@@ -228,12 +243,17 @@ table.top tr.title td.score span {
     font-weight: bold;
 }
 
+table.top td.center {
+    text-align: center;
+}
+
 table.warning {
-    margin: 5px;
     padding: 5px;
     table-layout: fixed;
     width: 800px;
     border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 table.warning td {

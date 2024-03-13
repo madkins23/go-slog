@@ -1,10 +1,24 @@
 <html lang="en">
 <head>
-<title>Error</title>
-<link rel="stylesheet" href="style"></head>
+    <title>Error</title>
+    <link rel="stylesheet" href="/go-slog/style.css">
+    <script src="/go-slog/scripts.js"></script>
 </head>
+
 <body>
-<h1>Hello!</h1>
-<p>Is there no one here?</p>
+<div class="wrapper">
+    <div class="header">
+        {{ template "partHeader" dict "top" $ "title" "Server Error" }}
+    </div>
+    <div class="content">
+        <div>
+            <table class="top">
+            </table>
+        </div>
+    </div>
+    <div class="footer">
+        {{ template "partFooter" $ }}
+    </div>
+</div>
 </body>
 </html>

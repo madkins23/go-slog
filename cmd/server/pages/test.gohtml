@@ -22,7 +22,7 @@
         {{ if .Benchmarks.HasTest .Test }}
           <tr class="title"><td><h2>Benchmark Data</h2></td></tr>
           <tr>
-            <td colspan=2 align="center">
+            <td colspan=2>
               <table class="data">
                 <tr>
                   <th>Handler</th>
@@ -49,7 +49,7 @@
           <tr><td colspan=2 class="title"><h2>Benchmark Charts</h2></td></tr>
           <tr>
             <td colspan=2 class="score">
-              <table>
+              <table class="charts">
                 <tr>
                   <td><img src="/go-slog/chart/{{ .Test }}/Nanos.svg" alt="{{ .Benchmarks.TestName .Test }} Ns/Op" class="chart" /></td>
                   <td><img src="/go-slog/chart/{{ .Test }}/MemAllocs.svg" alt="{{ .Benchmarks.TestName .Test }} Allocs/Op" class="chart" /></td>
@@ -68,7 +68,7 @@
           {{ end }}
           <tr><td colspan=2 class="title"><h2 >Warnings</h2></td></tr>
           <tr>
-            <td colspan=2 align="center">
+            <td colspan=2>
               <table class="warning">
                 <colgroup>
                   <col width="3%"/>

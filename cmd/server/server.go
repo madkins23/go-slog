@@ -31,6 +31,7 @@ import (
 	"math"
 	"net/http"
 	"os"
+	"strconv"
 	"strings"
 	"sync"
 	"time"
@@ -62,6 +63,7 @@ const (
 	pageHome     = "pageHome"
 	pageTest     = "pageBench"
 	pageHandler  = "pageHandler"
+	pageScoring  = "pageScoring"
 	pageWarnings = "pageWarnings"
 	pageGuts     = "pageGuts"
 	pageError    = "pageError"
@@ -111,8 +113,10 @@ func main() {
 	router.GET("/go-slog/index.html", homePageFn)
 	router.GET("/go-slog/test/:tag", pageFunction(pageTest))
 	router.GET("/go-slog/handler/:tag", pageFunction(pageHandler))
+	router.GET("/go-slog/scoring.html", pageFunction(pageScoring))
 	router.GET("/go-slog/warnings.html", pageFunction(pageWarnings))
 	router.GET("/go-slog/guts.html", pageFunction(pageGuts))
+	router.GET("/go-slog/error.html", pageFunction(pageError))
 	router.GET("/go-slog/chart/scores", scoreFunction)
 	router.GET("/go-slog/chart/:tag/:item", chartFunction)
 	router.GET("/go-slog/home.svg", svgFunction(home))
@@ -138,7 +142,7 @@ func main() {
 var (
 	bench     = data.NewBenchmarks()
 	warns     = data.NewWarningData()
-	pages     = []pageType{pageHome, pageTest, pageHandler, pageWarnings, pageGuts}
+	pages     = []pageType{pageHome, pageTest, pageHandler, pageScoring, pageWarnings, pageGuts, pageError}
 	templates map[pageType]*template.Template
 
 	//go:embed pages/home.gohtml
@@ -149,6 +153,9 @@ var (
 
 	//go:embed pages/handler.gohtml
 	tmplPageHandler string
+
+	//go:embed pages/scoring.gohtml
+	tmplPageScoring string
 
 	//go:embed pages/warnings.gohtml
 	tmplPageWarnings string
@@ -218,6 +225,22 @@ func setup() error {
 			if err == nil {
 				_, err = tmpl.New(partWarnings).Parse(tmplPartWarnings)
 			}
+		case pageScoring:
+			tmpl, err = tmpl.Parse(tmplPageScoring)
+			if err == nil {
+				_, err = tmpl.New(partHeader).Parse(tmplPartHeader)
+			}
+			if err == nil {
+				_, err = tmpl.New(partFooter).Parse(tmplPartFooter)
+			}
+		case pageWarnings:
+			tmpl, err = tmpl.Parse(tmplPageWarnings)
+			if err == nil {
+				_, err = tmpl.New(partHeader).Parse(tmplPartHeader)
+			}
+			if err == nil {
+				_, err = tmpl.New(partFooter).Parse(tmplPartFooter)
+			}
 		case pageGuts:
 			tmpl, err = tmpl.Parse(tmplPageGuts)
 			if err == nil {
@@ -229,16 +252,14 @@ func setup() error {
 			if err == nil {
 				_, err = tmpl.New(partSource).Parse(tmplPartSource)
 			}
-		case pageWarnings:
-			tmpl, err = tmpl.Parse(tmplPageWarnings)
+		case pageError:
+			tmpl, err = tmpl.Parse(tmplPageError)
 			if err == nil {
 				_, err = tmpl.New(partHeader).Parse(tmplPartHeader)
 			}
 			if err == nil {
 				_, err = tmpl.New(partFooter).Parse(tmplPartFooter)
 			}
-		case pageError:
-			tmpl, err = tmpl.Parse(tmplPageError)
 		default:
 			return fmt.Errorf("unknown page name: %s", page)
 		}
@@ -371,6 +392,8 @@ func scoreFunction(c *gin.Context) {
 	c.Data(http.StatusOK, chart.ContentTypeSVG, ch)
 }
 
+const shiftAnnotations = 2
+
 func scoreChartFunction() chart.Chart {
 	type handlerCoords struct{ x, y float64 }
 	handlers := make(map[data.HandlerTag]*handlerCoords)
@@ -383,9 +406,9 @@ func scoreChartFunction() chart.Chart {
 			coords.x = warns.HandlerScore(hdlr)
 		}
 	}
-	aValues := make([]chart.Value2, 0, len(handlers))
-	xValues := make([]float64, 0, len(handlers))
-	yValues := make([]float64, 0, len(handlers))
+	aValues := make([]chart.Value2, 0, len(handlers)+1)
+	xValues := make([]float64, 0, len(handlers)+1)
+	yValues := make([]float64, 0, len(handlers)+1)
 	for hdlr, coords := range handlers {
 		if coords.y > 0.00001 {
 			// This is an attempt to not have annotations sit on top of each other.
@@ -393,15 +416,13 @@ func scoreChartFunction() chart.Chart {
 			y := coords.y
 			for tag, a := range aValues {
 				yDist := a.YValue - y
-				if math.Abs(yDist) < 5 && math.Abs(a.XValue-coords.x) < 10 {
-					if yDist > 0 {
-						adjustment := 5 - yDist
-						aValues[tag].YValue += adjustment
-						y -= adjustment
+				if math.Abs(yDist) < 2*shiftAnnotations && math.Abs(a.XValue-coords.x) < 10 {
+					if yDist >= 0 {
+						aValues[tag].YValue += shiftAnnotations
+						y -= shiftAnnotations
 					} else {
-						adjustment := 5 + yDist
-						aValues[tag].YValue -= adjustment
-						y += adjustment
+						aValues[tag].YValue -= shiftAnnotations
+						y += shiftAnnotations
 					}
 				}
 			}
@@ -414,17 +435,24 @@ func scoreChartFunction() chart.Chart {
 			yValues = append(yValues, coords.y)
 		}
 	}
+	ticks := make([]chart.Tick, 11)
+	for i := 0; i < 11; i++ {
+		ticks[i].Value = float64(i * 10)
+		ticks[i].Label = strconv.FormatFloat(ticks[i].Value, 'f', 1, 64)
+	}
 	return chart.Chart{
 		Height: 600,
 		Width:  750,
 		XAxis: chart.XAxis{
 			Name:  "Warning Score",
 			Range: &chart.ContinuousRange{Min: 0, Max: 100.0, Domain: 100.0},
+			Ticks: ticks,
 		},
 		YAxis: chart.YAxis{
 			Name: "Benchmark Score",
 			//AxisType: chart.YAxisSecondary, // cuts off axis labels on left
 			Range: &chart.ContinuousRange{Min: 0, Max: 100.0, Domain: 100.0},
+			Ticks: ticks,
 		},
 		Series: []chart.Series{
 			chart.ContinuousSeries{
@@ -531,9 +559,10 @@ func pageFunction(page pageType) gin.HandlerFunc {
 		}
 		if err := templates[page].Execute(c.Writer, tmplData); err != nil {
 			slog.Error("Error in page function", "err", err)
-			c.HTML(http.StatusInternalServerError, "pageFunction", gin.H{
-				"ErrorTitle":   "Template failed execution",
-				"ErrorMessage": err.Error()})
+			if err := c.AbortWithError(http.StatusInternalServerError, err); err != nil {
+				slog.Error("Unable to abort with error: %w", err)
+			}
+			c.Redirect(http.StatusInternalServerError, "/go-slog/error.html")
 		}
 	}
 }
