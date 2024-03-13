@@ -67,6 +67,7 @@ func (w *Warnings) HandlerName(handler HandlerTag) string {
 	}
 }
 
+// scoreWeight has the multipliers for different warning levels.
 var scoreWeight = map[warning.Level]uint64{
 	warning.LevelRequired:  8,
 	warning.LevelImplied:   4,
@@ -74,6 +75,8 @@ var scoreWeight = map[warning.Level]uint64{
 	warning.LevelAdmin:     1,
 }
 
+// HandlerScore returns a single floating point value in the range 0..100.0
+// that is purported to be the score of the handler based on its warnings.
 func (w *Warnings) HandlerScore(handler HandlerTag) float64 {
 	if w.testScores == nil {
 		var high uint64

@@ -191,6 +191,8 @@ type TestScores struct {
 	byTest  map[TestTag]float64
 }
 
+// ForTest returns the floating point score for the test
+// (for the implied handler for which the TestScores object was created).
 func (ts *TestScores) ForTest(test TestTag) float64 {
 	return ts.byTest[test]
 }
@@ -234,6 +236,9 @@ func (b *Benchmarks) testRange(test TestTag) *testRange {
 	return b.ranges[test]
 }
 
+// HandlerScore returns all the scores associated with the specified handler.
+// There is a score for each test in which the handler participated and
+// a single overall score averaged from the per-test scores.
 func (b *Benchmarks) HandlerScore(handler HandlerTag) *TestScores {
 	scores := &TestScores{
 		byTest: make(map[TestTag]float64),
