@@ -63,7 +63,7 @@ const (
 	pageHome     = "pageHome"
 	pageTest     = "pageBench"
 	pageHandler  = "pageHandler"
-	pageScoring  = "pageScoring"
+	pageScores   = "pageScores"
 	pageWarnings = "pageWarnings"
 	pageGuts     = "pageGuts"
 	pageError    = "pageError"
@@ -113,7 +113,7 @@ func main() {
 	router.GET("/go-slog/index.html", homePageFn)
 	router.GET("/go-slog/test/:tag", pageFunction(pageTest))
 	router.GET("/go-slog/handler/:tag", pageFunction(pageHandler))
-	router.GET("/go-slog/scoring.html", pageFunction(pageScoring))
+	router.GET("/go-slog/scores.html", pageFunction(pageScores))
 	router.GET("/go-slog/warnings.html", pageFunction(pageWarnings))
 	router.GET("/go-slog/guts.html", pageFunction(pageGuts))
 	router.GET("/go-slog/error.html", pageFunction(pageError))
@@ -142,7 +142,7 @@ func main() {
 var (
 	bench     = data.NewBenchmarks()
 	warns     = data.NewWarningData()
-	pages     = []pageType{pageHome, pageTest, pageHandler, pageScoring, pageWarnings, pageGuts, pageError}
+	pages     = []pageType{pageHome, pageTest, pageHandler, pageScores, pageWarnings, pageGuts, pageError}
 	templates map[pageType]*template.Template
 
 	//go:embed pages/home.gohtml
@@ -154,8 +154,8 @@ var (
 	//go:embed pages/handler.gohtml
 	tmplPageHandler string
 
-	//go:embed pages/scoring.gohtml
-	tmplPageScoring string
+	//go:embed pages/scores.gohtml
+	tmplPageScores string
 
 	//go:embed pages/warnings.gohtml
 	tmplPageWarnings string
@@ -225,8 +225,8 @@ func setup() error {
 			if err == nil {
 				_, err = tmpl.New(partWarnings).Parse(tmplPartWarnings)
 			}
-		case pageScoring:
-			tmpl, err = tmpl.Parse(tmplPageScoring)
+		case pageScores:
+			tmpl, err = tmpl.Parse(tmplPageScores)
 			if err == nil {
 				_, err = tmpl.New(partHeader).Parse(tmplPartHeader)
 			}

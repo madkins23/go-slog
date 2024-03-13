@@ -233,6 +233,10 @@ table.top tr.title {
     vertical-align: baseline;
 }
 
+table.top tr.title h2 {
+    display: inline;
+}
+
 table.top tr.title td.score {
     font-size:   1.5em;
     text-align: right;
@@ -304,6 +308,10 @@ table.warning td.warning {
     font-size: 1.25em;
     font-weight: bold;
     padding-top: 0.5em;
+}
+
+.centered {
+    text-align: center;
 }
 
 .fixed {

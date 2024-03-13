@@ -8,17 +8,12 @@
 <body>
 <div class="wrapper">
     <div class="header">
-        {{ template "partHeader" dict "top" $ "title" (printf "Handler <span class=\"fixed\">%s</span>" "Handler Scores") }}
+        {{ template "partHeader" dict "top" $ "title" "Handler Scores" }}
     </div>
     <div class="content">
         <div>
             <table class="top">
-                <tr class="title">
-                    <td>
-                        <h2>Scoring Data</h2>
-                        <p>These metrics are totally made up. See notes <a href="#scoring_algorithms">below</a></p>
-                    </td>
-                </tr>
+                <tr class="title"><td><h2>Scoring Data</h2></td></tr>
                 <tr>
                     <td>
                         <table class="data">
@@ -35,6 +30,11 @@
                                 </tr>
                             {{ end }}
                         </table>
+                        <p class="centered">
+                            Numbers are on scale of <span class="fixed">0..100</span>.
+                            Metrics algorithms completely made up out of thin air.
+                            See notes <a href="#scoring_algorithms">below</a> for details.
+                        </p>
                     </td>
                 </tr>
                 <tr><td><hr/></td></tr>
@@ -44,6 +44,10 @@
                         <table class="charts">
                             <tr><td><img src="/go-slog/chart/scores" alt="Handler Scoring" class="chart" /></td></tr>
                         </table>
+                        <p class="centered">
+                            The "good" zone is the upper right and the "bad" zone is the lower left.
+                            The top is fast, the bottom is slow.
+                        </p>
                     </td>
                 </tr>
                 <tr><td><hr/></td></tr>

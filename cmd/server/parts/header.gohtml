@@ -57,7 +57,7 @@
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
                       <option value="index.html"    {{ if eq $top.Page "pageHome" }}selected{{ end}}>Home</option>
-                      <option value="scoring.html"  {{ if eq $top.Page "pageScoring" }}selected{{ end}}>Scoring</option>
+                      <option value="scores.html"   {{ if eq $top.Page "pageScores" }}selected{{ end}}>Scores</option>
                       <option value="warnings.html" {{ if eq $top.Page "pageWarnings" }}selected{{ end}}>Warnings</option>
                       <option value="guts.html"     {{ if eq $top.Page "pageGuts" }}selected{{ end}}>Guts</option>
                     </select>
