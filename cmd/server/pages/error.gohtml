@@ -13,6 +13,16 @@
     <div class="content">
         <div>
             <table class="top">
+                <tr class="title">
+                    <td>
+                        <h2>Errors</h2>
+                        {{ range $error := .Errors }}
+                            <ul>
+                                <li class="fixed">{{ $error }}</li>
+                            </ul>
+                        {{ end }}
+                    </td>
+                </tr>
             </table>
         </div>
     </div>

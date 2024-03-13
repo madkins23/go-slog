@@ -26,6 +26,7 @@ import (
 	"flag"
 	"fmt"
 	"html/template"
+	"io"
 	"log"
 	"log/slog"
 	"math"
@@ -80,6 +81,12 @@ var (
 
 	//go:embed stuff/home.svg
 	home []byte
+
+	//go:embed stuff/scores/benchmarks.md
+	scoringBenchmarks string
+
+	//go:embed stuff/scores/warnings.md
+	scoringWarnings string
 
 	//go:embed stuff/scripts.js
 	scripts string
@@ -517,6 +524,8 @@ type templateData struct {
 	Printer   *message.Printer
 	Page      string
 	Timestamp string
+	Scoring   map[string]string
+	Errors    []string
 }
 
 // FixUint converts a uint64 into a string using the language printer.
@@ -544,8 +553,13 @@ func pageFunction(page pageType) gin.HandlerFunc {
 			Printer:    language.Printer(),
 			Page:       string(page),
 			Timestamp:  time.Now().Format(time.DateTime + " MST"),
+			Scoring: map[string]string{
+				"Benchmarks": scoringBenchmarks,
+				"Warnings":   scoringWarnings,
+			},
 		}
-		if page == pageTest || page == pageHandler {
+		switch page {
+		case pageTest, pageHandler:
 			if tag := c.Param("tag"); tag == "" {
 				slog.Error("No URL parameter", "param", "tag")
 			} else {
@@ -556,13 +570,19 @@ func pageFunction(page pageType) gin.HandlerFunc {
 					tmplData.Handler = data.HandlerTag(tag)
 				}
 			}
+		case pageError:
+			tmplData.Errors = c.Errors.Errors()
 		}
-		if err := templates[page].Execute(c.Writer, tmplData); err != nil {
-			slog.Error("Error in page function", "err", err)
-			if err := c.AbortWithError(http.StatusInternalServerError, err); err != nil {
-				slog.Error("Unable to abort with error: %w", err)
+		var buf bytes.Buffer
+		if err := templates[page].Execute(&buf, tmplData); err != nil {
+			slog.Error("Error executing template", "err", err, "page", page)
+			_ = c.Error(err)
+			if page != pageError {
+				pageFunction(pageError)(c)
 			}
-			c.Redirect(http.StatusInternalServerError, "/go-slog/error.html")
+		} else if _, err := io.Copy(c.Writer, &buf); err != nil {
+			slog.Error("Error writing page", "err", err, "page", page)
+			_ = c.Error(err)
 		}
 	}
 }
