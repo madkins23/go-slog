@@ -79,26 +79,26 @@ var scoreWeight = map[warning.Level]uint64{
 // that is purported to be the score of the handler based on its warnings.
 func (w *Warnings) HandlerScore(handler HandlerTag) float64 {
 	if w.testScores == nil {
-		var high uint64
+		var maxScore uint64
+		for _, level := range warning.LevelOrder {
+			maxScore += scoreWeight[level] * uint64(len(warning.WarningsForLevel(level)))
+		}
 		testScores := make(map[HandlerTag]uint64)
 		for _, hdlr := range w.HandlerTags() {
 			var score uint64
 			for _, level := range w.byHandler[hdlr].Levels() {
 				score += scoreWeight[level.level] * uint64(len(level.Warnings()))
 			}
-			if score > high {
-				high = score
-			}
 			testScores[hdlr] = score
 		}
-		// low is always zero, so the range is just the value of high
+		// The range for warning scores is zero to maxScore.
 		w.testScores = make(map[HandlerTag]float64)
 		for _, hdlr := range w.HandlerTags() {
-			if high == 0 {
+			if maxScore == 0 {
 				// If we're all the same (the score range is essentially zero) we all get 100%.
 				w.testScores[hdlr] = 100.0
 			} else {
-				w.testScores[hdlr] = 100.0 * float64(high-testScores[hdlr]) / float64(high)
+				w.testScores[hdlr] = 100.0 * float64(maxScore-testScores[hdlr]) / float64(maxScore)
 			}
 		}
 	}
