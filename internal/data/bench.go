@@ -240,25 +240,21 @@ func (b *Benchmarks) HandlerScore(handler HandlerTag) *TestScores {
 	}
 	for test, record := range b.byHandler[handler] {
 		rng := b.testRange(test)
-		var alloc uint64
-		if scoreRange := rng.allocHigh - rng.allocLow; scoreRange > 0 {
-			alloc = (record.MemAllocsPerOp - rng.allocLow) / scoreRange * 100.0
-		} else {
-			alloc = 1
+		var collect float64
+		var count uint
+		if scoreRange := float64(rng.allocHigh - rng.allocLow); scoreRange > 0 {
+			collect += 100.0 * float64(rng.allocHigh-record.MemAllocsPerOp) / scoreRange
+			count++
 		}
-		var bytes uint64
-		if scoreRange := rng.bytesHigh - rng.bytesLow; scoreRange > 0 {
-			bytes = (record.MemBytesPerOp - rng.bytesLow) / scoreRange * 100.0
-		} else {
-			bytes = 1
+		if scoreRange := float64(rng.bytesHigh - rng.bytesLow); scoreRange > 0 {
+			collect += 200.0 * float64(rng.bytesHigh-record.MemBytesPerOp) / scoreRange
+			count += 2
 		}
-		var nanos float64
 		if scoreRange := rng.nanosHigh - rng.nanosLow; scoreRange > 0 {
-			nanos = (record.NanosPerOp - rng.nanosLow) / scoreRange * 100.0
-		} else {
-			nanos = 1.0
+			collect += 300.0 * (rng.nanosHigh - record.NanosPerOp) / scoreRange
+			count += 3
 		}
-		scores.byTest[test] = (float64(alloc) + float64(2*bytes) + 3.0*nanos) / 6.0
+		scores.byTest[test] = collect / float64(count)
 	}
 	var count uint
 	for _, s := range scores.byTest {

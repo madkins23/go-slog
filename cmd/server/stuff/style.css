@@ -214,12 +214,16 @@ table.top {
     width: 100%;
 }
 
-table.top td.score {
+table.top tr.title {
+    vertical-align: baseline;
+}
+
+table.top tr.title td.score {
     font-size:   1.5em;
     text-align: right;
 }
 
-table.top td.score span {
+table.top tr.title td.score span {
     font-family: monospace;
     font-weight: bold;
 }
