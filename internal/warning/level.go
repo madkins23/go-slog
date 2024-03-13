@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"html/template"
 	"strings"
+
+	"github.com/madkins23/go-slog/internal/markdown"
 )
 
 // -----------------------------------------------------------------------------
@@ -57,7 +59,7 @@ var levelSummaries = map[Level]string{
 }
 
 func (l Level) Summary() template.HTML {
-	return MD2HTML(levelSummaries[l])
+	return markdown.TemplateHTML(levelSummaries[l])
 }
 
 func (l Level) Warnings() []*Warning {

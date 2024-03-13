@@ -82,12 +82,6 @@ var (
 	//go:embed stuff/home.svg
 	home []byte
 
-	//go:embed stuff/scores/benchmarks.md
-	scoringBenchmarks string
-
-	//go:embed stuff/scores/warnings.md
-	scoringWarnings string
-
 	//go:embed stuff/scripts.js
 	scripts string
 )
@@ -149,6 +143,7 @@ func main() {
 var (
 	bench     = data.NewBenchmarks()
 	warns     = data.NewWarningData()
+	score     = data.NewScoreKeeper()
 	pages     = []pageType{pageHome, pageTest, pageHandler, pageScores, pageWarnings, pageGuts, pageError}
 	templates map[pageType]*template.Template
 
@@ -192,7 +187,7 @@ func setup() error {
 		return fmt.Errorf("language setup: %w", err)
 	}
 
-	if err := data.Setup(bench, warns); err != nil {
+	if err := data.Setup(bench, warns, score); err != nil {
 		return fmt.Errorf("data setup: %w", err)
 	}
 
@@ -405,12 +400,12 @@ func scoreChartFunction() chart.Chart {
 	type handlerCoords struct{ x, y float64 }
 	handlers := make(map[data.HandlerTag]*handlerCoords)
 	for _, hdlr := range bench.HandlerTags() {
-		handlers[hdlr] = &handlerCoords{y: bench.HandlerScore(hdlr).Overall}
+		handlers[hdlr] = &handlerCoords{y: score.HandlerBenchScores(hdlr).Overall}
 	}
 	for _, hdlr := range warns.HandlerTags() {
 		if coords, found := handlers[hdlr]; found {
 			// Only add value if there is already a benchmark score.
-			coords.x = warns.HandlerScore(hdlr)
+			coords.x = score.HandlerWarningScore(hdlr)
 		}
 	}
 	aValues := make([]chart.Value2, 0, len(handlers)+1)
@@ -518,13 +513,13 @@ func scoreChartDistance(xMin, yMin, xMax, yMax, ratio float64) float64 {
 type templateData struct {
 	*data.Benchmarks
 	*data.Warnings
+	data.Scores
 	Handler   data.HandlerTag
 	Test      data.TestTag
 	Levels    []warning.Level
 	Printer   *message.Printer
 	Page      string
 	Timestamp string
-	Scoring   map[string]string
 	Errors    []string
 }
 
@@ -549,14 +544,11 @@ func pageFunction(page pageType) gin.HandlerFunc {
 		tmplData := &templateData{
 			Benchmarks: bench,
 			Warnings:   warns,
+			Scores:     score,
 			Levels:     warning.LevelOrder,
 			Printer:    language.Printer(),
 			Page:       string(page),
 			Timestamp:  time.Now().Format(time.DateTime + " MST"),
-			Scoring: map[string]string{
-				"Benchmarks": scoringBenchmarks,
-				"Warnings":   scoringWarnings,
-			},
 		}
 		switch page {
 		case pageTest, pageHandler:

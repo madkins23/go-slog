@@ -24,7 +24,6 @@ type Warnings struct {
 	handlers     []HandlerTag
 	handlerNames map[HandlerTag]string
 	testNames    map[TestTag]string
-	testScores   map[HandlerTag]float64
 }
 
 func NewWarningData() *Warnings {
@@ -65,45 +64,6 @@ func (w *Warnings) HandlerName(handler HandlerTag) string {
 	} else {
 		return string(handler)
 	}
-}
-
-// scoreWeight has the multipliers for different warning levels.
-var scoreWeight = map[warning.Level]uint64{
-	warning.LevelRequired:  8,
-	warning.LevelImplied:   4,
-	warning.LevelSuggested: 2,
-	warning.LevelAdmin:     1,
-}
-
-// HandlerScore returns a single floating point value in the range 0..100.0
-// that is purported to be the score of the handler based on its warnings.
-func (w *Warnings) HandlerScore(handler HandlerTag) float64 {
-	if w.testScores == nil {
-		var maxScore uint64
-		for _, level := range warning.LevelOrder {
-			maxScore += scoreWeight[level] * uint64(len(warning.WarningsForLevel(level)))
-		}
-		testScores := make(map[HandlerTag]uint64)
-		for _, hdlr := range w.HandlerTags() {
-			var score uint64
-			for _, level := range w.byHandler[hdlr].Levels() {
-				score += scoreWeight[level.level] * uint64(len(level.Warnings()))
-			}
-			testScores[hdlr] = score
-		}
-		// The range for warning scores is zero to maxScore.
-		w.testScores = make(map[HandlerTag]float64)
-		for _, hdlr := range w.HandlerTags() {
-			if maxScore == 0 {
-				// If we're all the same (the score range is essentially zero) we all get 100%.
-				w.testScores[hdlr] = 100.0
-			} else {
-				w.testScores[hdlr] = 100.0 * float64(maxScore-testScores[hdlr]) / float64(maxScore)
-			}
-		}
-	}
-
-	return w.testScores[handler]
 }
 
 // HandlerTags returns an array of all handler names sorted alphabetically.

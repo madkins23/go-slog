@@ -1,4 +1,4 @@
-package warning
+package markdown
 
 import (
 	"html/template"
@@ -16,7 +16,7 @@ func init() {
 	renderer = html.NewRenderer(html.RendererOptions{Flags: html.HrefTargetBlank})
 }
 
-func MD2HTML(md string) template.HTML {
+func TemplateHTML(md string) template.HTML {
 	// Can't pre-build the parser in init(), it fails the second time it's used.
 	mdParser := parser.NewWithExtensions(
 		parser.CommonExtensions | parser.AutoHeadingIDs | parser.NoEmptyLineBeforeBlock)

@@ -15,7 +15,7 @@
     <div>
       <table class="top">
         {{ if .Benchmarks.HasHandler .Handler }}
-          {{ $benchScore := .Benchmarks.HandlerScore .Handler }}
+          {{ $benchScore := .Scores.HandlerBenchScores .Handler }}
           <tr class="title">
             <td><h2>Benchmark Data</h2></td>
             <td class="score">Score: <span>{{ $.FixFloat $benchScore.Overall }}</span></td>
@@ -67,7 +67,7 @@
           <tr><td colspan=2><hr/></td></tr>
           <tr class="title">
             <td><h2 >Warnings</h2></td>
-            <td class="score">Score: <span>{{ $.FixFloat (.Warnings.HandlerScore .Handler) }}</span></td>
+            <td class="score">Score: <span>{{ $.FixFloat (.Scores.HandlerWarningScore .Handler) }}</span></td>
           </tr>
           <tr>
             <td colspan=2>

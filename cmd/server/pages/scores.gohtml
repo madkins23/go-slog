@@ -13,7 +13,7 @@
     <div class="content">
         <div>
             <table class="top">
-                <tr class="title"><td><h2>Scoring Data</h2></td></tr>
+                <tr class="title"><td><h2>Scores</h2></td></tr>
                 <tr>
                     <td>
                         <table class="data">
@@ -25,8 +25,8 @@
                             {{ range $tag := .Benchmarks.HandlerTags }}
                                 <tr>
                                     <td>{{ $.Benchmarks.HandlerName $tag }}</td>
-                                    <td class="number">{{ $.FixFloat (($.Benchmarks.HandlerScore $tag).Overall) }}</td>
-                                    <td class="number">{{ $.FixFloat ($.Warnings.HandlerScore $tag) }}</td>
+                                    <td class="number">{{ $.FixFloat (($.Scores.HandlerBenchScores $tag).Overall) }}</td>
+                                    <td class="number">{{ $.FixFloat ($.Scores.HandlerWarningScore $tag) }}</td>
                                 </tr>
                             {{ end }}
                         </table>
@@ -38,15 +38,19 @@
                     </td>
                 </tr>
                 <tr><td><hr/></td></tr>
-                <tr class="title"><td><h2>Scatter Plot of Scores</h2></td></tr>
+                <tr class="title"><td><h2>Speed vs. Functionality</h2></td></tr>
                 <tr>
                     <td>
                         <table class="charts">
                             <tr><td><img src="/go-slog/chart/scores" alt="Handler Scoring" class="chart" /></td></tr>
                         </table>
                         <p class="centered">
+                            Higher numbers are better on both axes.
                             The "good" zone is the upper right and the "bad" zone is the lower left.
+                        </p>
+                        <p class="centered">
                             The top is fast, the bottom is slow.
+                            The further left the more warnings.
                         </p>
                     </td>
                 </tr>
@@ -55,9 +59,9 @@
                     <td>
                         <h2 id="scoring_algorithms">Scoring Algorithms</h2>
                         <h3>Benchmarks</h3>
-                        {{ .Scoring.Benchmarks }}
+                        {{ .Scores.DocBench }}
                         <h3>Warnings</h3>
-                        {{ .Scoring.Warnings }}
+                        {{ .Scores.DocWarning }}
                     </td>
                 </tr>
             </table>

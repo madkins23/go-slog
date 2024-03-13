@@ -10,6 +10,8 @@ import (
 	"strings"
 	"sync"
 	"unicode"
+
+	"github.com/madkins23/go-slog/internal/markdown"
 )
 
 // Warning definition.
@@ -68,7 +70,7 @@ func (w *Warning) HasDescription() bool {
 
 // Description converts the Markdown description data into HTML and returns it.
 func (w *Warning) Description() template.HTML {
-	return MD2HTML(w.description)
+	return markdown.TemplateHTML(w.description)
 }
 
 // WarningsForLevel returns a list of warnings for the specified level.
