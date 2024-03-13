@@ -21,11 +21,14 @@ See scripts/bench, scripts/verify and scripts/server for usage examples.
 package main
 
 import (
+	"bytes"
 	_ "embed"
 	"flag"
 	"fmt"
 	"html/template"
+	"log"
 	"log/slog"
+	"math"
 	"net/http"
 	"os"
 	"strings"
@@ -35,6 +38,8 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/phsym/console-slog"
 	"github.com/vicanso/go-charts/v2"
+	"github.com/wcharczuk/go-chart/v2"
+	"github.com/wcharczuk/go-chart/v2/drawing"
 	"golang.org/x/text/message"
 
 	"github.com/madkins23/gin-utils/pkg/handler"
@@ -108,6 +113,7 @@ func main() {
 	router.GET("/go-slog/handler/:tag", pageFunction(pageHandler))
 	router.GET("/go-slog/warnings.html", pageFunction(pageWarnings))
 	router.GET("/go-slog/guts.html", pageFunction(pageGuts))
+	router.GET("/go-slog/chart/scores", scoreFunction)
 	router.GET("/go-slog/chart/:tag/:item", chartFunction)
 	router.GET("/go-slog/home.svg", svgFunction(home))
 	router.GET("/go-slog/scripts.js", textFunction(scripts))
@@ -342,6 +348,133 @@ func chartHandler(records data.TestRecords, item data.BenchItems) (labels []stri
 	reverse(labels)
 	reverse(values)
 	return
+}
+
+// scoreFunction generates an SVG chart for the score visualization.
+func scoreFunction(c *gin.Context) {
+	cacheKey := "score"
+	chartCacheMutex.Lock()
+	ch, found := chartCache[cacheKey]
+	chartCacheMutex.Unlock()
+	if !found {
+		graph := scoreChartFunction()
+		var buf bytes.Buffer
+		if err := graph.Render(chart.SVG, &buf); err != nil {
+			log.Println(err.Error())
+		} else {
+			ch = buf.Bytes()
+			chartCacheMutex.Lock()
+			chartCache[cacheKey] = ch
+			chartCacheMutex.Unlock()
+		}
+	}
+	c.Data(http.StatusOK, chart.ContentTypeSVG, ch)
+}
+
+func scoreChartFunction() chart.Chart {
+	type handlerCoords struct{ x, y float64 }
+	handlers := make(map[data.HandlerTag]*handlerCoords)
+	for _, hdlr := range bench.HandlerTags() {
+		handlers[hdlr] = &handlerCoords{y: bench.HandlerScore(hdlr).Overall}
+	}
+	for _, hdlr := range warns.HandlerTags() {
+		if coords, found := handlers[hdlr]; found {
+			// Only add value if there is already a benchmark score.
+			coords.x = warns.HandlerScore(hdlr)
+		}
+	}
+	aValues := make([]chart.Value2, 0, len(handlers))
+	xValues := make([]float64, 0, len(handlers))
+	yValues := make([]float64, 0, len(handlers))
+	for hdlr, coords := range handlers {
+		if coords.y > 0.00001 {
+			// This is an attempt to not have annotations sit on top of each other.
+			// It won't handle cases where more than two dots overlap.
+			y := coords.y
+			for tag, a := range aValues {
+				yDist := a.YValue - y
+				if math.Abs(yDist) < 5 && math.Abs(a.XValue-coords.x) < 10 {
+					if yDist > 0 {
+						adjustment := 5 - yDist
+						aValues[tag].YValue += adjustment
+						y -= adjustment
+					} else {
+						adjustment := 5 + yDist
+						aValues[tag].YValue -= adjustment
+						y += adjustment
+					}
+				}
+			}
+			aValues = append(aValues, chart.Value2{
+				Label:  warns.HandlerName(hdlr),
+				XValue: coords.x + 1,
+				YValue: y,
+			})
+			xValues = append(xValues, coords.x)
+			yValues = append(yValues, coords.y)
+		}
+	}
+	return chart.Chart{
+		Height: 600,
+		Width:  750,
+		XAxis: chart.XAxis{
+			Name:  "Warning Score",
+			Range: &chart.ContinuousRange{Min: 0, Max: 100.0, Domain: 100.0},
+		},
+		YAxis: chart.YAxis{
+			Name: "Benchmark Score",
+			//AxisType: chart.YAxisSecondary, // cuts off axis labels on left
+			Range: &chart.ContinuousRange{Min: 0, Max: 100.0, Domain: 100.0},
+		},
+		Series: []chart.Series{
+			chart.ContinuousSeries{
+				Style: chart.Style{
+					DotWidth:         5,
+					DotColorProvider: scoreChartColorFunction,
+					StrokeWidth:      chart.Disabled,
+				},
+				XValues: xValues,
+				YValues: yValues,
+			},
+			chart.AnnotationSeries{
+				Style: chart.Style{
+					StrokeWidth: chart.Disabled,
+					DotWidth:    chart.Disabled,
+				},
+				Annotations: aValues,
+			},
+		},
+	}
+}
+
+const bigByte = float64(0xFF)
+
+func scoreChartColorFunction(xr, yr chart.Range, _ int, x, y float64) drawing.Color {
+	ratio := scoreChartRatio(xr.GetMin(), yr.GetMin(), xr.GetMax(), yr.GetMax())
+	diagonal := scoreChartDistance(xr.GetMin(), yr.GetMin(), xr.GetMax(), yr.GetMax(), ratio)
+	distLow := scoreChartDistance(x, y, xr.GetMin(), yr.GetMin(), ratio)
+	distHigh := scoreChartDistance(xr.GetMax(), yr.GetMax(), x, y, ratio)
+	return drawing.Color{
+		R: scoreChartColor(distLow, diagonal),
+		G: scoreChartColor(distHigh, diagonal),
+		B: 0x00,
+		A: 0xff,
+	}
+}
+
+func scoreChartRatio(xMin, yMin, xMax, yMax float64) float64 {
+	return (xMax - xMin) / (yMax - yMin)
+}
+
+func scoreChartColor(distance, diagonal float64) uint8 {
+	if distance > diagonal {
+		return 0
+	}
+	return byte(bigByte - bigByte*distance/diagonal)
+}
+
+func scoreChartDistance(xMin, yMin, xMax, yMax, ratio float64) float64 {
+	return math.Sqrt(math.Pow((xMax-xMin)/ratio, 2) + math.Pow(yMax-yMin, 2))
 }
 
 // -----------------------------------------------------------------------------

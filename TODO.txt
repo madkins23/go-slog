@@ -1,5 +1,6 @@
 TODO
 
+* Make scoring separate object(s)
 * Fix deprecated/wrong shit in *.gohtml files
 * If ReplAttr is dead no need to track groups
 * ReplAttr filters:
