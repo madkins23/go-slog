@@ -12,7 +12,7 @@
                 <td class="extra">
                   {{ $warning.Summary }}
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   {{ if $warning.HasDescription }}
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('{{ $warning.Name }}-doc')">Doc</button>
                   {{ end }}
@@ -49,7 +49,7 @@
                           {{  $instance.Name  }}
                         </td>
                         <td class="extra" style="background-color:{{ $color }};">{{  $instance.ExtraHTML  }}</td></td>
-                        <td class="toggleButton" style="background-color:{{ $color }};">
+                        <td class="center" style="background-color:{{ $color }};">
                           {{ if $instance.HasLog }}
                             <button type="button" title="Toggle Log Data" onclick="toggleTableRow('{{ $id }}-log')">Log</button>
                           {{ end }}

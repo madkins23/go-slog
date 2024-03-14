@@ -16,11 +16,12 @@ func init() {
 	renderer = html.NewRenderer(html.RendererOptions{Flags: html.HrefTargetBlank})
 }
 
-func TemplateHTML(md string) template.HTML {
+func TemplateHTML(md string, fixCarets bool) template.HTML {
 	// Can't pre-build the parser in init(), it fails the second time it's used.
 	mdParser := parser.NewWithExtensions(
 		parser.CommonExtensions | parser.AutoHeadingIDs | parser.NoEmptyLineBeforeBlock)
-	return template.HTML(markdown.Render(
-		mdParser.Parse([]byte(strings.Replace(md, "^", "`", -1))),
-		renderer))
+	if fixCarets {
+		md = strings.Replace(md, "^", "`", -1)
+	}
+	return template.HTML(markdown.Render(mdParser.Parse([]byte(md)), renderer))
 }

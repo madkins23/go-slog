@@ -23,8 +23,10 @@ func Setup(bench *Benchmarks, warns *Warnings, scores Scores) error {
 		return fmt.Errorf("parse -verify warnings: %w", err)
 	}
 
-	if err := scores.Initialize(bench, warns); err != nil {
-		return fmt.Errorf("initialize scorekeeper: %w", err)
+	if scores != nil {
+		if err := scores.Initialize(bench, warns); err != nil {
+			return fmt.Errorf("initialize scorekeeper: %w", err)
+		}
 	}
 
 	return nil

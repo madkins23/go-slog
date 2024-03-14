@@ -128,26 +128,39 @@ func noDuplicates(testName string) VerifyFn {
 func sourcerer(testName string) VerifyFn {
 	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
-		if srcVal, found := logMap[slog.SourceKey]; !found {
+		if srcVal, found := logMap[slog.SourceKey]; found {
+			if srcMap, ok := srcVal.(map[string]any); !ok {
+				text := "source not map"
+				manager.AddWarningFnText(warning.SourceKey, testName, text, string(captured))
+				return warning.SourceKey.ErrorExtra(text)
+			} else {
+				missing := make([]string, 0)
+				for _, field := range []string{"file", "function", "line"} {
+					if _, found = srcMap[field]; !found {
+						missing = append(missing, field)
+					}
+				}
+				if len(missing) > 0 {
+					text := fmt.Sprintf("missing fields: %s", strings.Join(missing, ","))
+					manager.AddWarningFnText(warning.SourceKey, testName, text, string(captured))
+					return warning.SourceKey.ErrorExtra(text)
+				}
+			}
+		} else if callVal, found := logMap["caller"]; found {
+			var text string
+			if caller, ok := callVal.(string); !ok {
+				text = "caller not string"
+			} else if parts := strings.Split(caller, ":"); len(parts) != 2 {
+				text = "caller not string"
+			} else {
+				text = caller
+			}
+			manager.AddWarningFnText(warning.SourceCaller, testName, text, string(captured))
+			return warning.SourceCaller.ErrorExtra(text)
+		} else {
 			text := fmt.Sprintf("no '%s' key", slog.SourceKey)
 			manager.AddWarningFnText(warning.SourceKey, testName, text, string(captured))
 			return warning.SourceKey.ErrorExtra(text)
-		} else if srcMap, ok := srcVal.(map[string]any); !ok {
-			text := "source not map"
-			manager.AddWarning(warning.SourceKey, text, string(captured))
-			return warning.SourceKey.ErrorExtra(text)
-		} else {
-			missing := make([]string, 0)
-			for _, field := range []string{"file", "function", "line"} {
-				if _, found = srcMap[field]; !found {
-					missing = append(missing, field)
-				}
-			}
-			if len(missing) > 0 {
-				text := fmt.Sprintf("missing fields: %s", strings.Join(missing, ","))
-				manager.AddWarningFnText(warning.SourceKey, testName, text, string(captured))
-				return warning.SourceKey.ErrorExtra(text)
-			}
 		}
 		return nil
 	}

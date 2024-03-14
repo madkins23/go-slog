@@ -168,6 +168,7 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 				}
 			}
 			instance = &dataInstance{
+				tag:    testTagStr,
 				source: source,
 				name:   TestTag(testTagStr).Name(),
 				extra:  string(matches[2]),

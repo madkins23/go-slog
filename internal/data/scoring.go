@@ -15,8 +15,13 @@ type Scores interface {
 	Initialize(bench *Benchmarks, warnings *Warnings) error
 	HandlerBenchScores(handler HandlerTag) *TestScores
 	HandlerWarningScore(handler HandlerTag) float64
+	DocOverview() template.HTML
 	DocBench() template.HTML
 	DocWarning() template.HTML
+	WeightBench() map[benchValue]uint
+	WeightBenchOrder() []benchValue
+	WeightWarning() map[warning.Level]uint64
+	// WeightWarningOrder unnecessary, use warnings.LevelOrder().
 }
 
 func NewScoreKeeper() Scores {
@@ -36,12 +41,19 @@ func (sd *ScoreDefault) Initialize(bench *Benchmarks, warnings *Warnings) error 
 	return nil
 }
 
+//go:embed scores/overview.md
+var overviewDoc string
+
+func (sd *ScoreDefault) DocOverview() template.HTML {
+	return markdown.TemplateHTML(overviewDoc, false)
+}
+
 //go:embed scores/benchmarks.md
 var benchDoc string
 
 // DocBench returns HTML documentation on the benchmark scoring algorithm converted from markdown source.
 func (sd *ScoreDefault) DocBench() template.HTML {
-	return markdown.TemplateHTML(benchDoc)
+	return markdown.TemplateHTML(benchDoc, false)
 }
 
 //go:embed scores/warnings.md
@@ -49,7 +61,7 @@ var warningDoc string
 
 // DocWarning returns HTML documentation on the warning scoring algorithm converted from markdown source.
 func (sd *ScoreDefault) DocWarning() template.HTML {
-	return markdown.TemplateHTML(warningDoc)
+	return markdown.TemplateHTML(warningDoc, false)
 }
 
 // HandlerBenchScores returns all the scores associated with the specified handler.
@@ -59,10 +71,28 @@ func (sd *ScoreDefault) HandlerBenchScores(handler HandlerTag) *TestScores {
 	return sd.benchScores[handler]
 }
 
-// -----------------------------------------------------------------------------
+// WeightBench returns a map of algorithm weights by bench "values"
+// (i.e. allocations, bytes allocated, and nanoseconds per operation).
+func (sd *ScoreDefault) WeightBench() map[benchValue]uint {
+	return benchScoreWeight
+}
+
+// WeightBenchOrder returns an array of bench "value" names in the order
+// they should be referenced in a tabular format.
+func (sd *ScoreDefault) WeightBenchOrder() []benchValue {
+	return benchScoreWeightOrder
+}
+
+// WeightWarning returns a map of algorithm weights by warning levels.
+func (sd *ScoreDefault) WeightWarning() map[warning.Level]uint64 {
+	return warningScoreWeight
+}
+
+// =============================================================================
 
 func (sd *ScoreDefault) initBenchmarkScores(bench *Benchmarks) {
-	ranges := make(testRanges)
+	// Calculate test ranges used in calculating scores.
+	ranges := make(map[TestTag]*testRange)
 	for _, test := range bench.TestTags() {
 		aRange := &testRange{
 			allocLow: math.MaxUint64,
@@ -91,6 +121,8 @@ func (sd *ScoreDefault) initBenchmarkScores(bench *Benchmarks) {
 		}
 		ranges[test] = aRange
 	}
+
+	// Calculate scores using test ranges.
 	sd.benchScores = make(map[HandlerTag]*TestScores)
 	for _, handler := range bench.HandlerTags() {
 		scores := &TestScores{
@@ -101,16 +133,16 @@ func (sd *ScoreDefault) initBenchmarkScores(bench *Benchmarks) {
 			var collect float64
 			var count uint
 			if scoreRange := float64(rng.allocHigh - rng.allocLow); scoreRange > 0 {
-				collect += 100.0 * float64(rng.allocHigh-record.MemAllocsPerOp) / scoreRange
-				count++
+				collect += float64(benchScoreWeight[allocations]) * 100.0 * float64(rng.allocHigh-record.MemAllocsPerOp) / scoreRange
+				count += benchScoreWeight[allocations]
 			}
 			if scoreRange := float64(rng.bytesHigh - rng.bytesLow); scoreRange > 0 {
-				collect += 200.0 * float64(rng.bytesHigh-record.MemBytesPerOp) / scoreRange
-				count += 2
+				collect += float64(benchScoreWeight[allocBytes]) * 100.0 * float64(rng.bytesHigh-record.MemBytesPerOp) / scoreRange
+				count += benchScoreWeight[allocBytes]
 			}
 			if scoreRange := rng.nanosHigh - rng.nanosLow; scoreRange > 0 {
-				collect += 300.0 * (rng.nanosHigh - record.NanosPerOp) / scoreRange
-				count += 3
+				collect += float64(benchScoreWeight[nanoseconds]) * 100.0 * (rng.nanosHigh - record.NanosPerOp) / scoreRange
+				count += benchScoreWeight[nanoseconds]
 			}
 			scores.byTest[test] = collect / float64(count)
 		}
@@ -126,6 +158,27 @@ func (sd *ScoreDefault) initBenchmarkScores(bench *Benchmarks) {
 
 // -----------------------------------------------------------------------------
 
+type benchValue string
+
+const (
+	allocations benchValue = "Allocations"
+	allocBytes  benchValue = "Alloc Bytes"
+	nanoseconds benchValue = "Nanoseconds"
+)
+
+// benchScoreWeight has the multipliers for different benchmark values.
+var benchScoreWeight = map[benchValue]uint{
+	allocations: 1,
+	allocBytes:  2,
+	nanoseconds: 3,
+}
+
+var benchScoreWeightOrder = []benchValue{
+	nanoseconds,
+	allocBytes,
+	allocations,
+}
+
 // testRange collects high and low values for a given handler/test combination.
 type testRange struct {
 	allocLow, allocHigh uint64
@@ -133,13 +186,13 @@ type testRange struct {
 	nanosLow, nanosHigh float64
 }
 
-// testRanges maps test tags to TestRange objects.
-type testRanges map[TestTag]*testRange
-
 // TestScores maps test tags to scores for a handler.
 type TestScores struct {
+	// Overall score for a handler.
 	Overall float64
-	byTest  map[TestTag]float64
+
+	// Scores by test for a handler.
+	byTest map[TestTag]float64
 }
 
 // ForTest returns the floating point score for the test
@@ -153,13 +206,13 @@ func (ts *TestScores) ForTest(test TestTag) float64 {
 func (sd *ScoreDefault) initWarningScores(w *Warnings) {
 	var maxScore uint64
 	for _, level := range warning.LevelOrder {
-		maxScore += scoreWeight[level] * uint64(len(warning.WarningsForLevel(level)))
+		maxScore += warningScoreWeight[level] * uint64(len(warning.WarningsForLevel(level)))
 	}
 	testScores := make(map[HandlerTag]uint64)
 	for _, hdlr := range w.HandlerTags() {
 		var score uint64
 		for _, level := range w.byHandler[hdlr].Levels() {
-			score += scoreWeight[level.level] * uint64(len(level.Warnings()))
+			score += warningScoreWeight[level.level] * uint64(len(level.Warnings()))
 		}
 		testScores[hdlr] = score
 	}
@@ -175,18 +228,18 @@ func (sd *ScoreDefault) initWarningScores(w *Warnings) {
 	}
 }
 
-// -----------------------------------------------------------------------------
-
-// scoreWeight has the multipliers for different warning levels.
-var scoreWeight = map[warning.Level]uint64{
-	warning.LevelRequired:  8,
-	warning.LevelImplied:   4,
-	warning.LevelSuggested: 2,
-	warning.LevelAdmin:     1,
-}
-
 // HandlerWarningScore returns a single floating point value in the range 0..100.0
 // that is purported to be the score of the handler based on its warnings.
 func (sd *ScoreDefault) HandlerWarningScore(handler HandlerTag) float64 {
 	return sd.warnScores[handler]
+}
+
+// -----------------------------------------------------------------------------
+
+// warningScoreWeight has the multipliers for different warning levels.
+var warningScoreWeight = map[warning.Level]uint64{
+	warning.LevelRequired:  8,
+	warning.LevelImplied:   4,
+	warning.LevelSuggested: 2,
+	warning.LevelAdmin:     1,
 }

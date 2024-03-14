@@ -263,6 +263,7 @@ func (w *dataWarning) Instances() []*dataInstance {
 // -----------------------------------------------------------------------------
 
 type dataInstance struct {
+	tag    string
 	source string
 	name   string
 	extra  string
@@ -321,4 +322,8 @@ func (di *dataInstance) HasSource() bool {
 
 func (di *dataInstance) Source() string {
 	return di.source
+}
+
+func (di *dataInstance) Tag() string {
+	return di.tag
 }

@@ -200,10 +200,6 @@ table.instance td.logLine pre {
     overflow: auto;
 }
 
-table.instance td.toggleButton {
-    text-align: center;
-}
-
 table.instance td.name {
     font-family: monospace;
     font-size: 1em;
@@ -217,10 +213,6 @@ table.instance td.extra {
 table.scores {
     margin-left: auto;
     margin-right: auto;
-}
-
-table.scores td.fixed {
-
 }
 
 table.top {
@@ -247,8 +239,8 @@ table.top tr.title td.score span {
     font-weight: bold;
 }
 
-table.top td.center {
-    text-align: center;
+table.top td.table {
+    vertical-align: top;
 }
 
 table.warning {
@@ -310,8 +302,16 @@ table.warning td.warning {
     padding-top: 0.5em;
 }
 
-.centered {
+.left {
+    text-align: left;
+}
+
+.center {
     text-align: center;
+}
+
+.right {
+    text-align: right;
 }
 
 .fixed {

@@ -26,6 +26,7 @@ import (
 	"fmt"
 	"log/slog"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/phsym/console-slog"
@@ -90,11 +91,16 @@ func main() {
 			for _, warn := range level.Warnings() {
 				fmt.Printf("  %4d [%s] %s\n", len(warn.Instances()), warn.Name(), warn.Summary())
 				for _, instance := range warn.Instances() {
-					line := instance.Name()
+					line := instance.Tag()
 					if instance.HasSource() {
-						line = instance.Source() + ": " + line
+						line = instance.Source() + ":" + line
 					}
 					if extra := instance.Extra(); extra != "" {
+						const newLine = "\n"
+						const nextLine = "\n           "
+						if strings.Index(extra, newLine) >= 0 {
+							extra = nextLine + strings.Replace(extra, newLine, nextLine, -1)
+						}
 						line += ": " + extra
 					}
 					fmt.Printf("         %s\n", line)

@@ -13,9 +13,9 @@
     <div class="content">
         <div>
             <table class="top">
-                <tr class="title"><td><h2>Scores</h2></td></tr>
+                <tr class="title"><td colspan=2><h2>Scores</h2></td></tr>
                 <tr>
-                    <td>
+                    <td colspan=2>
                         <table class="data">
                             <tr>
                                 <th>Handler</th>
@@ -24,44 +24,83 @@
                             </tr>
                             {{ range $tag := .Benchmarks.HandlerTags }}
                                 <tr>
-                                    <td>{{ $.Benchmarks.HandlerName $tag }}</td>
+                                    <td><a href="/go-slog/handler/{{ $tag }}.html">{{ $.Benchmarks.HandlerName $tag }}</a></td>
                                     <td class="number">{{ $.FixFloat (($.Scores.HandlerBenchScores $tag).Overall) }}</td>
                                     <td class="number">{{ $.FixFloat ($.Scores.HandlerWarningScore $tag) }}</td>
                                 </tr>
                             {{ end }}
                         </table>
-                        <p class="centered">
+                        <p class="center">
                             Numbers are on scale of <span class="fixed">0..100</span>.
                             Metrics algorithms completely made up out of thin air.
                             See notes <a href="#scoring_algorithms">below</a> for details.
                         </p>
                     </td>
                 </tr>
-                <tr><td><hr/></td></tr>
-                <tr class="title"><td><h2>Speed vs. Functionality</h2></td></tr>
+                <tr><td colspan=2><hr/></td></tr>
+                <tr class="title"><td colspan=2><h2>Speed vs. Functionality</h2></td></tr>
                 <tr>
-                    <td>
+                    <td colspan=2>
                         <table class="charts">
                             <tr><td><img src="/go-slog/chart/scores" alt="Handler Scoring" class="chart" /></td></tr>
                         </table>
-                        <p class="centered">
+                        <p class="center">
                             Higher numbers are better on both axes.
                             The "good" zone is the upper right and the "bad" zone is the lower left.
                         </p>
-                        <p class="centered">
+                        <p class="center">
                             The top is fast, the bottom is slow.
-                            The further left the more warnings.
+                            Left is more warnings, right is less.
                         </p>
                     </td>
                 </tr>
-                <tr><td><hr/></td></tr>
+                <tr><td colspan=2><hr/></td></tr>
                 <tr class="title">
-                    <td>
+                    <td colspan=2>
                         <h2 id="scoring_algorithms">Scoring Algorithms</h2>
+                        {{ .Scores.DocOverview }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <h3>Benchmarks</h3>
                         {{ .Scores.DocBench }}
+                    </td>
+                    <td class="table">
+                        <table class="data">
+                            <tr>
+                                <th>Data</th>
+                                <th>Weight</th>
+                            </tr>
+                            {{ $weightBench := .Scores.WeightBench }}
+                            {{ range $data := .Scores.WeightBenchOrder }}
+                                <tr>
+                                    <td>{{ $data }}</td>
+                                    <td class="number">{{ index $weightBench $data }}</td>
+                                </tr>
+                            {{ end }}
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <h3>Warnings</h3>
                         {{ .Scores.DocWarning }}
+                    </td>
+                    <td class="table">
+                        <table class="data">
+                            <tr>
+                                <th>Level</th>
+                                <th>Weight</th>
+                            </tr>
+                            {{ $weightWarning := .Scores.WeightWarning }}
+                            {{ range $level := .Levels }}
+                                <tr>
+                                    <td>{{ $level }}</td>
+                                    <td class="number">{{ index $weightWarning $level }}</td>
+                                </tr>
+                            {{ end }}
+                        </table>
                     </td>
                 </tr>
             </table>

@@ -32,7 +32,7 @@ var (
 		* [^slog/slogtest^](https://pkg.go.dev/golang.org/x/exp@v0.0.0-20240222234643-814bf88cf225/slog/slogtest)`)
 
 	WithGroupEmpty = NewWarning(LevelRequired, "WithGroupEmpty", "Empty WithGroup() logged", `
-		Handlers should not log WithGroup() groups with no fields, whether or not they have non-empty names.
+		Handlers should not log ^WithGroup()^ groups with no fields, whether or not they have non-empty names.
 		* ["- If a group has no Attrs (even if it has a non-empty key), ignore it."](https://pkg.go.dev/log/slog@master#Handler)`)
 
 	ZeroPC = NewWarning(LevelRequired, "ZeroPC", "SourceKey logged for zero PC", `

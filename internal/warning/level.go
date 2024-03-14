@@ -59,7 +59,7 @@ var levelSummaries = map[Level]string{
 }
 
 func (l Level) Summary() template.HTML {
-	return markdown.TemplateHTML(levelSummaries[l])
+	return markdown.TemplateHTML(levelSummaries[l], true)
 }
 
 func (l Level) Warnings() []*Warning {

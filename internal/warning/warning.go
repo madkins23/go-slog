@@ -70,7 +70,7 @@ func (w *Warning) HasDescription() bool {
 
 // Description converts the Markdown description data into HTML and returns it.
 func (w *Warning) Description() template.HTML {
-	return markdown.TemplateHTML(w.description)
+	return markdown.TemplateHTML(w.description, true)
 }
 
 // WarningsForLevel returns a list of warnings for the specified level.
