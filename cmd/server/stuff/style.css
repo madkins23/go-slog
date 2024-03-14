@@ -314,6 +314,14 @@ table.warning td.warning {
     text-align: right;
 }
 
+.top {
+    vertical-align: top;
+}
+
+.bottom {
+    vertical-align: bottom;
+}
+
 .fixed {
     font-family: monospace;
 }
