@@ -187,12 +187,38 @@ func (suite *SlogTestSuite) TestReplaceAttrGroup() {
 			},
 		},
 	}
+	if suite.HasWarning(warning.EmptyAttributes) {
+		stripEmptyAttr(logMap)
+	}
+	if suite.HasWarning(warning.LevelCase) {
+		if lvl, ok := logMap[slog.LevelKey].(string); ok {
+			logMap[slog.LevelKey] = strings.ToUpper(lvl)
+		}
+	}
+	if suite.HasWarning(warning.MessageKey) {
+		if msg, ok := logMap["message"].(string); ok {
+			logMap[slog.MessageKey] = msg
+			delete(logMap, "message")
+		}
+	}
 	if !suite.HasWarning(warning.ReplAttrGroup) {
 		suite.Assert().Equal(expected, logMap)
 	} else if reflect.DeepEqual(expected, logMap) {
 		suite.AddUnused(warning.ReplAttrGroup, suite.String())
 	} else {
 		suite.AddWarning(warning.ReplAttrGroup, "", suite.String())
+	}
+}
+
+func stripEmptyAttr(logMap map[string]any) {
+	for key, value := range logMap {
+		if key == "" && value == nil {
+			delete(logMap, key)
+			continue
+		}
+		if group, ok := value.(map[string]any); ok {
+			stripEmptyAttr(group)
+		}
 	}
 }
 
