@@ -5,3 +5,6 @@ the one discussed below was considered to be "good enough".
 The code for the scoring algorithm was carefully implemented behind an `interface`.
 There is currently only one "default" code module and no simple way to
 replace one scoring algorithm with another, but it wouldn't be hard.
+
+Link to [the code](https://github.com/madkins23/go-slog/blob/main/internal/data/scoring.go)
+for the scoring algorithm.

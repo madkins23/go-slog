@@ -70,6 +70,10 @@ table.charts {
     margin-right: auto;
 }
 
+table.choice {
+    margin-left: auto;
+}
+
 table.data {
     padding: 5px;
     margin-left: auto;
@@ -103,6 +107,8 @@ table.debug td {
 
 table.handler-v-warning {
     border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 table.handler-v-warning th {
@@ -194,6 +200,14 @@ table.instance td {
     padding: 5px;
 }
 
+table.instance td.extra {
+    width: 55%;
+}
+
+table.instance td.logLine {
+    width: 97%;
+}
+
 table.instance td.logLine pre {
     margin: 5px;
     padding: 5px;
@@ -203,11 +217,21 @@ table.instance td.logLine pre {
 table.instance td.name {
     font-family: monospace;
     font-size: 1em;
+    width: 38%;
+}
+
+table.instance td.indent {
+    width: 3%;
 }
 
 table.instance td.extra {
     font-family: monospace;
     font-size: 1em;
+}
+
+table.instance td.button {
+    text-align: center;
+    width: 7%;
 }
 
 table.scores {
