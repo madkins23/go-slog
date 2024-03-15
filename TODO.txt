@@ -1,8 +1,8 @@
 TODO
 
-* If ReplAttr is dead no need to track groups
-  X add verification test to see if it even works
-  - try killing the value when appropriate
+* Usage data for warnings on warnings page.
+  - Table with three columns, middle invisible
+  - Handlers and Tests in the outer columns
 * Fix deprecated/wrong shit in *.gohtml files
   X simple CSS classes
   X use of col.width attribute
