@@ -170,13 +170,19 @@ func (h *Handler) WithGroup(name string) slog.Handler {
 		// Groups with empty names are to be inlined.
 		return h
 	}
+	var groups []string
+	if h.options.ReplaceAttr != nil {
+		// Only need this if there is a ReplaceAttr function.
+		// Even then, the function may not care, but we don't know that here.
+		groups = append(h.groups, name)
+	}
 	hdlr := &group{
 		Handler: &Handler{
 			options: h.options,
 			extras:  h.extras,
 			writer:  h.writer,
 			mutex:   h.mutex,
-			groups:  append(h.groups, name),
+			groups:  groups,
 		},
 		name:   name,
 		parent: h,
