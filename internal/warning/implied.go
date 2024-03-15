@@ -60,7 +60,7 @@ var (
 
 func init() {
 	// Always update this number when adding or removing Warning objects.
-	addTestCount(LevelImplied, 9)
+	addTestCount(LevelImplied, 10)
 }
 
 func Implied() []*Warning {
