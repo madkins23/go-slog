@@ -113,6 +113,7 @@ func (h *Handler) WithAttrs(attrs []slog.Attr) slog.Handler {
 		options: h.options,
 		writer:  h.writer,
 		mutex:   h.mutex,
+		groups:  h.groups,
 		prefix:  bytes.Buffer{},
 		suffix:  bytes.Buffer{},
 	}

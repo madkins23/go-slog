@@ -137,6 +137,7 @@ func (h *Handler) WithAttrs(attrs []slog.Attr) slog.Handler {
 		extras:  h.extras,
 		writer:  h.writer,
 		mutex:   h.mutex,
+		groups:  h.groups,
 	}
 	var prefixStarted bool
 	if len(h.prefix) > 0 {

@@ -3,6 +3,8 @@ package tests
 import (
 	"fmt"
 	"log/slog"
+	"math"
+	"reflect"
 	"strings"
 
 	"github.com/madkins23/go-slog/infra"
@@ -16,7 +18,7 @@ import (
 // TestReplaceAttr tests the use of HandlerOptions.ReplaceAttr.
 //   - https://pkg.go.dev/log/slog@master#HandlerOptions
 func (suite *SlogTestSuite) TestReplaceAttr() {
-	logger := suite.Logger(infra.ReplaceAttrOptions(func(groups []string, a slog.Attr) slog.Attr {
+	logger := suite.Logger(infra.ReplaceAttrOptions(func(_ []string, a slog.Attr) slog.Attr {
 		switch a.Key {
 		case "alpha":
 			return slog.String(a.Key, "omega")
@@ -53,7 +55,7 @@ func (suite *SlogTestSuite) TestReplaceAttr() {
 			suite.AddWarning(warning.NoReplAttr, strings.Join(issues, ", "), "")
 			return
 		}
-		suite.AddUnused(warning.NoReplAttr, suite.Buffer.String())
+		suite.AddUnused(warning.NoReplAttr, suite.String())
 	}
 	if suite.HasWarning(warning.EmptyAttributes) {
 		suite.checkFieldCount(6, logMap)
@@ -69,7 +71,7 @@ func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 	logger := suite.Logger(&slog.HandlerOptions{
 		Level:     slog.LevelInfo,
 		AddSource: true,
-		ReplaceAttr: func(groups []string, a slog.Attr) slog.Attr {
+		ReplaceAttr: func(_ []string, a slog.Attr) slog.Attr {
 			switch a.Key {
 			case slog.TimeKey:
 				return infra.EmptyAttr()
@@ -107,13 +109,91 @@ func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 			suite.AddWarning(warnings[0], strings.Join(issues, ", "), "")
 			return
 		}
-		suite.AddUnused(warnings[0], suite.Buffer.String())
+		suite.AddUnused(warnings[0], suite.String())
 	}
 	suite.checkFieldCount(3, logMap)
 	suite.Assert().Nil(logMap[slog.TimeKey])
 	suite.Assert().Equal("Tilted", logMap[slog.LevelKey])
 	suite.Assert().Equal(message, logMap["Message"])
 	suite.Assert().Equal("all knowledge", logMap[slog.SourceKey])
+}
+
+// TestReplaceAttrGroup tests the groups argument passed to a HandlerOptions.ReplaceAttr function.
+// This checks to see if group names are properly tracked and passed.
+//   - https://pkg.go.dev/log/slog@master#HandlerOptions
+func (suite *SlogTestSuite) TestReplaceAttrGroup() {
+	if suite.HasWarning(warning.NoReplAttr) {
+		// Nothing to see here, move along.
+		return
+	}
+	logger := suite.Logger(&slog.HandlerOptions{
+		Level: slog.LevelInfo,
+		ReplaceAttr: func(groups []string, a slog.Attr) slog.Attr {
+			var current string
+			if len(groups) > 0 {
+				current = groups[len(groups)-1]
+			}
+			switch current {
+			case "":
+				switch a.Key {
+				case "alpha":
+					return slog.Float64("alpha", math.Pi)
+				case "bravo":
+					return infra.EmptyAttr()
+				case slog.TimeKey, slog.LevelKey, slog.MessageKey:
+					// Do nothing here.
+				default:
+					suite.Assert().Fail("unexpected key", "'%s' group: '%s'", a.Key, current)
+				}
+			case "group":
+				switch a.Key {
+				case "charlie":
+					return slog.Float64("charlie", math.E)
+				case "delta":
+					return infra.EmptyAttr()
+				default:
+					suite.Assert().Fail("unexpected group key", "'%s' group: '%s'", a.Key, current)
+				}
+			case "subGroup":
+				switch a.Key {
+				case "echo":
+					return slog.Float64("echo", math.SqrtPi)
+				case "foxtrot":
+					return slog.Float64("foxtrot", math.SqrtE)
+				case "golf", "hotel":
+					return infra.EmptyAttr()
+				default:
+					suite.Assert().Failf("unexpected subGroup key", "'%s' group: '%s'", a.Key, current)
+				}
+			}
+			return a
+		},
+	})
+	logger.With("alpha", 1, "bravo", 2).
+		WithGroup("group").With("charlie", 3, "delta", 4).
+		WithGroup("subGroup").With("echo", 5, "foxtrot", 6).
+		Info(message, "golf", 7, "hotel", 8)
+	logMap := suite.logMap()
+	delete(logMap, slog.TimeKey)
+	expected := map[string]any{
+		slog.LevelKey:   slog.LevelInfo.String(),
+		slog.MessageKey: message,
+		"alpha":         math.Pi,
+		"group": map[string]any{
+			"charlie": math.E,
+			"subGroup": map[string]any{
+				"echo":    math.SqrtPi,
+				"foxtrot": math.SqrtE,
+			},
+		},
+	}
+	if !suite.HasWarning(warning.ReplAttrGroup) {
+		suite.Assert().Equal(expected, logMap)
+	} else if reflect.DeepEqual(expected, logMap) {
+		suite.AddUnused(warning.ReplAttrGroup, suite.String())
+	} else {
+		suite.AddWarning(warning.ReplAttrGroup, "", suite.String())
+	}
 }
 
 // -----------------------------------------------------------------------------

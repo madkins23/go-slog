@@ -1,11 +1,13 @@
 TODO
 
+* If ReplAttr is dead no need to track groups
+  X add verification test to see if it even works
+  - try killing the value when appropriate
 * Fix deprecated/wrong shit in *.gohtml files
   X simple CSS classes
   X use of col.width attribute
   X use of width attribute on td
   - irritating warnings that it can't find my files
-* If ReplAttr is dead no need to track groups
 * ReplAttr filters:
   * caller -> source group
   * source group -> caller

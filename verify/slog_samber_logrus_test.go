@@ -17,6 +17,7 @@ func TestVerifySamberLogrus(t *testing.T) {
 	slogSuite.WarnOnly(warning.GroupInline)
 	slogSuite.WarnOnly(warning.LevelCase)
 	slogSuite.WarnOnly(warning.NoReplAttrBasic)
+	slogSuite.WarnOnly(warning.ReplAttrGroup)
 	slogSuite.WarnOnly(warning.Resolver)
 	slogSuite.WarnOnly(warning.SlogTest)
 	slogSuite.WarnOnly(warning.ZeroPC)

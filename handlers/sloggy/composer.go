@@ -25,6 +25,13 @@ var (
 	newLine     = []byte{'\r', '\n'}
 )
 
+var basicField = map[string]bool{
+	slog.TimeKey:    true,
+	slog.LevelKey:   true,
+	slog.MessageKey: true,
+	slog.SourceKey:  true,
+}
+
 // -----------------------------------------------------------------------------
 
 // composer handles writing attributes to an io.Writer.
@@ -63,7 +70,11 @@ func (c *composer) addAttribute(attr slog.Attr) error {
 	}
 	value := attr.Value.Resolve()
 	if c.replace != nil {
-		attr = c.replace(c.groups, attr)
+		var groups []string
+		if !basicField[attr.Key] {
+			groups = c.groups
+		}
+		attr = c.replace(groups, attr)
 		value = attr.Value
 	}
 	if attr.Equal(infra.EmptyAttr()) {

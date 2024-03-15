@@ -13,6 +13,13 @@ import (
 
 var composerPool = newGenPool[composer]()
 
+var basicField = map[string]bool{
+	slog.TimeKey:    true,
+	slog.LevelKey:   true,
+	slog.MessageKey: true,
+	slog.SourceKey:  true,
+}
+
 // -----------------------------------------------------------------------------
 
 // composer handles writing attributes to an io.Writer.
@@ -54,7 +61,12 @@ func (c *composer) addAttribute(attr slog.Attr) error {
 		attr.Value = attr.Value.Resolve()
 	}
 	if c.replace != nil {
-		attr = c.replace(c.groups, attr)
+		var groups []string
+		if !basicField[attr.Key] {
+			groups = c.groups
+		}
+		attr = c.replace(groups, attr)
+		kind = attr.Value.Kind()
 	}
 	if attr.Equal(infra.EmptyAttr()) {
 		return nil

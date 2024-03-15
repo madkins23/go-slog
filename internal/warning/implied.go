@@ -32,6 +32,12 @@ var (
 		except for the four main fields ^time^, ^level^, ^msg^, and ^source^.
 		When that is the case it is better to use this (^WarnNoReplAttrBasic^) warning.`)
 
+	ReplAttrGroup = NewWarning(LevelImplied, "ReplAttrGroup",
+		"ReplaceAttr groups argument usage results in an error", `
+		A ^ReplaceAttribute^ function has two arguments: an array of strings representing group names and an attribute.
+		The ^TestReplaceAttrGroup^ test checks to see if group names are properly passed.
+		This test may fail due to unrelated causes that show up as warnings for other  tests.`)
+
 	SourceCaller = NewWarning(LevelImplied,
 		"SourceCaller", "Source data logged as 'caller' instead of 'source'", `
 		Some handlers return source data as a single string on the ^caller^ field

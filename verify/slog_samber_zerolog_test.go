@@ -22,6 +22,7 @@ func TestVerifySamberZerolog(t *testing.T) {
 	slogSuite.WarnOnly(warning.MessageKey)
 	slogSuite.WarnOnly(warning.TimeMillis)
 	slogSuite.WarnOnly(warning.NoReplAttrBasic)
+	slogSuite.WarnOnly(warning.ReplAttrGroup)
 	slogSuite.WarnOnly(warning.Resolver)
 	slogSuite.WarnOnly(warning.SlogTest)
 	slogSuite.WarnOnly(warning.ZeroPC)

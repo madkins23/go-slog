@@ -20,6 +20,7 @@ func TestVerifySamberZap(t *testing.T) {
 	slogSuite.WarnOnly(warning.LevelCase)
 	slogSuite.WarnOnly(warning.TimeMillis)
 	slogSuite.WarnOnly(warning.NoReplAttrBasic)
+	slogSuite.WarnOnly(warning.ReplAttrGroup)
 	slogSuite.WarnOnly(warning.Resolver)
 	slogSuite.WarnOnly(warning.SlogTest)
 	slogSuite.WarnOnly(warning.SourceCaller)
