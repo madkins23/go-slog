@@ -8,8 +8,11 @@ Scoring is done for all handlers at the same time:
 for each handler
     score starts at zero
     for each warning level
-        score = score + weight(level) * len(warnings)
-        adjust score to range of zero to maximum possible number of warnings
+        for each warning in level
+            if warning shows up during testing
+                score = score + weight(level) * len(warnings)
+                adjust score to range of
+                    zero to maximum possible number of warnings
 ```
 
 Where the `weight(level)` comes from the predefined table shown above and to the right.

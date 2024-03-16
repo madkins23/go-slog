@@ -206,7 +206,15 @@ func (ts *TestScores) ForTest(test TestTag) float64 {
 func (sd *ScoreDefault) initWarningScores(w *Warnings) {
 	var maxScore uint64
 	for _, level := range warning.LevelOrder {
-		maxScore += warningScoreWeight[level] * uint64(len(warning.WarningsForLevel(level)))
+		var count uint64
+		for _, warn := range warning.WarningsForLevel(level) {
+			if wx, found := w.byWarning[warn.Name]; found {
+				if len(wx.count) > 0 {
+					count++
+				}
+			}
+		}
+		maxScore += warningScoreWeight[level] * count
 	}
 	testScores := make(map[HandlerTag]uint64)
 	for _, hdlr := range w.HandlerTags() {
