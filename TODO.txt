@@ -3,14 +3,19 @@ TODO
 * Usage data for warnings on warnings page.
   - Table with three columns, middle invisible
   - Handlers and Tests in the outer columns
+* When calculating the maximum possible warning score,
+  don't count unless the warning appeared somewhere?
+
+Less Likely
+
+* ReplAttr filters:
+  * caller -> source group
+  * source group -> caller
 * Fix deprecated/wrong shit in *.gohtml files
   X simple CSS classes
   X use of col.width attribute
   X use of width attribute on td
   - irritating warnings that it can't find my files
-* ReplAttr filters:
-  * caller -> source group
-  * source group -> caller
 * Check for package compilation
   - Utility to process entries from Go package-linkage whatever
     in order to create usable tree view.

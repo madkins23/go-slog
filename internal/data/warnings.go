@@ -19,7 +19,7 @@ var verifyFile = flag.String("verify", "", "Load verification data from path (op
 type Warnings struct {
 	byTest       map[TestTag]*Levels
 	byHandler    map[HandlerTag]*Levels
-	byWarning    map[string]map[HandlerTag]uint
+	byWarning    map[string]*WarningData
 	tests        []TestTag
 	handlers     []HandlerTag
 	handlerNames map[HandlerTag]string
@@ -30,7 +30,7 @@ func NewWarningData() *Warnings {
 	return &Warnings{
 		byTest:       make(map[TestTag]*Levels),
 		byHandler:    make(map[HandlerTag]*Levels),
-		byWarning:    make(map[string]map[HandlerTag]uint),
+		byWarning:    make(map[string]*WarningData),
 		tests:        make([]TestTag, 0),
 		handlers:     make([]HandlerTag, 0),
 		handlerNames: make(map[HandlerTag]string),
@@ -81,7 +81,7 @@ func (w *Warnings) HandlerTags() []HandlerTag {
 
 // HandlerWarningCount returns the number of the specified warning associated with the specified handler.
 func (w *Warnings) HandlerWarningCount(handler HandlerTag, warning *warning.Warning) uint {
-	return w.byWarning[warning.Name][handler]
+	return w.byWarning[warning.Name].count[handler]
 }
 
 // TestName returns the full name associated with a TestTag.
@@ -143,6 +143,65 @@ func (w *Warnings) findTest(test TestTag, level warning.Level, warningName strin
 		w.byTest[test] = levels
 	}
 	return levels.findLevel(level, warningName)
+}
+
+func (w *Warnings) FindWarning(name string) *WarningData {
+	data, found := w.byWarning[name]
+	if !found {
+		data = &WarningData{
+			count:   make(map[HandlerTag]uint),
+			hdlrMap: make(map[HandlerTag]bool),
+			testMap: make(map[TestTag]bool),
+		}
+		w.byWarning[name] = data
+	}
+	return data
+}
+
+// -----------------------------------------------------------------------------
+
+type WarningData struct {
+	count    map[HandlerTag]uint
+	hdlrMap  map[HandlerTag]bool
+	handlers []HandlerTag
+	testMap  map[TestTag]bool
+	tests    []TestTag
+}
+
+func (wd *WarningData) HasHandlers() bool {
+	return len(wd.hdlrMap) > 0
+}
+
+func (wd *WarningData) Handlers() []HandlerTag {
+	if wd.handlers == nil {
+		wd.handlers = make([]HandlerTag, 0, len(wd.hdlrMap))
+		for key := range wd.hdlrMap {
+			wd.handlers = append(wd.handlers, key)
+		}
+		sort.Slice(wd.handlers, func(i, j int) bool { return wd.handlers[i].Name() < wd.handlers[j].Name() })
+	}
+
+	return wd.handlers
+}
+
+func (wd *WarningData) HasTests() bool {
+	return len(wd.testMap) > 0
+}
+
+func (wd *WarningData) Tests() []TestTag {
+	if wd.tests == nil {
+		wd.tests = make([]TestTag, 0, len(wd.testMap))
+		for key := range wd.testMap {
+			wd.tests = append(wd.tests, key)
+		}
+		sort.Slice(wd.tests, func(i, j int) bool { return wd.tests[i].Name() < wd.tests[j].Name() })
+	}
+
+	return wd.tests
+}
+
+func (wd *WarningData) HasUsage() bool {
+	return len(wd.hdlrMap) > 0 || len(wd.testMap) > 0
 }
 
 // -----------------------------------------------------------------------------

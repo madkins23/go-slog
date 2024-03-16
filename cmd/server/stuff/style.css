@@ -326,6 +326,22 @@ table.warning td.warning {
     padding-top: 0.5em;
 }
 
+table.warning-data {
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+table.warning-data td {
+    vertical-align: baseline;
+}
+
+table.warning-data td, th {
+    margin: 5px;
+    padding: 5px;
+}
+
 .left {
     text-align: left;
 }
