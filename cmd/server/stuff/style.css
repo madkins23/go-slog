@@ -337,6 +337,12 @@ table.warning-data td {
     vertical-align: baseline;
 }
 
+table.warning-data td div.list {
+    display: flex;
+    font-family: monospace;
+    justify-content: center;
+}
+
 table.warning-data td, th {
     margin: 5px;
     padding: 5px;

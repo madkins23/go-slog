@@ -20,58 +20,58 @@
                 <td style="width:3%;"></td>
                 <td style="width:3%;"></td>
                 <td style="width:30%;"></td>
-                <td style="width:64%;"></td>
+                <td style="width:57%;"></td>
+                <td style="width:7%;"></td>
               </tr>
               {{ range $level := .Levels }}
                 <tr>
-                  <td colspan=4 class="level">{{ $level }}</td>
+                  <td colspan=5 class="level">{{ $level }}</td>
                 </tr>
                 <tr>
                   <td></td>
-                  <td colspan=3>{{ $level.Summary }}</td>
+                  <td colspan=4>{{ $level.Summary }}</td>
                 </tr>
                 {{ range $warning := $level.Warnings }}
+                  {{ $warnData := $.Warnings.FindWarning $warning.Name }}
                   <tr>
                     <td></td>
                     <td colspan=2 class="warning">{{ $warning.Name }}</td>
-                    <td class="extra">{{ $warning.Summary }}</td>
+                    <td colspan=1 class="extra">{{ $warning.Summary }}</td>
+                    <td class="center">
+                      {{ if $warnData.HasUsage }}
+                        <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('{{ $warning.Name }}-who')">Usage</button>
+                      {{ end }}
+                    </td>
                   </tr>
                   {{ if $warning.HasDescription }}
                     <tr>
                       <td colspan=2></td>
-                      <td colspan=2 class="description">{{ $warning.Description }}</td>
+                      <td colspan=3 class="description">{{ $warning.Description }}</td>
                     </tr>
                   {{ end }}
-                  {{ $warnData := $.Warnings.FindWarning $warning.Name }}
                   {{ if $warnData.HasUsage }}
-                    <tr>
+                    <tr id="{{ $warning.Name }}-who" style="display:none;">
                       <td colspan=2></td>
-                      <td colspan=2>
+                      <td colspan=3>
                         <table class="warning-data">
                           <tr>
                             {{ if $warnData.HasHandlers }}
-                              <th style="width:45%;">Handlers</th>
+                              <th style="width:50%;">Handlers</th>
                             {{ end }}
-                              <th style="width:10%;"></th>
                             {{ if $warnData.HasTests }}
-                              <th style="width:45%;">Tests</th>
+                              <th style="width:50%;">Tests</th>
                             {{ end }}
                           </tr>
                           <tr>
-                            <td class="fixed">
-                              <ul>
-                                {{ range $hdl := $warnData.Handlers }}
-                                  <li>{{ $hdl.Name }}</li>
-                                {{ end }}
-                              </ul>
-                            </td>
-                            <th></th>
                             <td>
-                              <ul>
-                                {{ range $test := $warnData.Tests }}
-                                  <li>{{ $test.Name }}</li>
-                                {{ end }}
-                              </ul>
+                              <div class="list">
+                                {{ range $hdl := $warnData.Handlers }}{{ $hdl.Name }}<br/>{{ end }}
+                              </div>
+                            </td>
+                            <td>
+                              <div class="list">
+                                {{ range $test := $warnData.Tests }}{{ $test.Name }}<br/>{{ end }}
+                              </div>
                             </td>
                           </tr>
                         </table>
