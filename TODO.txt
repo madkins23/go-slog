@@ -1,8 +1,5 @@
 TODO
 
-* Usage data for warnings on warnings page.
-  - Table with three columns, middle invisible
-  - Handlers and Tests in the outer columns
 * When calculating the maximum possible warning score,
   don't count unless the warning appeared somewhere?
 
