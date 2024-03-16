@@ -1,0 +1,450 @@
+<html lang="en">
+<head>
+    <title>Handler Scores</title>
+    <link rel="stylesheet" href="/go-slog/style.css">
+    <script src="/go-slog/scripts.js"></script>
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="header">
+            
+    <table class="header">
+        <tr>
+          <td>
+            
+              <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+            
+            <h2 class="home">Handler Scores</h2>
+          </td>
+          <td>
+            <table class="choice">
+              <tr>
+                <td class="right">Handlers</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="ChanchalZap" >chanchal/zaphandler</option>
+                      
+                        <option value="MadkinsFlash" >madkins/flash</option>
+                      
+                        <option value="MadkinsSloggy" >madkins/sloggy</option>
+                      
+                        <option value="PhsymZerolog" >phsym/zeroslog</option>
+                      
+                        <option value="SamberLogrus" >samber/slog-logrus</option>
+                      
+                        <option value="SamberZap" >samber/slog-zap</option>
+                      
+                        <option value="SamberZerolog" >samber/slog-zerolog</option>
+                      
+                        <option value="SlogJSON" >slog/JSONHandler</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right">Bench Tests</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Bench:Attributes" >Attributes</option>
+                      
+                        <option value="Bench:BigGroup" >Big Group</option>
+                      
+                        <option value="Bench:Disabled" >Disabled</option>
+                      
+                        <option value="Bench:KeyValues" >Key Values</option>
+                      
+                        <option value="Bench:Logging" >Logging</option>
+                      
+                        <option value="Bench:Simple" >Simple</option>
+                      
+                        <option value="Bench:SimpleSource" >Simple Source</option>
+                      
+                        <option value="Bench:WithAttrsAttributes" >With Attrs Attributes</option>
+                      
+                        <option value="Bench:WithAttrsKeyValues" >With Attrs Key Values</option>
+                      
+                        <option value="Bench:WithAttrsSimple" >With Attrs Simple</option>
+                      
+                        <option value="Bench:WithGroupAttributes" >With Group Attributes</option>
+                      
+                        <option value="Bench:WithGroupKeyValues" >With Group Key Values</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right">Verify Tests</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
+                      
+                        <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
+                      
+                        <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
+                      
+                        <option value="Verify:AttributesEmpty" >Attributes Empty</option>
+                      
+                        <option value="Verify:AttributesWithEmpty" >Attributes With Empty</option>
+                      
+                        <option value="Verify:CanceledContext" >Canceled Context</option>
+                      
+                        <option value="Verify:DefaultLevel" >Default Level</option>
+                      
+                        <option value="Verify:GroupDuration" >Group Duration</option>
+                      
+                        <option value="Verify:GroupInline" >Group Inline</option>
+                      
+                        <option value="Verify:GroupWithMulti" >Group With Multi</option>
+                      
+                        <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                      
+                        <option value="Verify:GroupWithTop" >Group With Top</option>
+                      
+                        <option value="Verify:KeyCase" >Key Case</option>
+                      
+                        <option value="Verify:Keys" >Keys</option>
+                      
+                        <option value="Verify:LevelConfigured" >Level Configured</option>
+                      
+                        <option value="Verify:LevelDifferent" >Level Different</option>
+                      
+                        <option value="Verify:LevelVar" >Level Var</option>
+                      
+                        <option value="Verify:LogAttributes" >Log Attributes</option>
+                      
+                        <option value="Verify:ReplaceAttr" >Replace Attr</option>
+                      
+                        <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
+                      
+                        <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                      
+                        <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
+                      
+                        <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                      
+                        <option value="Verify:ResolveGroup" >Resolve Group</option>
+                      
+                        <option value="Verify:ResolveGroupWith" >Resolve Group With</option>
+                      
+                        <option value="Verify:ResolveValuer" >Resolve Valuer</option>
+                      
+                        <option value="Verify:ResolveWith" >Resolve With</option>
+                      
+                        <option value="Verify:SlogTest" >Slog Test</option>
+                      
+                        <option value="Verify:SourceKey" >Source Key</option>
+                      
+                        <option value="Verify:WithGroupEmpty" >With Group Empty</option>
+                      
+                        <option value="Verify:ZeroPC" >Zero PC</option>
+                      
+                        <option value="Verify:ZeroTime" >Zero Time</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right"><label for="tag">Other Links</label></td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="otherChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      <option value="index.html"    >Home</option>
+                      <option value="scores.html"   selected>Scores</option>
+                      <option value="warnings.html" >Warnings</option>
+                      <option value="guts.html"     >Guts</option>
+                    </select>
+                  </form>
+              </tr>
+            </table>
+          </td>
+        </tr>
+    </table>
+
+    </div>
+    <div class="content">
+        <div>
+            <table class="top">
+                <tr class="title"><td colspan=2><h2>Scores</h2></td></tr>
+                <tr>
+                    <td colspan=2>
+                        <table class="data">
+                            <tr>
+                                <th>Handler</th>
+                                <th>Benchmark</th>
+                                <th>Warnings</th>
+                            </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/ChanchalZap.html">chanchal/zaphandler</a></td>
+                                    <td class="number">89.69</td>
+                                    <td class="number">55.36</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/MadkinsFlash.html">madkins/flash</a></td>
+                                    <td class="number">97.75</td>
+                                    <td class="number">98.21</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/MadkinsSloggy.html">madkins/sloggy</a></td>
+                                    <td class="number">82.27</td>
+                                    <td class="number">98.21</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/PhsymZerolog.html">phsym/zeroslog</a></td>
+                                    <td class="number">99.83</td>
+                                    <td class="number">39.29</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SamberLogrus.html">samber/slog-logrus</a></td>
+                                    <td class="number">8.33</td>
+                                    <td class="number">50.00</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SamberZap.html">samber/slog-zap</a></td>
+                                    <td class="number">59.28</td>
+                                    <td class="number">42.86</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SamberZerolog.html">samber/slog-zerolog</a></td>
+                                    <td class="number">61.51</td>
+                                    <td class="number">39.29</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SlogJSON.html">slog/JSONHandler</a></td>
+                                    <td class="number">97.84</td>
+                                    <td class="number">98.21</td>
+                                </tr>
+                            
+                        </table>
+                        <p class="center">
+                            Numbers are on scale of <span class="fixed">0..100</span>.
+                            Metrics algorithms completely made up out of thin air.
+                            See notes <a href="#scoring_algorithms">below</a> for details.
+                        </p>
+                    </td>
+                </tr>
+                <tr><td colspan=2><hr/></td></tr>
+                <tr class="title"><td colspan=2><h2>Speed vs. Functionality</h2></td></tr>
+                <tr>
+                    <td colspan=2>
+                        <table class="charts">
+                            <tr><td><img src="/go-slog/chart/scores" alt="Handler Scoring" class="chart" /></td></tr>
+                        </table>
+                        <p class="center">
+                            Higher numbers are better on both axes.
+                            The "good" zone is the upper right and the "bad" zone is the lower left.
+                        </p>
+                        <p class="center">
+                            The top is fast, the bottom is slow.
+                            Left is more warnings, right is less.
+                        </p>
+                    </td>
+                </tr>
+                <tr><td colspan=2><hr/></td></tr>
+                <tr class="title">
+                    <td colspan=2>
+                        <h2 id="scoring_algorithms">Scoring Algorithms</h2>
+                        <p>The algorithm behind the scores shown on this page are somewhat arbitrary.
+Many different algorithms could have been used, but after careful thought
+the one discussed below was considered to be &quot;good enough&quot;.</p>
+
+<p>The code for the scoring algorithm was carefully implemented behind an <code>interface</code>.
+There is currently only one &quot;default&quot; code module and no simple way to
+replace one scoring algorithm with another, but it wouldn't be hard.</p>
+
+<p>Link to <a href="https://github.com/madkins23/go-slog/blob/main/internal/data/scoring.go" target="_blank">the code</a>
+for the scoring algorithm.</p>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3>Benchmarks</h3>
+                        <p>Handler benchmarks are scored based on several metrics on each of various tests.
+Metrics are worth different amounts depending on what they are.
+The weights applied during this process are shown on the right.</p>
+
+<p>Each combination of handler and test results in a single line of test output:</p>
+
+<pre><code>BenchmarkMadkinsFlash/BenchmarkSimple-8  3547497  327.1 ns/op  284.33 MB/s  24 B/op  1 allocs/op
+</code></pre>
+
+<p>From this line we get:</p>
+
+<ul>
+<li>the handler name (<code>BenchmarkMadkinsFlash</code>),</li>
+<li>the test name (<code>BenchmarkSimple</code>),</li>
+<li>the number of test runs (<code>3547497</code>),</li>
+<li>nanoseconds per operation (<code>327.1 ns/op</code>),</li>
+<li>memory bytes allocated per operation (<code>24 B/op</code>),</li>
+<li>memory allocation per operation (<code>1 allocs/op</code>), and</li>
+<li>estimated logging throughput per second (<code>284.33 MB/s</code>).</li>
+</ul>
+
+<p>For each handler/test combination (single line or test results) we use three results:
+nanoseconds per operation, memory bytes allocated per operation, and memory allocation per operation.
+These three items are combined over two steps.
+First the test value ranges are acquired:</p>
+
+<pre><code>for each test
+    for each handler
+        for each of the three results described above
+            track the highest and lowest value for the test over all handlers
+</code></pre>
+
+<p>Then the test scores are calculated:</p>
+
+<pre><code>for each handler
+    for each test
+        scorePerTest starts at zero
+        for each of the three results described above
+            convert the value to a fraction of
+                the range of values for the test from the previous step
+            scorePerTest = scorePerTest + weight(result) * 100.0 * the fraction
+        scorePerTest /= sum of weight(result)
+    scorePerHandler = average of scorePerTest for handler
+</code></pre>
+
+<p>Where the <code>weight(result)</code> comes from the predefined table shown above and to the right.
+There is currently no weighting by test, all tests are considered equal.</p>
+
+                    </td>
+                    <td class="table">
+                        <table class="data">
+                            <tr>
+                                <th>Data</th>
+                                <th>Weight</th>
+                            </tr>
+                            
+                            
+                                <tr>
+                                    <td>Nanoseconds</td>
+                                    <td class="number">3</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td>Alloc Bytes</td>
+                                    <td class="number">2</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td>Allocations</td>
+                                    <td class="number">1</td>
+                                </tr>
+                            
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <h3>Warnings</h3>
+                        <p>Handlers are scored based on how few warnings are generated.
+Warnings are worth different amounts depending on their warning level.
+The weights applied during this process are shown on the right.</p>
+
+<p>Scoring is done for all handlers at the same time:</p>
+
+<pre><code>for each handler
+    score starts at zero
+    for each warning level
+        for each warning in level
+            if warning shows up during testing
+                score = score + weight(level) * len(warnings)
+                adjust score to range of
+                    zero to maximum possible number of warnings
+</code></pre>
+
+<p>Where the <code>weight(level)</code> comes from the predefined table shown above and to the right.</p>
+
+<p>The scores for each handler are then divided by the maximum possible number
+of warnings that any handler might receive (if it were really awful)
+and that number is subtracted from <code>100.0</code>.
+This results in a number from <code>0.0</code> (awful, all warnings logged) to <code>100.0</code> (no warnings at all).
+That number is stored for use and displayed on this page and on each handler page.</p>
+
+<p>Note that most scores are above 50 as it is difficult to throw <em>all</em> the warnings.</p>
+
+                    </td>
+                    <td class="table">
+                        <table class="data">
+                            <tr>
+                                <th>Level</th>
+                                <th>Weight</th>
+                            </tr>
+                            
+                            
+                                <tr>
+                                    <td>Required</td>
+                                    <td class="number">8</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td>Implied</td>
+                                    <td class="number">4</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td>Suggested</td>
+                                    <td class="number">2</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td>Administrative</td>
+                                    <td class="number">1</td>
+                                </tr>
+                            
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="footer">
+            <table class="footer">
+        <tr>
+          <td>
+            <div class="hover-text">
+              <span class="tooltip-text">Code Repository</span>
+              <a href="https://github.com/madkins23/go-slog" target="_blank">Repository</a>
+            </div>
+          </td>
+          <td class="center">
+            <div class="hover-text">
+              <span class="tooltip-text">Date/time when this data was generated</span>
+              <span class="fixed">2024-03-16 15:55:34 UTC</span>
+            </div>
+          </td>
+          <td class="right">
+            <div class="hover-text">
+              <span class="tooltip-text">Code Documentation</span>
+              <a href="https://pkg.go.dev/github.com/madkins23/go-slog" target="_blank">Documentation</a>
+            </div>
+          </td>
+        </tr>
+    </table>
+
+    </div>
+</div>
+</body>
+</html>

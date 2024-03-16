@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 <head>
   <title>Benchmark Data</title>
   <link rel="stylesheet" href="/go-slog/style.css">
@@ -18,10 +18,10 @@
             
             <h2 class="home">Handler <span class="fixed">chanchal/zaphandler</span></h2>
           </td>
-          <td align="right">
-            <table>
+          <td>
+            <table class="choice">
               <tr>
-                <td align="right">Handlers</td>
+                <td class="right">Handlers</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
@@ -48,7 +48,7 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Bench Tests</td>
+                <td class="right">Bench Tests</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -83,7 +83,7 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Verify Tests</td>
+                <td class="right">Verify Tests</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -158,14 +158,15 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Other Links</td>
+                <td class="right"><label for="tag">Other Links</label></td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
                       <option value="index.html"    >Home</option>
-                      <option value="guts.html"     >Guts</option>
+                      <option value="scores.html"   >Scores</option>
                       <option value="warnings.html" >Warnings</option>
+                      <option value="guts.html"     >Guts</option>
                     </select>
                   </form>
               </tr>
@@ -179,9 +180,13 @@
     <div>
       <table class="top">
         
+          
+          <tr class="title">
+            <td><h2>Benchmark Data</h2></td>
+            <td class="score">Score: <span>89.69</span></td>
+          </tr>
           <tr>
-            <td colspan=2 align="center">
-              <h2 align="left">Benchmark Data</h2>
+            <td colspan=2>
               <table class="data">
                 <tr>
                   <th>Benchmark</th>
@@ -190,126 +195,137 @@
                   <th>Allocs/Op</th>
                   <th>Bytes/Op</th>
                   <th>MB/Sec</th>
+                  <th>Score</th>
                 </tr>
                 
                   <tr>
                     <td class="fixed">Attributes</td>
-                    <td class="number">749,096</td>
-                    <td class="number">1,652.00</td>
+                    <td class="number">749,566</td>
+                    <td class="number">1,563.00</td>
                       <td class="number">5</td>
                      <td class="number">416</td>
-                    <td class="number">235.53</td>
+                    <td class="number">248.91</td>
+                    <td class="number">97.36</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Big Group</td>
-                    <td class="number">17,784</td>
-                    <td class="number">67,859.00</td>
-                      <td class="number">603</td>
-                     <td class="number">14,672</td>
-                    <td class="number">435.65</td>
+                    <td class="number">263,586</td>
+                    <td class="number">4,476.00</td>
+                      <td class="number">37</td>
+                     <td class="number">921</td>
+                    <td class="number">395.25</td>
+                    <td class="number">97.16</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Disabled</td>
-                    <td class="number">46,044,564</td>
-                    <td class="number">26.02</td>
+                    <td class="number">42,305,137</td>
+                    <td class="number">28.24</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
+                    <td class="number">0.00</td>
                     <td class="number">0.00</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Key Values</td>
-                    <td class="number">678,680</td>
-                    <td class="number">1,731.00</td>
+                    <td class="number">669,490</td>
+                    <td class="number">1,703.00</td>
                       <td class="number">6</td>
                      <td class="number">801</td>
-                    <td class="number">224.69</td>
+                    <td class="number">228.45</td>
+                    <td class="number">97.43</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Logging</td>
-                    <td class="number">34,856</td>
-                    <td class="number">34,394.00</td>
+                    <td class="number">34,484</td>
+                    <td class="number">34,522.00</td>
                       <td class="number">51</td>
                      <td class="number">1,635</td>
-                    <td class="number">241.09</td>
+                    <td class="number">240.19</td>
+                    <td class="number">97.73</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple</td>
-                    <td class="number">2,635,394</td>
-                    <td class="number">491.10</td>
+                    <td class="number">2,593,035</td>
+                    <td class="number">460.60</td>
                       <td class="number">1</td>
                      <td class="number">32</td>
-                    <td class="number">148.65</td>
+                    <td class="number">158.48</td>
+                    <td class="number">96.06</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple Source</td>
-                    <td class="number">1,766,512</td>
-                    <td class="number">751.60</td>
+                    <td class="number">1,500,145</td>
+                    <td class="number">674.30</td>
                       <td class="number">3</td>
                      <td class="number">280</td>
-                    <td class="number">142.37</td>
+                    <td class="number">158.68</td>
+                    <td class="number">98.69</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Attributes</td>
-                    <td class="number">738,121</td>
-                    <td class="number">1,574.00</td>
+                    <td class="number">723,006</td>
+                    <td class="number">1,582.00</td>
                       <td class="number">5</td>
                      <td class="number">416</td>
-                    <td class="number">468.14</td>
+                    <td class="number">465.93</td>
+                    <td class="number">98.24</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Key Values</td>
-                    <td class="number">670,933</td>
-                    <td class="number">1,718.00</td>
+                    <td class="number">662,524</td>
+                    <td class="number">1,715.00</td>
                       <td class="number">6</td>
                      <td class="number">801</td>
-                    <td class="number">428.92</td>
+                    <td class="number">429.71</td>
+                    <td class="number">98.29</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Simple</td>
-                    <td class="number">2,573,959</td>
-                    <td class="number">464.70</td>
+                    <td class="number">2,544,496</td>
+                    <td class="number">469.70</td>
                       <td class="number">1</td>
                      <td class="number">32</td>
-                    <td class="number">906.05</td>
+                    <td class="number">896.39</td>
+                    <td class="number">99.14</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Attributes</td>
-                    <td class="number">720,591</td>
-                    <td class="number">1,639.00</td>
+                    <td class="number">717,724</td>
+                    <td class="number">1,626.00</td>
                       <td class="number">7</td>
                      <td class="number">504</td>
-                    <td class="number">245.86</td>
+                    <td class="number">247.79</td>
+                    <td class="number">98.07</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Key Values</td>
-                    <td class="number">660,585</td>
-                    <td class="number">1,792.00</td>
+                    <td class="number">642,232</td>
+                    <td class="number">1,777.00</td>
                       <td class="number">8</td>
                      <td class="number">889</td>
-                    <td class="number">224.87</td>
+                    <td class="number">226.85</td>
+                    <td class="number">98.08</td>
                   </tr>
-                
+                 
               </table>
             </td>
           </tr>
-          
-            <tr><td colspan=2><hr/></td></tr>
-          
+          <tr><td colspan=2><hr/></td></tr>
+          <tr class="title"><td colspan=2><h2>Benchmark Charts</h2></td></tr>
           <tr>
-            <td colspan=2 align="center">
-              <h2 align="left">Benchmark Charts</h2>
-              <table>
+            <td colspan=2 class="score">
+              <table class="charts">
                 <tr>
                   <td><img src="/go-slog/chart/ChanchalZap/Nanos.svg" alt="chanchal/zaphandler Ns/Op" class="chart" /></td>
                   <td><img src="/go-slog/chart/ChanchalZap/MemAllocs.svg" alt="chanchal/zaphandler Allocs/Op" class="chart" /></td>
@@ -321,20 +337,23 @@
               </table>
             </td>
           </tr>
-        
+         
         
           <tr><td colspan=2><hr/></td></tr>
+          <tr class="title">
+            <td><h2 >Warnings</h2></td>
+            <td class="score">Score: <span>55.36</span></td>
+          </tr>
           <tr>
-            <td colspan=2 align="center">
-              <h2 align="left">Warnings</h2>
+            <td colspan=2>
               <table class="warning">
-                <colgroup>
-                  <col width="3%"/>
-                  <col width="3%"/>
-                  <col width="30%"/>
-                  <col width="58%"/>
-                  <col width="6%"/>
-                </colgroup>
+                <tr>
+                  <td style="width:3%;"></td>
+                  <td style="width:3%;"></td>
+                  <td style="width:30%;"></td>
+                  <td style="width:58%;"></td>
+                  <td style="width:6%;"></td>
+                </tr>
                 
                           
           
@@ -350,7 +369,7 @@
                 <td class="extra">
                   Failure of embedded slog/slogtest
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SlogTest-doc')">Doc</button>
                   
@@ -376,33 +395,27 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Slog Test
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=152"> a Handler should handle multiple WithGroup and WithAttr calls</a></p>
-<p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=166"> a Handler should not output groups for an empty Record</a></p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=152"> a Handler should handle multiple WithGroup and WithAttr calls</a></p>
+<p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=166"> a Handler should not output groups for an empty Record</a></p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="SlogTest-Slog Test-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="SlogTest-Slog Test-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -417,7 +430,7 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
                 <td class="extra">
                   Empty WithGroup() logged
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('WithGroupEmpty-doc')">Doc</button>
                   
@@ -426,7 +439,7 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
               
                 <tr id="WithGroupEmpty-doc" style="display:none;">
                   <td></td>
-                  <td colspan=4 class="description"><p>Handlers should not log WithGroup() groups with no fields, whether or not they have non-empty names.</p>
+                  <td colspan=4 class="description"><p>Handlers should not log <code>WithGroup()</code> groups with no fields, whether or not they have non-empty names.</p>
 
 <ul>
 <li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If a group has no Attrs (even if it has a non-empty key), ignore it.&quot;</a></li>
@@ -438,38 +451,32 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           With Group Empty
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>too many fields, found field 'group1', value is group, length: 0</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>too many fields, found field 'group1', value is group, length: 0</p></td>
+                        <td class="button">
                           
                             <button type="button" title="Toggle Log Data" onclick="toggleTableRow('WithGroupEmpty-With Group Empty-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="WithGroupEmpty-With Group Empty-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre>{
+                      <tr id="WithGroupEmpty-With Group Empty-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
 	&#34;group1&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-12T14:34:00Z&#34;
+	&#34;time&#34;: &#34;2024-03-16T15:55:23Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -490,7 +497,7 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
                 <td class="extra">
                   Canceled context blocks logging
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('CanceledContext-doc')">Doc</button>
                   
@@ -508,32 +515,26 @@ the Handle method should not treat a canceled context as a signal to stop work.&
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Canceled Context
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p></p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p></p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="CanceledContext-Canceled Context-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="CanceledContext-Canceled Context-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -548,7 +549,7 @@ the Handle method should not treat a canceled context as a signal to stop work.&
                 <td class="extra">
                   Log levels are not properly treated as integers
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('LevelMath-doc')">Doc</button>
                   
@@ -566,179 +567,173 @@ Handlers should properly handle numeric levels and math applied to level values.
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Default Level
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>INFO+1 is not enabled when WARN is set</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>INFO+1 is not enabled when WARN is set</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelMath-Default Level-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelMath-Default Level-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Default Level
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>INFO+1 is not enabled when WARN is set</p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p>INFO+1 is not enabled when WARN is set</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelMath-Default Level-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelMath-Default Level-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Level Configured
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>1  is not enabled when INFO is set</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>1  is not enabled when INFO is set</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelMath-Level Configured-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelMath-Level Configured-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Level Configured
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>1  is not enabled when INFO is set</p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p>1  is not enabled when INFO is set</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelMath-Level Configured-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelMath-Level Configured-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Level Different
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>5  is not enabled when WARN is set</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>5  is not enabled when WARN is set</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelMath-Level Different-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelMath-Level Different-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Level Different
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>5  is not enabled when WARN is set</p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p>5  is not enabled when WARN is set</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelMath-Level Different-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                        
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
-                          
-                            Verify:
-                          
-                          Level Var
-                        </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>INFO+1  is not enabled when INFO is set</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
-                          
-                        </td>
-                      </tr>
-                      <tr id="LevelMath-Level Var-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelMath-Level Different-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Level Var
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>5  is not enabled when WARN is enabled</p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p>INFO+1  is not enabled when INFO is set</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelMath-Level Var-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelMath-Level Var-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Level Var
+                        </td>
+                        <td class="extra"><p>5  is not enabled when WARN is enabled</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelMath-Level Var-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -753,7 +748,7 @@ Handlers should properly handle numeric levels and math applied to level values.
                 <td class="extra">
                   HandlerOptions.ReplaceAttr not available
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('NoReplAttr-doc')">Doc</button>
                   
@@ -778,74 +773,68 @@ However, documentation on implementing handler methods seems to suggest it is op
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Replace Attr
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>too many attributes: 6, alpha == beta, change still exists, remove still exists</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>too many attributes: 6, alpha == beta, change still exists, remove still exists</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="NoReplAttr-Replace Attr-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="NoReplAttr-Replace Attr-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Replace Attr Basic
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>too many attributes: 4, time field still exists, msg field still exists, source == <nil></p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p>too many attributes: 4, time field still exists, msg field still exists, source == <nil></p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="NoReplAttr-Replace Attr Basic-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="NoReplAttr-Replace Attr Basic-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Replace Attr Fn Remove Empty Key
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>too few attributes: 3, no empty key</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>too few attributes: 3, no empty key</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="NoReplAttr-Replace Attr Fn Remove Empty Key-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="NoReplAttr-Replace Attr Fn Remove Empty Key-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -860,7 +849,7 @@ However, documentation on implementing handler methods seems to suggest it is op
                 <td class="extra">
                   HandlerOptions.ReplaceAttr not available for basic fields
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('NoReplAttrBasic-doc')">Doc</button>
                   
@@ -880,53 +869,47 @@ When that is the case it is better to use this (<code>WarnNoReplAttrBasic</code>
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Replace Attr Fn Level Case
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>level value not null</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>level value not null</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="NoReplAttrBasic-Replace Attr Fn Level Case-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="NoReplAttrBasic-Replace Attr Fn Level Case-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Replace Attr Fn Remove Time
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>time value not empty string</p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p>time value not empty string</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="NoReplAttrBasic-Replace Attr Fn Remove Time-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="NoReplAttrBasic-Replace Attr Fn Remove Time-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -941,7 +924,7 @@ When that is the case it is better to use this (<code>WarnNoReplAttrBasic</code>
                 <td class="extra">
                   Source data logged as &#39;caller&#39; instead of &#39;source&#39;
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SourceCaller-doc')">Doc</button>
                   
@@ -965,108 +948,60 @@ to the <code>File</code> and <code>Line</code> fields of the source data group a
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
-                          
-                            Verify:
-                          
-                          Source Key
-                        </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>reflect/value.go:596</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
-                          
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceCaller-Source Key-log')">Log</button>
-                          
-                        </td>
-                      </tr>
-                      <tr id="SourceCaller-Source Key-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre>{
-	&#34;caller&#34;: &#34;reflect/value.go:596&#34;,
-	&#34;level&#34;: &#34;info&#34;,
-	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-12T14:34:00Z&#34;
-}</pre></td>
-                      </tr>
-                     
-                  </table>
-                </td>
-              </tr>
-            
-              <tr>
-                <td></td>
-                <td colspan=2 class="warning">
-                  SourceKey
-                </td>
-                <td class="extra">
-                  Source data not logged when AddSource flag set
-                </td>
-                <td class="toggleButton">
-                  
-                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SourceKey-doc')">Doc</button>
-                  
-                </td>
-              </tr>
-              
-                <tr id="SourceKey-doc" style="display:none;">
-                  <td></td>
-                  <td colspan=4 class="description"><p>Handlers should log source data when the <code>slog.HandlerOptions.AddSource</code> flag is set.</p>
-
-<ul>
-<li><a href="https://pkg.go.dev/log/slog@master#HandlerOptions" target="_blank">Flag declaration as <code>slog.HandlerOptions</code> field</a></li>
-<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Behavior defined for <code>JSONHandler.Handle()</code></a></li>
-<li><a href="https://pkg.go.dev/log/slog@master#Source" target="_blank">Definition of source data record</a></li>
-</ul>
-</td>
-                </tr>
-              
-              <tr class="instance">
-                <td colspan=2></td>
-                <td colspan=3>
-                  <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
-                    
-                      
-                      
-                        
-                      
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Bench:
                           
                           Simple Source
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>no 'source' key</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>tests/benchmarks.go:71</p></td>
+                        <td class="button">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKey-Simple Source-log')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceCaller-Simple Source-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="SourceKey-Simple Source-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre>{
+                      <tr id="SourceCaller-Simple Source-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
 	&#34;caller&#34;: &#34;tests/benchmarks.go:71&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-12T14:31:52Z&#34;
+	&#34;time&#34;: &#34;2024-03-16T15:53:14Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Source Key
+                        </td>
+                        <td class="extra"><p>reflect/value.go:596</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceCaller-Source Key-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="SourceCaller-Source Key-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;caller&#34;: &#34;reflect/value.go:596&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-03-16T15:55:23Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1082,7 +1017,7 @@ to the <code>File</code> and <code>Line</code> fields of the source data group a
                 <td class="extra">
                   WithGroup doesn&#39;t embed following attributes into group
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('WithGroup-doc')">Doc</button>
                   
@@ -1100,34 +1035,28 @@ This warning represents situations where the attributes are attached to the wron
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Group With Multi
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p></p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p></p></td>
+                        <td class="button">
                           
                             <button type="button" title="Toggle Log Data" onclick="toggleTableRow('WithGroup-Group With Multi-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="WithGroup-Group With Multi-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre>{
+                      <tr id="WithGroup-Group With Multi-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
 	&#34;first&#34;: &#34;one&#34;,
 	&#34;group&#34;: {
 		&#34;subGroup&#34;: {
@@ -1139,7 +1068,7 @@ This warning represents situations where the attributes are attached to the wron
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;second&#34;: 2,
 	&#34;third&#34;: &#34;3&#34;,
-	&#34;time&#34;: &#34;2024-03-12T14:34:00Z&#34;
+	&#34;time&#34;: &#34;2024-03-16T15:55:23Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -1147,30 +1076,30 @@ This warning represents situations where the attributes are attached to the wron
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Group With Multi Sub Empty
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p></p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p></p></td>
+                        <td class="button">
                           
                             <button type="button" title="Toggle Log Data" onclick="toggleTableRow('WithGroup-Group With Multi Sub Empty-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="WithGroup-Group With Multi Sub Empty-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre>{
+                      <tr id="WithGroup-Group With Multi Sub Empty-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
 	&#34;first&#34;: &#34;one&#34;,
 	&#34;group&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;second&#34;: 2,
 	&#34;third&#34;: &#34;3&#34;,
-	&#34;time&#34;: &#34;2024-03-12T14:34:00Z&#34;
+	&#34;time&#34;: &#34;2024-03-16T15:55:23Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1191,7 +1120,7 @@ This warning represents situations where the attributes are attached to the wron
                 <td class="extra">
                   Duplicate field(s) found
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('Duplicates-doc')">Doc</button>
                   
@@ -1216,53 +1145,47 @@ is currently expected in February 2024).</p>
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Attribute Duplicate
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>map[alpha:2 charlie:3]</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>map[alpha:2 charlie:3]</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="Duplicates-Attribute Duplicate-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="Duplicates-Attribute Duplicate-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Attribute With Duplicate
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>map[alpha:2 charlie:3]</p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p>map[alpha:2 charlie:3]</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="Duplicates-Attribute With Duplicate-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="Duplicates-Attribute With Duplicate-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -1277,7 +1200,7 @@ is currently expected in February 2024).</p>
                 <td class="extra">
                   slog.Duration() logs seconds instead of nanoseconds
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('DurationSeconds-doc')">Doc</button>
                   
@@ -1298,32 +1221,26 @@ is currently expected in February 2024).</p>
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Log Attributes
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p></p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p></p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="DurationSeconds-Log Attributes-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="DurationSeconds-Log Attributes-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -1338,7 +1255,7 @@ is currently expected in February 2024).</p>
                 <td class="extra">
                   WithGroup().With() ends up at top level of log record instead of in the group
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('GroupWithTop-doc')">Doc</button>
                   
@@ -1356,39 +1273,33 @@ Some handlers write</code><attrs>` to the top level of the log record.</p>
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Group With Top
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p></p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p></p></td>
+                        <td class="button">
                           
                             <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupWithTop-Group With Top-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="GroupWithTop-Group With Top-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre>{
+                      <tr id="GroupWithTop-Group With Top-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
 	&#34;group&#34;: {},
 	&#34;key&#34;: &#34;value&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-12T14:34:00Z&#34;
+	&#34;time&#34;: &#34;2024-03-16T15:55:23Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1404,7 +1315,7 @@ Some handlers write</code><attrs>` to the top level of the log record.</p>
                 <td class="extra">
                   Log level in lowercase
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('LevelCase-doc')">Doc</button>
                   
@@ -1425,221 +1336,215 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Canceled Context
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>'info'</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>'info'</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCase-Canceled Context-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Canceled Context-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Canceled Context
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>'info'</p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p>'info'</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCase-Canceled Context-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Canceled Context-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Key Case
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>'warn'</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>'error'</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCase-Key Case-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Key Case-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Key Case
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>'error'</p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p>'debug'</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCase-Key Case-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Key Case-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Key Case
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>'debug'</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>'info'</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCase-Key Case-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Key Case-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Key Case
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>'info'</p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p>'warn'</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCase-Key Case-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Key Case-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Keys
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>'info'</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>'info'</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCase-Keys-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Keys-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Source Key
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>'info'</p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p>'info'</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCase-Source Key-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Source Key-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Zero PC
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>'info'</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>'info'</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCase-Zero PC-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Zero PC-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Zero Time
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>'info'</p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p>'info'</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="LevelCase-Zero Time-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="LevelCase-Zero Time-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -1654,7 +1559,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                 <td class="extra">
                   slog.Time() logs milliseconds instead of nanoseconds
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('TimeMillis-doc')">Doc</button>
                   
@@ -1675,32 +1580,26 @@ may have fixed this as well in Go 1.21.</p>
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Log Attributes
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>2024-03-12T14:34:00Z</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>2024-03-16T15:55:23Z</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="TimeMillis-Log Attributes-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="TimeMillis-Log Attributes-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -1724,13 +1623,13 @@ may have fixed this as well in Go 1.21.</p>
               <a href="https://github.com/madkins23/go-slog" target="_blank">Repository</a>
             </div>
           </td>
-          <td align="center">
+          <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-12 14:34:10 UTC</span>
+              <span class="fixed">2024-03-16 15:55:34 UTC</span>
             </div>
           </td>
-          <td align="right">
+          <td class="right">
             <div class="hover-text">
               <span class="tooltip-text">Code Documentation</span>
               <a href="https://pkg.go.dev/github.com/madkins23/go-slog" target="_blank">Documentation</a>

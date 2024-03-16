@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 <head>
   <title>Guts</title>
   <link rel="stylesheet" href="/go-slog/style.css">
@@ -17,10 +17,10 @@
             
             <h2 class="home">Data and Warnings</h2>
           </td>
-          <td align="right">
-            <table>
+          <td>
+            <table class="choice">
               <tr>
-                <td align="right">Handlers</td>
+                <td class="right">Handlers</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
@@ -47,7 +47,7 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Bench Tests</td>
+                <td class="right">Bench Tests</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -82,7 +82,7 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Verify Tests</td>
+                <td class="right">Verify Tests</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -157,14 +157,15 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Other Links</td>
+                <td class="right"><label for="tag">Other Links</label></td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
                       <option value="index.html"    >Home</option>
-                      <option value="guts.html"     selected>Guts</option>
+                      <option value="scores.html"   >Scores</option>
                       <option value="warnings.html" >Warnings</option>
+                      <option value="guts.html"     selected>Guts</option>
                     </select>
                   </form>
               </tr>
@@ -187,7 +188,7 @@
     <td><h3>Tests</h3></td>
   </tr>
   <tr>
-    <td valign="top">
+    <td class="top">
       <table class="debug">
         <tr>
           <th>Tag</th>
@@ -236,7 +237,7 @@
         
       </table>
     </td>
-    <td valign="top">
+    <td class="top">
       <table class="debug">
         <tr>
           <th>Tag</th>
@@ -318,7 +319,7 @@
     <td><h3>Tests</h3></td>
   </tr>
   <tr>
-    <td valign="top">
+    <td class="top">
       <table class="debug">
         <tr>
           <th>Tag</th>
@@ -367,7 +368,7 @@
         
       </table>
     </td>
-    <td valign="top">
+    <td class="top">
       <table class="debug">
         <tr>
           <th>Tag</th>
@@ -555,13 +556,13 @@
               <a href="https://github.com/madkins23/go-slog" target="_blank">Repository</a>
             </div>
           </td>
-          <td align="center">
+          <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-12 14:34:10 UTC</span>
+              <span class="fixed">2024-03-16 15:55:34 UTC</span>
             </div>
           </td>
-          <td align="right">
+          <td class="right">
             <div class="hover-text">
               <span class="tooltip-text">Code Documentation</span>
               <a href="https://pkg.go.dev/github.com/madkins23/go-slog" target="_blank">Documentation</a>
@@ -571,7 +572,6 @@
     </table>
 
   </div>
-</div>
 </div>
 </body>
 </html>

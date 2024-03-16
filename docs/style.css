@@ -65,9 +65,19 @@ legend {
     padding: 0.5em;
 }
 
+table.charts {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.choice {
+    margin-left: auto;
+}
+
 table.data {
-    margin: 5px;
     padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 table.data td, th {
@@ -97,6 +107,8 @@ table.debug td {
 
 table.handler-v-warning {
     border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 table.handler-v-warning th {
@@ -188,24 +200,43 @@ table.instance td {
     padding: 5px;
 }
 
+table.instance td.extra {
+    width: 55%;
+}
+
+table.instance td.logLine {
+    width: 97%;
+}
+
 table.instance td.logLine pre {
     margin: 5px;
     padding: 5px;
     overflow: auto;
 }
 
-table.instance td.toggleButton {
-    text-align: center;
-}
-
 table.instance td.name {
     font-family: monospace;
     font-size: 1em;
+    width: 38%;
+}
+
+table.instance td.indent {
+    width: 3%;
 }
 
 table.instance td.extra {
     font-family: monospace;
     font-size: 1em;
+}
+
+table.instance td.button {
+    text-align: center;
+    width: 7%;
+}
+
+table.scores {
+    margin-left: auto;
+    margin-right: auto;
 }
 
 table.top {
@@ -214,12 +245,35 @@ table.top {
     width: 100%;
 }
 
+table.top tr.title {
+    vertical-align: baseline;
+}
+
+table.top tr.title h2 {
+    display: inline;
+}
+
+table.top tr.title td.score {
+    font-size:   1.5em;
+    text-align: right;
+}
+
+table.top tr.title td.score span {
+    font-family: monospace;
+    font-weight: bold;
+}
+
+table.top td.table {
+    vertical-align: top;
+}
+
 table.warning {
-    margin: 5px;
     padding: 5px;
     table-layout: fixed;
     width: 800px;
     border-collapse: collapse;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 table.warning td {
@@ -270,6 +324,48 @@ table.warning td.warning {
     font-size: 1.25em;
     font-weight: bold;
     padding-top: 0.5em;
+}
+
+table.warning-data {
+    padding: 5px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+table.warning-data td {
+    vertical-align: baseline;
+}
+
+table.warning-data td div.list {
+    display: flex;
+    font-family: monospace;
+    justify-content: center;
+}
+
+table.warning-data td, th {
+    margin: 5px;
+    padding: 5px;
+}
+
+.left {
+    text-align: left;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.top {
+    vertical-align: top;
+}
+
+.bottom {
+    vertical-align: bottom;
 }
 
 .fixed {

@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 <head>
   <title>Benchmark Data</title>
   <link rel="stylesheet" href="/go-slog/style.css">
@@ -21,10 +21,10 @@
             
             <h2 class="home">Test <span class="fixed">Simple Source</span></h2>
           </td>
-          <td align="right">
-            <table>
+          <td>
+            <table class="choice">
               <tr>
-                <td align="right">Handlers</td>
+                <td class="right">Handlers</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
@@ -51,7 +51,7 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Bench Tests</td>
+                <td class="right">Bench Tests</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -86,7 +86,7 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Verify Tests</td>
+                <td class="right">Verify Tests</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -161,14 +161,15 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Other Links</td>
+                <td class="right"><label for="tag">Other Links</label></td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
                       <option value="index.html"    >Home</option>
-                      <option value="guts.html"     >Guts</option>
+                      <option value="scores.html"   >Scores</option>
                       <option value="warnings.html" >Warnings</option>
+                      <option value="guts.html"     >Guts</option>
                     </select>
                   </form>
               </tr>
@@ -182,9 +183,9 @@
     <div>
       <table class="top">
         
+          <tr class="title"><td><h2>Benchmark Data</h2></td></tr>
           <tr>
-            <td colspan=2 align="center">
-              <h2 align="left">Benchmark Data</h2>
+            <td colspan=2>
               <table class="data">
                 <tr>
                   <th>Handler</th>
@@ -197,84 +198,84 @@
                 
                   <tr>
                     <td class="fixed">chanchal/zaphandler</td>
-                    <td class="number">1,766,512</td>
-                    <td class="number">751.60</td>
+                    <td class="number">1,500,145</td>
+                    <td class="number">674.30</td>
                     <td class="number">3</td>
                     <td class="number">280</td>
-                    <td class="number">142.37</td>
+                    <td class="number">158.68</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">madkins/flash</td>
-                    <td class="number">1,361,468</td>
-                    <td class="number">879.60</td>
+                    <td class="number">1,327,507</td>
+                    <td class="number">868.40</td>
                     <td class="number">5</td>
                     <td class="number">496</td>
-                    <td class="number">322.88</td>
+                    <td class="number">327.05</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">madkins/sloggy</td>
-                    <td class="number">584,566</td>
-                    <td class="number">1,965.00</td>
+                    <td class="number">621,807</td>
+                    <td class="number">1,939.00</td>
                     <td class="number">33</td>
                     <td class="number">1,480</td>
-                    <td class="number">145.04</td>
+                    <td class="number">145.96</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">phsym/zeroslog</td>
-                    <td class="number">2,148,697</td>
-                    <td class="number">552.40</td>
+                    <td class="number">2,217,385</td>
+                    <td class="number">541.50</td>
                     <td class="number">4</td>
                     <td class="number">312</td>
-                    <td class="number">273.35</td>
+                    <td class="number">278.84</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-logrus</td>
-                    <td class="number">205,365</td>
-                    <td class="number">5,691.00</td>
+                    <td class="number">210,566</td>
+                    <td class="number">5,601.00</td>
                     <td class="number">39</td>
                     <td class="number">2,995</td>
-                    <td class="number">46.92</td>
+                    <td class="number">47.67</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-zap</td>
-                    <td class="number">1,558,810</td>
-                    <td class="number">767.10</td>
+                    <td class="number">1,584,392</td>
+                    <td class="number">761.00</td>
                     <td class="number">5</td>
                     <td class="number">592</td>
-                    <td class="number">139.48</td>
+                    <td class="number">140.61</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-zerolog</td>
-                    <td class="number">993,770</td>
-                    <td class="number">1,214.00</td>
+                    <td class="number">1,000,000</td>
+                    <td class="number">1,167.00</td>
                     <td class="number">12</td>
                     <td class="number">1,225</td>
-                    <td class="number">223.27</td>
+                    <td class="number">232.15</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">slog/JSONHandler</td>
-                    <td class="number">1,311,216</td>
-                    <td class="number">917.30</td>
+                    <td class="number">1,342,729</td>
+                    <td class="number">889.10</td>
                     <td class="number">6</td>
                     <td class="number">568</td>
-                    <td class="number">300.89</td>
+                    <td class="number">311.54</td>
                   </tr>
                 
               </table>
             </td>
           </tr>
           <tr><td colspan=2><hr/></td></tr>
+          <tr><td colspan=2 class="title"><h2>Benchmark Charts</h2></td></tr>
           <tr>
-            <td colspan=2 align="center">
-              <h2 align="left">Benchmark Charts</h2>
-              <table>
+            <td colspan=2 class="score">
+              <table class="charts">
                 <tr>
                   <td><img src="/go-slog/chart/Bench:SimpleSource/Nanos.svg" alt="Simple Source Ns/Op" class="chart" /></td>
                   <td><img src="/go-slog/chart/Bench:SimpleSource/MemAllocs.svg" alt="Simple Source Allocs/Op" class="chart" /></td>
@@ -291,17 +292,17 @@
           
             <tr><td colspan=2><hr/></td></tr>
           
+          <tr><td colspan=2 class="title"><h2 >Warnings</h2></td></tr>
           <tr>
-            <td colspan=2 align="center">
-              <h2 align="left">Warnings</h2>
+            <td colspan=2>
               <table class="warning">
-                <colgroup>
-                  <col width="3%"/>
-                  <col width="3%"/>
-                  <col width="30%"/>
-                  <col width="58%"/>
-                  <col width="6%"/>
-                </colgroup>
+                <tr>
+                  <td style="width:3%;"></td>
+                  <td style="width:3%;"></td>
+                  <td style="width:30%;"></td>
+                  <td style="width:58%;"></td>
+                  <td style="width:6%;"></td>
+                </tr>
                 
                           
           
@@ -312,24 +313,25 @@
               <tr>
                 <td></td>
                 <td colspan=2 class="warning">
-                  SourceKey
+                  SourceCaller
                 </td>
                 <td class="extra">
-                  Source data not logged when AddSource flag set
+                  Source data logged as &#39;caller&#39; instead of &#39;source&#39;
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
-                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SourceKey-doc')">Doc</button>
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SourceCaller-doc')">Doc</button>
                   
                 </td>
               </tr>
               
-                <tr id="SourceKey-doc" style="display:none;">
+                <tr id="SourceCaller-doc" style="display:none;">
                   <td></td>
-                  <td colspan=4 class="description"><p>Handlers should log source data when the <code>slog.HandlerOptions.AddSource</code> flag is set.</p>
+                  <td colspan=4 class="description"><p>Some handlers return source data as a single string on the <code>caller</code> field
+in the format <code>&lt;file&gt;:&lt;line&gt;</code> where <code>&lt;file&gt;</code> and <code>&lt;line&gt;</code> correspond
+to the <code>File</code> and <code>Line</code> fields of the source data group and <code>Function</code> is not provided.</p>
 
 <ul>
-<li><a href="https://pkg.go.dev/log/slog@master#HandlerOptions" target="_blank">Flag declaration as <code>slog.HandlerOptions</code> field</a></li>
 <li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Behavior defined for <code>JSONHandler.Handle()</code></a></li>
 <li><a href="https://pkg.go.dev/log/slog@master#Source" target="_blank">Definition of source data record</a></li>
 </ul>
@@ -340,36 +342,30 @@
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                           Chanchal Zap
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>no 'source' key</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>tests/benchmarks.go:71</p></td>
+                        <td class="button">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKey-Chanchal Zap-log')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceCaller-Chanchal Zap-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="SourceKey-Chanchal Zap-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre>{
+                      <tr id="SourceCaller-Chanchal Zap-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
 	&#34;caller&#34;: &#34;tests/benchmarks.go:71&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-12T14:31:52Z&#34;
+	&#34;time&#34;: &#34;2024-03-16T15:53:14Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -377,25 +373,25 @@
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>no 'source' key</p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p>/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:71</p></td>
+                        <td class="button">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKey-Phsym Zerolog-log')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceCaller-Phsym Zerolog-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="SourceKey-Phsym Zerolog-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre>{
+                      <tr id="SourceCaller-Phsym Zerolog-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
 	&#34;caller&#34;: &#34;/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:71&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-12T14:33:01Z&#34;
+	&#34;time&#34;: &#34;2024-03-16T15:54:23Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -403,25 +399,25 @@
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                           Samber Zap
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>no 'source' key</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>tests/benchmarks.go:71</p></td>
+                        <td class="button">
                           
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKey-Samber Zap-log')">Log</button>
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceCaller-Samber Zap-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="SourceKey-Samber Zap-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre>{
+                      <tr id="SourceCaller-Samber Zap-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
 	&#34;caller&#34;: &#34;tests/benchmarks.go:71&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-12T14:33:35Z&#34;
+	&#34;time&#34;: &#34;2024-03-16T15:54:57Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -447,13 +443,13 @@
               <a href="https://github.com/madkins23/go-slog" target="_blank">Repository</a>
             </div>
           </td>
-          <td align="center">
+          <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-12 14:34:10 UTC</span>
+              <span class="fixed">2024-03-16 15:55:34 UTC</span>
             </div>
           </td>
-          <td align="right">
+          <td class="right">
             <div class="hover-text">
               <span class="tooltip-text">Code Documentation</span>
               <a href="https://pkg.go.dev/github.com/madkins23/go-slog" target="_blank">Documentation</a>

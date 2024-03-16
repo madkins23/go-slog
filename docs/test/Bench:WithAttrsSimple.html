@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 <head>
   <title>Benchmark Data</title>
   <link rel="stylesheet" href="/go-slog/style.css">
@@ -21,10 +21,10 @@
             
             <h2 class="home">Test <span class="fixed">With Attrs Simple</span></h2>
           </td>
-          <td align="right">
-            <table>
+          <td>
+            <table class="choice">
               <tr>
-                <td align="right">Handlers</td>
+                <td class="right">Handlers</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
@@ -51,7 +51,7 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Bench Tests</td>
+                <td class="right">Bench Tests</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -86,7 +86,7 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Verify Tests</td>
+                <td class="right">Verify Tests</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -161,14 +161,15 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Other Links</td>
+                <td class="right"><label for="tag">Other Links</label></td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
                       <option value="index.html"    >Home</option>
-                      <option value="guts.html"     >Guts</option>
+                      <option value="scores.html"   >Scores</option>
                       <option value="warnings.html" >Warnings</option>
+                      <option value="guts.html"     >Guts</option>
                     </select>
                   </form>
               </tr>
@@ -182,9 +183,9 @@
     <div>
       <table class="top">
         
+          <tr class="title"><td><h2>Benchmark Data</h2></td></tr>
           <tr>
-            <td colspan=2 align="center">
-              <h2 align="left">Benchmark Data</h2>
+            <td colspan=2>
               <table class="data">
                 <tr>
                   <th>Handler</th>
@@ -197,84 +198,84 @@
                 
                   <tr>
                     <td class="fixed">chanchal/zaphandler</td>
-                    <td class="number">2,573,959</td>
-                    <td class="number">464.70</td>
+                    <td class="number">2,544,496</td>
+                    <td class="number">469.70</td>
                     <td class="number">1</td>
                     <td class="number">32</td>
-                    <td class="number">906.05</td>
+                    <td class="number">896.39</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">madkins/flash</td>
-                    <td class="number">2,867,870</td>
-                    <td class="number">419.80</td>
+                    <td class="number">2,845,940</td>
+                    <td class="number">418.90</td>
                     <td class="number">1</td>
                     <td class="number">24</td>
-                    <td class="number">1,140.92</td>
+                    <td class="number">1,145.92</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">madkins/sloggy</td>
-                    <td class="number">1,437,654</td>
-                    <td class="number">834.60</td>
+                    <td class="number">1,459,627</td>
+                    <td class="number">824.80</td>
                     <td class="number">14</td>
                     <td class="number">240</td>
-                    <td class="number">575.14</td>
+                    <td class="number">583.19</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">phsym/zeroslog</td>
-                    <td class="number">4,171,354</td>
-                    <td class="number">285.30</td>
+                    <td class="number">4,183,419</td>
+                    <td class="number">287.90</td>
                     <td class="number">0</td>
                     <td class="number">0</td>
-                    <td class="number">1,500.39</td>
+                    <td class="number">1,486.82</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-logrus</td>
-                    <td class="number">68,997</td>
-                    <td class="number">17,284.00</td>
+                    <td class="number">70,429</td>
+                    <td class="number">17,066.00</td>
                     <td class="number">91</td>
                     <td class="number">8,023</td>
-                    <td class="number">25.40</td>
+                    <td class="number">25.78</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-zap</td>
-                    <td class="number">254,973</td>
-                    <td class="number">4,870.00</td>
+                    <td class="number">264,650</td>
+                    <td class="number">4,581.00</td>
                     <td class="number">44</td>
-                    <td class="number">5,580</td>
-                    <td class="number">86.44</td>
+                    <td class="number">5,578</td>
+                    <td class="number">91.89</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-zerolog</td>
-                    <td class="number">285,879</td>
-                    <td class="number">4,145.00</td>
+                    <td class="number">294,085</td>
+                    <td class="number">3,974.00</td>
                     <td class="number">53</td>
-                    <td class="number">3,933</td>
-                    <td class="number">103.25</td>
+                    <td class="number">3,932</td>
+                    <td class="number">107.70</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">slog/JSONHandler</td>
-                    <td class="number">3,212,604</td>
-                    <td class="number">372.10</td>
+                    <td class="number">3,362,577</td>
+                    <td class="number">364.20</td>
                     <td class="number">0</td>
                     <td class="number">0</td>
-                    <td class="number">1,206.63</td>
+                    <td class="number">1,235.63</td>
                   </tr>
                 
               </table>
             </td>
           </tr>
           <tr><td colspan=2><hr/></td></tr>
+          <tr><td colspan=2 class="title"><h2>Benchmark Charts</h2></td></tr>
           <tr>
-            <td colspan=2 align="center">
-              <h2 align="left">Benchmark Charts</h2>
-              <table>
+            <td colspan=2 class="score">
+              <table class="charts">
                 <tr>
                   <td><img src="/go-slog/chart/Bench:WithAttrsSimple/Nanos.svg" alt="With Attrs Simple Ns/Op" class="chart" /></td>
                   <td><img src="/go-slog/chart/Bench:WithAttrsSimple/MemAllocs.svg" alt="With Attrs Simple Allocs/Op" class="chart" /></td>
@@ -300,13 +301,13 @@
               <a href="https://github.com/madkins23/go-slog" target="_blank">Repository</a>
             </div>
           </td>
-          <td align="center">
+          <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-12 14:34:10 UTC</span>
+              <span class="fixed">2024-03-16 15:55:34 UTC</span>
             </div>
           </td>
-          <td align="right">
+          <td class="right">
             <div class="hover-text">
               <span class="tooltip-text">Code Documentation</span>
               <a href="https://pkg.go.dev/github.com/madkins23/go-slog" target="_blank">Documentation</a>

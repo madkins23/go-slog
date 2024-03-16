@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 <head>
   <title>Benchmark Data</title>
   <link rel="stylesheet" href="/go-slog/style.css">
@@ -18,10 +18,10 @@
             
             <h2 class="home">Handler <span class="fixed">slog/JSONHandler</span></h2>
           </td>
-          <td align="right">
-            <table>
+          <td>
+            <table class="choice">
               <tr>
-                <td align="right">Handlers</td>
+                <td class="right">Handlers</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
@@ -48,7 +48,7 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Bench Tests</td>
+                <td class="right">Bench Tests</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -83,7 +83,7 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Verify Tests</td>
+                <td class="right">Verify Tests</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -158,14 +158,15 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Other Links</td>
+                <td class="right"><label for="tag">Other Links</label></td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
                       <option value="index.html"    >Home</option>
-                      <option value="guts.html"     >Guts</option>
+                      <option value="scores.html"   >Scores</option>
                       <option value="warnings.html" >Warnings</option>
+                      <option value="guts.html"     >Guts</option>
                     </select>
                   </form>
               </tr>
@@ -179,9 +180,13 @@
     <div>
       <table class="top">
         
+          
+          <tr class="title">
+            <td><h2>Benchmark Data</h2></td>
+            <td class="score">Score: <span>97.84</span></td>
+          </tr>
           <tr>
-            <td colspan=2 align="center">
-              <h2 align="left">Benchmark Data</h2>
+            <td colspan=2>
               <table class="data">
                 <tr>
                   <th>Benchmark</th>
@@ -190,126 +195,137 @@
                   <th>Allocs/Op</th>
                   <th>Bytes/Op</th>
                   <th>MB/Sec</th>
+                  <th>Score</th>
                 </tr>
                 
                   <tr>
                     <td class="fixed">Attributes</td>
-                    <td class="number">770,590</td>
-                    <td class="number">1,556.00</td>
+                    <td class="number">769,050</td>
+                    <td class="number">1,509.00</td>
                       <td class="number">6</td>
                      <td class="number">472</td>
-                    <td class="number">267.40</td>
+                    <td class="number">276.33</td>
+                    <td class="number">97.14</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Big Group</td>
-                    <td class="number">12,092</td>
-                    <td class="number">106,450.00</td>
-                      <td class="number">15</td>
-                     <td class="number">153,963</td>
-                    <td class="number">277.81</td>
+                    <td class="number">216,057</td>
+                    <td class="number">5,960.00</td>
+                      <td class="number">1</td>
+                     <td class="number">48</td>
+                    <td class="number">298.50</td>
+                    <td class="number">97.71</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Disabled</td>
-                    <td class="number">277,348,674</td>
-                    <td class="number">3.94</td>
+                    <td class="number">322,703,001</td>
+                    <td class="number">3.72</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
                     <td class="number">0.00</td>
+                    <td class="number">99.98</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Key Values</td>
-                    <td class="number">700,524</td>
-                    <td class="number">1,694.00</td>
+                    <td class="number">726,937</td>
+                    <td class="number">1,701.00</td>
                       <td class="number">7</td>
                      <td class="number">856</td>
-                    <td class="number">246.23</td>
+                    <td class="number">245.69</td>
+                    <td class="number">97.05</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Logging</td>
-                    <td class="number">39,727</td>
-                    <td class="number">31,707.00</td>
+                    <td class="number">37,285</td>
+                    <td class="number">31,400.00</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">277.47</td>
+                    <td class="number">280.16</td>
+                    <td class="number">98.69</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple</td>
-                    <td class="number">3,391,370</td>
-                    <td class="number">357.90</td>
+                    <td class="number">3,297,478</td>
+                    <td class="number">354.00</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">231.90</td>
+                    <td class="number">234.48</td>
+                    <td class="number">98.90</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple Source</td>
-                    <td class="number">1,311,216</td>
-                    <td class="number">917.30</td>
+                    <td class="number">1,342,729</td>
+                    <td class="number">889.10</td>
                       <td class="number">6</td>
                      <td class="number">568</td>
-                    <td class="number">300.89</td>
+                    <td class="number">311.54</td>
+                    <td class="number">91.64</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Attributes</td>
-                    <td class="number">792,780</td>
-                    <td class="number">1,541.00</td>
+                    <td class="number">802,780</td>
+                    <td class="number">1,520.00</td>
                       <td class="number">6</td>
                      <td class="number">472</td>
-                    <td class="number">507.99</td>
+                    <td class="number">515.77</td>
+                    <td class="number">98.10</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Key Values</td>
-                    <td class="number">721,258</td>
-                    <td class="number">1,687.00</td>
+                    <td class="number">745,972</td>
+                    <td class="number">1,675.00</td>
                       <td class="number">7</td>
                      <td class="number">856</td>
-                    <td class="number">464.26</td>
+                    <td class="number">468.66</td>
+                    <td class="number">98.12</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Simple</td>
-                    <td class="number">3,212,604</td>
-                    <td class="number">372.10</td>
+                    <td class="number">3,362,577</td>
+                    <td class="number">364.20</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">1,206.63</td>
+                    <td class="number">1,235.63</td>
+                    <td class="number">99.77</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Attributes</td>
-                    <td class="number">785,908</td>
-                    <td class="number">1,544.00</td>
+                    <td class="number">768,782</td>
+                    <td class="number">1,546.00</td>
                       <td class="number">6</td>
                      <td class="number">472</td>
-                    <td class="number">279.12</td>
+                    <td class="number">278.74</td>
+                    <td class="number">98.47</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Key Values</td>
-                    <td class="number">677,269</td>
-                    <td class="number">1,667.00</td>
+                    <td class="number">722,556</td>
+                    <td class="number">1,677.00</td>
                       <td class="number">7</td>
                      <td class="number">856</td>
-                    <td class="number">257.98</td>
+                    <td class="number">257.64</td>
+                    <td class="number">98.53</td>
                   </tr>
-                
+                 
               </table>
             </td>
           </tr>
-          
-            <tr><td colspan=2><hr/></td></tr>
-          
+          <tr><td colspan=2><hr/></td></tr>
+          <tr class="title"><td colspan=2><h2>Benchmark Charts</h2></td></tr>
           <tr>
-            <td colspan=2 align="center">
-              <h2 align="left">Benchmark Charts</h2>
-              <table>
+            <td colspan=2 class="score">
+              <table class="charts">
                 <tr>
                   <td><img src="/go-slog/chart/SlogJSON/Nanos.svg" alt="slog/JSONHandler Ns/Op" class="chart" /></td>
                   <td><img src="/go-slog/chart/SlogJSON/MemAllocs.svg" alt="slog/JSONHandler Allocs/Op" class="chart" /></td>
@@ -321,20 +337,23 @@
               </table>
             </td>
           </tr>
-        
+         
         
           <tr><td colspan=2><hr/></td></tr>
+          <tr class="title">
+            <td><h2 >Warnings</h2></td>
+            <td class="score">Score: <span>98.21</span></td>
+          </tr>
           <tr>
-            <td colspan=2 align="center">
-              <h2 align="left">Warnings</h2>
+            <td colspan=2>
               <table class="warning">
-                <colgroup>
-                  <col width="3%"/>
-                  <col width="3%"/>
-                  <col width="30%"/>
-                  <col width="58%"/>
-                  <col width="6%"/>
-                </colgroup>
+                <tr>
+                  <td style="width:3%;"></td>
+                  <td style="width:3%;"></td>
+                  <td style="width:30%;"></td>
+                  <td style="width:58%;"></td>
+                  <td style="width:6%;"></td>
+                </tr>
                 
                           
           
@@ -350,7 +369,7 @@
                 <td class="extra">
                   Duplicate field(s) found
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('Duplicates-doc')">Doc</button>
                   
@@ -375,53 +394,47 @@ is currently expected in February 2024).</p>
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Attribute Duplicate
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>map[alpha:2 charlie:3]</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>map[alpha:2 charlie:3]</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="Duplicates-Attribute Duplicate-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="Duplicates-Attribute Duplicate-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
                           
                             Verify:
                           
                           Attribute With Duplicate
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>map[alpha:2 charlie:3]</p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p>map[alpha:2 charlie:3]</p></td>
+                        <td class="button">
                           
                         </td>
                       </tr>
-                      <tr id="Duplicates-Attribute With Duplicate-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre></pre></td>
+                      <tr id="Duplicates-Attribute With Duplicate-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
                      
                   </table>
@@ -445,13 +458,13 @@ is currently expected in February 2024).</p>
               <a href="https://github.com/madkins23/go-slog" target="_blank">Repository</a>
             </div>
           </td>
-          <td align="center">
+          <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-12 14:34:10 UTC</span>
+              <span class="fixed">2024-03-16 15:55:34 UTC</span>
             </div>
           </td>
-          <td align="right">
+          <td class="right">
             <div class="hover-text">
               <span class="tooltip-text">Code Documentation</span>
               <a href="https://pkg.go.dev/github.com/madkins23/go-slog" target="_blank">Documentation</a>

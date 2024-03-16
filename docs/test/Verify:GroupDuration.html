@@ -1,4 +1,4 @@
-<html>
+<html lang="en">
 <head>
   <title>Benchmark Data</title>
   <link rel="stylesheet" href="/go-slog/style.css">
@@ -21,10 +21,10 @@
             
             <h2 class="home">Test <span class="fixed">Group Duration</span></h2>
           </td>
-          <td align="right">
-            <table>
+          <td>
+            <table class="choice">
               <tr>
-                <td align="right">Handlers</td>
+                <td class="right">Handlers</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
@@ -51,7 +51,7 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Bench Tests</td>
+                <td class="right">Bench Tests</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -86,7 +86,7 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Verify Tests</td>
+                <td class="right">Verify Tests</td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
@@ -161,14 +161,15 @@
                 </td>
               </tr>
               <tr>
-                <td align="right">Other Links</td>
+                <td class="right"><label for="tag">Other Links</label></td>
                 <td>
                   <form class="choice">
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
                       <option value="index.html"    >Home</option>
-                      <option value="guts.html"     >Guts</option>
+                      <option value="scores.html"   >Scores</option>
                       <option value="warnings.html" >Warnings</option>
+                      <option value="guts.html"     >Guts</option>
                     </select>
                   </form>
               </tr>
@@ -184,17 +185,17 @@
         
         
           
+          <tr><td colspan=2 class="title"><h2 >Warnings</h2></td></tr>
           <tr>
-            <td colspan=2 align="center">
-              <h2 align="left">Warnings</h2>
+            <td colspan=2>
               <table class="warning">
-                <colgroup>
-                  <col width="3%"/>
-                  <col width="3%"/>
-                  <col width="30%"/>
-                  <col width="58%"/>
-                  <col width="6%"/>
-                </colgroup>
+                <tr>
+                  <td style="width:3%;"></td>
+                  <td style="width:3%;"></td>
+                  <td style="width:30%;"></td>
+                  <td style="width:58%;"></td>
+                  <td style="width:6%;"></td>
+                </tr>
                 
                           
           
@@ -210,7 +211,7 @@
                 <td class="extra">
                   
                 </td>
-                <td class="toggleButton">
+                <td class="center">
                   
                     <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('GroupDuration-doc')">Doc</button>
                   
@@ -228,39 +229,33 @@ only manage to make the change at the top level of the logged record, duration o
                 <td colspan=2></td>
                 <td colspan=3>
                   <table class="instance">
-                    <colgroup>
-                      <col width="3%"/>
-                      <col width="35%"/>
-                      <col width="55%"/>
-                      <col width="7%"/>
-                    </colgroup>
                     
                       
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:cornsilk;">
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
                           
                           Samber Zap
                         </td>
-                        <td class="extra" style="background-color:cornsilk;"><p>29002.000000 != 29002000000000.000000</p></td></td>
-                        <td class="toggleButton" style="background-color:cornsilk;">
+                        <td class="extra"><p>29002.000000 != 29002000000000.000000</p></td>
+                        <td class="button">
                           
                             <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupDuration-Samber Zap-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="GroupDuration-Samber Zap-log" style="display:none;">
-                        <td style="background-color:cornsilk;"></td>
-                        <td style="background-color:cornsilk;" colspan=4 class="logLine"><pre>{
+                      <tr id="GroupDuration-Samber Zap-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
 	&#34;group&#34;: {
 		&#34;inner&#34;: 29002000000000
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;outer&#34;: 29002,
-	&#34;time&#34;: &#34;2024-03-12T14:34:00Z&#34;
+	&#34;time&#34;: &#34;2024-03-16T15:55:23Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -268,28 +263,28 @@ only manage to make the change at the top level of the logged record, duration o
                       
                         
                       
-                      <tr>
-                        <td colspan=2 class="name" style="background-color:antiquewhite;">
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
                           
                           Samber Zerolog
                         </td>
-                        <td class="extra" style="background-color:antiquewhite;"><p>29002000.000000 != 29002000000000.000000</p></td></td>
-                        <td class="toggleButton" style="background-color:antiquewhite;">
+                        <td class="extra"><p>29002000.000000 != 29002000000000.000000</p></td>
+                        <td class="button">
                           
                             <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupDuration-Samber Zerolog-log')">Log</button>
                           
                         </td>
                       </tr>
-                      <tr id="GroupDuration-Samber Zerolog-log" style="display:none;">
-                        <td style="background-color:antiquewhite;"></td>
-                        <td style="background-color:antiquewhite;" colspan=4 class="logLine"><pre>{
+                      <tr id="GroupDuration-Samber Zerolog-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
 	&#34;group&#34;: {
 		&#34;inner&#34;: 29002000000000
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;outer&#34;: 29002000,
-	&#34;time&#34;: &#34;2024-03-12T14:34:00Z&#34;
+	&#34;time&#34;: &#34;2024-03-16T15:55:23Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -315,13 +310,13 @@ only manage to make the change at the top level of the logged record, duration o
               <a href="https://github.com/madkins23/go-slog" target="_blank">Repository</a>
             </div>
           </td>
-          <td align="center">
+          <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-12 14:34:10 UTC</span>
+              <span class="fixed">2024-03-16 15:55:34 UTC</span>
             </div>
           </td>
-          <td align="right">
+          <td class="right">
             <div class="hover-text">
               <span class="tooltip-text">Code Documentation</span>
               <a href="https://pkg.go.dev/github.com/madkins23/go-slog" target="_blank">Documentation</a>
