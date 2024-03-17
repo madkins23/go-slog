@@ -2,17 +2,15 @@ package replace
 
 import (
 	"log/slog"
-	"strings"
-
-	"github.com/madkins23/go-slog/infra"
 )
 
-var _ infra.AttrFn = MessageToMsg
-
 // MessageToMsg replaces attribute keys matching "message" with the correct value of slog.MessageKey
+//
+// Deprecated: This function was never tested and can be replaced by
+//
+//	replace.ChangeKey("message", slog.MessageKey, false, replace.TopCheck)
+//
+// which is how it is now implemented.
 func MessageToMsg(groups []string, a slog.Attr) slog.Attr {
-	if strings.ToLower(a.Key) == "message" && len(groups) == 0 {
-		a.Key = slog.MessageKey
-	}
-	return a
+	return ChangeKey("message", slog.MessageKey, false, TopCheck)(groups, a)
 }

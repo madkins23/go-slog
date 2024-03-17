@@ -106,7 +106,7 @@ func (suite *SlogTestSuite) TestReplaceAttrBasic() {
 			issues = append(issues, fmt.Sprintf("%s == %v", slog.SourceKey, logMap[slog.SourceKey]))
 		}
 		if len(issues) > 0 {
-			suite.AddWarning(warnings[0], strings.Join(issues, ", "), "")
+			suite.AddWarning(warnings[0], strings.Join(issues, "\n"), "")
 			return
 		}
 		suite.AddUnused(warnings[0], suite.String())
@@ -261,7 +261,7 @@ func (suite *SlogTestSuite) TestReplaceAttrFnLevelCase() {
 			issues = append(issues, "level value not null")
 		}
 		if len(issues) > 0 {
-			suite.AddWarning(warnings[0], strings.Join(issues, ", "), "")
+			suite.AddWarning(warnings[0], strings.Join(issues, "\n"), "")
 			return
 		}
 		suite.AddUnused(warnings[0], "")
@@ -294,7 +294,7 @@ func (suite *SlogTestSuite) TestReplaceAttrFnRemoveEmptyKey() {
 			issues = append(issues, "empty key value not null")
 		}
 		if len(issues) > 0 {
-			suite.AddWarning(warning.NoReplAttr, strings.Join(issues, ", "), "")
+			suite.AddWarning(warning.NoReplAttr, strings.Join(issues, "\n"), "")
 			return
 		}
 		suite.AddUnused(warning.NoReplAttr, "")
@@ -306,6 +306,54 @@ func (suite *SlogTestSuite) TestReplaceAttrFnRemoveEmptyKey() {
 	} else {
 		suite.Assert().Len(logMap, 3)
 		suite.Assert().False(ok)
+	}
+}
+
+// TestReplaceAttrFnChangeKey tests the RemoveEmptyKey function.
+func (suite *SlogTestSuite) TestReplaceAttrFnChangeKey() {
+	logger := suite.Logger(infra.SimpleOptions())
+	logger.Info(message)
+	logMap := suite.logMap()
+	if _, found := logMap["message"]; !found {
+		// Can't run test on this handler.
+		// Note: If all handlers start using slog.MessageKey
+		// the rest of this test will fail to test anything.
+		return
+	}
+	suite.bufferReset()
+	logger = suite.Logger(infra.ReplaceAttrOptions(
+		replace.ChangeKey("message", slog.MessageKey, false, replace.TopCheck)))
+	logger.Info(message)
+	logMap = suite.logMap()
+
+	warnings := suite.HasWarnings(warning.NoReplAttrBasic, warning.NoReplAttr)
+	if len(warnings) > 0 {
+		issues := make([]string, 0, 3)
+		value, found := logMap[slog.MessageKey]
+		if len(logMap) < 4 {
+			issues = append(issues, fmt.Sprintf("too few attributes: %d", len(logMap)))
+		}
+		if !found {
+			issues = append(issues, "no message key")
+		}
+		if str, ok := value.(string); !ok {
+			issues = append(issues, "message not string")
+		} else if message != str {
+			issues = append(issues, "wrong message: '"+str+"'")
+		}
+		if len(issues) > 0 {
+			suite.AddWarning(warnings[0], strings.Join(issues, "\n"), "")
+			return
+		}
+		suite.AddUnused(warnings[0], "")
+	} else {
+		_, found := logMap["message"]
+		suite.Assert().False(found)
+		msg, found := logMap[slog.MessageKey]
+		suite.Assert().True(found)
+		str, ok := msg.(string)
+		suite.Assert().True(ok)
+		suite.Assert().Equal(message, str)
 	}
 }
 
@@ -336,7 +384,7 @@ func (suite *SlogTestSuite) TestReplaceAttrFnRemoveTime() {
 			issues = append(issues, "time value not empty string")
 		}
 		if len(issues) > 0 {
-			suite.AddWarning(warnings[0], strings.Join(issues, ", "), "")
+			suite.AddWarning(warnings[0], strings.Join(issues, "\n"), "")
 			return
 		}
 		suite.AddUnused(warnings[0], "")

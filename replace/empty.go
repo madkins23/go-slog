@@ -6,7 +6,7 @@ import (
 	"github.com/madkins23/go-slog/infra"
 )
 
-var _ infra.AttrFn = MessageToMsg
+var _ infra.AttrFn = RemoveEmptyKey
 
 // RemoveEmptyKey removes attributes with empty strings as key.
 // This is done by setting the attribute to "empty" (slog.Attr{} or JSON "": null).
