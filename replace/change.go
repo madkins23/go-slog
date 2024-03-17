@@ -36,3 +36,21 @@ func ChangeKey(from, to string, caseInsensitive bool, grpChk groupCheck) infra.A
 		return a
 	}
 }
+
+// RemoveKey removes an attribute by field name.
+// It is intended to be used as a ReplaceAttr function, to make example output deterministic.
+func RemoveKey(key string, caseInsensitive bool, grpChk groupCheck) infra.AttrFn {
+	return func(groups []string, a slog.Attr) slog.Attr {
+		var found bool
+		if caseInsensitive {
+			// TODO: Figure strings.EqualFold() is too slow but havent tested.
+			found = strings.ToLower(a.Key) == strings.ToLower(key)
+		} else {
+			found = a.Key == key
+		}
+		if found && (grpChk == nil || grpChk(groups)) {
+			return infra.EmptyAttr()
+		}
+		return a
+	}
+}

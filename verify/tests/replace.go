@@ -367,7 +367,8 @@ func (suite *SlogTestSuite) TestReplaceAttrFnRemoveTime() {
 	suite.Require().True(ok)
 	suite.NotNil(value)
 	suite.bufferReset()
-	logger = suite.Logger(infra.ReplaceAttrOptions(replace.RemoveTime))
+	logger = suite.Logger(infra.ReplaceAttrOptions(
+		replace.RemoveKey(slog.TimeKey, false, replace.TopCheck)))
 	logger.Info(message)
 	logMap = suite.logMap()
 	value, ok = logMap[slog.TimeKey].(string)
