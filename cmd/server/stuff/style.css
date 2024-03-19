@@ -18,18 +18,24 @@ div.wrapper {
 }
 
 div.header {
+    background-color: gray;
     border-bottom: 2px solid black;
     margin-bottom: 5px;
+    position: sticky;
+    top: 0;
 }
 
 div.footer {
+    background-color: gray;
     border-top: 2px solid black;
     margin-top: 5px;
+    position: sticky;
+    bottom: 0;
 }
 
 div.content {
     flex: 1;
-    overflow: auto;
+    overflow: auto !important;
 }
 
 div.content > div {
