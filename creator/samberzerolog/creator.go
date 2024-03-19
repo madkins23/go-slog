@@ -8,6 +8,7 @@ import (
 	samber "github.com/samber/slog-zerolog/v2"
 
 	"github.com/madkins23/go-slog/infra"
+	"github.com/madkins23/go-slog/replace"
 )
 
 // Creator returns a Creator object for the [samber/slog-zerolog] handler
@@ -26,5 +27,15 @@ func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
 		Level:       options.Level,
 		AddSource:   options.AddSource,
 		ReplaceAttr: options.ReplaceAttr,
+	}.NewZerologHandler()
+}
+
+func fixedHandlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
+	zeroLogger := zerolog.New(w)
+	return samber.Option{
+		Logger:      &zeroLogger,
+		Level:       options.Level,
+		AddSource:   options.AddSource,
+		ReplaceAttr: replace.Multiple(),
 	}.NewZerologHandler()
 }

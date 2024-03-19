@@ -1,5 +1,9 @@
 TODO
 
+* Is there a way to figure out which handlers can use ReplaceAttr effectively
+  based on which warnings they throw?  See Data section at end for some thoughts.
+* Assuming strings.EqualFold() is too slow but haven't tested.
+
 Less Likely
 
 * ReplAttr filters:
@@ -33,3 +37,56 @@ Notes
   - https://github.com/JetBrains/qodana-profiles/blob/master/.idea/inspectionProfiles/qodana.recommended.full.xml
 > How to kick off pkg.go.dev:
   - curl https://sum.golang.org/lookup/github.com/madkins23/go-slog@<release-tag>
+
+Data
+
+NoReplAttr
+
+  Chanchal Zap
+  Phsym Zerolog
+
+NoReplAttrBasic
+
+  Chanchal Zap
+  Samber Logrus
+  Samber Zap
+  Samber Zerolog
+
+MessageKey
+
+  Phsym Zerolog
+  Samber Zerolog
+
+EmptyAttributes
+
+  Phsym Zerolog
+  Samber Logrus
+  Samber Zap
+  Samber Zerolog
+
+LevelCase
+
+  Chanchal Zap
+  Phsym Zerolog
+  Samber Logrus
+  Samber Zap
+  Samber Zerolog
+
+So...
+
+X           Can't use
+ C          Can change attribute but not 'delete' it by returning empty
+    N       NoReplAttr
+    NB      NoReplAttrBasic
+        M   MessageKey
+         E  EmptyAttributes
+          L Level Case
+
+X   NB    L chanchal/zaphandler
+            madkins/flash
+            madkins/sloggy
+XC  N   MEL phsym/zeroslog
+ C   B   EL samber/slog-logrus
+ C   B   EL samber/slog-zap
+ C   B  MEL samber/slog-zerolog
+            slog/JSONHandler

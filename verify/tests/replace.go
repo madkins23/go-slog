@@ -225,15 +225,16 @@ func stripEmptyAttr(logMap map[string]any) {
 // -----------------------------------------------------------------------------
 // Tests of go-slog/replace ReplaceAttr functions.
 
-// TestReplaceAttrFnLevelCase tests the Level[Lower,Upper]Case functions.
+// TestReplaceAttrFnLevelCase tests the ChangeCase function
+// as a replacement for the Level[Lower,Upper]Case functions.
 func (suite *SlogTestSuite) TestReplaceAttrFnLevelCase() {
 	start := "INFO"
 	fixed := "info"
-	attrFn := replace.LevelLowerCase
+	attrFn := replace.ChangeCase("level", replace.CaseLower, false, replace.TopCheck)
 	if suite.HasWarning(warning.LevelCase) {
 		start = "info"
 		fixed = "INFO"
-		attrFn = replace.LevelUpperCase
+		attrFn = replace.ChangeCase("level", replace.CaseUpper, false, replace.TopCheck)
 	}
 
 	logger := suite.Logger(infra.SimpleOptions())
@@ -269,7 +270,8 @@ func (suite *SlogTestSuite) TestReplaceAttrFnLevelCase() {
 	suite.Assert().Equal(fixed, level)
 }
 
-// TestReplaceAttrFnRemoveEmptyKey tests the RemoveEmptyKey function.
+// TestReplaceAttrFnRemoveEmptyKey tests the RemoveKey function
+// as a replacement for the RemoveEmptyKey function.
 func (suite *SlogTestSuite) TestReplaceAttrFnRemoveEmptyKey() {
 	logger := suite.Logger(infra.SimpleOptions())
 	logger.Info(message, "", "garbage")
@@ -278,7 +280,7 @@ func (suite *SlogTestSuite) TestReplaceAttrFnRemoveEmptyKey() {
 	suite.Require().True(ok)
 	suite.Require().Equal("garbage", value)
 	suite.bufferReset()
-	logger = suite.Logger(infra.ReplaceAttrOptions(replace.RemoveEmptyKey))
+	logger = suite.Logger(infra.ReplaceAttrOptions(replace.RemoveKey("", false, replace.TopCheck)))
 	logger.Info(message, "", nil)
 	logMap = suite.logMap()
 	value, ok = logMap[""]
@@ -309,7 +311,7 @@ func (suite *SlogTestSuite) TestReplaceAttrFnRemoveEmptyKey() {
 	}
 }
 
-// TestReplaceAttrFnChangeKey tests the RemoveEmptyKey function.
+// TestReplaceAttrFnChangeKey tests the ChangeKey function.
 func (suite *SlogTestSuite) TestReplaceAttrFnChangeKey() {
 	logger := suite.Logger(infra.SimpleOptions())
 	logger.Info(message)
@@ -357,7 +359,15 @@ func (suite *SlogTestSuite) TestReplaceAttrFnChangeKey() {
 	}
 }
 
-// TestReplaceAttrFnRemoveTime tests the RemoveEmptyKey function.
+// TODO:
+//
+// TestReplaceAttrFnMulti tests the ...
+func (suite *SlogTestSuite) TestReplaceAttrFnMulti() {
+	// test Multi() and Current()
+}
+
+// TestReplaceAttrFnRemoveTime tests the RemoveKey function
+// as a replacement for the RemoveTime function.
 func (suite *SlogTestSuite) TestReplaceAttrFnRemoveTime() {
 	logger := suite.Logger(infra.SimpleOptions())
 	logger.Info(message)

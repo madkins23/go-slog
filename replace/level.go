@@ -2,45 +2,43 @@ package replace
 
 import (
 	"log/slog"
-	"strings"
-
-	"github.com/madkins23/go-slog/infra"
 )
 
 // -----------------------------------------------------------------------------
 // ReplaceAttr functions related to the "level" field.
 
-var _ infra.AttrFn = LvlToLevel
-
 // LvlToLevel replaces attribute keys matching "lvl" with the correct slog.LevelKey.
+//
+// Deprecated: This function was never tested and can be replaced by
+//
+//	replace.ChangeKey("lvl", slog.LevelKey, false, replace.TopCheck)
+//
+// which is how it is now implemented.
 func LvlToLevel(groups []string, a slog.Attr) slog.Attr {
-	if strings.ToLower(a.Key) == "lvl" && len(groups) == 0 {
-		a.Key = slog.LevelKey
-	}
-	return a
+	return ChangeKey("lvl", slog.LevelKey, false, TopCheck)(groups, a)
 }
 
 // -----------------------------------------------------------------------------
 
-var _ infra.AttrFn = LevelLowerCase
-
 // LevelLowerCase changes the values of "level" attributes to lowercase.
+//
+// Deprecated: This function can be replaced by
+//
+//	replace.ChangeCase("level", CaseLower, false, TopCheck)
+//
+// which is how it is now implemented.
 func LevelLowerCase(groups []string, a slog.Attr) slog.Attr {
-	if strings.ToLower(a.Key) == "level" && len(groups) == 0 {
-		return slog.String(a.Key, strings.ToLower(a.Value.String()))
-	}
-
-	return a
+	return ChangeCase("level", CaseLower, false, TopCheck)(groups, a)
 }
-
-var _ infra.AttrFn = LevelUpperCase
 
 // LevelUpperCase changes the values of "level" attributes to uppercase.
 // Based on the existing behavior of log/slog this is the correct output.
+//
+// Deprecated: This function can be replaced by
+//
+//	replace.ChangeCase("level", CaseUpper, false, TopCheck)
+//
+// which is how it is now implemented.
 func LevelUpperCase(groups []string, a slog.Attr) slog.Attr {
-	if strings.ToLower(a.Key) == "level" && len(groups) == 0 {
-		return slog.String(a.Key, strings.ToUpper(a.Value.String()))
-	}
-
-	return a
+	return ChangeCase("level", CaseUpper, false, TopCheck)(groups, a)
 }
