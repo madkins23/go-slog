@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/madkins23/go-slog/infra"
+	"github.com/madkins23/go-slog/internal/json"
 	"github.com/madkins23/go-slog/internal/warning"
 	"github.com/madkins23/go-slog/replace"
 )
@@ -359,11 +360,50 @@ func (suite *SlogTestSuite) TestReplaceAttrFnChangeKey() {
 	}
 }
 
-// TODO:
-//
-// TestReplaceAttrFnMulti tests the ...
+// TestReplaceAttrFnMulti tests the replace.Multiple ReplaceAttr function
+// as well as the replace.TopCheck and Replace.Current functions.
 func (suite *SlogTestSuite) TestReplaceAttrFnMulti() {
-	// test Multi() and Current()
+	logger := suite.Logger(infra.ReplaceAttrOptions(replace.Multiple(
+		replace.RemoveKey(slog.TimeKey, false, replace.TopCheck),
+		replace.ChangeCase("alpha", replace.CaseUpper, false, replace.Current("group")),
+		replace.ChangeKey("alpha", "la la la", false, replace.Current("subGroup")),
+		replace.ChangeValue("gibbering", func(val slog.Value) slog.Value {
+			return slog.StringValue(strings.Replace(val.String(), "luna", "moon", -1))
+		}, false, replace.Current("oneMore")))))
+	logger.
+		WithGroup("group").With("alpha", "omega", "pi", math.Pi).
+		WithGroup("subGroup").With("alpha", "omega", "goober", "snoofus", "e", math.E).
+		WithGroup("oneMore").With("alpha", "omega", "gibbering", "lunatic", "phi", math.Phi).
+		Info(message)
+	logMap := suite.logMap()
+	expect := json.Parse(`
+		{
+			"level": "INFO",
+			"msg": "This is a message",
+			"group": {
+				"alpha": "OMEGA",
+				"pi": 3.141592653589793,
+				"subGroup": {
+					"la la la": "omega",
+					"goober": "snoofus",
+					"e": 2.718281828459045,
+					"oneMore": {
+						"alpha": "omega",
+						"gibbering": "moontic",
+						"phi": 1.618033988749895
+					}
+				}
+			}
+		}
+		`)
+	warnings := suite.HasWarnings(warning.NoReplAttrBasic, warning.NoReplAttr)
+	if len(warnings) < 1 {
+		suite.Assert().Equal(expect, logMap)
+	} else if reflect.DeepEqual(expect, logMap) {
+		suite.AddUnused(warnings[0], suite.String())
+	} else {
+		suite.AddWarning(warnings[0], "", suite.String())
+	}
 }
 
 // TestReplaceAttrFnRemoveTime tests the RemoveKey function

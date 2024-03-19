@@ -70,7 +70,7 @@ ChangeCase(
 ```
 
 Changes the case of the string value of any attribute matching the specified key to
-upper-, lower-, or title-case as required. For example:
+upper-, or lower-case as required. For example:
 ```go
 options := &slog.HandlerOptions{
 	ReplaceAttr: replace.ChangeCase(
@@ -83,7 +83,7 @@ at the top level of the log record (not within a group)
 and change the string value of that attribute to lower case.
 
 The second argument is of type `replace.ChangeCases` with values
-`replace.CaseNone`, `replace.CaseLower`, `replace.CaseTitle`, and `replace.CaseUpper`.
+`replace.CaseNone`, `replace.CaseLower`, and `replace.CaseUpper`.
 The default value is `replace.CaseNone` which means no change.
 
 The following older functions are deprecated by `ChangeCase`:

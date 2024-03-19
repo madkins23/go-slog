@@ -7,11 +7,11 @@ import (
 )
 
 func TestParse(t *testing.T) {
-	x := Parse([]byte(`
+	x := Parse(`
 		{
 			"alpha": 23,
 			"bravo": "Cheers!"
-		}`))
+		}`)
 	assert.NotNil(t, x)
 	assert.IsType(t, map[string]any{}, x)
 	alpha, found := x["alpha"]

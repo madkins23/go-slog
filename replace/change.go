@@ -26,13 +26,11 @@ type ChangeCases uint8
 const (
 	CaseNone ChangeCases = iota
 	CaseLower
-	CaseTitle
 	CaseUpper
 )
 
 var caseFn = map[ChangeCases]func(string) string{
 	CaseLower: strings.ToLower,
-	CaseTitle: strings.ToTitle,
 	CaseUpper: strings.ToUpper,
 }
 
