@@ -127,8 +127,9 @@ func RemoveKey(key string, caseInsensitive bool, grpChk GroupCheck) infra.AttrFn
 func checkFieldGroups(groups []string, a slog.Attr, key string, caseInsensitive bool, grpChk GroupCheck) bool {
 	var found bool
 	if caseInsensitive {
-		// TODO: Figure strings.EqualFold() is too slow but havent tested.
-		found = strings.ToLower(a.Key) == strings.ToLower(key)
+		// Faster than converting two strings to the same case.
+		// See BenchmarkCompareChangeCase and BenchmarkCompareEqualFold in change_test.go.
+		found = strings.EqualFold(a.Key, key)
 	} else {
 		found = a.Key == key
 	}
