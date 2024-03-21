@@ -41,7 +41,7 @@ var caseFn = map[ChangeCases]func(string) string{
 //
 //	options := &slog.HandlerOptions{
 //		ReplaceAttr: replace.ChangeCase(
-//			"level", replace.CaseLower, false, replace.TopCheck)
+//			slog.LevelKey, replace.CaseLower, false, replace.TopCheck)
 //	}
 //
 // returns an infra.AttrFn that will match on attributes with

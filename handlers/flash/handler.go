@@ -62,24 +62,24 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 	if !record.Time.IsZero() {
 		if h.options.ReplaceAttr == nil {
 			c.addSeparator()
-			c.addKey(slog.TimeKey)
+			c.addKey(h.extras.TimeKey)
 			c.addTime(record.Time)
-		} else if err := c.addAttribute(slog.Time(slog.TimeKey, record.Time)); err != nil {
+		} else if err := c.addAttribute(slog.Time(h.extras.TimeKey, record.Time)); err != nil {
 			return fmt.Errorf("add time: %w", err)
 		}
 	}
 	if h.options.ReplaceAttr == nil {
 		c.addSeparator()
-		c.addKey(slog.LevelKey)
-		c.addString(record.Level.String())
-	} else if err := c.addAttribute(slog.String(slog.LevelKey, record.Level.String())); err != nil {
+		c.addKey(h.extras.LevelKey)
+		c.addString(h.extras.LevelNames[record.Level])
+	} else if err := c.addAttribute(slog.String(h.extras.LevelKey, h.extras.LevelNames[record.Level])); err != nil {
 		return fmt.Errorf("add level: %w", err)
 	}
 	if h.options.ReplaceAttr == nil {
 		c.addSeparator()
-		c.addKey(slog.MessageKey)
+		c.addKey(h.extras.MessageKey)
 		c.addString(record.Message)
-	} else if err := c.addAttribute(slog.String(slog.MessageKey, record.Message)); err != nil {
+	} else if err := c.addAttribute(slog.String(h.extras.MessageKey, record.Message)); err != nil {
 		return fmt.Errorf("add message: %w", err)
 	}
 	if h.options.AddSource && record.PC != 0 {
@@ -89,11 +89,11 @@ func (h *Handler) Handle(_ context.Context, record slog.Record) error {
 		loadSource(record.PC, &src)
 		if h.options.ReplaceAttr == nil {
 			c.addSeparator()
-			c.addKey(slog.SourceKey)
+			c.addKey(h.extras.SourceKey)
 			if err := c.addAny(&src); err != nil {
 				return fmt.Errorf("add any source: %w", err)
 			}
-		} else if err := c.addAttribute(slog.Any(slog.SourceKey, &src)); err != nil {
+		} else if err := c.addAttribute(slog.Any(h.extras.SourceKey, &src)); err != nil {
 			return fmt.Errorf("add source: %w", err)
 		}
 	}

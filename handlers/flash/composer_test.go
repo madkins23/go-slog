@@ -10,7 +10,7 @@ import (
 
 func TestComposer_addEscape(t *testing.T) {
 	for escStr, expStr := range test.EscapeCases {
-		c := newComposer([]byte{}, true, nil, nil, nil)
+		c := newComposer([]byte{}, true, nil, nil, fixExtras(nil))
 		c.addEscaped([]byte(escStr))
 		x := string(c.buffer)
 		assert.Equal(t, expStr, x)

@@ -13,22 +13,16 @@ import (
 
 var composerPool = newGenPool[composer]()
 
-var basicField = map[string]bool{
-	slog.TimeKey:    true,
-	slog.LevelKey:   true,
-	slog.MessageKey: true,
-	slog.SourceKey:  true,
-}
-
 // -----------------------------------------------------------------------------
 
 // composer handles writing attributes to an io.Writer.
 type composer struct {
-	buffer  []byte
-	started bool
-	replace infra.AttrFn
-	groups  []string
-	extras  *Extras
+	buffer     []byte
+	started    bool
+	replace    infra.AttrFn
+	groups     []string
+	extras     *Extras
+	basicField map[string]bool
 }
 
 func newComposer(buffer []byte, started bool, replace infra.AttrFn, groups []string, extras *Extras) *composer {
@@ -38,6 +32,11 @@ func newComposer(buffer []byte, started bool, replace infra.AttrFn, groups []str
 	comp.started = started
 	comp.replace = replace
 	comp.groups = groups
+	comp.basicField = make(map[string]bool, 4)
+	comp.basicField[extras.LevelKey] = true
+	comp.basicField[extras.MessageKey] = true
+	comp.basicField[extras.SourceKey] = true
+	comp.basicField[extras.TimeKey] = true
 	return comp
 }
 
@@ -62,7 +61,7 @@ func (c *composer) addAttribute(attr slog.Attr) error {
 	}
 	if c.replace != nil {
 		var groups []string
-		if !basicField[attr.Key] {
+		if !c.basicField[attr.Key] {
 			groups = c.groups
 		}
 		attr = c.replace(groups, attr)
