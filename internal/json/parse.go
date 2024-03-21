@@ -10,7 +10,7 @@ import (
 func Parse(asJSON string) map[string]any {
 	var parsed map[string]any
 	if err := json.Unmarshal([]byte(asJSON), &parsed); err != nil {
-		slog.Error("unable to parse expected JSON", "json", string(asJSON), "err", err)
+		slog.Error("unable to parse expected JSON", "json", string(asJSON), "err", err.Error())
 		parsed = map[string]any{
 			"err": err,
 		}
