@@ -4,16 +4,16 @@ The `flash` package provides a feature-complete,[^1]
 reasonably fast implementation of a `slog.Handler`.
 
 After the `sloggy` handler turned out to be slower than desired it was cloned and renamed `flash`.
-Then a series of edits were made to improve performance.
+A [series of edits](#performance-edits) were then made to improve performance.
 
-## Example
+### Example
 
 ```go
 logger := slog.New(flash.NewHandler(os.Stdout, nil, nil))
 logger.Info("hello", "count", 3)
 ```
 
-### Extras
+## Extras
 
 The `flash.NewHandler` function has an additional argument not found in `sloggy.NewHandler`.
 This argument points to an optional `flash.Extras` structure that provides
@@ -21,11 +21,13 @@ options specific to the `flash` handler.
 It is possible to get the simplest possible `flash.Handler` using `nil`
 for both `options` and `extras` as in the above example.
 
-The following fields are defined:
+An argument might be made that adding a second options value to this handler
+might conflict with the required support for `slog.HandlerOptions`.
+That argument is present in `flash.NewHandler` and fully supported by the handler.
+The additional features are kept separate in `flash.Extras`.
 
-* `TimeFormat string`  
-  Sets the format of the basic `time` field.
-  If not set defaults to the value of `flash.DefaultTimeFormat` (`time.RFC3339Nano`).
+See [documentation on `flash.Extras`](https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash#section-readme)
+for comments on specific fields.
 
 ## Performance Edits
 

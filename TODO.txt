@@ -1,5 +1,7 @@
 TODO
 
+* Overlapping labels in scoring chart still an issue
+  - now three in a row on right vertical axis
 * Is there a way to figure out which handlers can use ReplaceAttr effectively
   based on which warnings they throw?  See Data section at end for some thoughts.
 

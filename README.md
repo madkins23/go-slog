@@ -132,8 +132,14 @@ The `flash` package is a copy of `sloggy` with subsequent performance-enhancing 
 It is just as feature-compliant and much faster, now in the group of "fastest" handlers
 (`slog/JSONHandler`, `phsym/zeroslog`, and `chanchal/zaphandler`,
 though only the first of these is feature-complete).
+
+Profiling of the verification and benchmark code shows almost all CPU cycles
+used for formatting various data items into `[]byte` buffers.
+It is possible that the `slog/JSONHandler` and `madkins/flash` handlers
+have reached something like the theoretical speed limit for fully functional `slog` handlers.
+
 At this point `flash` may be as usable as `slog.JSONHandler`,
-though the latter may be a smarter choice.
+though the latter may be a smarter choice as it is supported by the core Go team.
 
 ### `trace` Handler
 

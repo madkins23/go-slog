@@ -11,15 +11,32 @@ const (
 
 // Extras defines extra options specific to a flash.Handler.
 type Extras struct {
-	// Holds the format of the basic time field.
+	// TimeFormat holds the format of the basic time field.
 	// If not set defaults to the value of flash.DefaultTimeFormat (= time.RFC3339Nano).
 	TimeFormat string
 
+	// LevelNames holds a map from slog.Level to string.
+	// If these fields are configured they replace the usual level names.
+	// It is possible to configure only some of the level names.
+	// Any level name that is not configured will be set to the appropriate
+	// slog global constant (e.g. slog.LevelInfo.String()).
 	LevelNames map[slog.Level]string
-	LevelKey   string
+
+	// LevelKey specifies the JSON field name for the slog.Level for the log records.
+	// If this field is not configured the value of slog.LevelKey is used.
+	LevelKey string
+
+	// MessageKey specifies the JSON field name for the log message.
+	// If this field is not configured the value of slog.MessageKey is used.
 	MessageKey string
-	SourceKey  string
-	TimeKey    string
+
+	// SourceKey specifies the JSON field name for source data.
+	// If this field is not configured the value of slog.SourceKey is used.
+	SourceKey string
+
+	// TimeKey specifies the JSON field name for the time the record was logged.
+	// If this field is not configured the value of slog.TimeKey is used.
+	TimeKey string
 }
 
 // fixExtras makes certain that an Extras object has been properly created and
