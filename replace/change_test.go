@@ -58,7 +58,7 @@ func TestChanges(t *testing.T) {
 					ChangeKey("When", slog.TimeKey, false, TopCheck),
 					ChangeKey("Whence", slog.SourceKey, false, TopCheck),
 					ChangeKey("Why", slog.LevelKey, false, TopCheck),
-					ChangeCase(slog.LevelKey, CaseLower, false, TopCheck),
+					ChangeCase(slog.LevelKey, CaseUpper, false, TopCheck),
 					RemoveKey(slog.TimeKey, false, TopCheck),
 					RemoveKey(slog.SourceKey, false, TopCheck),
 				),
@@ -95,7 +95,7 @@ func TestChanges(t *testing.T) {
 		_, found = logMap[slog.SourceKey]
 		assert.False(t, found)
 		expected := map[string]any{
-			"level": strings.ToLower(lvl.String()),
+			"level": strings.ToUpper(lvl.String()),
 			"msg":   test.Message,
 		}
 		assert.Equal(t, expected, logMap)
