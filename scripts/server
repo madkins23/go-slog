@@ -1,3 +1,3 @@
 #!/bin/bash
 
-go run cmd/server/server.go -bench=/tmp/go-slog/bench.txt -verify=/tmp/go-slog/verify.txt
+go run cmd/server/*.go -bench=/tmp/go-slog/bench.txt -verify=/tmp/go-slog/verify.txt

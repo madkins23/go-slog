@@ -139,6 +139,8 @@ location: // OMG I can't believe he's using that named loop thingy!!!
 				continue location
 			}
 		}
+		// Here is where we go O(n-squared).
+		// Thankfully our array size will likely never be that big.
 		for j := i + 1; j < len(locations); j++ {
 			other := locations[j]
 			if math.Abs(other.XValue-loc.XValue) < labelWidth && math.Abs(other.YValue-loc.YValue) < labelHeight {
@@ -169,13 +171,14 @@ location: // OMG I can't believe he's using that named loop thingy!!!
 	return locations
 }
 
-// -----------------------------------------------------------------------------
-
 const bigByte = float64(0xFF)
 
 // scoreChartColorFunction returns a color dependent on the chart location.
 // The algorithm is intended to make it red in the lower left and green in the upper right
-// with gradual color changes in between.
+// with gradual color changes in between the two corners
+// calculated by measuring the distance from each of the two corners.
+// The color pattern should be quarter-circular around each corner and
+// muddy brownish along a line from the upper left to the lower right.
 func scoreChartColorFunction(xr, yr chart.Range, _ int, x, y float64) drawing.Color {
 	ratio := scoreChartRatio(xr.GetMin(), yr.GetMin(), xr.GetMax(), yr.GetMax())
 	diagonal := scoreChartDistance(xr.GetMin(), yr.GetMin(), xr.GetMax(), yr.GetMax(), ratio)
@@ -209,7 +212,8 @@ func scoreChartDistance(xMin, yMin, xMax, yMax, ratio float64) float64 {
 
 // -----------------------------------------------------------------------------
 
-// labelGroup collects labels that are close together into a group.
+// labelGroup collects labels that are close together into a group and
+// implements functionality for adjusting labels along (only) the y-axis.
 type labelGroup struct {
 	// "Set" of index integers in the group for quick lookup.
 	indexMap map[int]bool
@@ -265,6 +269,7 @@ const (
 )
 
 // adjust labels in the group by editing their y-coordinate values until they don't overlap.
+// Since labels are much longer in the x-axis this seems reasonable.
 func (lg *labelGroup) adjust(locations []chart.Value2) {
 	labels := make([]string, 0, len(lg.indices))
 	for _, index := range lg.indices {
