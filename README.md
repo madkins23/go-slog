@@ -141,6 +141,12 @@ have reached something like the theoretical speed limit for fully functional `sl
 At this point `flash` may be as usable as `slog.JSONHandler`,
 though the latter may be a smarter choice as it is supported by the core Go team.
 
+The `flash` handler also supports
+[`flash.Extras` options](https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash#readme-extras).
+The documented `slog.HandlerOptions` continue to be supported.
+The optional `flash.Extras` options can be used to adjust output somewhat
+in order to achieve compatability with previous logging solutions.
+
 ### `trace` Handler
 
 The "trace" handler `trace.Handler` doesn't log anything,

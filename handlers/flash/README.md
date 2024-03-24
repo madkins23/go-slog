@@ -26,7 +26,7 @@ might conflict with the required support for `slog.HandlerOptions`.
 That argument is present in `flash.NewHandler` and fully supported by the handler.
 The additional features are kept separate in `flash.Extras`.
 
-See [documentation on `flash.Extras`](https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash#section-readme)
+See [documentation on `flash.Extras`](https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash#Extras)
 for comments on specific fields.
 
 ## Performance Edits
