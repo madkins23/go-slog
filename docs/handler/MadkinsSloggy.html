@@ -31,6 +31,8 @@
                       
                         <option value="MadkinsFlash" >madkins/flash</option>
                       
+                        <option value="MadkinsReplAttr" >madkins/replattr</option>
+                      
                         <option value="MadkinsSloggy" selected>madkins/sloggy</option>
                       
                         <option value="PhsymZerolog" >phsym/zeroslog</option>
@@ -129,7 +131,11 @@
                       
                         <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
                       
+                        <option value="Verify:ReplaceAttrFnChangeKey" >Replace Attr Fn Change Key</option>
+                      
                         <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                      
+                        <option value="Verify:ReplaceAttrFnMulti" >Replace Attr Fn Multi</option>
                       
                         <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
                       
@@ -181,9 +187,40 @@
       <table class="top">
         
           
+            <tr class="summary-header">
+              <th style="width:70%">Summary</th>
+              <th style="width:30%">
+                
+                  Links
+                
+              </th>
+            </tr>
+            <tr class="summary">
+              <td>
+                <p><code>madkins/sloggy</code> is a new <code>slog.Handler</code> built from the ground up to generate JSON log records.
+While the performance isn't top-tier, this handler adheres faithfully to documented <code>slog.Handler</code>
+and observed <code>slog.JSONHandler</code> behavior.
+The <a href="/go-slog/handler/MadkinsFlash.html"><code>madkins/flash</code> handler</a>, derived from this one, has better performance.</p>
+
+              </td>
+              
+                <td>
+                  
+                    <a href="https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash">madkins/flash</a><br/>
+                  
+                    <a href="https://pkg.go.dev/github.com/madkins23/go-slog/handlers/sloggy">madkins/sloggy</a><br/>
+                  
+                </td>
+              
+            </tr>
+            <tr><td colspan=2><hr/></td></tr>
+          
+        
+        
+          
           <tr class="title">
             <td><h2>Benchmark Data</h2></td>
-            <td class="score">Score: <span>82.18</span></td>
+            <td class="score">Score: <span>82.32</span></td>
           </tr>
           <tr>
             <td colspan=2>
@@ -200,28 +237,28 @@
                 
                   <tr>
                     <td class="fixed">Attributes</td>
-                    <td class="number">366,621</td>
-                    <td class="number">3,167.00</td>
+                    <td class="number">366,819</td>
+                    <td class="number">3,187.00</td>
                       <td class="number">64</td>
                      <td class="number">1,384</td>
-                    <td class="number">141.48</td>
-                    <td class="number">78.66</td>
+                    <td class="number">140.26</td>
+                    <td class="number">78.78</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Big Group</td>
-                    <td class="number">5,100</td>
-                    <td class="number">231,616.00</td>
-                      <td class="number">7,297</td>
-                     <td class="number">77,328</td>
-                    <td class="number">160.49</td>
-                    <td class="number">77.74</td>
+                    <td class="number">5,580</td>
+                    <td class="number">209,510.00</td>
+                      <td class="number">6,439</td>
+                     <td class="number">68,288</td>
+                    <td class="number">156.58</td>
+                    <td class="number">77.85</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Disabled</td>
-                    <td class="number">321,826,585</td>
-                    <td class="number">3.73</td>
+                    <td class="number">322,467,883</td>
+                    <td class="number">3.72</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
                     <td class="number">0.00</td>
@@ -230,92 +267,92 @@
                 
                   <tr>
                     <td class="fixed">Key Values</td>
-                    <td class="number">359,054</td>
-                    <td class="number">3,342.00</td>
+                    <td class="number">348,637</td>
+                    <td class="number">3,383.00</td>
                       <td class="number">65</td>
                      <td class="number">1,768</td>
-                    <td class="number">134.04</td>
-                    <td class="number">78.68</td>
+                    <td class="number">132.14</td>
+                    <td class="number">78.78</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Logging</td>
-                    <td class="number">15,255</td>
-                    <td class="number">79,086.00</td>
+                    <td class="number">15,262</td>
+                    <td class="number">79,911.00</td>
                       <td class="number">1,865</td>
                      <td class="number">26,992</td>
-                    <td class="number">121.55</td>
-                    <td class="number">77.63</td>
+                    <td class="number">120.28</td>
+                    <td class="number">77.47</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple</td>
-                    <td class="number">1,414,813</td>
-                    <td class="number">843.30</td>
+                    <td class="number">1,432,876</td>
+                    <td class="number">832.20</td>
                       <td class="number">14</td>
                      <td class="number">240</td>
-                    <td class="number">105.54</td>
-                    <td class="number">78.87</td>
+                    <td class="number">106.95</td>
+                    <td class="number">79.15</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple Source</td>
-                    <td class="number">605,077</td>
-                    <td class="number">2,022.00</td>
+                    <td class="number">595,948</td>
+                    <td class="number">2,028.00</td>
                       <td class="number">33</td>
                      <td class="number">1,480</td>
-                    <td class="number">140.94</td>
-                    <td class="number">57.30</td>
+                    <td class="number">140.53</td>
+                    <td class="number">57.59</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Attributes</td>
-                    <td class="number">376,261</td>
-                    <td class="number">3,213.00</td>
+                    <td class="number">352,323</td>
+                    <td class="number">3,208.00</td>
                       <td class="number">64</td>
                      <td class="number">1,384</td>
-                    <td class="number">261.10</td>
-                    <td class="number">85.58</td>
+                    <td class="number">260.92</td>
+                    <td class="number">85.64</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Key Values</td>
-                    <td class="number">350,320</td>
-                    <td class="number">3,402.00</td>
+                    <td class="number">351,866</td>
+                    <td class="number">3,391.00</td>
                       <td class="number">65</td>
                      <td class="number">1,768</td>
-                    <td class="number">246.65</td>
-                    <td class="number">85.53</td>
+                    <td class="number">246.52</td>
+                    <td class="number">85.67</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Simple</td>
-                    <td class="number">1,428,808</td>
-                    <td class="number">835.10</td>
+                    <td class="number">1,421,674</td>
+                    <td class="number">843.80</td>
                       <td class="number">14</td>
                      <td class="number">240</td>
-                    <td class="number">574.78</td>
-                    <td class="number">94.86</td>
+                    <td class="number">567.69</td>
+                    <td class="number">94.85</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Attributes</td>
-                    <td class="number">375,704</td>
-                    <td class="number">3,207.00</td>
+                    <td class="number">369,250</td>
+                    <td class="number">3,232.00</td>
                       <td class="number">64</td>
                      <td class="number">1,384</td>
-                    <td class="number">144.04</td>
-                    <td class="number">85.68</td>
+                    <td class="number">142.93</td>
+                    <td class="number">85.98</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Key Values</td>
-                    <td class="number">353,005</td>
-                    <td class="number">3,419.00</td>
+                    <td class="number">339,207</td>
+                    <td class="number">3,377.00</td>
                       <td class="number">65</td>
                      <td class="number">1,768</td>
-                    <td class="number">135.42</td>
-                    <td class="number">85.61</td>
+                    <td class="number">136.79</td>
+                    <td class="number">86.06</td>
                   </tr>
                  
               </table>
@@ -461,7 +498,7 @@ is currently expected in February 2024).</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-24 01:10:51 UTC</span>
+              <span class="fixed">2024-03-24 17:14:24 UTC</span>
             </div>
           </td>
           <td class="right">

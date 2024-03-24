@@ -30,6 +30,8 @@
                       
                         <option value="MadkinsFlash" >madkins/flash</option>
                       
+                        <option value="MadkinsReplAttr" >madkins/replattr</option>
+                      
                         <option value="MadkinsSloggy" >madkins/sloggy</option>
                       
                         <option value="PhsymZerolog" >phsym/zeroslog</option>
@@ -128,7 +130,11 @@
                       
                         <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
                       
+                        <option value="Verify:ReplaceAttrFnChangeKey" >Replace Attr Fn Change Key</option>
+                      
                         <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                      
+                        <option value="Verify:ReplaceAttrFnMulti" >Replace Attr Fn Multi</option>
                       
                         <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
                       
@@ -190,49 +196,55 @@
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/ChanchalZap.html">chanchal/zaphandler</a></td>
-                                    <td class="number">89.69</td>
+                                    <td class="number">89.70</td>
                                     <td class="number">55.36</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/MadkinsFlash.html">madkins/flash</a></td>
-                                    <td class="number">97.31</td>
+                                    <td class="number">95.57</td>
+                                    <td class="number">98.21</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/MadkinsReplAttr.html">madkins/replattr</a></td>
+                                    <td class="number">93.58</td>
                                     <td class="number">98.21</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/MadkinsSloggy.html">madkins/sloggy</a></td>
-                                    <td class="number">82.18</td>
+                                    <td class="number">82.32</td>
                                     <td class="number">98.21</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/PhsymZerolog.html">phsym/zeroslog</a></td>
-                                    <td class="number">99.86</td>
+                                    <td class="number">99.89</td>
                                     <td class="number">39.29</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/SamberLogrus.html">samber/slog-logrus</a></td>
-                                    <td class="number">8.47</td>
+                                    <td class="number">8.49</td>
                                     <td class="number">50.00</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/SamberZap.html">samber/slog-zap</a></td>
-                                    <td class="number">57.43</td>
+                                    <td class="number">57.72</td>
                                     <td class="number">42.86</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/SamberZerolog.html">samber/slog-zerolog</a></td>
-                                    <td class="number">59.66</td>
+                                    <td class="number">60.14</td>
                                     <td class="number">39.29</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/SlogJSON.html">slog/JSONHandler</a></td>
-                                    <td class="number">97.22</td>
+                                    <td class="number">97.24</td>
                                     <td class="number">98.21</td>
                                 </tr>
                             
@@ -383,7 +395,7 @@ and that number is subtracted from <code>100.0</code>.
 This results in a number from <code>0.0</code> (awful, all warnings logged) to <code>100.0</code> (no warnings at all).
 That number is stored for use and displayed on this page and on each handler page.</p>
 
-<p>Note that most scores are above 50 as it is difficult to throw <em>all</em> the warnings.</p>
+<p>Note that most scores are above ~40 as it is difficult to throw <em>all</em> the warnings.</p>
 
                     </td>
                     <td class="table">
@@ -432,7 +444,7 @@ That number is stored for use and displayed on this page and on each handler pag
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-24 01:10:51 UTC</span>
+              <span class="fixed">2024-03-24 17:14:24 UTC</span>
             </div>
           </td>
           <td class="right">

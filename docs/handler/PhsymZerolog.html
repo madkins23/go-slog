@@ -31,6 +31,8 @@
                       
                         <option value="MadkinsFlash" >madkins/flash</option>
                       
+                        <option value="MadkinsReplAttr" >madkins/replattr</option>
+                      
                         <option value="MadkinsSloggy" >madkins/sloggy</option>
                       
                         <option value="PhsymZerolog" selected>phsym/zeroslog</option>
@@ -129,7 +131,11 @@
                       
                         <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
                       
+                        <option value="Verify:ReplaceAttrFnChangeKey" >Replace Attr Fn Change Key</option>
+                      
                         <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                      
+                        <option value="Verify:ReplaceAttrFnMulti" >Replace Attr Fn Multi</option>
                       
                         <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
                       
@@ -181,9 +187,39 @@
       <table class="top">
         
           
+            <tr class="summary-header">
+              <th style="width:70%">Summary</th>
+              <th style="width:30%">
+                
+                  Links
+                
+              </th>
+            </tr>
+            <tr class="summary">
+              <td>
+                <p><code>phsym/zeroslog</code> is a wrapper around the pre-existing <code>rs/zerolog</code> logging library.
+The <code>phsym/zerolog</code> handler, like the underlying <code>rs/zerolog</code> logging library,
+is in the fastest ranks of <code>slog.Handler</code> implementations tested.</p>
+
+              </td>
+              
+                <td>
+                  
+                    <a href="https://github.com/phsym/zeroslog">phsym/zeroslog</a><br/>
+                  
+                    <a href="https://github.com/rs/zerolog">rs/zerolog</a><br/>
+                  
+                </td>
+              
+            </tr>
+            <tr><td colspan=2><hr/></td></tr>
+          
+        
+        
+          
           <tr class="title">
             <td><h2>Benchmark Data</h2></td>
-            <td class="score">Score: <span>99.86</span></td>
+            <td class="score">Score: <span>99.89</span></td>
           </tr>
           <tr>
             <td colspan=2>
@@ -201,121 +237,121 @@
                   <tr>
                     <td class="fixed">Attributes</td>
                     <td class="number">1,000,000</td>
-                    <td class="number">1,055.00</td>
+                    <td class="number">1,081.00</td>
                       <td class="number">2</td>
                      <td class="number">272</td>
-                    <td class="number">375.50</td>
+                    <td class="number">366.42</td>
                     <td class="number">100.00</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Big Group</td>
-                    <td class="number">24,546</td>
-                    <td class="number">48,759.00</td>
+                    <td class="number">26,264</td>
+                    <td class="number">45,849.00</td>
                       <td class="number">1</td>
-                     <td class="number">54</td>
-                    <td class="number">667.06</td>
+                     <td class="number">50</td>
+                    <td class="number">626.08</td>
                     <td class="number">100.00</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Disabled</td>
-                    <td class="number">321,670,298</td>
+                    <td class="number">322,217,761</td>
                     <td class="number">3.72</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
                     <td class="number">0.00</td>
-                    <td class="number">99.99</td>
+                    <td class="number">100.00</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Key Values</td>
-                    <td class="number">947,878</td>
-                    <td class="number">1,214.00</td>
+                    <td class="number">961,522</td>
+                    <td class="number">1,251.00</td>
                       <td class="number">3</td>
                      <td class="number">656</td>
-                    <td class="number">326.09</td>
+                    <td class="number">316.46</td>
                     <td class="number">100.00</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Logging</td>
-                    <td class="number">56,640</td>
-                    <td class="number">21,162.00</td>
+                    <td class="number">55,838</td>
+                    <td class="number">21,497.00</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">401.48</td>
+                    <td class="number">395.21</td>
                     <td class="number">100.00</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple</td>
-                    <td class="number">4,229,874</td>
-                    <td class="number">283.30</td>
+                    <td class="number">4,283,997</td>
+                    <td class="number">280.30</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">271.75</td>
+                    <td class="number">274.70</td>
                     <td class="number">100.00</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple Source</td>
-                    <td class="number">2,156,780</td>
-                    <td class="number">555.80</td>
+                    <td class="number">2,141,638</td>
+                    <td class="number">571.60</td>
                       <td class="number">4</td>
                      <td class="number">312</td>
-                    <td class="number">271.70</td>
+                    <td class="number">264.15</td>
                     <td class="number">99.14</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Attributes</td>
                     <td class="number">1,000,000</td>
-                    <td class="number">1,067.00</td>
+                    <td class="number">1,084.00</td>
                       <td class="number">2</td>
                      <td class="number">272</td>
-                    <td class="number">700.16</td>
+                    <td class="number">689.39</td>
                     <td class="number">100.00</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Key Values</td>
-                    <td class="number">947,071</td>
-                    <td class="number">1,240.00</td>
+                    <td class="number">918,394</td>
+                    <td class="number">1,258.00</td>
                       <td class="number">3</td>
                      <td class="number">656</td>
-                    <td class="number">602.49</td>
+                    <td class="number">593.80</td>
                     <td class="number">100.00</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Simple</td>
-                    <td class="number">4,143,102</td>
-                    <td class="number">291.20</td>
+                    <td class="number">4,172,293</td>
+                    <td class="number">288.90</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">1,470.03</td>
+                    <td class="number">1,481.39</td>
                     <td class="number">100.00</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Attributes</td>
-                    <td class="number">942,445</td>
-                    <td class="number">1,189.00</td>
+                    <td class="number">929,840</td>
+                    <td class="number">1,207.00</td>
                       <td class="number">3</td>
                      <td class="number">560</td>
-                    <td class="number">344.96</td>
-                    <td class="number">99.61</td>
+                    <td class="number">339.79</td>
+                    <td class="number">99.79</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Key Values</td>
-                    <td class="number">797,976</td>
-                    <td class="number">1,370.00</td>
+                    <td class="number">836,775</td>
+                    <td class="number">1,383.00</td>
                       <td class="number">4</td>
                      <td class="number">944</td>
-                    <td class="number">299.34</td>
-                    <td class="number">99.61</td>
+                    <td class="number">296.37</td>
+                    <td class="number">99.79</td>
                   </tr>
                  
               </table>
@@ -417,7 +453,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-03-24T01:10:41Z&#34;
+	&#34;time&#34;: &#34;2024-03-24T17:14:14Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -447,7 +483,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-03-24T01:10:41Z&#34;
+	&#34;time&#34;: &#34;2024-03-24T17:14:14Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -478,7 +514,7 @@
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
 	&#34;second&#34;: 2,
-	&#34;time&#34;: &#34;2024-03-24T01:10:41Z&#34;
+	&#34;time&#34;: &#34;2024-03-24T17:14:14Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -545,7 +581,7 @@
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-24T01:10:41Z&#34;
+	&#34;time&#34;: &#34;2024-03-24T17:14:14Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -613,7 +649,7 @@
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-03-24T01:10:41Z&#34;
+	&#34;time&#34;: &#34;2024-03-24T17:14:14Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -744,7 +780,7 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-24T01:10:41Z&#34;
+	&#34;time&#34;: &#34;2024-03-24T17:14:14Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1067,7 +1103,10 @@ However, documentation on implementing handler methods seems to suggest it is op
                           
                           Replace Attr Basic
                         </td>
-                        <td class="extra"><p>too many attributes: 4, time field still exists, message field still exists, source == <nil></p></td>
+                        <td class="extra"><p>too many attributes: 4</p>
+<p>time field still exists</p>
+<p>message field still exists</p>
+<p>source == <nil></p></td>
                         <td class="button">
                           
                         </td>
@@ -1086,6 +1125,29 @@ However, documentation on implementing handler methods seems to suggest it is op
                           
                             Verify:
                           
+                          Replace Attr Fn Change Key
+                        </td>
+                        <td class="extra"><p>too few attributes: 3</p>
+<p>no message key</p>
+<p>message not string</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="NoReplAttr-Replace Attr Fn Change Key-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
                           Replace Attr Fn Level Case
                         </td>
                         <td class="extra"><p>level value not null</p></td>
@@ -1093,9 +1155,50 @@ However, documentation on implementing handler methods seems to suggest it is op
                           
                         </td>
                       </tr>
-                      <tr id="NoReplAttr-Replace Attr Fn Level Case-log" style="background-color:cornsilk;display:none;">
+                      <tr id="NoReplAttr-Replace Attr Fn Level Case-log" style="background-color:antiquewhite;display:none;">
                         <td class="indent"></td>
                         <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Replace Attr Fn Multi
+                        </td>
+                        <td class="extra"><p></p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('NoReplAttr-Replace Attr Fn Multi-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="NoReplAttr-Replace Attr Fn Multi-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;group&#34;: {
+		&#34;alpha&#34;: &#34;omega&#34;,
+		&#34;pi&#34;: 3.141592653589793,
+		&#34;subGroup&#34;: {
+			&#34;alpha&#34;: &#34;omega&#34;,
+			&#34;e&#34;: 2.718281828459045,
+			&#34;goober&#34;: &#34;snoofus&#34;,
+			&#34;oneMore&#34;: {
+				&#34;alpha&#34;: &#34;omega&#34;,
+				&#34;gibbering&#34;: &#34;lunatic&#34;,
+				&#34;phi&#34;: 1.618033988749895
+			}
+		}
+	},
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-03-24T17:14:14Z&#34;
+}</pre></td>
                       </tr>
                     
                       
@@ -1180,7 +1283,7 @@ to the <code>File</code> and <code>Line</code> fields of the source data group a
 	&#34;caller&#34;: &#34;/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:71&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-24T01:09:42Z&#34;
+	&#34;time&#34;: &#34;2024-03-24T17:13:16Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -1208,7 +1311,7 @@ to the <code>File</code> and <code>Line</code> fields of the source data group a
 	&#34;caller&#34;: &#34;/opt/hostedtoolcache/go/1.21.8/x64/src/reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-03-24T01:10:41Z&#34;
+	&#34;time&#34;: &#34;2024-03-24T17:14:14Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1460,7 +1563,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Key Case
                         </td>
-                        <td class="extra"><p>'info'</p></td>
+                        <td class="extra"><p>'debug'</p></td>
                         <td class="button">
                           
                         </td>
@@ -1481,7 +1584,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Key Case
                         </td>
-                        <td class="extra"><p>'warn'</p></td>
+                        <td class="extra"><p>'info'</p></td>
                         <td class="button">
                           
                         </td>
@@ -1502,7 +1605,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Key Case
                         </td>
-                        <td class="extra"><p>'error'</p></td>
+                        <td class="extra"><p>'warn'</p></td>
                         <td class="button">
                           
                         </td>
@@ -1523,7 +1626,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Key Case
                         </td>
-                        <td class="extra"><p>'debug'</p></td>
+                        <td class="extra"><p>'error'</p></td>
                         <td class="button">
                           
                         </td>
@@ -1662,7 +1765,7 @@ may have fixed this as well in Go 1.21.</p>
                           
                           Log Attributes
                         </td>
-                        <td class="extra"><p>2024-03-24T01:10:41Z</p></td>
+                        <td class="extra"><p>2024-03-24T17:14:14Z</p></td>
                         <td class="button">
                           
                         </td>
@@ -1696,7 +1799,7 @@ may have fixed this as well in Go 1.21.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-24 01:10:51 UTC</span>
+              <span class="fixed">2024-03-24 17:14:24 UTC</span>
             </div>
           </td>
           <td class="right">

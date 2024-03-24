@@ -30,6 +30,8 @@
                       
                         <option value="MadkinsFlash" >madkins/flash</option>
                       
+                        <option value="MadkinsReplAttr" >madkins/replattr</option>
+                      
                         <option value="MadkinsSloggy" >madkins/sloggy</option>
                       
                         <option value="PhsymZerolog" >phsym/zeroslog</option>
@@ -128,7 +130,11 @@
                       
                         <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
                       
+                        <option value="Verify:ReplaceAttrFnChangeKey" >Replace Attr Fn Change Key</option>
+                      
                         <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                      
+                        <option value="Verify:ReplaceAttrFnMulti" >Replace Attr Fn Multi</option>
                       
                         <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
                       
@@ -926,7 +932,7 @@ However, documentation on implementing handler methods seems to suggest it is op
                             </td>
                             <td>
                               <div class="list">
-                                Replace Attr<br/>Replace Attr Basic<br/>Replace Attr Fn Level Case<br/>Replace Attr Fn Remove Empty Key<br/>Replace Attr Fn Remove Time<br/>
+                                Replace Attr<br/>Replace Attr Basic<br/>Replace Attr Fn Change Key<br/>Replace Attr Fn Level Case<br/>Replace Attr Fn Multi<br/>Replace Attr Fn Remove Empty Key<br/>Replace Attr Fn Remove Time<br/>
                               </div>
                             </td>
                           </tr>
@@ -977,7 +983,7 @@ When that is the case it is better to use this (<code>WarnNoReplAttrBasic</code>
                             </td>
                             <td>
                               <div class="list">
-                                Replace Attr Basic<br/>Replace Attr Fn Level Case<br/>Replace Attr Fn Remove Time<br/>
+                                Replace Attr Basic<br/>Replace Attr Fn Change Key<br/>Replace Attr Fn Level Case<br/>Replace Attr Fn Multi<br/>Replace Attr Fn Remove Time<br/>
                               </div>
                             </td>
                           </tr>
@@ -1186,7 +1192,7 @@ is currently expected in February 2024).</p>
                           <tr>
                             <td>
                               <div class="list">
-                                Chanchal Zap<br/>Madkins Flash<br/>Madkins Sloggy<br/>Phsym Zerolog<br/>Slog JSON<br/>
+                                Chanchal Zap<br/>Madkins Flash<br/>Madkins Repl Attr<br/>Madkins Sloggy<br/>Phsym Zerolog<br/>Slog JSON<br/>
                               </div>
                             </td>
                             <td>
@@ -1680,6 +1686,8 @@ from a test suite as issues are fixed in the tested handler.</p>
                 
                   <th><div><span>madkins/flash</span></div></th>
                 
+                  <th><div><span>madkins/replattr</span></div></th>
+                
                   <th><div><span>madkins/sloggy</span></div></th>
                 
                   <th><div><span>phsym/zeroslog</span></div></th>
@@ -1699,6 +1707,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">EmptyAttributes</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -1763,6 +1776,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
                         <td class="count"><span>1</span></td>
                       
                     
@@ -1791,6 +1809,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">GroupInline</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -1878,11 +1901,21 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">NotDisabled</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -1952,6 +1985,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
                         <td class="count"><span>4</span></td>
                       
                     
@@ -1979,6 +2017,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                       
                       
                         <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
                       
                     
                       
@@ -2025,6 +2068,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                       
                       
                         <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
                       
                     
                       
@@ -2090,6 +2138,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
                         <td class="count"><span>1</span></td>
                       
                     
@@ -2113,6 +2166,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">ZeroTime</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -2203,11 +2261,21 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">DefaultLevel</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -2295,11 +2363,21 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">MessageKey</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -2364,7 +2442,12 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
-                        <td class="count"><span>4</span></td>
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>6</span></td>
                       
                     
                       
@@ -2395,7 +2478,7 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
-                        <td class="count"><span>2</span></td>
+                        <td class="count"><span>3</span></td>
                       
                     
                       
@@ -2415,17 +2498,22 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
-                        <td class="count"><span>3</span></td>
+                        <td class="blank"></td>
                       
                     
                       
                       
-                        <td class="count"><span>3</span></td>
+                        <td class="count"><span>4</span></td>
                       
                     
                       
                       
-                        <td class="count"><span>3</span></td>
+                        <td class="count"><span>4</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>5</span></td>
                       
                     
                       
@@ -2438,6 +2526,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">ReplAttrGroup</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -2502,6 +2595,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
                         <td class="count"><span>2</span></td>
                       
                     
@@ -2530,6 +2628,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">SourceKey</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -2617,6 +2720,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
               
@@ -2625,6 +2733,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">Duplicates</td>
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
                     
                       
                       
@@ -2671,6 +2784,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">DurationMillis</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -2745,6 +2863,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
                         <td class="count"><span>1</span></td>
                       
                     
@@ -2763,6 +2886,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">GroupDuration</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -2850,6 +2978,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
@@ -2859,6 +2992,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                       
                       
                         <td class="count"><span>10</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
                       
                     
                       
@@ -2924,6 +3062,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
                         <td class="count"><span>1</span></td>
                       
                     
@@ -2951,6 +3094,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                       
                       
                         <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
                       
                     
                       
@@ -2996,6 +3144,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">NoHandlerCreation</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -3083,11 +3236,21 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">TestError</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -3175,11 +3338,21 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">Unused</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -3242,7 +3415,7 @@ from a test suite as issues are fixed in the tested handler.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-03-24 01:10:51 UTC</span>
+              <span class="fixed">2024-03-24 17:14:24 UTC</span>
             </div>
           </td>
           <td class="right">
