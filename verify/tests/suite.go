@@ -2,7 +2,9 @@ package tests
 
 import (
 	"bytes"
+	"fmt"
 	"log/slog"
+	"strings"
 
 	"github.com/stretchr/testify/suite"
 
@@ -34,6 +36,19 @@ func NewSlogTestSuite(creator infra.Creator) *SlogTestSuite {
 
 // -----------------------------------------------------------------------------
 // Suite test configuration.
+
+func (suite *SlogTestSuite) SetupSuite() {
+	if suite.Creator.HasSummary() {
+		fmt.Printf(":[ %s\n", suite.Creator.Name())
+		for _, line := range strings.Split(suite.Creator.Summary(), "\n") {
+			fmt.Printf(":: %s\n", line)
+		}
+		for name, link := range suite.Creator.Links() {
+			fmt.Printf(":> %s --> %s\n", name, link)
+		}
+		fmt.Println(":]")
+	}
+}
 
 func (suite *SlogTestSuite) SetupTest() {
 	suite.Buffer = &bytes.Buffer{}

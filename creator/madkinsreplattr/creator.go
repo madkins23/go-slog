@@ -1,4 +1,4 @@
-package madkinsflash
+package madkinsreplattr
 
 import (
 	"io"
@@ -15,7 +15,17 @@ import (
 // a set of ReplaceAttr functions to remove that customization.
 // The goal is to benchmark the overhead in using ReplaceAttr functions.
 func Creator() infra.Creator {
-	return infra.NewCreator("madkins/replattr", handlerFn, nil)
+	return infra.NewCreator("madkins/replattr", handlerFn, nil,
+		`^madkins/replattr^ is the [^madkins/flash^ handler](/go-slog/handler/MadkinsFlash.html)
+		setup to test ^slog.HandlerOptions.ReplaceAttr^ performance.
+		The ^madkins/flash^ handler is first configured to generate various warnings using ^flash.Extras^ options,
+		then several ^ReplaceAttr^ functions are used to correct the aberrant behavior.
+		This is intended to measure the effect of ^ReplaceAttr^ usage on performance by comparison with ^madkins/flash^`,
+		map[string]string{
+			"madkins/flash":           "https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash",
+			"flash.Extras":            "https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash#Extras",
+			"madkinsreplattr.Creator": "https://github.com/madkins23/go-slog/blob/main/creator/madkinsreplattr/creator.go",
+		})
 }
 
 func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {

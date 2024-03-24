@@ -12,7 +12,7 @@ import (
 
 // TestVerifyMadkinsReplAttr runs tests for the madkins/replattr JSON handler.
 func TestVerifyMadkinsReplAttr(t *testing.T) {
-	slogSuite := tests.NewSlogTestSuite(madkinsflash.Creator())
+	slogSuite := tests.NewSlogTestSuite(madkinsreplattr.Creator())
 	slogSuite.WarnOnly(warning.Duplicates)
 	suite.Run(t, slogSuite)
 }

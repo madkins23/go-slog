@@ -18,13 +18,17 @@ import (
 // -----------------------------------------------------------------------------
 
 var (
-	ptnWarningsFor = regexp.MustCompile(`^\s*Warnings\s+for\s+(.*):\s*$`)
-	ptnLevel       = regexp.MustCompile(`^\s*(\S+)\s*$`)
-	ptnWarning     = regexp.MustCompile(`^\s*\d+\s+\[(.*)]\s*(.*?)\s*$`)
-	ptnInstance    = regexp.MustCompile(`^\s*(\S+)(?::\s*(.*?))?\s*$`)
-	ptnExtra       = regexp.MustCompile(`^\s*\+(.*?)\s*$`)
-	ptnLogLine     = regexp.MustCompile(`^\s*\{`)
-	ptnByWarning   = regexp.MustCompile(`^\s*Handlers\s+by\s+warning:\s*$`)
+	ptnWarningsFor  = regexp.MustCompile(`^\s*Warnings\s+for\s+(.*):\s*$`)
+	ptnLevel        = regexp.MustCompile(`^\s*(\S+)\s*$`)
+	ptnWarning      = regexp.MustCompile(`^\s*\d+\s+\[(.*)]\s*(.*?)\s*$`)
+	ptnInstance     = regexp.MustCompile(`^\s*(\S+)(?::\s*(.*?))?\s*$`)
+	ptnExtra        = regexp.MustCompile(`^\s*\+(.*?)\s*$`)
+	ptnLogLine      = regexp.MustCompile(`^\s*\{`)
+	ptnByWarning    = regexp.MustCompile(`^\s*Handlers\s+by\s+warning:\s*$`)
+	ptnSummaryStart = regexp.MustCompile(`^:\[\s*(\S.*?)\s*$`)
+	ptnSummaryLine  = regexp.MustCompile(`^::\s*(\S.*?)\s*$`)
+	ptnSummaryLink  = regexp.MustCompile(`^:>\s*(\S.*?)\s*-->\s*(\S.*?)\s*$`)
+	ptnSummaryEnd   = regexp.MustCompile(`^:]\s*$`)
 )
 
 // ParseWarningData parses warning data from the output of benchmark and verification testing.
@@ -89,10 +93,7 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 			// The Creator name can't be used because they all contain slashes
 			// which breaks up the URL pattern matching in the server.
 			if h, found := lookup[string(handler)]; found {
-				if w.handlerNames == nil {
-					w.handlerNames = make(map[HandlerTag]string)
-				}
-				w.handlerNames[h] = string(handler)
+				w.getHandlerData(h).name = string(handler)
 				handler = h
 			} else {
 				slog.Warn("Default handler name", "handler", handler)
@@ -102,13 +103,41 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 						parts[i] = strings.ToUpper(part[:1]) + strings.ToLower(part[1:])
 					}
 				}
-				w.handlerNames[handler] = strings.Join(parts, " ")
+				w.getHandlerData(handler).name = strings.Join(parts, " ")
 			}
 			continue
 		}
 		if ptnByWarning.Match(line) {
 			// End of data.
 			break
+		}
+		if matches := ptnSummaryStart.FindSubmatch(line); len(matches) == 2 {
+			hdlrName := string(matches[1])
+			hdlrSummary := make([]string, 0, 5)
+			hdlrLinks := make(map[string]string, 5)
+			for scanner.Scan() {
+				sumLine := scanner.Bytes()
+				if sumMatches := ptnSummaryLine.FindSubmatch(sumLine); len(sumMatches) == 2 {
+					hdlrSummary = append(hdlrSummary, string(sumMatches[1]))
+				} else if sumMatches = ptnSummaryLink.FindSubmatch(sumLine); len(sumMatches) == 3 {
+					hdlrLinks[string(sumMatches[1])] = string(sumMatches[2])
+				} else {
+					if !ptnSummaryEnd.Match(sumLine) {
+						slog.Warn("Unexpected line during parse of handler summary", "line", sumLine)
+					}
+					if lookup != nil {
+						if h, found := lookup[hdlrName]; found {
+							if w.getHandlerData(h).name != hdlrName {
+								slog.Warn("Handler name mismatch", "current", hdlrName, "previous", w.getHandlerData(h).name)
+							}
+							w.getHandlerData(h).summary = strings.Join(hdlrSummary, "\n")
+							w.getHandlerData(h).links = hdlrLinks
+						}
+					}
+					line = sumLine
+					break
+				}
+			}
 		}
 		if handler == "" {
 			// Can't do anything until we recognize something.

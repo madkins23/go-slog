@@ -18,7 +18,12 @@ import (
 // [chanchal/zaphandler]: https://github.com/chanchal1987/zaphandler
 // [uber-go/zap]: https://pkg.go.dev/go.uber.org/zap
 func Creator() infra.Creator {
-	return infra.NewCreator("chanchal/zaphandler", handlerFn, nil)
+	return infra.NewCreator("chanchal/zaphandler", handlerFn, nil,
+		`^chanchal/zaphandler^ is a wrapper around the pre-existing ^uber-go/zap^ logging library.`,
+		map[string]string{
+			"chanchal/zaphandler": "https://github.com/chanchal1987/zaphandler",
+			"uber-go/zap":         "https://pkg.go.dev/go.uber.org/zap",
+		})
 }
 
 func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {

@@ -251,6 +251,28 @@ table.top {
     width: 100%;
 }
 
+table.top tr.summary-header th {
+    text-align: left;
+}
+
+table.top tr.summary {
+    margin: 5px;
+    padding: 5px;
+    outline: 2px inset darkgray;
+    outline-offset: -2px;
+    background-color: lightgray;
+}
+
+table.top tr.summary td {
+    padding: 10px;
+    margin: 10px;
+    vertical-align: baseline;
+}
+
+table.top tr.summary td li {
+    font-family: monospace;
+}
+
 table.top tr.title {
     vertical-align: baseline;
 }

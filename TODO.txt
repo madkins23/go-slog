@@ -1,10 +1,12 @@
 TODO
 
+* Add summary data in markdown to Creator (or Handler?) object.
+  - Plumb this through into server.
+
+# Less Likely
+
 * Is there a way to figure out which handlers can use ReplaceAttr effectively
   based on which warnings they throw?  See Data section at end for some thoughts.
-
-Less Likely
-
 * ReplAttr filters:
   * caller -> source group
   * source group -> caller
@@ -21,7 +23,7 @@ Less Likely
 * Is there a way to avoid crashing when updates to slog handlers blow up?
   - Probably not.
 
-Global
+# Global
 
 * Should slog.Attr cache the value of Kind()?
 * Why is there one number of allocs in benchmark results?
@@ -30,14 +32,14 @@ Global
   - pick the biggest bucket?
 * Would slog speed up if slog.Attr cached the value of Keep()?
 
-Notes
+# Notes
 
 > List of goland:noinspection codes (doesn't always work):
   - https://github.com/JetBrains/qodana-profiles/blob/master/.idea/inspectionProfiles/qodana.recommended.full.xml
 > How to kick off pkg.go.dev:
   - curl https://sum.golang.org/lookup/github.com/madkins23/go-slog@<release-tag>
 
-Data
+# Data
 
 NoReplAttr
 

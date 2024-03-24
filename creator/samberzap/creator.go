@@ -18,7 +18,12 @@ import (
 // [samber/slog-zap]: https://pkg.go.dev/github.com/samber/slog-zap
 // [uber-go/zap]: https://pkg.go.dev/go.uber.org/zap
 func Creator() infra.Creator {
-	return infra.NewCreator("samber/slog-zap", handlerFn, nil)
+	return infra.NewCreator("samber/slog-zap", handlerFn, nil,
+		`^samber/slog-zap^ is a wrapper around the pre-existing ^uber-go/zap^ logging library.`,
+		map[string]string{
+			"samber/slog-zap": "https://pkg.go.dev/github.com/samber/slog-zap",
+			"uber-go/zap":     "https://pkg.go.dev/go.uber.org/zap",
+		})
 }
 
 func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {

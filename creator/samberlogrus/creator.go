@@ -17,7 +17,12 @@ import (
 // [samber/slog-logrus]: https://pkg.go.dev/github.com/samber/slog-logrus
 // [sirupsen/logrus]: https://github.com/sirupsen/logrus
 func Creator() infra.Creator {
-	return infra.NewCreator("samber/slog-logrus", handlerFn, nil)
+	return infra.NewCreator("samber/slog-logrus", handlerFn, nil,
+		`^samber/slog-logrus^ is a wrapper around the pre-existing ^sirupsen/logrus^ logging library.`,
+		map[string]string{
+			"samber/slog-logrus": "https://pkg.go.dev/github.com/samber/slog-logrus",
+			"sirupsen/logrus":    "https://pkg.go.dev/github.com/sirupsen/logrus",
+		})
 }
 
 func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {

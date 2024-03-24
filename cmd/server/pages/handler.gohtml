@@ -14,6 +14,31 @@
   <div class="content">
     <div>
       <table class="top">
+        {{ if .Warnings.HasHandler .Handler }}
+          {{ if .Warnings.HasHandlerSummary .Handler }}
+            <tr class="summary-header">
+              <th style="width:70%">Summary</th>
+              <th style="width:30%">
+                {{ if .Warnings.HasHandlerLinks .Handler }}
+                  Links
+                {{ end }}
+              </th>
+            </tr>
+            <tr class="summary">
+              <td>
+                {{ .Warnings.HandlerSummaryHTML .Handler }}
+              </td>
+              {{ if .Warnings.HasHandlerLinks .Handler }}
+                <td>
+                  {{ range $name, $link := .Warnings.HandlerLinks .Handler }}
+                    <a href="{{ $link }}">{{ $name }}</a><br/>
+                  {{ end }}
+                </td>
+              {{ end }}
+            </tr>
+            <tr><td colspan=2><hr/></td></tr>
+          {{ end }}
+        {{ end }}
         {{ if .Benchmarks.HasHandler .Handler }}
           {{ $benchScore := .Scores.HandlerBenchScores .Handler }}
           <tr class="title">

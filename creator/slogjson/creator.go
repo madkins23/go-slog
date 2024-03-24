@@ -11,7 +11,13 @@ import (
 //
 // [slog/JSONHandler]: https://pkg.go.dev/log/slog#JSONHandler
 func Creator() infra.Creator {
-	return infra.NewCreator("slog/JSONHandler", handlerFn, nil)
+	return infra.NewCreator("slog/JSONHandler", handlerFn, nil,
+		`^slog/JSONHandler^ is the JSON handler provided with the ^slog^ library.
+		It is fast and as a part of the Go distribution it is used
+		along with published documentation as a model for ^slog.Handler^ behavior.`,
+		map[string]string{
+			"slog/JSONHandler": "https://pkg.go.dev/log/slog#JSONHandler",
+		})
 }
 
 func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {

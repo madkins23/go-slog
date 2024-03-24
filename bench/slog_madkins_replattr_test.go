@@ -9,6 +9,6 @@ import (
 
 // BenchmarkMadkinsReplAttr runs benchmarks for the madkins/replattr JSON handler.
 func BenchmarkMadkinsReplAttr(b *testing.B) {
-	slogSuite := tests.NewSlogBenchmarkSuite(madkinsflash.Creator())
+	slogSuite := tests.NewSlogBenchmarkSuite(madkinsreplattr.Creator())
 	tests.Run(b, slogSuite)
 }

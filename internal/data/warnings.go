@@ -8,6 +8,7 @@ import (
 	"sort"
 	"strings"
 
+	"github.com/madkins23/go-slog/internal/markdown"
 	"github.com/madkins23/go-slog/internal/warning"
 )
 
@@ -15,26 +16,32 @@ var verifyFile = flag.String("verify", "", "Load verification data from path (op
 
 // -----------------------------------------------------------------------------
 
+type handlerData struct {
+	name    string
+	summary string
+	links   map[string]string
+}
+
 // Warnings encapsulates benchmark records by BenchmarkName and HandlerTag.
 type Warnings struct {
-	byTest       map[TestTag]*Levels
-	byHandler    map[HandlerTag]*Levels
-	byWarning    map[string]*WarningData
-	tests        []TestTag
-	handlers     []HandlerTag
-	handlerNames map[HandlerTag]string
-	testNames    map[TestTag]string
+	byTest      map[TestTag]*Levels
+	byHandler   map[HandlerTag]*Levels
+	byWarning   map[string]*WarningData
+	tests       []TestTag
+	handlers    []HandlerTag
+	handlerData map[HandlerTag]*handlerData
+	testNames   map[TestTag]string
 }
 
 func NewWarningData() *Warnings {
 	return &Warnings{
-		byTest:       make(map[TestTag]*Levels),
-		byHandler:    make(map[HandlerTag]*Levels),
-		byWarning:    make(map[string]*WarningData),
-		tests:        make([]TestTag, 0),
-		handlers:     make([]HandlerTag, 0),
-		handlerNames: make(map[HandlerTag]string),
-		testNames:    make(map[TestTag]string),
+		byTest:      make(map[TestTag]*Levels),
+		byHandler:   make(map[HandlerTag]*Levels),
+		byWarning:   make(map[string]*WarningData),
+		tests:       make([]TestTag, 0),
+		handlers:    make([]HandlerTag, 0),
+		handlerData: make(map[HandlerTag]*handlerData),
+		testNames:   make(map[TestTag]string),
 	}
 }
 
@@ -59,10 +66,48 @@ func (w *Warnings) ForHandler(handler HandlerTag) *Levels {
 // HandlerName returns the full name associated with a HandlerTag.
 // If there is no full name the tag is returned.
 func (w *Warnings) HandlerName(handler HandlerTag) string {
-	if name, found := w.handlerNames[handler]; found {
-		return name
+	if data, found := w.handlerData[handler]; found {
+		return data.name
 	} else {
 		return string(handler)
+	}
+}
+
+func (w *Warnings) HasHandlerSummary(handler HandlerTag) bool {
+	if data, found := w.handlerData[handler]; found {
+		return found && data.summary != ""
+	}
+	return false
+}
+
+func (w *Warnings) HandlerSummary(handler HandlerTag) string {
+	if data, found := w.handlerData[handler]; found {
+		return data.summary
+	} else {
+		return ""
+	}
+}
+
+func (w *Warnings) HandlerSummaryHTML(handler HandlerTag) template.HTML {
+	if data, found := w.handlerData[handler]; found {
+		return markdown.TemplateHTML(data.summary, true)
+	} else {
+		return ""
+	}
+}
+
+func (w *Warnings) HasHandlerLinks(handler HandlerTag) bool {
+	if data, found := w.handlerData[handler]; found {
+		return found && len(data.links) > 0
+	}
+	return false
+}
+
+func (w *Warnings) HandlerLinks(handler HandlerTag) map[string]string {
+	if data, found := w.handlerData[handler]; found {
+		return data.links
+	} else {
+		return nil
 	}
 }
 
@@ -121,6 +166,8 @@ func (w *Warnings) TestTagsForSource(source string) []TestTag {
 	return result
 }
 
+// -----------------------------------------------------------------------------
+
 func (w *Warnings) findHandler(handler HandlerTag, level warning.Level, warningName string) *dataWarning {
 	levels, ok := w.byHandler[handler]
 	if !ok {
@@ -156,6 +203,16 @@ func (w *Warnings) FindWarning(name string) *WarningData {
 		w.byWarning[name] = data
 	}
 	return data
+}
+
+// -----------------------------------------------------------------------------
+
+func (w *Warnings) getHandlerData(handler HandlerTag) *handlerData {
+	data, found := w.handlerData[handler]
+	if !found || data == nil {
+		w.handlerData[handler] = &handlerData{}
+	}
+	return w.handlerData[handler]
 }
 
 // -----------------------------------------------------------------------------

@@ -16,18 +16,24 @@ type CreateHandlerFn func(w io.Writer, options *slog.HandlerOptions) slog.Handle
 // This includes both the name of the handler and a CreateLoggerFn.
 type Creator struct {
 	name      string
+	summary   string
+	links     map[string]string
 	handlerFn CreateHandlerFn
 	loggerFn  CreateLoggerFn
 }
 
+type Links map[string]string
+
 // NewCreator returns a new Creator object for the specified name and CreateLoggerFn.
-func NewCreator(name string, handlerFn CreateHandlerFn, loggerFn CreateLoggerFn) Creator {
+func NewCreator(name string, handlerFn CreateHandlerFn, loggerFn CreateLoggerFn, summary string, links Links) Creator {
 	if handlerFn == nil && loggerFn == nil {
 		slog.Error("Creator must have either handlerFn or loggerFn")
 		os.Exit(1)
 	}
 	return Creator{
 		name:      name,
+		summary:   summary,
+		links:     links,
 		handlerFn: handlerFn,
 		loggerFn:  loggerFn,
 	}
@@ -61,4 +67,20 @@ func (c *Creator) CanMakeHandler() bool {
 // Name returns the name of the slog package.
 func (c *Creator) Name() string {
 	return c.name
+}
+
+func (c *Creator) HasLinks() bool {
+	return len(c.links) > 0
+}
+
+func (c *Creator) Links() map[string]string {
+	return c.links
+}
+
+func (c *Creator) HasSummary() bool {
+	return c.summary != ""
+}
+
+func (c *Creator) Summary() string {
+	return c.summary
 }

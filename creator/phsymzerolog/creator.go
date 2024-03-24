@@ -15,7 +15,14 @@ import (
 // [phsym/zeroslog]: https://github.com/phsym/zeroslog
 // [rs/zerolog]: https://pkg.go.dev/github.com/rs/zerolog
 func Creator() infra.Creator {
-	return infra.NewCreator("phsym/zeroslog", handlerFn, nil)
+	return infra.NewCreator("phsym/zeroslog", handlerFn, nil,
+		`^phsym/zeroslog^ is a wrapper around the pre-existing ^rs/zerolog^ logging library.
+		The ^phsym/zerolog^ handler, like the underlying ^rs/zerolog^ logging library,
+		is in the fastest ranks of ^slog.Handler^ implementations tested.`,
+		map[string]string{
+			"phsym/zeroslog": "https://github.com/phsym/zeroslog",
+			"rs/zerolog":     "https://github.com/rs/zerolog",
+		})
 }
 
 func handlerFn(w io.Writer, options *slog.HandlerOptions) slog.Handler {
