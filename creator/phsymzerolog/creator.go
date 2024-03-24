@@ -20,8 +20,8 @@ func Creator() infra.Creator {
 		The ^phsym/zerolog^ handler, like the underlying ^rs/zerolog^ logging library,
 		is in the fastest ranks of ^slog.Handler^ implementations tested.`,
 		map[string]string{
-			"phsym/zeroslog": "https://github.com/phsym/zeroslog",
-			"rs/zerolog":     "https://github.com/rs/zerolog",
+			"phsym/zeroslog": "https://pkg.go.dev/github.com/phsym/zeroslog",
+			"rs/zerolog":     "https://pkg.go.dev/github.com/rs/zerolog",
 		})
 }
 

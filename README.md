@@ -227,11 +227,14 @@ Editing every log statement in a large project can be a real pain.
 The following handlers are currently under test in this repository:
 
 * [`chanchal/zaphandler`](https://github.com/chanchal1987/zaphandler)
-* [`log/slog.JSONHandler`](https://pkg.go.dev/log/slog#JSONHandler)
-* [`phsym/zeroslog`](https://github.com/phsym/zeroslog)
-* [`samber/slog-zap`](https://github.com/samber/slog-zap)
-* [`samber/slog-zerolog`](https://github.com/samber/slog-zerolog)
-* [`samber/slog-logrus`](https://github.com/samber/slog-logrus)
+* [`madkins/flash`](https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash)
+* [`madkins/replattr`](https://pkg.go.dev/github.com/madkins23/go-slog/handlers/replattr)
+* [`madkins/sloggy`](https://pkg.go.dev/github.com/madkins23/go-slog/handlers/sloggy)
+* [`phsym/zeroslog`](https://pkg.go.dev/github.com/rs/zerolog)
+* [`samber/slog-logrus`](https://pkg.go.dev/github.com/samber/slog-logrus)
+* [`samber/slog-zap`](https://pkg.go.dev/github.com/samber/slog-zap)
+* [`samber/slog-zerolog`](https://pkg.go.dev/github.com/samber/slog-zerolog)
+* [`slog/JSONHandler`](https://pkg.go.dev/log/slog#JSONHandler)
 
 Handlers that have been investigated and found wanting:
 
