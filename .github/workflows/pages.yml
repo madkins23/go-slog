@@ -32,7 +32,7 @@ jobs:
         run: go test -v ./verify -args -useWarnings > ${{ runner.temp }}/verify.txt
 
       - name: Run Server & Get Pages
-        run: go run cmd/server/server.go -bench=${{ runner.temp }}/bench.txt -verify=${{ runner.temp }}/verify.txt & scripts/pages
+        run: go run cmd/server/*.go -bench=${{ runner.temp }}/bench.txt -verify=${{ runner.temp }}/verify.txt & scripts/pages
 
       - name: Commit Benchmark Results to Repo
         uses: EndBug/add-and-commit@v9
