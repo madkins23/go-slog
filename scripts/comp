@@ -1,0 +1,22 @@
+#!/bin/bash
+# Runs benchmark tests in a specific directory.
+# Executes the tests with several different -benchtime settings.
+
+if [ "$1" == "" ] || [ "$2" == "" ]; then
+  echo "usage:    comp <dir> <test>"
+  echo "               <dir>  directory in which tests are located"
+  echo "               <test> is root name of tests, not including initial 'Benchmark'"
+  echo "example:  comp handlers/flash Memory"
+  exit
+fi
+
+clear
+echo 1 second
+go test -bench=Benchmark$2 -benchtime=1s $1/*.go
+echo 5 seconds
+go test -bench=Benchmark$2 -benchtime=5s handlers/flash/*.go
+echo 15 seconds
+go test -bench=Benchmark$2 -benchtime=15s handlers/flash/*.go
+echo 60 seconds
+go test -bench=Benchmark$2 -benchtime=60s handlers/flash/*.go
+echo Done

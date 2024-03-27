@@ -67,7 +67,7 @@ constructed and then written to the eventual `io.Writer` in `flash.Handler.Handl
 [Benchmark tests](#benchmark-tests) have been added to compare the performance of the two approaches.
 The command to run these tests is:
 ```
-scripts/flash-bench Compose
+scripts/comp handlers/flash Compose
 ```
 Evaluation of this test over different time periods suggests:
 
@@ -103,7 +103,7 @@ generic pools in file `flash/pools.go`.
 [Benchmark tests](#benchmark-tests) have been added to compare the performance of the two approaches.
 The command to run these tests is:
 ```
-scripts/flash-bench Memory
+scripts/comp handlers/flash Memory
 ```
 Evaluation of this test over different time periods suggests:
 
@@ -133,7 +133,7 @@ A third test, `BenchmarkBasicAdd`, was added to the benchmark tests for this cas
 [Benchmark tests](#benchmark-tests) have been added to compare the performance of the two approaches.
 The command to run these tests is:
 ```
-scripts/flash-bench Basic
+scripts/comp handlers/flash Basic
 ```
 Evaluation of this test over different time periods suggests that the final version shows:
 
@@ -170,7 +170,7 @@ Allocating on the stack is generally faster than on the heap.
 [Benchmark tests](#benchmark-tests) have been added to compare the performance of the two approaches.
 The command to run these tests is:
 ```
-scripts/flash-bench Source
+scripts/comp handlers/flash Source
 ```
 Evaluation of this test over different time periods suggests:
 
@@ -197,7 +197,7 @@ So this edit is basically only avoiding the method call and return overhead.
 [Benchmark tests](#benchmark-tests) have been added to compare the performance of the two approaches.
 The command to run these tests is:
 ```
-scripts/flash-bench Resolve
+scripts/comp handlers/flash Resolve
 ```
 Evaluation of this test over different time periods suggests:
 
@@ -236,7 +236,7 @@ A `flash.Extra` flag may be added at some point.
 the performance of `strconv.AppendQuote` vs. `flash.composer.addEcaped`.
 The command to run these tests is:
 ```
-scripts/flash-bench Escape
+scripts/comp handlers/flash Escape
 ```
 Evaluation of this test over different time periods suggests:
 
@@ -268,7 +268,7 @@ go test -bench=Benchmark<group> -benchtime=<duration> flash/*.go
 
 If you can run a `bash` shell script you can use:
 ```
-scripts/flash-bench <group>
+scripts/comp handlers/flash <group>
 ```
 to run tests with 1 second, 5 second, 15 second, and 60 second durations.
 

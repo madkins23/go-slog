@@ -266,7 +266,7 @@ func BenchmarkWriteGoroutine(b *testing.B) {
 // -----------------------------------------------------------------------------
 // Compare strconv.AppendQuote with custom composer.addEscaped.
 //
-// NOTE: Running scripts/flash-bench Escape dies at the 15s mark testing strconv.AppendQuote.
+// NOTE: Running scripts/comp handlers/flash Escape dies at the 15s mark testing strconv.AppendQuote.
 
 // BenchmarkEscapeAppendQuote escapes various strings using  strconv.AppendQuote.
 func BenchmarkEscapeAppendQuote(b *testing.B) {
