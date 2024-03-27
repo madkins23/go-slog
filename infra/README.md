@@ -2,7 +2,8 @@
 
 This package contains infrastructure shared by various packages.
 The main packages sharing this code are [`verify`](../verify) and [`bench`](../bench).
-The definitions in this package are publicly visible and may in some cases be usable elsewhere.
+The definitions in this package are publicly visible and may in some cases be usable elsewhere,
+as opposed to the `internal` package which also provides shared infrastructure.
 
 ## Attributes
 
@@ -65,14 +66,19 @@ Most tests use the latter, but a few tests require the former.
 
 The reason for two functions is the possibility that an `slog.Logger` is available
 but a `slog.Handler` is not.
-This handler is implemented directly as a `slog.Logger`,
+In this case the handler is implemented directly as a `slog.Logger`,
 without defining a `slog.Handler` interface.[^1]
 
 ## Options
 
-The `options` package provides some predefined
+The `infra` package provides some predefined
 [`slog.HandlerOptions`](https://pkg.go.dev/log/slog@master#HandlerOptions) objects.
-These are used in testing and benchmarks and may have some utility elsewhere.
+These are used in testing and benchmarks and may have some utility elsewhere:
+
+* LevelOptions
+* ReplaceAttrOptions
+* SimpleOptions
+* SourceOptions
 
 ---
 
