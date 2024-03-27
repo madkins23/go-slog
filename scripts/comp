@@ -12,11 +12,11 @@ fi
 
 clear
 echo 1 second
-go test -bench=Benchmark$2 -benchtime=1s $1/*.go
+go test -bench=Benchmark$2 -benchtime=1s -benchmem $1/*.go
 echo 5 seconds
-go test -bench=Benchmark$2 -benchtime=5s handlers/flash/*.go
+go test -bench=Benchmark$2 -benchtime=5s -benchmem $1/*.go
 echo 15 seconds
-go test -bench=Benchmark$2 -benchtime=15s handlers/flash/*.go
+go test -bench=Benchmark$2 -benchtime=15s -benchmem $1/*.go
 echo 60 seconds
-go test -bench=Benchmark$2 -benchtime=60s handlers/flash/*.go
+go test -bench=Benchmark$2 -benchtime=60s -benchmem $1/*.go
 echo Done

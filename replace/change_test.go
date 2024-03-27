@@ -18,6 +18,9 @@ const (
 	bravo = "home, home on the range!"
 )
 
+// -----------------------------------------------------------------------------
+// scripts/comp replace Compare
+
 // BenchmarkCompareChangeCase benchmarks comparing strings with two case conversions.
 // This seems to take a factor of ten longer than the strings.EqualFold version.
 // It also results in 2 allocs/op with 48 bytes.
@@ -43,6 +46,7 @@ func BenchmarkCompareEqualFold(b *testing.B) {
 }
 
 // -----------------------------------------------------------------------------
+// scripts/comp replace Compare
 
 // TestChanges tests all current ReplaceAttr functions against a madkins/flash handler
 // with all the flash.Extra fields set but time formatting.

@@ -16,6 +16,8 @@ import (
 
 // -----------------------------------------------------------------------------
 // Compare sloggy.composer (using bytes.Buffer) with flash.composer (using byte array appends).
+//
+// scripts/comp handlers/flash Compose
 
 // BenchmarkComposeArray composes attributes by appending to byte arrays.
 func BenchmarkComposeArray(b *testing.B) {
@@ -52,6 +54,8 @@ func BenchmarkComposeBuffer(b *testing.B) {
 
 // -----------------------------------------------------------------------------
 // Compare memory allocation versus memory buffer pools.
+//
+// scripts/comp handlers/flash Memory
 
 var memTestLen uint = 1024
 
@@ -86,6 +90,8 @@ func BenchmarkMemoryPools(b *testing.B) {
 // Compare adding attributes to a composer one at a time with addAttribute vs.
 // putting them in an array and adding them all at once with addAttributes.
 // In the latter case the arrays are managed and reused via a sync.Pool.
+//
+// scripts/comp handlers/flash Basic
 
 // BenchmarkBasicAdd adds attributes to the composer one at a time using addAttribute.
 func BenchmarkBasicAdd(b *testing.B) {
@@ -153,6 +159,8 @@ func BenchmarkBasicMultiple(b *testing.B) {
 
 // -----------------------------------------------------------------------------
 // Compare loadSource() (with variable on stack) to newSource()/reuseSource().
+//
+// scripts/comp handlers/flash Source
 
 // BenchmarkSourceLoad uses a local variable (presumably on the stack) and
 // passes a pointer to that variable for loadSource to fill its fields.
@@ -184,6 +192,8 @@ func BenchmarkSourceNewReuse(b *testing.B) {
 
 // -----------------------------------------------------------------------------
 // Compare using a cut-out before calling for attribute resolution.
+//
+// scripts/comp handlers/flash Resolve
 
 // BenchmarkResolveAlways always calls slog.Attr.Value.Resolve.
 func BenchmarkResolveAlways(b *testing.B) {
@@ -215,6 +225,8 @@ func BenchmarkResolveConditional(b *testing.B) {
 
 // -----------------------------------------------------------------------------
 // Compare mutex-locking with goroutine and buffered channel.
+//
+// scripts/comp handlers/flash Write
 
 const (
 	// Size of buffer doesn't make much difference.
@@ -266,7 +278,9 @@ func BenchmarkWriteGoroutine(b *testing.B) {
 // -----------------------------------------------------------------------------
 // Compare strconv.AppendQuote with custom composer.addEscaped.
 //
-// NOTE: Running scripts/comp handlers/flash Escape dies at the 15s mark testing strconv.AppendQuote.
+// NOTE: Running the following script dies at the 15s mark testing strconv.AppendQuote.
+//
+// scripts/comp handlers/flash Escape
 
 // BenchmarkEscapeAppendQuote escapes various strings using  strconv.AppendQuote.
 func BenchmarkEscapeAppendQuote(b *testing.B) {
