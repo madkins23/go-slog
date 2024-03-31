@@ -7,7 +7,7 @@ require (
 	github.com/fatih/camelcase v1.0.0
 	github.com/gertd/go-pluralize v0.2.1
 	github.com/gin-gonic/gin v1.9.1
-	github.com/gomarkdown/markdown v0.0.0-20231222211730-1d6d20845b47
+	github.com/gomarkdown/markdown v0.0.0-20240328165702-4d01890c35c0
 	github.com/madkins23/gin-utils v1.4.1
 	github.com/madkins23/go-utils v1.44.0
 	github.com/phsym/console-slog v0.3.1
@@ -59,7 +59,7 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.7.0 // indirect
 	golang.org/x/crypto v0.21.0 // indirect
-	golang.org/x/exp v0.0.0-20240318143956-a85f2c67cd81 // indirect
+	golang.org/x/exp v0.0.0-20240325151524-a685a6edb6d8 // indirect
 	golang.org/x/image v0.15.0 // indirect
 	golang.org/x/mod v0.16.0 // indirect
 	golang.org/x/net v0.22.0 // indirect
