@@ -3,7 +3,7 @@
 The `bench` package provides various `log/slog` (henceforth just `slog`) handler benchmark suites.
 This document discusses simple usage details.
 Technical details for the test suite are provided in
-the [`README.md`](tests/README.m4) file in
+the [`README.md`](https://pkg.go.dev/github.com/madkins23/go-slog/bench/tests#section-readme) file in
 the [`tests`](https://pkg.go.dev/github.com/madkins23/go-slog/bench/tests) package subdirectory.
 
 ## Simple Example
@@ -34,15 +34,16 @@ contain a function with a name of the pattern `Benchmark<tag_name>`
 where `<tag_name>` will likely be something like `PhsymZerolog` or `SlogJSON`.
 
 The first line in `BenchmarkSlogJSON` creates a new test suite.
-The argument to the `NewSlogBenchmarkSuite` function is an [`infra.Creator`](../infra/creator.go) object,
+The argument to the `NewSlogBenchmarkSuite` function is
+an [`infra.Creator`](https://pkg.go.dev/github.com/madkins23/go-slog/infra#Creator) object,
 which is responsible for creating new `slog.Logger`
 (and optionally `slog.Handler`) objects for benchmarks.
 
-In this case an appropriate factory is created by the `creator.Slog` function
-that is already defined in the `creator` package.
+In this case an appropriate factory is created by the
+pre-existing `slogjson.Creator` function.
 In order to test a new handler instance
 (one that has not been tested in this repository)
-it is necessary to [create a new `infra.Creator`](#creators) for it.
+it is necessary to [create a new `infra.Creator`](https://pkg.go.dev/github.com/madkins23/go-slog/infra#readme-creator) for it.
 Existing examples can be found in the `creator` package.
 
 Finally, the suite is run via its `Run` method.
