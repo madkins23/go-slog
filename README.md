@@ -240,7 +240,7 @@ Handlers that have been investigated and found wanting:
 
 * `darvaza` handlers are based on a different definition of `log/slog`
   as an interface that is not compatible with the "real" `log/slog/Logger`.
-  Since the latter is _not_ an interface there is no way to build a shim.
+  Since the latter is not an interface there is no way to build a shim.
   In addition, there is no separate `Handler` object.
   * [`darvaza/logrus`](https://pkg.go.dev/darvaza.org/slog/handlers/logrus)
   * [`darvaza/zap`](https://pkg.go.dev/darvaza.org/slog/handlers/zap)
@@ -250,6 +250,15 @@ Handlers that have been investigated and found wanting:
   instead of the standard library `log/slog`:
   * [`galecore/xslog`](https://github.com/galecore/xslog)
   * [`evanphx/go-hclog-slog`](https://github.com/evanphx/go-hclog-slog)
+
+* The [`go-logr/zerologr`](https://github.com/go-logr/zerologr) presents some challenges:
+  * Wraps `go-logr/logr` around a `rs/zerolog` logger (not a handler),  
+    then wraps _another_ layer (`zerologr.LogSink`) around that to return a `slog.Handler`.
+  * Doesn't support `slog.HandlerOptions` directly.
+  * Configuring a default `slog.Level` per handler is difficult.
+    * Negative integers are unsupported so levels must be "fixed" in use.
+    * The `Enabled()` implementation uses both local level value and  
+      the global `zerolog` level so the per-handler/logger level isn't truly local.
 
 Console handlers are not tested in this repository,
 but the author likes this one (and uses it in `cmd/server`):
