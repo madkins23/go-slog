@@ -1,12 +1,6 @@
 TODO
 
 * Discuss slog_madkins_replattr benchmark
-* Fix deprecated/wrong shit in *.gohtml files
-  X simple CSS classes
-  X use of col.width attribute
-  X use of width attribute on td
-  - irritating warnings that it can't find my files
-* Removed deprecated stuff before pushing V1.0.0
 * Add summary data in markdown to Creator (or Handler?) object.
   - Plumb this through into server.
 
