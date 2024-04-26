@@ -10,7 +10,14 @@
 //
 // An early intention was to "fix" non-conformant handlers by providing
 // ReplaceAttr functions that could make them conformant.
-// Sadly this has not thus far turned out to be the case (2024-03-18).
+// Unfortunately, other issues prevent this usage in many cases:
+//
+//   - Attributes can't be directly removed, they can only be made empty,
+//     but some handlers tested don't remove empty attributes as they should
+//     so this fix doesn't work for them.
+//   - Some handlers don't recognize `slog.HandlerOptions.ReplaceAttr`.
+//   - Those that do don't always recognize them for the basic fields
+//     (`time`, `level`, `message`, and `source`).
 //
 // # Function Types
 //
@@ -38,7 +45,7 @@
 // Thus setting the value of the ReplaceAttr field requires the execution
 // of one of the functions, not the function itself.
 //
-// ## Older Functions
+// # Older Functions
 //
 // As mentioned before, these functions are currently marked as deprecated.
 // The also conform to infra.AttrFn and so the function pointer is set
@@ -47,7 +54,7 @@
 // Rather than go into detail here, the relevant functions will be added
 // to the following sections.
 //
-// ## Newer Functions
+// # Newer Functions
 //
 // Some of the newer functions share similar arguments:
 //

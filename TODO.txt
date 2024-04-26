@@ -1,5 +1,12 @@
 TODO
 
+* Discuss slog_madkins_replattr benchmark
+* Fix deprecated/wrong shit in *.gohtml files
+  X simple CSS classes
+  X use of col.width attribute
+  X use of width attribute on td
+  - irritating warnings that it can't find my files
+* Removed deprecated stuff before pushing V1.0.0
 * Add summary data in markdown to Creator (or Handler?) object.
   - Plumb this through into server.
 
@@ -10,11 +17,6 @@ TODO
 * ReplAttr filters:
   * caller -> source group
   * source group -> caller
-* Fix deprecated/wrong shit in *.gohtml files
-  X simple CSS classes
-  X use of col.width attribute
-  X use of width attribute on td
-  - irritating warnings that it can't find my files
 * Check for package compilation
   - Utility to process entries from Go package-linkage whatever
     in order to create usable tree view.

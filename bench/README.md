@@ -1,10 +1,10 @@
 # Benchmarking `log/slog` Handlers
 
-The `bench` package provides various `log/slog` (henceforth just `slog`) handler benchmark suites.
+The `bench` package provides various `log/slog` (henceforth just `slog`) handler benchmark tests.
 This document discusses simple usage details.
 Technical details for the test suite are provided in
 the [`README.md`](https://pkg.go.dev/github.com/madkins23/go-slog/bench/tests#section-readme) file in
-the [`tests`](https://pkg.go.dev/github.com/madkins23/go-slog/bench/tests) package subdirectory.
+the [`tests`](tests) package subdirectory.
 
 ## Simple Example
 
@@ -46,25 +46,14 @@ In order to test a new handler instance
 it is necessary to [create a new `infra.Creator`](https://pkg.go.dev/github.com/madkins23/go-slog/infra#readme-creator) for it.
 Existing examples can be found in the `creator` package.
 
-Finally, the suite is run via its `Run` method.
+Finally, the suite is executed via its `Run` method.
 
 In short:
 * The `BenchmarkXxx` function is executed by the [Go test harness](https://pkg.go.dev/testing).
 * The test function configures a `SlogTestSuite` using an `infra.Creator` factory object.
 * The test function executes the test suite via its `Run` method.
 
-### More Examples
-
-This package contains several examples, including the one above:
-* [`slog_json_test.go`](https://github.com/madkins23/go-slog/blob/main/bench/slog_json_test.go)
-  Verifies the [standard `slog.JSONHandler`](https://pkg.go.dev/log/slog@master#JSONHandler).
-* [`slog_phsym_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/bench/slog_phsym_zerolog_test.go)
-  Verifies the [`phsym zeroslog` handler](https://github.com/phsym/zeroslog/tree/2bf737d6422a5de048845cd3bdd2db6363555eb4).
-* [`slog_samber_zap_test.go`](https://github.com/madkins23/go-slog/blob/main/bench/slog_samber_zap_test.go)
-  Verifies the [`samber slog-zap` handler](https://github.com/samber/slog-zap).
-* [`slog_samber_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/bench/slog_samber_zerolog_test.go)
-  Verifies the [`samber slog-zerolog` handler](https://github.com/samber/slog-zerolog).
-
+More examples are available in this package.
 In addition, there is a [`main_test.go`](https://github.com/madkins23/go-slog/blob/main/bench/main_test.go) file which exists to provide
 a global resource to the other tests ([described below](#testmain)).
 
@@ -88,8 +77,7 @@ such as the commands
 On an operating system that supports `bash` scripts you can use
 the [`scripts/bench`](https://github.com/madkins23/go-slog/blob/main/scripts/bench) script which is configured
 with appropriate post-processing via
-[`scripts/tabulate`](https://github.com/madkins23/go-slog/blob/main/scripts/tabulate) or
-[`scripts/server`](https://github.com/madkins23/go-slog/blob/main/scripts/server).
+[`scripts/tabulate`](https://github.com/madkins23/go-slog/blob/main/scripts/tabulate).
 
 #### Test Flags
 
@@ -97,7 +85,7 @@ There are two flags defined for testing the verification code:
 * `-debug=<level>`  
   Sets an integer level for showing any `Debugf()` statements in the code.
 * `-justTests`
-  Just run benchmark verification tests, not the actual benchmarks.
+  Just run benchmark verification tests, not the actual benchmarks (see [below](#supporting-tests)).
 
 ### Supporting Tests
 
@@ -139,7 +127,7 @@ When running benchmarks the warning data from supporting tests is specified at t
 The prefixed [octothorpe](https://en.wiktionary.org/wiki/octothorpe)
 characters (`#`, often referred to as "pound signs")
 are used to mark the warning output for later consumption by
-result display commands (e.g.
+result display commands (i.e.
 [`tabular`](https://pkg.go.dev/github.com/madkins23/go-slog/cmd/tabular) and
 [`server`](https://pkg.go.dev/github.com/madkins23/go-slog/cmd/server)).
 
@@ -149,9 +137,9 @@ Benchmark tests can live in any repository,
 though it may not make as much sense to run benchmarks for a single handler.
 Handler authors may want to do this when making changes to the code.
 
-:construction: **TBD** :construction:
-
-* Build a `Creator` object
+* Build an appropriate `Creator` object  
+  When testing a single handler it will be necessary to point to the local handler code,
+  whereas the provided `Creator` object within `go-slog` will point to released code.
 * Build a Benchmark test function
 * Run the benchmark tests
 * Process the data for consumption using
@@ -165,10 +153,9 @@ Handler authors may want to do this when making changes to the code.
   is not included in [`pkg.go.dev`](https://pkg.go.dev/github.com/madkins23/go-slog/bench)
 * Benchmark tests only operate against the final call (e.g. `Info()`).
   The initial creation of a `slog.Logger` object,
-  which may include the use of `Handler.WithAttrs()` and/or
-  `Handler.WithGroup()` calls is not measured
-  as it is generally an initialization step and (in theory) only called once,
-  whereas the logging calls are done many times.
+  which may include the use of `Handler.WithAttrs()` and/or `Handler.WithGroup()` calls,
+  is not measured as it is generally an initialization step and (in theory) only called once,
+  whereas the logging calls are executed many times.
 
 ### `TestMain`
 
@@ -191,7 +178,7 @@ If multiple handler tests are in the same directory:
 * It will be necessary to move the `TestMain()` definition to a separate file,
   such as the [`bench/main_test.go`](main_test.go).
 * An addition listing of which handlers throw each warning
-  will be added after the normal output:
+  will be added after the normal output.
 
 ## Creators
 

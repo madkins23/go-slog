@@ -8,18 +8,17 @@ See the [source](https://github.com/madkins23/go-slog)
 or [documentation](https://pkg.go.dev/github.com/madkins23/go-slog)
 for more detailed documentation.
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/madkins23/go-slog)](https://goreportcard.com/report/github.com/madkins23/go-slog)
-![GitHub](https://img.shields.io/github/license/madkins23/go-slog)
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/madkins23/go-slog)
 [![Go Reference](https://pkg.go.dev/badge/github.com/madkins23/go-slog.svg)](https://pkg.go.dev/github.com/madkins23/go-slog)
-[![Go Documentation](https://godocs.io/github.com/madkins23/go-slog?status.svg)](https://godocs.io/github.com/madkins23/go-slog)
+![GitHub](https://img.shields.io/github/license/madkins23/go-slog)
+[![Go Report Card](https://goreportcard.com/badge/github.com/madkins23/go-slog)](https://goreportcard.com/report/github.com/madkins23/go-slog)
 
 ## Repository Contents
 
 * [Test harness for benchmarking `slog` handler performance](#handler-benchmarks)
 * [Test harness for verifying `slog` handler functionality](#handler-verification)
-* Web Server that processes output of previous two steps and provides access to result.
-* Static copies of server pages provided via [GitHub Pages](https://pages.github.com/).
+* [Web Server](#web-server) that processes output of previous two steps and provides access to result.
+* [Static copies of server pages](#generating-github-pages) provided via [GitHub Pages](https://pages.github.com/).
 * [Functions for use with `slog.HandlerOptions.ReplaceAttr`](#replace-attributes-functions)
 * [Utility to redirect internal `gin` logging to `slog`](#gin-integration)
 * [Demo Handlers](#demo-handlers)
@@ -31,15 +30,16 @@ Benchmarks of `slog` handlers can be done by creating
 simple `_test.go` files that utilize the `bench/test.SlogBenchmarkSuite`
 located in this repository.
 Usage details for this facility are provided in
-the [`README`](bench/README.m4) file located in the `bench` package directory.
+the [`README`](https://pkg.go.dev/github.com/madkins23/go-slog/bench#section-readme) file
+located in the [`bench`](bench) package directory.
 
 Benchmarks are intended to compare multiple handlers.
 This repository is configured to test all known, functional `slog` handlers that generate JSON.
 
 The benchmark data generated can be processed by two applications:
-* [`tabular`](cmd/tabular/tabular.go)  
+* [`tabular`](https://pkg.go.dev/github.com/madkins23/go-slog/cmd/tabular#section-readme)  
   generates a set of tables, each of which compares handlers for a given benchmark test.
-* [`server`](cmd/server/server.go)  
+* [`server`](https://pkg.go.dev/github.com/madkins23/go-slog/cmd/server#section-readme)  
   runs a simple web server showing the same tables plus bar charts and
   handler verification warnings.
 
@@ -49,8 +49,8 @@ Verification of `slog` handlers can be done by creating
 simple `_test.go` files that utilize the `verify/test.SlogTestSuite`
 located in this repository.
 Usage details for this facility are provided in
-the [`README`](verify/README.md) file
-located in the [`verify`](https://pkg.go.dev/github.com/madkins23/go-slog@v0.7.1-alpha-gin/verify) package directory.
+the [`README`](https://pkg.go.dev/github.com/madkins23/go-slog/verify#section-readme) file
+located in the [`verify`](verify) package directory.
 
 Verification testing is intended to test a single handler or to compare multiple handlers.
 This repository is configured to test all known, functional `slog` handlers that generate JSON.
@@ -71,12 +71,13 @@ The [`cmd/server`](https://pkg.go.dev/github.com/madkins23/go-slog/cmd/server)
 application is intended to process the benchmark and verification output and
 display it on a series of web pages.
 The pages display:
-* handler data: benchmarks and warnings
+* handler data:  benchmarks and warnings
 * bench test data: benchmarks and warnings
 * verification test data: warnings
 * warning definitions and coverage
 
-The benchmark data is displayed as a table (similar to `cmd/tabular`) and
+The benchmark data is displayed as a table
+(similar to [`cmd/tabular`](https://pkg.go.dev/github.com/madkins23/go-slog/cmd/tabular#section-readme)) and
 as a series of bar charts comparing tests for a handler or handlers for a test.
 
 ### Generating GitHub Pages
@@ -86,6 +87,7 @@ GitHub [Actions](https://docs.github.com/en/actions) and
 [Pages](https://pages.github.com/).
 The GitHub Action:
 
+* updates libraries used by this repository
 * builds and runs:
   * handler benchmarks,
   * handler verifications, and
@@ -97,33 +99,28 @@ The pages in the `docs` subdirectory are then
 
 ## Replace Attributes Functions
 
-A small collection of functions in the [`replace`](replace) package
+A small collection of functions in the
+[`replace`](https://pkg.go.dev/github.com/madkins23/go-slog/replace) package
 can be used with `slog.HandlerOptions.ReplaceAttr`.
-These functions were intended to "fix" some of the verification issues with various handlers.
-Unfortunately, other issues prevent these issues from being fixed:
-
-* Attributes can't be directly removed, they can only be made empty,
-  but some handlers tested don't remove empty attributes as they should
-  so this fix doesn't work for them.
-* Some handlers don't recognize `slog.HandlerOptions.ReplaceAttr`.
-* Those that do don't always recognize them for the basic fields
-  (`time`, `level`, `message`, and `source`).
+These functions are intended to "fix" some of the verification issues with various handlers.
 
 ## Gin Integration
 
 Package `gin` contains utilities for using `slog` with
 [`gin-gonic/gin`](https://github.com/gin-gonic/gin).
-In particular, this package provides `gin.Writer` which can be used to redirect Gin-internal logging.
+In particular, this package provides
+[`gin.NewWriter`](https://pkg.go.dev/github.com/madkins23/go-slog/gin#NewWriter)
+which can be used to redirect Gin-internal logging.
 
 ## Demo Handlers
 
-Several `slog` handlers are available.
+Several new `slog` handlers are available.
 
 ### `sloggy` Handler
 
-The `sloggy` package defines a feature-complete `slog.Handler` implementation.
+The `sloggy` package defines a feature-complete, green field `slog.Handler` implementation.
 This can be used as is, though it is admittedly slower than `slog.JSONHandler`
-(the other feature-complete implementation).
+(also feature-complete and generally used as the model for correct functionality).
 It might be useful as a starting point for other, better implementations.
 
 ### `flash` Handler

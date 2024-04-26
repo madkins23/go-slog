@@ -21,11 +21,6 @@ options specific to the `flash` handler.
 It is possible to get the simplest possible `flash.Handler` using `nil`
 for both `options` and `extras` as in the above example.
 
-An argument might be made that adding a second options value to this handler
-might conflict with the required support for `slog.HandlerOptions`.
-That argument is present in `flash.NewHandler` and fully supported by the handler.
-The additional features are kept separate in `flash.Extras`.
-
 See [documentation on `flash.Extras`](https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash#Extras)
 for comments on specific fields.
 

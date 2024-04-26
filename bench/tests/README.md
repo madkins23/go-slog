@@ -31,39 +31,17 @@ Supporting files:
 * `data.go`  
   A few data items that are used in multiple places in the test suite.
 * `warnings.go`  
-  Warnings specific to the benchmark suite.
+  Custom `internal/warning.Manager` for the benchmark test suite.
 
 Inherited:
 
-* [`test.WarningManager`](https://github.com/madkins23/go-slog/blob/main/internal/test/warnings.go)  
+* [`internal/warning.Manager`](https://github.com/madkins23/go-slog/blob/main/internal/warning/manager.go)  
   The code that manages benchmark warnings is currently located in the `internal/test` package.
 
 ## Benchmark Tests
 
-Benchmark tests are defined by the `Benchmark` structure.
-
-Each test _must_ have:
-* a pointer to `slog.HandlerOptions` to be used in generating the `slog.Logger`,
-* a pointer to a `BenchmarkFn` which executes the actual benchmark test,
-
-and _may_ have:
-* an optional pointer to a `HandlerFn` which is used to adjust
-  the `slog.Handler` object (if available) before constructing the `slog.Logger`, and
-* an optional pointer to a `VerifyFn` which is used to verify the test.
-
-For example:
-
-```Go
-func (suite *SlogBenchmarkSuite) BenchmarkSimple() *Benchmark {
-    return &Benchmark{
-        Options: infra.SimpleOptions(),
-        BenchmarkFn: func(logger *slog.Logger) {
-            logger.Info(message)
-        },
-        VerifyFn: matcher("Simple", expectedBasic()),
-    }
-}
-```
+Benchmark tests are defined by the
+[`Benchmark` structure](https://pkg.go.dev/github.com/madkins23/go-slog/bench/tests#Benchmark).
 
 ## Test Execution
 
@@ -85,6 +63,8 @@ The main part of the test harness is in the
     * The Go test harness is used to run the `Benchmark` test function
       in parallel in ever-larger batches until enough testing has been done.
     * The test harness emits a line of data with results of the test.
+
+[//]: # (Remove the following --- if github footnotes are ever implemented in pkg.go.dev per https://github.com/golang/go/issues/65922)
 
 ---
 

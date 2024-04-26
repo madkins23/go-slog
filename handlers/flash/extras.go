@@ -10,6 +10,10 @@ const (
 )
 
 // Extras defines extra options specific to a flash.Handler.
+//
+// Using these options it is possible to override some of the log/slog "standard" behavior.
+// This supports testing of slog.HandlerOptions.ReplaceAttr functions and may also
+// be used to replicate non-standard behavior in other handlers.
 type Extras struct {
 	// TimeFormat holds the format of the basic time field.
 	// If not set defaults to the value of flash.DefaultTimeFormat (= time.RFC3339Nano).

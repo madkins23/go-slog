@@ -17,16 +17,41 @@ import (
 
 // -----------------------------------------------------------------------------
 
+// BenchmarkFn defines a function that executes a benchmark test.
 type BenchmarkFn func(logger *slog.Logger)
+
+// HandlerFn defines a function that adjusts a slog.Handler prior to using it
+// to generate a slog.Logger.
+// The general use for this is to apply WithAttrs and/or WithGroup methods to the handler.
 type HandlerFn func(handler slog.Handler) slog.Handler
+
+// VerifyFn defines a function that is used to verify the functionality of a benchmark test.
+// Verification makes certain that there is actually something happening in the benchmark
+// (and that it is generating the expected output) to avoid having any zombie benchmarks
+// that don't actually do anything.
 type VerifyFn func(captured []byte, logMap map[string]any, manager *warning.Manager) error
 
+// Benchmark objects are used to define benchmark tests.
 type Benchmark struct {
-	Options     *slog.HandlerOptions
-	BenchmarkFn BenchmarkFn
-	HandlerFn   HandlerFn
-	VerifyFn    VerifyFn
-	DontCount   bool
+	// Options is a required pointer to a preloaded slog.HandlerOptions object (e.g. infra.SimpleOptions).
+	Options *slog.HandlerOptions
+
+	// BenchmarkFn is a required BenchmarkFn which executes the actual benchmark test.
+	BenchmarkFn
+
+	// HandlerFn is an optional HandlerFn used to adjust the slog.Handler object
+	// (if available from the infra.Creator for the benchmark) prior to using it to generate a slog.Logger object.
+	HandlerFn
+
+	// VerifyFn is an optional VerifyFn used to verify test log results.
+	VerifyFn
+
+	// DontCount is used to avoid double-checking the number of log lines written during the benchmark.
+	// Normally a single line is generated for each benchmark execution,
+	// so the log lines generated matches the number of executions of the BenchmarkFn,
+	// but in some cases multiple lines are generated per execution.
+	// This field is optional as its default value is false (number of lines/executions must match).
+	DontCount bool
 }
 
 // -----------------------------------------------------------------------------
