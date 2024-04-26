@@ -1,7 +1,7 @@
 /*
 server parses benchmark test and verification test output and displays it via web pages.
 
-Usage:
+# Usage
 
 	go run cmd/server/server.go [flags]
 
@@ -16,7 +16,24 @@ The flags are:
 	-verify string
 	    Load verification data from path (optional)
 
-See scripts/bench, scripts/verify and scripts/server for usage examples.
+The scripts/server script will run cmd/server,
+taking input from temporary files created by scripts/verify and scripts/bench.
+
+# Output
+
+	GOROOT=/snap/go/current #gosetup
+	GOPATH=/home/madkins23/go #gosetup
+	/snap/go/current/bin/go build -o /home/madkins23/.cache/JetBrains/GoLand2023.3/tmp/GoLand/___run_server /home/madkins23/work/go/src/github.com/madkins23/go-slog/cmd/server/server.go #gosetup
+	/home/madkins23/.cache/JetBrains/GoLand2023.3/tmp/GoLand/___run_server -bench=/tmp/go-slog/bench.txt -verify=/tmp/go-slog/verify.txt
+	12:31:18 WRN Creating an Engine instance with the Logger and Recovery middleware already attached.
+	12:31:18 WRN Running in "debug" mode. Switch to "release" mode in production.
+	 - using env:   export GIN_MODE=release
+	 - using code:  gin.SetMode(gin.ReleaseMode)
+	12:31:18 INF Web Server @ http://localhost:8080/go-slog
+	12:31:19 INF HasTest() test=Verify:KeyCase found=true
+	12:31:19 INF 200 |    5.012399ms |             ::1 | GET      "/go-slog/test/Verify:KeyCase.html"
+	12:31:19 INF 200 |      46.763µs |             ::1 | GET      "/go-slog/home.svg"
+	12:31:19 INF 200 |     169.933µs |             ::1 | GET      "/go-slog/style.css"
 */
 package main
 
@@ -46,7 +63,7 @@ import (
 	"github.com/madkins23/go-slog/internal/warning"
 )
 
-// Server reads output from `test -bench` and serves tables and charts via HTTP.
+// Server reads output from 'test -bench' and serves tables and charts via HTTP.
 // See scripts/server for usage example.
 
 type pageType string
