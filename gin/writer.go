@@ -22,6 +22,7 @@ const (
 // Options for NewWriter.
 type Options struct {
 	// Level sets the default log level for everything except Gin Traffic messages.
+	// If not set the level defaults to slog.LevelInfo.
 	Level slog.Leveler
 
 	// Traffic collects options related to parsing Gin traffic data records.
@@ -48,12 +49,12 @@ type Traffic struct {
 	Level slog.Leveler
 
 	// Message to be used when traffic data has been parsed from the original message.
-	// When no message is provided the default value of DefaultTrafficMessage is used.
+	// When no message is provided the default value of DefaultTrafficMessage (= "Gin Traffic") is used.
 	// Only used if Parse is true.
 	Message string
 
 	// Group provides a group name under which traffic data will be gathered.
-	// When no group name is provided the value of DefaultTrafficGroup is used.
+	// When no group name is provided the value of DefaultTrafficGroup (= "gin") is used.
 	// Only used if Parse is true and Embed is false.
 	Group string
 }

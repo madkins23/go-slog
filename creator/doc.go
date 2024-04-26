@@ -1,5 +1,5 @@
 // Package creator provides a common location for defining infra.Creator objects.
-// Each object is a factory for generating slog.Handler instances.
+// Each such object is a factory for generating slog.Handler instances.
 //
 // The author keeps thinking that Creator objects may have some external use, so they are public.
 // Declarations are kept in separate packages so that they can potentially be reused in
