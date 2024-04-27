@@ -1,11 +1,13 @@
 TODO
 
 * Discuss slog_madkins_replattr benchmark
-* Add summary data in markdown to Creator (or Handler?) object.
-  - Plumb this through into server.
+* Should sloggy and flash share the same test subdirectory?
+* document sloggy/composer.go, flash/composer.go?
 
 # Less Likely
 
+* Should handlers/flash/pools.go be moved to internal as a utility?
+  Maybe not bother until it's needed somewhere else.
 * Is there a way to figure out which handlers can use ReplaceAttr effectively
   based on which warnings they throw?  See Data section at end for some thoughts.
 * ReplAttr filters:

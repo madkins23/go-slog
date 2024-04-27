@@ -1,37 +1,11 @@
-# `flash` Handler
+# `flash` Handler Performance Edits
 
-The `flash` package provides a feature-complete,[^1]
-reasonably fast implementation of a `slog.Handler`.
-
-After the `sloggy` handler turned out to be slower than desired it was cloned and renamed `flash`.
-A [series of edits](#performance-edits) were then made to improve performance.
-
-### Example
-
-```go
-logger := slog.New(flash.NewHandler(os.Stdout, nil, nil))
-logger.Info("hello", "count", 3)
-```
-
-## Extras
-
-The `flash.NewHandler` function has an additional argument not found in `sloggy.NewHandler`.
-This argument points to an optional `flash.Extras` structure that provides
-options specific to the `flash` handler.
-It is possible to get the simplest possible `flash.Handler` using `nil`
-for both `options` and `extras` as in the above example.
-
-See [documentation on `flash.Extras`](https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash#Extras)
-for comments on specific fields.
-
-## Performance Edits
-
-A series of edits were made to `sloggy` to turn it into `flash`.
+A series of edits were made to `flash` after it was cloned from `sloggy`.
 Some care has been taken to document these edits as they may be
-representative of more general performance-enhancing principles in some cases.
+useful background for the implementation of other `slog.Handler` instances.
 Compare the `sloggy` code tree with the `flash` code tree to view the actual changes.
 
-### Remove `bytes.Buffer` Usage
+## Remove `bytes.Buffer` Usage
 
 Both `sloggy` and `flash` pre-format attributes added to loggers via `WithAttrs`.
 This means that information has to be formatted to two destinations:
@@ -70,7 +44,7 @@ Evaluation of this test over different time periods suggests:
 * ~24% decrease in bytes allocated
 * ~69% decrease in the number of allocations
 
-### Use Pools to Reduce Memory Allocations
+## Use Pools to Reduce Memory Allocations
 
 The `sloggy` implementation allocated various blocks of memory and allowed them to be garbage collected.
 Early profiling showed a memory allocation function taking a non-trivial amount of time,
@@ -106,7 +80,7 @@ Evaluation of this test over different time periods suggests:
 * ~97% decrease in bytes allocated
 * no change in the number of allocations (?!?)
 
-### Flatten Basic Field Array
+## Flatten Basic Field Array
 
 In `sloggy` it made sense to create a small array of `slog.Attr`,
 fill it with the "basic" fields (i.e. `time`, `level`, `msg`, and `source`),
@@ -139,7 +113,7 @@ Evaluation of this test over different time periods suggests that the final vers
 In addition, the number of allocations for a simple log record,
 which had been stubbornly `2` for `flash`, dropped to `1`.[^3]
 
-### Use Generalized `Stringer` Interface
+## Use Generalized `Stringer` Interface
 
 Several methods from `composer` that were redundant were removed because
 the special cases all implemented `Stringer` which was already covered.
@@ -149,7 +123,7 @@ but probably didn't affect the performance very much.
 No benchmark tests were done to compare the performance
 as no measurable performance improvement was expected.
 
-### Use Local Variable for Source Record
+## Use Local Variable for Source Record
 
 The `source` record represents the place in the code where the log record was generated.
 The data is logged in a group, so placing it in a record makes sense.
@@ -173,7 +147,7 @@ Evaluation of this test over different time periods suggests:
 * no change in bytes allocated
 * no change in the number of allocations
 
-### Call Before Visiting
+## Call Before Visiting
 
 A very small change was to check before invoking `slog.Value.Resolve`:
 ```go
@@ -208,7 +182,7 @@ Caveats:
   In all likelihood `LogValuer` attributes will be relatively rare and even when used
   only apply to a small percentage of all attributes, reducing this overhead.
 
-### Mutex vs Goroutine
+## Mutex vs Goroutine
 
 The Interwebs suggest that using a channels and a goroutine
 is better than using a `sync.Mutex` to guard an `io.Writer`.
@@ -216,7 +190,7 @@ Experimentation in this context suggests otherwise.
 Overall the goroutine version seems slower.
 Upping the channel buffer size made it closer but didn't fix it.
 
-### Escaping Strings
+## Escaping Strings
 
 After stumbling across code in `slog.JSONHandler` it became rather
 blindingly obvious that `flash` must also do some amount of string escaping.
@@ -239,7 +213,7 @@ Evaluation of this test over different time periods suggests:
 * no change in bytes allocated
 * no change in the number of allocations
 
-### Benchmark Tests
+## Benchmark Tests
 
 The benchmark tests mentioned above have nothing to do with the `bench` package.
 They were created specifically to verify performance edits.

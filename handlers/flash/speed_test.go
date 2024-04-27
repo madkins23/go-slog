@@ -10,9 +10,11 @@ import (
 	"time"
 
 	"github.com/madkins23/go-slog/handlers/sloggy"
-	"github.com/madkins23/go-slog/handlers/sloggy/test"
-	intTest "github.com/madkins23/go-slog/internal/test"
+	"github.com/madkins23/go-slog/internal/test"
 )
+
+// This file contains various benchmarks used while tweaking flash performance.
+// These benchmarks can be run again manually using the scripts/comp lines documented below.
 
 // -----------------------------------------------------------------------------
 // Compare sloggy.composer (using bytes.Buffer) with flash.composer (using byte array appends).
@@ -190,6 +192,25 @@ func BenchmarkSourceNewReuse(b *testing.B) {
 	})
 }
 
+// TODO: Not currently in use and may be removed later.
+//       See BenchmarkSourceLoad and BenchmarkSourceNewReuse.
+
+var sourcePool = newGenPool[source]()
+
+func newSource(pc uintptr) *source {
+	fs := runtime.CallersFrames([]uintptr{pc})
+	f, _ := fs.Next()
+	src := sourcePool.get()
+	src.File = f.File
+	src.Function = f.Function
+	src.Line = f.Line
+	return src
+}
+
+func reuseSource(src *source) {
+	sourcePool.put(src)
+}
+
 // -----------------------------------------------------------------------------
 // Compare using a cut-out before calling for attribute resolution.
 //
@@ -289,7 +310,7 @@ func BenchmarkEscapeAppendQuote(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			c := newComposer([]byte{}, true, nil, nil, fixExtras(nil))
-			for escStr := range intTest.EscapeCases {
+			for escStr := range test.EscapeCases {
 				c.buffer = strconv.AppendQuote(c.buffer, escStr)
 				c.addEscaped([]byte(escStr))
 				c.reset()
@@ -305,7 +326,7 @@ func BenchmarkEscapeAddEscaped(b *testing.B) {
 	b.RunParallel(func(pb *testing.PB) {
 		for pb.Next() {
 			c := newComposer([]byte{}, true, nil, nil, fixExtras(nil))
-			for escStr := range intTest.EscapeCases {
+			for escStr := range test.EscapeCases {
 				c.addEscaped([]byte(escStr))
 				c.reset()
 			}

@@ -9,8 +9,8 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/madkins23/go-slog/handlers/flash"
-	"github.com/madkins23/go-slog/handlers/sloggy/test"
 	"github.com/madkins23/go-slog/internal/json"
+	"github.com/madkins23/go-slog/internal/test"
 )
 
 const (

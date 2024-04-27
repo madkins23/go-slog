@@ -12,6 +12,7 @@ import (
 
 var _ slog.Handler = &Handler{}
 
+// Handler provides a fairly straightforward, feature-complete slog.Handler implementation.
 type Handler struct {
 	options        *slog.HandlerOptions
 	writer         io.Writer
@@ -20,15 +21,11 @@ type Handler struct {
 	groups         []string
 }
 
+// NewHandler returns a new sloggy handler with the specified output writer and slog.HandlerOptions.
+// If the options argument is nil it will be set to a level of slog.LevelInfo and nothing else.
 func NewHandler(writer io.Writer, options *slog.HandlerOptions) *Handler {
-	if options == nil {
-		options = &slog.HandlerOptions{}
-	}
-	if options.Level == nil {
-		options.Level = slog.LevelInfo
-	}
 	hdlr := &Handler{
-		options: options,
+		options: fixOptions(options),
 		writer:  writer,
 		mutex:   &sync.Mutex{},
 	}
@@ -174,3 +171,15 @@ func (h *Handler) WithGroup(name string) slog.Handler {
 }
 
 // -----------------------------------------------------------------------------
+
+// fixOptions makes certain that a slog.HandlerOptions object has been properly created and
+// configured with default values.
+func fixOptions(options *slog.HandlerOptions) *slog.HandlerOptions {
+	if options == nil {
+		options = &slog.HandlerOptions{}
+	}
+	if options.Level == nil {
+		options.Level = slog.LevelInfo
+	}
+	return options
+}

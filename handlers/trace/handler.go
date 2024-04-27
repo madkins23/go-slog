@@ -10,7 +10,8 @@ import (
 var _ slog.Handler = &Handler{}
 
 // Handler implements a simple slog.Handler that logs method calls to the handler
-// that are part of the slog.Handler interface definition. It doesn't do anything else.
+// that are part of the slog.Handler interface definition to STDOUT and then loses them.
+// There is no log output to any io.Writer or other destination.
 // Instantiate an object of this type and use it to make a slog.Logger.
 // Log messages to that logger will dump lines of text representing Handler calls.
 type Handler struct {
@@ -18,6 +19,8 @@ type Handler struct {
 }
 
 // NewHandler returns a new trace.Handler.
+// Provide a non-empty string for beginning of line indents
+// as well as WithAttrs and WithGroup indents.
 func NewHandler(indent string) *Handler {
 	return &Handler{
 		indent: indent,

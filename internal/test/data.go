@@ -9,6 +9,10 @@ import (
 	"github.com/madkins23/go-slog/infra"
 )
 
+const (
+	Message = "This is a message. No, really!"
+)
+
 var (
 	anything = []any{"alpha", "omega"}
 	duration = time.Minute + 3*time.Second + 14*time.Millisecond
@@ -16,7 +20,6 @@ var (
 	ipNet    = &net.IPNet{IP: ip, Mask: []byte{0xFF, 0xFF, 0xFF, 0x80}}
 	Level    = slog.LevelInfo
 	mac, _   = net.ParseMAC("00:00:5e:00:53:01") // Hopefully no errors here.
-	Message  = "This is a message. No, really!"
 	Now      = time.Now()
 )
 

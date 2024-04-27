@@ -16,6 +16,7 @@ const lenSuffix = 32
 
 var _ slog.Handler = &Handler{}
 
+// Handler provides a feature-complete, performant slog.Handler implementation.
 type Handler struct {
 	options        *slog.HandlerOptions
 	extras         *Extras
@@ -25,6 +26,9 @@ type Handler struct {
 	groups         []string
 }
 
+// NewHandler returns a new sloggy handler with the specified output writer and slog.HandlerOptions.
+// If the options argument is nil it will be set to a level of slog.LevelInfo and nothing else.
+// If the extras argument is nil it will be set to defaults that match slog.JSONHandler.
 func NewHandler(writer io.Writer, options *slog.HandlerOptions, extras *Extras) *Handler {
 	hdlr := &Handler{
 		options: fixOptions(options),

@@ -12,12 +12,8 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/madkins23/go-slog/handlers/sloggy/test"
 	"github.com/madkins23/go-slog/infra"
-)
-
-const (
-	message = "This is a message. No, really!"
+	"github.com/madkins23/go-slog/internal/test"
 )
 
 // -----------------------------------------------------------------------------
@@ -86,16 +82,16 @@ func (suite *HandlerTestSuite) TestEnabled() {
 func (suite *HandlerTestSuite) TestBasicAttributes() {
 	hdlr := suite.newHandler(nil)
 	suite.Assert().NoError(hdlr.Handle(context.Background(),
-		slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)))
+		slog.NewRecord(time.Now(), slog.LevelInfo, test.Message, 0)))
 	logMap := suite.logMap()
 	suite.Assert().IsType("string", logMap[slog.TimeKey])
 	suite.Require().Equal(slog.LevelInfo.String(), logMap[slog.LevelKey])
-	suite.Require().Equal(message, logMap[slog.MessageKey])
+	suite.Require().Equal(test.Message, logMap[slog.MessageKey])
 }
 
 func (suite *HandlerTestSuite) TestAttributes() {
 	hdlr := suite.newHandler(nil)
-	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)
+	record := slog.NewRecord(time.Now(), slog.LevelInfo, test.Message, 0)
 	record.AddAttrs(test.Attributes...)
 	suite.Assert().NoError(hdlr.Handle(context.Background(), record))
 	logMap := suite.logMap()
@@ -112,7 +108,7 @@ func (suite *HandlerTestSuite) TestWithAttrs() {
 			slog.String("make", "Ford"),
 			infra.EmptyAttr(),
 			slog.Int("year", 1957)})
-	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)
+	record := slog.NewRecord(time.Now(), slog.LevelInfo, test.Message, 0)
 	suite.Assert().NoError(hdlr.Handle(context.Background(), record))
 	logMap := suite.logMap()
 	suite.Assert().Len(logMap, 5)
@@ -137,7 +133,7 @@ func (suite *HandlerTestSuite) TestWithAttrs() {
 
 func (suite *HandlerTestSuite) TestWithGroup() {
 	hdlr := suite.newHandler(nil).WithGroup("group")
-	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)
+	record := slog.NewRecord(time.Now(), slog.LevelInfo, test.Message, 0)
 	record.AddAttrs(
 		infra.EmptyAttr(),
 		slog.String("Goober", "Snoofus"),
@@ -181,7 +177,7 @@ func (suite *HandlerTestSuite) TestWithGroupAttr() {
 		WithGroup("group").
 		WithAttrs([]slog.Attr{slog.Int("second", 2), slog.String("third", "3")}).
 		WithGroup("subGroup")
-	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)
+	record := slog.NewRecord(time.Now(), slog.LevelInfo, test.Message, 0)
 	record.AddAttrs(
 		slog.String("fourth", "forth"),
 		slog.Float64("pi", math.Pi))
@@ -212,7 +208,7 @@ func (suite *HandlerTestSuite) TestWithGroupAttrSubEmpty() {
 		WithGroup("group").
 		WithAttrs([]slog.Attr{slog.Int("second", 2), slog.String("third", "3")}).
 		WithGroup("subGroup")
-	record := slog.NewRecord(time.Now(), slog.LevelInfo, message, 0)
+	record := slog.NewRecord(time.Now(), slog.LevelInfo, test.Message, 0)
 	suite.Assert().NoError(hdlr.Handle(context.Background(), record))
 	logMap := suite.logMap()
 	suite.Assert().Len(logMap, 5)
@@ -225,4 +221,16 @@ func (suite *HandlerTestSuite) TestWithGroupAttrSubEmpty() {
 	suite.Assert().Len(group, 2)
 	suite.Assert().Equal(float64(2), group["second"])
 	suite.Assert().Equal("3", group["third"])
+}
+
+// -----------------------------------------------------------------------------
+
+func ExampleHandler() {
+	var buff bytes.Buffer
+	logger := slog.New(NewHandler(&buff, nil))
+	logger.Info("hello", "count", math.Pi)
+	var logMap map[string]any
+	_ = json.Unmarshal(buff.Bytes(), &logMap)
+	fmt.Printf("%s %6.5f\n", logMap["msg"], logMap["count"].(float64))
+	// Output: hello 3.14159
 }

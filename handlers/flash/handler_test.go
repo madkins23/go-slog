@@ -12,8 +12,8 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"github.com/madkins23/go-slog/handlers/sloggy/test"
 	"github.com/madkins23/go-slog/infra"
+	"github.com/madkins23/go-slog/internal/test"
 )
 
 const (
@@ -256,4 +256,16 @@ func (suite *HandlerTestSuite) TestEscape() {
 		slog.NewRecord(test.Now, slog.LevelInfo, exampleUTF8, 0)))
 	logMap = suite.logMap()
 	suite.Assert().Equal(exampleUTF8, logMap["msg"])
+}
+
+// -----------------------------------------------------------------------------
+
+func ExampleHandler() {
+	var buff bytes.Buffer
+	logger := slog.New(NewHandler(&buff, nil, nil))
+	logger.Info("hello", "count", math.Pi)
+	var logMap map[string]any
+	_ = json.Unmarshal(buff.Bytes(), &logMap)
+	fmt.Printf("%s %6.5f\n", logMap["msg"], logMap["count"].(float64))
+	// Output: hello 3.14159
 }
