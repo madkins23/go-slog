@@ -254,6 +254,8 @@ Handlers that have been investigated and found wanting:
   * Doesn't support `slog.HandlerOptions` directly.
   * Configuring a default `slog.Level` per handler is difficult.
     * Negative integers are unsupported so levels must be "fixed" in use.
+    * Higher numbers are less important, whereas in `slog` lower numbers
+      (including negative numbers) are less important so everything must be reversed.
     * The `Enabled()` implementation uses both local level value and  
       the global `zerolog` level so the per-handler/logger level isn't truly local.
 
