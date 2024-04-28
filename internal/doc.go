@@ -1,2 +1,2 @@
-// Package internal contains various packages that
+// Package internal contains various private packages.
 package internal

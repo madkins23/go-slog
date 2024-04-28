@@ -14,6 +14,7 @@ type TestTag string
 
 var testTagNames = make(map[TestTag]string)
 
+// Name returns a name string calculated from the TestTag string and cached for reuse.
 func (tt TestTag) Name() string {
 	name, found := testTagNames[tt]
 	if !found {
@@ -43,6 +44,7 @@ type HandlerTag string
 
 var handlerTagNames = make(map[HandlerTag]string)
 
+// Name returns a name string calculated from the HandlerTag string and cached for reuse.
 func (ht HandlerTag) Name() string {
 	name, found := handlerTagNames[ht]
 	if !found {

@@ -34,6 +34,8 @@ var (
 // ParseWarningData parses warning data from the output of benchmark and verification testing.
 // The data will be loaded from os.Stdin unless the -bench=<path> flag is set
 // in which case the data will be loaded from the specified path.
+//
+// TODO: Refactor this method into a series of smaller ones?
 func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[string]HandlerTag) error {
 	var err error
 	if in == nil {

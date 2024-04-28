@@ -5,10 +5,11 @@ import (
 	"fmt"
 )
 
-// Setup parse both benchmark data and benchmark and verification warnings
+// Setup parses both benchmark data and benchmark and verification warnings
 // into the provided Benchmarks and Warnings objects.
 // These objects do the parsing with the proper order and arguments
 // and return any encountered error.
+// This function encapsulates the typical calling sequence for all data, simplifying setup.
 func Setup(bench *Benchmarks, warns *Warnings, scores Scores) error {
 	if err := bench.ParseBenchmarkData(nil); err != nil {
 		return fmt.Errorf("parse -bench data: %w", err)

@@ -22,7 +22,7 @@ type handlerData struct {
 	links   map[string]string
 }
 
-// Warnings encapsulates benchmark records by BenchmarkName and HandlerTag.
+// Warnings encapsulates benchmark records by TestTag and HandlerTag.
 type Warnings struct {
 	byTest      map[TestTag]*Levels
 	byHandler   map[HandlerTag]*Levels
@@ -33,7 +33,7 @@ type Warnings struct {
 	testNames   map[TestTag]string
 }
 
-func NewWarningData() *Warnings {
+func NewWarnings() *Warnings {
 	return &Warnings{
 		byTest:      make(map[TestTag]*Levels),
 		byHandler:   make(map[HandlerTag]*Levels),
@@ -45,20 +45,13 @@ func NewWarningData() *Warnings {
 	}
 }
 
-func (w *Warnings) HasTest(test TestTag) bool {
-	_, found := w.byTest[test]
-	return found
-}
-
+// HasHandler returns true if a handler is defined with the specified tag.
 func (w *Warnings) HasHandler(handler HandlerTag) bool {
 	_, found := w.byHandler[handler]
 	return found
 }
 
-func (w *Warnings) ForTest(test TestTag) *Levels {
-	return w.byTest[test]
-}
-
+// ForHandler returns warnings for the specified handler grouped by level.
 func (w *Warnings) ForHandler(handler HandlerTag) *Levels {
 	return w.byHandler[handler]
 }
@@ -73,6 +66,7 @@ func (w *Warnings) HandlerName(handler HandlerTag) string {
 	}
 }
 
+// HasHandlerSummary returns true if the specified handler has a summary text.
 func (w *Warnings) HasHandlerSummary(handler HandlerTag) bool {
 	if data, found := w.handlerData[handler]; found {
 		return found && data.summary != ""
@@ -80,14 +74,8 @@ func (w *Warnings) HasHandlerSummary(handler HandlerTag) bool {
 	return false
 }
 
-func (w *Warnings) HandlerSummary(handler HandlerTag) string {
-	if data, found := w.handlerData[handler]; found {
-		return data.summary
-	} else {
-		return ""
-	}
-}
-
+// HandlerSummaryHTML returns summary text for the specified handler
+// converted from Markdown to template.HTML.
 func (w *Warnings) HandlerSummaryHTML(handler HandlerTag) template.HTML {
 	if data, found := w.handlerData[handler]; found {
 		return markdown.TemplateHTML(data.summary, true)
@@ -96,6 +84,7 @@ func (w *Warnings) HandlerSummaryHTML(handler HandlerTag) template.HTML {
 	}
 }
 
+// HasHandlerLinks returns true if the specified handler has reference links.
 func (w *Warnings) HasHandlerLinks(handler HandlerTag) bool {
 	if data, found := w.handlerData[handler]; found {
 		return found && len(data.links) > 0
@@ -103,6 +92,7 @@ func (w *Warnings) HasHandlerLinks(handler HandlerTag) bool {
 	return false
 }
 
+// HandlerLinks returns handler reference links.
 func (w *Warnings) HandlerLinks(handler HandlerTag) map[string]string {
 	if data, found := w.handlerData[handler]; found {
 		return data.links
@@ -127,6 +117,17 @@ func (w *Warnings) HandlerTags() []HandlerTag {
 // HandlerWarningCount returns the number of the specified warning associated with the specified handler.
 func (w *Warnings) HandlerWarningCount(handler HandlerTag, warning *warning.Warning) uint {
 	return w.byWarning[warning.Name].count[handler]
+}
+
+// HasTest returns true if a test is defined with the specified tag.
+func (w *Warnings) HasTest(test TestTag) bool {
+	_, found := w.byTest[test]
+	return found
+}
+
+// ForTest returns warnings for the specified test grouped by level.
+func (w *Warnings) ForTest(test TestTag) *Levels {
+	return w.byTest[test]
 }
 
 // TestName returns the full name associated with a TestTag.
@@ -192,6 +193,11 @@ func (w *Warnings) findTest(test TestTag, level warning.Level, warningName strin
 	return levels.findLevel(level, warningName)
 }
 
+// FindWarning returns warning data for the specified warning name.
+// If there is no warning data for that name a new WarningData record is created and cached
+// which supports data collection during parsing.
+//
+// This method is public so that it can be used during template expansion in cmd/server.
 func (w *Warnings) FindWarning(name string) *WarningData {
 	data, found := w.byWarning[name]
 	if !found {
@@ -217,6 +223,10 @@ func (w *Warnings) getHandlerData(handler HandlerTag) *handlerData {
 
 // -----------------------------------------------------------------------------
 
+// WarningData collects handler and test records for a specific warning.
+//
+// This type is public so that it can be used during template expansion in cmd/server.
+// Methods for WarningData are largely public as well for the same reason.
 type WarningData struct {
 	count    map[HandlerTag]uint
 	hdlrMap  map[HandlerTag]bool

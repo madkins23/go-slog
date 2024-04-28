@@ -152,7 +152,7 @@ func main() {
 
 var (
 	bench     = data.NewBenchmarks()
-	warns     = data.NewWarningData()
+	warns     = data.NewWarnings()
 	score     = data.NewScoreKeeper()
 	pages     = []pageType{pageHome, pageTest, pageHandler, pageScores, pageWarnings, pageGuts, pageError}
 	templates map[pageType]*template.Template

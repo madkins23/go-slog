@@ -9,8 +9,8 @@ import (
 	"github.com/madkins23/go-slog/internal/warning"
 )
 
-var _ Scores = &ScoreDefault{}
-
+// Scores defines the interface for scoring objects.
+// This supports replacing the default scorekeeper with a better one.
 type Scores interface {
 	Initialize(bench *Benchmarks, warnings *Warnings) error
 	HandlerBenchScores(handler HandlerTag) *TestScores
@@ -24,17 +24,22 @@ type Scores interface {
 	// WeightWarningOrder unnecessary, use warnings.LevelOrder().
 }
 
+// NewScoreKeeper returns a default Scores object.
 func NewScoreKeeper() Scores {
 	return &ScoreDefault{}
 }
 
 // =============================================================================
 
+var _ Scores = &ScoreDefault{}
+
+// ScoreDefault is the default scoring object.
 type ScoreDefault struct {
 	benchScores map[HandlerTag]*TestScores
 	warnScores  map[HandlerTag]float64
 }
 
+// Initialize a ScoreDefault object.
 func (sd *ScoreDefault) Initialize(bench *Benchmarks, warnings *Warnings) error {
 	sd.initBenchmarkScores(bench)
 	sd.initWarningScores(warnings)
@@ -44,6 +49,7 @@ func (sd *ScoreDefault) Initialize(bench *Benchmarks, warnings *Warnings) error 
 //go:embed scores/overview.md
 var overviewDoc string
 
+// DocOverview returns the scoring overview document converted from Markdown source to template.HTML.
 func (sd *ScoreDefault) DocOverview() template.HTML {
 	return markdown.TemplateHTML(overviewDoc, false)
 }
@@ -51,7 +57,7 @@ func (sd *ScoreDefault) DocOverview() template.HTML {
 //go:embed scores/benchmarks.md
 var benchDoc string
 
-// DocBench returns HTML documentation on the benchmark scoring algorithm converted from markdown source.
+// DocBench returns HTML documentation on the benchmark scoring algorithm converted from Markdown source to template.HTML.
 func (sd *ScoreDefault) DocBench() template.HTML {
 	return markdown.TemplateHTML(benchDoc, false)
 }
@@ -59,7 +65,7 @@ func (sd *ScoreDefault) DocBench() template.HTML {
 //go:embed scores/warnings.md
 var warningDoc string
 
-// DocWarning returns HTML documentation on the warning scoring algorithm converted from markdown source.
+// DocWarning returns HTML documentation on the warning scoring algorithm converted from markdown source to template.HTML.
 func (sd *ScoreDefault) DocWarning() template.HTML {
 	return markdown.TemplateHTML(warningDoc, false)
 }

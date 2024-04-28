@@ -27,10 +27,12 @@ type TestRecord struct {
 	TbPerSec       float64
 }
 
+// IsEmpty returns true if the TestRecord has no data.
 func (tr *TestRecord) IsEmpty() bool {
 	return tr.Runs == 0
 }
 
+// ItemValue returns the numeric value for the specified item.
 func (tr *TestRecord) ItemValue(item BenchItems) float64 {
 	switch item {
 	case Runs:
@@ -55,7 +57,7 @@ func (tr *TestRecord) ItemValue(item BenchItems) float64 {
 
 // -----------------------------------------------------------------------------
 
-// Benchmarks encapsulates benchmark records by BenchmarkName and HandlerTag.
+// Benchmarks encapsulates benchmark records by TestTag and HandlerTag.
 type Benchmarks struct {
 	byTest       map[TestTag]HandlerRecords
 	byHandler    map[HandlerTag]TestRecords
@@ -80,18 +82,20 @@ func NewBenchmarks() *Benchmarks {
 
 // -----------------------------------------------------------------------------
 
+// HasHandler returns true if a handler is defined with the specified tag.
 func (b *Benchmarks) HasHandler(tag HandlerTag) bool {
 	_, found := b.byHandler[tag]
 	return found
 }
 
+// HasTest returns true if a test is defined with the specified tag.
 func (b *Benchmarks) HasTest(tag TestTag) bool {
 	_, found := b.byTest[tag]
 	return found
 }
 
-// HandlerLookup returns a map from handler names to handler tags.
-// Capture relationship between handler name in benchmark function vs. Creator.
+// HandlerLookup returns a map from handler names to handler tags,
+// capturing the relationship between handler name in benchmark function vs. Creator.
 // The result will be passed into Warnings.ParseWarningData(),
 // where it will be used to convert handler names to tags.
 // This makes all handler tags the same between Benchmarks and Warnings.

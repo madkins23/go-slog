@@ -3,6 +3,7 @@ package data
 // -----------------------------------------------------------------------------
 
 // BenchItems are specific pieces of benchmark data available per test.
+// The items are associated with both long and short display names.
 //
 //go:generate go run github.com/dmarkham/enumer -type=BenchItems
 type BenchItems uint
@@ -19,6 +20,7 @@ const (
 
 // -----------------------------------------------------------------------------
 
+// testItemData associates BenchItems with both long and short display names.
 var testItemData = map[BenchItems]struct {
 	short string
 	long  string
@@ -55,10 +57,12 @@ var testItemData = map[BenchItems]struct {
 
 // -----------------------------------------------------------------------------
 
+// ShortName returns the short display name for a benchmark item.
 func (item BenchItems) ShortName() string {
 	return testItemData[item].short
 }
 
+// LongName returns the long display name for a benchmark item.
 func (item BenchItems) LongName() string {
 	return testItemData[item].long
 }
