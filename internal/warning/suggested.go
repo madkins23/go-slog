@@ -22,7 +22,7 @@ var (
 
 	GroupWithTop = NewWarning(LevelSuggested, "GroupWithTop",
 		"WithGroup().With() ends up at top level of log record instead of in the group", `
-		Almost all handlers treat ^logger.WithGroup(<name>).With(<attrs>) as writing ^<attrs>^ to the group ^<name>^.
+		Almost all handlers treat ^logger.WithGroup(<name>).With(<attrs>)^ as writing ^<attrs>^ to the group ^<name>^.
 		Some handlers write ^<attrs>^ to the top level of the log record.`)
 
 	GroupDuration = NewWarning(LevelSuggested, "GroupDuration", "", `

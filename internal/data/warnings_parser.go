@@ -129,7 +129,7 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 					}
 					if lookup != nil {
 						if h, found := lookup[hdlrName]; found {
-							if w.getHandlerData(h).name != hdlrName {
+							if w.getHandlerData(h).name != "" && w.getHandlerData(h).name != hdlrName {
 								slog.Warn("Handler name mismatch", "current", hdlrName, "previous", w.getHandlerData(h).name)
 							}
 							w.getHandlerData(h).summary = strings.Join(hdlrSummary, "\n")
