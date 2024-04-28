@@ -22,7 +22,7 @@ func init() {
 }
 
 // Printer returns a pre-configured message.Printer.
-// The printer will execute format statements that fix numbers for the chosen language.
+// The printer can execute format statements that fix numbers for the chosen language.
 func Printer() *message.Printer {
 	return languagePrinter
 }
