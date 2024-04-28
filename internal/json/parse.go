@@ -12,7 +12,7 @@ func Expect(asJSON string) map[string]any {
 	if result, err := Parse([]byte(asJSON)); err == nil {
 		return result
 	} else {
-		return map[string]any{"error": fmt.Errorf("unmarshal json: %w", err)}
+		return map[string]any{"error": err.Error()}
 	}
 }
 
