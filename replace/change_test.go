@@ -89,7 +89,8 @@ func TestChanges(t *testing.T) {
 		case slog.LevelError:
 			log.Error(test.Message)
 		}
-		logMap := json.Parse(buf.String())
+		logMap, err := json.Parse(buf.Bytes())
+		assert.NoError(t, err)
 		_, found := logMap["When"]
 		assert.False(t, found)
 		_, found = logMap[slog.TimeKey]

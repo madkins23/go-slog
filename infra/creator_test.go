@@ -22,7 +22,11 @@ func ExampleCreator() {
 	var buffer bytes.Buffer
 	logger := creator.NewLogger(&buffer, nil)
 	logger.Info("message", "pi", math.Pi)
-	logMap := json.Parse(buffer.String())
-	fmt.Printf("msg:%s pi:%7.5f\n", logMap[slog.MessageKey], logMap["pi"])
+	logMap, err := json.Parse(buffer.Bytes())
+	if err == nil {
+		fmt.Printf("msg:%s pi:%7.5f\n", logMap[slog.MessageKey], logMap["pi"])
+	} else {
+		fmt.Printf("!!! %s\n", err.Error())
+	}
 	// Output: msg:message pi:3.14159
 }

@@ -1,10 +1,7 @@
 TODO
 
 * Discuss slog_madkins_replattr benchmark somewhere
-* Adjust internal/json.Parse:
-  - return error value
-  - separate calls for []byte and string
-* Use json.ParseString and reflect.DeepEqual()/assert.Equal() more often
+* Use json.Expect and reflect.DeepEqual()/assert.Equal() more often
 * Creator could have:
   - pre-logMap filters to clean up bad log formats
   - post-logMap filters to clean up logMap after parsing JSON

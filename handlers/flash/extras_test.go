@@ -51,7 +51,8 @@ func TestFlashExtras(t *testing.T) {
 		case slog.LevelError:
 			log.Error(test.Message)
 		}
-		logMap := json.Parse(buf.String())
+		logMap, err := json.Parse(buf.Bytes())
+		assert.NoError(t, err)
 		_, found := logMap[slog.TimeKey]
 		assert.False(t, found)
 		whenVal, found := logMap["When"]

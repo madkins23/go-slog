@@ -361,7 +361,7 @@ func (suite *SlogTestSuite) TestReplaceAttrFnChangeKey() {
 }
 
 // TestReplaceAttrFnMulti tests the replace.Multiple ReplaceAttr function
-// as well as the replace.TopCheck and Replace.Current functions.
+// as well as the TopCheck and Replace.Current functions.
 func (suite *SlogTestSuite) TestReplaceAttrFnMulti() {
 	logger := suite.Logger(infra.ReplaceAttrOptions(replace.Multiple(
 		replace.RemoveKey(slog.TimeKey, false, replace.TopCheck),
@@ -376,7 +376,7 @@ func (suite *SlogTestSuite) TestReplaceAttrFnMulti() {
 		WithGroup("oneMore").With("alpha", "omega", "gibbering", "lunatic", "phi", math.Phi).
 		Info(message)
 	logMap := suite.logMap()
-	expect := json.Parse(`
+	expect := json.Expect(`
 		{
 			"level": "INFO",
 			"msg": "This is a message",

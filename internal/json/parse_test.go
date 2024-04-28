@@ -7,7 +7,7 @@ import (
 )
 
 func TestParse(t *testing.T) {
-	x := Parse(`
+	x := Expect(`
 		{
 			"alpha": 23,
 			"bravo": "Cheers!"
