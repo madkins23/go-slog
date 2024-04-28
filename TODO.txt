@@ -1,6 +1,21 @@
 TODO
 
 * Discuss slog_madkins_replattr benchmark somewhere
+* Adjust internal/json.Parse:
+  - return error value
+  - separate calls for []byte and string
+* Use json.ParseString and reflect.DeepEqual()/assert.Equal() more often
+* Creator could have:
+  - pre-logMap filters to clean up bad log formats
+  - post-logMap filters to clean up logMap after parsing JSON
+  - feeder fn to load bytes.Buffer with JSON for non-standard logging
+  ? should this go into some bytes.Buffer/map[string]any result object?
+    - NewResultObject(preFilters, postFilters) -> *ResultObject
+    - ro.Writer() -> io.Writer
+    - ro.Push(b []byte) -> error // instead of Writer()
+    - ro.PreFilter() -> error    // pre-logMap filters
+    - ro.LogMap() -> (map[string]any, error)
+    - ro.PostFilter() -> error   // post-logMap filters
 
 # Less Likely
 
