@@ -120,8 +120,8 @@ the difficulty of parsing various output formats argues against it.[^1]
 ## Creators
 
 `Creator` objects are factories for generating new `slog.Logger` objects.
-Detailed documentation on this is provided in the [`README`](../infra/README.md)
-for the [`infra` package](../infra).
+Detailed documentation on defining and using `Creator` objects is provided
+in the [`infra` package](https://pkg.go.dev/github.com/madkins23/go-slog/infra).
 
 ## Warnings
 

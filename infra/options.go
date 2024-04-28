@@ -4,21 +4,21 @@ import (
 	"log/slog"
 )
 
-// SimpleOptions returns a default, simple, slog.HandlerOptions.
+// SimpleOptions returns a default, simple, slog.HandlerOptions object.
 func SimpleOptions() *slog.HandlerOptions {
 	return &slog.HandlerOptions{
 		Level: slog.LevelInfo,
 	}
 }
 
-// LevelOptions returns a slog.HandlerOptions with the specified level.
+// LevelOptions returns a slog.HandlerOptions object with the specified level.
 func LevelOptions(level slog.Leveler) *slog.HandlerOptions {
 	return &slog.HandlerOptions{
 		Level: level,
 	}
 }
 
-// SourceOptions returns a slog.HandlerOptions with the specified level
+// SourceOptions returns a slog.HandlerOptions object with the specified level
 // and the AddSource field set to true.
 func SourceOptions() *slog.HandlerOptions {
 	return &slog.HandlerOptions{

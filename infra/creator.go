@@ -13,7 +13,18 @@ type CreateLoggerFn func(w io.Writer, options *slog.HandlerOptions) *slog.Logger
 type CreateHandlerFn func(w io.Writer, options *slog.HandlerOptions) slog.Handler
 
 // A Creator object encapsulates the creation of new slog.Handler objects.
-// This includes both the name of the handler and a CreateLoggerFn.
+// This includes both the name of the handler and a CreateHandlerFn and/or CreateLoggerFn.
+// The reason for two functions is the possibility that a slog.Logger is available but a slog.Handler is not.
+// Creator factories can either slog.Handler or slog.Logger objects depending on configuration.
+// Most tests use slog.Logger objects, but a few tests require a slog.Handler.
+//
+//   - If only a CreateLoggerFn is provided the Creator.NewHandler method returns nil
+//     and the Creator.CanMakeHandler method returns false.
+//     Tests requiring handler creation use the latter method to skip the test.
+//   - If only a CreateHandlerFn is provided the Creator.NewHandler method
+//     uses that function to return a new handler and the Creator.NewLogger method
+//     also uses that function, then wraps the handler in `slog.New`.
+//   - If both functions are provided, they will each be used for the appropriate method.
 type Creator struct {
 	name      string
 	summary   string
@@ -25,7 +36,14 @@ type Creator struct {
 type Links map[string]string
 
 // NewCreator returns a new Creator object for the specified name and CreateLoggerFn.
+//   - The name argument is required and must not be the empty string.
+//   - At least one of the handlerFn or loggerFn arguments must be non-nil. The handlerFn argument is preferred.
+//   - The summary and links arguments are desired but not required as they only show up on cmd/server pages.
 func NewCreator(name string, handlerFn CreateHandlerFn, loggerFn CreateLoggerFn, summary string, links Links) Creator {
+	if name == "" {
+		slog.Error("Creator must have a non-empty name")
+		os.Exit(1)
+	}
 	if handlerFn == nil && loggerFn == nil {
 		slog.Error("Creator must have either handlerFn or loggerFn")
 		os.Exit(1)
