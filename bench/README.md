@@ -50,10 +50,11 @@ Finally, the suite is executed via its `Run` method.
 
 In short:
 * The `BenchmarkXxx` function is executed by the [Go test harness](https://pkg.go.dev/testing).
-* The test function configures a `SlogTestSuite` using an `infra.Creator` factory object.
+* The test function configures a `SlogBenchmarkSuite` using an `infra.Creator` factory object.
 * The test function executes the test suite via its `Run` method.
 
 More examples are available in this package.
+
 In addition, there is a [`main_test.go`](https://github.com/madkins23/go-slog/blob/main/bench/main_test.go) file which exists to provide
 a global resource to the other tests ([described below](#testmain)).
 
@@ -76,8 +77,7 @@ such as the commands
 
 On an operating system that supports `bash` scripts you can use
 the [`scripts/bench`](https://github.com/madkins23/go-slog/blob/main/scripts/bench) script which is configured
-with appropriate post-processing via
-[`scripts/tabulate`](https://github.com/madkins23/go-slog/blob/main/scripts/tabulate).
+with appropriate post-processing via `scripts/tabulate`.
 
 #### Test Flags
 
@@ -94,7 +94,7 @@ The goal of these tests is to make sure that the benchmark is actually testing s
 
 The supporting tests are not the same as normal Go test harness tests:
 * they don't use the standard test assertions and
-* they report issues via the [`WarningManager`](../internal/warning/manager.go).
+* they report issues via the [`WarningManager`](https://pkg.go.dev/github.com/madkins23/go-slog/internal/warning#Manager).
 
 When running benchmarks the warning data from supporting tests is specified at the end of the output (as of 2024-02-22):
 ```
@@ -146,16 +146,25 @@ Handler authors may want to do this when making changes to the code.
   - tabular generates text output in tabular form
   - server provides tabular and chart data plus warnings
 
+## Creators
+
+`Creator` objects are factories for generating new `slog.Logger` objects.
+Detailed documentation on defining and using `Creator` objects is provided in
+the [`infra` package](https://pkg.go.dev/github.com/madkins23/go-slog/infra#readme-creator).
+
 ## Caveats
 
 * Actual testing is done by calling through a `slog.Logger` object.
-* Documentation for functions in `_test.go` files in this directory
-  is not included in [`pkg.go.dev`](https://pkg.go.dev/github.com/madkins23/go-slog/bench)
 * Benchmark tests only operate against the final call (e.g. `Info()`).
   The initial creation of a `slog.Logger` object,
   which may include the use of `Handler.WithAttrs()` and/or `Handler.WithGroup()` calls,
   is not measured as it is generally an initialization step and (in theory) only called once,
   whereas the logging calls are executed many times.
+* Text and console handlers don't have a consistent format.
+  While it might be useful to test those handlers as well,
+  the difficulty of parsing various output formats argues against it.[^1]
+* The `-useWarnings` flag tends to result in the results being buried in the normal `go test` output.
+  This can be fixed by implementing a global [`TestMain()`](#testmain) function.
 
 ### `TestMain`
 
@@ -179,9 +188,3 @@ If multiple handler tests are in the same directory:
   such as the [`bench/main_test.go`](main_test.go).
 * An addition listing of which handlers throw each warning
   will be added after the normal output.
-
-## Creators
-
-`Creator` objects are factories for generating new `slog.Logger` objects.
-Detailed documentation on defining and using `Creator` objects is provided
-in the [`infra` package](https://pkg.go.dev/github.com/madkins23/go-slog/infra).

@@ -3,7 +3,7 @@
 The `verify` package provides various `log/slog` (henceforth just `slog`) handler test suites.
 This document discusses simple usage details.
 Technical details for the test suite are provided in
-the [`README.md`](tests/README.md) file in
+the [`README.md`](https://pkg.go.dev/github.com/madkins23/go-slog/verify/tests#section-readme) file in
 the [`tests`](tests) package subdirectory.
 
 There are two main benefits to using `slog`:
@@ -48,37 +48,30 @@ contain a function with a name of the pattern `TestVerify<tag_name>`
 where `<tag_name>` will likely be something like `PhsymZerolog` or `SlogJSON`.
 
 The first line in `TestVerifySlogJSON` creates a new test suite.
-The argument to the `NewSlogTestSuite` function is an [`infra.Creator`](../infra/creator.go) object,
+The argument to the `NewSlogTestSuite` function is an
+[`infra.Creator`](https://pkg.go.dev/github.com/madkins23/go-slog/infra#Creator) object,
 which is responsible for creating new `slog.Logger`
 (and optionally `slog.Handler`) objects during testing.
-In this case an appropriate factory is created by the `Creator` function
-that is already defined in the `slogjson` package.
+
+In this case an appropriate factory is created by the
+pre-existing `slogjson.Creator` function.
 In order to test a new handler instance
 (one that has not been tested in this repository)
-it is necessary to [create a new `infra.Creator`](#creators) for it.
+it is necessary to [create a new `infra.Creator`](https://pkg.go.dev/github.com/madkins23/go-slog/infra#readme-creator) for it.
 Existing examples can be found in the `creator` package.
 
 Once the test suite exists the second line configures a warning to be tracked.
 The meaning of `WarnOnly` is to only warn about an error condition, not fail the test.
 The warning mechanism [documented below](#warnings) describes this in more detail.
 
-Finally the suite is run via its `Run` method.
+Finally, the suite is run via its `Run` method.
+
 In short:
 * The `TestXxxxxx` function is executed by the [Go test harness](https://pkg.go.dev/testing).
 * The test function configures a `SlogTestSuite` using an `infra.Creator` factory object.
 * The test function executes the test suite via its `Run` method.
 
-### More Examples
-
-This package contains several examples, including the one above:
-* [`slog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_test.go)
-  Verifies the [standard `slog.JSONHandler`](https://pkg.go.dev/log/slog@master#JSONHandler).
-* [`slog_phsym_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_phsym_zerolog_test.go)
-  Verifies the [`phsym zeroslog` handler](https://github.com/phsym/zeroslog/tree/2bf737d6422a5de048845cd3bdd2db6363555eb4).
-* [`slog_samber_zap_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
-  Verifies the [`samber slog-zap` handler](https://github.com/samber/slog-zap).
-* [`slog_samber_zerolog_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/slog_samber_zerolog_test.go)
-  Verifies the [`samber slog-zerolog` handler](https://github.com/samber/slog-zerolog).
+More examples are available in this package.
 
 In addition, there is a [`main_test.go`](https://github.com/madkins23/go-slog/blob/main/verify/main_test.go) file which exists to provide
 a global resource to the other tests ([described below](#testmain)).
@@ -100,28 +93,18 @@ the other tests in the repository don't recognize the `-useWarnings` flag.
 
 There are two flags defined for testing the verification code:
 * `-debug=<level>`  
-  Sets an integer level for showing any `Debugf()` statements in the code.
+  Sets an integer level for showing any `test.Debugf()` statements in the code.
 * `-useWarnings`  
   Activates the warning system (see [**Warnings**](#warnings)) below.
   Without this flag the tests fail on errors in the usual manner.
   When this flag is present tests succeed and warnings are presented
   in the `go test` output.
 
-### Caveats
-
-The test harness that drives verification has some limitations.
-
-_Verification only makes sense for JSON handlers_,
-which are generally used to feed log records into downstream processing.
-Text and console handlers don't have a consistent format.
-While it might be useful to test those handlers as well,
-the difficulty of parsing various output formats argues against it.[^1]
-
 ## Creators
 
 `Creator` objects are factories for generating new `slog.Logger` objects.
-Detailed documentation on defining and using `Creator` objects is provided
-in the [`infra` package](https://pkg.go.dev/github.com/madkins23/go-slog/infra).
+Detailed documentation on defining and using `Creator` objects is provided in
+the [`infra` package](https://pkg.go.dev/github.com/madkins23/go-slog/infra#readme-creator).
 
 ## Warnings
 
@@ -247,16 +230,21 @@ might be expected, or provides administrative information.
 
 ## Caveats
 
-Warnings have been defined for cases that I have seen thus far for the rather
-limited number of handlers for which I have configured tests.
-I can think of other possible warnings, but I am loath to configure them unless they are needed.[^3]
-If your handler comes up with a new error condition for which there are tests but no warning
-you can either fix your handler or file a ticket.
+The test harness that drives verification has some limitations.
 
-The `-useWarnings` flag tends to result in the results being buried in the normal `go test` output.
-This can be fixed by implementing a global [`TestMain()`](#testmain) function.
-
-Warnings will only be visible when running `go test` if the `-v` flag is used.
+* Actual testing is done by calling through a `slog.Logger` object.
+* _Verification only makes sense for JSON handlers_,
+  which are generally used to feed log records into downstream processing.
+* Text and console handlers don't have a consistent format.
+  While it might be useful to test those handlers as well,
+  the difficulty of parsing various output formats argues against it.[^1]
+* Warnings have been defined for cases that have been seen thus far for the rather
+  limited number of handlers for which tests have been configured.
+  If your handler comes up with a new error condition for which there are tests but no warning
+  you can either fix your handler or file a ticket.
+* The `-useWarnings` flag tends to result in the results being buried in the normal `go test` output.
+  This can be fixed by implementing a global [`TestMain()`](#testmain) function.
+* Warnings will only be visible when running `go test` if the `-v` flag is used.
 
 ### `TestMain`
 
@@ -277,64 +265,17 @@ This function may be defined in the same `_test.go` file as the handler test.
 If multiple handler tests are in the same directory:
 
 * It will be necessary to move the `TestMain()` definition to a separate file,
+  such as the [`bench/main_test.go`](main_test.go).
+* An addition listing of which handlers throw each warning
+  will be added after the normal output.
+
+This function may be defined in the same `_test.go` file as the handler test.
+If multiple handler tests are in the same directory:
+
+* It will be necessary to move the `TestMain()` definition to a separate file,
   such as the [`verify/main_test.go`](main_test.go).
 * An addition listing of which handlers throw each warning
-  will be added after the normal output:
-
-```
- Handlers by warning:
-  Required
-    [EmptyAttributes] Empty attribute(s) logged ("":null)
-      phsym/zeroslog
-      samber/slog-zap
-      samber/slog-zerolog
-    [GroupEmpty] Empty (sub)group(s) logged
-      phsym/zeroslog
-    [Resolver] LogValuer objects are not resolved
-      samber/slog-zap
-      samber/slog-zerolog
-    [ZeroPC] SourceKey logged for zero PC
-      samber/slog-zap
-      samber/slog-zerolog
-    [ZeroTime] Zero time is logged
-      phsym/zeroslog
-      samber/slog-zap
-      samber/slog-zerolog
-  Implied
-    [DefaultLevel] Handler doesn't default to slog.LevelInfo
-      samber/slog-zerolog
-    [MessageKey] Wrong message key (should be 'msg')
-      phsym/zeroslog
-      samber/slog-zerolog
-    [NoReplAttr] HandlerOptions.ReplaceAttr not available
-      phsym/zeroslog
-    [NoReplAttrBasic] HandlerOptions.ReplaceAttr not available for basic fields
-      samber/slog-zap
-      samber/slog-zerolog
-    [SourceKey] Source data not logged when AddSource flag set
-      phsym/zeroslog
-  Suggested
-    [Duplicates] slog.Duration() logs seconds instead of nanoseconds
-      log/slog.JSONHandler
-      phsym/zeroslog
-      samber/slog-zap
-      samber/slog-zerolog
-    [LevelCase] Log level in lowercase
-      phsym/zeroslog
-      samber/slog-zap
-      samber/slog-zerolog
-    [TimeMillis] slog.Time() logs milliseconds instead of nanoseconds
-      phsym/zeroslog
-      samber/slog-zap
-      samber/slog-zerolog
-```
-This listing isn't shown unless there are multiple test suites run in the same call to `go test`.
-
----
-
-In the absence of a `TestMain` definition the warnings will not be shown.
-Add the `tests.WithWarnings(m)` line to the end of the main test,
-after the call to `Run` the test suite.
+  will be added after the normal output.
 
 ---
 
@@ -343,5 +284,3 @@ when writing/testing/debugging code manually and doesn't require the verificatio
 as JSON output which is generally done to support downstream processing of logs.
 
 [^2]: Respect to the handler's author, I'm not picking on you, I just need an example here. :wink:
-
-[^3]: I am lazy.

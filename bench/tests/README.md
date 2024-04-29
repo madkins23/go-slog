@@ -3,12 +3,14 @@
 ## Benchmark Suite
 
 The core code for verifying `slog` handlers is in `bench/tests/SlogBenchmarkSuite`,
-which was generated from scratch for this repository in the absence of usable preexisting alternatives.
+which was generated from scratch for this repository in the absence of
+usable preexisting alternatives.
 
 The `bench/tests` directory contains, at this time (2024-01-16),
 nothing but the code for `SlogBenchmarkSuite`.
 Since there are a lot of tests they have been broken up into separate files
 by category or functionality.
+
 The main files are:
 
 * `suite.go`  
