@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Run slog benchmark tests.
+# Save benchmark output to /tmp/go-slog/bench.txt.
+# Run cmd/tabular on benchmark output and save results to /tmp/go-slog/bench.tbl.
+
 clear
 mkdir -p /tmp/go-slog
 go test -bench=. bench/*.go      | # Run benchmark tests                \

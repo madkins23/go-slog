@@ -1,5 +1,6 @@
 #!/bin/bash
-# Runs benchmark tests in a specific directory.
+
+# Runs local benchmark tests (not the bench test suite) in a specific directory.
 # Executes the tests with several different -benchtime settings.
 
 if [ "$1" == "" ] || [ "$2" == "" ]; then

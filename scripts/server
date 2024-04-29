@@ -1,3 +1,5 @@
 #!/bin/bash
 
+# Run cmd/server with input from /tmp/go-slog/bench.txt and /tmp/go-slog/verify.txt.
+
 go run cmd/server/*.go -bench=/tmp/go-slog/bench.txt -verify=/tmp/go-slog/verify.txt

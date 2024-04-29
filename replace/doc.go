@@ -1,12 +1,10 @@
 // Package replace defines functions that can be used as slog.HandlerOptions.ReplaceAttr values.
 // For example:
-// * Remove attributes with empty key strings.
-// * Change level attributes named "lvl" to be named slog.LevelKey.
-// * Change message attributes named "message" to be named slog.MessageKey.
-// * Remove the "time" basic attribute.
-
-// Package replace provides a number of functions that can provide appropriate functions for use with
-// HandlerOptions.ReplaceAttr.
+//
+//   - Remove attributes with empty key strings.
+//   - Change level attributes named "lvl" to be named slog.LevelKey.
+//   - Change message attributes named "message" to be named slog.MessageKey.
+//   - Remove the "time" basic attribute.
 //
 // An early intention was to "fix" non-conformant handlers by providing
 // ReplaceAttr functions that could make them conformant.
@@ -43,7 +41,7 @@
 // This match is much faster if it is exact (case-sensitive) so that is the default (false).
 // Setting the caseInsensitive flag causes all matches to be done using strings.EqualFold.
 //
-//	grpChk GroupCheck
+//	grpChk GroupCheckFn
 //
 // A function that determines if the current stack of group names is acceptable.
 // For example, replace.TopCheck returns true only if the stack is empty,

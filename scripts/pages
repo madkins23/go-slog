@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Acquires web server pages from cmd/server which must already be running.
+# Waits for server to be available, gets pages via wget, then shuts down server.
+# This script is used in .github/workflows/pages.yml Github Actions script.
+
 # Wait for server to be available
 curl -s --head -X GET --retry 10 --retry-connrefused --retry-delay 5 http://localhost:8080/go-slog/index.html
 

@@ -52,7 +52,7 @@ var caseFn = map[ChangeCases]func(string) string{
 // The second argument is of type replace.ChangeCases with values
 // replace.CaseNone, replace.CaseLower, and replace.CaseUpper.
 // The default value is replace.CaseNone which means no change.
-func ChangeCase(key string, chgCase ChangeCases, caseInsensitive bool, grpChk GroupCheck) infra.AttrFn {
+func ChangeCase(key string, chgCase ChangeCases, caseInsensitive bool, grpChk GroupCheckFn) infra.AttrFn {
 	if chgCase != CaseNone {
 		if fn, found := caseFn[chgCase]; found {
 			// Return a function that changes the case of any string per chgCase.
@@ -77,7 +77,7 @@ func ChangeCase(key string, chgCase ChangeCases, caseInsensitive bool, grpChk Gr
 //
 // returns an infra.AttrFn that will match on attributes with the key "message" and
 // change it to the value of slog.MessageKey (which is "msg").
-func ChangeKey(from, to string, caseInsensitive bool, grpChk GroupCheck) infra.AttrFn {
+func ChangeKey(from, to string, caseInsensitive bool, grpChk GroupCheckFn) infra.AttrFn {
 	return func(groups []string, a slog.Attr) slog.Attr {
 		if checkFieldGroups(groups, a, from, caseInsensitive, grpChk) {
 			a.Key = to
@@ -92,7 +92,7 @@ func ChangeKey(from, to string, caseInsensitive bool, grpChk GroupCheck) infra.A
 //	type ChangeFn func(value slog.Value) slog.Value
 //
 // provided by the caller.
-func ChangeValue(key string, chgFn ChangeFn, caseInsensitive bool, grpChk GroupCheck) infra.AttrFn {
+func ChangeValue(key string, chgFn ChangeFn, caseInsensitive bool, grpChk GroupCheckFn) infra.AttrFn {
 	return func(groups []string, a slog.Attr) slog.Attr {
 		if checkFieldGroups(groups, a, key, caseInsensitive, grpChk) {
 			a.Value = chgFn(a.Value)
@@ -109,7 +109,7 @@ func ChangeValue(key string, chgFn ChangeFn, caseInsensitive bool, grpChk GroupC
 //	}
 //
 // removes the slog.TimeKey ("time") key so that the time will not be shown.
-func RemoveKey(key string, caseInsensitive bool, grpChk GroupCheck) infra.AttrFn {
+func RemoveKey(key string, caseInsensitive bool, grpChk GroupCheckFn) infra.AttrFn {
 	return func(groups []string, a slog.Attr) slog.Attr {
 		if checkFieldGroups(groups, a, key, caseInsensitive, grpChk) {
 			return infra.EmptyAttr()
@@ -124,7 +124,7 @@ func RemoveKey(key string, caseInsensitive bool, grpChk GroupCheck) infra.AttrFn
 // The key of the provided attribute is checked per the caseInsensitive argument.
 // If grpChk is non-nil it will be applied to the groups array.
 // The result is true if the calling change function applies to this attribute.
-func checkFieldGroups(groups []string, a slog.Attr, key string, caseInsensitive bool, grpChk GroupCheck) bool {
+func checkFieldGroups(groups []string, a slog.Attr, key string, caseInsensitive bool, grpChk GroupCheckFn) bool {
 	var found bool
 	if caseInsensitive {
 		// Faster than converting two strings to the same case.

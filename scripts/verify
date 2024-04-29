@@ -1,6 +1,7 @@
 #!/bin/bash
 
-# Run slog verification tests with warnings.
+# Run slog verification tests with -useWarnings.
+# Save verification output to /tmp/go-slog/verify.txt.
 
 clear
 mkdir -p /tmp/go-slog
