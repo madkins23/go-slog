@@ -1,6 +1,10 @@
 package warning
 
 var (
+	// LevelRequired warnings.
+	//
+	// Note: Update the number of warnings in the init function below.
+
 	EmptyAttributes = NewWarning(LevelRequired, "EmptyAttributes", "Empty attribute(s) logged (\"\":null)", `
 		Handlers are supposed to avoid logging empty attributes.  
 		* ["- If an Attr's key and value are both the zero value, ignore the Attr."](https://pkg.go.dev/log/slog@master#Handler)`)
@@ -54,6 +58,7 @@ func init() {
 	addTestCount(LevelRequired, 8)
 }
 
+// Required returns an array of all LevelRequired warnings.
 func Required() []*Warning {
 	return WarningsForLevel(LevelRequired)
 }

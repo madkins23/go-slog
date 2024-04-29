@@ -1,6 +1,10 @@
 package warning
 
 var (
+	// LevelSuggested warnings.
+	//
+	// Note: Update the number of warnings in the init function below.
+
 	Duplicates = NewWarning(LevelSuggested, "Duplicates", "Duplicate field(s) found", `
 		Some handlers (e.g. ^slog.JSONHandler^)
 		will output multiple occurrences of the same field name
@@ -53,6 +57,7 @@ func init() {
 	addTestCount(LevelSuggested, 8)
 }
 
+// Suggested returns an array of all LevelSuggested warnings.
 func Suggested() []*Warning {
 	return WarningsForLevel(LevelSuggested)
 }

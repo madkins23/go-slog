@@ -14,7 +14,7 @@ import (
 	"github.com/madkins23/go-slog/internal/markdown"
 )
 
-// Warning definition.
+// Warning object declaration.
 type Warning struct {
 	// Level is the warning level.
 	Level Level
@@ -26,6 +26,7 @@ type Warning struct {
 	Summary string
 
 	// Description of warning in Markdown
+	// with back quotes ("`") replaced by caret characters ("^").
 	description string
 }
 
@@ -37,6 +38,11 @@ var (
 	warningLock sync.Mutex
 )
 
+// NewWarning creates a new Warning object with the specified warning level and name.
+// The optional summary is a single text sentence summarizing the warning.
+// The optional description is a paragraph of Markdown
+// with back quotes ("`") replaced by caret characters ("^").
+// The summary and description are provided for cmd/server web pages.
 func NewWarning(level Level, name, summary, description string) *Warning {
 	warningLock.Lock()
 	defer warningLock.Unlock()
@@ -103,6 +109,8 @@ func buildTree() {
 	}
 }
 
+// fixDescription adjusts back quoted block text to remove indentation.
+// Used with description text so that the text can be indented under the NewWarning call.
 func fixDescription(description string) string {
 	prefixSpaces := math.MaxInt
 	scanner := bufio.NewScanner(strings.NewReader(description))

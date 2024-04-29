@@ -1,6 +1,10 @@
 package warning
 
 var (
+	// LevelAdmin warnings.
+	//
+	// Note: Update the number of warnings in the init function below.
+
 	NoHandlerCreation = NewWarning(LevelAdmin, "NoHandlerCreation", "Test depends on unavailable handler creation", `
 		Some benchmark tests depend on access to a ^slog.Handler^ object.
 		Some ^slog^ implementations create a ^slog.Logger^ but no ^slog.Handler^.
@@ -29,6 +33,7 @@ func init() {
 	addTestCount(LevelAdmin, 5)
 }
 
+// Administrative returns an array of all LevelAdmin warnings.
 func Administrative() []*Warning {
 	return WarningsForLevel(LevelAdmin)
 }
