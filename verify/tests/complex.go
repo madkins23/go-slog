@@ -23,19 +23,19 @@ var tests = []string{
 	"W+A            M",
 	"W+A            M+B",
 	"G1             M",
-	"G1             M+A",
-	"G1             M+B",
+	"G1             M+A", // phuslu/slog works properly here
+	"G1             M+B", // phuslu/slog works properly here
 	"G1+A           M",
-	"G1+A           M+B",
-	"G1+C           M+B",
+	"G1+A           M+B", // phuslu/slog seems to lose track of group
+	"G1+C           M+B", // phuslu/slog seems to lose track of group
 	"G1   G2        M",
 	"G1   G2        M+C",
 	"G1+A G2        M",
 	"G1+A G2        M+C",
 	"G1   G2+B      M",
-	"G1   G2+B      M+C",
+	"G1   G2+B      M+C", // phuslu/slog seems to lose track of group
 	"G1+A G2+B      M",
-	"G1+A G2+B      M+C",
+	"G1+A G2+B      M+C", // phuslu/slog seems to lose track of group
 	"G1   G2   G3   M",
 	"G1   G2   G3   M+C",
 	"G1+A G2   G3   M",
@@ -43,15 +43,15 @@ var tests = []string{
 	"G1   G2+B G3   M",
 	"G1   G2+B G3   M+C",
 	"G1   G2   G3+C M",
-	"G1   G2   G3+C M+B",
+	"G1   G2   G3+C M+B", // phuslu/slog seems to lose track of group
 	"G1+A G2+B G3   M",
 	"G1+A G2+B G3   M+C",
 	"G1+A G2   G3+C M",
-	"G1+A G2   G3+C M+B",
+	"G1+A G2   G3+C M+B", // phuslu/slog seems to lose track of group
 	"G1   G2+B G3+C M",
-	"G1   G2+B G3+C M+A",
+	"G1   G2+B G3+C M+A", // phuslu/slog seems to lose track of group
 	"G1+A G2+B G3+C M",
-	"G1+A G2+B G3+C M+D",
+	"G1+A G2+B G3+C M+D", // phuslu/slog seems to lose track of group
 }
 
 // TestComplexCases executes a series of algorithmically generated test cases.
@@ -98,7 +98,7 @@ func (suite *SlogTestSuite) TestComplexCases() {
 	}
 	if len(mismatches) > 0 {
 		failed := strings.Join(mismatches, " | ")
-		intTest.Debugf(1, ">>> Mismatches: %s", failed)
+		intTest.Debugf(1, ">>> %d Mismatches: %s", len(mismatches), failed)
 		suite.AddWarning(warning.Mismatch, failed, suite.Buffer.String())
 	}
 }
@@ -107,7 +107,7 @@ func (suite *SlogTestSuite) TestComplexCases() {
 
 type parser struct {
 	*warning.Manager
-	inGroup          bool
+	inGroup, inWith  bool
 	name, definition string
 	logger           *slog.Logger
 	logMap, ptrMap   map[string]any
@@ -176,12 +176,14 @@ func (p *parser) execute() error {
 		p.pushLog(p.currLog().WithGroup(grpName))
 		p.pushMap(newMap)
 		p.inGroup = true
+		p.inWith = false
 		attrs, err = p.getAttrs()
 		if err != nil {
 			return fmt.Errorf("get attributes: %w", err)
 		}
 		if len(attrs) > 0 {
 			p.pushLog(p.currLog().With(anyList(attrs)...))
+			p.inWith = true
 			if p.HasWarning(warning.GroupWithTop) {
 				err = p.addAttrsToMap(p.logMap, attrs...)
 			} else {
@@ -199,8 +201,18 @@ func (p *parser) execute() error {
 		p.currLog().Info(message, anyList(attrs)...)
 		p.logMap[slog.LevelKey] = "INFO"
 		p.logMap[slog.MessageKey] = message
-		if err = p.addAttrs(attrs...); err != nil {
-			return fmt.Errorf("add attributes: %w", err)
+		if p.HasWarning(warning.GroupAttrMsgTop) && (!p.inGroup || p.inWith) {
+			//	"G1             M+A", fails here
+			//	"G1+A           M+B", succeeds here
+			if err = p.addAttrsToMap(p.logMap, attrs...); err != nil {
+				return fmt.Errorf("add attributes: %w", err)
+			}
+		} else {
+			//	"G1             M+A", succeeds here
+			//	"G1+A           M+B", fails here
+			if err = p.addAttrs(attrs...); err != nil {
+				return fmt.Errorf("add attributes: %w", err)
+			}
 		}
 	case 'W':
 		attrs, err = p.getAttrs()

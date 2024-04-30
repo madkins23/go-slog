@@ -3,6 +3,7 @@ package tests
 import (
 	"bufio"
 	"bytes"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -11,7 +12,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/madkins23/go-slog/internal/json"
+	intJSON "github.com/madkins23/go-slog/internal/json"
 	"github.com/madkins23/go-slog/internal/test"
 	"github.com/madkins23/go-slog/internal/warning"
 )
@@ -65,35 +66,60 @@ func fields(testName string, fields ...string) VerifyFn {
 func finder(testName string, expected map[string]any) VerifyFn {
 	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
-		badFields := finderDeep(expected, logMap, "")
-		if len(badFields) > 0 {
+		if badFields, strFields, err := finderDeep(expected, logMap, ""); err != nil {
+			return fmt.Errorf("finderDeep: %w", err)
+		} else if len(badFields) > 0 || len(strFields) > 0 {
+			var fields []string
 			for _, field := range badFields {
-				test.Debugf(2, ">?>   %s: %v != %v\n", field, expected[field], logMap[field])
+				test.Debugf(2, ">?>   bad %s: %v != %v\n", field, expected[field], logMap[field])
+				fields = append(fields, "!"+field)
 			}
-			text := testName + ": " + strings.Join(badFields, ",")
+			for _, field := range strFields {
+				test.Debugf(2, ">?>   str %s: %v != %v\n", field, expected[field], logMap[field])
+				fields = append(fields, "?"+field)
+			}
+			text := testName + ": " + strings.Join(fields, ",")
 			manager.AddWarningFn(warning.Mismatch, text, string(captured))
 			return warning.Mismatch.ErrorExtra(text)
+		} else {
+			return nil
 		}
-		return nil
 	}
 }
 
 // finderDeep matches the parts of the actual map against what is expected.
 // The actual map can have other unspecified fields.
 // This function is the recursive workhorse for finder.
-func finderDeep(expected map[string]any, actual map[string]any, prefix string) []string {
+func finderDeep(expected map[string]any, actual map[string]any, prefix string) ([]string, []string, error) {
 	badFields := make([]string, 0)
+	strFields := make([]string, 0)
 	for field, value := range expected {
 		expMap, expOk := value.(map[string]any)
 		actMap, actOk := actual[field].(map[string]any)
 		if expOk && actOk {
-			badFields = append(badFields, finderDeep(expMap, actMap, prefix+field+".")...)
+			if bf, sf, err := finderDeep(expMap, actMap, prefix+field+"."); err != nil {
+				return nil, nil, err
+			} else {
+				badFields = append(badFields, bf...)
+				strFields = append(strFields, sf...)
+			}
 		} else if !reflect.DeepEqual(value, actual[field]) {
+			if actVal, ok := actual[field].(string); ok {
+				if valJSON, err := json.Marshal(value); err != nil {
+					return nil, nil, fmt.Errorf("marshal JSON: %w", err)
+				} else if actVal == string(valJSON) {
+					strFields = append(strFields, field)
+					continue
+				} else {
+					test.Debugf(3, ">>> %s: %s =?= %s (%s)\n", field, value, actual[field], string(valJSON))
+				}
+			}
 			badFields = append(badFields, field)
 		}
 	}
 	sort.Strings(badFields)
-	return badFields
+	sort.Strings(strFields)
+	return badFields, strFields, nil
 }
 
 // matcher matches the parts entirety of the actual map against
@@ -115,7 +141,7 @@ func matcher(testName string, expected map[string]any) VerifyFn {
 func noDuplicates(testName string) VerifyFn {
 	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
-		counter := json.NewFieldCounter(captured)
+		counter := intJSON.NewFieldCounter(captured)
 		if len(counter.Duplicates()) > 0 {
 			manager.AddWarningFn(warning.Duplicates, testName, string(captured))
 			return warning.Duplicates.ErrorExtra(testName)

@@ -81,6 +81,10 @@ github.com/phsym/console-slog v0.3.1 h1:Fuzcrjr40xTc004S9Kni8XfNsk+qrptQmyR+wZw9
 github.com/phsym/console-slog v0.3.1/go.mod h1:oJskjp/X6e6c0mGpfP8ELkfKUsrkDifYRAqJQgmdDS0=
 github.com/phsym/zeroslog v0.1.0 h1:EHWMLlE5bQtOD6svfdDAUEJnTIXR7xOVJnAW3qjOZQ8=
 github.com/phsym/zeroslog v0.1.0/go.mod h1:9bb+7wYJLDFAUQlcuxTQIXKkrxqRAL9/QQPCNbWfQKI=
+github.com/phuslu/log v1.0.92 h1:ijQW+X/uBPjwy8z4YYSGVoD1G/7JdwokxooSKJMQej8=
+github.com/phuslu/log v1.0.92/go.mod h1:F8osGJADo5qLK/0F88djWwdyoZZ9xDJQL1HYRHFEkS0=
+github.com/phuslu/log v1.0.93-0.20240430160640-cf03774bc201 h1:IlwJKJ09uIlIvEZlHIgA9666p15DWJVhCp7Bi0zH6/s=
+github.com/phuslu/log v1.0.93-0.20240430160640-cf03774bc201/go.mod h1:F8osGJADo5qLK/0F88djWwdyoZZ9xDJQL1HYRHFEkS0=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=

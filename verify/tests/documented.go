@@ -189,7 +189,13 @@ func (suite *SlogTestSuite) TestLevelVar() {
 	// Change the level.
 	programLevel.Set(slog.LevelWarn)
 	suite.Assert().Equal(slog.LevelWarn, programLevel.Level())
-	suite.Assert().False(logger.Enabled(ctx, 3))
+	if suite.HasWarning(warning.LevelVar) {
+		suite.Assert().False(logger.Enabled(ctx, 3))
+	} else if logger.Enabled(ctx, 3) {
+		suite.AddWarning(warning.LevelVar, "level not changed", "")
+	} else {
+		suite.AddUnused(warning.LevelVar, "")
+	}
 	suite.Assert().True(logger.Enabled(ctx, slog.LevelWarn))
 	suite.checkLevelMath(logger, 5, true,
 		"5  is not enabled when WARN is enabled")
@@ -216,8 +222,9 @@ func (suite *SlogTestSuite) TestLogAttributes() {
 	when, ok := logMap["when"].(string)
 	suite.True(ok)
 	if suite.HasWarning(warning.TimeMillis) {
-		// Some handlers log times as RFC3339 instead of RFC3339Nano
-		if t.Format(time.RFC3339) == when {
+		// Some handlers log times as RFC3339 w/milliseconds instead of RFC3339Nano
+		const RFC3339Milli = "2006-01-02T15:04:05.999Z07:00"
+		if t.Format(RFC3339Milli) == when {
 			suite.AddWarning(warning.TimeMillis, when, "")
 		} else {
 			suite.AddUnused(warning.TimeMillis, "")

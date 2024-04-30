@@ -17,6 +17,11 @@ var (
 		Handlers should expand groups named "" (the empty string) into the enclosing log record.  
 		* ["- If a group's key is empty, inline the group's Attrs."](https://pkg.go.dev/log/slog@master#Handler)`)
 
+	LevelVar = NewWarning(LevelRequired, "LevelVar", "Unable to change level during execution via LevelVar", `
+		Slog handlers can use [^LevelVar^](https://pkg.go.dev/log/slog#LevelVar) to specify the handler logging level.
+		Unlike specifying a [^Level^](https://pkg.go.dev/log/slog#Level) (which is actually an ^int^),
+		a ^LevelVar^ is supposed to be changeable during program execution.`)
+
 	Resolver = NewWarning(LevelRequired, "Resolver", "LogValuer objects are not resolved", `
 		Handlers should resolve all objects implementing the
 		[^LogValuer^](https://pkg.go.dev/log/slog@master#LogValuer) or
@@ -55,7 +60,7 @@ var (
 
 func init() {
 	// Always update this number when adding or removing Warning objects.
-	addTestCount(LevelRequired, 8)
+	addTestCount(LevelRequired, 9)
 }
 
 // Required returns an array of all LevelRequired warnings.

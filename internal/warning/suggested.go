@@ -25,7 +25,7 @@ var (
 		* [Go issue 59345: Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)`)
 
 	GroupWithTop = NewWarning(LevelSuggested, "GroupWithTop",
-		"WithGroup().With() ends up at top level of log record instead of in the group", `
+		"^WithGroup().With()^ ends up at top level of log record instead of in the group", `
 		Almost all handlers treat ^logger.WithGroup(<name>).With(<attrs>)^ as writing ^<attrs>^ to the group ^<name>^.
 		Some handlers write ^<attrs>^ to the top level of the log record.`)
 
@@ -45,7 +45,7 @@ var (
 		This is different from the LevelCase warning which is from the right level name but the wrong character case.`)
 
 	TimeMillis = NewWarning(LevelSuggested, "TimeMillis", "slog.Time() logs milliseconds instead of nanoseconds", `
-		The ^slog.JSONHandler^ uses nanoseconds for ^time.Time^ but some other handlers use seconds.
+		The ^slog.JSONHandler^ uses nanoseconds for ^time.Time^ but some other handlers use milliseconds.
 		This does _not_ apply to the basic ^time^ field, only attribute fields.
 		I can't find any supporting documentation or bug on this but
 		[Go issue 59345](https://github.com/golang/go/issues/59345) (see previous warning)
