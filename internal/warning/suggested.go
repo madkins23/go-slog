@@ -50,11 +50,18 @@ var (
 		I can't find any supporting documentation or bug on this but
 		[Go issue 59345](https://github.com/golang/go/issues/59345) (see previous warning)
 		may have fixed this as well in Go 1.21.`)
+
+	TimeSeconds = NewWarning(LevelSuggested, "TimeSeconds", "slog.Time() logs seconds instead of nanoseconds", `
+		The ^slog.JSONHandler^ uses nanoseconds for ^time.Time^ but some other handlers use seconds.
+		This does _not_ apply to the basic ^time^ field, only attribute fields.
+		I can't find any supporting documentation or bug on this but
+		[Go issue 59345](https://github.com/golang/go/issues/59345) (see previous warning)
+		may have fixed this as well in Go 1.21.`)
 )
 
 func init() {
 	// Always update this number when adding or removing Warning objects.
-	addTestCount(LevelSuggested, 8)
+	addTestCount(LevelSuggested, 9)
 }
 
 // Suggested returns an array of all LevelSuggested warnings.

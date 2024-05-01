@@ -1,5 +1,13 @@
 TODO
-
+* phuslu/slog
+  x get it done
+  x what's up with TestLevelVar: LevelVar unused warning?
+    Seems to happen to all handlers that don't use it.
+  - Required [Mismatch] Logged record does not match expected: Attributes: ?Any
+    Handler seems to dump JSON in a string instead of group object for some types.
+    IP data and mac (h/w) address are good examples.
+    Fix it with encoding/json magic or configure a unique warning?
+    Apply the unique warning where currently using the strFields list.
 * Discuss slog_madkins_replattr benchmark somewhere
 * Use json.Expect and reflect.DeepEqual()/assert.Equal() more often
 * Creator could have:
