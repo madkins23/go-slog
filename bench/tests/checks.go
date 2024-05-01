@@ -66,24 +66,23 @@ func fields(testName string, fields ...string) VerifyFn {
 func finder(testName string, expected map[string]any) VerifyFn {
 	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
-		if badFields, strFields, err := finderDeep(expected, logMap, ""); err != nil {
+		badFields, strFields, err := finderDeep(expected, logMap, "")
+		if err != nil {
 			return fmt.Errorf("finderDeep: %w", err)
-		} else if len(badFields) > 0 || len(strFields) > 0 {
-			var fields []string
-			for _, field := range badFields {
-				test.Debugf(2, ">?>   bad %s: %v != %v\n", field, expected[field], logMap[field])
-				fields = append(fields, "!"+field)
-			}
-			for _, field := range strFields {
-				test.Debugf(2, ">?>   str %s: %v != %v\n", field, expected[field], logMap[field])
-				fields = append(fields, "?"+field)
-			}
-			text := testName + ": " + strings.Join(fields, ",")
-			manager.AddWarningFn(warning.Mismatch, text, string(captured))
-			return warning.Mismatch.ErrorExtra(text)
-		} else {
-			return nil
 		}
+		if len(badFields) > 0 {
+			text := testName + ": " + strings.Join(badFields, ",")
+			manager.AddWarningFn(warning.Mismatch, text, string(captured))
+		} else if manager.HasWarning(warning.Mismatch) {
+			manager.AddUnused(warning.Mismatch, string(captured))
+		}
+		if len(strFields) > 0 {
+			text := testName + ": " + strings.Join(strFields, ",")
+			manager.AddWarningFn(warning.StringAny, text, string(captured))
+		} else if manager.HasWarning(warning.StringAny) {
+			manager.AddUnused(warning.StringAny, string(captured))
+		}
+		return nil
 	}
 }
 

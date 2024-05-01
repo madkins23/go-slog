@@ -44,6 +44,10 @@ var (
 		The log level name is not what was expected (e.g. "WARNING" instead of "WARN").
 		This is different from the LevelCase warning which is from the right level name but the wrong character case.`)
 
+	StringAny = NewWarning(LevelSuggested, "StringAny", "Some structs are converted to strings in log records", `
+		The ^slog.JSONHandler^ converts ^Any^ objects that are ^struct^s into JSON maps.
+		Some handlers convert one or more of these into strings instead of maps.`)
+
 	TimeMillis = NewWarning(LevelSuggested, "TimeMillis", "slog.Time() logs milliseconds instead of nanoseconds", `
 		The ^slog.JSONHandler^ uses nanoseconds for ^time.Time^ but some other handlers use milliseconds.
 		This does _not_ apply to the basic ^time^ field, only attribute fields.
@@ -61,7 +65,7 @@ var (
 
 func init() {
 	// Always update this number when adding or removing Warning objects.
-	addTestCount(LevelSuggested, 9)
+	addTestCount(LevelSuggested, 10)
 }
 
 // Suggested returns an array of all LevelSuggested warnings.
