@@ -40,6 +40,8 @@
                       
                         <option value="PhsymZerolog" >phsym/zeroslog</option>
                       
+                        <option value="PhusluSlog" >phuslu/slog</option>
+                      
                         <option value="SamberLogrus" >samber/slog-logrus</option>
                       
                         <option value="SamberZap" >samber/slog-zap</option>
@@ -206,6 +208,62 @@
                           
           
             <tr>
+              <td colspan=5 class="level">Required</td>
+            </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  LevelVar
+                </td>
+                <td class="extra">
+                  Unable to change level during execution via LevelVar
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('LevelVar-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="LevelVar-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Slog handlers can use <a href="https://pkg.go.dev/log/slog#LevelVar" target="_blank"><code>LevelVar</code></a> to specify the handler logging level.
+Unlike specifying a <a href="https://pkg.go.dev/log/slog#Level" target="_blank"><code>Level</code></a> (which is actually an <code>int</code>),
+a <code>LevelVar</code> is supposed to be changeable during program execution.</p>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                          Phuslu Slog
+                        </td>
+                        <td class="extra"><p>level not changed</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelVar-Phuslu Slog-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+             
+          
+            <tr>
               <td colspan=5 class="level">Implied</td>
             </tr>
             
@@ -299,7 +357,7 @@ Handlers should properly handle numeric levels and math applied to level values.
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-04-29 20:32:19 UTC</span>
+              <span class="fixed">2024-05-01 16:22:36 UTC</span>
             </div>
           </td>
           <td class="right">

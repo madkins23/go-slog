@@ -40,6 +40,8 @@
                       
                         <option value="PhsymZerolog" >phsym/zeroslog</option>
                       
+                        <option value="PhusluSlog" >phuslu/slog</option>
+                      
                         <option value="SamberLogrus" >samber/slog-logrus</option>
                       
                         <option value="SamberZap" >samber/slog-zap</option>
@@ -253,8 +255,8 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
                           
                           Chanchal Zap
                         </td>
-                        <td class="extra"><p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=152"> a Handler should handle multiple WithGroup and WithAttr calls</a></p>
-<p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=166"> a Handler should not output groups for an empty Record</a></p></td>
+                        <td class="extra"><p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=146"> a Handler should handle multiple WithGroup and WithAttr calls</a></p>
+<p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=161"> a Handler should not output groups if there are no attributes</a></p></td>
                         <td class="button">
                           
                         </td>
@@ -273,14 +275,14 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra"><p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=54"> this test expects slog.TimeKey, slog.LevelKey and slog.MessageKey</a></p>
-<p>unexpected key ""<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=74"> a Handler should ignore an empty Attr</a></p>
-<p>unexpected key "time"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=85"> a Handler should ignore a zero Record.Time</a></p>
-<p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=127"> a Handler should inline the Attrs of a group with an empty key</a></p>
-<p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=139"> a Handler should handle the WithGroup method</a></p>
-<p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=152"> a Handler should handle multiple WithGroup and WithAttr calls</a></p>
-<p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=166"> a Handler should not output groups for an empty Record</a></p>
-<p>unexpected key "H"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=166"> a Handler should not output groups for an empty Record</a></p></td>
+                        <td class="extra"><p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=39"> this test expects slog.TimeKey, slog.LevelKey and slog.MessageKey</a></p>
+<p>unexpected key ""<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=61"> a Handler should ignore an empty Attr</a></p>
+<p>unexpected key "time"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=73"> a Handler should ignore a zero Record.Time</a></p>
+<p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=119"> a Handler should inline the Attrs of a group with an empty key</a></p>
+<p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=132"> a Handler should handle the WithGroup method</a></p>
+<p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=146"> a Handler should handle multiple WithGroup and WithAttr calls</a></p>
+<p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=161"> a Handler should not output groups if there are no attributes</a></p>
+<p>unexpected key "H"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=161"> a Handler should not output groups if there are no attributes</a></p></td>
                         <td class="button">
                           
                         </td>
@@ -299,13 +301,13 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
                           
                           Samber Logrus
                         </td>
-                        <td class="extra"><p>unexpected key ""<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=74"> a Handler should ignore an empty Attr</a></p>
-<p>unexpected key "time"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=85"> a Handler should ignore a zero Record.Time</a></p>
-<p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=127"> a Handler should inline the Attrs of a group with an empty key</a></p>
-<p>"k"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=180"> got map[string]interface {}{}, want "replaced": a Handler should call Resolve on attribute values</a></p>
-<p>"b"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=187"> got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups</a></p>
-<p>"k"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=200"> got map[string]interface {}{}, want "replaced": a Handler should call Resolve on attribute values from WithAttrs</a></p>
-<p>"b"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=208"> got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups from WithAttrs</a></p></td>
+                        <td class="extra"><p>unexpected key ""<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=61"> a Handler should ignore an empty Attr</a></p>
+<p>unexpected key "time"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=73"> a Handler should ignore a zero Record.Time</a></p>
+<p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=119"> a Handler should inline the Attrs of a group with an empty key</a></p>
+<p>"k"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=176"> got map[string]interface {}{}, want "replaced": a Handler should call Resolve on attribute values</a></p>
+<p>"b"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=184"> got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups</a></p>
+<p>"k"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=198"> got map[string]interface {}{}, want "replaced": a Handler should call Resolve on attribute values from WithAttrs</a></p>
+<p>"b"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=207"> got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups from WithAttrs</a></p></td>
                         <td class="button">
                           
                         </td>
@@ -324,13 +326,13 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
                           
                           Samber Zap
                         </td>
-                        <td class="extra"><p>unexpected key ""<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=74"> a Handler should ignore an empty Attr</a></p>
-<p>unexpected key "time"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=85"> a Handler should ignore a zero Record.Time</a></p>
-<p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=127"> a Handler should inline the Attrs of a group with an empty key</a></p>
-<p>"k"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=180"> got "<replace</a></p>
-<p>"b"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=187"> got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups</a></p>
-<p>"k"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=200"> got "<replace</a></p>
-<p>"b"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=208"> got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups from WithAttrs</a></p></td>
+                        <td class="extra"><p>unexpected key ""<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=61"> a Handler should ignore an empty Attr</a></p>
+<p>unexpected key "time"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=73"> a Handler should ignore a zero Record.Time</a></p>
+<p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=119"> a Handler should inline the Attrs of a group with an empty key</a></p>
+<p>"k"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=176"> got "<replace</a></p>
+<p>"b"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=184"> got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups</a></p>
+<p>"k"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=198"> got "<replace</a></p>
+<p>"b"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=207"> got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups from WithAttrs</a></p></td>
                         <td class="button">
                           
                         </td>
@@ -349,17 +351,17 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
                           
                           Samber Zerolog
                         </td>
-                        <td class="extra"><p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=54"> this test expects slog.TimeKey, slog.LevelKey and slog.MessageKey</a></p>
-<p>unexpected key ""<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=74"> a Handler should ignore an empty Attr</a></p>
-<p>unexpected key "time"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=85"> a Handler should ignore a zero Record.Time</a></p>
-<p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=127"> a Handler should inline the Attrs of a group with an empty key</a></p>
-<p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=139"> a Handler should handle the WithGroup method</a></p>
-<p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=152"> a Handler should handle multiple WithGroup and WithAttr calls</a></p>
-<p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=166"> a Handler should not output groups for an empty Record</a></p>
-<p>"k"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=180"> got map[string]interface {}{}, want "replaced": a Handler should call Resolve on attribute values</a></p>
-<p>"b"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=187"> got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups</a></p>
-<p>"k"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=200"> got map[string]interface {}{}, want "replaced": a Handler should call Resolve on attribute values from WithAttrs</a></p>
-<p>"b"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=208"> got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups from WithAttrs</a></p></td>
+                        <td class="extra"><p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=39"> this test expects slog.TimeKey, slog.LevelKey and slog.MessageKey</a></p>
+<p>unexpected key ""<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=61"> a Handler should ignore an empty Attr</a></p>
+<p>unexpected key "time"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=73"> a Handler should ignore a zero Record.Time</a></p>
+<p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=119"> a Handler should inline the Attrs of a group with an empty key</a></p>
+<p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=132"> a Handler should handle the WithGroup method</a></p>
+<p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=146"> a Handler should handle multiple WithGroup and WithAttr calls</a></p>
+<p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=161"> a Handler should not output groups if there are no attributes</a></p>
+<p>"k"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=176"> got map[string]interface {}{}, want "replaced": a Handler should call Resolve on attribute values</a></p>
+<p>"b"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=184"> got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups</a></p>
+<p>"k"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=198"> got map[string]interface {}{}, want "replaced": a Handler should call Resolve on attribute values from WithAttrs</a></p>
+<p>"b"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=207"> got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups from WithAttrs</a></p></td>
                         <td class="button">
                           
                         </td>
@@ -394,7 +396,7 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-04-29 20:32:19 UTC</span>
+              <span class="fixed">2024-05-01 16:22:36 UTC</span>
             </div>
           </td>
           <td class="right">

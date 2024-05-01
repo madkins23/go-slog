@@ -1,0 +1,1188 @@
+<html lang="en">
+<head>
+  <title>Benchmark Data</title>
+  <link rel="stylesheet" href="/go-slog/style.css">
+  <script src="/go-slog/scripts.js"></script>
+</head>
+
+<body>
+<div class="wrapper">
+  <div class="header">
+    
+        
+    <table class="header">
+        <tr>
+          <td>
+            
+              <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+            
+            <h2 class="home">Handler <span class="fixed">phuslu/slog</span></h2>
+          </td>
+          <td>
+            <table class="choice">
+              <tr>
+                <td class="right">Handlers</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="ChanchalZap" >chanchal/zaphandler</option>
+                      
+                        <option value="MadkinsFlash" >madkins/flash</option>
+                      
+                        <option value="MadkinsReplAttr" >madkins/replattr</option>
+                      
+                        <option value="MadkinsSloggy" >madkins/sloggy</option>
+                      
+                        <option value="PhsymZerolog" >phsym/zeroslog</option>
+                      
+                        <option value="PhusluSlog" selected>phuslu/slog</option>
+                      
+                        <option value="SamberLogrus" >samber/slog-logrus</option>
+                      
+                        <option value="SamberZap" >samber/slog-zap</option>
+                      
+                        <option value="SamberZerolog" >samber/slog-zerolog</option>
+                      
+                        <option value="SlogJSON" >slog/JSONHandler</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right">Bench Tests</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Bench:Attributes" >Attributes</option>
+                      
+                        <option value="Bench:BigGroup" >Big Group</option>
+                      
+                        <option value="Bench:Disabled" >Disabled</option>
+                      
+                        <option value="Bench:KeyValues" >Key Values</option>
+                      
+                        <option value="Bench:Logging" >Logging</option>
+                      
+                        <option value="Bench:Simple" >Simple</option>
+                      
+                        <option value="Bench:SimpleSource" >Simple Source</option>
+                      
+                        <option value="Bench:WithAttrsAttributes" >With Attrs Attributes</option>
+                      
+                        <option value="Bench:WithAttrsKeyValues" >With Attrs Key Values</option>
+                      
+                        <option value="Bench:WithAttrsSimple" >With Attrs Simple</option>
+                      
+                        <option value="Bench:WithGroupAttributes" >With Group Attributes</option>
+                      
+                        <option value="Bench:WithGroupKeyValues" >With Group Key Values</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right">Verify Tests</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
+                      
+                        <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
+                      
+                        <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
+                      
+                        <option value="Verify:AttributesEmpty" >Attributes Empty</option>
+                      
+                        <option value="Verify:AttributesWithEmpty" >Attributes With Empty</option>
+                      
+                        <option value="Verify:CanceledContext" >Canceled Context</option>
+                      
+                        <option value="Verify:DefaultLevel" >Default Level</option>
+                      
+                        <option value="Verify:GroupDuration" >Group Duration</option>
+                      
+                        <option value="Verify:GroupInline" >Group Inline</option>
+                      
+                        <option value="Verify:GroupWithMulti" >Group With Multi</option>
+                      
+                        <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                      
+                        <option value="Verify:GroupWithTop" >Group With Top</option>
+                      
+                        <option value="Verify:KeyCase" >Key Case</option>
+                      
+                        <option value="Verify:Keys" >Keys</option>
+                      
+                        <option value="Verify:LevelConfigured" >Level Configured</option>
+                      
+                        <option value="Verify:LevelDifferent" >Level Different</option>
+                      
+                        <option value="Verify:LevelVar" >Level Var</option>
+                      
+                        <option value="Verify:LogAttributes" >Log Attributes</option>
+                      
+                        <option value="Verify:ReplaceAttr" >Replace Attr</option>
+                      
+                        <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
+                      
+                        <option value="Verify:ReplaceAttrFnChangeKey" >Replace Attr Fn Change Key</option>
+                      
+                        <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                      
+                        <option value="Verify:ReplaceAttrFnMulti" >Replace Attr Fn Multi</option>
+                      
+                        <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
+                      
+                        <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                      
+                        <option value="Verify:ResolveGroup" >Resolve Group</option>
+                      
+                        <option value="Verify:ResolveGroupWith" >Resolve Group With</option>
+                      
+                        <option value="Verify:ResolveValuer" >Resolve Valuer</option>
+                      
+                        <option value="Verify:ResolveWith" >Resolve With</option>
+                      
+                        <option value="Verify:SlogTest" >Slog Test</option>
+                      
+                        <option value="Verify:SourceKey" >Source Key</option>
+                      
+                        <option value="Verify:WithGroupEmpty" >With Group Empty</option>
+                      
+                        <option value="Verify:ZeroPC" >Zero PC</option>
+                      
+                        <option value="Verify:ZeroTime" >Zero Time</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right"><label for="tag">Other Links</label></td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="otherChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      <option value="index.html"    >Home</option>
+                      <option value="scores.html"   >Scores</option>
+                      <option value="warnings.html" >Warnings</option>
+                      <option value="guts.html"     >Guts</option>
+                    </select>
+                  </form>
+              </tr>
+            </table>
+          </td>
+        </tr>
+    </table>
+
+  </div>
+  <div class="content">
+    <div>
+      <table class="top">
+        
+          
+            <tr class="summary-header">
+              <th style="width:70%">Summary</th>
+              <th style="width:30%">
+                
+                  Links
+                
+              </th>
+            </tr>
+            <tr class="summary">
+              <td>
+                <p><code>phuslu/slog</code> is a wrapper around the pre-existing <code>phuslu/log</code> logging library.</p>
+
+              </td>
+              
+                <td>
+                  
+                    <a href="https://github.com/phuslu/log">phuslu/log</a><br/>
+                  
+                </td>
+              
+            </tr>
+            <tr><td colspan=2><hr/></td></tr>
+          
+        
+        
+          
+          <tr class="title">
+            <td><h2>Benchmark Data</h2></td>
+            <td class="score">Score: <span>79.76</span></td>
+          </tr>
+          <tr>
+            <td colspan=2>
+              <table class="data">
+                <tr>
+                  <th>Benchmark</th>
+                  <th>Runs</th>
+                  <th>Ns/Op</th>
+                  <th>Allocs/Op</th>
+                  <th>Bytes/Op</th>
+                  <th>MB/Sec</th>
+                  <th>Score</th>
+                </tr>
+                
+                  <tr>
+                    <td class="fixed">Attributes</td>
+                    <td class="number">1,000,000</td>
+                    <td class="number">1,087.00</td>
+                      <td class="number">2</td>
+                     <td class="number">288</td>
+                    <td class="number">394.56</td>
+                    <td class="number">99.58</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Big Group</td>
+                    <td class="number">7,986</td>
+                    <td class="number">141,252.00</td>
+                      <td class="number">1,889</td>
+                     <td class="number">251,030</td>
+                    <td class="number">129.42</td>
+                    <td class="number">58.45</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Disabled</td>
+                    <td class="number">407,648,353</td>
+                    <td class="number">2.95</td>
+                      <td class="number">0</td>
+                     <td class="number">0</td>
+                    <td class="number">0.00</td>
+                    <td class="number">100.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Key Values</td>
+                    <td class="number">1,000,000</td>
+                    <td class="number">1,123.00</td>
+                      <td class="number">2</td>
+                     <td class="number">288</td>
+                    <td class="number">382.15</td>
+                    <td class="number">99.62</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Logging</td>
+                    <td class="number">77,208</td>
+                    <td class="number">15,532.00</td>
+                      <td class="number">0</td>
+                     <td class="number">0</td>
+                    <td class="number">566.36</td>
+                    <td class="number">100.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Simple</td>
+                    <td class="number">6,532,819</td>
+                    <td class="number">182.10</td>
+                      <td class="number">0</td>
+                     <td class="number">0</td>
+                    <td class="number">455.79</td>
+                    <td class="number">100.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Simple Source</td>
+                    <td class="number">4,690,177</td>
+                    <td class="number">266.80</td>
+                      <td class="number">1</td>
+                     <td class="number">24</td>
+                    <td class="number">1,038.05</td>
+                    <td class="number">100.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Attrs Attributes</td>
+                    <td class="number">1,000,000</td>
+                    <td class="number">1,087.00</td>
+                      <td class="number">2</td>
+                     <td class="number">288</td>
+                    <td class="number">742.70</td>
+                    <td class="number">99.77</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Attrs Key Values</td>
+                    <td class="number">944,648</td>
+                    <td class="number">1,142.00</td>
+                      <td class="number">2</td>
+                     <td class="number">288</td>
+                    <td class="number">706.05</td>
+                    <td class="number">99.75</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Attrs Simple</td>
+                    <td class="number">6,244,204</td>
+                    <td class="number">185.30</td>
+                      <td class="number">0</td>
+                     <td class="number">0</td>
+                    <td class="number">2,488.38</td>
+                    <td class="number">100.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Group Attributes</td>
+                    <td class="number">10,000</td>
+                    <td class="number">6,400,724.00</td>
+                      <td class="number">4,848</td>
+                     <td class="number">13,331,464</td>
+                    <td class="number">0.07</td>
+                    <td class="number">0.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Group Key Values</td>
+                    <td class="number">10,000</td>
+                    <td class="number">6,435,697.00</td>
+                      <td class="number">4,821</td>
+                     <td class="number">13,255,092</td>
+                    <td class="number">0.07</td>
+                    <td class="number">0.00</td>
+                  </tr>
+                 
+              </table>
+            </td>
+          </tr>
+          <tr><td colspan=2><hr/></td></tr>
+          <tr class="title"><td colspan=2><h2>Benchmark Charts</h2></td></tr>
+          <tr>
+            <td colspan=2 class="score">
+              <table class="charts">
+                <tr>
+                  <td><img src="/go-slog/chart/PhusluSlog/Nanos.svg" alt="phuslu/slog Ns/Op" class="chart" /></td>
+                  <td><img src="/go-slog/chart/PhusluSlog/MemAllocs.svg" alt="phuslu/slog Allocs/Op" class="chart" /></td>
+                </tr>
+                <tr>
+                  <td><img src="/go-slog/chart/PhusluSlog/MemBytes.svg" alt="phuslu/slog Bytes/Op" class="chart" /></td>
+                  <td><img src="/go-slog/chart/PhusluSlog/GbPerSec.svg" alt="phuslu/slog GB/Sec" class="chart" /></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+         
+        
+          <tr><td colspan=2><hr/></td></tr>
+          <tr class="title">
+            <td><h2 >Warnings</h2></td>
+            <td class="score">Score: <span>80.33</span></td>
+          </tr>
+          <tr>
+            <td colspan=2>
+              <table class="warning">
+                <tr>
+                  <td style="width:3%;"></td>
+                  <td style="width:3%;"></td>
+                  <td style="width:30%;"></td>
+                  <td style="width:58%;"></td>
+                  <td style="width:6%;"></td>
+                </tr>
+                
+                          
+          
+            <tr>
+              <td colspan=5 class="level">Required</td>
+            </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  LevelVar
+                </td>
+                <td class="extra">
+                  Unable to change level during execution via LevelVar
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('LevelVar-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="LevelVar-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Slog handlers can use <a href="https://pkg.go.dev/log/slog#LevelVar" target="_blank"><code>LevelVar</code></a> to specify the handler logging level.
+Unlike specifying a <a href="https://pkg.go.dev/log/slog#Level" target="_blank"><code>Level</code></a> (which is actually an <code>int</code>),
+a <code>LevelVar</code> is supposed to be changeable during program execution.</p>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Level Var
+                        </td>
+                        <td class="extra"><p>level not changed</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelVar-Level Var-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  ZeroPC
+                </td>
+                <td class="extra">
+                  SourceKey logged for zero PC
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('ZeroPC-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="ZeroPC-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>The <code>slog.Record.PC</code> field can be loaded with a program counter (PC).
+This is normally done by the <code>slog.Logger</code> code.
+If the PC is non-zero and the <code>slog.HandlerOptions.AddSource</code> flag is set
+the <code>source</code> field will contain a <a href="https://pkg.go.dev/log/slog@master#Source" target="_blank"><code>slog.Source</code></a> record
+containing the function name, file name, and file line at which the log record was generated.
+If the PC is zero then this field and its associated group should not be logged.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If r.PC is zero, ignore it.&quot;</a></li>
+</ul>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Zero PC
+                        </td>
+                        <td class="extra"><p></p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('ZeroPC-Zero PC-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="ZeroPC-Zero PC-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;level&#34;: &#34;INFO&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;source&#34;: {
+		&#34;file&#34;: &#34;&#34;,
+		&#34;function&#34;: &#34;&#34;,
+		&#34;line&#34;: 0
+	},
+	&#34;time&#34;: &#34;2024-05-01T16:22:26.26395421Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+             
+          
+            <tr>
+              <td colspan=5 class="level">Suggested</td>
+            </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  Duplicates
+                </td>
+                <td class="extra">
+                  Duplicate field(s) found
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('Duplicates-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="Duplicates-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Some handlers (e.g. <code>slog.JSONHandler</code>)
+will output multiple occurrences of the same field name
+if the logger is called with multiple instances of the same field,
+generally by using WithAttrs and then the same fields in the eventual log call (e.g. Info).
+This behavior is currently <a href="https://github.com/golang/go/issues/59365" target="_blank">under debate</a>
+with no resolution at this time (2024-01-15) and a
+<a href="https://github.com/golang/go/milestone/212" target="_blank">release milestone of (currently unscheduled) Go 1.23</a>,
+(whereas <a href="https://tip.golang.org/doc/go1.22" target="_blank">Go Release 1.22</a>
+is currently expected in February 2024).</p>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Attribute Duplicate
+                        </td>
+                        <td class="extra"><p>map[alpha:2 charlie:3]</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="Duplicates-Attribute Duplicate-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Attribute With Duplicate
+                        </td>
+                        <td class="extra"><p>map[alpha:2 charlie:3]</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="Duplicates-Attribute With Duplicate-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  DurationMillis
+                </td>
+                <td class="extra">
+                  slog.Duration() logs milliseconds instead of nanoseconds
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('DurationMillis-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="DurationMillis-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>The <code>slog.JSONHandler</code> uses nanoseconds for <code>time.Duration</code> but some other handlers use seconds.</p>
+
+<ul>
+<li><a href="https://github.com/golang/go/issues/59345" target="_blank">Go issue 59345: Nanoseconds is a recent change with Go 1.21</a></li>
+</ul>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Log Attributes
+                        </td>
+                        <td class="extra"><p></p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="DurationMillis-Log Attributes-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  StringAny
+                </td>
+                <td class="extra">
+                  Some structs are converted to strings in log records
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('StringAny-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="StringAny-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>The <code>slog.JSONHandler</code> converts <code>Any</code> objects that are <code>struct</code>s into JSON maps.
+Some handlers convert one or more of these into strings instead of maps.</p>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Bench:
+                          
+                          All
+                        </td>
+                        <td class="extra"><p>Any</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('StringAny-All-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="StringAny-All-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;Any&#34;: &#34;{\&#34;Name\&#34;:\&#34;Skidoo\&#34;,\&#34;Num\&#34;:23}&#34;,
+	&#34;Bool&#34;: true,
+	&#34;Duration&#34;: 3600000,
+	&#34;Error&#34;: &#34;I&#39;m sorry, Dave. I&#39;m afraid I can&#39;t do that.&#34;,
+	&#34;Float64&#34;: 3.141592653589793,
+	&#34;Int&#34;: 17,
+	&#34;Int64&#34;: -654,
+	&#34;String&#34;: &#34;The only Thing we have to fear is fear itself.&#34;,
+	&#34;Time&#34;: &#34;2024-05-01T16:17:31.061Z&#34;,
+	&#34;Uint64&#34;: 29399459393,
+	&#34;group&#34;: {
+		&#34;alpha&#34;: &#34;omega&#34;,
+		&#34;never&#34;: &#34;mind&#34;
+	},
+	&#34;level&#34;: &#34;INFO&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-01T16:19:24.070401928Z&#34;,
+	&#34;withBool&#34;: true,
+	&#34;withDuration&#34;: 3600000,
+	&#34;withFloat64&#34;: 3.141592653589793,
+	&#34;withInt&#34;: 17,
+	&#34;withInt64&#34;: -654,
+	&#34;withString&#34;: &#34;The only Thing we have to fear is fear itself.&#34;,
+	&#34;withTime&#34;: &#34;2024-05-01T16:17:31.061Z&#34;,
+	&#34;withUint64&#34;: 29399459393
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Bench:
+                          
+                          All
+                        </td>
+                        <td class="extra"><p>Any</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('StringAny-All-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="StringAny-All-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;Any&#34;: &#34;{\&#34;Name\&#34;:\&#34;Skidoo\&#34;,\&#34;Num\&#34;:23}&#34;,
+	&#34;Bool&#34;: true,
+	&#34;Duration&#34;: 3600000,
+	&#34;Error&#34;: &#34;I&#39;m sorry, Dave. I&#39;m afraid I can&#39;t do that.&#34;,
+	&#34;Float64&#34;: 3.141592653589793,
+	&#34;Int&#34;: 17,
+	&#34;Int64&#34;: -654,
+	&#34;String&#34;: &#34;The only Thing we have to fear is fear itself.&#34;,
+	&#34;Time&#34;: &#34;2024-05-01T16:17:31.061Z&#34;,
+	&#34;Uint64&#34;: 29399459393,
+	&#34;group&#34;: {
+		&#34;alpha&#34;: &#34;omega&#34;,
+		&#34;never&#34;: &#34;mind&#34;
+	},
+	&#34;level&#34;: &#34;INFO&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-01T16:19:25.17152341Z&#34;,
+	&#34;withBool&#34;: true,
+	&#34;withDuration&#34;: 3600000,
+	&#34;withFloat64&#34;: 3.141592653589793,
+	&#34;withInt&#34;: 17,
+	&#34;withInt64&#34;: -654,
+	&#34;withString&#34;: &#34;The only Thing we have to fear is fear itself.&#34;,
+	&#34;withTime&#34;: &#34;2024-05-01T16:17:31.061Z&#34;,
+	&#34;withUint64&#34;: 29399459393
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Bench:
+                          
+                          All
+                        </td>
+                        <td class="extra"><p>Any</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('StringAny-All-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="StringAny-All-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;level&#34;: &#34;INFO&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-01T16:19:27.62015221Z&#34;,
+	&#34;withGroup&#34;: {
+		&#34;Any&#34;: &#34;{\&#34;Name\&#34;:\&#34;Skidoo\&#34;,\&#34;Num\&#34;:23}&#34;,
+		&#34;Bool&#34;: true,
+		&#34;Duration&#34;: 3600000,
+		&#34;Error&#34;: &#34;I&#39;m sorry, Dave. I&#39;m afraid I can&#39;t do that.&#34;,
+		&#34;Float64&#34;: 3.141592653589793,
+		&#34;Int&#34;: 17,
+		&#34;Int64&#34;: -654,
+		&#34;String&#34;: &#34;The only Thing we have to fear is fear itself.&#34;,
+		&#34;Time&#34;: &#34;2024-05-01T16:17:31.061Z&#34;,
+		&#34;Uint64&#34;: 29399459393,
+		&#34;group&#34;: {
+			&#34;alpha&#34;: &#34;omega&#34;,
+			&#34;never&#34;: &#34;mind&#34;
+		}
+	}
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Bench:
+                          
+                          All
+                        </td>
+                        <td class="extra"><p>Any</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('StringAny-All-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="StringAny-All-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;level&#34;: &#34;INFO&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-01T16:20:31.637164754Z&#34;,
+	&#34;withGroup&#34;: {
+		&#34;Any&#34;: &#34;{\&#34;Name\&#34;:\&#34;Skidoo\&#34;,\&#34;Num\&#34;:23}&#34;,
+		&#34;Bool&#34;: true,
+		&#34;Duration&#34;: 3600000,
+		&#34;Error&#34;: &#34;I&#39;m sorry, Dave. I&#39;m afraid I can&#39;t do that.&#34;,
+		&#34;Float64&#34;: 3.141592653589793,
+		&#34;Int&#34;: 17,
+		&#34;Int64&#34;: -654,
+		&#34;String&#34;: &#34;The only Thing we have to fear is fear itself.&#34;,
+		&#34;Time&#34;: &#34;2024-05-01T16:17:31.061Z&#34;,
+		&#34;Uint64&#34;: 29399459393,
+		&#34;group&#34;: {
+			&#34;alpha&#34;: &#34;omega&#34;,
+			&#34;never&#34;: &#34;mind&#34;
+		}
+	}
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Bench:
+                          
+                          Attributes
+                        </td>
+                        <td class="extra"><p>Any</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('StringAny-Attributes-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="StringAny-Attributes-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;Any&#34;: &#34;{\&#34;Name\&#34;:\&#34;Skidoo\&#34;,\&#34;Num\&#34;:23}&#34;,
+	&#34;Bool&#34;: true,
+	&#34;Duration&#34;: 3600000,
+	&#34;Error&#34;: &#34;I&#39;m sorry, Dave. I&#39;m afraid I can&#39;t do that.&#34;,
+	&#34;Float64&#34;: 3.141592653589793,
+	&#34;Int&#34;: 17,
+	&#34;Int64&#34;: -654,
+	&#34;String&#34;: &#34;The only Thing we have to fear is fear itself.&#34;,
+	&#34;Time&#34;: &#34;2024-05-01T16:17:31.061Z&#34;,
+	&#34;Uint64&#34;: 29399459393,
+	&#34;group&#34;: {
+		&#34;alpha&#34;: &#34;omega&#34;,
+		&#34;never&#34;: &#34;mind&#34;
+	},
+	&#34;level&#34;: &#34;INFO&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-01T16:19:14.932041119Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Bench:
+                          
+                          Key Values
+                        </td>
+                        <td class="extra"><p>Any</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('StringAny-Key Values-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="StringAny-Key Values-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;Any&#34;: &#34;{\&#34;Name\&#34;:\&#34;Skidoo\&#34;,\&#34;Num\&#34;:23}&#34;,
+	&#34;Bool&#34;: true,
+	&#34;Duration&#34;: 3600000,
+	&#34;Error&#34;: &#34;I&#39;m sorry, Dave. I&#39;m afraid I can&#39;t do that.&#34;,
+	&#34;Float64&#34;: 3.141592653589793,
+	&#34;Int&#34;: 17,
+	&#34;Int64&#34;: -654,
+	&#34;String&#34;: &#34;The only Thing we have to fear is fear itself.&#34;,
+	&#34;Time&#34;: &#34;2024-05-01T16:17:31.061Z&#34;,
+	&#34;Uint64&#34;: 29399459393,
+	&#34;group&#34;: {
+		&#34;alpha&#34;: &#34;omega&#34;,
+		&#34;never&#34;: &#34;mind&#34;
+	},
+	&#34;level&#34;: &#34;INFO&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-01T16:19:18.683050908Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Bench:
+                          
+                          With
+                        </td>
+                        <td class="extra"><p>Any</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('StringAny-With-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="StringAny-With-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;Any&#34;: &#34;{\&#34;Name\&#34;:\&#34;Skidoo\&#34;,\&#34;Num\&#34;:23}&#34;,
+	&#34;Bool&#34;: true,
+	&#34;Duration&#34;: 3600000,
+	&#34;Error&#34;: &#34;I&#39;m sorry, Dave. I&#39;m afraid I can&#39;t do that.&#34;,
+	&#34;Float64&#34;: 3.141592653589793,
+	&#34;Int&#34;: 17,
+	&#34;Int64&#34;: -654,
+	&#34;String&#34;: &#34;The only Thing we have to fear is fear itself.&#34;,
+	&#34;Time&#34;: &#34;2024-05-01T16:17:31.061Z&#34;,
+	&#34;Uint64&#34;: 29399459393,
+	&#34;group&#34;: {
+		&#34;alpha&#34;: &#34;omega&#34;,
+		&#34;never&#34;: &#34;mind&#34;
+	},
+	&#34;level&#34;: &#34;INFO&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-01T16:19:24.070401928Z&#34;,
+	&#34;withBool&#34;: true,
+	&#34;withDuration&#34;: 3600000,
+	&#34;withFloat64&#34;: 3.141592653589793,
+	&#34;withInt&#34;: 17,
+	&#34;withInt64&#34;: -654,
+	&#34;withString&#34;: &#34;The only Thing we have to fear is fear itself.&#34;,
+	&#34;withTime&#34;: &#34;2024-05-01T16:17:31.061Z&#34;,
+	&#34;withUint64&#34;: 29399459393
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Bench:
+                          
+                          With
+                        </td>
+                        <td class="extra"><p>Any</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('StringAny-With-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="StringAny-With-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;Any&#34;: &#34;{\&#34;Name\&#34;:\&#34;Skidoo\&#34;,\&#34;Num\&#34;:23}&#34;,
+	&#34;Bool&#34;: true,
+	&#34;Duration&#34;: 3600000,
+	&#34;Error&#34;: &#34;I&#39;m sorry, Dave. I&#39;m afraid I can&#39;t do that.&#34;,
+	&#34;Float64&#34;: 3.141592653589793,
+	&#34;Int&#34;: 17,
+	&#34;Int64&#34;: -654,
+	&#34;String&#34;: &#34;The only Thing we have to fear is fear itself.&#34;,
+	&#34;Time&#34;: &#34;2024-05-01T16:17:31.061Z&#34;,
+	&#34;Uint64&#34;: 29399459393,
+	&#34;group&#34;: {
+		&#34;alpha&#34;: &#34;omega&#34;,
+		&#34;never&#34;: &#34;mind&#34;
+	},
+	&#34;level&#34;: &#34;INFO&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-01T16:19:25.17152341Z&#34;,
+	&#34;withBool&#34;: true,
+	&#34;withDuration&#34;: 3600000,
+	&#34;withFloat64&#34;: 3.141592653589793,
+	&#34;withInt&#34;: 17,
+	&#34;withInt64&#34;: -654,
+	&#34;withString&#34;: &#34;The only Thing we have to fear is fear itself.&#34;,
+	&#34;withTime&#34;: &#34;2024-05-01T16:17:31.061Z&#34;,
+	&#34;withUint64&#34;: 29399459393
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Bench:
+                          
+                          With
+                        </td>
+                        <td class="extra"><p>Any</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('StringAny-With-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="StringAny-With-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;Any&#34;: &#34;{\&#34;Name\&#34;:\&#34;Skidoo\&#34;,\&#34;Num\&#34;:23}&#34;,
+	&#34;Error&#34;: &#34;I&#39;m sorry, Dave. I&#39;m afraid I can&#39;t do that.&#34;,
+	&#34;group&#34;: {
+		&#34;alpha&#34;: &#34;omega&#34;,
+		&#34;never&#34;: &#34;mind&#34;
+	},
+	&#34;level&#34;: &#34;INFO&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-01T16:19:26.265669117Z&#34;,
+	&#34;withBool&#34;: true,
+	&#34;withDuration&#34;: 3600000,
+	&#34;withFloat64&#34;: 3.141592653589793,
+	&#34;withInt&#34;: 17,
+	&#34;withInt64&#34;: -654,
+	&#34;withString&#34;: &#34;The only Thing we have to fear is fear itself.&#34;,
+	&#34;withTime&#34;: &#34;2024-05-01T16:17:31.061Z&#34;,
+	&#34;withUint64&#34;: 29399459393
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  TimeMillis
+                </td>
+                <td class="extra">
+                  slog.Time() logs milliseconds instead of nanoseconds
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('TimeMillis-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="TimeMillis-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>The <code>slog.JSONHandler</code> uses nanoseconds for <code>time.Time</code> but some other handlers use milliseconds.
+This does <em>not</em> apply to the basic <code>time</code> field, only attribute fields.
+I can't find any supporting documentation or bug on this but
+<a href="https://github.com/golang/go/issues/59345" target="_blank">Go issue 59345</a> (see previous warning)
+may have fixed this as well in Go 1.21.</p>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Log Attributes
+                        </td>
+                        <td class="extra"><p>2024-05-01T16:22:26.262Z</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="TimeMillis-Log Attributes-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+             
+           
+
+              </table>
+            </td>
+         
+      </table>
+    </div>
+  </div>
+  <div class="footer">
+        <table class="footer">
+        <tr>
+          <td>
+            <div class="hover-text">
+              <span class="tooltip-text">Code Repository</span>
+              <a href="https://github.com/madkins23/go-slog" target="_blank">Repository</a>
+            </div>
+          </td>
+          <td class="center">
+            <div class="hover-text">
+              <span class="tooltip-text">Date/time when this data was generated</span>
+              <span class="fixed">2024-05-01 16:22:36 UTC</span>
+            </div>
+          </td>
+          <td class="right">
+            <div class="hover-text">
+              <span class="tooltip-text">Code Documentation</span>
+              <a href="https://pkg.go.dev/github.com/madkins23/go-slog" target="_blank">Documentation</a>
+            </div>
+          </td>
+        </tr>
+    </table>
+
+  </div>
+</div>
+</body>
+</html>
