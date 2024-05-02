@@ -13,10 +13,10 @@ import (
 	"testing"
 
 	"github.com/madkins23/go-slog/infra"
+	warning2 "github.com/madkins23/go-slog/infra/warning"
 	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/misc"
 	"github.com/madkins23/go-slog/internal/test"
-	"github.com/madkins23/go-slog/internal/warning"
 )
 
 var justTests = flag.Bool("justTests", false, "Don't run benchmarks, just tests")
@@ -24,7 +24,7 @@ var justTests = flag.Bool("justTests", false, "Don't run benchmarks, just tests"
 // SlogBenchmarkSuite implements the benchmark test harness.
 type SlogBenchmarkSuite struct {
 	infra.Creator
-	*warning.Manager
+	*warning2.Manager
 
 	b  *testing.B
 	mu sync.RWMutex
@@ -41,7 +41,7 @@ func NewSlogBenchmarkSuite(creator infra.Creator) *SlogBenchmarkSuite {
 		Creator: creator,
 		Manager: NewWarningManager(creator.Name()),
 	}
-	suite.WarnOnly(warning.NoHandlerCreation)
+	suite.WarnOnly(warning2.NoHandlerCreation)
 	return suite
 }
 
@@ -119,7 +119,7 @@ func Run(b *testing.B, suite *SlogBenchmarkSuite) {
 				// This test requires the handler to be adjusted before creating the logger
 				// but the Creator object doesn't provide a handler so skip the test.
 				test.Debugf(2, ">>>     Skip:   %s\n", method.Name)
-				suite.AddWarningFn(warning.NoHandlerCreation, method.Name, "")
+				suite.AddWarningFn(warning2.NoHandlerCreation, method.Name, "")
 				// After this any benchmark with a non-nil HandlerFn must be able to make a handler.
 				continue
 			}

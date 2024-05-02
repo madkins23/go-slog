@@ -3,7 +3,7 @@ package verify
 import (
 	"testing"
 
-	"github.com/madkins23/go-slog/internal/warning"
+	"github.com/madkins23/go-slog/infra/warning"
 )
 
 func TestMain(m *testing.M) {

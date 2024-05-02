@@ -12,7 +12,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/madkins23/go-slog/internal/warning"
+	"github.com/madkins23/go-slog/infra/warning"
 )
 
 // -----------------------------------------------------------------------------

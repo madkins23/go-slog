@@ -7,8 +7,8 @@ import (
 	"time"
 
 	"github.com/madkins23/go-slog/infra"
+	"github.com/madkins23/go-slog/infra/warning"
 	"github.com/madkins23/go-slog/internal/test"
-	"github.com/madkins23/go-slog/internal/warning"
 )
 
 // -----------------------------------------------------------------------------

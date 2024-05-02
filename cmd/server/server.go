@@ -58,9 +58,9 @@ import (
 	"github.com/madkins23/gin-utils/pkg/shutdown"
 
 	ginslog "github.com/madkins23/go-slog/gin"
+	"github.com/madkins23/go-slog/infra/warning"
 	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/language"
-	"github.com/madkins23/go-slog/internal/warning"
 )
 
 // Server reads output from 'test -bench' and serves tables and charts via HTTP.

@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/suite"
 
 	"github.com/madkins23/go-slog/infra"
-	"github.com/madkins23/go-slog/internal/warning"
+	"github.com/madkins23/go-slog/infra/warning"
 )
 
 // -----------------------------------------------------------------------------

@@ -3,7 +3,7 @@ package bench
 import (
 	"testing"
 
-	"github.com/madkins23/go-slog/internal/warning"
+	"github.com/madkins23/go-slog/infra/warning"
 )
 
 // TestMain captures the Go test harness to show warning results after testing.
