@@ -1,4 +1,5 @@
 TODO
+* Why is warning.StringAny showing up for phuslu/slog when it isn't in a UseWarning?
 * Build a string representing each complex test for dumping when an error occurs.
 * Discuss slog_madkins_replattr benchmark somewhere
 * Use json.Expect and reflect.DeepEqual()/assert.Equal() more often
