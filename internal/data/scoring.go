@@ -5,7 +5,7 @@ import (
 	"html/template"
 	"math"
 
-	warning2 "github.com/madkins23/go-slog/infra/warning"
+	"github.com/madkins23/go-slog/infra/warning"
 	"github.com/madkins23/go-slog/internal/markdown"
 )
 
@@ -20,7 +20,7 @@ type Scores interface {
 	DocWarning() template.HTML
 	WeightBench() map[benchValue]uint
 	WeightBenchOrder() []benchValue
-	WeightWarning() map[warning2.Level]uint64
+	WeightWarning() map[warning.Level]uint64
 	// WeightWarningOrder unnecessary, use warnings.LevelOrder().
 }
 
@@ -90,7 +90,7 @@ func (sd *ScoreDefault) WeightBenchOrder() []benchValue {
 }
 
 // WeightWarning returns a map of algorithm weights by warning levels.
-func (sd *ScoreDefault) WeightWarning() map[warning2.Level]uint64 {
+func (sd *ScoreDefault) WeightWarning() map[warning.Level]uint64 {
 	return warningScoreWeight
 }
 
@@ -211,9 +211,9 @@ func (ts *TestScores) ForTest(test TestTag) float64 {
 
 func (sd *ScoreDefault) initWarningScores(w *Warnings) {
 	var maxScore uint64
-	for _, level := range warning2.LevelOrder {
+	for _, level := range warning.LevelOrder {
 		var count uint64
-		for _, warn := range warning2.WarningsForLevel(level) {
+		for _, warn := range warning.WarningsForLevel(level) {
 			if wx, found := w.byWarning[warn.Name]; found {
 				if len(wx.count) > 0 {
 					count++
@@ -251,9 +251,9 @@ func (sd *ScoreDefault) HandlerWarningScore(handler HandlerTag) float64 {
 // -----------------------------------------------------------------------------
 
 // warningScoreWeight has the multipliers for different warning levels.
-var warningScoreWeight = map[warning2.Level]uint64{
-	warning2.LevelRequired:  8,
-	warning2.LevelImplied:   4,
-	warning2.LevelSuggested: 2,
-	warning2.LevelAdmin:     1,
+var warningScoreWeight = map[warning.Level]uint64{
+	warning.LevelRequired:  8,
+	warning.LevelImplied:   4,
+	warning.LevelSuggested: 2,
+	warning.LevelAdmin:     1,
 }

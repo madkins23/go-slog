@@ -12,7 +12,7 @@ import (
 	"sort"
 	"strings"
 
-	warning2 "github.com/madkins23/go-slog/infra/warning"
+	"github.com/madkins23/go-slog/infra/warning"
 	intJSON "github.com/madkins23/go-slog/internal/json"
 	"github.com/madkins23/go-slog/internal/test"
 )
@@ -21,21 +21,21 @@ import (
 
 // bigGroupChecker checks the captured/logMap data to see if it is a big group.
 func bigGroupChecker(testName string) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *warning2.Manager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		if groupMap, found := logMap[valGroupName]; found {
 			if group, ok := groupMap.(map[string]any); !ok {
 				text := testName + ": not a group"
-				manager.AddWarning(warning2.Mismatch, text, "")
-				return warning2.Mismatch.ErrorExtra(text)
+				manager.AddWarning(warning.Mismatch, text, "")
+				return warning.Mismatch.ErrorExtra(text)
 			} else if maxDepth, err := bigGroupCheck(group, 0, bigGroupLimit, valGroupName); err != nil {
 				text := testName + ": " + err.Error()
-				manager.AddWarning(warning2.Mismatch, text, "")
-				return warning2.Mismatch.ErrorExtra(text)
+				manager.AddWarning(warning.Mismatch, text, "")
+				return warning.Mismatch.ErrorExtra(text)
 			} else if maxDepth != bigGroupLimit {
 				text := fmt.Sprintf("%s: maxDepth %d != %d limit", testName, maxDepth, bigGroupLimit)
-				manager.AddWarning(warning2.Mismatch, text, "")
-				return warning2.Mismatch.ErrorExtra(text)
+				manager.AddWarning(warning.Mismatch, text, "")
+				return warning.Mismatch.ErrorExtra(text)
 			}
 		}
 		return nil
@@ -44,7 +44,7 @@ func bigGroupChecker(testName string) VerifyFn {
 
 // fields checks the captured/logMap data to see if the specified fields exist.
 func fields(testName string, fields ...string) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *warning2.Manager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		missing := make([]string, 0, len(fields))
 		for _, field := range fields {
@@ -54,8 +54,8 @@ func fields(testName string, fields ...string) VerifyFn {
 		}
 		if len(missing) > 0 {
 			text := testName + ": " + strings.Join(missing, ",")
-			manager.AddWarning(warning2.Mismatch, text, string(captured))
-			return warning2.Mismatch.ErrorExtra(text)
+			manager.AddWarning(warning.Mismatch, text, string(captured))
+			return warning.Mismatch.ErrorExtra(text)
 		}
 		return nil
 	}
@@ -64,7 +64,7 @@ func fields(testName string, fields ...string) VerifyFn {
 // finder matches the parts of the actual map against what is expected.
 // The actual map can have other unspecified fields.
 func finder(testName string, expected map[string]any) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *warning2.Manager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		badFields, strFields, err := finderDeep(expected, logMap, "")
 		if err != nil {
@@ -72,15 +72,15 @@ func finder(testName string, expected map[string]any) VerifyFn {
 		}
 		if len(badFields) > 0 {
 			text := testName + ": " + strings.Join(badFields, ",")
-			manager.AddWarningFn(warning2.Mismatch, text, string(captured))
-		} else if manager.HasWarning(warning2.Mismatch) {
-			manager.AddUnused(warning2.Mismatch, string(captured))
+			manager.AddWarningFn(warning.Mismatch, text, string(captured))
+		} else if manager.HasWarning(warning.Mismatch) {
+			manager.AddUnused(warning.Mismatch, string(captured))
 		}
 		if len(strFields) > 0 {
 			text := testName + ": " + strings.Join(strFields, ",")
-			manager.AddWarningFn(warning2.StringAny, text, string(captured))
-		} else if manager.HasWarning(warning2.StringAny) {
-			manager.AddUnused(warning2.StringAny, string(captured))
+			manager.AddWarningFn(warning.StringAny, text, string(captured))
+		} else if manager.HasWarning(warning.StringAny) {
+			manager.AddUnused(warning.StringAny, string(captured))
 		}
 		return nil
 	}
@@ -124,13 +124,13 @@ func finderDeep(expected map[string]any, actual map[string]any, prefix string) (
 // matcher matches the parts entirety of the actual map against
 // the entirety of the expected map using reflect.DeepEqual.
 func matcher(testName string, expected map[string]any) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *warning2.Manager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		if !reflect.DeepEqual(expected, fixLogMap(logMap)) {
 			test.Debugf(2, ">?> %v\n", expected)
 			test.Debugf(2, ">=> %v\n", fixLogMap(logMap))
-			manager.AddWarningFn(warning2.Mismatch, testName, string(captured))
-			return warning2.Mismatch.ErrorExtra(testName)
+			manager.AddWarningFn(warning.Mismatch, testName, string(captured))
+			return warning.Mismatch.ErrorExtra(testName)
 		}
 		return nil
 	}
@@ -138,12 +138,12 @@ func matcher(testName string, expected map[string]any) VerifyFn {
 
 // noDuplicates checks to see if there are duplicate fields in the logMap.
 func noDuplicates(testName string) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *warning2.Manager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		counter := intJSON.NewFieldCounter(captured)
 		if len(counter.Duplicates()) > 0 {
-			manager.AddWarningFn(warning2.Duplicates, testName, string(captured))
-			return warning2.Duplicates.ErrorExtra(testName)
+			manager.AddWarningFn(warning.Duplicates, testName, string(captured))
+			return warning.Duplicates.ErrorExtra(testName)
 		}
 		return nil
 	}
@@ -151,13 +151,13 @@ func noDuplicates(testName string) VerifyFn {
 
 // sourcerer checks to see if the slog.SourceKey is present and properly configured.
 func sourcerer(testName string) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *warning2.Manager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		if srcVal, found := logMap[slog.SourceKey]; found {
 			if srcMap, ok := srcVal.(map[string]any); !ok {
 				text := "source not map"
-				manager.AddWarningFnText(warning2.SourceKey, testName, text, string(captured))
-				return warning2.SourceKey.ErrorExtra(text)
+				manager.AddWarningFnText(warning.SourceKey, testName, text, string(captured))
+				return warning.SourceKey.ErrorExtra(text)
 			} else {
 				missing := make([]string, 0)
 				for _, field := range []string{"file", "function", "line"} {
@@ -167,8 +167,8 @@ func sourcerer(testName string) VerifyFn {
 				}
 				if len(missing) > 0 {
 					text := fmt.Sprintf("missing fields: %s", strings.Join(missing, ","))
-					manager.AddWarningFnText(warning2.SourceKey, testName, text, string(captured))
-					return warning2.SourceKey.ErrorExtra(text)
+					manager.AddWarningFnText(warning.SourceKey, testName, text, string(captured))
+					return warning.SourceKey.ErrorExtra(text)
 				}
 			}
 		} else if callVal, found := logMap["caller"]; found {
@@ -180,12 +180,12 @@ func sourcerer(testName string) VerifyFn {
 			} else {
 				text = caller
 			}
-			manager.AddWarningFnText(warning2.SourceCaller, testName, text, string(captured))
-			return warning2.SourceCaller.ErrorExtra(text)
+			manager.AddWarningFnText(warning.SourceCaller, testName, text, string(captured))
+			return warning.SourceCaller.ErrorExtra(text)
 		} else {
 			text := fmt.Sprintf("no '%s' key", slog.SourceKey)
-			manager.AddWarningFnText(warning2.SourceKey, testName, text, string(captured))
-			return warning2.SourceKey.ErrorExtra(text)
+			manager.AddWarningFnText(warning.SourceKey, testName, text, string(captured))
+			return warning.SourceKey.ErrorExtra(text)
 		}
 		return nil
 	}
@@ -193,7 +193,7 @@ func sourcerer(testName string) VerifyFn {
 
 // verify runs the specified functions against the captured/logMap data.
 func verify(fns ...VerifyFn) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *warning2.Manager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		logMap = getLogMap(captured, logMap, manager)
 		errs := make([]error, 0, len(fns))
 		for _, fn := range fns {
@@ -210,7 +210,7 @@ func verify(fns ...VerifyFn) VerifyFn {
 
 // verifyLines applies the specified function(s) to each line in the captured bytes.
 func verifyLines(fns ...VerifyFn) VerifyFn {
-	return func(captured []byte, logMap map[string]any, manager *warning2.Manager) error {
+	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 		var buffer bytes.Buffer
 		lineReader := bufio.NewReader(bytes.NewReader(captured))
 		for {

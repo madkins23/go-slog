@@ -11,7 +11,7 @@ import (
 
 	"github.com/madkins23/go-slog/handlers/trace"
 	"github.com/madkins23/go-slog/infra"
-	warning2 "github.com/madkins23/go-slog/infra/warning"
+	"github.com/madkins23/go-slog/infra/warning"
 	intTest "github.com/madkins23/go-slog/internal/test"
 )
 
@@ -92,28 +92,28 @@ func (suite *SlogTestSuite) TestComplexCases() {
 		if !reflect.DeepEqual(expected, actual) {
 			mismatches = append(mismatches, test)
 		}
-		if !suite.HasWarning(warning2.Mismatch) {
+		if !suite.HasWarning(warning.Mismatch) {
 			suite.Assert().Equal(expected, actual, test)
 		}
 	}
 	if len(mismatches) > 0 {
 		failed := strings.Join(mismatches, " | ")
 		intTest.Debugf(1, ">>> %d Mismatches: %s", len(mismatches), failed)
-		suite.AddWarning(warning2.Mismatch, failed, suite.Buffer.String())
+		suite.AddWarning(warning.Mismatch, failed, suite.Buffer.String())
 	}
 }
 
 // -----------------------------------------------------------------------------
 
 type parser struct {
-	*warning2.Manager
+	*warning.Manager
 	inGroup, inWith  bool
 	name, definition string
 	logger           *slog.Logger
 	logMap, ptrMap   map[string]any
 }
 
-func newParser(manager *warning2.Manager, logger *slog.Logger, definition string) *parser {
+func newParser(manager *warning.Manager, logger *slog.Logger, definition string) *parser {
 	p := &parser{
 		Manager:    manager,
 		name:       definition,
@@ -184,7 +184,7 @@ func (p *parser) execute() error {
 		if len(attrs) > 0 {
 			p.pushLog(p.currLog().With(anyList(attrs)...))
 			p.inWith = true
-			if p.HasWarning(warning2.GroupWithTop) {
+			if p.HasWarning(warning.GroupWithTop) {
 				err = p.addAttrsToMap(p.logMap, attrs...)
 			} else {
 				err = p.addAttrs(attrs...)
@@ -201,7 +201,7 @@ func (p *parser) execute() error {
 		p.currLog().Info(message, anyList(attrs)...)
 		p.logMap[slog.LevelKey] = "INFO"
 		p.logMap[slog.MessageKey] = message
-		if p.HasWarning(warning2.GroupAttrMsgTop) && (!p.inGroup || p.inWith) {
+		if p.HasWarning(warning.GroupAttrMsgTop) && (!p.inGroup || p.inWith) {
 			//	"G1             M+A", fails here
 			//	"G1+A           M+B", succeeds here
 			if err = p.addAttrsToMap(p.logMap, attrs...); err != nil {
@@ -237,7 +237,7 @@ func (p *parser) fixActual(actual map[string]any) {
 		actual[slog.MessageKey] = actual["message"]
 		delete(actual, "message")
 	}
-	if p.HasWarning(warning2.LevelCase) {
+	if p.HasWarning(warning.LevelCase) {
 		if lvl, found := actual[slog.LevelKey]; found {
 			if level, ok := lvl.(string); ok {
 				actual[slog.LevelKey] = strings.ToUpper(level)
@@ -253,16 +253,16 @@ func (p *parser) removeEmptyGroups(logMap map[string]any, depth int) {
 			if len(group) > 0 {
 				p.removeEmptyGroups(group, depth+1)
 			}
-			if depth > 0 || !p.HasWarning(warning2.GroupEmpty) {
+			if depth > 0 || !p.HasWarning(warning.GroupEmpty) {
 				if len(group) < 1 {
 					delete(logMap, key)
 				}
-			} else if p.HasWarning(warning2.GroupEmpty) {
+			} else if p.HasWarning(warning.GroupEmpty) {
 				if len(group) < 1 {
 					delete(logMap, key)
 				}
 			}
-		} else if _, ok := val.(slog.LogValuer); ok && p.HasWarning(warning2.Resolver) {
+		} else if _, ok := val.(slog.LogValuer); ok && p.HasWarning(warning.Resolver) {
 			logMap[key] = make(map[string]any)
 		}
 	}
@@ -308,11 +308,11 @@ func (p *parser) addAttrToMap(logMap map[string]any, attr slog.Attr) error {
 	case slog.KindBool:
 		value = attr.Value.Bool()
 	case slog.KindDuration:
-		if p.HasWarning(warning2.GroupDuration) && p.inGroup {
+		if p.HasWarning(warning.GroupDuration) && p.inGroup {
 			value = float64(attr.Value.Duration().Nanoseconds())
-		} else if p.Manager.HasWarning(warning2.DurationSeconds) {
+		} else if p.Manager.HasWarning(warning.DurationSeconds) {
 			value = attr.Value.Duration().Seconds()
-		} else if p.Manager.HasWarning(warning2.DurationMillis) {
+		} else if p.Manager.HasWarning(warning.DurationMillis) {
 			value = float64(attr.Value.Duration().Milliseconds())
 		} else {
 			value = float64(attr.Value.Duration().Nanoseconds())
@@ -336,7 +336,7 @@ func (p *parser) addAttrToMap(logMap map[string]any, attr slog.Attr) error {
 		}
 		value = subMap
 	case slog.KindLogValuer:
-		if p.HasWarning(warning2.Resolver) {
+		if p.HasWarning(warning.Resolver) {
 			return nil
 		}
 		value = attr.Value.LogValuer().LogValue().String()

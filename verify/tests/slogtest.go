@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/madkins23/go-slog/infra"
-	warning2 "github.com/madkins23/go-slog/infra/warning"
+	"github.com/madkins23/go-slog/infra/warning"
 )
 
 // -----------------------------------------------------------------------------
@@ -36,12 +36,12 @@ func (suite *SlogTestSuite) TestSlogTest() {
 				}
 				return ms
 			})
-		if !suite.HasWarning(warning2.SlogTest) {
+		if !suite.HasWarning(warning.SlogTest) {
 			suite.Require().NoError(err)
 		} else if err == nil {
-			suite.AddUnused(warning2.SlogTest, "")
+			suite.AddUnused(warning.SlogTest, "")
 		} else {
-			suite.AddWarning(warning2.SlogTest, err.Error(), "")
+			suite.AddWarning(warning.SlogTest, err.Error(), "")
 		}
 	}
 }
@@ -153,7 +153,7 @@ func (suite *SlogTestSuite) TestGroupEmpty() {
 	logger := suite.Logger(infra.SimpleOptions())
 	logger.Info(message, slog.Group("group"))
 	logMap := suite.logMap()
-	if !suite.HasWarning(warning2.GroupEmpty) {
+	if !suite.HasWarning(warning.GroupEmpty) {
 		suite.checkFieldCount(3, logMap)
 		_, found := logMap["group"]
 		suite.Assert().False(found)
@@ -170,9 +170,9 @@ func (suite *SlogTestSuite) TestGroupEmpty() {
 			}
 		}
 		if len(issues) > 0 {
-			suite.AddWarning(warning2.GroupEmpty, strings.Join(issues, ", "), suite.Buffer.String())
+			suite.AddWarning(warning.GroupEmpty, strings.Join(issues, ", "), suite.Buffer.String())
 		} else {
-			suite.AddUnused(warning2.GroupEmpty, "")
+			suite.AddUnused(warning.GroupEmpty, "")
 		}
 	}
 }
@@ -184,7 +184,7 @@ func (suite *SlogTestSuite) TestWithGroupEmpty() {
 	logger := suite.Logger(infra.SimpleOptions())
 	logger.WithGroup("group1").WithGroup("group2").Info(message, slog.Group("subGroup"))
 	logMap := suite.logMap()
-	if !suite.HasWarning(warning2.WithGroupEmpty) {
+	if !suite.HasWarning(warning.WithGroupEmpty) {
 		suite.checkFieldCount(3, logMap)
 		_, found := logMap["group"]
 		suite.Assert().False(found)
@@ -201,9 +201,9 @@ func (suite *SlogTestSuite) TestWithGroupEmpty() {
 			}
 		}
 		if len(issues) > 0 {
-			suite.AddWarning(warning2.WithGroupEmpty, strings.Join(issues, ", "), suite.Buffer.String())
+			suite.AddWarning(warning.WithGroupEmpty, strings.Join(issues, ", "), suite.Buffer.String())
 		} else {
-			suite.AddUnused(warning2.WithGroupEmpty, "")
+			suite.AddUnused(warning.WithGroupEmpty, "")
 		}
 	}
 }
@@ -226,7 +226,7 @@ func (suite *SlogTestSuite) TestGroupInline() {
 		suite.Assert().Equal("3", fieldMap["third"])
 		suite.Assert().Equal("forth", fieldMap["fourth"])
 	}
-	if !suite.HasWarning(warning2.GroupInline) {
+	if !suite.HasWarning(warning.GroupInline) {
 		suite.checkFieldCount(8, logMap)
 		checkFieldFn(logMap)
 	} else {
@@ -239,9 +239,9 @@ func (suite *SlogTestSuite) TestGroupInline() {
 			} else {
 				suite.Fail("Group not map[string]any")
 			}
-			suite.AddWarning(warning2.GroupInline, "", suite.Buffer.String())
+			suite.AddWarning(warning.GroupInline, "", suite.Buffer.String())
 		} else {
-			suite.AddUnused(warning2.GroupInline, "")
+			suite.AddUnused(warning.GroupInline, "")
 		}
 	}
 }
@@ -266,7 +266,7 @@ func (suite *SlogTestSuite) TestWithGroupInline() {
 		suite.Assert().Equal("3", fieldMap["third"])
 		suite.Assert().Equal("forth", fieldMap["fourth"])
 	}
-	if !suite.HasWarning(warning2.GroupInline) {
+	if !suite.HasWarning(warning.GroupInline) {
 		suite.checkFieldCount(8, logMap)
 		checkFieldFn(logMap)
 	} else {
@@ -279,9 +279,9 @@ func (suite *SlogTestSuite) TestWithGroupInline() {
 			} else {
 				suite.Fail("Group not map[string]any")
 			}
-			suite.AddWarning(warning2.GroupInline, "", suite.Buffer.String())
+			suite.AddWarning(warning.GroupInline, "", suite.Buffer.String())
 		} else {
-			suite.AddUnused(warning2.GroupInline, "")
+			suite.AddUnused(warning.GroupInline, "")
 		}
 	}
 }
@@ -324,13 +324,13 @@ func (suite *SlogTestSuite) TestGroupWithMulti() {
 		},
 	}
 	suite.adjustExpected(expected, logMap)
-	if !suite.HasWarning(warning2.WithGroup) {
+	if !suite.HasWarning(warning.WithGroup) {
 		suite.checkFieldCount(5, logMap)
 		suite.Assert().Equal(expected, logMap)
 	} else if reflect.DeepEqual(expected, logMap) {
-		suite.AddUnused(warning2.WithGroup, "")
+		suite.AddUnused(warning.WithGroup, "")
 	} else {
-		suite.AddWarning(warning2.WithGroup, "", suite.Buffer.String())
+		suite.AddWarning(warning.WithGroup, "", suite.Buffer.String())
 	}
 }
 
@@ -355,20 +355,20 @@ func (suite *SlogTestSuite) TestGroupWithMultiSubEmpty() {
 		},
 	}
 	suite.adjustExpected(expected, logMap)
-	if !suite.HasWarning(warning2.WithGroup) && !suite.HasWarning(warning2.GroupEmpty) {
+	if !suite.HasWarning(warning.WithGroup) && !suite.HasWarning(warning.GroupEmpty) {
 		suite.checkFieldCount(5, logMap)
 		suite.Assert().Equal(expected, logMap)
 	} else if reflect.DeepEqual(expected, logMap) {
-		suite.AddUnused(warning2.WithGroup, "")
-		suite.AddUnused(warning2.GroupEmpty, "")
+		suite.AddUnused(warning.WithGroup, "")
+		suite.AddUnused(warning.GroupEmpty, "")
 	} else if grpAny, found := logMap["group"]; !found {
-		suite.AddWarning(warning2.WithGroup, "no 'group' group", suite.Buffer.String())
+		suite.AddWarning(warning.WithGroup, "no 'group' group", suite.Buffer.String())
 	} else if group, ok := grpAny.(map[string]any); !ok {
-		suite.AddWarning(warning2.WithGroup, "'group' group not map", suite.Buffer.String())
+		suite.AddWarning(warning.WithGroup, "'group' group not map", suite.Buffer.String())
 	} else if _, found := group["subGroup"]; found {
-		suite.AddWarning(warning2.GroupEmpty, "found 'subGroup' group", suite.Buffer.String())
+		suite.AddWarning(warning.GroupEmpty, "found 'subGroup' group", suite.Buffer.String())
 	} else {
-		suite.AddWarning(warning2.WithGroup, "", suite.Buffer.String())
+		suite.AddWarning(warning.WithGroup, "", suite.Buffer.String())
 	}
 }
 
@@ -455,15 +455,15 @@ func (suite *SlogTestSuite) TestZeroPC() {
 	suite.checkLevelKey("INFO", logMap)
 	suite.checkMessageKey(message, logMap)
 	suite.Assert().NotNil(logMap[slog.TimeKey])
-	if suite.HasWarning(warning2.ZeroPC) {
+	if suite.HasWarning(warning.ZeroPC) {
 		if _, ok := logMap[slog.SourceKey].(map[string]any); ok {
-			suite.AddWarning(warning2.ZeroPC, "", suite.Buffer.String())
+			suite.AddWarning(warning.ZeroPC, "", suite.Buffer.String())
 			return
 		} else if _, ok := logMap["caller"]; ok {
-			suite.AddWarning(warning2.ZeroPC, "non-standard key 'caller'", suite.Buffer.String())
+			suite.AddWarning(warning.ZeroPC, "non-standard key 'caller'", suite.Buffer.String())
 			return
 		}
-		suite.AddUnused(warning2.ZeroPC, "")
+		suite.AddUnused(warning.ZeroPC, "")
 	}
 
 	suite.checkFieldCount(3, logMap)
@@ -480,7 +480,7 @@ func (suite *SlogTestSuite) TestZeroTime() {
 	logMap := suite.logMap()
 	suite.checkLevelKey("INFO", logMap)
 	suite.checkMessageKey(message, logMap)
-	if suite.HasWarning(warning2.ZeroTime) {
+	if suite.HasWarning(warning.ZeroTime) {
 		counter := suite.fieldCounter()
 		suite.Require().NoError(counter.Parse())
 		if counter.NumFields() == 3 {
@@ -489,11 +489,11 @@ func (suite *SlogTestSuite) TestZeroTime() {
 				if !ok {
 					timeFound = fmt.Sprintf("<bad type> %v", timeAny)
 				}
-				suite.AddWarning(warning2.ZeroTime, timeFound, suite.Buffer.String())
+				suite.AddWarning(warning.ZeroTime, timeFound, suite.Buffer.String())
 				return
 			}
 		}
-		suite.AddUnused(warning2.ZeroTime, "")
+		suite.AddUnused(warning.ZeroTime, "")
 	}
 	suite.checkFieldCount(2, logMap)
 	suite.Assert().Nil(logMap[slog.TimeKey])

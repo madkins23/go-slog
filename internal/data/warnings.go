@@ -8,7 +8,7 @@ import (
 	"sort"
 	"strings"
 
-	warning2 "github.com/madkins23/go-slog/infra/warning"
+	"github.com/madkins23/go-slog/infra/warning"
 	"github.com/madkins23/go-slog/internal/markdown"
 )
 
@@ -115,7 +115,7 @@ func (w *Warnings) HandlerTags() []HandlerTag {
 }
 
 // HandlerWarningCount returns the number of the specified warning associated with the specified handler.
-func (w *Warnings) HandlerWarningCount(handler HandlerTag, warning *warning2.Warning) uint {
+func (w *Warnings) HandlerWarningCount(handler HandlerTag, warning *warning.Warning) uint {
 	return w.byWarning[warning.Name].count[handler]
 }
 
@@ -169,7 +169,7 @@ func (w *Warnings) TestTagsForSource(source string) []TestTag {
 
 // -----------------------------------------------------------------------------
 
-func (w *Warnings) findHandler(handler HandlerTag, level warning2.Level, warningName string) *dataWarning {
+func (w *Warnings) findHandler(handler HandlerTag, level warning.Level, warningName string) *dataWarning {
 	levels, ok := w.byHandler[handler]
 	if !ok {
 		levels = &Levels{
@@ -181,7 +181,7 @@ func (w *Warnings) findHandler(handler HandlerTag, level warning2.Level, warning
 	return levels.findLevel(level, warningName)
 }
 
-func (w *Warnings) findTest(test TestTag, level warning2.Level, warningName string) *dataWarning {
+func (w *Warnings) findTest(test TestTag, level warning.Level, warningName string) *dataWarning {
 	levels, ok := w.byTest[test]
 	if !ok {
 		levels = &Levels{
@@ -280,8 +280,8 @@ type Levels struct {
 
 func (l *Levels) Levels() []*dataLevel {
 	if len(l.levels) < 1 {
-		l.levels = make([]*dataLevel, 0, len(warning2.LevelOrder))
-		for _, lvl := range warning2.LevelOrder {
+		l.levels = make([]*dataLevel, 0, len(warning.LevelOrder))
+		for _, lvl := range warning.LevelOrder {
 			if lv, ok := l.lookup[lvl.String()]; ok {
 				l.levels = append(l.levels, lv)
 			}
@@ -290,7 +290,7 @@ func (l *Levels) Levels() []*dataLevel {
 	return l.levels
 }
 
-func (l *Levels) findLevel(lvl warning2.Level, warningName string) *dataWarning {
+func (l *Levels) findLevel(lvl warning.Level, warningName string) *dataWarning {
 	lv, ok := l.lookup[lvl.String()]
 	if !ok {
 		lv = &dataLevel{
@@ -305,7 +305,7 @@ func (l *Levels) findLevel(lvl warning2.Level, warningName string) *dataWarning 
 // -----------------------------------------------------------------------------
 
 type dataLevel struct {
-	level    warning2.Level
+	level    warning.Level
 	lookup   map[string]*dataWarning
 	warnings []*dataWarning
 }
@@ -344,7 +344,7 @@ func (l *dataLevel) findWarningGroup(warningName string) *dataWarning {
 type dataWarning struct {
 	warning struct {
 		name, summary string
-		instance      *warning2.Warning
+		instance      *warning.Warning
 	}
 	instances []*dataInstance
 	sorted    bool
@@ -356,14 +356,14 @@ func (w *dataWarning) Name() string {
 
 func (w *dataWarning) HasDescription() bool {
 	if w.warning.instance == nil {
-		w.warning.instance = warning2.ByName(w.warning.name)
+		w.warning.instance = warning.ByName(w.warning.name)
 	}
 	return w.warning.instance.HasDescription()
 }
 
 func (w *dataWarning) Description() template.HTML {
 	if w.warning.instance == nil {
-		w.warning.instance = warning2.ByName(w.warning.name)
+		w.warning.instance = warning.ByName(w.warning.name)
 	}
 	return w.warning.instance.Description()
 }

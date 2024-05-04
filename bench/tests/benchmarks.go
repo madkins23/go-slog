@@ -5,7 +5,7 @@ import (
 	"log/slog"
 
 	"github.com/madkins23/go-slog/infra"
-	warning2 "github.com/madkins23/go-slog/infra/warning"
+	"github.com/madkins23/go-slog/infra/warning"
 )
 
 // -----------------------------------------------------------------------------
@@ -29,7 +29,7 @@ type HandlerFn func(handler slog.Handler) slog.Handler
 // Verification makes certain that there is actually something happening in the benchmark
 // (and that it is generating the expected output) to avoid having any zombie benchmarks
 // that don't actually do anything.
-type VerifyFn func(captured []byte, logMap map[string]any, manager *warning2.Manager) error
+type VerifyFn func(captured []byte, logMap map[string]any, manager *warning.Manager) error
 
 // Benchmark objects are used to define benchmark tests.
 type Benchmark struct {
@@ -65,10 +65,10 @@ func (suite *SlogBenchmarkSuite) BenchmarkDisabled() *Benchmark {
 		BenchmarkFn: func(logger *slog.Logger) {
 			logger.Debug(message)
 		},
-		VerifyFn: func(captured []byte, logMap map[string]any, manager *warning2.Manager) error {
+		VerifyFn: func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
 			if len(captured) > 0 {
-				manager.AddWarning(warning2.NotDisabled, "Disabled", string(captured))
-				return warning2.NotDisabled
+				manager.AddWarning(warning.NotDisabled, "Disabled", string(captured))
+				return warning.NotDisabled
 			}
 			return nil
 		},
@@ -260,11 +260,11 @@ func (suite *SlogBenchmarkSuite) BenchmarkLogging() *Benchmark {
 
 // getLogMap returns the specified logMap, if not empty, or a new one created from the captured bytes.
 // If a new logMap is created it is run through fixLogMap before returning it.
-func getLogMap(captured []byte, logMap map[string]any, manager *warning2.Manager) map[string]any {
+func getLogMap(captured []byte, logMap map[string]any, manager *warning.Manager) map[string]any {
 	var err error
 	if logMap == nil {
 		if logMap, err = parseLogMap(captured); err != nil {
-			manager.AddWarning(warning2.TestError, err.Error(), string(captured))
+			manager.AddWarning(warning.TestError, err.Error(), string(captured))
 		}
 		fixLogMap(logMap)
 	}
