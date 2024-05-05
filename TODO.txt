@@ -1,5 +1,6 @@
 TODO
 * Build a string representing each complex test for dumping when an error occurs.
+* Scores upper corner chart
 * Discuss slog_madkins_replattr benchmark somewhere
 * Use json.Expect and reflect.DeepEqual()/assert.Equal() more often
 * Creator could have:
