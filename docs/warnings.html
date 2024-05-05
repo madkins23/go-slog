@@ -1561,7 +1561,7 @@ This is different from the LevelCase warning which is from the right level name 
                   <tr>
                     <td></td>
                     <td colspan=2 class="warning">StringAny</td>
-                    <td colspan=1 class="extra">Some structs are converted to strings in log records</td>
+                    <td colspan=1 class="extra">map[string]any converted to strings in log records</td>
                     <td class="center">
                       
                     </td>
@@ -1569,8 +1569,8 @@ This is different from the LevelCase warning which is from the right level name 
                   
                     <tr>
                       <td colspan=2></td>
-                      <td colspan=3 class="description"><p>The <code>slog.JSONHandler</code> converts <code>Any</code> objects that are <code>struct</code>s into JSON maps.
-Some handlers convert one or more of these into strings instead of maps.</p>
+                      <td colspan=3 class="description"><p>The <code>slog.JSONHandler</code> converts <code>Any</code> objects that are <code>map[string]any</code> into JSON maps.
+Some handlers convert these <code>Any</code> objects into strings instead of maps.</p>
 </td>
                     </tr>
                   
@@ -3895,7 +3895,7 @@ from a test suite as issues are fixed in the tested handler.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-05-05 01:13:07 UTC</span>
+              <span class="fixed">2024-05-05 14:53:10 UTC</span>
             </div>
           </td>
           <td class="right">

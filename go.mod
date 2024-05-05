@@ -12,7 +12,7 @@ require (
 	github.com/madkins23/go-utils v1.44.0
 	github.com/phsym/console-slog v0.3.1
 	github.com/phsym/zeroslog v0.1.0
-	github.com/phuslu/log v1.0.94
+	github.com/phuslu/log v1.0.96
 	github.com/rs/zerolog v1.31.0
 	github.com/samber/slog-logrus/v2 v2.3.0
 	github.com/samber/slog-zap/v2 v2.4.0
@@ -62,7 +62,7 @@ require (
 	golang.org/x/arch v0.8.0 // indirect
 	golang.org/x/crypto v0.22.0 // indirect
 	golang.org/x/exp v0.0.0-20240416160154-fe59bbe5cc7f // indirect
-	golang.org/x/image v0.15.0 // indirect
+	golang.org/x/image v0.16.0 // indirect
 	golang.org/x/mod v0.17.0 // indirect
 	golang.org/x/net v0.24.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
