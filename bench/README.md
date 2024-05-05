@@ -62,7 +62,7 @@ a global resource to the other tests ([described below](#testmain)).
 
 Run the handler verification tests installed in this repository with:
 ```shell
-go test -bench=. bench/*.go
+go test -bench=. bench/*.go -args -useWarnings
 ```
 
 It is not necessary to use the `-benchmem` argument to generate memory statistics.

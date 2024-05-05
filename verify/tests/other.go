@@ -4,15 +4,37 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
+	"reflect"
 	"time"
 
 	"github.com/madkins23/go-slog/infra"
 	"github.com/madkins23/go-slog/infra/warning"
+	"github.com/madkins23/go-slog/internal/json"
 	"github.com/madkins23/go-slog/internal/test"
 )
 
 // -----------------------------------------------------------------------------
 // Other tests.
+
+func (suite *SlogTestSuite) TestAnyMap() {
+	logger := suite.Logger(infra.SimpleOptions())
+	logger.Info(message, "any", map[string]any{"John": "Doe"})
+	logMap := suite.logMap()
+	anyVal, found := logMap["any"]
+	suite.Assert().True(found)
+	expect := json.Expect(`{"John": "Doe"}`)
+	if !suite.HasWarning(warning.StringAny) {
+		suite.Assert().Equal(expect, anyVal)
+	} else if reflect.DeepEqual(expect, anyVal) {
+		suite.AddUnused(warning.StringAny, suite.String())
+	} else {
+		var text = "map represented as string"
+		if _, ok := anyVal.(string); !ok {
+			text = "any map[string]any mismatch"
+		}
+		suite.AddWarning(warning.StringAny, text, suite.String())
+	}
+}
 
 // TestLevelConfigured tests whether the source logger is created by default in
 // SimpleOptions() and SourceOptions() with slog.LevelInfo.

@@ -6,8 +6,8 @@
 
 clear
 mkdir -p /tmp/go-slog
-go test -bench=. bench/*.go      | # Run benchmark tests                \
-   tee /dev/tty                  | # Show progress to user in real time \
-   tee /tmp/go-slog/bench.txt    | # Save benchmark output              \
-   go run cmd/tabular/tabular.go | # Process JSON to table              \
-   tee /tmp/go-slog/bench.tbl      # Save table to file
+go test -bench=. bench/*.go -args -useWarnings | # Run benchmark tests                \
+   tee /dev/tty                                | # Show progress to user in real time \
+   tee /tmp/go-slog/bench.txt                  | # Save benchmark output              \
+   go run cmd/tabular/tabular.go               | # Process JSON to table              \
+   tee /tmp/go-slog/bench.tbl                    # Save table to file
