@@ -1,5 +1,9 @@
 TODO
 * Scores upper corner chart
+  x basically working
+  ? label offsetting
+  - label line to item?
+  x pretty buttons
 * Show complex definitions, log traces, and attribute groups on a web page
 * Discuss slog_madkins_replattr benchmark somewhere
 * Use json.Expect and reflect.DeepEqual()/assert.Equal() more often

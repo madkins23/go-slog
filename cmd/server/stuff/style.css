@@ -10,6 +10,17 @@ body {
     display: flex;
 }
 
+button {
+    color: white;
+    background-color: #16545d;
+    border-radius: 5px;
+}
+
+button:disabled {
+    color: #062e57;
+    background-color: #0f7373;
+}
+
 div.wrapper {
     height: 100%;
     width: 1000px;

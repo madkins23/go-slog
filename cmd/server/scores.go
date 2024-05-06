@@ -3,6 +3,7 @@ package main
 import (
 	"bytes"
 	"log"
+	"log/slog"
 	"math"
 	"net/http"
 	"sort"
@@ -17,15 +18,86 @@ import (
 
 // -----------------------------------------------------------------------------
 
+type handlerCoords struct {
+	x, y float64
+}
+
+type sizeData struct {
+	low, adjust handlerCoords
+}
+
+var sizes = []*sizeData{
+	{},
+	{
+		low: handlerCoords{
+			x: 25,
+			y: 25,
+		},
+	},
+	{
+		low: handlerCoords{
+			x: 50,
+			y: 50,
+		},
+		adjust: handlerCoords{
+			x: 8.0,
+			y: 8.0,
+		},
+	},
+	{
+		low: handlerCoords{
+			x: 75,
+			y: 75,
+		},
+		adjust: handlerCoords{
+			x: 3.0,
+			y: 3.0,
+		},
+	},
+	{
+		low: handlerCoords{
+			x: 90,
+			y: 90,
+		},
+		adjust: handlerCoords{
+			x: 3.0,
+			y: 3.0,
+		},
+	},
+}
+
 // scoreFunction generates an SVG chart for the score visualization and
 // uses the gin.Context argument to send the SVG data back to the user's browser.
 func scoreFunction(c *gin.Context) {
+	var err error
 	cacheKey := "score"
+	size := 0
+	sizeStr := c.Query("size")
+	slog.Info("scoreFunction", "size", sizeStr)
+	if sizeStr != "" {
+		size, err = strconv.Atoi(sizeStr)
+		if err != nil {
+			slog.Warn("size URL arg -> int", "err", err)
+			size = 0
+		}
+		if size < 0 {
+			slog.Warn("size URL arg too low", "size", size, "err", err)
+			size = 0
+		}
+		if size > 0 {
+			high := len(sizes) - 1
+			if size > high {
+				slog.Warn("size URL arg too high", "size", size, "high", high, "err", err)
+				size = high
+			}
+		}
+	}
+	cacheKey = cacheKey + ":" + strconv.Itoa(size)
 	chartCacheMutex.Lock()
 	ch, found := chartCache[cacheKey]
 	chartCacheMutex.Unlock()
 	if !found {
-		graph := scoreChart()
+		graph := scoreChart(sizes[size])
 		var buf bytes.Buffer
 		if err := graph.Render(chart.SVG, &buf); err != nil {
 			log.Println(err.Error())
@@ -51,16 +123,26 @@ const (
 
 // scoreChart generates a chart.Chart object which is a scatter plot of
 // handler benchmark vs. warning scores.
-func scoreChart() chart.Chart {
-	type handlerCoords struct{ x, y float64 }
+func scoreChart(size *sizeData) chart.Chart {
+	slog.Info("scoreChart", "size", size)
 	handlers := make(map[data.HandlerTag]*handlerCoords)
 	for _, hdlr := range bench.HandlerTags() {
-		handlers[hdlr] = &handlerCoords{y: score.HandlerBenchScores(hdlr).Overall}
+		// Only make handler record if y value is within bounds (above size.low.y).
+		if score.HandlerBenchScores(hdlr).Overall >= size.low.y {
+			handlers[hdlr] = &handlerCoords{y: score.HandlerBenchScores(hdlr).Overall}
+		}
 	}
 	for _, hdlr := range warns.HandlerTags() {
+		// Only add value if there is already a benchmark score.
 		if coords, found := handlers[hdlr]; found {
-			// Only add value if there is already a benchmark score.
-			coords.x = score.HandlerWarningScore(hdlr)
+			// Only add x-value if it is within bounds (above size.low.x).
+			if score.HandlerWarningScore(hdlr) >= size.low.x {
+				coords.x = score.HandlerWarningScore(hdlr)
+			} else {
+				// The x-value is out of bounds but y-value was in bounds,
+				// remove handler record previously added.
+				delete(handlers, hdlr)
+			}
 		}
 	}
 	aValues := make([]chart.Value2, 0, len(handlers)+1)
@@ -77,24 +159,34 @@ func scoreChart() chart.Chart {
 			yValues = append(yValues, coords.y)
 		}
 	}
-	ticks := make([]chart.Tick, 11)
-	for i := 0; i < 11; i++ {
-		ticks[i].Value = float64(i * 10)
-		ticks[i].Label = strconv.FormatFloat(ticks[i].Value, 'f', 1, 64)
+	ticks := func(low float64) []chart.Tick {
+		result := make([]chart.Tick, 0, 11)
+		for t := low; t <= 100.0; {
+			result = append(result, chart.Tick{
+				Value: t,
+				Label: strconv.FormatFloat(t, 'f', 1, 64),
+			})
+			if math.Remainder(t, 10.0) == 0 {
+				t += 10.0
+			} else {
+				t = math.Ceil(t/10.0) * 10.0
+			}
+		}
+		return result
 	}
 	return chart.Chart{
 		Height: height,
 		Width:  width,
 		XAxis: chart.XAxis{
 			Name:  "Warning Score",
-			Range: &chart.ContinuousRange{Min: 0, Max: 100.0, Domain: 100.0},
-			Ticks: ticks,
+			Range: &chart.ContinuousRange{Min: size.low.x, Max: 100.0, Domain: 100.0},
+			Ticks: ticks(size.low.x),
 		},
 		YAxis: chart.YAxis{
 			Name: "Benchmark Score",
 			//AxisType: chart.YAxisSecondary, // cuts off axis labels on left
 			Range: &chart.ContinuousRange{Min: 0, Max: 100.0, Domain: 100.0},
-			Ticks: ticks,
+			Ticks: ticks(size.low.y),
 		},
 		Series: []chart.Series{
 			chart.ContinuousSeries{
@@ -111,7 +203,7 @@ func scoreChart() chart.Chart {
 					StrokeWidth: chart.Disabled,
 					DotWidth:    chart.Disabled,
 				},
-				Annotations: scoreChartAdjustLabels(aValues),
+				Annotations: scoreChartAdjustLabels(aValues, &size.adjust),
 			},
 		},
 	}
@@ -120,7 +212,7 @@ func scoreChart() chart.Chart {
 // -----------------------------------------------------------------------------
 
 // scoreChartAdjustLabels
-func scoreChartAdjustLabels(locations []chart.Value2) []chart.Value2 {
+func scoreChartAdjustLabels(locations []chart.Value2, adjust *handlerCoords) []chart.Value2 {
 	groups := make([]*labelGroup, 0, 10)
 	singles := make([]int, 0, len(locations))
 
@@ -141,9 +233,17 @@ location: // OMG I can't believe he's using that named loop thingy!!!
 		}
 		// Here is where we go O(n-squared).
 		// Thankfully our array size will likely never be that big.
+		lw := labelWidth
+		if adjust.x > 0 {
+			lw /= adjust.x
+		}
+		lh := labelHeight
+		if adjust.y > 0 {
+			lh /= adjust.y
+		}
 		for j := i + 1; j < len(locations); j++ {
 			other := locations[j]
-			if math.Abs(other.XValue-loc.XValue) < labelWidth && math.Abs(other.YValue-loc.YValue) < labelHeight {
+			if math.Abs(other.XValue-loc.XValue) < lw && math.Abs(other.YValue-loc.YValue) < lh {
 				group := newLabelGroup()
 				group.add(i, loc)
 				group.add(j, other)
