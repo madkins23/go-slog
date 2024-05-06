@@ -14,5 +14,15 @@ import (
 func TestVerifyPhusluSlog(t *testing.T) {
 	slogSuite := tests.NewSlogTestSuite(phusluslog.Creator())
 	slogSuite.WarnOnly(warning.Duplicates)
+
+	// For use when back testing with v1.93.0:
+	//   go get github.com/phuslu/log@v1.0.93
+	//slogSuite.WarnOnly(warning.DurationMillis)
+	//slogSuite.WarnOnly(warning.LevelVar)
+	//slogSuite.WarnOnly(warning.Mismatch)
+	//slogSuite.WarnOnly(warning.StringAny)
+	//slogSuite.WarnOnly(warning.TimeMillis)
+	//slogSuite.WarnOnly(warning.ZeroPC)
+
 	suite.Run(t, slogSuite)
 }

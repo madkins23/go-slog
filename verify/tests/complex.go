@@ -1,6 +1,7 @@
 package tests
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"log/slog"
@@ -56,8 +57,9 @@ var tests = []string{
 
 // TestComplexCases executes a series of algorithmically generated test cases.
 // Each test case is represented by a sequence of characters that is a 'program'.
-// For each test case two things are done:
-//   - a log statement is generated and
+// For each test case three things are done:
+//   - a JSON log statement and
+//   - a string showing the method calls used to make the log statement are generated and
 //   - an expected data structure of nested map[string]any is generated.
 //
 // The expectation is that the logMap from the log statement matches the expected data.
@@ -71,7 +73,7 @@ var tests = []string{
 // resulting in several new warnings.
 func (suite *SlogTestSuite) TestComplexCases() {
 	logger := suite.Logger(infra.SimpleOptions())
-	mismatches := make([]string, 0)
+	mismatches := make(map[string]string)
 	for _, test := range tests {
 		intTest.Debugf(1, "Complex: %s\n", test)
 		if intTest.DebugLevel() > 4 {
@@ -90,16 +92,20 @@ func (suite *SlogTestSuite) TestComplexCases() {
 			suite.Assert().NoError(show(expected, actual))
 		}
 		if !reflect.DeepEqual(expected, actual) {
-			mismatches = append(mismatches, test)
+			mismatches[test] = parser.logStatement()
 		}
 		if !suite.HasWarning(warning.Mismatch) {
 			suite.Assert().Equal(expected, actual, test)
 		}
 	}
 	if len(mismatches) > 0 {
-		failed := strings.Join(mismatches, " | ")
-		intTest.Debugf(1, ">>> %d Mismatches: %s", len(mismatches), failed)
-		suite.AddWarning(warning.Mismatch, failed, suite.Buffer.String())
+		hdr := fmt.Sprintf("%3d Mismatches:\n", len(mismatches))
+		var fails []string
+		for key, val := range mismatches {
+			fails = append(fails, fmt.Sprintf("%18s: %s", key, val))
+		}
+		intTest.Debugf(1, ">>> "+hdr+strings.Join(fails, "\n>>>       "))
+		suite.AddWarning(warning.Mismatch, hdr+strings.Join(fails, "\n"), suite.Buffer.String())
 	}
 }
 
@@ -111,6 +117,7 @@ type parser struct {
 	name, definition string
 	logger           *slog.Logger
 	logMap, ptrMap   map[string]any
+	logStmt          bytes.Buffer
 }
 
 func newParser(manager *warning.Manager, logger *slog.Logger, definition string) *parser {
@@ -121,6 +128,7 @@ func newParser(manager *warning.Manager, logger *slog.Logger, definition string)
 		logger:     logger,
 		logMap:     make(map[string]any),
 	}
+	p.logStmt.WriteString("log")
 	p.ptrMap = p.logMap
 	return p
 }
@@ -137,6 +145,13 @@ func (p *parser) currMap() map[string]any {
 func (p *parser) expected() map[string]any {
 	p.removeEmptyGroups(p.logMap, 1)
 	return p.logMap
+}
+
+// logStatement returns the string representation of a
+// log variable and a sequence of method calls used to make the log statement.
+// This information is returned for use in generating error/warning messaging.
+func (p *parser) logStatement() string {
+	return p.logStmt.String()
 }
 
 func (p *parser) pushLog(logger *slog.Logger) {
@@ -160,6 +175,7 @@ func (p *parser) parse() error {
 func (p *parser) execute() error {
 	instruction := p.definition[0]
 	p.definition = p.definition[1:]
+	var attrChar byte
 	var attrs []slog.Attr
 	var err error
 	switch instruction {
@@ -174,15 +190,17 @@ func (p *parser) execute() error {
 		newMap := make(map[string]any)
 		p.currMap()[grpName] = newMap
 		p.pushLog(p.currLog().WithGroup(grpName))
+		p.logStmt.WriteString(fmt.Sprintf(`.WithGroup("%s")`, grpName))
 		p.pushMap(newMap)
 		p.inGroup = true
 		p.inWith = false
-		attrs, err = p.getAttrs()
+		attrs, attrChar, err = p.getAttrs()
 		if err != nil {
 			return fmt.Errorf("get attributes: %w", err)
 		}
 		if len(attrs) > 0 {
 			p.pushLog(p.currLog().With(anyList(attrs)...))
+			p.logStmt.WriteString(fmt.Sprintf(`.With('%c')`, attrChar))
 			p.inWith = true
 			if p.HasWarning(warning.GroupWithTop) {
 				err = p.addAttrsToMap(p.logMap, attrs...)
@@ -194,11 +212,16 @@ func (p *parser) execute() error {
 			}
 		}
 	case 'M':
-		attrs, err = p.getAttrs()
+		attrs, attrChar, err = p.getAttrs()
 		if err != nil {
 			return fmt.Errorf("get attributes: %w", err)
 		}
 		p.currLog().Info(message, anyList(attrs)...)
+		p.logStmt.WriteString(fmt.Sprintf(`.Info("%s"`, message))
+		if len(attrs) > 0 {
+			p.logStmt.WriteString(fmt.Sprintf(`, '%c'`, attrChar))
+		}
+		p.logStmt.WriteString(`)`)
 		p.logMap[slog.LevelKey] = "INFO"
 		p.logMap[slog.MessageKey] = message
 		if p.HasWarning(warning.GroupAttrMsgTop) && (!p.inGroup || p.inWith) {
@@ -215,11 +238,12 @@ func (p *parser) execute() error {
 			}
 		}
 	case 'W':
-		attrs, err = p.getAttrs()
+		attrs, attrChar, err = p.getAttrs()
 		if err != nil {
 			return fmt.Errorf("get attributes: %w", err)
 		}
 		p.pushLog(p.currLog().With(anyList(attrs)...))
+		p.logStmt.WriteString(fmt.Sprintf(`.With("%c")`, attrChar))
 		if err := p.addAttrs(attrs...); err != nil {
 			return fmt.Errorf("add attributes: %w", err)
 		}
@@ -270,7 +294,10 @@ func (p *parser) removeEmptyGroups(logMap map[string]any, depth int) {
 
 // -----------------------------------------------------------------------------
 
-var attributes = map[byte][]slog.Attr{
+// Attributes are the attribute collections passed to logging methods,
+// each referenced in test definition strings by a single character.
+// Made public in case it is good to show in the web browser.
+var Attributes = map[byte][]slog.Attr{
 	'A': {
 		slog.String("string", "value"),
 		slog.Int("int", -13),
@@ -356,18 +383,19 @@ func (p *parser) addAttrsToMap(logMap map[string]any, attrs ...slog.Attr) error 
 	return nil
 }
 
-func (p *parser) getAttrs() ([]slog.Attr, error) {
+func (p *parser) getAttrs() ([]slog.Attr, byte, error) {
 	result := make([]slog.Attr, 0)
 	if len(p.definition) > 1 && p.definition[0] == '+' {
-		x := p.definition[1]
+		attrChar := p.definition[1]
 		p.definition = p.definition[2:]
-		if attrs, found := attributes[x]; !found {
-			return nil, fmt.Errorf("non-existent attribute list '%c'", x)
+		if attrs, found := Attributes[attrChar]; !found {
+			return nil, attrChar, fmt.Errorf("non-existent attribute list '%c'", attrChar)
 		} else {
 			result = append(result, attrs...)
+			return result, attrChar, nil
 		}
 	}
-	return result, nil
+	return result, 0, nil
 }
 
 // -----------------------------------------------------------------------------
