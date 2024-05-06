@@ -22,6 +22,7 @@ for more detailed documentation.
 * [Functions for use with `slog.HandlerOptions.ReplaceAttr`](#replace-attributes-functions)
 * [Utility to redirect internal `gin` logging to `slog`](#gin-integration)
 * [Demo Handlers](#demo-handlers)
+* [Template for repository use]
 * Test handler [`trace.Handler`](#trace-handler)
 
 ## Handler Benchmarks
@@ -148,6 +149,14 @@ in order to achieve compatability with previous logging solutions.
 
 The "trace" handler `trace.Handler` doesn't log anything,
 it just prints out the `slog.Handler` interface calls it receives.
+
+## Template for Repository Usage
+
+These test suites can be linked into any `slog.Handler` repository.
+The advantage would be quicker feedback on changes in progress in your code.
+
+A [`template`](https://pkg.go.dev/github.com/madkins23/go-slog/template) package
+is provided to make installation and usage as simple as possible.
 
 ## Caveats
 
