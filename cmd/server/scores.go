@@ -22,47 +22,42 @@ type handlerCoords struct {
 	x, y float64
 }
 
+func (hc *handlerCoords) adjust(by float64) *handlerCoords {
+	return &handlerCoords{
+		x: hc.x * by,
+		y: hc.y * by,
+	}
+}
+
 type sizeData struct {
-	low, adjust handlerCoords
+	low    handlerCoords
+	adjust *handlerCoords
 }
 
 var sizes = []*sizeData{
-	{},
+	{
+		adjust: defaultLabelSize,
+	},
 	{
 		low: handlerCoords{
 			x: 25,
 			y: 25,
 		},
+		adjust: defaultLabelSize.adjust(0.7),
 	},
 	{
 		low: handlerCoords{
 			x: 50,
 			y: 50,
 		},
-		adjust: handlerCoords{
-			x: 8.0,
-			y: 8.0,
-		},
+		adjust: defaultLabelSize.adjust(0.5),
 	},
 	{
 		low: handlerCoords{
 			x: 75,
 			y: 75,
 		},
-		adjust: handlerCoords{
-			x: 3.0,
-			y: 3.0,
-		},
-	},
-	{
-		low: handlerCoords{
-			x: 90,
-			y: 90,
-		},
-		adjust: handlerCoords{
-			x: 3.0,
-			y: 3.0,
-		},
+		adjust: defaultLabelSize.adjust(0.4),
 	},
 }
 
@@ -203,7 +198,7 @@ func scoreChart(size *sizeData) chart.Chart {
 					StrokeWidth: chart.Disabled,
 					DotWidth:    chart.Disabled,
 				},
-				Annotations: scoreChartAdjustLabels(aValues, &size.adjust),
+				Annotations: scoreChartAdjustLabels(aValues, size.adjust),
 			},
 		},
 	}
@@ -211,8 +206,18 @@ func scoreChart(size *sizeData) chart.Chart {
 
 // -----------------------------------------------------------------------------
 
+var defaultLabelSize = &handlerCoords{
+	// Approximate width of a label along the x-axis in percentage coordinates (not pixels).
+	// This is a trial-and-error value :-(.
+	x: 25.0,
+
+	// Approximate height of a label along the y-axis in percentage coordinates (not pixels).
+	// This is a trial-and-error value :-(.
+	y: 4.5,
+}
+
 // scoreChartAdjustLabels
-func scoreChartAdjustLabels(locations []chart.Value2, adjust *handlerCoords) []chart.Value2 {
+func scoreChartAdjustLabels(locations []chart.Value2, labelSize *handlerCoords) []chart.Value2 {
 	groups := make([]*labelGroup, 0, 10)
 	singles := make([]int, 0, len(locations))
 
@@ -226,24 +231,16 @@ location: // OMG I can't believe he's using that named loop thingy!!!
 			}
 		}
 		for _, group := range groups {
-			if group.overlaps(loc) {
+			if group.overlaps(loc, labelSize) {
 				group.add(i, loc)
 				continue location
 			}
 		}
 		// Here is where we go O(n-squared).
 		// Thankfully our array size will likely never be that big.
-		lw := labelWidth
-		if adjust.x > 0 {
-			lw /= adjust.x
-		}
-		lh := labelHeight
-		if adjust.y > 0 {
-			lh /= adjust.y
-		}
 		for j := i + 1; j < len(locations); j++ {
 			other := locations[j]
-			if math.Abs(other.XValue-loc.XValue) < lw && math.Abs(other.YValue-loc.YValue) < lh {
+			if math.Abs(other.XValue-loc.XValue) < labelSize.x && math.Abs(other.YValue-loc.YValue) < labelSize.y {
 				group := newLabelGroup()
 				group.add(i, loc)
 				group.add(j, other)
@@ -257,7 +254,7 @@ location: // OMG I can't believe he's using that named loop thingy!!!
 	// Check the remaining singles against the existing groups.
 	for _, index := range singles {
 		for _, group := range groups {
-			if group.overlaps(locations[index]) {
+			if group.overlaps(locations[index], labelSize) {
 				group.add(index, locations[index])
 			}
 		}
@@ -265,7 +262,7 @@ location: // OMG I can't believe he's using that named loop thingy!!!
 	// Adjust label locations in each group.
 	// Singles don't need any adjustment.
 	for _, group := range groups {
-		group.adjust(locations)
+		group.adjust(locations, labelSize)
 	}
 	// Return for convenience, likely already edited in place.
 	return locations
@@ -358,19 +355,9 @@ func (lg *labelGroup) add(index int, loc chart.Value2) {
 	}
 }
 
-const (
-	// Approximate width of a label along the x-axis in percentage coordinates (not pixels).
-	// This is a trial-and-error value :-(.
-	labelWidth = 25.0
-
-	// Approximate height of a label along the y-axis in percentage coordinates (not pixels).
-	// This is a trial-and-error value :-(.
-	labelHeight = 4.5
-)
-
 // adjust labels in the group by editing their y-coordinate values until they don't overlap.
 // Since labels are much longer in the x-axis this seems reasonable.
-func (lg *labelGroup) adjust(locations []chart.Value2) {
+func (lg *labelGroup) adjust(locations []chart.Value2, labelSize *handlerCoords) {
 	labels := make([]string, 0, len(lg.indices))
 	for _, index := range lg.indices {
 		labels = append(labels, locations[index].Label)
@@ -394,7 +381,7 @@ func (lg *labelGroup) adjust(locations []chart.Value2) {
 		center = len(lg.indices) / 2
 		downIndex = center - 1
 		upIndex = center
-		overlap := labelHeight - (locations[lg.indices[upIndex]].YValue - locations[lg.indices[downIndex]].YValue)
+		overlap := labelSize.y - (locations[lg.indices[upIndex]].YValue - locations[lg.indices[downIndex]].YValue)
 		if overlap > 0 {
 			downDebt = overlap / 2.0
 			locations[lg.indices[downIndex]].YValue -= downDebt
@@ -410,7 +397,7 @@ func (lg *labelGroup) adjust(locations []chart.Value2) {
 
 	// Adjust labels in the negative y direction.
 	for downIndex > 0 {
-		overlap := labelHeight - (locations[lg.indices[downIndex]].YValue - locations[lg.indices[downIndex-1]].YValue)
+		overlap := labelSize.y - (locations[lg.indices[downIndex]].YValue - locations[lg.indices[downIndex-1]].YValue)
 		if overlap > 0 {
 			downDebt += overlap
 			locations[lg.indices[downIndex-1]].YValue -= downDebt
@@ -420,7 +407,7 @@ func (lg *labelGroup) adjust(locations []chart.Value2) {
 
 	// Adjust labels in the positive y direction.
 	for upIndex < len(lg.indices)-1 {
-		overlap := labelHeight - (locations[lg.indices[upIndex+1]].YValue - locations[lg.indices[upIndex]].YValue)
+		overlap := labelSize.y - (locations[lg.indices[upIndex+1]].YValue - locations[lg.indices[upIndex]].YValue)
 		if overlap > 0 {
 			upDebt += overlap
 			locations[lg.indices[upIndex+1]].YValue += upDebt
@@ -436,7 +423,7 @@ func (lg *labelGroup) contains(index int) bool {
 }
 
 // overlaps returns true if the specified chart value overlaps the group.
-func (lg *labelGroup) overlaps(loc chart.Value2) bool {
-	return loc.XValue >= lg.xLow-labelWidth && loc.XValue <= lg.xHigh+labelWidth &&
-		loc.YValue >= lg.yLow-labelHeight && loc.YValue <= lg.xLow+labelHeight
+func (lg *labelGroup) overlaps(loc chart.Value2, labelSize *handlerCoords) bool {
+	return loc.XValue >= lg.xLow-labelSize.x && loc.XValue <= lg.xHigh+labelSize.x &&
+		loc.YValue >= lg.yLow-labelSize.y && loc.YValue <= lg.xLow+labelSize.y
 }
