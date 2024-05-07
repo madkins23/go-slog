@@ -76,7 +76,7 @@ func scoreFunction(c *gin.Context) {
 	var err error
 	cacheKey := "score"
 	size := 0
-	sizeStr := c.Query("size")
+	sizeStr := c.Param("size")
 	slog.Info("scoreFunction", "size", sizeStr)
 	if sizeStr != "" {
 		size, err = strconv.Atoi(sizeStr)
