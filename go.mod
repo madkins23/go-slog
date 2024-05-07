@@ -6,13 +6,13 @@ require (
 	github.com/dmarkham/enumer v1.5.9
 	github.com/fatih/camelcase v1.0.0
 	github.com/gertd/go-pluralize v0.2.1
-	github.com/gin-gonic/gin v1.9.1
+	github.com/gin-gonic/gin v1.10.0
 	github.com/gomarkdown/markdown v0.0.0-20240419095408-642f0ee99ae2
 	github.com/madkins23/gin-utils v1.4.1
 	github.com/madkins23/go-utils v1.44.0
 	github.com/phsym/console-slog v0.3.1
 	github.com/phsym/zeroslog v0.1.0
-	github.com/phuslu/log v1.0.96
+	github.com/phuslu/log v1.0.97
 	github.com/rs/zerolog v1.31.0
 	github.com/samber/slog-logrus/v2 v2.3.0
 	github.com/samber/slog-zap/v2 v2.4.0
@@ -60,14 +60,14 @@ require (
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.8.0 // indirect
-	golang.org/x/crypto v0.22.0 // indirect
-	golang.org/x/exp v0.0.0-20240416160154-fe59bbe5cc7f // indirect
+	golang.org/x/crypto v0.23.0 // indirect
+	golang.org/x/exp v0.0.0-20240506185415-9bf2ced13842 // indirect
 	golang.org/x/image v0.16.0 // indirect
 	golang.org/x/mod v0.17.0 // indirect
-	golang.org/x/net v0.24.0 // indirect
+	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
 	golang.org/x/sys v0.20.0 // indirect
-	golang.org/x/tools v0.20.0 // indirect
-	google.golang.org/protobuf v1.34.0 // indirect
+	golang.org/x/tools v0.21.0 // indirect
+	google.golang.org/protobuf v1.34.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
