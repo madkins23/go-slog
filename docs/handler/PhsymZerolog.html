@@ -1,0 +1,1819 @@
+<html lang="en">
+<head>
+  <title>Benchmark Data</title>
+  <link rel="stylesheet" href="/go-slog/style.css">
+  <script src="/go-slog/scripts.js"></script>
+</head>
+
+<body>
+<div class="wrapper">
+  <div class="header">
+    
+        
+    <table class="header">
+        <tr>
+          <td>
+            
+              <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+            
+            <h2 class="home">Handler <span class="fixed">phsym/zeroslog</span></h2>
+          </td>
+          <td>
+            <table class="choice">
+              <tr>
+                <td class="right">Handlers</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="ChanchalZap" >chanchal/zaphandler</option>
+                      
+                        <option value="MadkinsFlash" >madkins/flash</option>
+                      
+                        <option value="MadkinsReplAttr" >madkins/replattr</option>
+                      
+                        <option value="MadkinsSloggy" >madkins/sloggy</option>
+                      
+                        <option value="PhsymZerolog" selected>phsym/zeroslog</option>
+                      
+                        <option value="PhusluSlog" >phuslu/slog</option>
+                      
+                        <option value="SamberLogrus" >samber/slog-logrus</option>
+                      
+                        <option value="SamberZap" >samber/slog-zap</option>
+                      
+                        <option value="SamberZerolog" >samber/slog-zerolog</option>
+                      
+                        <option value="SlogJSON" >slog/JSONHandler</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right">Bench Tests</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Bench:Attributes" >Attributes</option>
+                      
+                        <option value="Bench:BigGroup" >Big Group</option>
+                      
+                        <option value="Bench:Disabled" >Disabled</option>
+                      
+                        <option value="Bench:KeyValues" >Key Values</option>
+                      
+                        <option value="Bench:Logging" >Logging</option>
+                      
+                        <option value="Bench:Simple" >Simple</option>
+                      
+                        <option value="Bench:SimpleSource" >Simple Source</option>
+                      
+                        <option value="Bench:WithAttrsAttributes" >With Attrs Attributes</option>
+                      
+                        <option value="Bench:WithAttrsKeyValues" >With Attrs Key Values</option>
+                      
+                        <option value="Bench:WithAttrsSimple" >With Attrs Simple</option>
+                      
+                        <option value="Bench:WithGroupAttributes" >With Group Attributes</option>
+                      
+                        <option value="Bench:WithGroupKeyValues" >With Group Key Values</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right">Verify Tests</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
+                      
+                        <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
+                      
+                        <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
+                      
+                        <option value="Verify:AttributesEmpty" >Attributes Empty</option>
+                      
+                        <option value="Verify:AttributesWithEmpty" >Attributes With Empty</option>
+                      
+                        <option value="Verify:CanceledContext" >Canceled Context</option>
+                      
+                        <option value="Verify:DefaultLevel" >Default Level</option>
+                      
+                        <option value="Verify:GroupDuration" >Group Duration</option>
+                      
+                        <option value="Verify:GroupInline" >Group Inline</option>
+                      
+                        <option value="Verify:GroupWithMulti" >Group With Multi</option>
+                      
+                        <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                      
+                        <option value="Verify:GroupWithTop" >Group With Top</option>
+                      
+                        <option value="Verify:KeyCase" >Key Case</option>
+                      
+                        <option value="Verify:Keys" >Keys</option>
+                      
+                        <option value="Verify:LevelConfigured" >Level Configured</option>
+                      
+                        <option value="Verify:LevelDifferent" >Level Different</option>
+                      
+                        <option value="Verify:LevelVar" >Level Var</option>
+                      
+                        <option value="Verify:LogAttributes" >Log Attributes</option>
+                      
+                        <option value="Verify:ReplaceAttr" >Replace Attr</option>
+                      
+                        <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
+                      
+                        <option value="Verify:ReplaceAttrFnChangeKey" >Replace Attr Fn Change Key</option>
+                      
+                        <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                      
+                        <option value="Verify:ReplaceAttrFnMulti" >Replace Attr Fn Multi</option>
+                      
+                        <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
+                      
+                        <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                      
+                        <option value="Verify:ResolveGroup" >Resolve Group</option>
+                      
+                        <option value="Verify:ResolveGroupWith" >Resolve Group With</option>
+                      
+                        <option value="Verify:ResolveValuer" >Resolve Valuer</option>
+                      
+                        <option value="Verify:ResolveWith" >Resolve With</option>
+                      
+                        <option value="Verify:SlogTest" >Slog Test</option>
+                      
+                        <option value="Verify:SourceKey" >Source Key</option>
+                      
+                        <option value="Verify:WithGroupEmpty" >With Group Empty</option>
+                      
+                        <option value="Verify:ZeroPC" >Zero PC</option>
+                      
+                        <option value="Verify:ZeroTime" >Zero Time</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right"><label for="tag">Other Links</label></td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="otherChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      <option value="index.html"    >Home</option>
+                      <option value="scores.html"   >Scores</option>
+                      <option value="warnings.html" >Warnings</option>
+                      <option value="guts.html"     >Guts</option>
+                    </select>
+                  </form>
+              </tr>
+            </table>
+          </td>
+        </tr>
+    </table>
+
+  </div>
+  <div class="content">
+    <div>
+      <table class="top">
+        
+          
+            <tr class="summary-header">
+              <th style="width:70%">Summary</th>
+              <th style="width:30%">
+                
+                  Links
+                
+              </th>
+            </tr>
+            <tr class="summary">
+              <td>
+                <p><code>phsym/zeroslog</code> is a wrapper around the pre-existing <code>rs/zerolog</code> logging library.
+The <code>phsym/zerolog</code> handler, like the underlying <code>rs/zerolog</code> logging library,
+is in the fastest ranks of <code>slog.Handler</code> implementations tested.</p>
+
+              </td>
+              
+                <td>
+                  
+                    <a href="https://pkg.go.dev/github.com/phsym/zeroslog">phsym/zeroslog</a><br/>
+                  
+                    <a href="https://pkg.go.dev/github.com/rs/zerolog">rs/zerolog</a><br/>
+                  
+                </td>
+              
+            </tr>
+            <tr><td colspan=2><hr/></td></tr>
+          
+        
+        
+          
+          <tr class="title">
+            <td><h2>Benchmark Data</h2></td>
+            <td class="score">Score: <span>98.99</span></td>
+          </tr>
+          <tr>
+            <td colspan=2>
+              <table class="data">
+                <tr>
+                  <th>Benchmark</th>
+                  <th>Runs</th>
+                  <th>Ns/Op</th>
+                  <th>Allocs/Op</th>
+                  <th>Bytes/Op</th>
+                  <th>MB/Sec</th>
+                  <th>Score</th>
+                </tr>
+                
+                  <tr>
+                    <td class="fixed">Attributes</td>
+                    <td class="number">1,261,713</td>
+                    <td class="number">948.50</td>
+                      <td class="number">2</td>
+                     <td class="number">272</td>
+                    <td class="number">417.49</td>
+                    <td class="number">99.57</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Big Group</td>
+                    <td class="number">59,521</td>
+                    <td class="number">20,681.00</td>
+                      <td class="number">1</td>
+                     <td class="number">51</td>
+                    <td class="number">652.25</td>
+                    <td class="number">99.16</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Disabled</td>
+                    <td class="number">308,062,682</td>
+                    <td class="number">3.90</td>
+                      <td class="number">0</td>
+                     <td class="number">0</td>
+                    <td class="number">0.00</td>
+                    <td class="number">99.25</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Key Values</td>
+                    <td class="number">1,210,984</td>
+                    <td class="number">992.90</td>
+                      <td class="number">2</td>
+                     <td class="number">272</td>
+                    <td class="number">398.83</td>
+                    <td class="number">99.59</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Logging</td>
+                    <td class="number">68,690</td>
+                    <td class="number">17,303.00</td>
+                      <td class="number">0</td>
+                     <td class="number">0</td>
+                    <td class="number">491.02</td>
+                    <td class="number">99.79</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Simple</td>
+                    <td class="number">5,961,230</td>
+                    <td class="number">206.80</td>
+                      <td class="number">0</td>
+                     <td class="number">0</td>
+                    <td class="number">372.34</td>
+                    <td class="number">99.74</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Simple Source</td>
+                    <td class="number">2,526,272</td>
+                    <td class="number">470.90</td>
+                      <td class="number">4</td>
+                     <td class="number">312</td>
+                    <td class="number">320.65</td>
+                    <td class="number">94.48</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Attrs Attributes</td>
+                    <td class="number">1,248,840</td>
+                    <td class="number">962.50</td>
+                      <td class="number">2</td>
+                     <td class="number">272</td>
+                    <td class="number">776.13</td>
+                    <td class="number">99.70</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Attrs Key Values</td>
+                    <td class="number">1,000,000</td>
+                    <td class="number">1,015.00</td>
+                      <td class="number">2</td>
+                     <td class="number">272</td>
+                    <td class="number">735.87</td>
+                    <td class="number">99.70</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Attrs Simple</td>
+                    <td class="number">5,761,218</td>
+                    <td class="number">214.80</td>
+                      <td class="number">0</td>
+                     <td class="number">0</td>
+                    <td class="number">1,992.36</td>
+                    <td class="number">99.94</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Group Attributes</td>
+                    <td class="number">1,000,000</td>
+                    <td class="number">1,083.00</td>
+                      <td class="number">3</td>
+                     <td class="number">560</td>
+                    <td class="number">378.45</td>
+                    <td class="number">98.57</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Group Key Values</td>
+                    <td class="number">1,000,000</td>
+                    <td class="number">1,177.00</td>
+                      <td class="number">3</td>
+                     <td class="number">560</td>
+                    <td class="number">348.25</td>
+                    <td class="number">98.46</td>
+                  </tr>
+                 
+              </table>
+            </td>
+          </tr>
+          <tr><td colspan=2><hr/></td></tr>
+          <tr class="title"><td colspan=2><h2>Benchmark Charts</h2></td></tr>
+          <tr>
+            <td colspan=2 class="score">
+              <table class="charts">
+                <tr>
+                  <td><img src="/go-slog/chart/PhsymZerolog/Nanos.svg" alt="phsym/zeroslog Ns/Op" class="chart" /></td>
+                  <td><img src="/go-slog/chart/PhsymZerolog/MemAllocs.svg" alt="phsym/zeroslog Allocs/Op" class="chart" /></td>
+                </tr>
+                <tr>
+                  <td><img src="/go-slog/chart/PhsymZerolog/MemBytes.svg" alt="phsym/zeroslog Bytes/Op" class="chart" /></td>
+                  <td><img src="/go-slog/chart/PhsymZerolog/GbPerSec.svg" alt="phsym/zeroslog GB/Sec" class="chart" /></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+         
+        
+          <tr><td colspan=2><hr/></td></tr>
+          <tr class="title">
+            <td><h2 >Warnings</h2></td>
+            <td class="score">Score: <span>39.29</span></td>
+          </tr>
+          <tr>
+            <td colspan=2>
+              <table class="warning">
+                <tr>
+                  <td style="width:3%;"></td>
+                  <td style="width:3%;"></td>
+                  <td style="width:30%;"></td>
+                  <td style="width:58%;"></td>
+                  <td style="width:6%;"></td>
+                </tr>
+                
+                          
+          
+            <tr>
+              <td colspan=5 class="level">Required</td>
+            </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  EmptyAttributes
+                </td>
+                <td class="extra">
+                  Empty attribute(s) logged (&#34;&#34;:null)
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('EmptyAttributes-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="EmptyAttributes-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Handlers are supposed to avoid logging empty attributes.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If an Attr's key and value are both the zero value, ignore the Attr.&quot;</a></li>
+</ul>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Attribute With Empty
+                        </td>
+                        <td class="extra"><p></p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('EmptyAttributes-Attribute With Empty-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="EmptyAttributes-Attribute With Empty-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;&#34;: null,
+	&#34;first&#34;: &#34;one&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;pi&#34;: 3.141592653589793,
+	&#34;time&#34;: &#34;2024-05-07T14:05:48Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Attributes Empty
+                        </td>
+                        <td class="extra"><p></p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('EmptyAttributes-Attributes Empty-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="EmptyAttributes-Attributes Empty-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;&#34;: null,
+	&#34;first&#34;: &#34;one&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;pi&#34;: 3.141592653589793,
+	&#34;time&#34;: &#34;2024-05-07T14:05:48Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Attributes With Empty
+                        </td>
+                        <td class="extra"><p></p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('EmptyAttributes-Attributes With Empty-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="EmptyAttributes-Attributes With Empty-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;&#34;: null,
+	&#34;first&#34;: &#34;one&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;pi&#34;: 3.141592653589793,
+	&#34;second&#34;: 2,
+	&#34;time&#34;: &#34;2024-05-07T14:05:48Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  GroupEmpty
+                </td>
+                <td class="extra">
+                  Empty (sub)group(s) logged
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('GroupEmpty-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="GroupEmpty-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Handlers should not log groups (or subgroups) without fields, whether or not they have non-empty names.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If a group has no Attrs (even if it has a non-empty key), ignore it.&quot;</a></li>
+</ul>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Group With Multi Sub Empty
+                        </td>
+                        <td class="extra"><p>found 'subGroup' group</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupEmpty-Group With Multi Sub Empty-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="GroupEmpty-Group With Multi Sub Empty-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;first&#34;: &#34;one&#34;,
+	&#34;group&#34;: {
+		&#34;second&#34;: 2,
+		&#34;subGroup&#34;: {},
+		&#34;third&#34;: &#34;3&#34;
+	},
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-07T14:05:48Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  GroupInline
+                </td>
+                <td class="extra">
+                  Group with empty key does not inline subfields
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('GroupInline-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="GroupInline-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Handlers should expand groups named &quot;&quot; (the empty string) into the enclosing log record.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If a group's key is empty, inline the group's Attrs.&quot;</a></li>
+</ul>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Group Inline
+                        </td>
+                        <td class="extra"><p></p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('GroupInline-Group Inline-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="GroupInline-Group Inline-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;&#34;: {
+		&#34;fourth&#34;: &#34;forth&#34;,
+		&#34;second&#34;: 2,
+		&#34;third&#34;: &#34;3&#34;
+	},
+	&#34;first&#34;: &#34;one&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;pi&#34;: 3.141592653589793,
+	&#34;time&#34;: &#34;2024-05-07T14:05:48Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  SlogTest
+                </td>
+                <td class="extra">
+                  Failure of embedded slog/slogtest
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SlogTest-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="SlogTest-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Documentation on building a handler suggests testing using <code>slog/slogtest</code>, part of the Go release since 1.21.
+While the verification suite includes tests patterned after those in <code>slogtest</code>,
+an additional single test invokes the <code>slogtest</code> testing sequence (involving multiple tests).
+Since this is a separate package, all error messages are returned at once.
+This is the only warning that affects <code>TestSlogTest</code> and all of its error messages.</p>
+
+<ul>
+<li><a href="https://github.com/golang/example/tree/master/slog-handler-guide#testing" target="_blank">&quot;To verify that your handler follows these rules and generally produces proper output, use the testing/slogtest package.&quot;</a></li>
+<li><a href="https://pkg.go.dev/golang.org/x/exp@v0.0.0-20240222234643-814bf88cf225/slog/slogtest" target="_blank"><code>slog/slogtest</code></a></li>
+</ul>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Slog Test
+                        </td>
+                        <td class="extra"><p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=39"> this test expects slog.TimeKey, slog.LevelKey and slog.MessageKey</a></p>
+<p>unexpected key ""<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=61"> a Handler should ignore an empty Attr</a></p>
+<p>unexpected key "time"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=73"> a Handler should ignore a zero Record.Time</a></p>
+<p>missing key "c"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=119"> a Handler should inline the Attrs of a group with an empty key</a></p>
+<p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=132"> a Handler should handle the WithGroup method</a></p>
+<p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=146"> a Handler should handle multiple WithGroup and WithAttr calls</a></p>
+<p>missing key "msg"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=161"> a Handler should not output groups if there are no attributes</a></p>
+<p>unexpected key "H"<br/><a href="https://cs.opensource.google/go/go/+/master:src/testing/slogtest/slogtest.go;l=161"> a Handler should not output groups if there are no attributes</a></p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="SlogTest-Slog Test-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  WithGroupEmpty
+                </td>
+                <td class="extra">
+                  Empty WithGroup() logged
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('WithGroupEmpty-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="WithGroupEmpty-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Handlers should not log <code>WithGroup()</code> groups with no fields, whether or not they have non-empty names.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If a group has no Attrs (even if it has a non-empty key), ignore it.&quot;</a></li>
+</ul>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          With Group Empty
+                        </td>
+                        <td class="extra"><p>too many fields, found field 'group1', value is group, length: 1</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('WithGroupEmpty-With Group Empty-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="WithGroupEmpty-With Group Empty-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;group1&#34;: {
+		&#34;group2&#34;: {}
+	},
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-07T14:05:48Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  ZeroTime
+                </td>
+                <td class="extra">
+                  Zero time is logged
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('ZeroTime-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="ZeroTime-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Handlers should not log the basic <code>time</code> field if it is zero.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#Handler" target="_blank">&quot;- If r.Time is the zero time, ignore the time.&quot;</a></li>
+</ul>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Zero Time
+                        </td>
+                        <td class="extra"><p>0001-01-01T00:00:00Z</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('ZeroTime-Zero Time-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="ZeroTime-Zero Time-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;0001-01-01T00:00:00Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+             
+          
+            <tr>
+              <td colspan=5 class="level">Implied</td>
+            </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  MessageKey
+                </td>
+                <td class="extra">
+                  Wrong message key (should be &#39;msg&#39;)
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('MessageKey-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="MessageKey-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>The field name of the &quot;message&quot; key should be <code>msg</code>.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#pkg-constants" target="_blank">Constant values are defined for <code>slog/log</code></a><br>
+</li>
+<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Field values are defined for the <code>JSONHandler.Handle()</code> implementation</a></li>
+</ul>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Canceled Context
+                        </td>
+                        <td class="extra"><p>`message`</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="MessageKey-Canceled Context-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Canceled Context
+                        </td>
+                        <td class="extra"><p>`message`</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="MessageKey-Canceled Context-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Canceled Context
+                        </td>
+                        <td class="extra"><p>`message`</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="MessageKey-Canceled Context-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Keys
+                        </td>
+                        <td class="extra"><p>`message`</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="MessageKey-Keys-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Source Key
+                        </td>
+                        <td class="extra"><p>`message`</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="MessageKey-Source Key-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Zero PC
+                        </td>
+                        <td class="extra"><p>`message`</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="MessageKey-Zero PC-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Zero Time
+                        </td>
+                        <td class="extra"><p>`message`</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="MessageKey-Zero Time-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  NoReplAttr
+                </td>
+                <td class="extra">
+                  HandlerOptions.ReplaceAttr not available
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('NoReplAttr-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="NoReplAttr-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>If <a href="https://pkg.go.dev/log/slog@master#HandlerOptions" target="_blank"><code>HandlerOptions.ReplaceAttr</code></a>
+is provided it should be honored by the handler.
+However, documentation on implementing handler methods seems to suggest it is optional.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#HandlerOptions" target="_blank">Behavior defined for <code>slog.HandlerOptions</code></a><br>
+</li>
+<li><a href="https://github.com/golang/example/tree/master/slog-handler-guide#implementing-handler-methods" target="_blank">&quot;You might also consider adding a ReplaceAttr option to your handler, like the one for the built-in handlers.&quot;</a></li>
+</ul>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Replace Attr
+                        </td>
+                        <td class="extra"><p>too many attributes: 6, alpha == beta, change still exists, remove still exists</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="NoReplAttr-Replace Attr-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Replace Attr Basic
+                        </td>
+                        <td class="extra"><p>too many attributes: 4</p>
+<p>time field still exists</p>
+<p>message field still exists</p>
+<p>source == <nil></p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="NoReplAttr-Replace Attr Basic-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Replace Attr Fn Change Key
+                        </td>
+                        <td class="extra"><p>too few attributes: 3</p>
+<p>no message key</p>
+<p>message not string</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="NoReplAttr-Replace Attr Fn Change Key-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Replace Attr Fn Level Case
+                        </td>
+                        <td class="extra"><p>level value not null</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="NoReplAttr-Replace Attr Fn Level Case-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Replace Attr Fn Multi
+                        </td>
+                        <td class="extra"><p></p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('NoReplAttr-Replace Attr Fn Multi-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="NoReplAttr-Replace Attr Fn Multi-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;group&#34;: {
+		&#34;alpha&#34;: &#34;omega&#34;,
+		&#34;pi&#34;: 3.141592653589793,
+		&#34;subGroup&#34;: {
+			&#34;alpha&#34;: &#34;omega&#34;,
+			&#34;e&#34;: 2.718281828459045,
+			&#34;goober&#34;: &#34;snoofus&#34;,
+			&#34;oneMore&#34;: {
+				&#34;alpha&#34;: &#34;omega&#34;,
+				&#34;gibbering&#34;: &#34;lunatic&#34;,
+				&#34;phi&#34;: 1.618033988749895
+			}
+		}
+	},
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-07T14:05:48Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Replace Attr Fn Remove Time
+                        </td>
+                        <td class="extra"><p>time value not empty string</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="NoReplAttr-Replace Attr Fn Remove Time-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  SourceCaller
+                </td>
+                <td class="extra">
+                  Source data logged as &#39;caller&#39; instead of &#39;source&#39;
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SourceCaller-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="SourceCaller-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Some handlers return source data as a single string on the <code>caller</code> field
+in the format <code>&lt;file&gt;:&lt;line&gt;</code> where <code>&lt;file&gt;</code> and <code>&lt;line&gt;</code> correspond
+to the <code>File</code> and <code>Line</code> fields of the source data group and <code>Function</code> is not provided.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Behavior defined for <code>JSONHandler.Handle()</code></a></li>
+<li><a href="https://pkg.go.dev/log/slog@master#Source" target="_blank">Definition of source data record</a></li>
+</ul>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Bench:
+                          
+                          Simple Source
+                        </td>
+                        <td class="extra"><p>/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:96</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceCaller-Simple Source-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="SourceCaller-Simple Source-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;caller&#34;: &#34;/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:96&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-07T14:04:29Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Source Key
+                        </td>
+                        <td class="extra"><p>/opt/hostedtoolcache/go/1.22.2/x64/src/reflect/value.go:596</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceCaller-Source Key-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="SourceCaller-Source Key-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;caller&#34;: &#34;/opt/hostedtoolcache/go/1.22.2/x64/src/reflect/value.go:596&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-07T14:05:48Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+             
+          
+            <tr>
+              <td colspan=5 class="level">Suggested</td>
+            </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  Duplicates
+                </td>
+                <td class="extra">
+                  Duplicate field(s) found
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('Duplicates-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="Duplicates-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Some handlers (e.g. <code>slog.JSONHandler</code>)
+will output multiple occurrences of the same field name
+if the logger is called with multiple instances of the same field,
+generally by using WithAttrs and then the same fields in the eventual log call (e.g. Info).
+This behavior is currently <a href="https://github.com/golang/go/issues/59365" target="_blank">under debate</a>
+with no resolution at this time (2024-01-15) and a
+<a href="https://github.com/golang/go/milestone/212" target="_blank">release milestone of (currently unscheduled) Go 1.23</a>,
+(whereas <a href="https://tip.golang.org/doc/go1.22" target="_blank">Go Release 1.22</a>
+is currently expected in February 2024).</p>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Attribute Duplicate
+                        </td>
+                        <td class="extra"><p>map[alpha:2 charlie:3]</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="Duplicates-Attribute Duplicate-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Attribute With Duplicate
+                        </td>
+                        <td class="extra"><p>map[alpha:2 charlie:3]</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="Duplicates-Attribute With Duplicate-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  DurationMillis
+                </td>
+                <td class="extra">
+                  slog.Duration() logs milliseconds instead of nanoseconds
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('DurationMillis-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="DurationMillis-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>The <code>slog.JSONHandler</code> uses nanoseconds for <code>time.Duration</code> but some other handlers use seconds.</p>
+
+<ul>
+<li><a href="https://github.com/golang/go/issues/59345" target="_blank">Go issue 59345: Nanoseconds is a recent change with Go 1.21</a></li>
+</ul>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Log Attributes
+                        </td>
+                        <td class="extra"><p></p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="DurationMillis-Log Attributes-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  LevelCase
+                </td>
+                <td class="extra">
+                  Log level in lowercase
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('LevelCase-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="LevelCase-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Each JSON log record contains the logging level of the log statement as a string.
+Different handlers provide that string in uppercase or lowercase.
+Documentation for <a href="https://pkg.go.dev/log/slog@master#Level" target="_blank"><code>slog.Level</code></a>
+says that its <code>String()</code> and <code>MarshalJSON()</code> methods will return uppercase
+but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Canceled Context
+                        </td>
+                        <td class="extra"><p>'info'</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Canceled Context-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Canceled Context
+                        </td>
+                        <td class="extra"><p>'info'</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Canceled Context-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Canceled Context
+                        </td>
+                        <td class="extra"><p>'info'</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Canceled Context-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Key Case
+                        </td>
+                        <td class="extra"><p>'debug'</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Key Case-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Key Case
+                        </td>
+                        <td class="extra"><p>'info'</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Key Case-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Key Case
+                        </td>
+                        <td class="extra"><p>'warn'</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Key Case-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Key Case
+                        </td>
+                        <td class="extra"><p>'error'</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Key Case-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Keys
+                        </td>
+                        <td class="extra"><p>'info'</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Keys-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Source Key
+                        </td>
+                        <td class="extra"><p>'info'</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Source Key-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Zero PC
+                        </td>
+                        <td class="extra"><p>'info'</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Zero PC-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Zero Time
+                        </td>
+                        <td class="extra"><p>'info'</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Zero Time-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  TimeMillis
+                </td>
+                <td class="extra">
+                  slog.Time() logs milliseconds instead of nanoseconds
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('TimeMillis-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="TimeMillis-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>The <code>slog.JSONHandler</code> uses nanoseconds for <code>time.Time</code> but some other handlers use milliseconds.
+This does <em>not</em> apply to the basic <code>time</code> field, only attribute fields.
+I can't find any supporting documentation or bug on this but
+<a href="https://github.com/golang/go/issues/59345" target="_blank">Go issue 59345</a> (see previous warning)
+may have fixed this as well in Go 1.21.</p>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Log Attributes
+                        </td>
+                        <td class="extra"><p>2024-05-07T14:05:48Z</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="TimeMillis-Log Attributes-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+             
+           
+
+              </table>
+            </td>
+         
+      </table>
+    </div>
+  </div>
+  <div class="footer">
+        <table class="footer">
+        <tr>
+          <td>
+            <div class="hover-text">
+              <span class="tooltip-text">Code Repository</span>
+              <a href="https://github.com/madkins23/go-slog" target="_blank">Repository</a>
+            </div>
+          </td>
+          <td class="center">
+            <div class="hover-text">
+              <span class="tooltip-text">Date/time when this data was generated</span>
+              <span class="fixed">2024-05-07 14:05:53 UTC</span>
+            </div>
+          </td>
+          <td class="right">
+            <div class="hover-text">
+              <span class="tooltip-text">Code Documentation</span>
+              <a href="https://pkg.go.dev/github.com/madkins23/go-slog" target="_blank">Documentation</a>
+            </div>
+          </td>
+        </tr>
+    </table>
+
+  </div>
+</div>
+</body>
+</html>

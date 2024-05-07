@@ -1,0 +1,490 @@
+<html lang="en">
+<head>
+  <title>Benchmark Data</title>
+  <link rel="stylesheet" href="/go-slog/style.css">
+  <script src="/go-slog/scripts.js"></script>
+</head>
+
+<body>
+<div class="wrapper">
+  <div class="header">
+    
+    
+      
+    
+        
+    <table class="header">
+        <tr>
+          <td>
+            
+              <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+            
+            <h2 class="home">Test <span class="fixed">Simple Source</span></h2>
+          </td>
+          <td>
+            <table class="choice">
+              <tr>
+                <td class="right">Handlers</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="ChanchalZap" >chanchal/zaphandler</option>
+                      
+                        <option value="MadkinsFlash" >madkins/flash</option>
+                      
+                        <option value="MadkinsReplAttr" >madkins/replattr</option>
+                      
+                        <option value="MadkinsSloggy" >madkins/sloggy</option>
+                      
+                        <option value="PhsymZerolog" >phsym/zeroslog</option>
+                      
+                        <option value="PhusluSlog" >phuslu/slog</option>
+                      
+                        <option value="SamberLogrus" >samber/slog-logrus</option>
+                      
+                        <option value="SamberZap" >samber/slog-zap</option>
+                      
+                        <option value="SamberZerolog" >samber/slog-zerolog</option>
+                      
+                        <option value="SlogJSON" >slog/JSONHandler</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right">Bench Tests</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Bench:Attributes" >Attributes</option>
+                      
+                        <option value="Bench:BigGroup" >Big Group</option>
+                      
+                        <option value="Bench:Disabled" >Disabled</option>
+                      
+                        <option value="Bench:KeyValues" >Key Values</option>
+                      
+                        <option value="Bench:Logging" >Logging</option>
+                      
+                        <option value="Bench:Simple" >Simple</option>
+                      
+                        <option value="Bench:SimpleSource" selected>Simple Source</option>
+                      
+                        <option value="Bench:WithAttrsAttributes" >With Attrs Attributes</option>
+                      
+                        <option value="Bench:WithAttrsKeyValues" >With Attrs Key Values</option>
+                      
+                        <option value="Bench:WithAttrsSimple" >With Attrs Simple</option>
+                      
+                        <option value="Bench:WithGroupAttributes" >With Group Attributes</option>
+                      
+                        <option value="Bench:WithGroupKeyValues" >With Group Key Values</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right">Verify Tests</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
+                      
+                        <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
+                      
+                        <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
+                      
+                        <option value="Verify:AttributesEmpty" >Attributes Empty</option>
+                      
+                        <option value="Verify:AttributesWithEmpty" >Attributes With Empty</option>
+                      
+                        <option value="Verify:CanceledContext" >Canceled Context</option>
+                      
+                        <option value="Verify:DefaultLevel" >Default Level</option>
+                      
+                        <option value="Verify:GroupDuration" >Group Duration</option>
+                      
+                        <option value="Verify:GroupInline" >Group Inline</option>
+                      
+                        <option value="Verify:GroupWithMulti" >Group With Multi</option>
+                      
+                        <option value="Verify:GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                      
+                        <option value="Verify:GroupWithTop" >Group With Top</option>
+                      
+                        <option value="Verify:KeyCase" >Key Case</option>
+                      
+                        <option value="Verify:Keys" >Keys</option>
+                      
+                        <option value="Verify:LevelConfigured" >Level Configured</option>
+                      
+                        <option value="Verify:LevelDifferent" >Level Different</option>
+                      
+                        <option value="Verify:LevelVar" >Level Var</option>
+                      
+                        <option value="Verify:LogAttributes" >Log Attributes</option>
+                      
+                        <option value="Verify:ReplaceAttr" >Replace Attr</option>
+                      
+                        <option value="Verify:ReplaceAttrBasic" >Replace Attr Basic</option>
+                      
+                        <option value="Verify:ReplaceAttrFnChangeKey" >Replace Attr Fn Change Key</option>
+                      
+                        <option value="Verify:ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                      
+                        <option value="Verify:ReplaceAttrFnMulti" >Replace Attr Fn Multi</option>
+                      
+                        <option value="Verify:ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
+                      
+                        <option value="Verify:ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                      
+                        <option value="Verify:ResolveGroup" >Resolve Group</option>
+                      
+                        <option value="Verify:ResolveGroupWith" >Resolve Group With</option>
+                      
+                        <option value="Verify:ResolveValuer" >Resolve Valuer</option>
+                      
+                        <option value="Verify:ResolveWith" >Resolve With</option>
+                      
+                        <option value="Verify:SlogTest" >Slog Test</option>
+                      
+                        <option value="Verify:SourceKey" >Source Key</option>
+                      
+                        <option value="Verify:WithGroupEmpty" >With Group Empty</option>
+                      
+                        <option value="Verify:ZeroPC" >Zero PC</option>
+                      
+                        <option value="Verify:ZeroTime" >Zero Time</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right"><label for="tag">Other Links</label></td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="otherChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      <option value="index.html"    >Home</option>
+                      <option value="scores.html"   >Scores</option>
+                      <option value="warnings.html" >Warnings</option>
+                      <option value="guts.html"     >Guts</option>
+                    </select>
+                  </form>
+              </tr>
+            </table>
+          </td>
+        </tr>
+    </table>
+
+  </div>
+  <div class="content">
+    <div>
+      <table class="top">
+        
+          <tr class="title"><td><h2>Benchmark Data</h2></td></tr>
+          <tr>
+            <td colspan=2>
+              <table class="data">
+                <tr>
+                  <th>Handler</th>
+                  <th>Runs</th>
+                  <th>Ns/Op</th>
+                  <th>Allocs/Op</th>
+                  <th>Bytes/Op</th>
+                  <th>MB/Sec</th>
+                </tr>
+                
+                  <tr>
+                    <td class="fixed">chanchal/zaphandler</td>
+                    <td class="number">1,972,999</td>
+                    <td class="number">601.60</td>
+                    <td class="number">3</td>
+                    <td class="number">280</td>
+                    <td class="number">177.87</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">madkins/flash</td>
+                    <td class="number">1,328,894</td>
+                    <td class="number">900.80</td>
+                    <td class="number">7</td>
+                    <td class="number">704</td>
+                    <td class="number">315.27</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">madkins/replattr</td>
+                    <td class="number">1,000,000</td>
+                    <td class="number">1,136.00</td>
+                    <td class="number">8</td>
+                    <td class="number">712</td>
+                    <td class="number">249.96</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">madkins/sloggy</td>
+                    <td class="number">636,427</td>
+                    <td class="number">1,715.00</td>
+                    <td class="number">30</td>
+                    <td class="number">1,280</td>
+                    <td class="number">166.14</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">phsym/zeroslog</td>
+                    <td class="number">2,526,272</td>
+                    <td class="number">470.90</td>
+                    <td class="number">4</td>
+                    <td class="number">312</td>
+                    <td class="number">320.65</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">phuslu/slog</td>
+                    <td class="number">5,309,066</td>
+                    <td class="number">225.00</td>
+                    <td class="number">0</td>
+                    <td class="number">0</td>
+                    <td class="number">1,231.20</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">samber/slog-logrus</td>
+                    <td class="number">165,546</td>
+                    <td class="number">7,257.00</td>
+                    <td class="number">59</td>
+                    <td class="number">3,940</td>
+                    <td class="number">36.79</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">samber/slog-zap</td>
+                    <td class="number">1,699,971</td>
+                    <td class="number">704.50</td>
+                    <td class="number">5</td>
+                    <td class="number">592</td>
+                    <td class="number">151.88</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">samber/slog-zerolog</td>
+                    <td class="number">548,089</td>
+                    <td class="number">2,212.00</td>
+                    <td class="number">34</td>
+                    <td class="number">2,378</td>
+                    <td class="number">122.49</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">slog/JSONHandler</td>
+                    <td class="number">1,235,540</td>
+                    <td class="number">828.90</td>
+                    <td class="number">6</td>
+                    <td class="number">568</td>
+                    <td class="number">334.17</td>
+                  </tr>
+                
+              </table>
+            </td>
+          </tr>
+          <tr><td colspan=2><hr/></td></tr>
+          <tr><td colspan=2 class="title"><h2>Benchmark Charts</h2></td></tr>
+          <tr>
+            <td colspan=2 class="score">
+              <table class="charts">
+                <tr>
+                  <td><img src="/go-slog/chart/Bench:SimpleSource/Nanos.svg" alt="Simple Source Ns/Op" class="chart" /></td>
+                  <td><img src="/go-slog/chart/Bench:SimpleSource/MemAllocs.svg" alt="Simple Source Allocs/Op" class="chart" /></td>
+                </tr>
+                <tr>
+                  <td><img src="/go-slog/chart/Bench:SimpleSource/MemBytes.svg" alt="Simple Source Bytes/Op" class="chart" /></td>
+                  <td><img src="/go-slog/chart/Bench:SimpleSource/GbPerSec.svg" alt="Simple Source GB/Sec" class="chart" /></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        
+        
+          
+            <tr><td colspan=2><hr/></td></tr>
+          
+          <tr><td colspan=2 class="title"><h2 >Warnings</h2></td></tr>
+          <tr>
+            <td colspan=2>
+              <table class="warning">
+                <tr>
+                  <td style="width:3%;"></td>
+                  <td style="width:3%;"></td>
+                  <td style="width:30%;"></td>
+                  <td style="width:58%;"></td>
+                  <td style="width:6%;"></td>
+                </tr>
+                
+                          
+          
+            <tr>
+              <td colspan=5 class="level">Implied</td>
+            </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  SourceCaller
+                </td>
+                <td class="extra">
+                  Source data logged as &#39;caller&#39; instead of &#39;source&#39;
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SourceCaller-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="SourceCaller-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Some handlers return source data as a single string on the <code>caller</code> field
+in the format <code>&lt;file&gt;:&lt;line&gt;</code> where <code>&lt;file&gt;</code> and <code>&lt;line&gt;</code> correspond
+to the <code>File</code> and <code>Line</code> fields of the source data group and <code>Function</code> is not provided.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Behavior defined for <code>JSONHandler.Handle()</code></a></li>
+<li><a href="https://pkg.go.dev/log/slog@master#Source" target="_blank">Definition of source data record</a></li>
+</ul>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                          Chanchal Zap
+                        </td>
+                        <td class="extra"><p>tests/benchmarks.go:96</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceCaller-Chanchal Zap-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="SourceCaller-Chanchal Zap-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;caller&#34;: &#34;tests/benchmarks.go:96&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-07T14:03:00Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                          Phsym Zerolog
+                        </td>
+                        <td class="extra"><p>/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:96</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceCaller-Phsym Zerolog-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="SourceCaller-Phsym Zerolog-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;caller&#34;: &#34;/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:96&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-07T14:04:29Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                          Samber Zap
+                        </td>
+                        <td class="extra"><p>tests/benchmarks.go:96</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceCaller-Samber Zap-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="SourceCaller-Samber Zap-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;caller&#34;: &#34;tests/benchmarks.go:96&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-07T14:05:23Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+             
+           
+
+              </table>
+            </td>
+          </tr>
+        
+      </table>
+    </div>
+  </div>
+  <div class="footer">
+        <table class="footer">
+        <tr>
+          <td>
+            <div class="hover-text">
+              <span class="tooltip-text">Code Repository</span>
+              <a href="https://github.com/madkins23/go-slog" target="_blank">Repository</a>
+            </div>
+          </td>
+          <td class="center">
+            <div class="hover-text">
+              <span class="tooltip-text">Date/time when this data was generated</span>
+              <span class="fixed">2024-05-07 14:05:53 UTC</span>
+            </div>
+          </td>
+          <td class="right">
+            <div class="hover-text">
+              <span class="tooltip-text">Code Documentation</span>
+              <a href="https://pkg.go.dev/github.com/madkins23/go-slog" target="_blank">Documentation</a>
+            </div>
+          </td>
+        </tr>
+    </table>
+
+  </div>
+</div>
+</body>
+</html>
