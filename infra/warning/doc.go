@@ -32,5 +32,4 @@
 //   - Run the tests with the `-useWarnings` flag to invoke warning code.
 //     Without this flag the `WarningManager` will never flag warning code
 //     and test assertions will raise conventional errors.
-
 package warning
