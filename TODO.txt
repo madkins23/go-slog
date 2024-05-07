@@ -1,6 +1,5 @@
 # TODO
 
-* Fix docs filenames to not use colons (big pain)
 * Refactor scoring interface
 * Discuss slog_madkins_replattr benchmark somewhere
 * Show complex definitions, log traces, and attribute groups on a web page
