@@ -16,13 +16,16 @@ var (
 		(whereas [Go Release 1.22](https://tip.golang.org/doc/go1.22)
 		is currently expected in February 2024).`)
 
+	DurationMillis = NewWarning(LevelSuggested, "DurationMillis", "slog.Duration() logs milliseconds instead of nanoseconds", `
+		The ^slog.JSONHandler^ uses nanoseconds for ^time.Duration^ but some other handlers use seconds.
+		* [Go issue 59345: Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)`)
+
 	DurationSeconds = NewWarning(LevelSuggested, "DurationSeconds", "slog.Duration() logs seconds instead of nanoseconds", `
 		The ^slog.JSONHandler^ uses nanoseconds for ^time.Duration^ but some other handlers use seconds.
 		* [Go issue 59345: Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)`)
 
-	DurationMillis = NewWarning(LevelSuggested, "DurationMillis", "slog.Duration() logs milliseconds instead of nanoseconds", `
-		The ^slog.JSONHandler^ uses nanoseconds for ^time.Duration^ but some other handlers use seconds.
-		* [Go issue 59345: Nanoseconds is a recent change with Go 1.21](https://github.com/golang/go/issues/59345)`)
+	DurationString = NewWarning(LevelSuggested, "DurationString", "slog.Duration() logs a string representation instead of nanoseconds", `
+		The ^slog.JSONHandler^ uses nanoseconds for ^time.Duration^ but some other handlers use a string representation.`)
 
 	GroupWithTop = NewWarning(LevelSuggested, "GroupWithTop",
 		"^WithGroup().With()^ ends up at top level of log record instead of in the group", `
@@ -65,7 +68,7 @@ var (
 
 func init() {
 	// Always update this number when adding or removing Warning objects.
-	addTestCount(LevelSuggested, 10)
+	addTestCount(LevelSuggested, 11)
 }
 
 // Suggested returns an array of all LevelSuggested warnings.

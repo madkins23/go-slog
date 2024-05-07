@@ -95,7 +95,14 @@ func (suite *SlogTestSuite) TestGroupDuration() {
 	out, found := logMap["outer"]
 	suite.Require().True(found)
 	outer, ok := out.(float64)
-	suite.Require().True(ok)
+	var outStr string
+	if !suite.HasWarning(warning.DurationString) {
+		suite.Require().True(ok)
+	} else if ok {
+		suite.AddUnused(warning.DurationString, suite.String())
+	} else if outStr, ok = out.(string); ok {
+		suite.AddWarning(warning.DurationString, outStr, suite.String())
+	}
 	grp, found := logMap["group"]
 	suite.Require().True(found)
 	group, ok := grp.(map[string]any)
@@ -103,14 +110,21 @@ func (suite *SlogTestSuite) TestGroupDuration() {
 	in, found := group["inner"]
 	suite.Require().True(found)
 	inner, ok := in.(float64)
-	suite.Require().True(ok)
-	if !suite.HasWarning(warning.GroupDuration) {
+	var inStr string
+	if !suite.HasWarning(warning.DurationString) {
+		suite.Require().True(ok)
+		if !suite.HasWarning(warning.GroupDuration) {
+			suite.Assert().Equal(outer, inner)
+		} else if outer == inner {
+			suite.AddUnused(warning.GroupDuration, suite.String())
+		} else {
+			suite.AddWarning(warning.GroupDuration,
+				fmt.Sprintf("%f != %f", outer, inner), suite.String())
+		}
+	} else if ok {
 		suite.Assert().Equal(outer, inner)
-	} else if outer == inner {
-		suite.AddUnused(warning.GroupDuration, suite.Buffer.String())
-	} else {
-		suite.AddWarning(warning.GroupDuration,
-			fmt.Sprintf("%f != %f", outer, inner), suite.Buffer.String())
+	} else if inStr, ok = out.(string); ok {
+		suite.Assert().Equal(outStr, inStr)
 	}
 }
 

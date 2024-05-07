@@ -274,6 +274,10 @@ func (suite *SlogTestSuite) TestReplaceAttrFnLevelCase() {
 // TestReplaceAttrFnRemoveEmptyKey tests the RemoveKey function
 // as a replacement for the RemoveEmptyKey function.
 func (suite *SlogTestSuite) TestReplaceAttrFnRemoveEmptyKey() {
+	if warnings := suite.HasWarnings(warning.NoReplAttr, warning.NoReplAttrBasic); len(warnings) > 0 {
+		suite.AddWarning(warnings[0], "", suite.String())
+		return
+	}
 	logger := suite.Logger(infra.SimpleOptions())
 	logger.Info(message, "", "garbage")
 	logMap := suite.logMap()

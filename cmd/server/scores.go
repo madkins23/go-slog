@@ -252,7 +252,7 @@ func scoreChart(size *sizeData) chart.Chart {
 var defaultLabelSize = &handlerCoords{
 	// Approximate width of a label along the x-axis in percentage coordinates (not pixels).
 	// This is a trial-and-error value :-(.
-	x: 25.0,
+	x: 20.0,
 
 	// Approximate height of a label along the y-axis in percentage coordinates (not pixels).
 	// This is a trial-and-error value :-(.

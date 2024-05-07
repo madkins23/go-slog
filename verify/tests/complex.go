@@ -337,6 +337,8 @@ func (p *parser) addAttrToMap(logMap map[string]any, attr slog.Attr) error {
 	case slog.KindDuration:
 		if p.HasWarning(warning.GroupDuration) && p.inGroup {
 			value = float64(attr.Value.Duration().Nanoseconds())
+		} else if p.Manager.HasWarning(warning.DurationString) {
+			value = attr.Value.Duration().String()
 		} else if p.Manager.HasWarning(warning.DurationSeconds) {
 			value = attr.Value.Duration().Seconds()
 		} else if p.Manager.HasWarning(warning.DurationMillis) {

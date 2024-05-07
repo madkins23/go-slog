@@ -240,26 +240,36 @@ func (suite *SlogTestSuite) TestLogAttributes() {
 		// Based on the existing behavior of log/slog it should be RFC3339Nano.
 		suite.Equal(t.Format(time.RFC3339Nano), when)
 	}
-	howLong, ok := logMap["howLong"].(float64)
-	suite.True(ok)
-	if suite.HasWarning(warning.DurationSeconds) {
-		// Some handlers push out seconds instead of nanoseconds.
-		if howLong == float64(60) {
-			suite.AddWarning(warning.DurationSeconds, "", "")
+	howLongObj, found := logMap["howLong"]
+	suite.True(found)
+	if suite.HasWarning(warning.DurationString) {
+		if howLong, ok := howLongObj.(string); ok {
+			suite.AddWarning(warning.DurationString, howLong, suite.String())
 		} else {
-			suite.AddUnused(warning.DurationSeconds, "")
-		}
-	} else if suite.HasWarning(warning.DurationMillis) {
-		// Some handlers push out milliseconds instead of nanoseconds.
-		if howLong == float64(60000) {
-			suite.AddWarning(warning.DurationMillis, "", "")
-		} else {
-			suite.AddUnused(warning.DurationMillis, "")
+			suite.AddUnused(warning.DurationString, suite.String())
 		}
 	} else {
-		// Based on the existing behavior of log/slog it should be nanoseconds.
-		//goland:noinspection GoRedundantConversion
-		suite.Equal(float64(6e+10), howLong)
+		howLong, ok := howLongObj.(float64)
+		suite.True(ok)
+		if suite.HasWarning(warning.DurationSeconds) {
+			// Some handlers push out seconds instead of nanoseconds.
+			if howLong == float64(60) {
+				suite.AddWarning(warning.DurationSeconds, "", "")
+			} else {
+				suite.AddUnused(warning.DurationSeconds, "")
+			}
+		} else if suite.HasWarning(warning.DurationMillis) {
+			// Some handlers push out milliseconds instead of nanoseconds.
+			if howLong == float64(60000) {
+				suite.AddWarning(warning.DurationMillis, "", "")
+			} else {
+				suite.AddUnused(warning.DurationMillis, "")
+			}
+		} else {
+			// Based on the existing behavior of log/slog it should be nanoseconds.
+			//goland:noinspection GoRedundantConversion
+			suite.Equal(float64(6e+10), howLong)
+		}
 	}
 	suite.Equal("snoofus", logMap["goober"])
 	suite.Equal(true, logMap["boolean"])

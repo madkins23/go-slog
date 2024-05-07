@@ -79,11 +79,27 @@ func (suite *SlogTestSuite) TestAttributesEmpty() {
 //   - https://github.com/golang/go/issues/59282
 func (suite *SlogTestSuite) TestAttributesNotEmpty() {
 	logger := suite.Logger(infra.SimpleOptions())
-	logger.Info(message, "first", "one", "", "NOT NIL", "pi", math.Pi)
+	logger.Info(message, "first", "one", "", notNil, "pi", math.Pi)
 	logMap := suite.logMap()
 	suite.Assert().Equal("one", logMap["first"])
 	suite.Assert().Equal(math.Pi, logMap["pi"])
-	suite.Assert().Equal("NOT NIL", logMap[""])
+	value, found := logMap[""]
+	if !suite.HasWarning(warning.NoEmptyName) {
+		suite.Assert().True(found)
+		suite.Assert().Equal(notNil, value)
+	} else {
+		var matched bool
+		if found {
+			if valStr, ok := value.(string); ok && valStr == notNil {
+				matched = true
+			}
+		}
+		if matched {
+			suite.AddUnused(warning.NoEmptyName, suite.String())
+		} else {
+			suite.AddWarning(warning.NoEmptyName, "", suite.String())
+		}
+	}
 }
 
 // TestAttributesWith tests whether attributes in With() are logged properly.
@@ -115,13 +131,29 @@ func (suite *SlogTestSuite) TestAttributesWithEmpty() {
 //   - https://github.com/golang/go/issues/59282
 func (suite *SlogTestSuite) TestAttributesWithNotEmpty() {
 	logger := suite.Logger(infra.SimpleOptions())
-	logger.With("first", "one", "second", 2, "", "NOT NIL").Info(message, "pi", math.Pi)
+	logger.With("first", "one", "second", 2, "", notNil).Info(message, "pi", math.Pi)
 	logMap := suite.logMap()
-	suite.checkFieldCount(7, logMap)
+	value, found := logMap[""]
+	if !suite.HasWarning(warning.NoEmptyName) {
+		suite.checkFieldCount(7, logMap)
+		suite.Assert().True(found)
+		suite.Assert().Equal(notNil, value)
+	} else {
+		var matched bool
+		if found {
+			if valStr, ok := value.(string); ok && valStr == notNil {
+				matched = true
+			}
+		}
+		if matched {
+			suite.AddUnused(warning.NoEmptyName, suite.String())
+		} else {
+			suite.AddWarning(warning.NoEmptyName, "", suite.String())
+		}
+	}
 	suite.Assert().Equal("one", logMap["first"])
 	suite.Assert().Equal(float64(2), logMap["second"])
 	suite.Assert().Equal(math.Pi, logMap["pi"])
-	suite.Assert().Equal("NOT NIL", logMap[""])
 }
 
 // TestGroup tests the use of a logging group.
@@ -502,6 +534,11 @@ func (suite *SlogTestSuite) TestZeroTime() {
 // -----------------------------------------------------------------------------
 // Tests extending slogTest tests.
 
+const (
+	notNil         = "NOT NIL"
+	two64  float64 = 2
+)
+
 // TestAttributeEmptyName tests whether attributes with empty names are logged properly.
 //   - Based on the existing behavior of log/slog the field is created with a blank name.
 //   - Extension of slogtest "empty-attr" test.
@@ -509,11 +546,25 @@ func (suite *SlogTestSuite) TestAttributeEmptyName() {
 	logger := suite.Logger(infra.SimpleOptions())
 	logger.Info(message, "first", "one", "", 2, "pi", math.Pi)
 	logMap := suite.logMap()
-	suite.checkFieldCount(6, logMap)
-	suite.Assert().Equal("one", logMap["first"])
 	value, found := logMap[""]
-	suite.Assert().True(found)
-	suite.Assert().Equal(float64(2), value)
+	if !suite.HasWarning(warning.NoEmptyName) {
+		suite.checkFieldCount(6, logMap)
+		suite.Assert().True(found)
+		suite.Assert().Equal(two64, value)
+	} else {
+		var matched bool
+		if found {
+			if val64, ok := value.(float64); ok && val64 == two64 {
+				matched = true
+			}
+		}
+		if matched {
+			suite.AddUnused(warning.NoEmptyName, suite.String())
+		} else {
+			suite.AddWarning(warning.NoEmptyName, "", suite.String())
+		}
+	}
+	suite.Assert().Equal("one", logMap["first"])
 	suite.Assert().Equal(math.Pi, logMap["pi"])
 }
 
@@ -550,11 +601,25 @@ func (suite *SlogTestSuite) TestAttributeWithEmptyName() {
 	logger := suite.Logger(infra.SimpleOptions())
 	logger.With("", 2).Info(message, "first", "one", "pi", math.Pi)
 	logMap := suite.logMap()
-	suite.checkFieldCount(6, logMap)
-	suite.Assert().Equal("one", logMap["first"])
 	value, found := logMap[""]
-	suite.Assert().True(found)
-	suite.Assert().Equal(float64(2), value)
+	if !suite.HasWarning(warning.NoEmptyName) {
+		suite.checkFieldCount(6, logMap)
+		suite.Assert().True(found)
+		suite.Assert().Equal(two64, value)
+	} else {
+		var matched bool
+		if found {
+			if val64, ok := value.(float64); ok && val64 == two64 {
+				matched = true
+			}
+		}
+		if matched {
+			suite.AddUnused(warning.NoEmptyName, suite.String())
+		} else {
+			suite.AddWarning(warning.NoEmptyName, "", suite.String())
+		}
+	}
+	suite.Assert().Equal("one", logMap["first"])
 	suite.Assert().Equal(math.Pi, logMap["pi"])
 }
 

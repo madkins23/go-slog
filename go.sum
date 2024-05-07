@@ -124,6 +124,12 @@ github.com/wcharczuk/go-chart/v2 v2.1.1/go.mod h1:CyCAUt2oqvfhCl6Q5ZvAZwItgpQKZO
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=
 go.mrchanchal.com/zaphandler v0.0.0-20230611140024-bd4fd80897ad h1:e06B5x0w6Z+5UhSas+6ywH0dm0i6QaIge1Bjx+aXaVM=
 go.mrchanchal.com/zaphandler v0.0.0-20230611140024-bd4fd80897ad/go.mod h1:cH+8mqXs/fUx1WkDnEF1Dbj2i4Y6C3qeIjhhFGY4eV8=
+go.opentelemetry.io/otel v1.19.0 h1:MuS/TNf4/j4IXsZuJegVzI1cwut7Qc00344rgH7p8bs=
+go.opentelemetry.io/otel v1.19.0/go.mod h1:i0QyjOq3UPoTzff0PJB2N66fb4S0+rSbSB15/oyH9fY=
+go.opentelemetry.io/otel/trace v1.19.0 h1:DFVQmlVbfVeOuBRrwdtaehRrWiL1JoVs9CPIQ1Dzxpg=
+go.opentelemetry.io/otel/trace v1.19.0/go.mod h1:mfaSyvGyEJEI0nyV2I4qhNQnbBOUUmYZpYojqMnX2vo=
+go.seankhliao.com/svcrunner/v3 v3.0.0-20231007180458-c5294d90b36c h1:fsWpciedz2rN4owN8aKxxyTtZ8MagzNXf9HegnlwPLQ=
+go.seankhliao.com/svcrunner/v3 v3.0.0-20231007180458-c5294d90b36c/go.mod h1:xoFps1ZewWSqADY3UpvYbZOJ5qsUYNnljQd47RBXcCA=
 go.uber.org/goleak v1.3.0 h1:2K3zAYmnTNqV73imy9J1T3WC+gmCePx2hEGkimedGto=
 go.uber.org/goleak v1.3.0/go.mod h1:CoHD4mav9JJNrW/WLlf7HGZPjdw8EucARQHekz1X6bE=
 go.uber.org/multierr v1.11.0 h1:blXXJkSxSSfBVBlC76pxqeO+LN3aDfLQo+309xJstO0=
