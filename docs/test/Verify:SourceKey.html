@@ -50,6 +50,8 @@
                       
                         <option value="SlogJSON" >slog/JSONHandler</option>
                       
+                        <option value="SvcrunnerJsonlog" >svcrunner/jsonlog</option>
+                      
                     </select>
                   </form>
                 </td>
@@ -98,13 +100,21 @@
                       
                         <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
                       
+                        <option value="Verify:AttributeEmptyName" >Attribute Empty Name</option>
+                      
                         <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
                       
                         <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
                       
+                        <option value="Verify:AttributeWithEmptyName" >Attribute With Empty Name</option>
+                      
                         <option value="Verify:AttributesEmpty" >Attributes Empty</option>
                       
+                        <option value="Verify:AttributesNotEmpty" >Attributes Not Empty</option>
+                      
                         <option value="Verify:AttributesWithEmpty" >Attributes With Empty</option>
+                      
+                        <option value="Verify:AttributesWithNotEmpty" >Attributes With Not Empty</option>
                       
                         <option value="Verify:CanceledContext" >Canceled Context</option>
                       
@@ -280,6 +290,25 @@
                         <td class="indent"></td>
                         <td colspan=3 class="logLine"><pre></pre></td>
                       </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                          Svcrunner Jsonlog
+                        </td>
+                        <td class="extra"><p>`message`</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="MessageKey-Svcrunner Jsonlog-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
                      
                   </table>
                 </td>
@@ -340,7 +369,7 @@ to the <code>File</code> and <code>Line</code> fields of the source data group a
 	&#34;caller&#34;: &#34;reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-05-07T14:22:05Z&#34;
+	&#34;time&#34;: &#34;2024-05-07T18:19:03Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -366,7 +395,7 @@ to the <code>File</code> and <code>Line</code> fields of the source data group a
 	&#34;caller&#34;: &#34;/opt/hostedtoolcache/go/1.22.2/x64/src/reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-05-07T14:22:06Z&#34;
+	&#34;time&#34;: &#34;2024-05-07T18:19:03Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -392,7 +421,68 @@ to the <code>File</code> and <code>Line</code> fields of the source data group a
 	&#34;caller&#34;: &#34;reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-05-07T14:22:06Z&#34;
+	&#34;time&#34;: &#34;2024-05-07T18:19:03Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  SourceKey
+                </td>
+                <td class="extra">
+                  Source data not logged when AddSource flag set
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SourceKey-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="SourceKey-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Handlers should log source data when the <code>slog.HandlerOptions.AddSource</code> flag is set.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#HandlerOptions" target="_blank">Flag declaration as <code>slog.HandlerOptions</code> field</a></li>
+<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Behavior defined for <code>JSONHandler.Handle()</code></a></li>
+<li><a href="https://pkg.go.dev/log/slog@master#Source" target="_blank">Definition of source data record</a></li>
+</ul>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                          Svcrunner Jsonlog
+                        </td>
+                        <td class="extra"><p>no 'source' key</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('SourceKey-Svcrunner Jsonlog-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="SourceKey-Svcrunner Jsonlog-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;level&#34;: &#34;INFO&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;time&#34;: &#34;2024-05-07T18:19:03.78558574Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -555,7 +645,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-05-07 14:22:11 UTC</span>
+              <span class="fixed">2024-05-07 18:19:13 UTC</span>
             </div>
           </td>
           <td class="right">

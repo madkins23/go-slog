@@ -46,6 +46,8 @@
                       
                         <option value="SlogJSON" >slog/JSONHandler</option>
                       
+                        <option value="SvcrunnerJsonlog" >svcrunner/jsonlog</option>
+                      
                     </select>
                   </form>
                 </td>
@@ -94,13 +96,21 @@
                       
                         <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
                       
+                        <option value="Verify:AttributeEmptyName" >Attribute Empty Name</option>
+                      
                         <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
                       
                         <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
                       
+                        <option value="Verify:AttributeWithEmptyName" >Attribute With Empty Name</option>
+                      
                         <option value="Verify:AttributesEmpty" >Attributes Empty</option>
                       
+                        <option value="Verify:AttributesNotEmpty" >Attributes Not Empty</option>
+                      
                         <option value="Verify:AttributesWithEmpty" >Attributes With Empty</option>
+                      
+                        <option value="Verify:AttributesWithNotEmpty" >Attributes With Not Empty</option>
                       
                         <option value="Verify:CanceledContext" >Canceled Context</option>
                       
@@ -369,6 +379,8 @@
                     <td colspan=1 class="extra">Unable to change level during execution via LevelVar</td>
                     <td class="center">
                       
+                        <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('LevelVar-who')">Usage</button>
+                      
                     </td>
                   </tr>
                   
@@ -380,6 +392,34 @@ a <code>LevelVar</code> is supposed to be changeable during program execution.</
 </td>
                     </tr>
                   
+                  
+                    <tr id="LevelVar-who" style="display:none;">
+                      <td colspan=2></td>
+                      <td colspan=3>
+                        <table class="warning-data">
+                          <tr>
+                            
+                              <th style="width:50%;">Handlers</th>
+                            
+                            
+                              <th style="width:50%;">Tests</th>
+                            
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="list">
+                                Svcrunner Jsonlog<br/>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="list">
+                                Level Var<br/>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
                   
                 
                   
@@ -518,7 +558,7 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
                           <tr>
                             <td>
                               <div class="list">
-                                Chanchal Zap<br/>Phsym Zerolog<br/>Samber Logrus<br/>Samber Zap<br/>Samber Zerolog<br/>
+                                Chanchal Zap<br/>Phsym Zerolog<br/>Samber Logrus<br/>Samber Zap<br/>Samber Zerolog<br/>Svcrunner Jsonlog<br/>
                               </div>
                             </td>
                             <td>
@@ -919,12 +959,64 @@ Handlers should properly handle numeric levels and math applied to level values.
                           <tr>
                             <td>
                               <div class="list">
-                                Phsym Zerolog<br/>Samber Zerolog<br/>
+                                Phsym Zerolog<br/>Samber Zerolog<br/>Svcrunner Jsonlog<br/>
                               </div>
                             </td>
                             <td>
                               <div class="list">
                                 Canceled Context<br/>Keys<br/>Source Key<br/>Zero PC<br/>Zero Time<br/>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  
+                
+                  
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">NoEmptyName</td>
+                    <td colspan=1 class="extra">Attributes with empty names are not logged</td>
+                    <td class="center">
+                      
+                        <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('NoEmptyName-who')">Usage</button>
+                      
+                    </td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=3 class="description"><p>Until documented otherwise, an attribute with an empty field name (<code>&quot;&quot;</code>) should be logged.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Empty field names are logged by the <code>JSONHandler.Handle()</code> implementation</a></li>
+</ul>
+</td>
+                    </tr>
+                  
+                  
+                    <tr id="NoEmptyName-who" style="display:none;">
+                      <td colspan=2></td>
+                      <td colspan=3>
+                        <table class="warning-data">
+                          <tr>
+                            
+                              <th style="width:50%;">Handlers</th>
+                            
+                            
+                              <th style="width:50%;">Tests</th>
+                            
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="list">
+                                Svcrunner Jsonlog<br/>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="list">
+                                Attribute Empty Name<br/>Attribute With Empty Name<br/>Attributes Not Empty<br/>Attributes With Not Empty<br/>
                               </div>
                             </td>
                           </tr>
@@ -975,7 +1067,7 @@ However, documentation on implementing handler methods seems to suggest it is op
                           <tr>
                             <td>
                               <div class="list">
-                                Chanchal Zap<br/>Phsym Zerolog<br/>
+                                Chanchal Zap<br/>Phsym Zerolog<br/>Svcrunner Jsonlog<br/>
                               </div>
                             </td>
                             <td>
@@ -1031,7 +1123,7 @@ When that is the case it is better to use this (<code>WarnNoReplAttrBasic</code>
                             </td>
                             <td>
                               <div class="list">
-                                Replace Attr Basic<br/>Replace Attr Fn Change Key<br/>Replace Attr Fn Level Case<br/>Replace Attr Fn Multi<br/>Replace Attr Fn Remove Time<br/>
+                                Replace Attr Basic<br/>Replace Attr Fn Change Key<br/>Replace Attr Fn Level Case<br/>Replace Attr Fn Multi<br/>Replace Attr Fn Remove Empty Key<br/>Replace Attr Fn Remove Time<br/>
                               </div>
                             </td>
                           </tr>
@@ -1122,6 +1214,8 @@ to the <code>File</code> and <code>Line</code> fields of the source data group a
                     <td colspan=1 class="extra">Source data not logged when AddSource flag set</td>
                     <td class="center">
                       
+                        <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SourceKey-who')">Usage</button>
+                      
                     </td>
                   </tr>
                   
@@ -1137,6 +1231,34 @@ to the <code>File</code> and <code>Line</code> fields of the source data group a
 </td>
                     </tr>
                   
+                  
+                    <tr id="SourceKey-who" style="display:none;">
+                      <td colspan=2></td>
+                      <td colspan=3>
+                        <table class="warning-data">
+                          <tr>
+                            
+                              <th style="width:50%;">Handlers</th>
+                            
+                            
+                              <th style="width:50%;">Tests</th>
+                            
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="list">
+                                Svcrunner Jsonlog<br/>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="list">
+                                Simple Source<br/>Source Key<br/>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
                   
                 
                   
@@ -1240,7 +1362,7 @@ is currently expected in February 2024).</p>
                           <tr>
                             <td>
                               <div class="list">
-                                Chanchal Zap<br/>Madkins Flash<br/>Madkins Repl Attr<br/>Madkins Sloggy<br/>Phsym Zerolog<br/>Phuslu Slog<br/>Slog JSON<br/>
+                                Chanchal Zap<br/>Madkins Flash<br/>Madkins Repl Attr<br/>Madkins Sloggy<br/>Phsym Zerolog<br/>Phuslu Slog<br/>Slog JSON<br/>Svcrunner Jsonlog<br/>
                               </div>
                             </td>
                             <td>
@@ -1350,6 +1472,54 @@ is currently expected in February 2024).</p>
                             <td>
                               <div class="list">
                                 Log Attributes<br/>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  
+                
+                  
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">DurationString</td>
+                    <td colspan=1 class="extra">slog.Duration() logs a string representation instead of nanoseconds</td>
+                    <td class="center">
+                      
+                        <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('DurationString-who')">Usage</button>
+                      
+                    </td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=3 class="description"><p>The <code>slog.JSONHandler</code> uses nanoseconds for <code>time.Duration</code> but some other handlers use a string representation.</p>
+</td>
+                    </tr>
+                  
+                  
+                    <tr id="DurationString-who" style="display:none;">
+                      <td colspan=2></td>
+                      <td colspan=3>
+                        <table class="warning-data">
+                          <tr>
+                            
+                              <th style="width:50%;">Handlers</th>
+                            
+                            
+                              <th style="width:50%;">Tests</th>
+                            
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="list">
+                                Svcrunner Jsonlog<br/>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="list">
+                                Group Duration<br/>Log Attributes<br/>
                               </div>
                             </td>
                           </tr>
@@ -1791,6 +1961,8 @@ from a test suite as issues are fixed in the tested handler.</p>
                 
                   <th><div><span>slog/JSONHandler</span></div></th>
                 
+                  <th><div><span>svcrunner/jsonlog</span></div></th>
+                
               </tr>
               
                 <tr><td colspan=2 class="level">Required</td></tr>
@@ -1849,6 +2021,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
@@ -1878,6 +2055,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                       
                       
                         <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
                       
                     
                       
@@ -1961,6 +2143,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
@@ -2017,11 +2204,21 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
                   </tr>
                 
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">Mismatch</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -2129,6 +2326,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
@@ -2178,6 +2380,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                       
                       
                         <td class="count"><span>4</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
                       
                     
                       
@@ -2241,6 +2448,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="count"><span>1</span></td>
+                      
+                    
                   </tr>
                 
                   <tr>
@@ -2270,6 +2482,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                       
                       
                         <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
                       
                     
                       
@@ -2353,6 +2570,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
@@ -2409,6 +2631,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
               
@@ -2421,6 +2648,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                       
                       
                         <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
                       
                     
                       
@@ -2524,11 +2756,21 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">GroupAttrInfoTop</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -2636,6 +2878,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
@@ -2692,6 +2939,72 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="count"><span>7</span></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td style="width:5%;"></td>
+                    <td class="name">NoEmptyName</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>4</span></td>
+                      
+                    
                   </tr>
                 
                   <tr>
@@ -2720,7 +3033,7 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
-                        <td class="count"><span>6</span></td>
+                        <td class="count"><span>7</span></td>
                       
                     
                       
@@ -2746,6 +3059,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                       
                       
                         <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>7</span></td>
                       
                     
                   </tr>
@@ -2786,17 +3104,22 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
-                        <td class="count"><span>4</span></td>
-                      
-                    
-                      
-                      
-                        <td class="count"><span>4</span></td>
+                        <td class="count"><span>5</span></td>
                       
                     
                       
                       
                         <td class="count"><span>5</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>6</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
                       
                     
                       
@@ -2809,6 +3132,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">ReplAttrGroup</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -2916,6 +3244,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
@@ -2972,6 +3305,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
                   </tr>
                 
                   <tr>
@@ -2981,6 +3319,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                       
                       
                         <td class="count"><span>2</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
                       
                     
                       
@@ -3087,6 +3430,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="count"><span>2</span></td>
                       
                     
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
                   </tr>
                 
                   <tr>
@@ -3136,6 +3484,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                       
                       
                         <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
                       
                     
                       
@@ -3199,6 +3552,72 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td style="width:5%;"></td>
+                    <td class="name">DurationString</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>2</span></td>
+                      
+                    
                   </tr>
                 
                   <tr>
@@ -3255,6 +3674,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
@@ -3264,6 +3688,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                       
                       
                         <td class="count"><span>1</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
                       
                     
                       
@@ -3367,6 +3796,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
@@ -3423,11 +3857,21 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">StringAny</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -3535,11 +3979,21 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">TimeSeconds</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -3650,11 +4104,21 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">SkippingTest</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -3762,11 +4226,21 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
                   <tr>
                     <td style="width:5%;"></td>
                     <td class="name">Undefined</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
                     
                       
                       
@@ -3874,6 +4348,11 @@ from a test suite as issues are fixed in the tested handler.</p>
                         <td class="blank"></td>
                       
                     
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
                   </tr>
                 
               
@@ -3895,7 +4374,7 @@ from a test suite as issues are fixed in the tested handler.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-05-07 14:22:11 UTC</span>
+              <span class="fixed">2024-05-07 18:19:13 UTC</span>
             </div>
           </td>
           <td class="right">

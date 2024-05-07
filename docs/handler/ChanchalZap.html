@@ -47,6 +47,8 @@
                       
                         <option value="SlogJSON" >slog/JSONHandler</option>
                       
+                        <option value="SvcrunnerJsonlog" >svcrunner/jsonlog</option>
+                      
                     </select>
                   </form>
                 </td>
@@ -95,13 +97,21 @@
                       
                         <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
                       
+                        <option value="Verify:AttributeEmptyName" >Attribute Empty Name</option>
+                      
                         <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
                       
                         <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
                       
+                        <option value="Verify:AttributeWithEmptyName" >Attribute With Empty Name</option>
+                      
                         <option value="Verify:AttributesEmpty" >Attributes Empty</option>
                       
+                        <option value="Verify:AttributesNotEmpty" >Attributes Not Empty</option>
+                      
                         <option value="Verify:AttributesWithEmpty" >Attributes With Empty</option>
+                      
+                        <option value="Verify:AttributesWithNotEmpty" >Attributes With Not Empty</option>
                       
                         <option value="Verify:CanceledContext" >Canceled Context</option>
                       
@@ -219,7 +229,7 @@
           
           <tr class="title">
             <td><h2>Benchmark Data</h2></td>
-            <td class="score">Score: <span>88.80</span></td>
+            <td class="score">Score: <span>88.84</span></td>
           </tr>
           <tr>
             <td colspan=2>
@@ -236,28 +246,28 @@
                 
                   <tr>
                     <td class="fixed">Attributes</td>
-                    <td class="number">807,315</td>
-                    <td class="number">1,445.00</td>
+                    <td class="number">789,859</td>
+                    <td class="number">1,428.00</td>
                       <td class="number">5</td>
-                     <td class="number">417</td>
-                    <td class="number">269.23</td>
-                    <td class="number">96.98</td>
+                     <td class="number">416</td>
+                    <td class="number">272.47</td>
+                    <td class="number">97.03</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Big Group</td>
-                    <td class="number">22,612</td>
-                    <td class="number">53,167.00</td>
-                      <td class="number">484</td>
-                     <td class="number">11,723</td>
-                    <td class="number">445.41</td>
-                    <td class="number">95.89</td>
+                    <td class="number">13,431</td>
+                    <td class="number">91,341.00</td>
+                      <td class="number">833</td>
+                     <td class="number">20,178</td>
+                    <td class="number">447.09</td>
+                    <td class="number">95.95</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Disabled</td>
-                    <td class="number">42,792,903</td>
-                    <td class="number">28.06</td>
+                    <td class="number">43,023,920</td>
+                    <td class="number">27.77</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
                     <td class="number">0.00</td>
@@ -266,92 +276,92 @@
                 
                   <tr>
                     <td class="fixed">Key Values</td>
-                    <td class="number">783,272</td>
-                    <td class="number">1,500.00</td>
+                    <td class="number">792,799</td>
+                    <td class="number">1,492.00</td>
                       <td class="number">5</td>
                      <td class="number">417</td>
-                    <td class="number">259.37</td>
-                    <td class="number">96.95</td>
+                    <td class="number">260.74</td>
+                    <td class="number">97.00</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Logging</td>
-                    <td class="number">39,054</td>
-                    <td class="number">30,164.00</td>
+                    <td class="number">39,380</td>
+                    <td class="number">30,686.00</td>
                       <td class="number">51</td>
                      <td class="number">1,635</td>
-                    <td class="number">274.90</td>
-                    <td class="number">97.63</td>
+                    <td class="number">270.22</td>
+                    <td class="number">97.48</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple</td>
-                    <td class="number">3,191,325</td>
-                    <td class="number">425.10</td>
+                    <td class="number">3,189,150</td>
+                    <td class="number">408.90</td>
                       <td class="number">1</td>
                      <td class="number">32</td>
-                    <td class="number">171.74</td>
-                    <td class="number">94.84</td>
+                    <td class="number">178.52</td>
+                    <td class="number">95.08</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple Source</td>
-                    <td class="number">1,990,270</td>
-                    <td class="number">610.60</td>
+                    <td class="number">1,996,330</td>
+                    <td class="number">615.70</td>
                       <td class="number">3</td>
                      <td class="number">280</td>
-                    <td class="number">175.24</td>
-                    <td class="number">94.13</td>
+                    <td class="number">173.79</td>
+                    <td class="number">94.12</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Attributes</td>
-                    <td class="number">819,390</td>
-                    <td class="number">1,508.00</td>
+                    <td class="number">821,848</td>
+                    <td class="number">1,482.00</td>
                       <td class="number">5</td>
                      <td class="number">417</td>
-                    <td class="number">488.88</td>
-                    <td class="number">97.90</td>
+                    <td class="number">497.20</td>
+                    <td class="number">97.94</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Key Values</td>
-                    <td class="number">780,792</td>
-                    <td class="number">1,520.00</td>
+                    <td class="number">769,530</td>
+                    <td class="number">1,524.00</td>
                       <td class="number">5</td>
-                     <td class="number">416</td>
-                    <td class="number">484.98</td>
-                    <td class="number">97.98</td>
+                     <td class="number">417</td>
+                    <td class="number">483.60</td>
+                    <td class="number">97.93</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Simple</td>
-                    <td class="number">3,133,647</td>
-                    <td class="number">394.90</td>
+                    <td class="number">3,056,254</td>
+                    <td class="number">385.00</td>
                       <td class="number">1</td>
                      <td class="number">32</td>
-                    <td class="number">1,066.23</td>
-                    <td class="number">99.05</td>
+                    <td class="number">1,093.56</td>
+                    <td class="number">99.09</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Attributes</td>
-                    <td class="number">796,662</td>
-                    <td class="number">1,520.00</td>
+                    <td class="number">794,731</td>
+                    <td class="number">1,510.00</td>
                       <td class="number">7</td>
                      <td class="number">505</td>
-                    <td class="number">265.08</td>
-                    <td class="number">97.17</td>
+                    <td class="number">266.83</td>
+                    <td class="number">97.25</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Key Values</td>
-                    <td class="number">766,636</td>
-                    <td class="number">1,579.00</td>
+                    <td class="number">687,064</td>
+                    <td class="number">1,560.00</td>
                       <td class="number">7</td>
                      <td class="number">505</td>
-                    <td class="number">255.16</td>
-                    <td class="number">97.12</td>
+                    <td class="number">258.34</td>
+                    <td class="number">97.18</td>
                   </tr>
                  
               </table>
@@ -378,7 +388,7 @@
           <tr><td colspan=2><hr/></td></tr>
           <tr class="title">
             <td><h2 >Warnings</h2></td>
-            <td class="score">Score: <span>55.36</span></td>
+            <td class="score">Score: <span>61.54</span></td>
           </tr>
           <tr>
             <td colspan=2>
@@ -512,7 +522,7 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
 	&#34;group1&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-05-07T14:22:05Z&#34;
+	&#34;time&#34;: &#34;2024-05-07T18:19:03Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -866,8 +876,7 @@ However, documentation on implementing handler methods seems to suggest it is op
                           
                           Replace Attr Fn Remove Empty Key
                         </td>
-                        <td class="extra"><p>too few attributes: 3</p>
-<p>no empty key</p></td>
+                        <td class="extra"><p></p></td>
                         <td class="button">
                           
                         </td>
@@ -961,7 +970,7 @@ When that is the case it is better to use this (<code>WarnNoReplAttrBasic</code>
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;phi&#34;: 1.618033988749895,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-05-07T14:22:05Z&#34;
+	&#34;time&#34;: &#34;2024-05-07T18:19:03Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -1047,7 +1056,7 @@ to the <code>File</code> and <code>Line</code> fields of the source data group a
 	&#34;caller&#34;: &#34;tests/benchmarks.go:96&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-05-07T14:19:17Z&#34;
+	&#34;time&#34;: &#34;2024-05-07T18:16:01Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -1075,7 +1084,7 @@ to the <code>File</code> and <code>Line</code> fields of the source data group a
 	&#34;caller&#34;: &#34;reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-05-07T14:22:05Z&#34;
+	&#34;time&#34;: &#34;2024-05-07T18:19:03Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1142,7 +1151,7 @@ This warning represents situations where the attributes are attached to the wron
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;second&#34;: 2,
 	&#34;third&#34;: &#34;3&#34;,
-	&#34;time&#34;: &#34;2024-05-07T14:22:05Z&#34;
+	&#34;time&#34;: &#34;2024-05-07T18:19:03Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -1173,7 +1182,7 @@ This warning represents situations where the attributes are attached to the wron
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;second&#34;: 2,
 	&#34;third&#34;: &#34;3&#34;,
-	&#34;time&#34;: &#34;2024-05-07T14:22:05Z&#34;
+	&#34;time&#34;: &#34;2024-05-07T18:19:03Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1373,7 +1382,7 @@ Some handlers write <code>&lt;attrs&gt;</code> to the top level of the log recor
 	&#34;key&#34;: &#34;value&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-05-07T14:22:05Z&#34;
+	&#34;time&#34;: &#34;2024-05-07T18:19:03Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1464,7 +1473,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Key Case
                         </td>
-                        <td class="extra"><p>'debug'</p></td>
+                        <td class="extra"><p>'error'</p></td>
                         <td class="button">
                           
                         </td>
@@ -1485,7 +1494,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Key Case
                         </td>
-                        <td class="extra"><p>'info'</p></td>
+                        <td class="extra"><p>'debug'</p></td>
                         <td class="button">
                           
                         </td>
@@ -1506,7 +1515,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Key Case
                         </td>
-                        <td class="extra"><p>'warn'</p></td>
+                        <td class="extra"><p>'info'</p></td>
                         <td class="button">
                           
                         </td>
@@ -1527,7 +1536,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Key Case
                         </td>
-                        <td class="extra"><p>'error'</p></td>
+                        <td class="extra"><p>'warn'</p></td>
                         <td class="button">
                           
                         </td>
@@ -1666,7 +1675,7 @@ may have fixed this as well in Go 1.21.</p>
                           
                           Log Attributes
                         </td>
-                        <td class="extra"><p>2024-05-07T14:22:05Z</p></td>
+                        <td class="extra"><p>2024-05-07T18:19:03Z</p></td>
                         <td class="button">
                           
                         </td>
@@ -1700,7 +1709,7 @@ may have fixed this as well in Go 1.21.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-05-07 14:22:11 UTC</span>
+              <span class="fixed">2024-05-07 18:19:13 UTC</span>
             </div>
           </td>
           <td class="right">

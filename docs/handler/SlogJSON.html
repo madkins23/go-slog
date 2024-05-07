@@ -47,6 +47,8 @@
                       
                         <option value="SlogJSON" selected>slog/JSONHandler</option>
                       
+                        <option value="SvcrunnerJsonlog" >svcrunner/jsonlog</option>
+                      
                     </select>
                   </form>
                 </td>
@@ -95,13 +97,21 @@
                       
                         <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
                       
+                        <option value="Verify:AttributeEmptyName" >Attribute Empty Name</option>
+                      
                         <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
                       
                         <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
                       
+                        <option value="Verify:AttributeWithEmptyName" >Attribute With Empty Name</option>
+                      
                         <option value="Verify:AttributesEmpty" >Attributes Empty</option>
                       
+                        <option value="Verify:AttributesNotEmpty" >Attributes Not Empty</option>
+                      
                         <option value="Verify:AttributesWithEmpty" >Attributes With Empty</option>
+                      
+                        <option value="Verify:AttributesWithNotEmpty" >Attributes With Not Empty</option>
                       
                         <option value="Verify:CanceledContext" >Canceled Context</option>
                       
@@ -219,7 +229,7 @@ along with published documentation as a model for <code>slog.Handler</code> beha
           
           <tr class="title">
             <td><h2>Benchmark Data</h2></td>
-            <td class="score">Score: <span>96.15</span></td>
+            <td class="score">Score: <span>96.17</span></td>
           </tr>
           <tr>
             <td colspan=2>
@@ -236,122 +246,122 @@ along with published documentation as a model for <code>slog.Handler</code> beha
                 
                   <tr>
                     <td class="fixed">Attributes</td>
-                    <td class="number">766,864</td>
-                    <td class="number">1,514.00</td>
+                    <td class="number">856,012</td>
+                    <td class="number">1,492.00</td>
                       <td class="number">6</td>
                      <td class="number">472</td>
-                    <td class="number">276.17</td>
-                    <td class="number">96.37</td>
+                    <td class="number">280.25</td>
+                    <td class="number">96.43</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Big Group</td>
-                    <td class="number">13,640</td>
-                    <td class="number">87,008.00</td>
-                      <td class="number">14</td>
-                     <td class="number">112,994</td>
-                    <td class="number">272.28</td>
-                    <td class="number">86.53</td>
+                    <td class="number">8,970</td>
+                    <td class="number">139,796.00</td>
+                      <td class="number">15</td>
+                     <td class="number">153,963</td>
+                    <td class="number">292.19</td>
+                    <td class="number">89.10</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Disabled</td>
-                    <td class="number">308,039,521</td>
+                    <td class="number">307,445,949</td>
                     <td class="number">3.89</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
                     <td class="number">0.00</td>
-                    <td class="number">99.31</td>
+                    <td class="number">96.23</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Key Values</td>
-                    <td class="number">746,877</td>
-                    <td class="number">1,655.00</td>
+                    <td class="number">813,975</td>
+                    <td class="number">1,495.00</td>
                       <td class="number">6</td>
                      <td class="number">472</td>
-                    <td class="number">252.61</td>
-                    <td class="number">96.08</td>
+                    <td class="number">279.54</td>
+                    <td class="number">96.59</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Logging</td>
-                    <td class="number">38,557</td>
-                    <td class="number">28,027.00</td>
+                    <td class="number">37,407</td>
+                    <td class="number">30,119.00</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">313.77</td>
-                    <td class="number">98.51</td>
+                    <td class="number">292.08</td>
+                    <td class="number">98.16</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple</td>
-                    <td class="number">3,984,478</td>
-                    <td class="number">310.00</td>
+                    <td class="number">4,112,581</td>
+                    <td class="number">295.40</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">267.71</td>
-                    <td class="number">98.04</td>
+                    <td class="number">274.25</td>
+                    <td class="number">98.29</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple Source</td>
-                    <td class="number">1,410,090</td>
-                    <td class="number">856.70</td>
+                    <td class="number">1,412,851</td>
+                    <td class="number">835.00</td>
                       <td class="number">6</td>
                      <td class="number">568</td>
-                    <td class="number">323.34</td>
-                    <td class="number">89.15</td>
+                    <td class="number">331.76</td>
+                    <td class="number">89.30</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Attributes</td>
-                    <td class="number">791,497</td>
-                    <td class="number">1,548.00</td>
+                    <td class="number">812,018</td>
+                    <td class="number">1,506.00</td>
                       <td class="number">6</td>
                      <td class="number">472</td>
-                    <td class="number">507.18</td>
-                    <td class="number">97.56</td>
+                    <td class="number">521.14</td>
+                    <td class="number">97.63</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Key Values</td>
-                    <td class="number">793,296</td>
-                    <td class="number">1,521.00</td>
+                    <td class="number">818,034</td>
+                    <td class="number">1,539.00</td>
                       <td class="number">6</td>
                      <td class="number">472</td>
-                    <td class="number">516.00</td>
-                    <td class="number">97.71</td>
+                    <td class="number">509.98</td>
+                    <td class="number">97.63</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Simple</td>
-                    <td class="number">3,380,791</td>
-                    <td class="number">304.20</td>
+                    <td class="number">3,809,569</td>
+                    <td class="number">303.30</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">1,479.36</td>
-                    <td class="number">99.66</td>
+                    <td class="number">1,483.58</td>
+                    <td class="number">99.68</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Attributes</td>
-                    <td class="number">827,487</td>
-                    <td class="number">1,488.00</td>
+                    <td class="number">849,534</td>
+                    <td class="number">1,485.00</td>
                       <td class="number">6</td>
                      <td class="number">472</td>
-                    <td class="number">290.41</td>
-                    <td class="number">97.44</td>
+                    <td class="number">290.90</td>
+                    <td class="number">97.51</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Key Values</td>
-                    <td class="number">778,494</td>
-                    <td class="number">1,544.00</td>
+                    <td class="number">726,190</td>
+                    <td class="number">1,531.00</td>
                       <td class="number">6</td>
                      <td class="number">472</td>
-                    <td class="number">279.76</td>
-                    <td class="number">97.40</td>
+                    <td class="number">282.23</td>
+                    <td class="number">97.44</td>
                   </tr>
                  
               </table>
@@ -378,7 +388,7 @@ along with published documentation as a model for <code>slog.Handler</code> beha
           <tr><td colspan=2><hr/></td></tr>
           <tr class="title">
             <td><h2 >Warnings</h2></td>
-            <td class="score">Score: <span>98.21</span></td>
+            <td class="score">Score: <span>98.46</span></td>
           </tr>
           <tr>
             <td colspan=2>
@@ -497,7 +507,7 @@ is currently expected in February 2024).</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-05-07 14:22:11 UTC</span>
+              <span class="fixed">2024-05-07 18:19:13 UTC</span>
             </div>
           </td>
           <td class="right">

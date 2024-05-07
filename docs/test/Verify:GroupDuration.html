@@ -50,6 +50,8 @@
                       
                         <option value="SlogJSON" >slog/JSONHandler</option>
                       
+                        <option value="SvcrunnerJsonlog" >svcrunner/jsonlog</option>
+                      
                     </select>
                   </form>
                 </td>
@@ -98,13 +100,21 @@
                       
                         <option value="Verify:AttributeDuplicate" >Attribute Duplicate</option>
                       
+                        <option value="Verify:AttributeEmptyName" >Attribute Empty Name</option>
+                      
                         <option value="Verify:AttributeWithDuplicate" >Attribute With Duplicate</option>
                       
                         <option value="Verify:AttributeWithEmpty" >Attribute With Empty</option>
                       
+                        <option value="Verify:AttributeWithEmptyName" >Attribute With Empty Name</option>
+                      
                         <option value="Verify:AttributesEmpty" >Attributes Empty</option>
                       
+                        <option value="Verify:AttributesNotEmpty" >Attributes Not Empty</option>
+                      
                         <option value="Verify:AttributesWithEmpty" >Attributes With Empty</option>
+                      
+                        <option value="Verify:AttributesWithNotEmpty" >Attributes With Not Empty</option>
                       
                         <option value="Verify:CanceledContext" >Canceled Context</option>
                       
@@ -214,6 +224,65 @@
               <tr>
                 <td></td>
                 <td colspan=2 class="warning">
+                  DurationString
+                </td>
+                <td class="extra">
+                  slog.Duration() logs a string representation instead of nanoseconds
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('DurationString-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="DurationString-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>The <code>slog.JSONHandler</code> uses nanoseconds for <code>time.Duration</code> but some other handlers use a string representation.</p>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                          Svcrunner Jsonlog
+                        </td>
+                        <td class="extra"><p>8h3m22s</p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('DurationString-Svcrunner Jsonlog-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="DurationString-Svcrunner Jsonlog-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;group&#34;: {
+		&#34;inner&#34;: &#34;8h3m22s&#34;
+	},
+	&#34;level&#34;: &#34;INFO&#34;,
+	&#34;message&#34;: &#34;This is a message&#34;,
+	&#34;outer&#34;: &#34;8h3m22s&#34;,
+	&#34;time&#34;: &#34;2024-05-07T18:19:03.784117893Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
                   GroupDuration
                 </td>
                 <td class="extra">
@@ -263,7 +332,7 @@ only manage to make the change at the top level of the logged record, duration o
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;outer&#34;: 29002,
-	&#34;time&#34;: &#34;2024-05-07T14:22:06Z&#34;
+	&#34;time&#34;: &#34;2024-05-07T18:19:03Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -292,7 +361,7 @@ only manage to make the change at the top level of the logged record, duration o
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;outer&#34;: 29002000,
-	&#34;time&#34;: &#34;2024-05-07T14:22:06Z&#34;
+	&#34;time&#34;: &#34;2024-05-07T18:19:03Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -321,7 +390,7 @@ only manage to make the change at the top level of the logged record, duration o
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-05-07 14:22:11 UTC</span>
+              <span class="fixed">2024-05-07 18:19:13 UTC</span>
             </div>
           </td>
           <td class="right">
