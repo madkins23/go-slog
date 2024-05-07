@@ -1,12 +1,7 @@
-TODO
-* Scores upper corner chart
-  x basically working
-  x label offsetting
-  x pretty buttons
-  - more ticks with smaller areas
-  ? label line to item (probably not) ?
-* Show complex definitions, log traces, and attribute groups on a web page
+# TODO
+
 * Discuss slog_madkins_replattr benchmark somewhere
+* Show complex definitions, log traces, and attribute groups on a web page
 * Use json.Expect and reflect.DeepEqual()/assert.Equal() more often
 * Creator could have:
   - pre-logMap filters to clean up bad log formats
@@ -22,6 +17,7 @@ TODO
 
 # Less Likely
 
+* Label line to item in score charts
 * Should handlers/flash/pools.go be moved to internal as a utility?
   Maybe not bother until it's needed somewhere else.
 * Is there a way to figure out which handlers can use ReplaceAttr effectively
