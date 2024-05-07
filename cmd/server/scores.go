@@ -116,6 +116,21 @@ const (
 	width = 750
 )
 
+var (
+	insertColor = drawing.Color{
+		R: 0xff,
+		G: 0x00,
+		B: 0x7f,
+		A: 0x7f,
+	}
+	annotationColor = drawing.Color{
+		R: 0x3f,
+		G: 0x7f,
+		B: 0xff,
+		A: 0xff,
+	}
+)
+
 // scoreChart generates a chart.Chart object which is a scatter plot of
 // handler benchmark vs. warning scores.
 func scoreChart(size *sizeData) chart.Chart {
@@ -169,6 +184,20 @@ func scoreChart(size *sizeData) chart.Chart {
 		}
 		return result
 	}
+	series := make([]chart.Series, 0, 5)
+	for _, s := range sizes {
+		if s.low.x > size.low.x && s.low.y > size.low.y {
+			series = append(series, chart.ContinuousSeries{
+				Style: chart.Style{
+					DotWidth:    chart.Disabled,
+					StrokeColor: insertColor,
+					StrokeWidth: 1,
+				},
+				XValues: []float64{s.low.x, s.low.x, 100.0},
+				YValues: []float64{100.0, s.low.y, s.low.y},
+			})
+		}
+	}
 	return chart.Chart{
 		Height: height,
 		Width:  width,
@@ -183,7 +212,7 @@ func scoreChart(size *sizeData) chart.Chart {
 			Range: &chart.ContinuousRange{Min: 0, Max: 100.0, Domain: 100.0},
 			Ticks: ticks(size.low.y),
 		},
-		Series: []chart.Series{
+		Series: append(series,
 			chart.ContinuousSeries{
 				Style: chart.Style{
 					DotWidth:         5,
@@ -195,12 +224,12 @@ func scoreChart(size *sizeData) chart.Chart {
 			},
 			chart.AnnotationSeries{
 				Style: chart.Style{
-					StrokeWidth: chart.Disabled,
 					DotWidth:    chart.Disabled,
+					StrokeColor: annotationColor,
+					StrokeWidth: 1,
 				},
 				Annotations: scoreChartAdjustLabels(aValues, size.adjust),
-			},
-		},
+			}),
 	}
 }
 

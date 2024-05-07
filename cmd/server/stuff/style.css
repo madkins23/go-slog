@@ -18,7 +18,7 @@ button {
 
 button:disabled {
     color: #062e57;
-    background-color: #0f7373;
+    background-color: #1b9f9f;
 }
 
 div.wrapper {
