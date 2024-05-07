@@ -6,6 +6,11 @@ import (
 	"github.com/fatih/camelcase"
 )
 
+// TagSeparator is used to construct tag names such as Bench.KeyValues and Verify.AttributesEmpty.
+// This constant should control the tag name separator in all necessary places.
+// Changing TagSeparator should change all usage.
+const TagSeparator = "."
+
 // -----------------------------------------------------------------------------
 
 // TestTag is a unique name for a Benchmark or Verification test.
@@ -20,7 +25,7 @@ func (tt TestTag) Name() string {
 	if !found {
 		var builder strings.Builder
 		tagString := string(tt)
-		if parts := strings.Split(string(tt), ":"); len(parts) == 2 {
+		if parts := strings.Split(string(tt), TagSeparator); len(parts) == 2 {
 			tagString = parts[1]
 		}
 		for _, part := range camelcase.Split(tagString) {

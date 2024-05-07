@@ -85,7 +85,7 @@ func (b *Benchmarks) ParseBenchmarkData(in io.Reader) error {
 		}
 
 		if ok {
-			test := TestTag("Bench:" + string(testBytes))
+			test := TestTag("Bench" + TagSeparator + string(testBytes))
 			b.testNames[test] = test.Name()
 
 			handler := HandlerTag(hdlrBytes)

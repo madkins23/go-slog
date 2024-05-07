@@ -205,7 +205,7 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 				extra:  string(matches[2]),
 			}
 			if source != "" {
-				testTagStr = source + ":" + testTagStr
+				testTagStr = source + TagSeparator + testTagStr
 			}
 			test = TestTag(testTagStr)
 			if _, found := w.testNames[test]; !found {

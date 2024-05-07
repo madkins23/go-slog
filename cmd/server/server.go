@@ -30,8 +30,8 @@ taking input from temporary files created by scripts/verify and scripts/bench.
 	 - using env:   export GIN_MODE=release
 	 - using code:  gin.SetMode(gin.ReleaseMode)
 	12:31:18 INF Web Server @ http://localhost:8080/go-slog
-	12:31:19 INF HasTest() test=Verify:KeyCase found=true
-	12:31:19 INF 200 |    5.012399ms |             ::1 | GET      "/go-slog/test/Verify:KeyCase.html"
+	12:31:19 INF HasTest() test=Verify$KeyCase found=true
+	12:31:19 INF 200 |    5.012399ms |             ::1 | GET      "/go-slog/test/Verify$KeyCase.html"
 	12:31:19 INF 200 |      46.763µs |             ::1 | GET      "/go-slog/home.svg"
 	12:31:19 INF 200 |     169.933µs |             ::1 | GET      "/go-slog/style.css"
 */

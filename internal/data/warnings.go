@@ -156,7 +156,7 @@ func (w *Warnings) TestTags() []TestTag {
 // TestTagsForSource returns an array of all test names for the specified source sorted alphabetically.
 func (w *Warnings) TestTagsForSource(source string) []TestTag {
 	if !strings.HasSuffix(source, ":") {
-		source += ":"
+		source += TagSeparator
 	}
 	result := make([]TestTag, 0, len(w.TestTags())) // Causes w.tests to be loaded
 	for _, test := range w.tests {

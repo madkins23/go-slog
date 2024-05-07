@@ -1,0 +1,367 @@
+<html lang="en">
+<head>
+  <title>Benchmark Data</title>
+  <link rel="stylesheet" href="/go-slog/style.css">
+  <script src="/go-slog/scripts.js"></script>
+</head>
+
+<body>
+<div class="wrapper">
+  <div class="header">
+    
+    
+      
+    
+        
+    <table class="header">
+        <tr>
+          <td>
+            
+              <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+            
+            <h2 class="home">Test <span class="fixed">With Attrs Key Values</span></h2>
+          </td>
+          <td>
+            <table class="choice">
+              <tr>
+                <td class="right">Handlers</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="ChanchalZap" >chanchal/zaphandler</option>
+                      
+                        <option value="MadkinsFlash" >madkins/flash</option>
+                      
+                        <option value="MadkinsReplAttr" >madkins/replattr</option>
+                      
+                        <option value="MadkinsSloggy" >madkins/sloggy</option>
+                      
+                        <option value="PhsymZerolog" >phsym/zeroslog</option>
+                      
+                        <option value="PhusluSlog" >phuslu/slog</option>
+                      
+                        <option value="SamberLogrus" >samber/slog-logrus</option>
+                      
+                        <option value="SamberZap" >samber/slog-zap</option>
+                      
+                        <option value="SamberZerolog" >samber/slog-zerolog</option>
+                      
+                        <option value="SlogJSON" >slog/JSONHandler</option>
+                      
+                        <option value="SvcrunnerJsonlog" >svcrunner/jsonlog</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right">Bench Tests</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Bench.Attributes" >Attributes</option>
+                      
+                        <option value="Bench.BigGroup" >Big Group</option>
+                      
+                        <option value="Bench.Disabled" >Disabled</option>
+                      
+                        <option value="Bench.KeyValues" >Key Values</option>
+                      
+                        <option value="Bench.Logging" >Logging</option>
+                      
+                        <option value="Bench.Simple" >Simple</option>
+                      
+                        <option value="Bench.SimpleSource" >Simple Source</option>
+                      
+                        <option value="Bench.WithAttrsAttributes" >With Attrs Attributes</option>
+                      
+                        <option value="Bench.WithAttrsKeyValues" selected>With Attrs Key Values</option>
+                      
+                        <option value="Bench.WithAttrsSimple" >With Attrs Simple</option>
+                      
+                        <option value="Bench.WithGroupAttributes" >With Group Attributes</option>
+                      
+                        <option value="Bench.WithGroupKeyValues" >With Group Key Values</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right">Verify Tests</td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Verify.AttributeDuplicate" >Attribute Duplicate</option>
+                      
+                        <option value="Verify.AttributeEmptyName" >Attribute Empty Name</option>
+                      
+                        <option value="Verify.AttributeWithDuplicate" >Attribute With Duplicate</option>
+                      
+                        <option value="Verify.AttributeWithEmpty" >Attribute With Empty</option>
+                      
+                        <option value="Verify.AttributeWithEmptyName" >Attribute With Empty Name</option>
+                      
+                        <option value="Verify.AttributesEmpty" >Attributes Empty</option>
+                      
+                        <option value="Verify.AttributesNotEmpty" >Attributes Not Empty</option>
+                      
+                        <option value="Verify.AttributesWithEmpty" >Attributes With Empty</option>
+                      
+                        <option value="Verify.AttributesWithNotEmpty" >Attributes With Not Empty</option>
+                      
+                        <option value="Verify.CanceledContext" >Canceled Context</option>
+                      
+                        <option value="Verify.DefaultLevel" >Default Level</option>
+                      
+                        <option value="Verify.GroupDuration" >Group Duration</option>
+                      
+                        <option value="Verify.GroupInline" >Group Inline</option>
+                      
+                        <option value="Verify.GroupWithMulti" >Group With Multi</option>
+                      
+                        <option value="Verify.GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                      
+                        <option value="Verify.GroupWithTop" >Group With Top</option>
+                      
+                        <option value="Verify.KeyCase" >Key Case</option>
+                      
+                        <option value="Verify.Keys" >Keys</option>
+                      
+                        <option value="Verify.LevelConfigured" >Level Configured</option>
+                      
+                        <option value="Verify.LevelDifferent" >Level Different</option>
+                      
+                        <option value="Verify.LevelVar" >Level Var</option>
+                      
+                        <option value="Verify.LogAttributes" >Log Attributes</option>
+                      
+                        <option value="Verify.ReplaceAttr" >Replace Attr</option>
+                      
+                        <option value="Verify.ReplaceAttrBasic" >Replace Attr Basic</option>
+                      
+                        <option value="Verify.ReplaceAttrFnChangeKey" >Replace Attr Fn Change Key</option>
+                      
+                        <option value="Verify.ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                      
+                        <option value="Verify.ReplaceAttrFnMulti" >Replace Attr Fn Multi</option>
+                      
+                        <option value="Verify.ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
+                      
+                        <option value="Verify.ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                      
+                        <option value="Verify.ResolveGroup" >Resolve Group</option>
+                      
+                        <option value="Verify.ResolveGroupWith" >Resolve Group With</option>
+                      
+                        <option value="Verify.ResolveValuer" >Resolve Valuer</option>
+                      
+                        <option value="Verify.ResolveWith" >Resolve With</option>
+                      
+                        <option value="Verify.SlogTest" >Slog Test</option>
+                      
+                        <option value="Verify.SourceKey" >Source Key</option>
+                      
+                        <option value="Verify.WithGroupEmpty" >With Group Empty</option>
+                      
+                        <option value="Verify.ZeroPC" >Zero PC</option>
+                      
+                        <option value="Verify.ZeroTime" >Zero Time</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right"><label for="tag">Other Links</label></td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="otherChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      <option value="index.html"    >Home</option>
+                      <option value="scores.html"   >Scores</option>
+                      <option value="warnings.html" >Warnings</option>
+                      <option value="guts.html"     >Guts</option>
+                    </select>
+                  </form>
+              </tr>
+            </table>
+          </td>
+        </tr>
+    </table>
+
+  </div>
+  <div class="content">
+    <div>
+      <table class="top">
+        
+          <tr class="title"><td><h2>Benchmark Data</h2></td></tr>
+          <tr>
+            <td colspan=2>
+              <table class="data">
+                <tr>
+                  <th>Handler</th>
+                  <th>Runs</th>
+                  <th>Ns/Op</th>
+                  <th>Allocs/Op</th>
+                  <th>Bytes/Op</th>
+                  <th>MB/Sec</th>
+                </tr>
+                
+                  <tr>
+                    <td class="fixed">chanchal/zaphandler</td>
+                    <td class="number">1,000,000</td>
+                    <td class="number">1,153.00</td>
+                    <td class="number">5</td>
+                    <td class="number">418</td>
+                    <td class="number">652.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">madkins/flash</td>
+                    <td class="number">908,695</td>
+                    <td class="number">1,257.00</td>
+                    <td class="number">5</td>
+                    <td class="number">505</td>
+                    <td class="number">680.46</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">madkins/replattr</td>
+                    <td class="number">616,023</td>
+                    <td class="number">1,794.00</td>
+                    <td class="number">6</td>
+                    <td class="number">509</td>
+                    <td class="number">476.54</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">madkins/sloggy</td>
+                    <td class="number">382,232</td>
+                    <td class="number">2,804.00</td>
+                    <td class="number">66</td>
+                    <td class="number">1,577</td>
+                    <td class="number">305.23</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">phsym/zeroslog</td>
+                    <td class="number">1,294,770</td>
+                    <td class="number">877.70</td>
+                    <td class="number">2</td>
+                    <td class="number">272</td>
+                    <td class="number">868.17</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">phuslu/slog</td>
+                    <td class="number">1,402,500</td>
+                    <td class="number">978.50</td>
+                    <td class="number">1</td>
+                    <td class="number">240</td>
+                    <td class="number">848.24</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">samber/slog-logrus</td>
+                    <td class="number">34,836</td>
+                    <td class="number">35,773.00</td>
+                    <td class="number">130</td>
+                    <td class="number">13,974</td>
+                    <td class="number">18.48</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">samber/slog-zap</td>
+                    <td class="number">94,750</td>
+                    <td class="number">12,789.00</td>
+                    <td class="number">70</td>
+                    <td class="number">12,482</td>
+                    <td class="number">48.72</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">samber/slog-zerolog</td>
+                    <td class="number">93,736</td>
+                    <td class="number">10,950.00</td>
+                    <td class="number">84</td>
+                    <td class="number">8,633</td>
+                    <td class="number">57.81</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">slog/JSONHandler</td>
+                    <td class="number">1,000,000</td>
+                    <td class="number">1,274.00</td>
+                    <td class="number">6</td>
+                    <td class="number">473</td>
+                    <td class="number">628.02</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">svcrunner/jsonlog</td>
+                    <td class="number">601,633</td>
+                    <td class="number">1,745.00</td>
+                    <td class="number">4</td>
+                    <td class="number">288</td>
+                    <td class="number">455.11</td>
+                  </tr>
+                
+              </table>
+            </td>
+          </tr>
+          <tr><td colspan=2><hr/></td></tr>
+          <tr><td colspan=2 class="title"><h2>Benchmark Charts</h2></td></tr>
+          <tr>
+            <td colspan=2 class="score">
+              <table class="charts">
+                <tr>
+                  <td><img src="/go-slog/chart/Bench.WithAttrsKeyValues/Nanos.svg" alt="With Attrs Key Values Ns/Op" class="chart" /></td>
+                  <td><img src="/go-slog/chart/Bench.WithAttrsKeyValues/MemAllocs.svg" alt="With Attrs Key Values Allocs/Op" class="chart" /></td>
+                </tr>
+                <tr>
+                  <td><img src="/go-slog/chart/Bench.WithAttrsKeyValues/MemBytes.svg" alt="With Attrs Key Values Bytes/Op" class="chart" /></td>
+                  <td><img src="/go-slog/chart/Bench.WithAttrsKeyValues/GbPerSec.svg" alt="With Attrs Key Values GB/Sec" class="chart" /></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        
+        
+      </table>
+    </div>
+  </div>
+  <div class="footer">
+        <table class="footer">
+        <tr>
+          <td>
+            <div class="hover-text">
+              <span class="tooltip-text">Code Repository</span>
+              <a href="https://github.com/madkins23/go-slog" target="_blank">Repository</a>
+            </div>
+          </td>
+          <td class="center">
+            <div class="hover-text">
+              <span class="tooltip-text">Date/time when this data was generated</span>
+              <span class="fixed">2024-05-07 16:36:18 PDT</span>
+            </div>
+          </td>
+          <td class="right">
+            <div class="hover-text">
+              <span class="tooltip-text">Code Documentation</span>
+              <a href="https://pkg.go.dev/github.com/madkins23/go-slog" target="_blank">Documentation</a>
+            </div>
+          </td>
+        </tr>
+    </table>
+
+  </div>
+</div>
+</body>
+</html>

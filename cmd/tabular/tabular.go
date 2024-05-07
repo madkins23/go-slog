@@ -39,8 +39,8 @@ taking input from temporary files created by scripts/verify and scripts/bench.
 	Warnings for slog/json:
 	  Suggested
 	   2 [Duplicates] Duplicate field(s) found
-	       Verify:AttributeDuplicate: map[alpha:2 charlie:3]
-	       Verify:AttributeWithDuplicate: map[alpha:2 charlie:3]
+	       Verify$AttributeDuplicate: map[alpha:2 charlie:3]
+	       Verify$AttributeWithDuplicate: map[alpha:2 charlie:3]
 
 	...[warnings for other handlers]...
 */
