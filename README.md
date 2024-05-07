@@ -237,7 +237,7 @@ The following handlers are currently under test in this repository:
 * [`madkins/replattr`](https://pkg.go.dev/github.com/madkins23/go-slog/handlers/replattr)
 * [`madkins/sloggy`](https://pkg.go.dev/github.com/madkins23/go-slog/handlers/sloggy)
 * [`phsym/zeroslog`](https://pkg.go.dev/github.com/rs/zerolog)
-* [`phuslu/slog](https://github.com/phuslu/log)
+* [`phuslu/slog`](https://github.com/phuslu/log)
 * [`samber/slog-logrus`](https://pkg.go.dev/github.com/samber/slog-logrus)
 * [`samber/slog-zap`](https://pkg.go.dev/github.com/samber/slog-zap)
 * [`samber/slog-zerolog`](https://pkg.go.dev/github.com/samber/slog-zerolog)
