@@ -30,34 +30,43 @@ func (hc *handlerCoords) adjust(by float64) *handlerCoords {
 }
 
 type sizeData struct {
+	name   string
 	low    handlerCoords
 	adjust *handlerCoords
+	labelX float64
 }
 
 var sizes = []*sizeData{
 	{
+		name:   "Full Size",
 		adjust: defaultLabelSize,
 	},
 	{
+		name: "3/4",
 		low: handlerCoords{
 			x: 25,
 			y: 25,
 		},
 		adjust: defaultLabelSize.adjust(0.7),
+		labelX: 85.0,
 	},
 	{
+		name: "Half",
 		low: handlerCoords{
 			x: 50,
 			y: 50,
 		},
 		adjust: defaultLabelSize.adjust(0.5),
+		labelX: 90.0,
 	},
 	{
+		name: "Quarter",
 		low: handlerCoords{
 			x: 75,
 			y: 75,
 		},
 		adjust: defaultLabelSize.adjust(0.4),
+		labelX: 93.0,
 	},
 }
 
@@ -121,7 +130,7 @@ var (
 		R: 0xff,
 		G: 0x00,
 		B: 0x7f,
-		A: 0x7f,
+		A: 0x3f,
 	}
 	annotationColor = drawing.Color{
 		R: 0x3f,
@@ -169,24 +178,14 @@ func scoreChart(size *sizeData) chart.Chart {
 			yValues = append(yValues, coords.y)
 		}
 	}
-	ticks := func(low float64) []chart.Tick {
-		result := make([]chart.Tick, 0, 11)
-		for t := low; t <= 100.0; {
-			result = append(result, chart.Tick{
-				Value: t,
-				Label: strconv.FormatFloat(t, 'f', 1, 64),
-			})
-			if math.Remainder(t, 10.0) == 0 {
-				t += 10.0
-			} else {
-				t = math.Ceil(t/10.0) * 10.0
-			}
-		}
-		return result
-	}
-	series := make([]chart.Series, 0, 5)
+	series := make([]chart.Series, 0, 6)
+	labels := make([]chart.Value2, 0, 3)
+	var labelX float64
 	for _, s := range sizes {
 		if s.low.x > size.low.x && s.low.y > size.low.y {
+			if labelX == 0.0 {
+				labelX = s.labelX
+			}
 			series = append(series, chart.ContinuousSeries{
 				Style: chart.Style{
 					DotWidth:    chart.Disabled,
@@ -196,7 +195,22 @@ func scoreChart(size *sizeData) chart.Chart {
 				XValues: []float64{s.low.x, s.low.x, 100.0},
 				YValues: []float64{100.0, s.low.y, s.low.y},
 			})
+			labels = append(labels, chart.Value2{
+				Label:  s.name,
+				XValue: labelX, //  + 1,
+				YValue: s.low.y,
+			})
 		}
+	}
+	if len(labels) > 0 {
+		series = append(series, chart.AnnotationSeries{
+			Style: chart.Style{
+				DotWidth:    chart.Disabled,
+				StrokeColor: insertColor,
+				StrokeWidth: 1,
+			},
+			Annotations: labels,
+		})
 	}
 	return chart.Chart{
 		Height: height,
@@ -204,13 +218,13 @@ func scoreChart(size *sizeData) chart.Chart {
 		XAxis: chart.XAxis{
 			Name:  "Warning Score",
 			Range: &chart.ContinuousRange{Min: size.low.x, Max: 100.0, Domain: 100.0},
-			Ticks: ticks(size.low.x),
+			Ticks: scoreChartTicks(size.low.x),
 		},
 		YAxis: chart.YAxis{
 			Name: "Benchmark Score",
 			//AxisType: chart.YAxisSecondary, // cuts off axis labels on left
 			Range: &chart.ContinuousRange{Min: 0, Max: 100.0, Domain: 100.0},
-			Ticks: ticks(size.low.y),
+			Ticks: scoreChartTicks(size.low.y),
 		},
 		Series: append(series,
 			chart.ContinuousSeries{
@@ -245,7 +259,8 @@ var defaultLabelSize = &handlerCoords{
 	y: 4.5,
 }
 
-// scoreChartAdjustLabels
+// scoreChartAdjustLabels adjusts the vertical location of labels to not overlap.
+// This is a dicey bit of code that sometimes needs careful attention.
 func scoreChartAdjustLabels(locations []chart.Value2, labelSize *handlerCoords) []chart.Value2 {
 	groups := make([]*labelGroup, 0, 10)
 	singles := make([]int, 0, len(locations))
@@ -297,7 +312,13 @@ location: // OMG I can't believe he's using that named loop thingy!!!
 	return locations
 }
 
-const bigByte = float64(0xFF)
+// scoreChartColor is a convenience function for use in scoreChartColorFunction.
+func scoreChartColor(distance, diagonal float64) uint8 {
+	if distance > diagonal {
+		return 0
+	}
+	return byte(math.MaxUint8 - math.MaxUint8*distance/diagonal)
+}
 
 // scoreChartColorFunction returns a color dependent on the chart location.
 // The algorithm is intended to make it red in the lower left and green in the upper right
@@ -318,22 +339,39 @@ func scoreChartColorFunction(xr, yr chart.Range, _ int, x, y float64) drawing.Co
 	}
 }
 
+// scoreChartDistance is a convenience function for use in scoreChartColorFunction.
+func scoreChartDistance(xMin, yMin, xMax, yMax, ratio float64) float64 {
+	return math.Sqrt(math.Pow((xMax-xMin)/ratio, 2) + math.Pow(yMax-yMin, 2))
+}
+
 // scoreChartRatio is a convenience function for use in scoreChartColorFunction.
 func scoreChartRatio(xMin, yMin, xMax, yMax float64) float64 {
 	return (xMax - xMin) / (yMax - yMin)
 }
 
-// scoreChartColor is a convenience function for use in scoreChartColorFunction.
-func scoreChartColor(distance, diagonal float64) uint8 {
-	if distance > diagonal {
-		return 0
+// scoreChartTicks returns a list of chart.Tick objects for an axis.
+func scoreChartTicks(low float64) []chart.Tick {
+	tickDistance := 10.0
+	if 100.0-low <= 10.0 {
+		tickDistance = 2.0
+	} else if 100.0-low <= 25.0 {
+		tickDistance = 2.0
+	} else if 100.0-low <= 50.0 {
+		tickDistance = 5.0
 	}
-	return byte(bigByte - bigByte*distance/diagonal)
-}
-
-// scoreChartDistance is a convenience function for use in scoreChartColorFunction.
-func scoreChartDistance(xMin, yMin, xMax, yMax, ratio float64) float64 {
-	return math.Sqrt(math.Pow((xMax-xMin)/ratio, 2) + math.Pow(yMax-yMin, 2))
+	result := make([]chart.Tick, 0, 11)
+	for t := low; t <= 100.0; {
+		result = append(result, chart.Tick{
+			Value: t,
+			Label: strconv.FormatFloat(t, 'f', 0, 64),
+		})
+		if math.Remainder(t, tickDistance) == 0 {
+			t += tickDistance
+		} else {
+			t = math.Ceil(t/tickDistance) * tickDistance
+		}
+	}
+	return result
 }
 
 // -----------------------------------------------------------------------------
