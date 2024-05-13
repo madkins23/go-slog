@@ -51,9 +51,16 @@
           </td>
           <td>
             <fieldset>
+              <legend>Scoring</legend>
+              <table>
+                {{ range $.Keepers }}
+                  <tr><td><a href="/go-slog/scores/{{ . }}/summary.html">{{ . }}</a></td></tr>
+                {{ end }}
+              </table>
+            </fieldset>
+            <fieldset>
               <legend>Other</legend>
               <table>
-                <tr><td><a href="/go-slog/scores.html">Scores</a></td></tr>
                 <tr><td><a href="/go-slog/warnings.html">Warnings</a></td></tr>
                 <tr><td><a href="/go-slog/guts.html">Guts</a></td></tr>
               </table>

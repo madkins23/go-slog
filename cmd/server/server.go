@@ -61,6 +61,9 @@ import (
 	"github.com/madkins23/go-slog/infra/warning"
 	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/language"
+	"github.com/madkins23/go-slog/internal/scoring"
+	"github.com/madkins23/go-slog/internal/scoring/keeper"
+	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
 // Server reads output from 'test -bench' and serves tables and charts via HTTP.
@@ -124,11 +127,11 @@ func main() {
 	router.GET("/go-slog/index.html", homePageFn)
 	router.GET("/go-slog/test/:tag", pageFunction(pageTest))
 	router.GET("/go-slog/handler/:tag", pageFunction(pageHandler))
-	router.GET("/go-slog/scores.html", pageFunction(pageScores))
+	router.GET("/go-slog/scores/:keeper/summary.html", pageFunction(pageScores))
 	router.GET("/go-slog/warnings.html", pageFunction(pageWarnings))
 	router.GET("/go-slog/guts.html", pageFunction(pageGuts))
 	router.GET("/go-slog/error.html", pageFunction(pageError))
-	router.GET("/go-slog/chart/scores/:size/chart.svg", scoreFunction)
+	router.GET("/go-slog/scores/:keeper/:size/chart.svg", scoreFunction)
 	router.GET("/go-slog/chart/:tag/:item", chartFunction)
 	router.GET("/go-slog/home.svg", svgFunction(home))
 	router.GET("/go-slog/scripts.js", textFunction(scripts))
@@ -153,7 +156,7 @@ func main() {
 var (
 	bench     = data.NewBenchmarks()
 	warns     = data.NewWarnings()
-	score     = data.NewScoreKeeper()
+	scoreOld  = data.NewScoreKeeper()
 	pages     = []pageType{pageHome, pageTest, pageHandler, pageScores, pageWarnings, pageGuts, pageError}
 	templates map[pageType]*template.Template
 
@@ -197,8 +200,12 @@ func setup() error {
 		return fmt.Errorf("language setup: %w", err)
 	}
 
-	if err := data.Setup(bench, warns, score); err != nil {
+	if err := data.Setup(bench, warns, scoreOld); err != nil {
 		return fmt.Errorf("data setup: %w", err)
+	}
+
+	if err := scoring.Initialize(bench, warns); err != nil {
+		return fmt.Errorf("score keepers: %w", err)
 	}
 
 	templates = make(map[pageType]*template.Template)
@@ -291,8 +298,10 @@ type templateData struct {
 	*data.Benchmarks
 	*data.Warnings
 	data.Scores
+	*score.Keeper
 	Handler   data.HandlerTag
 	Test      data.TestTag
+	Keepers   []score.KeeperTag
 	Levels    []warning.Level
 	Printer   *message.Printer
 	Page      string
@@ -312,6 +321,12 @@ func (pd *templateData) FixFloat(number float64) string {
 	return pd.Printer.Sprintf("%0.2f", number)
 }
 
+// FixValue converts a score.Value into a string using the language printer.
+// This will apply the proper decimal and numeric separators.
+func (pd *templateData) FixValue(number score.Value) string {
+	return pd.Printer.Sprintf("%0.2f", number)
+}
+
 // pageFunction returns a Gin handler function for generating an HTML page for the server.
 // During execution of the handler function,
 // URL parameter values will be read and appropriate object tags configured as template data.
@@ -321,13 +336,23 @@ func pageFunction(page pageType) gin.HandlerFunc {
 		tmplData := &templateData{
 			Benchmarks: bench,
 			Warnings:   warns,
-			Scores:     score,
+			Scores:     scoreOld,
+			Keepers:    score.Keepers(),
 			Levels:     warning.LevelOrder,
 			Printer:    language.Printer(),
 			Page:       string(page),
 			Timestamp:  time.Now().Format(time.DateTime + " MST"),
 		}
+		tmplData.Keeper = score.GetKeeper(score.KeeperTag(c.Param("keeper")))
 		switch page {
+		case pageScores:
+			if tmplData.Keeper == nil {
+				slog.Warn("No Keeper")
+				tmplData.Keeper = score.GetKeeper(keeper.DefaultName)
+				if tmplData.Keeper == nil {
+					slog.Error("No Keeper")
+				}
+			}
 		case pageTest, pageHandler:
 			if tag := c.Param("tag"); tag == "" {
 				slog.Error("No URL parameter", "param", "tag")

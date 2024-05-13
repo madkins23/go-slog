@@ -134,7 +134,7 @@ func (sd *ScoreDefault) initBenchmarkScores(bench *Benchmarks) {
 		scores := &TestScores{
 			byTest: make(map[TestTag]float64),
 		}
-		for test, record := range bench.byHandler[handler] {
+		for test, record := range bench.ByHandler[handler] {
 			rng := ranges[test]
 			var collect float64
 			var count uint
@@ -214,8 +214,8 @@ func (sd *ScoreDefault) initWarningScores(w *Warnings) {
 	for _, level := range warning.LevelOrder {
 		var count uint64
 		for _, warn := range warning.WarningsForLevel(level) {
-			if wx, found := w.byWarning[warn.Name]; found {
-				if len(wx.count) > 0 {
+			if wx, found := w.ByWarning[warn.Name]; found {
+				if len(wx.Count) > 0 {
 					count++
 				}
 			}
@@ -225,8 +225,8 @@ func (sd *ScoreDefault) initWarningScores(w *Warnings) {
 	testScores := make(map[HandlerTag]uint64)
 	for _, hdlr := range w.HandlerTags() {
 		var score uint64
-		for _, level := range w.byHandler[hdlr].Levels() {
-			score += warningScoreWeight[level.level] * uint64(len(level.Warnings()))
+		for _, level := range w.ByHandler[hdlr].Levels() {
+			score += warningScoreWeight[level.Level] * uint64(len(level.Warnings()))
 		}
 		testScores[hdlr] = score
 	}

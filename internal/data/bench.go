@@ -60,7 +60,7 @@ func (tr *TestRecord) ItemValue(item BenchItems) float64 {
 // Benchmarks encapsulates benchmark records by TestTag and HandlerTag.
 type Benchmarks struct {
 	byTest       map[TestTag]HandlerRecords
-	byHandler    map[HandlerTag]TestRecords
+	ByHandler    map[HandlerTag]TestRecords
 	tests        []TestTag
 	handlers     []HandlerTag
 	testNames    map[TestTag]string
@@ -73,7 +73,7 @@ type Benchmarks struct {
 func NewBenchmarks() *Benchmarks {
 	return &Benchmarks{
 		byTest:       make(map[TestTag]HandlerRecords),
-		byHandler:    make(map[HandlerTag]TestRecords),
+		ByHandler:    make(map[HandlerTag]TestRecords),
 		testNames:    make(map[TestTag]string),
 		testCPUs:     make(map[TestTag]uint64),
 		handlerNames: make(map[HandlerTag]string),
@@ -84,7 +84,7 @@ func NewBenchmarks() *Benchmarks {
 
 // HasHandler returns true if a handler is defined with the specified tag.
 func (b *Benchmarks) HasHandler(tag HandlerTag) bool {
-	_, found := b.byHandler[tag]
+	_, found := b.ByHandler[tag]
 	return found
 }
 
@@ -127,7 +127,7 @@ func (b *Benchmarks) HandlerRecords(test TestTag) HandlerRecords {
 // HandlerTags returns an array of all handler names sorted alphabetically.
 func (b *Benchmarks) HandlerTags() []HandlerTag {
 	if b.handlers == nil {
-		for handler := range b.byHandler {
+		for handler := range b.ByHandler {
 			b.handlers = append(b.handlers, handler)
 		}
 		sort.Slice(b.handlers, func(i, j int) bool {
@@ -149,7 +149,7 @@ func (b *Benchmarks) TestName(test TestTag) string {
 
 // TestRecords returns a map of HandlerTag to TestRecord for the specified benchmark.
 func (b *Benchmarks) TestRecords(handler HandlerTag) TestRecords {
-	return b.byHandler[handler]
+	return b.ByHandler[handler]
 }
 
 // TestTags returns an array of all test names sorted alphabetically.

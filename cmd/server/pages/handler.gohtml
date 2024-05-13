@@ -43,7 +43,6 @@
           {{ $benchScore := .Scores.HandlerBenchScores .Handler }}
           <tr class="title">
             <td><h2>Benchmark Data</h2></td>
-            <td class="score">Score: <span>{{ $.FixFloat $benchScore.Overall }}</span></td>
           </tr>
           <tr>
             <td colspan=2>
@@ -55,7 +54,6 @@
                   <th>Allocs/Op</th>
                   <th>Bytes/Op</th>
                   <th>MB/Sec</th>
-                  <th>Score</th>
                 </tr>
                 {{ range $tag, $record := .Benchmarks.TestRecords .Handler }}
                   <tr>
@@ -65,7 +63,6 @@
                       <td class="number">{{ $.FixUint $record.MemAllocsPerOp }}</td>
                      <td class="number">{{ $.FixUint $record.MemBytesPerOp }}</td>
                     <td class="number">{{ $.FixFloat $record.MbPerSec }}</td>
-                    <td class="number">{{ $.FixFloat ($benchScore.ForTest $tag) }}</td>
                   </tr>
                 {{ end }} {{/* range $tag, $record */}}
               </table>
@@ -92,7 +89,6 @@
           <tr><td colspan=2><hr/></td></tr>
           <tr class="title">
             <td><h2 >Warnings</h2></td>
-            <td class="score">Score: <span>{{ $.FixFloat (.Scores.HandlerWarningScore .Handler) }}</span></td>
           </tr>
           <tr>
             <td colspan=2>

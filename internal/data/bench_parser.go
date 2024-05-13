@@ -107,10 +107,10 @@ func (b *Benchmarks) ParseBenchmarkData(in io.Reader) error {
 				TbPerSec:       mbSec / 1_000_000.0,
 			}
 
-			if b.byHandler[handler] == nil {
-				b.byHandler[handler] = make(TestRecords)
+			if b.ByHandler[handler] == nil {
+				b.ByHandler[handler] = make(TestRecords)
 			}
-			b.byHandler[handler][test] = TestRecord{
+			b.ByHandler[handler][test] = TestRecord{
 				Runs:           runs,
 				NanosPerOp:     nsOps,
 				MemBytesPerOp:  bytesOp,

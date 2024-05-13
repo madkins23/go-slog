@@ -70,7 +70,7 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 						log:   instance.log,
 					})
 				wd := w.FindWarning(dWarning.warning.name)
-				wd.count[handler]++
+				wd.Count[handler]++
 				wd.hdlrMap[handler] = true
 				wd.testMap[test] = true
 			}
