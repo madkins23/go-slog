@@ -13,7 +13,7 @@
             <table class="choice">
               <tr>
                 <td class="right">Handlers</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -26,7 +26,7 @@
               </tr>
               <tr>
                 <td class="right">Bench Tests</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -39,7 +39,7 @@
               </tr>
               <tr>
                 <td class="right">Verify Tests</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -51,17 +51,28 @@
                 </td>
               </tr>
               <tr>
-                <td class="right"><label for="tag">Other Links</label></td>
+                <td class="right"><label for="tag">Scoring</label></td>
                 <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="scoreChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      {{ range $top.Keepers }}
+                        <option value="{{ . }}" {{ if eq $top.Keeper.Tag . }}selected{{ end }}>{{ . }}</option>
+                      {{ end }}
+                    </select>
+                  </form>
+                </td>
+                <td class="right"><label for="tag">Other</label></td>
+                <td class="right">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
                       <option value="index.html"    {{ if eq $top.Page "pageHome" }}selected{{ end}}>Home</option>
-                      <option value="scores.html"   {{ if eq $top.Page "pageScores" }}selected{{ end}}>Scores</option>
                       <option value="warnings.html" {{ if eq $top.Page "pageWarnings" }}selected{{ end}}>Warnings</option>
                       <option value="guts.html"     {{ if eq $top.Page "pageGuts" }}selected{{ end}}>Guts</option>
                     </select>
                   </form>
+                </td>
               </tr>
             </table>
           </td>

@@ -14,6 +14,7 @@ import (
 	"github.com/wcharczuk/go-chart/v2/drawing"
 
 	"github.com/madkins23/go-slog/internal/data"
+	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
 // -----------------------------------------------------------------------------
@@ -77,7 +78,6 @@ func scoreFunction(c *gin.Context) {
 	cacheKey := "score"
 	size := 0
 	sizeStr := c.Param("size")
-	slog.Info("scoreFunction", "size", sizeStr)
 	if sizeStr != "" {
 		size, err = strconv.Atoi(sizeStr)
 		if err != nil {
@@ -101,7 +101,7 @@ func scoreFunction(c *gin.Context) {
 	ch, found := chartCache[cacheKey]
 	chartCacheMutex.Unlock()
 	if !found {
-		graph := scoreChart(sizes[size])
+		graph := scoreChart(score.GetKeeper(score.KeeperTag(c.Param("keeper"))), sizes[size])
 		var buf bytes.Buffer
 		if err := graph.Render(chart.SVG, &buf); err != nil {
 			log.Println(err.Error())
@@ -142,21 +142,22 @@ var (
 
 // scoreChart generates a chart.Chart object which is a scatter plot of
 // handler benchmark vs. warning scores.
-func scoreChart(size *sizeData) chart.Chart {
-	slog.Info("scoreChart", "size", size)
+func scoreChart(k *score.Keeper, size *sizeData) chart.Chart {
+	slog.Info("scoreChart", "keeper", k.Tag(), "size", size)
 	handlers := make(map[data.HandlerTag]*handlerCoords)
 	for _, hdlr := range bench.HandlerTags() {
 		// Only make handler record if y value is within bounds (above size.low.y).
-		if score.HandlerBenchScores(hdlr).Overall >= size.low.y {
-			handlers[hdlr] = &handlerCoords{y: score.HandlerBenchScores(hdlr).Overall}
+		// TODO: Say what here?
+		if scoreOld.HandlerBenchScores(hdlr).Overall >= size.low.y {
+			handlers[hdlr] = &handlerCoords{y: scoreOld.HandlerBenchScores(hdlr).Overall}
 		}
 	}
 	for _, hdlr := range warns.HandlerTags() {
 		// Only add value if there is already a benchmark score.
 		if coords, found := handlers[hdlr]; found {
 			// Only add x-value if it is within bounds (above size.low.x).
-			if score.HandlerWarningScore(hdlr) >= size.low.x {
-				coords.x = score.HandlerWarningScore(hdlr)
+			if scoreOld.HandlerWarningScore(hdlr) >= size.low.x {
+				coords.x = scoreOld.HandlerWarningScore(hdlr)
 			} else {
 				// The x-value is out of bounds but y-value was in bounds,
 				// remove handler record previously added.

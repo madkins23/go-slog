@@ -25,8 +25,8 @@ type handlerData struct {
 // Warnings encapsulates benchmark records by TestTag and HandlerTag.
 type Warnings struct {
 	byTest      map[TestTag]*Levels
-	byHandler   map[HandlerTag]*Levels
-	byWarning   map[string]*WarningData
+	ByHandler   map[HandlerTag]*Levels
+	ByWarning   map[string]*WarningData
 	tests       []TestTag
 	handlers    []HandlerTag
 	handlerData map[HandlerTag]*handlerData
@@ -36,8 +36,8 @@ type Warnings struct {
 func NewWarnings() *Warnings {
 	return &Warnings{
 		byTest:      make(map[TestTag]*Levels),
-		byHandler:   make(map[HandlerTag]*Levels),
-		byWarning:   make(map[string]*WarningData),
+		ByHandler:   make(map[HandlerTag]*Levels),
+		ByWarning:   make(map[string]*WarningData),
 		tests:       make([]TestTag, 0),
 		handlers:    make([]HandlerTag, 0),
 		handlerData: make(map[HandlerTag]*handlerData),
@@ -47,13 +47,13 @@ func NewWarnings() *Warnings {
 
 // HasHandler returns true if a handler is defined with the specified tag.
 func (w *Warnings) HasHandler(handler HandlerTag) bool {
-	_, found := w.byHandler[handler]
+	_, found := w.ByHandler[handler]
 	return found
 }
 
 // ForHandler returns warnings for the specified handler grouped by level.
 func (w *Warnings) ForHandler(handler HandlerTag) *Levels {
-	return w.byHandler[handler]
+	return w.ByHandler[handler]
 }
 
 // HandlerName returns the full name associated with a HandlerTag.
@@ -104,7 +104,7 @@ func (w *Warnings) HandlerLinks(handler HandlerTag) map[string]string {
 // HandlerTags returns an array of all handler names sorted alphabetically.
 func (w *Warnings) HandlerTags() []HandlerTag {
 	if len(w.handlers) < 1 {
-		for handler := range w.byHandler {
+		for handler := range w.ByHandler {
 			w.handlers = append(w.handlers, handler)
 		}
 		sort.Slice(w.handlers, func(i, j int) bool {
@@ -116,7 +116,7 @@ func (w *Warnings) HandlerTags() []HandlerTag {
 
 // HandlerWarningCount returns the number of the specified warning associated with the specified handler.
 func (w *Warnings) HandlerWarningCount(handler HandlerTag, warning *warning.Warning) uint {
-	return w.byWarning[warning.Name].count[handler]
+	return w.ByWarning[warning.Name].Count[handler]
 }
 
 // HasTest returns true if a test is defined with the specified tag.
@@ -170,13 +170,13 @@ func (w *Warnings) TestTagsForSource(source string) []TestTag {
 // -----------------------------------------------------------------------------
 
 func (w *Warnings) findHandler(handler HandlerTag, level warning.Level, warningName string) *dataWarning {
-	levels, ok := w.byHandler[handler]
+	levels, ok := w.ByHandler[handler]
 	if !ok {
 		levels = &Levels{
 			lookup: make(map[string]*dataLevel),
 			levels: make([]*dataLevel, 0),
 		}
-		w.byHandler[handler] = levels
+		w.ByHandler[handler] = levels
 	}
 	return levels.findLevel(level, warningName)
 }
@@ -199,14 +199,14 @@ func (w *Warnings) findTest(test TestTag, level warning.Level, warningName strin
 //
 // This method is public so that it can be used during template expansion in cmd/server.
 func (w *Warnings) FindWarning(name string) *WarningData {
-	data, found := w.byWarning[name]
+	data, found := w.ByWarning[name]
 	if !found {
 		data = &WarningData{
-			count:   make(map[HandlerTag]uint),
+			Count:   make(map[HandlerTag]uint),
 			hdlrMap: make(map[HandlerTag]bool),
 			testMap: make(map[TestTag]bool),
 		}
-		w.byWarning[name] = data
+		w.ByWarning[name] = data
 	}
 	return data
 }
@@ -228,7 +228,7 @@ func (w *Warnings) getHandlerData(handler HandlerTag) *handlerData {
 // This type is public so that it can be used during template expansion in cmd/server.
 // Methods for WarningData are largely public as well for the same reason.
 type WarningData struct {
-	count    map[HandlerTag]uint
+	Count    map[HandlerTag]uint
 	hdlrMap  map[HandlerTag]bool
 	handlers []HandlerTag
 	testMap  map[TestTag]bool
@@ -294,7 +294,7 @@ func (l *Levels) findLevel(lvl warning.Level, warningName string) *dataWarning {
 	lv, ok := l.lookup[lvl.String()]
 	if !ok {
 		lv = &dataLevel{
-			level:  lvl,
+			Level:  lvl,
 			lookup: make(map[string]*dataWarning),
 		}
 		l.lookup[lvl.String()] = lv
@@ -305,13 +305,13 @@ func (l *Levels) findLevel(lvl warning.Level, warningName string) *dataWarning {
 // -----------------------------------------------------------------------------
 
 type dataLevel struct {
-	level    warning.Level
+	Level    warning.Level
 	lookup   map[string]*dataWarning
 	warnings []*dataWarning
 }
 
 func (l *dataLevel) Name() string {
-	return l.level.String()
+	return l.Level.String()
 }
 
 func (l *dataLevel) Warnings() []*dataWarning {

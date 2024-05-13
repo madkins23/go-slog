@@ -10,6 +10,10 @@ function otherChoice(form) {
     window.location.href = "/go-slog/" + form.tag.value;
     return true;
 }
+function scoreChoice(form) {
+    window.location.href = "/go-slog/scores/" + form.tag.value + "/summary.html";
+    return true;
+}
 function toggleTableRow(id) {
     let elem = document.getElementById(id);
     elem.style.display = elem.style.display === "none" ? "table-row" : "none";

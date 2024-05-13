@@ -19,14 +19,14 @@
                         <table class="data">
                             <tr>
                                 <th>Handler</th>
-                                <th>Benchmark</th>
-                                <th>Warnings</th>
+                                <th>{{ $.Keeper.X.ColumnHeader }}</th>
+                                <th>{{ $.Keeper.Y.ColumnHeader }}</th>
                             </tr>
                             {{ range $tag := .Benchmarks.HandlerTags }}
                                 <tr>
                                     <td><a href="/go-slog/handler/{{ $tag }}.html">{{ $.Benchmarks.HandlerName $tag }}</a></td>
-                                    <td class="number">{{ $.FixFloat (($.Scores.HandlerBenchScores $tag).Overall) }}</td>
-                                    <td class="number">{{ $.FixFloat ($.Scores.HandlerWarningScore $tag) }}</td>
+                                    <td class="number">{{ $.FixValue ($.Keeper.X.HandlerScore $tag) }}</td>
+                                    <td class="number">{{ $.FixValue ($.Keeper.Y.HandlerScore $tag) }}</td>
                                 </tr>
                             {{ end }}
                         </table>
