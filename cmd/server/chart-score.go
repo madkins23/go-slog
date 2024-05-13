@@ -20,10 +20,10 @@ import (
 // -----------------------------------------------------------------------------
 
 type handlerCoords struct {
-	x, y float64
+	x, y score.Value
 }
 
-func (hc *handlerCoords) adjust(by float64) *handlerCoords {
+func (hc *handlerCoords) adjust(by score.Value) *handlerCoords {
 	return &handlerCoords{
 		x: hc.x * by,
 		y: hc.y * by,
@@ -75,7 +75,7 @@ var sizes = []*sizeData{
 // uses the gin.Context argument to send the SVG data back to the user's browser.
 func scoreFunction(c *gin.Context) {
 	var err error
-	cacheKey := "score"
+	cacheKey := "score:" + c.Param("keeper")
 	size := 0
 	sizeStr := c.Param("size")
 	if sizeStr != "" {
@@ -148,16 +148,16 @@ func scoreChart(k *score.Keeper, size *sizeData) chart.Chart {
 	for _, hdlr := range bench.HandlerTags() {
 		// Only make handler record if y value is within bounds (above size.low.y).
 		// TODO: Say what here?
-		if scoreOld.HandlerBenchScores(hdlr).Overall >= size.low.y {
-			handlers[hdlr] = &handlerCoords{y: scoreOld.HandlerBenchScores(hdlr).Overall}
+		if k.Y().HandlerScore(hdlr) >= size.low.y {
+			handlers[hdlr] = &handlerCoords{y: k.Y().HandlerScore(hdlr)}
 		}
 	}
 	for _, hdlr := range warns.HandlerTags() {
 		// Only add value if there is already a benchmark score.
 		if coords, found := handlers[hdlr]; found {
 			// Only add x-value if it is within bounds (above size.low.x).
-			if scoreOld.HandlerWarningScore(hdlr) >= size.low.x {
-				coords.x = scoreOld.HandlerWarningScore(hdlr)
+			if k.X().HandlerScore(hdlr) >= size.low.x {
+				coords.x = k.X().HandlerScore(hdlr)
 			} else {
 				// The x-value is out of bounds but y-value was in bounds,
 				// remove handler record previously added.
@@ -170,13 +170,15 @@ func scoreChart(k *score.Keeper, size *sizeData) chart.Chart {
 	yValues := make([]float64, 0, len(handlers)+1)
 	for hdlr, coords := range handlers {
 		if coords.y > 0.00001 {
+			x := float64(coords.x)
+			y := float64(coords.y)
 			aValues = append(aValues, chart.Value2{
 				Label:  warns.HandlerName(hdlr),
-				XValue: coords.x, //  + 1,
-				YValue: coords.y,
+				XValue: x, //  + 1,
+				YValue: y,
 			})
-			xValues = append(xValues, coords.x)
-			yValues = append(yValues, coords.y)
+			xValues = append(xValues, x)
+			yValues = append(yValues, y)
 		}
 	}
 	series := make([]chart.Series, 0, 6)
@@ -187,19 +189,21 @@ func scoreChart(k *score.Keeper, size *sizeData) chart.Chart {
 			if labelX == 0.0 {
 				labelX = s.labelX
 			}
+			lowX := float64(s.low.x)
+			lowY := float64(s.low.y)
 			series = append(series, chart.ContinuousSeries{
 				Style: chart.Style{
 					DotWidth:    chart.Disabled,
 					StrokeColor: insertColor,
 					StrokeWidth: 1,
 				},
-				XValues: []float64{s.low.x, s.low.x, 100.0},
-				YValues: []float64{100.0, s.low.y, s.low.y},
+				XValues: []float64{lowX, lowX, 100.0},
+				YValues: []float64{100.0, lowY, lowY},
 			})
 			labels = append(labels, chart.Value2{
 				Label:  s.name,
 				XValue: labelX, //  + 1,
-				YValue: s.low.y,
+				YValue: lowY,
 			})
 		}
 	}
@@ -218,14 +222,14 @@ func scoreChart(k *score.Keeper, size *sizeData) chart.Chart {
 		Width:  width,
 		XAxis: chart.XAxis{
 			Name:  "Warning Score",
-			Range: &chart.ContinuousRange{Min: size.low.x, Max: 100.0, Domain: 100.0},
-			Ticks: scoreChartTicks(size.low.x),
+			Range: &chart.ContinuousRange{Min: float64(size.low.x), Max: 100.0, Domain: 100.0},
+			Ticks: scoreChartTicks(float64(size.low.x)),
 		},
 		YAxis: chart.YAxis{
 			Name: "Benchmark Score",
 			//AxisType: chart.YAxisSecondary, // cuts off axis labels on left
 			Range: &chart.ContinuousRange{Min: 0, Max: 100.0, Domain: 100.0},
-			Ticks: scoreChartTicks(size.low.y),
+			Ticks: scoreChartTicks(float64(size.low.y)),
 		},
 		Series: append(series,
 			chart.ContinuousSeries{
@@ -285,7 +289,8 @@ location: // OMG I can't believe he's using that named loop thingy!!!
 		// Thankfully our array size will likely never be that big.
 		for j := i + 1; j < len(locations); j++ {
 			other := locations[j]
-			if math.Abs(other.XValue-loc.XValue) < labelSize.x && math.Abs(other.YValue-loc.YValue) < labelSize.y {
+			if math.Abs(other.XValue-loc.XValue) < float64(labelSize.x) &&
+				math.Abs(other.YValue-loc.YValue) < float64(labelSize.y) {
 				group := newLabelGroup()
 				group.add(i, loc)
 				group.add(j, other)
@@ -444,12 +449,13 @@ func (lg *labelGroup) adjust(locations []chart.Value2, labelSize *handlerCoords)
 	var upDebt, downDebt float64
 	var upIndex, downIndex int
 	var center int
+	labelSizeY := float64(labelSize.y)
 	if len(lg.indices)%2 == 0 {
 		// Even number of indices.
 		center = len(lg.indices) / 2
 		downIndex = center - 1
 		upIndex = center
-		overlap := labelSize.y - (locations[lg.indices[upIndex]].YValue - locations[lg.indices[downIndex]].YValue)
+		overlap := labelSizeY - (locations[lg.indices[upIndex]].YValue - locations[lg.indices[downIndex]].YValue)
 		if overlap > 0 {
 			downDebt = overlap / 2.0
 			locations[lg.indices[downIndex]].YValue -= downDebt
@@ -465,7 +471,7 @@ func (lg *labelGroup) adjust(locations []chart.Value2, labelSize *handlerCoords)
 
 	// Adjust labels in the negative y direction.
 	for downIndex > 0 {
-		overlap := labelSize.y - (locations[lg.indices[downIndex]].YValue - locations[lg.indices[downIndex-1]].YValue)
+		overlap := labelSizeY - (locations[lg.indices[downIndex]].YValue - locations[lg.indices[downIndex-1]].YValue)
 		if overlap > 0 {
 			downDebt += overlap
 			locations[lg.indices[downIndex-1]].YValue -= downDebt
@@ -475,7 +481,7 @@ func (lg *labelGroup) adjust(locations []chart.Value2, labelSize *handlerCoords)
 
 	// Adjust labels in the positive y direction.
 	for upIndex < len(lg.indices)-1 {
-		overlap := labelSize.y - (locations[lg.indices[upIndex+1]].YValue - locations[lg.indices[upIndex]].YValue)
+		overlap := labelSizeY - (locations[lg.indices[upIndex+1]].YValue - locations[lg.indices[upIndex]].YValue)
 		if overlap > 0 {
 			upDebt += overlap
 			locations[lg.indices[upIndex+1]].YValue += upDebt
@@ -492,6 +498,8 @@ func (lg *labelGroup) contains(index int) bool {
 
 // overlaps returns true if the specified chart value overlaps the group.
 func (lg *labelGroup) overlaps(loc chart.Value2, labelSize *handlerCoords) bool {
-	return loc.XValue >= lg.xLow-labelSize.x && loc.XValue <= lg.xHigh+labelSize.x &&
-		loc.YValue >= lg.yLow-labelSize.y && loc.YValue <= lg.xLow+labelSize.y
+	x := float64(labelSize.x)
+	y := float64(labelSize.y)
+	return loc.XValue >= lg.xLow-x && loc.XValue <= lg.xHigh+x &&
+		loc.YValue >= lg.yLow-y && loc.YValue <= lg.xLow+y
 }

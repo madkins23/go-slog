@@ -126,6 +126,8 @@ type testRange struct {
 }
 
 // testScores maps test tags to scores for a handler.
+// Deprecated: Get rid of testScores now that the per-test scores are not used.
+// TODO: Get rid of this!
 type testScores struct {
 	// Overall score for a handler.
 	Overall score.Value
