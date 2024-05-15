@@ -4,9 +4,11 @@ import (
 	_ "embed"
 	"html/template"
 	"math"
+	"strconv"
 
 	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/markdown"
+	"github.com/madkins23/go-slog/internal/scoring/exhibit"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
@@ -101,6 +103,11 @@ func (b *Benchmarks) Setup(bench *data.Benchmarks, _ *data.Warnings) error {
 		scores.Overall /= score.Value(count)
 		b.benchScores[handler] = scores
 	}
+	rows := make([][]string, 0, len(b.benchWeight))
+	for name, value := range b.benchWeight {
+		rows = append(rows, []string{string(name), strconv.Itoa(int(value))})
+	}
+	b.exhibits = []score.Exhibit{exhibit.NewTable("", []string{"Data", "Weight"}, rows)}
 	return nil
 }
 
@@ -117,9 +124,6 @@ func (b *Benchmarks) ExhibitCount() uint {
 }
 
 func (b *Benchmarks) Exhibits() []score.Exhibit {
-	if b.exhibits == nil {
-
-	}
 	return b.exhibits
 }
 
@@ -141,7 +145,7 @@ const (
 	Nanoseconds BenchValue = "Nanoseconds"
 )
 
-var _ = /* benchScoreWeightOrder */ []BenchValue{
+var _ = []BenchValue{
 	Nanoseconds,
 	AllocBytes,
 	Allocations,

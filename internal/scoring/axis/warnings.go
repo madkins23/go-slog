@@ -3,10 +3,12 @@ package axis
 import (
 	_ "embed"
 	"html/template"
+	"strconv"
 
 	"github.com/madkins23/go-slog/infra/warning"
 	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/markdown"
+	"github.com/madkins23/go-slog/internal/scoring/exhibit"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
@@ -68,6 +70,11 @@ func (w *Warnings) Setup(_ *data.Benchmarks, warns *data.Warnings) error {
 			w.warnScores[hdlr] = 100.0 * score.Value(maxScore-testScores[hdlr]) / score.Value(maxScore)
 		}
 	}
+	rows := make([][]string, 0, len(w.levelWeight))
+	for level, value := range w.levelWeight {
+		rows = append(rows, []string{level.String(), strconv.Itoa(int(value))})
+	}
+	w.exhibits = []score.Exhibit{exhibit.NewTable("", []string{"Level", "Weight"}, rows)}
 	return nil
 }
 
