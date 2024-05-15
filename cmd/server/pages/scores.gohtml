@@ -82,47 +82,31 @@
                 <tr class="title">
                     <td colspan=2>
                         <h2 id="scoring_algorithms">Scoring Algorithms</h2>
-                        {{ .Scores.DocOverview }}
+                        {{ .Keeper.Documentation }}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <h3>Benchmarks</h3>
-                        {{ .Scores.DocBench }}
+                        <h3>{{ .Keeper.Y.ColumnHeader }}</h3>
+                        {{ .Keeper.Y.Documentation }}
                     </td>
                     <td class="table">
                         <table class="data">
-                            <tr>
-                                <th>Data</th>
-                                <th>Weight</th>
-                            </tr>
-                            {{ $weightBench := .Scores.WeightBench }}
-                            {{ range $data := .Scores.WeightBenchOrder }}
-                                <tr>
-                                    <td>{{ $data }}</td>
-                                    <td class="number">{{ index $weightBench $data }}</td>
-                                </tr>
+                            {{ range $exhibit := .Keeper.Y.Exhibits }}
+                                <tr><td>{{ $exhibit.HTML }}</td></tr>
                             {{ end }}
                         </table>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <h3>Warnings</h3>
-                        {{ .Scores.DocWarning }}
+                        <h3>{{ .Keeper.X.ColumnHeader }}</h3>
+                        {{ .Keeper.X.Documentation }}
                     </td>
                     <td class="table">
                         <table class="data">
-                            <tr>
-                                <th>Level</th>
-                                <th>Weight</th>
-                            </tr>
-                            {{ $weightWarning := .Scores.WeightWarning }}
-                            {{ range $level := .Levels }}
-                                <tr>
-                                    <td>{{ $level }}</td>
-                                    <td class="number">{{ index $weightWarning $level }}</td>
-                                </tr>
+                            {{ range $exhibit := .Keeper.Y.Exhibits }}
+                                <tr><td>{{ $exhibit.HTML }}</td></tr>
                             {{ end }}
                         </table>
                     </td>

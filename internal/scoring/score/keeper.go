@@ -3,7 +3,6 @@ package score
 import (
 	"fmt"
 	"html/template"
-	"log/slog"
 	"sort"
 
 	"github.com/madkins23/go-slog/internal/data"
@@ -15,30 +14,27 @@ type KeeperTag string
 type Keeper struct {
 	tag  KeeperTag
 	x, y Axis
+	doc  template.HTML
 }
 
-func NewKeeper(tag KeeperTag, x, y Axis) *Keeper {
+func NewKeeper(tag KeeperTag, x, y Axis, doc template.HTML) *Keeper {
 	return &Keeper{
 		tag: tag,
 		x:   x,
 		y:   y,
+		doc: doc,
 	}
 }
 
-func (k *Keeper) Initialize(bench *data.Benchmarks, warns *data.Warnings) error {
-	if err := k.x.Initialize(bench, warns); err != nil {
+func (k *Keeper) Setup(bench *data.Benchmarks, warns *data.Warnings) error {
+	if err := k.x.Setup(bench, warns); err != nil {
 		return fmt.Errorf("initialize x: %w", err)
 	}
-	if err := k.y.Initialize(bench, warns); err != nil {
+	if err := k.y.Setup(bench, warns); err != nil {
 		return fmt.Errorf("initialize y: %w", err)
 	}
 	// TODO: Do something else?
 	return nil
-}
-
-func (k *Keeper) DocOverview() template.HTML {
-	slog.Error("TBD", "method", "DocOverview")
-	return "<strong>TBD</strong>"
 }
 
 func (k *Keeper) X() Axis {
@@ -54,6 +50,27 @@ func (k *Keeper) Tag() KeeperTag {
 		return ""
 	}
 	return k.tag
+}
+
+func (k *Keeper) Documentation() template.HTML {
+	return k.doc
+}
+
+func (k *Keeper) Exhibits() []Exhibit {
+	var exhibits []Exhibit
+	xExhibits := k.X().Exhibits()
+	yExhibits := k.Y().Exhibits()
+	size := len(xExhibits) + len(yExhibits)
+	if size > 0 {
+		exhibits = make([]Exhibit, 0, size)
+		for _, exhibit := range xExhibits {
+			exhibits = append(exhibits, exhibit)
+		}
+		for _, exhibit := range yExhibits {
+			exhibits = append(exhibits, exhibit)
+		}
+	}
+	return exhibits
 }
 
 // -----------------------------------------------------------------------------
@@ -79,20 +96,6 @@ func AddKeeper(keeper *Keeper) error {
 
 func GetKeeper(tag KeeperTag) *Keeper {
 	return keepers[tag]
-}
-
-// Initialize all score.Keeper objects with the specified benchmark and marking data.
-//
-// Do not call this from within an init() function,
-// it is dependent on configuration done during init() functions
-// defined in package internal/scoring/keeper.
-func Initialize(bench *data.Benchmarks, warns *data.Warnings) error {
-	for name, keeper := range keepers {
-		if err := keeper.Initialize(bench, warns); err != nil {
-			return fmt.Errorf("initialize '%s': %w", name, err)
-		}
-	}
-	return nil
 }
 
 func Keepers() []KeeperTag {

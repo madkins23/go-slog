@@ -78,7 +78,7 @@ func main() {
 
 	bench := data.NewBenchmarks()
 	warns := data.NewWarnings()
-	if err := data.Setup(bench, warns, nil); err != nil {
+	if err := data.Setup(bench, warns); err != nil {
 		slog.Error("Setup error", "err", err)
 		return
 	}

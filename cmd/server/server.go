@@ -156,7 +156,6 @@ func main() {
 var (
 	bench     = data.NewBenchmarks()
 	warns     = data.NewWarnings()
-	scoreOld  = data.NewScoreKeeper()
 	pages     = []pageType{pageHome, pageTest, pageHandler, pageScores, pageWarnings, pageGuts, pageError}
 	templates map[pageType]*template.Template
 
@@ -200,11 +199,11 @@ func setup() error {
 		return fmt.Errorf("language setup: %w", err)
 	}
 
-	if err := data.Setup(bench, warns, scoreOld); err != nil {
+	if err := data.Setup(bench, warns); err != nil {
 		return fmt.Errorf("data setup: %w", err)
 	}
 
-	if err := scoring.Initialize(bench, warns); err != nil {
+	if err := scoring.Setup(bench, warns); err != nil {
 		return fmt.Errorf("score keepers: %w", err)
 	}
 
@@ -336,7 +335,6 @@ func pageFunction(page pageType) gin.HandlerFunc {
 		tmplData := &templateData{
 			Benchmarks: bench,
 			Warnings:   warns,
-			Scores:     scoreOld,
 			Keepers:    score.Keepers(),
 			Levels:     warning.LevelOrder,
 			Printer:    language.Printer(),

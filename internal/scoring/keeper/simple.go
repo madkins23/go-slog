@@ -8,12 +8,13 @@ import (
 
 const simpleName = "Simple"
 
-func Simple() error {
+func setupSimple() error {
 	return score.AddKeeper(
 		score.NewKeeper(
 			simpleName,
 			axis.NewWarnings(simpleWarningScoreWeight),
-			axis.NewBenchmarks(simpleBenchmarkScoreWeight)))
+			axis.NewBenchmarks(simpleBenchmarkScoreWeight),
+			defaultDocHTML))
 }
 
 // -----------------------------------------------------------------------------

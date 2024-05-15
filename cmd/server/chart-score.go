@@ -221,12 +221,12 @@ func scoreChart(k *score.Keeper, size *sizeData) chart.Chart {
 		Height: height,
 		Width:  width,
 		XAxis: chart.XAxis{
-			Name:  "Warning Score",
+			Name:  k.X().AxisTitle(),
 			Range: &chart.ContinuousRange{Min: float64(size.low.x), Max: 100.0, Domain: 100.0},
 			Ticks: scoreChartTicks(float64(size.low.x)),
 		},
 		YAxis: chart.YAxis{
-			Name: "Benchmark Score",
+			Name: k.Y().AxisTitle(),
 			//AxisType: chart.YAxisSecondary, // cuts off axis labels on left
 			Range: &chart.ContinuousRange{Min: 0, Max: 100.0, Domain: 100.0},
 			Ticks: scoreChartTicks(float64(size.low.y)),

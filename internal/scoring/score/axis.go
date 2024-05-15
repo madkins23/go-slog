@@ -9,9 +9,11 @@ import (
 type Value float64
 
 type Axis interface {
-	Initialize(bench *data.Benchmarks, warns *data.Warnings) error
+	Setup(bench *data.Benchmarks, warns *data.Warnings) error
+	AxisTitle() string
 	ColumnHeader() string
 	HandlerScore(handler data.HandlerTag) Value
 	Documentation() template.HTML
-	// DocTables() []???
+	ExhibitCount() uint
+	Exhibits() []Exhibit
 }

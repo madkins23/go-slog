@@ -1,0 +1,10 @@
+<table>
+  <tr>
+    {{ range .Columns }}<th>{{ . }}</th>{{ end }}
+  </tr>
+  {{ range .Rows }}
+    <tr>
+      {{ range . }}<td>{{ . }}</td>{{ end }}
+    </tr>
+  {{ end }}
+</table>
