@@ -72,10 +72,6 @@
                             Higher numbers are better on both axes.
                             The "good" zone is the upper right and the "bad" zone is the lower left.
                         </p>
-                        <p class="center">
-                            The top is fast, the bottom is slow.
-                            Left is more warnings, right is less.
-                        </p>
                     </td>
                 </tr>
                 <tr><td colspan=2><hr/></td></tr>
@@ -87,28 +83,24 @@
                 </tr>
                 <tr>
                     <td>
-                        <h3>{{ .Keeper.Y.ColumnHeader }}</h3>
-                        {{ .Keeper.Y.Documentation }}
+                        <h3 class="doc">{{ .Keeper.X.ColumnHeader }}</h3>
+                        {{ .Keeper.X.Documentation }}
                     </td>
-                    <td class="table">
-                        <table class="data">
-                            {{ range $exhibit := .Keeper.Y.Exhibits }}
-                                <tr><td>{{ $exhibit.HTML }}</td></tr>
-                            {{ end }}
-                        </table>
+                    <td class="top">
+                        {{ range $exhibit := .Keeper.X.Exhibits }}
+                            {{ $exhibit.HTML $exhibit }}
+                        {{ end }}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <h3>{{ .Keeper.X.ColumnHeader }}</h3>
-                        {{ .Keeper.X.Documentation }}
+                        <h3 class="doc">{{ .Keeper.Y.ColumnHeader }}</h3>
+                        {{ .Keeper.Y.Documentation }}
                     </td>
-                    <td class="table">
-                        <table class="data">
-                            {{ range $exhibit := .Keeper.Y.Exhibits }}
-                                <tr><td>{{ $exhibit.HTML }}</td></tr>
-                            {{ end }}
-                        </table>
+                    <td class="top">
+                        {{ range $exhibit := .Keeper.Y.Exhibits }}
+                            {{ $exhibit.HTML $exhibit }}
+                        {{ end }}
                     </td>
                 </tr>
             </table>

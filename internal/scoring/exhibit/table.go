@@ -16,12 +16,6 @@ var (
 	tableSrc string
 )
 
-type Table struct {
-	score.Exhibit
-	columns []string
-	rows    [][]string
-}
-
 func setupTable() error {
 	var err error
 	if tableTmpl, err = template.New(tableName).Parse(tableSrc); err != nil {
@@ -30,16 +24,31 @@ func setupTable() error {
 	return nil
 }
 
-func NewTable(name string) *Table {
+// TODO: This should probably work.
+var _ score.Exhibit = &Table{}
+
+type Table struct {
+	score.ExhibitCore
+	caption string
+	columns []string
+	rows    [][]string
+}
+
+func NewTable(caption string, columns []string, rows [][]string) *Table {
 	return &Table{
-		Exhibit: score.NewExhibit(name, tableTmpl),
-		columns: []string{"alpha", "bravo", "charlie"},
-		rows: [][]string{
-			{"one", "13", "booger"},
-			{"two", "17", "goober"},
-			{"three", "23", "snoofus"},
-		},
+		ExhibitCore: score.NewExhibitCore(tableTmpl),
+		caption:     caption,
+		columns:     columns,
+		rows:        rows,
 	}
+}
+
+func (t *Table) HasCaption() bool {
+	return len(t.caption) > 0
+}
+
+func (t *Table) Caption() template.HTML {
+	return template.HTML(t.caption)
 }
 
 func (t *Table) Columns() []string {

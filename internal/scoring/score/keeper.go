@@ -56,23 +56,6 @@ func (k *Keeper) Documentation() template.HTML {
 	return k.doc
 }
 
-func (k *Keeper) Exhibits() []Exhibit {
-	var exhibits []Exhibit
-	xExhibits := k.X().Exhibits()
-	yExhibits := k.Y().Exhibits()
-	size := len(xExhibits) + len(yExhibits)
-	if size > 0 {
-		exhibits = make([]Exhibit, 0, size)
-		for _, exhibit := range xExhibits {
-			exhibits = append(exhibits, exhibit)
-		}
-		for _, exhibit := range yExhibits {
-			exhibits = append(exhibits, exhibit)
-		}
-	}
-	return exhibits
-}
-
 // -----------------------------------------------------------------------------
 
 var (

@@ -66,6 +66,10 @@ h2.home {
     display: inline-block;
 }
 
+h3.doc {
+    margin-top: 0.5em;
+}
+
 img.chart {
     border: 2px inset antiquewhite;
 }
