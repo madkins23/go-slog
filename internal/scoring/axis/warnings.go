@@ -1,27 +1,43 @@
 package axis
 
 import (
+	_ "embed"
 	"html/template"
 
 	"github.com/madkins23/go-slog/infra/warning"
 	"github.com/madkins23/go-slog/internal/data"
+	"github.com/madkins23/go-slog/internal/markdown"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
+
+var (
+	//go:embed doc/warnings.md
+	warnDocMD   string
+	warnDocHTML template.HTML
+)
+
+func setupWarnings() error {
+	warnDocHTML = markdown.TemplateHTML(warnDocMD, false)
+	return nil
+}
 
 var _ score.Axis = &Warnings{}
 
 type Warnings struct {
 	levelWeight map[warning.Level]uint
 	warnScores  map[data.HandlerTag]score.Value
+	doc         template.HTML
+	exhibits    []score.Exhibit
 }
 
 func NewWarnings(levelWeight map[warning.Level]uint) score.Axis {
 	return &Warnings{
 		levelWeight: levelWeight,
+		doc:         warnDocHTML,
 	}
 }
 
-func (w *Warnings) Initialize(_ *data.Benchmarks, warns *data.Warnings) error {
+func (w *Warnings) Setup(_ *data.Benchmarks, warns *data.Warnings) error {
 	var maxScore uint
 	for _, level := range warning.LevelOrder {
 		var count uint
@@ -55,8 +71,23 @@ func (w *Warnings) Initialize(_ *data.Benchmarks, warns *data.Warnings) error {
 	return nil
 }
 
+func (w *Warnings) AxisTitle() string {
+	return w.ColumnHeader() + " Score"
+}
+
 func (w *Warnings) ColumnHeader() string {
 	return "Warnings"
+}
+
+func (w *Warnings) ExhibitCount() uint {
+	return uint(len(w.exhibits))
+}
+
+func (w *Warnings) Exhibits() []score.Exhibit {
+	if w.exhibits == nil {
+
+	}
+	return w.exhibits
 }
 
 func (w *Warnings) HandlerScore(handler data.HandlerTag) score.Value {
@@ -64,5 +95,5 @@ func (w *Warnings) HandlerScore(handler data.HandlerTag) score.Value {
 }
 
 func (w *Warnings) Documentation() template.HTML {
-	return "<strong>TBD: Warnings.Documentation</strong>"
+	return w.doc
 }

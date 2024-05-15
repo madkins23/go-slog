@@ -10,7 +10,7 @@ import (
 // These objects do the parsing with the proper order and arguments
 // and return any encountered error.
 // This function encapsulates the typical calling sequence for all data, simplifying setup.
-func Setup(bench *Benchmarks, warns *Warnings, scores Scores) error {
+func Setup(bench *Benchmarks, warns *Warnings) error {
 	if err := bench.ParseBenchmarkData(nil); err != nil {
 		return fmt.Errorf("parse -bench data: %w", err)
 	}
@@ -22,12 +22,6 @@ func Setup(bench *Benchmarks, warns *Warnings, scores Scores) error {
 
 	if err := warns.ParseWarningData(nil, "Verify", bench.HandlerLookup()); err != nil {
 		return fmt.Errorf("parse -verify warnings: %w", err)
-	}
-
-	if scores != nil {
-		if err := scores.Initialize(bench, warns); err != nil {
-			return fmt.Errorf("initialize scorekeeper: %w", err)
-		}
 	}
 
 	return nil

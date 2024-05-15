@@ -1,27 +1,43 @@
 package axis
 
 import (
+	_ "embed"
 	"html/template"
 	"math"
 
 	"github.com/madkins23/go-slog/internal/data"
+	"github.com/madkins23/go-slog/internal/markdown"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
+
+var (
+	//go:embed doc/benchmarks.md
+	benchDocMD   string
+	benchDocHTML template.HTML
+)
+
+func setupBenchmarks() error {
+	benchDocHTML = markdown.TemplateHTML(benchDocMD, false)
+	return nil
+}
 
 var _ score.Axis = &Benchmarks{}
 
 type Benchmarks struct {
 	benchWeight map[BenchValue]uint
 	benchScores map[data.HandlerTag]*testScores
+	doc         template.HTML
+	exhibits    []score.Exhibit
 }
 
 func NewBenchmarks(benchWeight map[BenchValue]uint) score.Axis {
 	return &Benchmarks{
 		benchWeight: benchWeight,
+		doc:         benchDocHTML,
 	}
 }
 
-func (b *Benchmarks) Initialize(bench *data.Benchmarks, _ *data.Warnings) error {
+func (b *Benchmarks) Setup(bench *data.Benchmarks, _ *data.Warnings) error {
 	// Calculate test ranges used in calculating scores.
 	ranges := make(map[data.TestTag]*testRange)
 	for _, test := range bench.TestTags() {
@@ -88,8 +104,23 @@ func (b *Benchmarks) Initialize(bench *data.Benchmarks, _ *data.Warnings) error 
 	return nil
 }
 
+func (b *Benchmarks) AxisTitle() string {
+	return b.ColumnHeader() + " Score"
+}
+
 func (b *Benchmarks) ColumnHeader() string {
 	return "Benchmark"
+}
+
+func (b *Benchmarks) ExhibitCount() uint {
+	return uint(len(b.exhibits))
+}
+
+func (b *Benchmarks) Exhibits() []score.Exhibit {
+	if b.exhibits == nil {
+
+	}
+	return b.exhibits
 }
 
 func (b *Benchmarks) HandlerScore(handler data.HandlerTag) score.Value {
@@ -97,7 +128,7 @@ func (b *Benchmarks) HandlerScore(handler data.HandlerTag) score.Value {
 }
 
 func (b *Benchmarks) Documentation() template.HTML {
-	return "<strong>TBD: Benchmarks.Documentation</strong>"
+	return b.doc
 }
 
 // -----------------------------------------------------------------------------
