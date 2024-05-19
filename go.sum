@@ -81,8 +81,8 @@ github.com/phsym/console-slog v0.3.1 h1:Fuzcrjr40xTc004S9Kni8XfNsk+qrptQmyR+wZw9
 github.com/phsym/console-slog v0.3.1/go.mod h1:oJskjp/X6e6c0mGpfP8ELkfKUsrkDifYRAqJQgmdDS0=
 github.com/phsym/zeroslog v0.1.0 h1:EHWMLlE5bQtOD6svfdDAUEJnTIXR7xOVJnAW3qjOZQ8=
 github.com/phsym/zeroslog v0.1.0/go.mod h1:9bb+7wYJLDFAUQlcuxTQIXKkrxqRAL9/QQPCNbWfQKI=
-github.com/phuslu/log v1.0.99 h1:DcsYN7ONwGjJ+kjx0QacDq4p90xYFhcY6kRaMvjo9Fg=
-github.com/phuslu/log v1.0.99/go.mod h1:F8osGJADo5qLK/0F88djWwdyoZZ9xDJQL1HYRHFEkS0=
+github.com/phuslu/log v1.0.100 h1:seslWZ/4OqrMjLUk9e0O6aX6Xew2jX8BngePyRy89ak=
+github.com/phuslu/log v1.0.100/go.mod h1:F8osGJADo5qLK/0F88djWwdyoZZ9xDJQL1HYRHFEkS0=
 github.com/pkg/errors v0.9.1/go.mod h1:bwawxfHBFNV+L2hUp1rHADufV3IMtnDRdf1r5NINEl0=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
@@ -117,8 +117,8 @@ github.com/twitchyliquid64/golang-asm v0.15.1 h1:SU5vSMR7hnwNxj24w34ZyCi/FmDZTkS
 github.com/twitchyliquid64/golang-asm v0.15.1/go.mod h1:a1lVb/DtPvCB8fslRZhAngC2+aY1QWCk3Cedj/Gdt08=
 github.com/ugorji/go/codec v1.2.12 h1:9LC83zGrHhuUA9l16C9AHXAqEV/2wBQ4nkvumAE65EE=
 github.com/ugorji/go/codec v1.2.12/go.mod h1:UNopzCgEMSXjBc6AOMqYvWC1ktqTAfzJZUZgYf6w6lg=
-github.com/vicanso/go-charts/v2 v2.6.5 h1:gq/0E8RzNNRACVxOMxZGq9Y9/bqkyB10CBY6dkHM3Jk=
-github.com/vicanso/go-charts/v2 v2.6.5/go.mod h1:Ii2KDI3udTG1wPtiTnntzjlUBJVJTqNscMzh3oYHzUk=
+github.com/vicanso/go-charts/v2 v2.6.6 h1:2ZdBWEnzyFuiddKM+8H5e0yMugs3t32vEReiR53+NRg=
+github.com/vicanso/go-charts/v2 v2.6.6/go.mod h1:Ii2KDI3udTG1wPtiTnntzjlUBJVJTqNscMzh3oYHzUk=
 github.com/wcharczuk/go-chart/v2 v2.1.1 h1:2u7na789qiD5WzccZsFz4MJWOJP72G+2kUuJoSNqWnE=
 github.com/wcharczuk/go-chart/v2 v2.1.1/go.mod h1:CyCAUt2oqvfhCl6Q5ZvAZwItgpQKZOkCJGb+VGv6l14=
 github.com/yuin/goldmark v1.4.13/go.mod h1:6yULJ656Px+3vBD8DxQVa3kxgyrAnzto9xy5taEt/CY=

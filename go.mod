@@ -12,14 +12,14 @@ require (
 	github.com/madkins23/go-utils v1.44.0
 	github.com/phsym/console-slog v0.3.1
 	github.com/phsym/zeroslog v0.1.0
-	github.com/phuslu/log v1.0.99
+	github.com/phuslu/log v1.0.100
 	github.com/rs/zerolog v1.31.0
 	github.com/samber/slog-logrus/v2 v2.3.0
 	github.com/samber/slog-zap/v2 v2.4.0
 	github.com/samber/slog-zerolog/v2 v2.3.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.9.0
-	github.com/vicanso/go-charts/v2 v2.6.5
+	github.com/vicanso/go-charts/v2 v2.6.6
 	github.com/wcharczuk/go-chart/v2 v2.1.1
 	go.mrchanchal.com/zaphandler v0.0.0-20230611140024-bd4fd80897ad
 	go.seankhliao.com/svcrunner/v3 v3.0.0-20231007180458-c5294d90b36c
