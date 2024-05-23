@@ -91,6 +91,18 @@ table.charts {
     margin-right: auto;
 }
 
+table.charts col.size-left {
+    width: 40%;
+}
+
+table.charts col.size-center {
+    width: 20%;
+}
+
+table.charts col.size-right {
+    width: 40%;
+}
+
 table.choice {
     margin-left: auto;
 }
