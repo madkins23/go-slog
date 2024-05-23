@@ -1,6 +1,7 @@
 # TODO
 
 * Refactor scoring interface
+* Flash edits are not really visible in documentation.
 * Discuss slog_madkins_replattr benchmark somewhere
 * Show complex definitions, log traces, and attribute groups on a web page
 * Use json.Expect and reflect.DeepEqual()/assert.Equal() more often
