@@ -14,10 +14,10 @@ func Setup(bench *data.Benchmarks, warns *data.Warnings) error {
 	if err := setupSimple(); err != nil {
 		return fmt.Errorf("keeper.setupSimple: %w", err)
 	}
-	for name, tag := range score.Keepers() {
+	for _, tag := range score.Keepers() {
 		keeper := score.GetKeeper(tag)
 		if err := keeper.Setup(bench, warns); err != nil {
-			return fmt.Errorf("setup '%s': %w", name, err)
+			return fmt.Errorf("setup '%s': %w", keeper.Tag(), err)
 		}
 	}
 	return nil
