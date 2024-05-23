@@ -296,7 +296,6 @@ func setup() error {
 type templateData struct {
 	*data.Benchmarks
 	*data.Warnings
-	data.Scores
 	*score.Keeper
 	Handler   data.HandlerTag
 	Test      data.TestTag
