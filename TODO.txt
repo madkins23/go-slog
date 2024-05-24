@@ -1,6 +1,7 @@
 # TODO
 
 * Refactor scoring interface
+  - Remove old testScores object now that per-handler scoring is no longer shown
   - Add to score.Keeper?
     - Chart title
     - Chart caption area
