@@ -71,18 +71,20 @@ func (w *Warnings) Setup(_ *data.Benchmarks, warns *data.Warnings) error {
 		}
 	}
 	rows := make([][]string, 0, len(w.levelWeight))
-	for level, value := range w.levelWeight {
-		rows = append(rows, []string{level.String(), strconv.Itoa(int(value))})
+	for _, level := range warning.LevelOrder {
+		if value, found := w.levelWeight[level]; found {
+			rows = append(rows, []string{level.String(), strconv.Itoa(int(value))})
+		}
 	}
 	w.exhibits = []score.Exhibit{exhibit.NewTable("", []string{"Level", "Weight"}, rows)}
 	return nil
 }
 
 func (w *Warnings) AxisTitle() string {
-	return w.ColumnHeader() + " Score"
+	return w.Name() + " Score"
 }
 
-func (w *Warnings) ColumnHeader() string {
+func (w *Warnings) Name() string {
 	return "Warnings"
 }
 

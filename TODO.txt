@@ -5,6 +5,7 @@
 * Refactor scoring interface
   - Vertical spacing in charts not working for all scorekeepers
   - Documentation
+  - Remove old testScores object now that per-handler scoring is no longer shown
 * Flash edits are not really visible in documentation.
 * Discuss slog_madkins_replattr benchmark somewhere
 * Show complex definitions, log traces, and attribute groups on a web page

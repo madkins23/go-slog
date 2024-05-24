@@ -23,4 +23,4 @@ and that number is subtracted from `100.0`.
 This results in a number from `0.0` (awful, all warnings logged) to `100.0` (no warnings at all).
 That number is stored for use and displayed on this page and on each handler page.
 
-Note that most scores are above ~40 as it is difficult to throw _all_ the warnings.
+Note that most scores are above `~40` as it is difficult to throw _all_ the warnings.

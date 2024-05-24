@@ -11,7 +11,7 @@ type Value float64
 type Axis interface {
 	Setup(bench *data.Benchmarks, warns *data.Warnings) error
 	AxisTitle() string
-	ColumnHeader() string
+	Name() string
 	HandlerScore(handler data.HandlerTag) Value
 	Documentation() template.HTML
 	ExhibitCount() uint

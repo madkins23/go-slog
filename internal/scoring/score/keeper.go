@@ -1,11 +1,13 @@
 package score
 
 import (
+	_ "embed"
 	"fmt"
 	"html/template"
 	"sort"
 
 	"github.com/madkins23/go-slog/internal/data"
+	"github.com/madkins23/go-slog/internal/markdown"
 	"github.com/madkins23/go-slog/internal/test"
 )
 
@@ -37,12 +39,8 @@ func (k *Keeper) Setup(bench *data.Benchmarks, warns *data.Warnings) error {
 	return nil
 }
 
-func (k *Keeper) X() Axis {
-	return k.x
-}
-
-func (k *Keeper) Y() Axis {
-	return k.y
+func (k *Keeper) Name() string {
+	return string(k.tag)
 }
 
 func (k *Keeper) Tag() KeeperTag {
@@ -52,8 +50,31 @@ func (k *Keeper) Tag() KeeperTag {
 	return k.tag
 }
 
+// Documentation returns documentation related to the current scorekeeper object.
 func (k *Keeper) Documentation() template.HTML {
 	return k.doc
+}
+
+var (
+	//go:embed doc/overview.md
+	overviewMD   string
+	overviewHTML template.HTML
+)
+
+// Overview returns documentation applicable to all scorekeepers.
+func (k *Keeper) Overview() template.HTML {
+	if overviewHTML == "" {
+		overviewHTML = markdown.TemplateHTML(overviewMD, false)
+	}
+	return overviewHTML
+}
+
+func (k *Keeper) X() Axis {
+	return k.x
+}
+
+func (k *Keeper) Y() Axis {
+	return k.y
 }
 
 // -----------------------------------------------------------------------------
