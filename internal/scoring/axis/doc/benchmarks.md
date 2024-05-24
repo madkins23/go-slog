@@ -14,11 +14,16 @@ From this line we get:
 * the number of test runs (`3547497`),
 * nanoseconds per operation (`327.1 ns/op`),
 * memory bytes allocated per operation (`24 B/op`),
-* memory allocation per operation (`1 allocs/op`), and
+* separate memory allocations per operation (`1 allocs/op`), and
 * estimated logging throughput per second (`284.33 MB/s`).
 
-For each handler/test combination (single line or test results) we use three results:
-nanoseconds per operation, memory bytes allocated per operation, and memory allocation per operation.
+For each handler/test combination (single line or test results)
+we use one or more of the following three data items:
+
+* nanoseconds per operation,
+* memory bytes allocated per operation, and
+* separate memory allocations per operation.
+
 These three items are combined over two steps.
 First the test value ranges are acquired:
 

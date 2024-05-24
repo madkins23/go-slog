@@ -1,12 +1,20 @@
 package keeper
 
 import (
+	_ "embed"
+
 	"github.com/madkins23/go-slog/infra/warning"
+	"github.com/madkins23/go-slog/internal/markdown"
 	"github.com/madkins23/go-slog/internal/scoring/axis"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
 const simpleName = "Simple"
+
+var (
+	//go:embed doc/simple.md
+	simpleDocMD string
+)
 
 func setupSimple() error {
 	return score.AddKeeper(
@@ -14,7 +22,7 @@ func setupSimple() error {
 			simpleName,
 			axis.NewWarnings(simpleWarningScoreWeight),
 			axis.NewBenchmarks(simpleBenchmarkScoreWeight),
-			defaultDocHTML))
+			markdown.TemplateHTML(simpleDocMD, false)))
 }
 
 // -----------------------------------------------------------------------------

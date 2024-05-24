@@ -19,8 +19,8 @@
                         <table class="data">
                             <tr>
                                 <th>Handler</th>
-                                <th>{{ $.Keeper.X.ColumnHeader }}</th>
-                                <th>{{ $.Keeper.Y.ColumnHeader }}</th>
+                                <th>{{ $.Keeper.X.Name }}</th>
+                                <th>{{ $.Keeper.Y.Name }}</th>
                             </tr>
                             {{ range $tag := .Benchmarks.HandlerTags }}
                                 <tr>
@@ -78,12 +78,22 @@
                 <tr class="title">
                     <td colspan=2>
                         <h2 id="scoring_algorithms">Scoring Algorithms</h2>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        {{ .Keeper.Overview }}
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h3 class="doc"><span class="fixed">{{ .Keeper.Name }}</span> Score Keeper</h3>
                         {{ .Keeper.Documentation }}
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <h3 class="doc">{{ .Keeper.X.ColumnHeader }}</h3>
+                        <h3 class="doc">{{ .Keeper.X.Name }}</h3>
                         {{ .Keeper.X.Documentation }}
                     </td>
                     <td class="top">
@@ -94,7 +104,7 @@
                 </tr>
                 <tr>
                     <td>
-                        <h3 class="doc">{{ .Keeper.Y.ColumnHeader }}</h3>
+                        <h3 class="doc">{{ .Keeper.Y.Name }}</h3>
                         {{ .Keeper.Y.Documentation }}
                     </td>
                     <td class="top">

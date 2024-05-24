@@ -104,18 +104,20 @@ func (b *Benchmarks) Setup(bench *data.Benchmarks, _ *data.Warnings) error {
 		b.benchScores[handler] = scores
 	}
 	rows := make([][]string, 0, len(b.benchWeight))
-	for name, value := range b.benchWeight {
-		rows = append(rows, []string{string(name), strconv.Itoa(int(value))})
+	for _, weight := range benchWeightOrder {
+		if value, found := b.benchWeight[weight]; found {
+			rows = append(rows, []string{string(weight), strconv.Itoa(int(value))})
+		}
 	}
 	b.exhibits = []score.Exhibit{exhibit.NewTable("", []string{"Data", "Weight"}, rows)}
 	return nil
 }
 
 func (b *Benchmarks) AxisTitle() string {
-	return b.ColumnHeader() + " Score"
+	return b.Name() + " Score"
 }
 
-func (b *Benchmarks) ColumnHeader() string {
+func (b *Benchmarks) Name() string {
 	return "Benchmark"
 }
 
@@ -145,7 +147,7 @@ const (
 	Nanoseconds BenchValue = "Nanoseconds"
 )
 
-var _ = []BenchValue{
+var benchWeightOrder = []BenchValue{
 	Nanoseconds,
 	AllocBytes,
 	Allocations,

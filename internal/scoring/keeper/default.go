@@ -2,7 +2,6 @@ package keeper
 
 import (
 	_ "embed"
-	"html/template"
 
 	"github.com/madkins23/go-slog/infra/warning"
 	"github.com/madkins23/go-slog/internal/markdown"
@@ -14,18 +13,16 @@ const DefaultName = "Default"
 
 var (
 	//go:embed doc/default.md
-	defaultDocMD   string
-	defaultDocHTML template.HTML
+	defaultDocMD string
 )
 
 func setupDefault() error {
-	defaultDocHTML = markdown.TemplateHTML(defaultDocMD, false)
 	return score.AddKeeper(
 		score.NewKeeper(
 			DefaultName,
 			axis.NewWarnings(defaultWarningScoreWeight),
 			axis.NewBenchmarks(defaultBenchmarkScoreWeight),
-			defaultDocHTML))
+			markdown.TemplateHTML(defaultDocMD, false)))
 }
 
 // -----------------------------------------------------------------------------
