@@ -115,6 +115,12 @@ func (b *Benchmarks) Setup(bench *data.Benchmarks, _ *data.Warnings) error {
 		}
 	}
 	b.exhibits = []score.Exhibit{exhibit.NewTable("", []string{"Data", "Weight"}, rows)}
+	if b.includeTags != nil {
+		b.exhibits = append(b.exhibits, exhibit.NewList("Included", testTagsToStrings(b.includeTags)))
+	}
+	if b.excludeTags != nil {
+		b.exhibits = append(b.exhibits, exhibit.NewList("Excluded", testTagsToStrings(b.excludeTags)))
+	}
 	return nil
 }
 
@@ -164,6 +170,16 @@ func (b *Benchmarks) testTagMap(allTags []data.TestTag) map[data.TestTag]bool {
 		}
 	}
 	return ttm
+}
+
+// -----------------------------------------------------------------------------
+
+func testTagsToStrings(tags []data.TestTag) []string {
+	result := make([]string, len(tags))
+	for i, tag := range tags {
+		result[i] = string(tag)
+	}
+	return result
 }
 
 // -----------------------------------------------------------------------------
