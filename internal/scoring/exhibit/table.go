@@ -24,7 +24,6 @@ func setupTable() error {
 	return nil
 }
 
-// TODO: This should probably work.
 var _ score.Exhibit = &Table{}
 
 type Table struct {

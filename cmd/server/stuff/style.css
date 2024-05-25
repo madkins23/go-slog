@@ -113,6 +113,10 @@ table.data {
     margin-right: auto;
 }
 
+table.data caption {
+    font-weight: bold;
+}
+
 table.data td, th {
     margin: 5px;
     padding: 5px;

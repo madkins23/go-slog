@@ -1,0 +1,6 @@
+<table class="data">
+    {{ if .HasCaption }}<caption>{{ .Caption }}</caption>{{ end }}
+    {{ range .Items }}
+        <tr><td>{{ . }}</td></tr>
+    {{ end }}
+</table>
