@@ -27,7 +27,7 @@ var _ score.Axis = &Benchmarks{}
 
 type Benchmarks struct {
 	benchWeight map[BenchValue]uint
-	benchScores map[data.HandlerTag]*testScores
+	benchScores map[data.HandlerTag]score.Value
 	doc         template.HTML
 	exhibits    []score.Exhibit
 }
@@ -72,11 +72,9 @@ func (b *Benchmarks) Setup(bench *data.Benchmarks, _ *data.Warnings) error {
 	}
 
 	// Calculate scores using test ranges.
-	b.benchScores = make(map[data.HandlerTag]*testScores)
+	b.benchScores = make(map[data.HandlerTag]score.Value)
 	for _, handler := range bench.HandlerTags() {
-		scores := &testScores{
-			byTest: make(map[data.TestTag]score.Value),
-		}
+		scores := make(map[data.TestTag]score.Value)
 		for test, record := range bench.ByHandler[handler] {
 			rng := ranges[test]
 			var collect score.Value
@@ -93,16 +91,13 @@ func (b *Benchmarks) Setup(bench *data.Benchmarks, _ *data.Warnings) error {
 				collect += score.Value(float64(b.benchWeight[Nanoseconds]) * 100.0 * (rng.nanosHigh - record.NanosPerOp) / scoreRange)
 				count += b.benchWeight[Nanoseconds]
 			}
-			scores.byTest[test] = collect / score.Value(count)
+			scores[test] = collect / score.Value(count)
 		}
-		var count uint
-		for _, s := range scores.byTest {
-			count++
-			scores.Overall += s
+		var overall score.Value
+		for _, s := range scores {
+			overall += s
 		}
-		scores.Overall = scores.Overall.Round()
-		scores.Overall /= score.Value(count)
-		b.benchScores[handler] = scores
+		b.benchScores[handler] = overall.Round() / score.Value(len(scores))
 	}
 	rows := make([][]string, 0, len(b.benchWeight))
 	for _, weight := range benchWeightOrder {
@@ -131,7 +126,7 @@ func (b *Benchmarks) Exhibits() []score.Exhibit {
 }
 
 func (b *Benchmarks) HandlerScore(handler data.HandlerTag) score.Value {
-	return b.benchScores[handler].Overall
+	return b.benchScores[handler]
 }
 
 func (b *Benchmarks) Documentation() template.HTML {
@@ -161,15 +156,4 @@ type testRange struct {
 	allocLow, allocHigh uint64
 	bytesLow, bytesHigh uint64
 	nanosLow, nanosHigh float64
-}
-
-// testScores maps test tags to scores for a handler.
-// Deprecated: Get rid of testScores now that the per-test scores are not used.
-// TODO: Get rid of this!
-type testScores struct {
-	// Overall score for a handler.
-	Overall score.Value
-
-	// Scores by test for a handler.
-	byTest map[data.TestTag]score.Value
 }
