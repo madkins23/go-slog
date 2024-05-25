@@ -21,7 +21,7 @@ func setupSimple() error {
 		score.NewKeeper(
 			simpleName,
 			axis.NewWarnings(simpleWarningScoreWeight),
-			axis.NewBenchmarks(simpleBenchmarkScoreWeight),
+			axis.NewBenchmarks("", simpleBenchmarkScoreWeight, nil, nil),
 			markdown.TemplateHTML(simpleDocMD, false)))
 }
 

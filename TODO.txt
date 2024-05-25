@@ -1,7 +1,9 @@
 # TODO
 
 * Refactor scoring interface
-  - Add big/small chart
+  - Add to score.Keeper?
+    - Chart title
+    - Chart caption area
 * Discuss slog_madkins_replattr benchmark somewhere
 * Show complex definitions, log traces, and attribute groups on a web page
 * Use json.Expect and reflect.DeepEqual()/assert.Equal() more often
