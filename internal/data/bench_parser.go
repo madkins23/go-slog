@@ -21,16 +21,21 @@ var (
 // -----------------------------------------------------------------------------
 
 // ParseBenchmarkData parses benchmark data from the output of go -bench.
-// The data will be loaded from os.Stdin unless the -bench=<path> flag is set
+// If argument 'in' is nil then the data will be loaded from os.Stdin
+// unless the -bench=<path> command line flag is set
 // in which case the data will be loaded from the specified path.
+// This can be overridden by passing in a non-nil io.Reader,
+// in which that data will be parsed instead.
 func (b *Benchmarks) ParseBenchmarkData(in io.Reader) error {
 	var err error
-	if *benchFile != "" {
-		if in, err = os.Open(*benchFile); err != nil {
-			return fmt.Errorf("open --bench=%s: %s\n", *benchFile, err)
+	if in == nil {
+		if *benchFile != "" {
+			if in, err = os.Open(*benchFile); err != nil {
+				return fmt.Errorf("open --bench=%s: %s\n", *benchFile, err)
+			}
+		} else {
+			in = os.Stdin
 		}
-	} else {
-		in = os.Stdin
 	}
 	scanner := bufio.NewScanner(in)
 
