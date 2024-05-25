@@ -74,7 +74,7 @@ func (b *Benchmarks) Setup(bench *data.Benchmarks, _ *data.Warnings) error {
 	// Calculate scores using test ranges.
 	b.benchScores = make(map[data.HandlerTag]score.Value)
 	for _, handler := range bench.HandlerTags() {
-		scores := make(map[data.TestTag]score.Value)
+		var total score.Value
 		for test, record := range bench.ByHandler[handler] {
 			rng := ranges[test]
 			var collect score.Value
@@ -91,13 +91,9 @@ func (b *Benchmarks) Setup(bench *data.Benchmarks, _ *data.Warnings) error {
 				collect += score.Value(float64(b.benchWeight[Nanoseconds]) * 100.0 * (rng.nanosHigh - record.NanosPerOp) / scoreRange)
 				count += b.benchWeight[Nanoseconds]
 			}
-			scores[test] = collect / score.Value(count)
+			total += collect / score.Value(count)
 		}
-		var overall score.Value
-		for _, s := range scores {
-			overall += s
-		}
-		b.benchScores[handler] = overall.Round() / score.Value(len(scores))
+		b.benchScores[handler] = total.Round() / score.Value(len(bench.ByHandler[handler]))
 	}
 	rows := make([][]string, 0, len(b.benchWeight))
 	for _, weight := range benchWeightOrder {
