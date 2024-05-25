@@ -100,6 +100,7 @@ func (b *Benchmarks) Setup(bench *data.Benchmarks, _ *data.Warnings) error {
 			count++
 			scores.Overall += s
 		}
+		scores.Overall = scores.Overall.Round()
 		scores.Overall /= score.Value(count)
 		b.benchScores[handler] = scores
 	}
