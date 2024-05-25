@@ -21,7 +21,7 @@ func setupDefault() error {
 		score.NewKeeper(
 			DefaultName,
 			axis.NewWarnings(defaultWarningScoreWeight),
-			axis.NewBenchmarks(defaultBenchmarkScoreWeight),
+			axis.NewBenchmarks("", defaultBenchmarkScoreWeight, nil, nil),
 			markdown.TemplateHTML(defaultDocMD, false)))
 }
 

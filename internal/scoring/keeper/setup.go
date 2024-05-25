@@ -14,6 +14,9 @@ func Setup(bench *data.Benchmarks, warns *data.Warnings) error {
 	if err := setupSimple(); err != nil {
 		return fmt.Errorf("keeper.setupSimple: %w", err)
 	}
+	if err := setupSize(); err != nil {
+		return fmt.Errorf("keeper.setupSize: %w", err)
+	}
 	for _, tag := range score.Keepers() {
 		keeper := score.GetKeeper(tag)
 		if err := keeper.Setup(bench, warns); err != nil {
