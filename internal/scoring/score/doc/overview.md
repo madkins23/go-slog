@@ -4,4 +4,4 @@ but later work has focused on enabling multiple scoring algorithms.
 These can be found on the [Home page](/go-slog/) or
 in the `Scoring` drop-down in the upper right section of every page.
 
-The current algorithm is described below:
+The _current_ algorithm is described below:
