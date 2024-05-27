@@ -12,17 +12,36 @@ import (
 const DefaultName = "Default"
 
 var (
-	//go:embed doc/default.md
+	//go:embed doc/default-doc.md
 	defaultDocMD string
+
+	//go:embed doc/default-sum-x.md
+	defaultXSumMD string
+
+	//go:embed doc/default-sum-y.md
+	defaultYSumMD string
 )
+
+var defaultOptions = &score.KeeperOptions{
+	ChartTitle: "Speed vs. Functionality",
+	ChartCaption: `
+		Higher numbers are better on both axes. The "good" zone is the upper right and the "bad" zone is the lower left.<br/>
+		The top is fast, the bottom is slow. Left is more warnings, right is less.`,
+}
 
 func setupDefault() error {
 	return score.AddKeeper(
 		score.NewKeeper(
 			DefaultName,
-			axis.NewWarnings(defaultWarningScoreWeight),
-			axis.NewBenchmarks("", defaultBenchmarkScoreWeight, nil, nil),
-			markdown.TemplateHTML(defaultDocMD, false)))
+			axis.NewWarnings(
+				defaultWarningScoreWeight,
+				markdown.TemplateHTML(defaultXSumMD, false)),
+			axis.NewBenchmarks(
+				defaultBenchmarkScoreWeight,
+				markdown.TemplateHTML(defaultYSumMD, false),
+				nil),
+			markdown.TemplateHTML(defaultDocMD, false),
+			defaultOptions))
 }
 
 // -----------------------------------------------------------------------------

@@ -148,16 +148,16 @@ func scoreChart(k *score.Keeper, size *sizeData) chart.Chart {
 	for _, hdlr := range bench.HandlerTags() {
 		// Only make handler record if y value is within bounds (above size.low.y).
 		// TODO: Say what here?
-		if k.Y().HandlerScore(hdlr) >= size.low.y {
-			handlers[hdlr] = &handlerCoords{y: k.Y().HandlerScore(hdlr)}
+		if k.Y().ScoreFor(hdlr) >= size.low.y {
+			handlers[hdlr] = &handlerCoords{y: k.Y().ScoreFor(hdlr)}
 		}
 	}
 	for _, hdlr := range warns.HandlerTags() {
 		// Only add value if there is already a benchmark score.
 		if coords, found := handlers[hdlr]; found {
 			// Only add x-value if it is within bounds (above size.low.x).
-			if k.X().HandlerScore(hdlr) >= size.low.x {
-				coords.x = k.X().HandlerScore(hdlr)
+			if k.X().ScoreFor(hdlr) >= size.low.x {
+				coords.x = k.X().ScoreFor(hdlr)
 			} else {
 				// The x-value is out of bounds but y-value was in bounds,
 				// remove handler record previously added.
@@ -221,12 +221,12 @@ func scoreChart(k *score.Keeper, size *sizeData) chart.Chart {
 		Height: height,
 		Width:  width,
 		XAxis: chart.XAxis{
-			Name:  k.X().AxisTitle(),
+			Name:  k.X().Name(),
 			Range: &chart.ContinuousRange{Min: float64(size.low.x), Max: 100.0, Domain: 100.0},
 			Ticks: scoreChartTicks(float64(size.low.x)),
 		},
 		YAxis: chart.YAxis{
-			Name: k.Y().AxisTitle(),
+			Name: k.Y().Name(),
 			//AxisType: chart.YAxisSecondary, // cuts off axis labels on left
 			Range: &chart.ContinuousRange{Min: 0, Max: 100.0, Domain: 100.0},
 			Ticks: scoreChartTicks(float64(size.low.y)),

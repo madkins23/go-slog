@@ -12,17 +12,29 @@ import (
 const simpleName = "Simple"
 
 var (
-	//go:embed doc/simple.md
+	//go:embed doc/simple-doc.md
 	simpleDocMD string
+
+	//go:embed doc/simple-sum-x.md
+	simpleXSumMD string
+
+	//go:embed doc/simple-sum-y.md
+	simpleYSumMD string
 )
 
 func setupSimple() error {
 	return score.AddKeeper(
 		score.NewKeeper(
 			simpleName,
-			axis.NewWarnings(simpleWarningScoreWeight),
-			axis.NewBenchmarks("", simpleBenchmarkScoreWeight, nil, nil),
-			markdown.TemplateHTML(simpleDocMD, false)))
+			axis.NewWarnings(
+				simpleWarningScoreWeight,
+				markdown.TemplateHTML(simpleXSumMD, false)),
+			axis.NewBenchmarks(
+				simpleBenchmarkScoreWeight,
+				markdown.TemplateHTML(simpleYSumMD, false),
+				nil),
+			markdown.TemplateHTML(simpleDocMD, false),
+			defaultOptions))
 }
 
 // -----------------------------------------------------------------------------

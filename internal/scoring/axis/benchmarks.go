@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	//go:embed doc/benchmarks.md
+	//go:embed doc/bench-doc.md
 	benchDocMD   string
 	benchDocHTML template.HTML
 )
@@ -26,23 +26,28 @@ func setupBenchmarks() error {
 var _ score.Axis = &Benchmarks{}
 
 type Benchmarks struct {
-	name        string
-	benchWeight map[BenchValue]uint
 	benchScores map[data.HandlerTag]score.Value
-	doc         template.HTML
+	benchWeight map[BenchValue]uint
 	exhibits    []score.Exhibit
-	includeTags []data.TestTag
-	excludeTags []data.TestTag
+	summaryHTML template.HTML
+	BenchOptions
 }
 
-func NewBenchmarks(name string, benchWeight map[BenchValue]uint, includeTags, excludeTags []data.TestTag) score.Axis {
-	return &Benchmarks{
-		name:        name,
+type BenchOptions struct {
+	Name         string
+	IncludeTests []data.TestTag
+	ExcludeTests []data.TestTag
+}
+
+func NewBenchmarks(benchWeight map[BenchValue]uint, summaryHTML template.HTML, options *BenchOptions) score.Axis {
+	b := &Benchmarks{
 		benchWeight: benchWeight,
-		doc:         benchDocHTML,
-		includeTags: includeTags,
-		excludeTags: excludeTags,
+		summaryHTML: summaryHTML,
 	}
+	if options != nil {
+		b.BenchOptions = *options
+	}
+	return b
 }
 
 func (b *Benchmarks) Setup(bench *data.Benchmarks, _ *data.Warnings) error {
@@ -115,46 +120,42 @@ func (b *Benchmarks) Setup(bench *data.Benchmarks, _ *data.Warnings) error {
 		}
 	}
 	b.exhibits = []score.Exhibit{exhibit.NewTable("", []string{"Data", "Weight"}, rows)}
-	if b.includeTags != nil {
-		b.exhibits = append(b.exhibits, exhibit.NewList("Included", testTagsToStrings(b.includeTags)))
+	if b.IncludeTests != nil {
+		b.exhibits = append(b.exhibits, exhibit.NewList("Included", testTagsToStrings(b.IncludeTests)))
 	}
-	if b.excludeTags != nil {
-		b.exhibits = append(b.exhibits, exhibit.NewList("Excluded", testTagsToStrings(b.excludeTags)))
+	if b.ExcludeTests != nil {
+		b.exhibits = append(b.exhibits, exhibit.NewList("Excluded", testTagsToStrings(b.ExcludeTests)))
 	}
 	return nil
 }
 
-func (b *Benchmarks) AxisTitle() string {
-	return b.Name() + " Score"
-}
-
 func (b *Benchmarks) Name() string {
-	if b.name != "" {
-		return b.name
+	if b.BenchOptions.Name != "" {
+		return b.BenchOptions.Name
 	}
-	return "Benchmark"
+	return "Benchmarks"
 }
 
-func (b *Benchmarks) ExhibitCount() uint {
-	return uint(len(b.exhibits))
+func (b *Benchmarks) ScoreFor(handler data.HandlerTag) score.Value {
+	return b.benchScores[handler]
+}
+
+func (b *Benchmarks) Summary() template.HTML {
+	return b.summaryHTML
 }
 
 func (b *Benchmarks) Exhibits() []score.Exhibit {
 	return b.exhibits
 }
 
-func (b *Benchmarks) HandlerScore(handler data.HandlerTag) score.Value {
-	return b.benchScores[handler]
-}
-
 func (b *Benchmarks) Documentation() template.HTML {
-	return b.doc
+	return benchDocHTML
 }
 
 // -----------------------------------------------------------------------------
 
 func (b *Benchmarks) testTagMap(allTags []data.TestTag) map[data.TestTag]bool {
-	include := b.includeTags
+	include := b.IncludeTests
 	if include == nil {
 		include = allTags
 	}
@@ -164,8 +165,8 @@ func (b *Benchmarks) testTagMap(allTags []data.TestTag) map[data.TestTag]bool {
 			ttm[test] = true
 		}
 	}
-	if len(b.excludeTags) > 0 {
-		for _, test := range b.excludeTags {
+	if len(b.ExcludeTests) > 0 {
+		for _, test := range b.ExcludeTests {
 			ttm[test] = false
 		}
 	}
@@ -177,7 +178,7 @@ func (b *Benchmarks) testTagMap(allTags []data.TestTag) map[data.TestTag]bool {
 func testTagsToStrings(tags []data.TestTag) []string {
 	result := make([]string, len(tags))
 	for i, tag := range tags {
-		result[i] = string(tag)
+		result[i] = tag.Name()
 	}
 	return result
 }

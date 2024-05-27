@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	//go:embed doc/warnings.md
+	//go:embed doc/warn-doc.md
 	warnDocMD   string
 	warnDocHTML template.HTML
 )
@@ -28,14 +28,14 @@ var _ score.Axis = &Warnings{}
 type Warnings struct {
 	levelWeight map[warning.Level]uint
 	warnScores  map[data.HandlerTag]score.Value
-	doc         template.HTML
 	exhibits    []score.Exhibit
+	summaryHTML template.HTML
 }
 
-func NewWarnings(levelWeight map[warning.Level]uint) score.Axis {
+func NewWarnings(levelWeight map[warning.Level]uint, summaryHTML template.HTML) score.Axis {
 	return &Warnings{
 		levelWeight: levelWeight,
-		doc:         warnDocHTML,
+		summaryHTML: summaryHTML,
 	}
 }
 
@@ -80,29 +80,25 @@ func (w *Warnings) Setup(_ *data.Benchmarks, warns *data.Warnings) error {
 	return nil
 }
 
-func (w *Warnings) AxisTitle() string {
-	return w.Name() + " Score"
-}
-
 func (w *Warnings) Name() string {
 	return "Warnings"
 }
 
-func (w *Warnings) ExhibitCount() uint {
-	return uint(len(w.exhibits))
+func (w *Warnings) ScoreFor(handler data.HandlerTag) score.Value {
+	return w.warnScores[handler]
+}
+
+func (w *Warnings) Summary() template.HTML {
+	return w.summaryHTML
 }
 
 func (w *Warnings) Exhibits() []score.Exhibit {
 	if w.exhibits == nil {
-
+		// TODO: Need some exhibits!
 	}
 	return w.exhibits
 }
 
-func (w *Warnings) HandlerScore(handler data.HandlerTag) score.Value {
-	return w.warnScores[handler]
-}
-
 func (w *Warnings) Documentation() template.HTML {
-	return w.doc
+	return warnDocHTML
 }

@@ -142,6 +142,21 @@ table.debug td {
     background-color: lightslategray;
 }
 
+table.exhibit-table {
+}
+
+table.exhibit-table td:last-child {
+    font-family: monospace;
+    text-align: right;
+}
+
+table.exhibit-list {
+}
+
+table.exhibit-list td {
+    font-family: monospace;
+}
+
 table.handler-v-warning {
     border-collapse: collapse;
     margin-left: auto;

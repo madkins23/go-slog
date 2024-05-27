@@ -17,15 +17,35 @@ type Keeper struct {
 	tag  KeeperTag
 	x, y Axis
 	doc  template.HTML
+	KeeperOptions
 }
 
-func NewKeeper(tag KeeperTag, x, y Axis, doc template.HTML) *Keeper {
-	return &Keeper{
+type KeeperOptions struct {
+	ChartCaption, ChartTitle template.HTML
+}
+
+const (
+	noChartCaption = "No chart caption yet!!!"
+	noChartTitle   = "No chart title yet!!!"
+)
+
+func NewKeeper(tag KeeperTag, x, y Axis, doc template.HTML, options *KeeperOptions) *Keeper {
+	k := &Keeper{
 		tag: tag,
 		x:   x,
 		y:   y,
 		doc: doc,
 	}
+	if options != nil {
+		k.KeeperOptions = *options
+	}
+	if k.KeeperOptions.ChartCaption == "" {
+		k.KeeperOptions.ChartCaption = noChartCaption
+	}
+	if k.KeeperOptions.ChartTitle == "" {
+		k.KeeperOptions.ChartTitle = noChartTitle
+	}
+	return k
 }
 
 func (k *Keeper) Setup(bench *data.Benchmarks, warns *data.Warnings) error {
@@ -35,7 +55,6 @@ func (k *Keeper) Setup(bench *data.Benchmarks, warns *data.Warnings) error {
 	if err := k.y.Setup(bench, warns); err != nil {
 		return fmt.Errorf("initialize y: %w", err)
 	}
-	// TODO: Do something else?
 	return nil
 }
 
@@ -50,8 +69,16 @@ func (k *Keeper) Tag() KeeperTag {
 	return k.tag
 }
 
-// Documentation returns documentation related to the current scorekeeper object.
-func (k *Keeper) Documentation() template.HTML {
+func (k *Keeper) ChartCaption() template.HTML {
+	return k.KeeperOptions.ChartCaption
+}
+
+func (k *Keeper) ChartTitle() template.HTML {
+	return k.KeeperOptions.ChartTitle
+}
+
+// Summary returns documentation related to the current scorekeeper object.
+func (k *Keeper) Summary() template.HTML {
 	return k.doc
 }
 

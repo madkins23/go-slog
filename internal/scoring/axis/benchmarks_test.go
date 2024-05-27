@@ -28,10 +28,10 @@ var benchTxt string
 func TestSetup(t *testing.T) {
 	dbm := data.NewBenchmarks()
 	require.NoError(t, dbm.ParseBenchmarkData(bytes.NewBuffer([]byte(benchTxt))))
-	sbm := NewBenchmarks("", defaultBenchmarkScoreWeight, nil, nil)
+	sbm := NewBenchmarks(defaultBenchmarkScoreWeight, "<p>Test!!!</p>", nil)
 	require.NoError(t, sbm.Setup(dbm, nil))
 	for _, hdlr := range dbm.HandlerTags() {
-		assert.Equal(t, benchScores[hdlr], sbm.HandlerScore(hdlr), "Handler: "+hdlr)
+		assert.Equal(t, benchScores[hdlr], sbm.ScoreFor(hdlr), "Handler: "+hdlr)
 	}
 }
 

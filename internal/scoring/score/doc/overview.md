@@ -4,4 +4,7 @@ but later work has focused on enabling multiple scoring algorithms.
 These can be found on the [Home page](/go-slog/) or
 in the `Scoring` drop-down in the upper right section of every page.
 
-The _current_ algorithm is described below:
+Algorithms are implemented by ["scorekeepers"](https://pkg.go.dev/github.com/madkins23/go-slog/internal/scoring/score/keeper.go).
+Each scorekeeper is specified by the two axes shown in the scoring chart.
+
+The _current_ scorekeeper algorithm is described below:

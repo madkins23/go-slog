@@ -25,8 +25,8 @@
                             {{ range $tag := .Benchmarks.HandlerTags }}
                                 <tr>
                                     <td><a href="/go-slog/handler/{{ $tag }}.html">{{ $.Benchmarks.HandlerName $tag }}</a></td>
-                                    <td class="number">{{ $.FixValue ($.Keeper.X.HandlerScore $tag) }}</td>
-                                    <td class="number">{{ $.FixValue ($.Keeper.Y.HandlerScore $tag) }}</td>
+                                    <td class="number">{{ $.FixValue ($.Keeper.X.ScoreFor $tag) }}</td>
+                                    <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreFor $tag) }}</td>
                                 </tr>
                             {{ end }}
                         </table>
@@ -38,7 +38,7 @@
                     </td>
                 </tr>
                 <tr><td colspan=2><hr/></td></tr>
-                <tr class="title"><td colspan=2><h2>Performance Chart</h2></td></tr>
+                <tr class="title"><td colspan=2><h2>{{ .Keeper.ChartTitle }}</h2></td></tr>
                 <tr>
                     <td colspan=2>
                         <table class="charts">
@@ -68,10 +68,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <p class="center">
-                            Higher numbers are better on both axes.
-                            The "good" zone is the upper right and the "bad" zone is the lower left.
-                        </p>
+                        <p class="center">{{ .Keeper.ChartCaption }}</p>
                     </td>
                 </tr>
                 <tr><td colspan=2><hr/></td></tr>
@@ -87,14 +84,14 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <h3 class="doc"><span class="fixed">{{ .Keeper.Name }}</span> Score Keeper</h3>
-                        {{ .Keeper.Documentation }}
+                        <h3 class="doc">Score Keeper: <span class="fixed">{{ .Keeper.Name }}</span></h3>
+                        {{ .Keeper.Summary }}
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <h3 class="doc">{{ .Keeper.X.Name }}</h3>
-                        {{ .Keeper.X.Documentation }}
+                    <td class="top">
+                        <h3 class="doc">X Axis: <span class="fixed">{{ .Keeper.X.Name }}</span></h3>
+                        {{ .Keeper.X.Summary }}
                     </td>
                     <td class="top">
                         {{ range $exhibit := .Keeper.X.Exhibits }}
@@ -103,9 +100,9 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>
-                        <h3 class="doc">{{ .Keeper.Y.Name }}</h3>
-                        {{ .Keeper.Y.Documentation }}
+                    <td class="top">
+                        <h3 class="doc">Y Axis: <span class="fixed">{{ .Keeper.Y.Name }}</span></h3>
+                        {{ .Keeper.Y.Summary }}
                     </td>
                     <td class="top">
                         {{ range $exhibit := .Keeper.Y.Exhibits }}

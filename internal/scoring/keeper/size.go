@@ -12,17 +12,36 @@ import (
 const sizeName = "Size"
 
 var (
-	//go:embed doc/simple.md
+	//go:embed doc/size-doc.md
 	sizeDocMD string
+
+	//go:embed doc/size-sum-x.md
+	sizeXSumMD string
+
+	//go:embed doc/size-sum-y.md
+	sizeYSumMD string
 )
+
+var sizeOptions = &score.KeeperOptions{
+	ChartTitle: "Large vs Small",
+	ChartCaption: `
+		Higher numbers are better on both axes. The "good" zone is the upper right and the "bad" zone is the lower left.`,
+}
 
 func setupSize() error {
 	return score.AddKeeper(
 		score.NewKeeper(
 			sizeName,
-			axis.NewBenchmarks("Large", defaultBenchmarkScoreWeight, largeTests, nil),
-			axis.NewBenchmarks("Small", defaultBenchmarkScoreWeight, nil, largeTests),
-			markdown.TemplateHTML(sizeDocMD, false)))
+			axis.NewBenchmarks(
+				defaultBenchmarkScoreWeight,
+				markdown.TemplateHTML(sizeXSumMD, false),
+				&axis.BenchOptions{Name: "Large", IncludeTests: largeTests}),
+			axis.NewBenchmarks(
+				defaultBenchmarkScoreWeight,
+				markdown.TemplateHTML(sizeYSumMD, false),
+				&axis.BenchOptions{Name: "Small", ExcludeTests: largeTests}),
+			markdown.TemplateHTML(sizeDocMD, false),
+			sizeOptions))
 }
 
 // -----------------------------------------------------------------------------
