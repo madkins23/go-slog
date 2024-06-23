@@ -3,7 +3,7 @@ module github.com/madkins23/go-slog
 go 1.21.5
 
 require (
-	github.com/dmarkham/enumer v1.5.9
+	github.com/dmarkham/enumer v1.5.10
 	github.com/fatih/camelcase v1.0.0
 	github.com/gertd/go-pluralize v0.2.1
 	github.com/gin-gonic/gin v1.10.0
@@ -16,7 +16,7 @@ require (
 	github.com/rs/zerolog v1.31.0
 	github.com/samber/slog-logrus/v2 v2.3.0
 	github.com/samber/slog-zap/v2 v2.4.0
-	github.com/samber/slog-zerolog/v2 v2.3.0
+	github.com/samber/slog-zerolog/v2 v2.4.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.9.0
 	github.com/vicanso/go-charts/v2 v2.6.9
@@ -35,7 +35,7 @@ exclude github.com/rs/zerolog v1.33.0
 
 require (
 	github.com/blend/go-sdk v1.20220411.3 // indirect
-	github.com/bytedance/sonic v1.11.8 // indirect
+	github.com/bytedance/sonic v1.11.9 // indirect
 	github.com/bytedance/sonic/loader v0.1.1 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
 	github.com/cloudwego/iasm v0.2.0 // indirect
