@@ -87,52 +87,52 @@ L 612 272
 L 612 294
 L 559 294
 L 549 283
-Z" style="stroke-width:1;stroke:rgba(255,0,127,0.2);fill:rgba(255,255,255,1.0)"/><text x="564" y="289" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">Quarter</text><circle cx="617" cy="68" r="5" style="stroke-width:1;stroke:rgba(16,236,0,1.0);fill:rgba(16,236,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(16,236,0,1.0);fill:rgba(16,236,0,1.0)"/><circle cx="617" cy="201" r="5" style="stroke-width:1;stroke:rgba(44,192,0,1.0);fill:rgba(44,192,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(44,192,0,1.0);fill:rgba(44,192,0,1.0)"/><circle cx="617" cy="16" r="5" style="stroke-width:1;stroke:rgba(3,249,0,1.0);fill:rgba(3,249,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(3,249,0,1.0);fill:rgba(3,249,0,1.0)"/><circle cx="617" cy="49" r="5" style="stroke-width:1;stroke:rgba(11,242,0,1.0);fill:rgba(11,242,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(11,242,0,1.0);fill:rgba(11,242,0,1.0)"/><circle cx="291" cy="33" r="5" style="stroke-width:1;stroke:rgba(62,154,0,1.0);fill:rgba(62,154,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(62,154,0,1.0);fill:rgba(62,154,0,1.0)"/><circle cx="157" cy="136" r="5" style="stroke-width:1;stroke:rgba(109,110,0,1.0);fill:rgba(109,110,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(109,110,0,1.0);fill:rgba(109,110,0,1.0)"/><circle cx="22" cy="484" r="5" style="stroke-width:1;stroke:rgba(232,17,0,1.0);fill:rgba(232,17,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(232,17,0,1.0);fill:rgba(232,17,0,1.0)"/><circle cx="617" cy="89" r="5" style="stroke-width:1;stroke:rgba(21,229,0,1.0);fill:rgba(21,229,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(21,229,0,1.0);fill:rgba(21,229,0,1.0)"/><path  d="M 617 71
-L 627 60
-L 720 60
-L 720 82
-L 627 82
-L 617 71
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="632" y="77" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">madkins/flash</text><path  d="M 617 201
-L 627 190
-L 729 190
-L 729 212
-L 627 212
-L 617 201
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="632" y="207" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">madkins/sloggy</text><path  d="M 617 16
-L 627 5
-L 705 5
-L 705 27
-L 627 27
-L 617 16
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="632" y="22" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">phuslu/slog</text><path  d="M 617 46
-L 627 35
-L 745 35
-L 745 57
-L 627 57
-L 617 46
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="632" y="52" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">slog/JSONHandler</text><path  d="M 291 33
-L 301 22
-L 415 22
-L 415 44
-L 301 44
-L 291 33
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="306" y="39" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">svcrunner/jsonlog</text><path  d="M 157 136
+Z" style="stroke-width:1;stroke:rgba(255,0,127,0.2);fill:rgba(255,255,255,1.0)"/><text x="564" y="289" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">Quarter</text><circle cx="157" cy="136" r="5" style="stroke-width:1;stroke:rgba(109,110,0,1.0);fill:rgba(109,110,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(109,110,0,1.0);fill:rgba(109,110,0,1.0)"/><circle cx="617" cy="71" r="5" style="stroke-width:1;stroke:rgba(16,235,0,1.0);fill:rgba(16,235,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(16,235,0,1.0);fill:rgba(16,235,0,1.0)"/><circle cx="617" cy="203" r="5" style="stroke-width:1;stroke:rgba(44,191,0,1.0);fill:rgba(44,191,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(44,191,0,1.0);fill:rgba(44,191,0,1.0)"/><circle cx="617" cy="16" r="5" style="stroke-width:1;stroke:rgba(3,249,0,1.0);fill:rgba(3,249,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(3,249,0,1.0);fill:rgba(3,249,0,1.0)"/><circle cx="22" cy="491" r="5" style="stroke-width:1;stroke:rgba(234,15,0,1.0);fill:rgba(234,15,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(234,15,0,1.0);fill:rgba(234,15,0,1.0)"/><circle cx="617" cy="92" r="5" style="stroke-width:1;stroke:rgba(21,228,0,1.0);fill:rgba(21,228,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(21,228,0,1.0);fill:rgba(21,228,0,1.0)"/><circle cx="617" cy="50" r="5" style="stroke-width:1;stroke:rgba(12,242,0,1.0);fill:rgba(12,242,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(12,242,0,1.0);fill:rgba(12,242,0,1.0)"/><circle cx="291" cy="32" r="5" style="stroke-width:1;stroke:rgba(62,154,0,1.0);fill:rgba(62,154,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(62,154,0,1.0);fill:rgba(62,154,0,1.0)"/><path  d="M 157 136
 L 167 125
 L 298 125
 L 298 147
 L 167 147
 L 157 136
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="172" y="142" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">chanchal/zaphandler</text><path  d="M 22 484
-L 32 473
-L 140 473
-L 140 495
-L 32 495
-L 22 484
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="37" y="490" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">samber/slog-zap</text><path  d="M 617 97
-L 627 86
-L 733 86
-L 733 108
-L 627 108
-L 617 97
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="632" y="103" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">madkins/replattr</text></svg>
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="172" y="142" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">chanchal/zaphandler</text><path  d="M 617 72
+L 627 61
+L 720 61
+L 720 83
+L 627 83
+L 617 72
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="632" y="78" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">madkins/flash</text><path  d="M 617 203
+L 627 192
+L 729 192
+L 729 214
+L 627 214
+L 617 203
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="632" y="209" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">madkins/sloggy</text><path  d="M 617 16
+L 627 5
+L 705 5
+L 705 27
+L 627 27
+L 617 16
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="632" y="22" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">phuslu/slog</text><path  d="M 22 491
+L 32 480
+L 140 480
+L 140 502
+L 32 502
+L 22 491
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="37" y="497" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">samber/slog-zap</text><path  d="M 617 98
+L 627 87
+L 733 87
+L 733 109
+L 627 109
+L 617 98
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="632" y="104" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">madkins/replattr</text><path  d="M 617 48
+L 627 37
+L 745 37
+L 745 59
+L 627 59
+L 617 48
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="632" y="54" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">slog/JSONHandler</text><path  d="M 291 32
+L 301 21
+L 415 21
+L 415 43
+L 301 43
+L 291 32
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="306" y="38" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">svcrunner/jsonlog</text></svg>
