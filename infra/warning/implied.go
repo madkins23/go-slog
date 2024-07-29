@@ -37,6 +37,10 @@ var (
 		Until documented otherwise, an attribute with an empty field name (^""^) should be logged.
 		* [Empty field names are logged by the ^JSONHandler.Handle()^ implementation](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)`)
 
+	NoNilValue = NewWarning(LevelImplied, "NoNilValue", "Attributes with nil values are not logged", `
+		Until documented otherwise, an attribute with a nil value should be logged.
+		* [Fields with nil values are logged by the ^JSONHandler.Handle()^ implementation](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)`)
+
 	NoReplAttr = NewWarning(LevelImplied, "NoReplAttr", "HandlerOptions.ReplaceAttr not available", `
 		If [^HandlerOptions.ReplaceAttr^](https://pkg.go.dev/log/slog@master#HandlerOptions)
 		is provided it should be honored by the handler.
@@ -79,7 +83,7 @@ var (
 
 func init() {
 	// Always update this number when adding or removing Warning objects.
-	addTestCount(LevelImplied, 12)
+	addTestCount(LevelImplied, 13)
 }
 
 // Implied returns an array of all LevelImplied warnings.

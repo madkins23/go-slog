@@ -13,9 +13,10 @@ import (
 // TestVerifySamberLogrus runs tests for the samber/slog-logrus handler.
 func TestVerifySamberLogrus(t *testing.T) {
 	slogSuite := tests.NewSlogTestSuite(samberlogrus.Creator())
-	slogSuite.WarnOnly(warning.EmptyAttributes)
 	slogSuite.WarnOnly(warning.GroupInline)
 	slogSuite.WarnOnly(warning.LevelCase)
+	slogSuite.WarnOnly(warning.NoEmptyName)
+	slogSuite.WarnOnly(warning.NoNilValue)
 	slogSuite.WarnOnly(warning.NoReplAttrBasic)
 	slogSuite.WarnOnly(warning.Resolver)
 	slogSuite.WarnOnly(warning.SlogTest)

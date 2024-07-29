@@ -14,10 +14,11 @@ import (
 func TestVerifySamberZap(t *testing.T) {
 	slogSuite := tests.NewSlogTestSuite(samberzap.Creator())
 	slogSuite.WarnOnly(warning.DurationSeconds)
-	slogSuite.WarnOnly(warning.EmptyAttributes)
 	slogSuite.WarnOnly(warning.GroupDuration)
 	slogSuite.WarnOnly(warning.GroupInline)
 	slogSuite.WarnOnly(warning.LevelCase)
+	slogSuite.WarnOnly(warning.NoEmptyName)
+	slogSuite.WarnOnly(warning.NoNilValue)
 	slogSuite.WarnOnly(warning.NoReplAttrBasic)
 	slogSuite.WarnOnly(warning.Resolver)
 	slogSuite.WarnOnly(warning.SlogTest)

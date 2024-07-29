@@ -575,9 +575,16 @@ func (suite *SlogTestSuite) TestAttributeNil() {
 	logger := suite.Logger(infra.SimpleOptions())
 	logger.Info(message, "first", "one", "second", nil, "pi", math.Pi)
 	logMap := suite.logMap()
-	suite.checkFieldCount(6, logMap)
+	value, found := logMap["second"]
+	if !suite.HasWarning(warning.NoNilValue) {
+		suite.checkFieldCount(6, logMap)
+		suite.Assert().True(found)
+		suite.Assert().Nil(value)
+	} else {
+		suite.checkFieldCount(5, logMap)
+		suite.Assert().False(found)
+	}
 	suite.Assert().Equal("one", logMap["first"])
-	suite.Assert().Nil(logMap["second"])
 	suite.Assert().Equal(math.Pi, logMap["pi"])
 }
 
@@ -630,8 +637,15 @@ func (suite *SlogTestSuite) TestAttributeWithNil() {
 	logger := suite.Logger(infra.SimpleOptions())
 	logger.With("second", nil).Info(message, "first", "one", "pi", math.Pi)
 	logMap := suite.logMap()
-	suite.checkFieldCount(6, logMap)
+	value, found := logMap["second"]
+	if !suite.HasWarning(warning.NoNilValue) {
+		suite.checkFieldCount(6, logMap)
+		suite.Assert().True(found)
+		suite.Assert().Nil(value)
+	} else {
+		suite.checkFieldCount(5, logMap)
+		suite.Assert().False(found)
+	}
 	suite.Assert().Equal("one", logMap["first"])
-	suite.Assert().Nil(logMap["second"])
 	suite.Assert().Equal(math.Pi, logMap["pi"])
 }
