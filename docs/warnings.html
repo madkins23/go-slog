@@ -166,6 +166,8 @@
                       
                         <option value="Verify.WithGroupEmpty" >With Group Empty</option>
                       
+                        <option value="Verify.WithGroupInline" >With Group Inline</option>
+                      
                         <option value="Verify.ZeroPC" >Zero PC</option>
                       
                         <option value="Verify.ZeroTime" >Zero Time</option>
@@ -254,7 +256,7 @@
                           <tr>
                             <td>
                               <div class="list">
-                                Phsym Zerolog<br/>Samber Logrus<br/>Samber Zap<br/>Samber Zerolog<br/>
+                                Phsym Zerolog<br/>
                               </div>
                             </td>
                             <td>
@@ -358,7 +360,7 @@
                           <tr>
                             <td>
                               <div class="list">
-                                Phsym Zerolog<br/>Samber Logrus<br/>Samber Zap<br/>Samber Zerolog<br/>
+                                Phsym Zerolog<br/>
                               </div>
                             </td>
                             <td>
@@ -667,7 +669,7 @@ If the PC is zero then this field and its associated group should not be logged.
                           <tr>
                             <td>
                               <div class="list">
-                                Samber Logrus<br/>Samber Zap<br/>Samber Zerolog<br/>
+                                Samber Zap<br/>
                               </div>
                             </td>
                             <td>
@@ -1011,7 +1013,7 @@ Handlers should properly handle numeric levels and math applied to level values.
                           <tr>
                             <td>
                               <div class="list">
-                                Svcrunner Jsonlog<br/>
+                                Samber Logrus<br/>Samber Zap<br/>Samber Zerolog<br/>Svcrunner Jsonlog<br/>
                               </div>
                             </td>
                             <td>
@@ -1023,6 +1025,28 @@ Handlers should properly handle numeric levels and math applied to level values.
                         </table>
                       </td>
                     </tr>
+                  
+                
+                  
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">NoNilValue</td>
+                    <td colspan=1 class="extra">Attributes with nil values are not logged</td>
+                    <td class="center">
+                      
+                    </td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=3 class="description"><p>Until documented otherwise, an attribute with a nil value should be logged.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Fields with nil values are logged by the <code>JSONHandler.Handle()</code> implementation</a></li>
+</ul>
+</td>
+                    </tr>
+                  
                   
                 
                   
@@ -1913,6 +1937,8 @@ Warnings must be predefined to the <code>Manager</code> prior to use.</p>
                     <td colspan=1 class="extra">Unused Warnings(s)</td>
                     <td class="center">
                       
+                        <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('Unused-who')">Usage</button>
+                      
                     </td>
                   </tr>
                   
@@ -1925,6 +1951,34 @@ from a test suite as issues are fixed in the tested handler.</p>
 </td>
                     </tr>
                   
+                  
+                    <tr id="Unused-who" style="display:none;">
+                      <td colspan=2></td>
+                      <td colspan=3>
+                        <table class="warning-data">
+                          <tr>
+                            
+                              <th style="width:50%;">Handlers</th>
+                            
+                            
+                              <th style="width:50%;">Tests</th>
+                            
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="list">
+                                Samber Logrus<br/>Samber Zap<br/>Samber Zerolog<br/>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="list">
+                                Group Inline<br/>With Group Inline<br/>Zero PC<br/>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
                   
                 
               
@@ -2003,17 +2057,17 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
-                        <td class="count"><span>3</span></td>
+                        <td class="blank"></td>
                       
                     
                       
                       
-                        <td class="count"><span>3</span></td>
+                        <td class="blank"></td>
                       
                     
                       
                       
-                        <td class="count"><span>3</span></td>
+                        <td class="blank"></td>
                       
                     
                       
@@ -2125,17 +2179,17 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
-                        <td class="count"><span>1</span></td>
+                        <td class="blank"></td>
                       
                     
                       
                       
-                        <td class="count"><span>1</span></td>
+                        <td class="blank"></td>
                       
                     
                       
                       
-                        <td class="count"><span>1</span></td>
+                        <td class="blank"></td>
                       
                     
                       
@@ -2552,7 +2606,7 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
-                        <td class="count"><span>1</span></td>
+                        <td class="blank"></td>
                       
                     
                       
@@ -2562,7 +2616,7 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
-                        <td class="count"><span>1</span></td>
+                        <td class="blank"></td>
                       
                     
                       
@@ -2982,17 +3036,17 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
-                        <td class="blank"></td>
+                        <td class="count"><span>4</span></td>
                       
                     
                       
                       
-                        <td class="blank"></td>
+                        <td class="count"><span>4</span></td>
                       
                     
                       
                       
-                        <td class="blank"></td>
+                        <td class="count"><span>4</span></td>
                       
                     
                       
@@ -3003,6 +3057,67 @@ from a test suite as issues are fixed in the tested handler.</p>
                       
                       
                         <td class="count"><span>4</span></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td style="width:5%;"></td>
+                    <td class="name">NoNilValue</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
                       
                     
                   </tr>
@@ -4330,17 +4445,17 @@ from a test suite as issues are fixed in the tested handler.</p>
                     
                       
                       
-                        <td class="blank"></td>
+                        <td class="count"><span>3</span></td>
                       
                     
                       
                       
-                        <td class="blank"></td>
+                        <td class="count"><span>2</span></td>
                       
                     
                       
                       
-                        <td class="blank"></td>
+                        <td class="count"><span>3</span></td>
                       
                     
                       
@@ -4374,7 +4489,7 @@ from a test suite as issues are fixed in the tested handler.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-06-30 01:19:58 UTC</span>
+              <span class="fixed">2024-07-29 16:51:19 UTC</span>
             </div>
           </td>
           <td class="right">
