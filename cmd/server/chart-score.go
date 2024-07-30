@@ -143,7 +143,7 @@ var (
 // scoreChart generates a chart.Chart object which is a scatter plot of
 // handler benchmark vs. warning scores.
 func scoreChart(k *score.Keeper, size *sizeData) chart.Chart {
-	slog.Info("scoreChart", "keeper", k.Tag(), "size", size)
+	slog.Debug("scoreChart", "keeper", k.Tag(), "size", size)
 	handlers := make(map[data.HandlerTag]*handlerCoords)
 	for _, hdlr := range bench.HandlerTags() {
 		// Only make handler record if y value is within bounds (above size.low.y).
