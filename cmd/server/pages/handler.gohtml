@@ -40,7 +40,6 @@
           {{ end }}
         {{ end }}
         {{ if .Benchmarks.HasHandler .Handler }}
-          {{ $benchScore := .Scores.HandlerBenchScores .Handler }}
           <tr class="title">
             <td><h2>Benchmark Data</h2></td>
           </tr>
