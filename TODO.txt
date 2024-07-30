@@ -1,11 +1,8 @@
 # TODO
 
-* Refactor scoring interface [uncertain what's done and not done]
-  - Documentation
-    - bench and bench/tests doc files could have stuff from readme
-  - Vertical spacing in charts not working for all scorekeepers
-* Warning levels in top-level README.md
+* Vertical spacing in charts not working for all scorekeepers
 * Make -useWarnings default to true, fix various doc to match
+* Warning levels in top-level README.md
 * Discuss slog_madkins_replattr benchmark somewhere
 ? Workflow keep-alive
   https://github.com/liskin/gh-workflow-keepalive
