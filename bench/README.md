@@ -39,19 +39,21 @@ an [`infra.Creator`](https://pkg.go.dev/github.com/madkins23/go-slog/infra#Creat
 which is responsible for creating new `slog.Logger`
 (and optionally `slog.Handler`) objects for benchmarks.
 
-In this case an appropriate factory is created by the
-pre-existing `slogjson.Creator` function.
+In this case an appropriate factory is created by the pre-existing
+[`slogjson.Creator`](https://pkg.go.dev/github.com/madkins23/go-slog/creator/slogjson#Creator) function.
 In order to test a new handler instance
 (one that has not been tested in this repository)
 it is necessary to [create a new `infra.Creator`](https://pkg.go.dev/github.com/madkins23/go-slog/infra#readme-creator) for it.
 Existing examples can be found in the `creator` package.
 
-Finally, the suite is executed via its `Run` method.
+Finally, the suite is executed via the
+[`bench/tests.Run`](https://pkg.go.dev/github.com/madkins23/go-slog/bench/tests#Run) function,
+passing in the test suite object.
 
 In short:
 * The `BenchmarkXxx` function is executed by the [Go test harness](https://pkg.go.dev/testing).
 * The test function configures a `SlogBenchmarkSuite` using an `infra.Creator` factory object.
-* The test function executes the test suite via its `Run` method.
+* The test function executes the test suite `test.Run()`.
 
 More examples are available in this package.
 
@@ -142,9 +144,9 @@ Handler authors may want to do this when making changes to the code.
   whereas the provided `Creator` object within `go-slog` will point to released code.
 * Build a Benchmark test function
 * Run the benchmark tests
-* Process the data for consumption using
-  - tabular generates text output in tabular form
-  - server provides tabular and chart data plus warnings
+* Process the data for consumption:
+  - `tabular` generates text output in tabular form
+  - `server` provides tabular and chart data plus warnings
 
 ## Creators
 
@@ -159,7 +161,7 @@ the [`infra` package](https://pkg.go.dev/github.com/madkins23/go-slog/infra#read
   The initial creation of a `slog.Logger` object,
   which may include the use of `Handler.WithAttrs()` and/or `Handler.WithGroup()` calls,
   is not measured as it is generally an initialization step and (in theory) only called once,
-  whereas the logging calls are executed many times.
+  whereas the logging calls may be executed many times.
 * Text and console handlers don't have a consistent format.
   While it might be useful to test those handlers as well,
   the difficulty of parsing various output formats argues against it.[^1]

@@ -1,9 +1,13 @@
 # TODO
 
+* Refactor scoring interface [uncertain what's done and not done]
+  - Documentation
+    - bench and bench/tests doc files could have stuff from readme
+  - Vertical spacing in charts not working for all scorekeepers
+* Make -useWarnings default to true, fix various doc to match
+* Discuss slog_madkins_replattr benchmark somewhere
 ? Workflow keep-alive
   https://github.com/liskin/gh-workflow-keepalive
-* Flash edits are not really visible in documentation.
-* Discuss slog_madkins_replattr benchmark somewhere
 ? Show complex definitions, log traces, and attribute groups on a web page
 * Use json.Expect and reflect.DeepEqual()/assert.Equal() more often
 * Creator could have:

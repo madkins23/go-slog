@@ -66,9 +66,6 @@ import (
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
-// Server reads output from 'test -bench' and serves tables and charts via HTTP.
-// See scripts/server for usage example.
-
 type pageType string
 
 const port = 8080

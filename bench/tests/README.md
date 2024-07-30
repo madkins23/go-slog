@@ -37,7 +37,7 @@ Supporting files:
 
 Inherited:
 
-* [`internal/warning.Manager`](https://github.com/madkins23/go-slog/blob/main/internal/warning/manager.go)  
+* [`infra/warning.Manager`](https://pkg.go.dev/github.com/madkins23/go-slog/infra/warning#Manager)  
   The code that manages benchmark warnings is currently located in the `internal/test` package.
 
 ## Benchmark Tests
@@ -48,12 +48,12 @@ Benchmark tests are defined by the
 ## Test Execution
 
 The main part of the test harness is in the
-[`SlogBenchmarkSuite.Run`](https://github.com/madkins23/go-slog/blob/main/bench/tests/suite.go#:~:text=func%20Run) function.
+[`bench/tests.Run`](https://pkg.go.dev/github.com/madkins23/go-slog/bench/tests#Run) function.
 
 * For each method name beginning with `Benchmark`:
   * Execute the method, returning an pointer to an object of class `Benchmark`.
   * If the `Benchmark` has a handler function[^1]  
-    then the `Creator` must be able to provide a `Handler` (not all are),  
+    then the `Creator` must be able to provide a `Handler` (some can't),  
     or else a `Warning` is logged and the test is skipped.
   * If the `Benchmark` has a verify function to test the log output
     (or more accurately, to test the test itself) then:
