@@ -47,6 +47,14 @@ var (
 		The log level name is not what was expected (e.g. "WARNING" instead of "WARN").
 		This is different from the LevelCase warning which is from the right level name but the wrong character case.`)
 
+	NoEmptyName = NewWarning(LevelSuggested, "NoEmptyName", "Attributes with empty names are not logged", `
+		Until documented otherwise, an attribute with an empty field name (^""^) should be logged.
+		* [Empty field names are logged by the ^JSONHandler.Handle()^ implementation](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)`)
+
+	NoNilValue = NewWarning(LevelSuggested, "NoNilValue", "Attributes with nil values are not logged", `
+		Until documented otherwise, an attribute with a nil value should be logged.
+		* [Fields with nil values are logged by the ^JSONHandler.Handle()^ implementation](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)`)
+
 	StringAny = NewWarning(LevelSuggested, "StringAny", "map[string]any converted to strings in log records", `
 		The ^slog.JSONHandler^ converts ^Any^ objects that are ^map[string]any^ into JSON maps.
 		Some handlers convert these ^Any^ objects into strings instead of maps.`)
@@ -68,7 +76,7 @@ var (
 
 func init() {
 	// Always update this number when adding or removing Warning objects.
-	addTestCount(LevelSuggested, 11)
+	addTestCount(LevelSuggested, 13)
 }
 
 // Suggested returns an array of all LevelSuggested warnings.

@@ -65,7 +65,7 @@ func (l Level) String() string {
 var levelSummaries = map[Level]string{
 	LevelRequired:  `Warnings that can be justified from requirements in the [^slog.Handler^](https://pkg.go.dev/log/slog@master#Handler) documentation.`,
 	LevelImplied:   `Warnings that seem to be implied by documentation but can't be considered required.`,
-	LevelSuggested: `Warnings not mandated by any documentation or requirements.`,
+	LevelSuggested: `Warnings not mandated by any documentation or requirements. May be suggested due to the behavior of ^slog/JSONHandler^.`,
 	LevelAdmin:     `Warnings that provide information about the tests or conflicts with other warnings.`,
 }
 
