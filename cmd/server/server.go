@@ -34,6 +34,13 @@ taking input from temporary files created by scripts/verify and scripts/bench.
 	12:31:19 INF 200 |    5.012399ms |             ::1 | GET      "/go-slog/test/Verify$KeyCase.html"
 	12:31:19 INF 200 |      46.763µs |             ::1 | GET      "/go-slog/home.svg"
 	12:31:19 INF 200 |     169.933µs |             ::1 | GET      "/go-slog/style.css"
+
+# Notes
+
+The use of gin-gonic/gin is probably unnecessary aside from
+demonstrating the use of the [gin] package defined in this repository.
+
+[gin]: https://pkg.go.dev/github.com/madkins23/go-slog/gin
 */
 package main
 
