@@ -22,7 +22,7 @@
             <table class="choice">
               <tr>
                 <td class="right">Handlers</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -55,7 +55,7 @@
               </tr>
               <tr>
                 <td class="right">Bench Tests</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -90,7 +90,7 @@
               </tr>
               <tr>
                 <td class="right">Verify Tests</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -178,17 +178,32 @@
                 </td>
               </tr>
               <tr>
-                <td class="right"><label for="tag">Other Links</label></td>
+                <td class="right"><label for="tag">Scoring</label></td>
                 <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="scoreChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Default" >Default</option>
+                      
+                        <option value="Simple" >Simple</option>
+                      
+                        <option value="Size" >Size</option>
+                      
+                    </select>
+                  </form>
+                </td>
+                <td class="right"><label for="tag">Other</label></td>
+                <td class="right">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
                       <option value="index.html"    >Home</option>
-                      <option value="scores.html"   >Scores</option>
                       <option value="warnings.html" >Warnings</option>
                       <option value="guts.html"     >Guts</option>
                     </select>
                   </form>
+                </td>
               </tr>
             </table>
           </td>
@@ -228,10 +243,8 @@
           
         
         
-          
           <tr class="title">
             <td><h2>Benchmark Data</h2></td>
-            <td class="score">Score: <span>8.30</span></td>
           </tr>
           <tr>
             <td colspan=2>
@@ -243,127 +256,114 @@
                   <th>Allocs/Op</th>
                   <th>Bytes/Op</th>
                   <th>MB/Sec</th>
-                  <th>Score</th>
                 </tr>
                 
                   <tr>
                     <td class="fixed">Attributes</td>
-                    <td class="number">65,476</td>
-                    <td class="number">17,849.00</td>
+                    <td class="number">64,876</td>
+                    <td class="number">18,095.00</td>
                       <td class="number">98</td>
-                     <td class="number">9,946</td>
-                    <td class="number">22.86</td>
-                    <td class="number">0.00</td>
+                     <td class="number">9,945</td>
+                    <td class="number">22.55</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Big Group</td>
-                    <td class="number">1,935</td>
-                    <td class="number">575,050.00</td>
-                      <td class="number">6,668</td>
-                     <td class="number">429,674</td>
-                    <td class="number">30.25</td>
-                    <td class="number">2.05</td>
+                    <td class="number">1,752</td>
+                    <td class="number">705,570.00</td>
+                      <td class="number">8,108</td>
+                     <td class="number">521,108</td>
+                    <td class="number">29.99</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Disabled</td>
-                    <td class="number">321,874,776</td>
-                    <td class="number">3.74</td>
+                    <td class="number">319,505,719</td>
+                    <td class="number">3.77</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
                     <td class="number">0.00</td>
-                    <td class="number">97.54</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Key Values</td>
-                    <td class="number">67,705</td>
-                    <td class="number">17,848.00</td>
+                    <td class="number">65,521</td>
+                    <td class="number">17,980.00</td>
                       <td class="number">98</td>
-                     <td class="number">9,946</td>
-                    <td class="number">22.86</td>
-                    <td class="number">0.00</td>
+                     <td class="number">9,947</td>
+                    <td class="number">22.69</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Logging</td>
-                    <td class="number">2,818</td>
-                    <td class="number">412,004.00</td>
+                    <td class="number">2,876</td>
+                    <td class="number">407,919.00</td>
                       <td class="number">2,857</td>
-                     <td class="number">223,001</td>
-                    <td class="number">20.47</td>
-                    <td class="number">0.00</td>
+                     <td class="number">223,000</td>
+                    <td class="number">20.67</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple</td>
-                    <td class="number">367,594</td>
-                    <td class="number">3,158.00</td>
+                    <td class="number">365,629</td>
+                    <td class="number">3,177.00</td>
                       <td class="number">26</td>
                      <td class="number">1,481</td>
-                    <td class="number">23.12</td>
-                    <td class="number">0.00</td>
+                    <td class="number">22.98</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple Source</td>
-                    <td class="number">157,645</td>
-                    <td class="number">7,432.00</td>
+                    <td class="number">158,776</td>
+                    <td class="number">7,400.00</td>
                       <td class="number">63</td>
                      <td class="number">4,277</td>
-                    <td class="number">35.93</td>
-                    <td class="number">0.00</td>
+                    <td class="number">36.08</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Attributes</td>
-                    <td class="number">44,251</td>
-                    <td class="number">27,026.00</td>
+                    <td class="number">44,786</td>
+                    <td class="number">27,078.00</td>
                       <td class="number">140</td>
                      <td class="number">16,886</td>
-                    <td class="number">23.90</td>
-                    <td class="number">0.00</td>
+                    <td class="number">23.86</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Key Values</td>
-                    <td class="number">44,528</td>
-                    <td class="number">26,941.00</td>
+                    <td class="number">44,080</td>
+                    <td class="number">27,067.00</td>
                       <td class="number">140</td>
-                     <td class="number">16,882</td>
-                    <td class="number">23.98</td>
-                    <td class="number">0.00</td>
+                     <td class="number">16,888</td>
+                    <td class="number">23.87</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Simple</td>
-                    <td class="number">67,983</td>
-                    <td class="number">17,331.00</td>
+                    <td class="number">68,013</td>
+                    <td class="number">17,702.00</td>
                       <td class="number">93</td>
-                     <td class="number">8,841</td>
-                    <td class="number">25.39</td>
-                    <td class="number">0.00</td>
+                     <td class="number">8,840</td>
+                    <td class="number">24.86</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Attributes</td>
-                    <td class="number">52,845</td>
-                    <td class="number">21,160.00</td>
+                    <td class="number">56,812</td>
+                    <td class="number">21,316.00</td>
                       <td class="number">172</td>
-                     <td class="number">16,214</td>
-                    <td class="number">17.86</td>
-                    <td class="number">0.00</td>
+                     <td class="number">16,215</td>
+                    <td class="number">17.73</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Key Values</td>
-                    <td class="number">55,718</td>
-                    <td class="number">21,052.00</td>
+                    <td class="number">55,078</td>
+                    <td class="number">21,264.00</td>
                       <td class="number">172</td>
                      <td class="number">16,214</td>
-                    <td class="number">17.96</td>
-                    <td class="number">0.00</td>
+                    <td class="number">17.78</td>
                   </tr>
                  
               </table>
@@ -390,7 +390,6 @@
           <tr><td colspan=2><hr/></td></tr>
           <tr class="title">
             <td><h2 >Warnings</h2></td>
-            <td class="score">Score: <span>71.76</span></td>
           </tr>
           <tr>
             <td colspan=2>
@@ -470,7 +469,7 @@ This is a powerful feature which can customize logging of objects and
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -501,7 +500,7 @@ This is a powerful feature which can customize logging of objects and
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -529,7 +528,7 @@ This is a powerful feature which can customize logging of objects and
 	&#34;hidden&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -557,7 +556,7 @@ This is a powerful feature which can customize logging of objects and
 	&#34;hidden&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -671,7 +670,7 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
                           
                           Zero Time
                         </td>
-                        <td class="extra"><p>2024-07-29T16:51:09Z</p></td>
+                        <td class="extra"><p>2024-07-30T18:33:57Z</p></td>
                         <td class="button">
                           
                             <button type="button" title="Toggle Log Data" onclick="toggleTableRow('ZeroTime-Zero Time-log')">Log</button>
@@ -683,7 +682,7 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
                         <td colspan=3 class="logLine"><pre>{
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -695,157 +694,6 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
             <tr>
               <td colspan=5 class="level">Implied</td>
             </tr>
-            
-              <tr>
-                <td></td>
-                <td colspan=2 class="warning">
-                  NoEmptyName
-                </td>
-                <td class="extra">
-                  Attributes with empty names are not logged
-                </td>
-                <td class="center">
-                  
-                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('NoEmptyName-doc')">Doc</button>
-                  
-                </td>
-              </tr>
-              
-                <tr id="NoEmptyName-doc" style="display:none;">
-                  <td></td>
-                  <td colspan=4 class="description"><p>Until documented otherwise, an attribute with an empty field name (<code>&quot;&quot;</code>) should be logged.</p>
-
-<ul>
-<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Empty field names are logged by the <code>JSONHandler.Handle()</code> implementation</a></li>
-</ul>
-</td>
-                </tr>
-              
-              <tr class="instance">
-                <td colspan=2></td>
-                <td colspan=3>
-                  <table class="instance">
-                    
-                      
-                      
-                        
-                      
-                      <tr style="background-color:cornsilk;">
-                        <td colspan=2 class="name">
-                          
-                            Verify:
-                          
-                          Attribute Empty Name
-                        </td>
-                        <td class="extra"><p></p></td>
-                        <td class="button">
-                          
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('NoEmptyName-Attribute Empty Name-log')">Log</button>
-                          
-                        </td>
-                      </tr>
-                      <tr id="NoEmptyName-Attribute Empty Name-log" style="background-color:cornsilk;display:none;">
-                        <td class="indent"></td>
-                        <td colspan=3 class="logLine"><pre>{
-	&#34;first&#34;: &#34;one&#34;,
-	&#34;level&#34;: &#34;info&#34;,
-	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
-}</pre></td>
-                      </tr>
-                    
-                      
-                      
-                        
-                      
-                      <tr style="background-color:antiquewhite;">
-                        <td colspan=2 class="name">
-                          
-                            Verify:
-                          
-                          Attribute With Empty Name
-                        </td>
-                        <td class="extra"><p></p></td>
-                        <td class="button">
-                          
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('NoEmptyName-Attribute With Empty Name-log')">Log</button>
-                          
-                        </td>
-                      </tr>
-                      <tr id="NoEmptyName-Attribute With Empty Name-log" style="background-color:antiquewhite;display:none;">
-                        <td class="indent"></td>
-                        <td colspan=3 class="logLine"><pre>{
-	&#34;first&#34;: &#34;one&#34;,
-	&#34;level&#34;: &#34;info&#34;,
-	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
-}</pre></td>
-                      </tr>
-                    
-                      
-                      
-                        
-                      
-                      <tr style="background-color:cornsilk;">
-                        <td colspan=2 class="name">
-                          
-                            Verify:
-                          
-                          Attributes Not Empty
-                        </td>
-                        <td class="extra"><p></p></td>
-                        <td class="button">
-                          
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('NoEmptyName-Attributes Not Empty-log')">Log</button>
-                          
-                        </td>
-                      </tr>
-                      <tr id="NoEmptyName-Attributes Not Empty-log" style="background-color:cornsilk;display:none;">
-                        <td class="indent"></td>
-                        <td colspan=3 class="logLine"><pre>{
-	&#34;first&#34;: &#34;one&#34;,
-	&#34;level&#34;: &#34;info&#34;,
-	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
-}</pre></td>
-                      </tr>
-                    
-                      
-                      
-                        
-                      
-                      <tr style="background-color:antiquewhite;">
-                        <td colspan=2 class="name">
-                          
-                            Verify:
-                          
-                          Attributes With Not Empty
-                        </td>
-                        <td class="extra"><p></p></td>
-                        <td class="button">
-                          
-                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('NoEmptyName-Attributes With Not Empty-log')">Log</button>
-                          
-                        </td>
-                      </tr>
-                      <tr id="NoEmptyName-Attributes With Not Empty-log" style="background-color:antiquewhite;display:none;">
-                        <td class="indent"></td>
-                        <td colspan=3 class="logLine"><pre>{
-	&#34;first&#34;: &#34;one&#34;,
-	&#34;level&#34;: &#34;info&#34;,
-	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;pi&#34;: 3.141592653589793,
-	&#34;second&#34;: 2,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
-}</pre></td>
-                      </tr>
-                     
-                  </table>
-                </td>
-              </tr>
             
               <tr>
                 <td></td>
@@ -958,7 +806,7 @@ When that is the case it is better to use this (<code>WarnNoReplAttrBasic</code>
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -1308,6 +1156,157 @@ This is different from the LevelCase warning which is from the right level name 
                   </table>
                 </td>
               </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  NoEmptyName
+                </td>
+                <td class="extra">
+                  Attributes with empty names are not logged
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('NoEmptyName-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="NoEmptyName-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Until documented otherwise, an attribute with an empty field name (<code>&quot;&quot;</code>) and a non-nil value should be logged.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Empty field names are logged by the <code>JSONHandler.Handle()</code> implementation</a></li>
+</ul>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Attribute Empty Name
+                        </td>
+                        <td class="extra"><p></p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('NoEmptyName-Attribute Empty Name-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="NoEmptyName-Attribute Empty Name-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;first&#34;: &#34;one&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;pi&#34;: 3.141592653589793,
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Attribute With Empty Name
+                        </td>
+                        <td class="extra"><p></p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('NoEmptyName-Attribute With Empty Name-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="NoEmptyName-Attribute With Empty Name-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;first&#34;: &#34;one&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;pi&#34;: 3.141592653589793,
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Attributes Not Empty
+                        </td>
+                        <td class="extra"><p></p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('NoEmptyName-Attributes Not Empty-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="NoEmptyName-Attributes Not Empty-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;first&#34;: &#34;one&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;pi&#34;: 3.141592653589793,
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
+}</pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Attributes With Not Empty
+                        </td>
+                        <td class="extra"><p></p></td>
+                        <td class="button">
+                          
+                            <button type="button" title="Toggle Log Data" onclick="toggleTableRow('NoEmptyName-Attributes With Not Empty-log')">Log</button>
+                          
+                        </td>
+                      </tr>
+                      <tr id="NoEmptyName-Attributes With Not Empty-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre>{
+	&#34;first&#34;: &#34;one&#34;,
+	&#34;level&#34;: &#34;info&#34;,
+	&#34;msg&#34;: &#34;This is a message&#34;,
+	&#34;pi&#34;: 3.141592653589793,
+	&#34;second&#34;: 2,
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
+}</pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
              
           
             <tr>
@@ -1430,7 +1429,7 @@ from a test suite as issues are fixed in the tested handler.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-07-29 16:51:19 UTC</span>
+              <span class="fixed">2024-07-30 18:34:08 UTC</span>
             </div>
           </td>
           <td class="right">

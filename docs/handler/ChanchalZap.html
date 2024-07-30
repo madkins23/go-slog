@@ -22,7 +22,7 @@
             <table class="choice">
               <tr>
                 <td class="right">Handlers</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -55,7 +55,7 @@
               </tr>
               <tr>
                 <td class="right">Bench Tests</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -90,7 +90,7 @@
               </tr>
               <tr>
                 <td class="right">Verify Tests</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -178,17 +178,32 @@
                 </td>
               </tr>
               <tr>
-                <td class="right"><label for="tag">Other Links</label></td>
+                <td class="right"><label for="tag">Scoring</label></td>
                 <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="scoreChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Default" >Default</option>
+                      
+                        <option value="Simple" >Simple</option>
+                      
+                        <option value="Size" >Size</option>
+                      
+                    </select>
+                  </form>
+                </td>
+                <td class="right"><label for="tag">Other</label></td>
+                <td class="right">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
                       <option value="index.html"    >Home</option>
-                      <option value="scores.html"   >Scores</option>
                       <option value="warnings.html" >Warnings</option>
                       <option value="guts.html"     >Guts</option>
                     </select>
                   </form>
+                </td>
               </tr>
             </table>
           </td>
@@ -228,10 +243,8 @@
           
         
         
-          
           <tr class="title">
             <td><h2>Benchmark Data</h2></td>
-            <td class="score">Score: <span>88.82</span></td>
           </tr>
           <tr>
             <td colspan=2>
@@ -243,127 +256,114 @@
                   <th>Allocs/Op</th>
                   <th>Bytes/Op</th>
                   <th>MB/Sec</th>
-                  <th>Score</th>
                 </tr>
                 
                   <tr>
                     <td class="fixed">Attributes</td>
-                    <td class="number">808,731</td>
-                    <td class="number">1,430.00</td>
+                    <td class="number">804,831</td>
+                    <td class="number">1,434.00</td>
                       <td class="number">5</td>
                      <td class="number">416</td>
-                    <td class="number">271.94</td>
-                    <td class="number">97.10</td>
+                    <td class="number">271.20</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Big Group</td>
-                    <td class="number">26,914</td>
-                    <td class="number">40,028.00</td>
-                      <td class="number">355</td>
-                     <td class="number">8,593</td>
-                    <td class="number">434.53</td>
-                    <td class="number">96.48</td>
+                    <td class="number">25,143</td>
+                    <td class="number">46,277.00</td>
+                      <td class="number">432</td>
+                     <td class="number">10,452</td>
+                    <td class="number">457.31</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Disabled</td>
-                    <td class="number">41,268,325</td>
-                    <td class="number">29.17</td>
+                    <td class="number">41,069,911</td>
+                    <td class="number">29.40</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">0.00</td>
                     <td class="number">0.00</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Key Values</td>
-                    <td class="number">787,796</td>
-                    <td class="number">1,507.00</td>
+                    <td class="number">783,072</td>
+                    <td class="number">1,501.00</td>
                       <td class="number">5</td>
                      <td class="number">417</td>
-                    <td class="number">258.15</td>
-                    <td class="number">96.96</td>
+                    <td class="number">259.18</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Logging</td>
-                    <td class="number">38,868</td>
-                    <td class="number">31,196.00</td>
+                    <td class="number">37,584</td>
+                    <td class="number">31,680.00</td>
                       <td class="number">51</td>
-                     <td class="number">1,635</td>
-                    <td class="number">265.81</td>
-                    <td class="number">97.42</td>
+                     <td class="number">1,636</td>
+                    <td class="number">261.75</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple</td>
-                    <td class="number">3,098,581</td>
-                    <td class="number">409.60</td>
+                    <td class="number">3,066,130</td>
+                    <td class="number">429.40</td>
                       <td class="number">1</td>
                      <td class="number">32</td>
-                    <td class="number">178.22</td>
-                    <td class="number">94.42</td>
+                    <td class="number">170.02</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple Source</td>
-                    <td class="number">1,962,729</td>
-                    <td class="number">687.50</td>
+                    <td class="number">1,948,393</td>
+                    <td class="number">616.50</td>
                       <td class="number">3</td>
                      <td class="number">280</td>
-                    <td class="number">155.64</td>
-                    <td class="number">93.67</td>
+                    <td class="number">173.56</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Attributes</td>
-                    <td class="number">798,732</td>
-                    <td class="number">1,460.00</td>
+                    <td class="number">778,750</td>
+                    <td class="number">1,467.00</td>
                       <td class="number">5</td>
-                     <td class="number">417</td>
-                    <td class="number">504.86</td>
-                    <td class="number">98.22</td>
+                     <td class="number">416</td>
+                    <td class="number">502.39</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Key Values</td>
-                    <td class="number">778,987</td>
-                    <td class="number">1,546.00</td>
+                    <td class="number">781,802</td>
+                    <td class="number">1,537.00</td>
                       <td class="number">5</td>
                      <td class="number">417</td>
-                    <td class="number">476.73</td>
-                    <td class="number">97.98</td>
+                    <td class="number">479.44</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Simple</td>
-                    <td class="number">3,085,041</td>
-                    <td class="number">392.80</td>
+                    <td class="number">2,949,717</td>
+                    <td class="number">399.20</td>
                       <td class="number">1</td>
                      <td class="number">32</td>
-                    <td class="number">1,071.79</td>
-                    <td class="number">99.03</td>
+                    <td class="number">1,054.72</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Attributes</td>
-                    <td class="number">796,040</td>
-                    <td class="number">1,513.00</td>
+                    <td class="number">798,366</td>
+                    <td class="number">1,522.00</td>
                       <td class="number">7</td>
                      <td class="number">505</td>
-                    <td class="number">266.27</td>
-                    <td class="number">97.34</td>
+                    <td class="number">264.70</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Key Values</td>
-                    <td class="number">761,361</td>
-                    <td class="number">1,569.00</td>
+                    <td class="number">707,029</td>
+                    <td class="number">1,572.00</td>
                       <td class="number">7</td>
                      <td class="number">505</td>
-                    <td class="number">256.80</td>
-                    <td class="number">97.26</td>
+                    <td class="number">256.41</td>
                   </tr>
                  
               </table>
@@ -390,7 +390,6 @@
           <tr><td colspan=2><hr/></td></tr>
           <tr class="title">
             <td><h2 >Warnings</h2></td>
-            <td class="score">Score: <span>61.83</span></td>
           </tr>
           <tr>
             <td colspan=2>
@@ -524,7 +523,7 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
 	&#34;group1&#34;: {},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -972,7 +971,7 @@ When that is the case it is better to use this (<code>WarnNoReplAttrBasic</code>
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;phi&#34;: 1.618033988749895,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -1058,7 +1057,7 @@ to the <code>File</code> and <code>Line</code> fields of the source data group a
 	&#34;caller&#34;: &#34;tests/benchmarks.go:96&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-07-29T16:48:03Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:30:52Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -1086,7 +1085,7 @@ to the <code>File</code> and <code>Line</code> fields of the source data group a
 	&#34;caller&#34;: &#34;reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1153,7 +1152,7 @@ This warning represents situations where the attributes are attached to the wron
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;second&#34;: 2,
 	&#34;third&#34;: &#34;3&#34;,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -1184,7 +1183,7 @@ This warning represents situations where the attributes are attached to the wron
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;second&#34;: 2,
 	&#34;third&#34;: &#34;3&#34;,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1384,7 +1383,7 @@ Some handlers write <code>&lt;attrs&gt;</code> to the top level of the log recor
 	&#34;key&#34;: &#34;value&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;msg&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1677,7 +1676,7 @@ may have fixed this as well in Go 1.21.</p>
                           
                           Log Attributes
                         </td>
-                        <td class="extra"><p>2024-07-29T16:51:09Z</p></td>
+                        <td class="extra"><p>2024-07-30T18:33:57Z</p></td>
                         <td class="button">
                           
                         </td>
@@ -1711,7 +1710,7 @@ may have fixed this as well in Go 1.21.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-07-29 16:51:19 UTC</span>
+              <span class="fixed">2024-07-30 18:34:08 UTC</span>
             </div>
           </td>
           <td class="right">

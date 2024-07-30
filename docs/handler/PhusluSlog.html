@@ -22,7 +22,7 @@
             <table class="choice">
               <tr>
                 <td class="right">Handlers</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -55,7 +55,7 @@
               </tr>
               <tr>
                 <td class="right">Bench Tests</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -90,7 +90,7 @@
               </tr>
               <tr>
                 <td class="right">Verify Tests</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -178,17 +178,32 @@
                 </td>
               </tr>
               <tr>
-                <td class="right"><label for="tag">Other Links</label></td>
+                <td class="right"><label for="tag">Scoring</label></td>
                 <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="scoreChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Default" >Default</option>
+                      
+                        <option value="Simple" >Simple</option>
+                      
+                        <option value="Size" >Size</option>
+                      
+                    </select>
+                  </form>
+                </td>
+                <td class="right"><label for="tag">Other</label></td>
+                <td class="right">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
                       <option value="index.html"    >Home</option>
-                      <option value="scores.html"   >Scores</option>
                       <option value="warnings.html" >Warnings</option>
                       <option value="guts.html"     >Guts</option>
                     </select>
                   </form>
+                </td>
               </tr>
             </table>
           </td>
@@ -226,10 +241,8 @@
           
         
         
-          
           <tr class="title">
             <td><h2>Benchmark Data</h2></td>
-            <td class="score">Score: <span>100.00</span></td>
           </tr>
           <tr>
             <td colspan=2>
@@ -241,127 +254,114 @@
                   <th>Allocs/Op</th>
                   <th>Bytes/Op</th>
                   <th>MB/Sec</th>
-                  <th>Score</th>
                 </tr>
                 
                   <tr>
                     <td class="fixed">Attributes</td>
-                    <td class="number">1,375,083</td>
-                    <td class="number">885.10</td>
+                    <td class="number">1,360,938</td>
+                    <td class="number">898.00</td>
                       <td class="number">1</td>
                      <td class="number">240</td>
-                    <td class="number">489.19</td>
-                    <td class="number">100.00</td>
+                    <td class="number">482.17</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Big Group</td>
-                    <td class="number">68,582</td>
-                    <td class="number">17,626.00</td>
+                    <td class="number">55,635</td>
+                    <td class="number">21,408.00</td>
                       <td class="number">1</td>
-                     <td class="number">49</td>
-                    <td class="number">987.32</td>
-                    <td class="number">100.00</td>
+                     <td class="number">48</td>
+                    <td class="number">989.04</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Disabled</td>
-                    <td class="number">386,166,264</td>
-                    <td class="number">3.10</td>
+                    <td class="number">381,661,531</td>
+                    <td class="number">3.16</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
                     <td class="number">0.00</td>
-                    <td class="number">100.00</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Key Values</td>
-                    <td class="number">1,319,204</td>
-                    <td class="number">917.00</td>
+                    <td class="number">1,296,558</td>
+                    <td class="number">926.60</td>
                       <td class="number">1</td>
                      <td class="number">240</td>
-                    <td class="number">472.18</td>
-                    <td class="number">100.00</td>
+                    <td class="number">467.28</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Logging</td>
-                    <td class="number">82,366</td>
-                    <td class="number">15,050.00</td>
+                    <td class="number">84,333</td>
+                    <td class="number">14,318.00</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">584.86</td>
-                    <td class="number">100.00</td>
+                    <td class="number">614.77</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple</td>
-                    <td class="number">7,531,484</td>
-                    <td class="number">156.40</td>
+                    <td class="number">7,653,670</td>
+                    <td class="number">155.80</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">530.76</td>
-                    <td class="number">100.00</td>
+                    <td class="number">532.86</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple Source</td>
-                    <td class="number">6,019,352</td>
-                    <td class="number">202.60</td>
+                    <td class="number">6,036,615</td>
+                    <td class="number">201.60</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">1,367.38</td>
-                    <td class="number">100.00</td>
+                    <td class="number">1,373.88</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Attributes</td>
-                    <td class="number">1,363,036</td>
-                    <td class="number">970.90</td>
+                    <td class="number">1,321,258</td>
+                    <td class="number">891.10</td>
                       <td class="number">1</td>
                      <td class="number">240</td>
-                    <td class="number">839.45</td>
-                    <td class="number">99.99</td>
+                    <td class="number">914.60</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Key Values</td>
-                    <td class="number">1,266,498</td>
-                    <td class="number">929.40</td>
+                    <td class="number">1,260,621</td>
+                    <td class="number">975.80</td>
                       <td class="number">1</td>
                      <td class="number">240</td>
-                    <td class="number">876.89</td>
-                    <td class="number">100.00</td>
+                    <td class="number">835.21</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Simple</td>
-                    <td class="number">7,298,492</td>
-                    <td class="number">163.40</td>
+                    <td class="number">7,411,150</td>
+                    <td class="number">161.00</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">2,845.39</td>
-                    <td class="number">100.00</td>
+                    <td class="number">2,888.39</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Attributes</td>
-                    <td class="number">1,353,984</td>
-                    <td class="number">896.10</td>
+                    <td class="number">1,323,386</td>
+                    <td class="number">902.90</td>
                       <td class="number">1</td>
                      <td class="number">240</td>
-                    <td class="number">498.81</td>
-                    <td class="number">100.00</td>
+                    <td class="number">495.10</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Key Values</td>
-                    <td class="number">1,293,409</td>
-                    <td class="number">925.90</td>
+                    <td class="number">1,287,580</td>
+                    <td class="number">941.80</td>
                       <td class="number">1</td>
                      <td class="number">240</td>
-                    <td class="number">482.78</td>
-                    <td class="number">100.00</td>
+                    <td class="number">474.62</td>
                   </tr>
                  
               </table>
@@ -388,7 +388,6 @@
           <tr><td colspan=2><hr/></td></tr>
           <tr class="title">
             <td><h2 >Warnings</h2></td>
-            <td class="score">Score: <span>98.47</span></td>
           </tr>
           <tr>
             <td colspan=2>
@@ -507,7 +506,7 @@ is currently expected in February 2024).</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-07-29 16:51:19 UTC</span>
+              <span class="fixed">2024-07-30 18:34:08 UTC</span>
             </div>
           </td>
           <td class="right">

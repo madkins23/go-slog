@@ -25,7 +25,7 @@
             <table class="choice">
               <tr>
                 <td class="right">Handlers</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -58,7 +58,7 @@
               </tr>
               <tr>
                 <td class="right">Bench Tests</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -93,7 +93,7 @@
               </tr>
               <tr>
                 <td class="right">Verify Tests</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -181,17 +181,32 @@
                 </td>
               </tr>
               <tr>
-                <td class="right"><label for="tag">Other Links</label></td>
+                <td class="right"><label for="tag">Scoring</label></td>
                 <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="scoreChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Default" >Default</option>
+                      
+                        <option value="Simple" >Simple</option>
+                      
+                        <option value="Size" >Size</option>
+                      
+                    </select>
+                  </form>
+                </td>
+                <td class="right"><label for="tag">Other</label></td>
+                <td class="right">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
                       <option value="index.html"    >Home</option>
-                      <option value="scores.html"   >Scores</option>
                       <option value="warnings.html" >Warnings</option>
                       <option value="guts.html"     >Guts</option>
                     </select>
                   </form>
+                </td>
               </tr>
             </table>
           </td>
@@ -220,7 +235,7 @@
                           
           
             <tr>
-              <td colspan=5 class="level">Implied</td>
+              <td colspan=5 class="level">Suggested</td>
             </tr>
             
               <tr>
@@ -240,7 +255,7 @@
               
                 <tr id="NoEmptyName-doc" style="display:none;">
                   <td></td>
-                  <td colspan=4 class="description"><p>Until documented otherwise, an attribute with an empty field name (<code>&quot;&quot;</code>) should be logged.</p>
+                  <td colspan=4 class="description"><p>Until documented otherwise, an attribute with an empty field name (<code>&quot;&quot;</code>) and a non-nil value should be logged.</p>
 
 <ul>
 <li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Empty field names are logged by the <code>JSONHandler.Handle()</code> implementation</a></li>
@@ -277,7 +292,7 @@
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
 	&#34;second&#34;: 2,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -305,7 +320,7 @@
 	&#34;msg&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
 	&#34;second&#34;: 2,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -333,7 +348,7 @@
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
 	&#34;second&#34;: 2,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -361,7 +376,7 @@
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
 	&#34;second&#34;: 2,
-	&#34;time&#34;: &#34;2024-07-29T16:51:09.686047059Z&#34;
+	&#34;time&#34;: &#34;2024-07-30T18:33:57.877928476Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -390,7 +405,7 @@
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-07-29 16:51:19 UTC</span>
+              <span class="fixed">2024-07-30 18:34:08 UTC</span>
             </div>
           </td>
           <td class="right">

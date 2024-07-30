@@ -21,7 +21,7 @@
             <table class="choice">
               <tr>
                 <td class="right">Handlers</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -54,7 +54,7 @@
               </tr>
               <tr>
                 <td class="right">Bench Tests</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -89,7 +89,7 @@
               </tr>
               <tr>
                 <td class="right">Verify Tests</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -177,17 +177,32 @@
                 </td>
               </tr>
               <tr>
-                <td class="right"><label for="tag">Other Links</label></td>
+                <td class="right"><label for="tag">Scoring</label></td>
                 <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="scoreChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Default" >Default</option>
+                      
+                        <option value="Simple" >Simple</option>
+                      
+                        <option value="Size" >Size</option>
+                      
+                    </select>
+                  </form>
+                </td>
+                <td class="right"><label for="tag">Other</label></td>
+                <td class="right">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
                       <option value="index.html"    >Home</option>
-                      <option value="scores.html"   >Scores</option>
                       <option value="warnings.html" selected>Warnings</option>
                       <option value="guts.html"     >Guts</option>
                     </select>
                   </form>
+                </td>
               </tr>
             </table>
           </td>
@@ -978,80 +993,6 @@ Handlers should properly handle numeric levels and math applied to level values.
                   
                   <tr>
                     <td></td>
-                    <td colspan=2 class="warning">NoEmptyName</td>
-                    <td colspan=1 class="extra">Attributes with empty names are not logged</td>
-                    <td class="center">
-                      
-                        <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('NoEmptyName-who')">Usage</button>
-                      
-                    </td>
-                  </tr>
-                  
-                    <tr>
-                      <td colspan=2></td>
-                      <td colspan=3 class="description"><p>Until documented otherwise, an attribute with an empty field name (<code>&quot;&quot;</code>) should be logged.</p>
-
-<ul>
-<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Empty field names are logged by the <code>JSONHandler.Handle()</code> implementation</a></li>
-</ul>
-</td>
-                    </tr>
-                  
-                  
-                    <tr id="NoEmptyName-who" style="display:none;">
-                      <td colspan=2></td>
-                      <td colspan=3>
-                        <table class="warning-data">
-                          <tr>
-                            
-                              <th style="width:50%;">Handlers</th>
-                            
-                            
-                              <th style="width:50%;">Tests</th>
-                            
-                          </tr>
-                          <tr>
-                            <td>
-                              <div class="list">
-                                Samber Logrus<br/>Samber Zap<br/>Samber Zerolog<br/>Svcrunner Jsonlog<br/>
-                              </div>
-                            </td>
-                            <td>
-                              <div class="list">
-                                Attribute Empty Name<br/>Attribute With Empty Name<br/>Attributes Not Empty<br/>Attributes With Not Empty<br/>
-                              </div>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                  
-                
-                  
-                  <tr>
-                    <td></td>
-                    <td colspan=2 class="warning">NoNilValue</td>
-                    <td colspan=1 class="extra">Attributes with nil values are not logged</td>
-                    <td class="center">
-                      
-                    </td>
-                  </tr>
-                  
-                    <tr>
-                      <td colspan=2></td>
-                      <td colspan=3 class="description"><p>Until documented otherwise, an attribute with a nil value should be logged.</p>
-
-<ul>
-<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Fields with nil values are logged by the <code>JSONHandler.Handle()</code> implementation</a></li>
-</ul>
-</td>
-                    </tr>
-                  
-                  
-                
-                  
-                  <tr>
-                    <td></td>
                     <td colspan=2 class="warning">NoReplAttr</td>
                     <td colspan=1 class="extra">HandlerOptions.ReplaceAttr not available</td>
                     <td class="center">
@@ -1340,7 +1281,7 @@ This warning represents situations where the attributes are attached to the wron
                 </tr>
                 <tr>
                   <td></td>
-                  <td colspan=4><p>Warnings not mandated by any documentation or requirements.</p>
+                  <td colspan=4><p>Warnings not mandated by any documentation or requirements. May be suggested due to the behavior of <code>slog/JSONHandler</code>.</p>
 </td>
                 </tr>
                 
@@ -1749,6 +1690,80 @@ This is different from the LevelCase warning which is from the right level name 
                         </table>
                       </td>
                     </tr>
+                  
+                
+                  
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">NoEmptyName</td>
+                    <td colspan=1 class="extra">Attributes with empty names are not logged</td>
+                    <td class="center">
+                      
+                        <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('NoEmptyName-who')">Usage</button>
+                      
+                    </td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=3 class="description"><p>Until documented otherwise, an attribute with an empty field name (<code>&quot;&quot;</code>) and a non-nil value should be logged.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Empty field names are logged by the <code>JSONHandler.Handle()</code> implementation</a></li>
+</ul>
+</td>
+                    </tr>
+                  
+                  
+                    <tr id="NoEmptyName-who" style="display:none;">
+                      <td colspan=2></td>
+                      <td colspan=3>
+                        <table class="warning-data">
+                          <tr>
+                            
+                              <th style="width:50%;">Handlers</th>
+                            
+                            
+                              <th style="width:50%;">Tests</th>
+                            
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="list">
+                                Samber Logrus<br/>Samber Zap<br/>Samber Zerolog<br/>Svcrunner Jsonlog<br/>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="list">
+                                Attribute Empty Name<br/>Attribute With Empty Name<br/>Attributes Not Empty<br/>Attributes With Not Empty<br/>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  
+                
+                  
+                  <tr>
+                    <td></td>
+                    <td colspan=2 class="warning">NoNilValue</td>
+                    <td colspan=1 class="extra">Attributes with nil values are not logged</td>
+                    <td class="center">
+                      
+                    </td>
+                  </tr>
+                  
+                    <tr>
+                      <td colspan=2></td>
+                      <td colspan=3 class="description"><p>Until documented otherwise, an attribute with a non-empty name and a nil value should be logged.</p>
+
+<ul>
+<li><a href="https://pkg.go.dev/log/slog@master#JSONHandler.Handle" target="_blank">Fields with nil values are logged by the <code>JSONHandler.Handle()</code> implementation</a></li>
+</ul>
+</td>
+                    </tr>
+                  
                   
                 
                   
@@ -3002,128 +3017,6 @@ from a test suite as issues are fixed in the tested handler.</p>
                 
                   <tr>
                     <td style="width:5%;"></td>
-                    <td class="name">NoEmptyName</td>
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="count"><span>4</span></td>
-                      
-                    
-                      
-                      
-                        <td class="count"><span>4</span></td>
-                      
-                    
-                      
-                      
-                        <td class="count"><span>4</span></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="count"><span>4</span></td>
-                      
-                    
-                  </tr>
-                
-                  <tr>
-                    <td style="width:5%;"></td>
-                    <td class="name">NoNilValue</td>
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                      
-                      
-                        <td class="blank"></td>
-                      
-                    
-                  </tr>
-                
-                  <tr>
-                    <td style="width:5%;"></td>
                     <td class="name">NoReplAttr</td>
                     
                       
@@ -3981,6 +3874,128 @@ from a test suite as issues are fixed in the tested handler.</p>
                 
                   <tr>
                     <td style="width:5%;"></td>
+                    <td class="name">NoEmptyName</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>4</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>4</span></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>4</span></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="count"><span>4</span></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td style="width:5%;"></td>
+                    <td class="name">NoNilValue</td>
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                      
+                      
+                        <td class="blank"></td>
+                      
+                    
+                  </tr>
+                
+                  <tr>
+                    <td style="width:5%;"></td>
                     <td class="name">StringAny</td>
                     
                       
@@ -4489,7 +4504,7 @@ from a test suite as issues are fixed in the tested handler.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-07-29 16:51:19 UTC</span>
+              <span class="fixed">2024-07-30 18:34:08 UTC</span>
             </div>
           </td>
           <td class="right">

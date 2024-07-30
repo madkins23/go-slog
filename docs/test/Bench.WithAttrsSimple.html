@@ -25,7 +25,7 @@
             <table class="choice">
               <tr>
                 <td class="right">Handlers</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -58,7 +58,7 @@
               </tr>
               <tr>
                 <td class="right">Bench Tests</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -93,7 +93,7 @@
               </tr>
               <tr>
                 <td class="right">Verify Tests</td>
-                <td>
+                <td colspan="3">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="testChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
@@ -181,17 +181,32 @@
                 </td>
               </tr>
               <tr>
-                <td class="right"><label for="tag">Other Links</label></td>
+                <td class="right"><label for="tag">Scoring</label></td>
                 <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="scoreChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Default" >Default</option>
+                      
+                        <option value="Simple" >Simple</option>
+                      
+                        <option value="Size" >Size</option>
+                      
+                    </select>
+                  </form>
+                </td>
+                <td class="right"><label for="tag">Other</label></td>
+                <td class="right">
                   <form class="choice">
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
                       <option value="index.html"    >Home</option>
-                      <option value="scores.html"   >Scores</option>
                       <option value="warnings.html" >Warnings</option>
                       <option value="guts.html"     >Guts</option>
                     </select>
                   </form>
+                </td>
               </tr>
             </table>
           </td>
@@ -218,101 +233,101 @@
                 
                   <tr>
                     <td class="fixed">chanchal/zaphandler</td>
-                    <td class="number">3,085,041</td>
-                    <td class="number">392.80</td>
+                    <td class="number">2,949,717</td>
+                    <td class="number">399.20</td>
                     <td class="number">1</td>
                     <td class="number">32</td>
-                    <td class="number">1,071.79</td>
+                    <td class="number">1,054.72</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">madkins/flash</td>
-                    <td class="number">2,622,958</td>
-                    <td class="number">458.90</td>
+                    <td class="number">2,593,530</td>
+                    <td class="number">461.70</td>
                     <td class="number">3</td>
                     <td class="number">232</td>
-                    <td class="number">1,045.95</td>
+                    <td class="number">1,039.57</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">madkins/replattr</td>
-                    <td class="number">1,934,110</td>
-                    <td class="number">618.30</td>
+                    <td class="number">1,899,181</td>
+                    <td class="number">624.90</td>
                     <td class="number">4</td>
                     <td class="number">236</td>
-                    <td class="number">776.35</td>
+                    <td class="number">768.08</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">madkins/sloggy</td>
-                    <td class="number">1,728,484</td>
-                    <td class="number">682.40</td>
+                    <td class="number">1,701,835</td>
+                    <td class="number">704.80</td>
                     <td class="number">14</td>
                     <td class="number">240</td>
-                    <td class="number">704.85</td>
+                    <td class="number">682.49</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">phsym/zeroslog</td>
-                    <td class="number">5,642,605</td>
-                    <td class="number">209.00</td>
+                    <td class="number">5,557,357</td>
+                    <td class="number">213.20</td>
                     <td class="number">0</td>
                     <td class="number">0</td>
-                    <td class="number">2,047.46</td>
+                    <td class="number">2,007.20</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">phuslu/slog</td>
-                    <td class="number">7,298,492</td>
-                    <td class="number">163.40</td>
+                    <td class="number">7,411,150</td>
+                    <td class="number">161.00</td>
                     <td class="number">0</td>
                     <td class="number">0</td>
-                    <td class="number">2,845.39</td>
+                    <td class="number">2,888.39</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-logrus</td>
-                    <td class="number">67,983</td>
-                    <td class="number">17,331.00</td>
+                    <td class="number">68,013</td>
+                    <td class="number">17,702.00</td>
                     <td class="number">93</td>
-                    <td class="number">8,841</td>
-                    <td class="number">25.39</td>
+                    <td class="number">8,840</td>
+                    <td class="number">24.86</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-zap</td>
-                    <td class="number">203,436</td>
-                    <td class="number">6,006.00</td>
+                    <td class="number">211,902</td>
+                    <td class="number">5,879.00</td>
                     <td class="number">49</td>
-                    <td class="number">6,982</td>
-                    <td class="number">70.10</td>
+                    <td class="number">6,983</td>
+                    <td class="number">71.62</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-zerolog</td>
-                    <td class="number">242,971</td>
-                    <td class="number">4,917.00</td>
+                    <td class="number">248,654</td>
+                    <td class="number">4,829.00</td>
                     <td class="number">57</td>
                     <td class="number">5,182</td>
-                    <td class="number">87.05</td>
+                    <td class="number">88.62</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">slog/JSONHandler</td>
-                    <td class="number">3,815,757</td>
-                    <td class="number">301.70</td>
+                    <td class="number">3,843,138</td>
+                    <td class="number">309.90</td>
                     <td class="number">0</td>
                     <td class="number">0</td>
-                    <td class="number">1,491.42</td>
+                    <td class="number">1,448.92</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">svcrunner/jsonlog</td>
-                    <td class="number">3,681,729</td>
-                    <td class="number">335.90</td>
+                    <td class="number">3,360,444</td>
+                    <td class="number">357.30</td>
                     <td class="number">1</td>
                     <td class="number">8</td>
-                    <td class="number">1,336.79</td>
+                    <td class="number">1,256.66</td>
                   </tr>
                 
               </table>
@@ -351,7 +366,7 @@
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-07-29 16:51:19 UTC</span>
+              <span class="fixed">2024-07-30 18:34:08 UTC</span>
             </div>
           </td>
           <td class="right">

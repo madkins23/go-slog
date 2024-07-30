@@ -7,7 +7,7 @@ require (
 	github.com/fatih/camelcase v1.0.0
 	github.com/gertd/go-pluralize v0.2.1
 	github.com/gin-gonic/gin v1.10.0
-	github.com/gomarkdown/markdown v0.0.0-20240723152757-afa4a469d4f9
+	github.com/gomarkdown/markdown v0.0.0-20240730141124-034f12af3bf6
 	github.com/madkins23/gin-utils v1.4.1
 	github.com/madkins23/go-utils v1.44.0
 	github.com/phsym/console-slog v0.3.1
@@ -35,7 +35,7 @@ exclude github.com/rs/zerolog v1.33.0
 
 require (
 	github.com/blend/go-sdk v1.20220411.3 // indirect
-	github.com/bytedance/sonic v1.11.9 // indirect
+	github.com/bytedance/sonic v1.12.0 // indirect
 	github.com/bytedance/sonic/loader v0.2.0 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
 	github.com/cloudwego/iasm v0.2.0 // indirect

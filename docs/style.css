@@ -66,6 +66,14 @@ h2.home {
     display: inline-block;
 }
 
+h3.doc {
+    margin-top: 0.5em;
+}
+
+hr.thin {
+    border-style: dotted;
+}
+
 img.chart {
     border: 2px inset antiquewhite;
 }
@@ -87,6 +95,18 @@ table.charts {
     margin-right: auto;
 }
 
+table.charts col.size-left {
+    width: 40%;
+}
+
+table.charts col.size-center {
+    width: 20%;
+}
+
+table.charts col.size-right {
+    width: 40%;
+}
+
 table.choice {
     margin-left: auto;
 }
@@ -95,6 +115,10 @@ table.data {
     padding: 5px;
     margin-left: auto;
     margin-right: auto;
+}
+
+table.data caption {
+    font-weight: bold;
 }
 
 table.data td, th {
@@ -120,6 +144,21 @@ table.debug td {
     outline: 2px inset darkgray;
     outline-offset: -2px;
     background-color: lightslategray;
+}
+
+table.exhibit-table {
+}
+
+table.exhibit-table td:last-child {
+    font-family: monospace;
+    text-align: right;
+}
+
+table.exhibit-list {
+}
+
+table.exhibit-list td {
+    font-family: monospace;
 }
 
 table.handler-v-warning {
