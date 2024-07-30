@@ -20,6 +20,8 @@ The flags are:
 The scripts/tabulate script will run cmd/tabular,
 taking input from temporary files created by scripts/verify and scripts/bench.
 
+The -language flag is used to enable proper formatting of displayed numbers.
+
 # Output
 
 	Benchmark Attributes

@@ -19,6 +19,8 @@ The flags are:
 The scripts/server script will run cmd/server,
 taking input from temporary files created by scripts/verify and scripts/bench.
 
+The -language flag is used to enable proper formatting of displayed numbers.
+
 # Output
 
 	GOROOT=/snap/go/current #gosetup
