@@ -48,11 +48,11 @@ var (
 		This is different from the LevelCase warning which is from the right level name but the wrong character case.`)
 
 	NoEmptyName = NewWarning(LevelSuggested, "NoEmptyName", "Attributes with empty names are not logged", `
-		Until documented otherwise, an attribute with an empty field name (^""^) should be logged.
+		Until documented otherwise, an attribute with an empty field name (^""^) and a non-nil value should be logged.
 		* [Empty field names are logged by the ^JSONHandler.Handle()^ implementation](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)`)
 
 	NoNilValue = NewWarning(LevelSuggested, "NoNilValue", "Attributes with nil values are not logged", `
-		Until documented otherwise, an attribute with a nil value should be logged.
+		Until documented otherwise, an attribute with a non-empty name and a nil value should be logged.
 		* [Fields with nil values are logged by the ^JSONHandler.Handle()^ implementation](https://pkg.go.dev/log/slog@master#JSONHandler.Handle)`)
 
 	StringAny = NewWarning(LevelSuggested, "StringAny", "map[string]any converted to strings in log records", `

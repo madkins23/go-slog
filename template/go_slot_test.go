@@ -1,9 +1,10 @@
 // package template contains code that will execute the verification and benchmark
 // test suites in the [`madkins23/go-slog`](https://github.com/madkins23/go-slog) repository.
+// Use this file as a template for adding testing to your own handler repository.
 //
 // # Installation
 //
-// Copy this directory to own repository with an appropriate name.
+// Copy this directory to your own repository with an appropriate name.
 // Alter the code:
 //
 //   - match the package name to the directory name

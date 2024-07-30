@@ -51,8 +51,8 @@ but there are generally a lot more of them.
 
 The parsing of output data from benchmark and verification tests is done by
 two entities from the `data` package:
-* the benchmark parser [`internal/data/Benchmarks.ParseBenchmarkData`](bench_parser.go) and
-* the warnings parser [`internal/data/Warnings.ParseWarningData`](warnings_parser.go).
+* the benchmark parser [`internal/data/Benchmarks.ParseBenchmarkData`](https://pkg.go.dev/github.com/madkins23/go-slog/internal/data#Benchmarks.ParseBenchmarkData) and
+* the warnings parser [`internal/data/Warnings.ParseWarningData`](https://pkg.go.dev/github.com/madkins23/go-slog/internal/data#Warnings.ParseWarningData).
 
 ### Handler Names and Tags
 
@@ -91,7 +91,7 @@ After this the warning parser takes the handler name/tag mapping from the benchm
 and parse the benchmark warnings and verification warnings separately,
 combining the result together into one warning data block.
 
-The [`data.Setup` function](setup.go) is designed to execute both parsers
+The [`data.Setup` function](https://pkg.go.dev/github.com/madkins23/go-slog/internal/data#Setup) is designed to execute both parsers
 with the appropriate order and arguments.
 Create one parser of each type and pass them to the `data.Setup` function.
 The new parser objects will contain the parsed data unless an `error` is returned.
@@ -101,6 +101,6 @@ The new parser objects will contain the parsed data unless an `error` is returne
 Scoring data is derived from benchmark and verification results.
 The scoring algorithms should not be considered authoritative,
 they were constructed just to be able to draw
-[the **Handler Scores** `cmd/server` page](https://madkins23.github.io/go-slog/scores.html).
-Documentation for the scoring algorithms is available on bottom of the same page,
-or in the [`internal/data/scores`](scores) directory.
+[the **Handler Scores** `cmd/server` pages](http://localhost:8080/go-slog/scores/Default/summary.html)
+(`Default` page shown, other pages with experimental scoring algorithms available).
+Documentation for the scoring algorithms is available on bottom of the score pages.

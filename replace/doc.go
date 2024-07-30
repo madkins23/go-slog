@@ -10,7 +10,8 @@
 // ReplaceAttr functions that could make them conformant.
 // Unfortunately, other issues prevent this usage in many cases:
 //
-//   - Attributes can't be directly removed, they can only be made empty,
+//   - Attributes can't be directly removed, they can only be made empty
+//     (defined as both an empty key and a nil value, as returned by [infra.EmptyAttr]),
 //     but some handlers tested don't remove empty attributes as they should
 //     so this fix doesn't work for them.
 //   - Some handlers don't recognize `slog.HandlerOptions.ReplaceAttr`.
@@ -23,9 +24,7 @@
 // The attribute may be returned as is or altered by the function.
 // The function is defined inline in the HandlerOptions.ReplaceAttr field declaration
 // but is not provided as a separate declaration.
-// A convenience definition is found in go-slog/infra.AttrFn:
-//
-//	type AttrFn func(groups []string, a slog.Attr) slog.Attr
+// A convenience definition is found in [infra.AttrFn].
 //
 // Most of the functions in this package do not directly conform to this type,
 // but instead return a function that conforms to this type.
@@ -45,5 +44,8 @@
 //
 // A function that determines if the current stack of group names is acceptable.
 // For example, replace.TopCheck returns true only if the stack is empty,
-// indicating the attribute is not inside  a group.
+// indicating the attribute is not inside a group.
+//
+// [infra.AttrFn]: https://pkg.go.dev/github.com/madkins23/go-slog/infra#AttrFn
+// [infra.EmptyAttr]: https://pkg.go.dev/github.com/madkins23/go-slog/infra#EmptyAttr
 package replace

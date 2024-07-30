@@ -7,6 +7,7 @@ import "log/slog"
 type AttrFn func(groups []string, a slog.Attr) slog.Attr
 
 // EmptyAttr returns an empty attribute object as a convenience.
+// An empty attribute has both an empty key and a nil value.
 func EmptyAttr() slog.Attr {
 	return slog.Attr{}
 }

@@ -4,6 +4,7 @@
   - Documentation
     - bench and bench/tests doc files could have stuff from readme
   - Vertical spacing in charts not working for all scorekeepers
+* Warning levels in top-level README.md
 * Make -useWarnings default to true, fix various doc to match
 * Discuss slog_madkins_replattr benchmark somewhere
 ? Workflow keep-alive
