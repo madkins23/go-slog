@@ -22,7 +22,7 @@ for more detailed documentation.
 * [Functions for use with `slog.HandlerOptions.ReplaceAttr`](#replace-attributes-functions)
 * [Utility to redirect internal `gin` logging to `slog`](#gin-integration)
 * [Demo Handlers](#demo-handlers)
-* [Template for repository use]
+* [Template for repository use](#template-for-repository-usage)
 * Test handler [`trace.Handler`](#trace-handler)
 
 ## Handler Benchmarks
@@ -166,15 +166,25 @@ The tests in this repository only apply to `slog` JSON output.
 Console output can come in a variety of formats and
 generally doesn't have a performance issue as only humans will look at it.
 
-### Who Am I?
+### WTF?
 
 Your response to this repository, especially if you are a `slog` handler author,
-may well be "who are you to make these rules?"
-This is a reasonable question.
+may well be one or more of:
+
+* "Why does this exist?"
+* "Who are you to make these rules?"
+
+These are reasonable questions.
+
+The genesis of this repository was the author noticing that different
+`slog` handlers had varying outputs.
+The author wanted to provide a way to compare the outputs,
+because it seemed important (or at least personally interesting).
+Over time the project grew to include handler benchmarks and a lot of other stuff.
 
 The author has no authority to dictate `slog` handler behavior.
-The tests and warnings contained herein more or less defined themselves
-based on the behavior of various `slog` handlers under test.
+The intent of this project was to measure handlers against each other and
+published documentation.
 
 Benchmark and verification tests come from `slog` documentation,
 the `slogtest` test harness, and tests embedded in
@@ -207,12 +217,12 @@ The several levels of verification tests are defined based on the strength of ju
 #### As a `slog` User
 
 * Are you confident that the `slog` handler you choose will be fine forever?
-* Consider the trade-off between performance and functionality.  
-  - Do you need faster logging without support for picky warnings?
-  - Do you need full support of all verification tests at the cost of performance?
 * If you need to swap out `slog` handlers will the new one support your usage of the old one?
   - Should your code use only generally supported features even if more useful ones are available?
   - Are you prepared to change logging statements to use a less functional handler?
+* Consider the trade-off between performance and functionality.  
+  - Do you need faster logging without support for picky warnings?
+  - Do you need full support of all verification tests at the cost of performance?
 
 #### IMHO
 
