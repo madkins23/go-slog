@@ -24,6 +24,7 @@ var (
 	ptnInstance     = regexp.MustCompile(`^\s*(\S+)(?::\s*(.*?))?\s*$`)
 	ptnExtra        = regexp.MustCompile(`^\s*\+(.*?)\s*$`)
 	ptnLogLine      = regexp.MustCompile(`^\s*\{`)
+	ptnNone         = regexp.MustCompile(`^\s*None\s*$`)
 	ptnByWarning    = regexp.MustCompile(`^\s*Handlers\s+by\s+warning:\s*$`)
 	ptnSummaryStart = regexp.MustCompile(`^:\[\s*(\S.*?)\s*$`)
 	ptnSummaryLine  = regexp.MustCompile(`^::\s*(\S.*?)\s*$`)
@@ -143,6 +144,14 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 		}
 		if handler == "" {
 			// Can't do anything until we recognize something.
+			continue
+		}
+		if ptnNone.Match(line) {
+			// Minimal amount of data to support score chart.
+			w.ByHandler[handler] = &Levels{
+				lookup: make(map[string]*dataLevel),
+				levels: make([]*dataLevel, 0),
+			}
 			continue
 		}
 		if matches := ptnLevel.FindSubmatch(line); len(matches) == 2 {
