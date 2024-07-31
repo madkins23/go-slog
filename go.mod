@@ -1,6 +1,8 @@
 module github.com/madkins23/go-slog
 
-go 1.21.5
+go 1.22.0
+
+toolchain go1.22.5
 
 require (
 	github.com/dmarkham/enumer v1.5.10
@@ -75,4 +77,5 @@ require (
 	golang.org/x/tools v0.24.0 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
+	snqk.dev/slog/meld v0.0.0-20240701183407-595424398869 // indirect
 )
