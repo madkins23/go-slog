@@ -278,8 +278,13 @@ func (mgr *Manager) ShowWarnings(output io.Writer) {
 		forHandler = " for " + mgr.Name
 	}
 
-	warnings := mgr.GetWarnings()
-	if warnings != nil && len(warnings) > 0 {
+	// Must always have this line, even if there are no warnings.
+	// The internal/data/ParseWarningData function depends on this line to get the handler name.
+	_, _ = fmt.Fprintf(output, "%s\n%sWarnings%s:\n", mgr.showPrefix, mgr.showPrefix, forHandler)
+
+	if warnings := mgr.GetWarnings(); warnings == nil || len(warnings) == 0 {
+		_, _ = fmt.Fprintf(output, "%s  None\n", mgr.showPrefix)
+	} else {
 		// Warnings grouped by level.
 		warningTree := make(map[Level][]*Instances)
 		for _, w := range warnings {
@@ -294,7 +299,6 @@ func (mgr *Manager) ShowWarnings(output io.Writer) {
 				return list[i].Name < list[j].Name
 			})
 		}
-		_, _ = fmt.Fprintf(output, "%s\n%sWarnings%s:\n", mgr.showPrefix, mgr.showPrefix, forHandler)
 		for _, level := range LevelOrder {
 			if list, ok := warningTree[level]; ok {
 				_, _ = fmt.Fprintf(output, "%s  %s\n", mgr.showPrefix, level.String())
