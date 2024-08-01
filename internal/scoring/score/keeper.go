@@ -14,9 +14,11 @@ import (
 type KeeperTag string
 
 type Keeper struct {
-	tag  KeeperTag
-	x, y Axis
-	doc  template.HTML
+	tag      KeeperTag
+	x, y     Axis
+	filter   Filter
+	handlers []data.HandlerTag
+	doc      template.HTML
 	KeeperOptions
 }
 
@@ -29,12 +31,13 @@ const (
 	noChartTitle   = "No chart title yet!!!"
 )
 
-func NewKeeper(tag KeeperTag, x, y Axis, doc template.HTML, options *KeeperOptions) *Keeper {
+func NewKeeper(tag KeeperTag, x, y Axis, doc template.HTML, options *KeeperOptions, filter Filter) *Keeper {
 	k := &Keeper{
-		tag: tag,
-		x:   x,
-		y:   y,
-		doc: doc,
+		tag:    tag,
+		x:      x,
+		y:      y,
+		filter: filter,
+		doc:    doc,
 	}
 	if options != nil {
 		k.KeeperOptions = *options
@@ -55,6 +58,12 @@ func (k *Keeper) Setup(bench *data.Benchmarks, warns *data.Warnings) error {
 	if err := k.y.Setup(bench, warns); err != nil {
 		return fmt.Errorf("initialize y: %w", err)
 	}
+	k.handlers = make([]data.HandlerTag, 0)
+	for _, tag := range bench.HandlerTags() {
+		if k.filter == nil || k.filter.Check(warns.HandlerName(tag)) {
+			k.handlers = append(k.handlers, tag)
+		}
+	}
 	return nil
 }
 
@@ -67,6 +76,10 @@ func (k *Keeper) Tag() KeeperTag {
 		return ""
 	}
 	return k.tag
+}
+
+func (k *Keeper) HandlerTags() []data.HandlerTag {
+	return k.handlers
 }
 
 func (k *Keeper) ChartCaption() template.HTML {

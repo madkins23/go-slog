@@ -8,10 +8,12 @@ import (
 	"github.com/madkins23/go-slog/infra"
 )
 
+const Name = "madkins/flash"
+
 // Creator returns a Creator object for the [madkins/flash] handler.
 // This is an experimental handler development based on madkins/sloggy.
 func Creator() infra.Creator {
-	return infra.NewCreator("madkins/flash", handlerFn, nil,
+	return infra.NewCreator(Name, handlerFn, nil,
 		`^madkins/flash^ is a clone of
 		the [^madkins/sloggy^ handler](/go-slog/handler/MadkinsSloggy.html)
 		with numerous performance improvements.

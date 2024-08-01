@@ -145,9 +145,8 @@ var (
 func scoreChart(k *score.Keeper, size *sizeData) chart.Chart {
 	slog.Debug("scoreChart", "keeper", k.Tag(), "size", size)
 	handlers := make(map[data.HandlerTag]*handlerCoords)
-	for _, hdlr := range bench.HandlerTags() {
+	for _, hdlr := range k.HandlerTags() {
 		// Only make handler record if y value is within bounds (above size.low.y).
-		// TODO: Say what here?
 		if k.Y().ScoreFor(hdlr) >= size.low.y {
 			handlers[hdlr] = &handlerCoords{y: k.Y().ScoreFor(hdlr)}
 		}

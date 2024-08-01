@@ -4,7 +4,7 @@
 * Make -useWarnings default to true, fix various doc to match
 * Warning levels in top-level README.md
 * Discuss slog_madkins_replattr benchmark somewhere
-? Should scorekeeper specify applicable handlers (in some cases)?
+? Default chart size on score page to smallest one that contains all items
 ? Workflow keep-alive
   https://github.com/liskin/gh-workflow-keepalive
 ? Show complex definitions, log traces, and attribute groups on a web page

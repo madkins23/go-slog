@@ -124,7 +124,7 @@ func (b *Benchmarks) HandlerRecords(test TestTag) HandlerRecords {
 	return b.byTest[test]
 }
 
-// HandlerTags returns an array of all handler names sorted alphabetically.
+// HandlerTags returns an array of all handler tags sorted alphabetically.
 func (b *Benchmarks) HandlerTags() []HandlerTag {
 	if b.handlers == nil {
 		for handler := range b.ByHandler {

@@ -4,16 +4,18 @@ import (
 	"io"
 	"log/slog"
 
-	"github.com/madkins23/go-slog/infra"
-
 	"snqk.dev/slog/meld"
+
+	"github.com/madkins23/go-slog/infra"
 )
+
+const Name = "snqk/meld"
 
 // Creator returns a Creator object for the [snqk/meld] handler.
 //
 // [snqk/meld]: https://github.com/snqk/slog-meld
 func Creator() infra.Creator {
-	return infra.NewCreator("snqk/meld", handlerFn, nil,
+	return infra.NewCreator(Name, handlerFn, nil,
 		`^snqk/slog-meld^ provides a simple slog.Handler
 		designed to recursively merge and de-duplicate log attributes,
 		ensuring clean, concise, and informative log entries.`,

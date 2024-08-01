@@ -6,6 +6,7 @@ import (
 	"github.com/madkins23/go-slog/infra/warning"
 	"github.com/madkins23/go-slog/internal/markdown"
 	"github.com/madkins23/go-slog/internal/scoring/axis"
+	"github.com/madkins23/go-slog/internal/scoring/filter"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
@@ -34,7 +35,8 @@ func setupSimple() error {
 				markdown.TemplateHTML(simpleYSumMD, false),
 				nil),
 			markdown.TemplateHTML(simpleDocMD, false),
-			defaultOptions))
+			defaultOptions,
+			filter.Basic()))
 }
 
 // -----------------------------------------------------------------------------

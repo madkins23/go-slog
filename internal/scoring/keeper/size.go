@@ -6,6 +6,7 @@ import (
 	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/markdown"
 	"github.com/madkins23/go-slog/internal/scoring/axis"
+	"github.com/madkins23/go-slog/internal/scoring/filter"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
@@ -41,7 +42,8 @@ func setupSize() error {
 				markdown.TemplateHTML(sizeYSumMD, false),
 				&axis.BenchOptions{Name: "Small", ExcludeTests: largeTests}),
 			markdown.TemplateHTML(sizeDocMD, false),
-			sizeOptions))
+			sizeOptions,
+			filter.Basic()))
 }
 
 // -----------------------------------------------------------------------------

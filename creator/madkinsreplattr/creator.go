@@ -9,13 +9,15 @@ import (
 	"github.com/madkins23/go-slog/replace"
 )
 
+const Name = "madkins/replattr"
+
 // Creator returns a Creator object for the [madkins/replattr] handler.
 // This is the madkins/flash handler configured with both
 // flash.Extras customization (to mimic a badly behaved handler) and
 // a set of ReplaceAttr functions to remove that customization.
 // The goal is to benchmark the overhead in using ReplaceAttr functions.
 func Creator() infra.Creator {
-	return infra.NewCreator("madkins/replattr", handlerFn, nil,
+	return infra.NewCreator(Name, handlerFn, nil,
 		`^madkins/replattr^ is the [^madkins/flash^ handler](/go-slog/handler/MadkinsFlash.html)
 		setup to test ^slog.HandlerOptions.ReplaceAttr^ performance.
 		The ^madkins/flash^ handler is first configured to generate various warnings using ^flash.Extras^ options,

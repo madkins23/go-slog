@@ -22,7 +22,7 @@
                                 <th>{{ $.Keeper.X.Name }}</th>
                                 <th>{{ $.Keeper.Y.Name }}</th>
                             </tr>
-                            {{ range $tag := .Benchmarks.HandlerTags }}
+                            {{ range $tag := .Keeper.HandlerTags }}
                                 <tr>
                                     <td><a href="/go-slog/handler/{{ $tag }}.html">{{ $.Benchmarks.HandlerName $tag }}</a></td>
                                     <td class="number">{{ $.FixValue ($.Keeper.X.ScoreFor $tag) }}</td>
