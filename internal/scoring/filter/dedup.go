@@ -13,7 +13,7 @@ func Dedup() score.Filter {
 	if dedup == nil {
 		dedup = score.NewIncludeFilter(
 			slogjson.Name,
-			veqryndedup.Name(veqryndedup.Over),
+			veqryndedup.Name(veqryndedup.Overwrite),
 			snqkmeld.Name,
 		)
 	}

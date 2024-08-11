@@ -15,11 +15,16 @@ const BaseName = "veqryn/dedup"
 type Mode uint8
 
 const (
+	// None mode
 	None Mode = iota
-	Over
+	// Append mode collects all values in a group.
+	Append
+	// Ignore mode uses the first value found.
 	Ignore
-	Incr
-	Group
+	// Increment mode increments the field name for each value.
+	Increment
+	// Overwrite mode uses the last value found.
+	Overwrite
 )
 
 func Name(mode Mode) string {
@@ -40,14 +45,14 @@ func Creator(mode Mode) infra.Creator {
 
 func handler(mode Mode) infra.CreateHandlerFn {
 	switch mode {
-	case Group:
-		return appendHandler
 	case Ignore:
 		return ignoreHandler
-	case Incr:
-		return incrementHandler
-	case Over:
+	case Overwrite:
 		return overwriteHandler
+	case Append:
+		return appendHandler
+	case Increment:
+		return incrementHandler
 	default:
 		slog.Error("Unknown creator mode", "mode", mode)
 		return noHandler

@@ -7,11 +7,11 @@ import (
 	"strings"
 )
 
-const _ModeName = "NoneOverIgnoreIncrGroup"
+const _ModeName = "NoneAppendIgnoreIncrementOverwrite"
 
-var _ModeIndex = [...]uint8{0, 4, 8, 14, 18, 23}
+var _ModeIndex = [...]uint8{0, 4, 10, 16, 25, 34}
 
-const _ModeLowerName = "noneoverignoreincrgroup"
+const _ModeLowerName = "noneappendignoreincrementoverwrite"
 
 func (i Mode) String() string {
 	if i >= Mode(len(_ModeIndex)-1) {
@@ -25,33 +25,33 @@ func (i Mode) String() string {
 func _ModeNoOp() {
 	var x [1]struct{}
 	_ = x[None-(0)]
-	_ = x[Over-(1)]
+	_ = x[Append-(1)]
 	_ = x[Ignore-(2)]
-	_ = x[Incr-(3)]
-	_ = x[Group-(4)]
+	_ = x[Increment-(3)]
+	_ = x[Overwrite-(4)]
 }
 
-var _ModeValues = []Mode{None, Over, Ignore, Incr, Group}
+var _ModeValues = []Mode{None, Append, Ignore, Increment, Overwrite}
 
 var _ModeNameToValueMap = map[string]Mode{
 	_ModeName[0:4]:        None,
 	_ModeLowerName[0:4]:   None,
-	_ModeName[4:8]:        Over,
-	_ModeLowerName[4:8]:   Over,
-	_ModeName[8:14]:       Ignore,
-	_ModeLowerName[8:14]:  Ignore,
-	_ModeName[14:18]:      Incr,
-	_ModeLowerName[14:18]: Incr,
-	_ModeName[18:23]:      Group,
-	_ModeLowerName[18:23]: Group,
+	_ModeName[4:10]:       Append,
+	_ModeLowerName[4:10]:  Append,
+	_ModeName[10:16]:      Ignore,
+	_ModeLowerName[10:16]: Ignore,
+	_ModeName[16:25]:      Increment,
+	_ModeLowerName[16:25]: Increment,
+	_ModeName[25:34]:      Overwrite,
+	_ModeLowerName[25:34]: Overwrite,
 }
 
 var _ModeNames = []string{
 	_ModeName[0:4],
-	_ModeName[4:8],
-	_ModeName[8:14],
-	_ModeName[14:18],
-	_ModeName[18:23],
+	_ModeName[4:10],
+	_ModeName[10:16],
+	_ModeName[16:25],
+	_ModeName[25:34],
 }
 
 // ModeString retrieves an enum value from the enum constants string name.
