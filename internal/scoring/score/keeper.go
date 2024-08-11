@@ -60,7 +60,7 @@ func (k *Keeper) Setup(bench *data.Benchmarks, warns *data.Warnings) error {
 	}
 	k.handlers = make([]data.HandlerTag, 0)
 	for _, tag := range bench.HandlerTags() {
-		if k.filter == nil || k.filter.Check(warns.HandlerName(tag)) {
+		if k.filter == nil || k.filter.Include(warns.HandlerName(tag)) {
 			k.handlers = append(k.handlers, tag)
 		}
 	}
