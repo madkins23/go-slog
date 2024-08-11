@@ -5,6 +5,9 @@ var (
 	//
 	// Note: Update the number of warnings in the init function below.
 
+	SkipDedup = NewWarning(LevelAdmin, "SkipDedup", "Test depends on dedup order", `
+		Some dedup tests return results that can't easily be tested.`)
+
 	NoHandlerCreation = NewWarning(LevelAdmin, "NoHandlerCreation", "Test depends on unavailable handler creation", `
 		Some benchmark tests depend on access to a ^slog.Handler^ object.
 		Some ^slog^ implementations create a ^slog.Logger^ but no ^slog.Handler^.
@@ -30,7 +33,7 @@ var (
 
 func init() {
 	// Always update this number when adding or removing Warning objects.
-	addTestCount(LevelAdmin, 5)
+	addTestCount(LevelAdmin, 6)
 }
 
 // Administrative returns an array of all LevelAdmin warnings.
