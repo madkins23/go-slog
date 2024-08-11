@@ -9,14 +9,14 @@ import (
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
-const SingleName = "~Singular"
+const SingleName = "~Dedup"
 
 var (
-	//go:embed doc/singular-doc.md
-	singularDocMD string
+	//go:embed doc/dedup-doc.md
+	dedupDocMD string
 )
 
-func setupSingular() error {
+func setupDedup() error {
 	return score.AddKeeper(
 		score.NewKeeper(
 			SingleName,
@@ -27,7 +27,7 @@ func setupSingular() error {
 				defaultBenchmarkScoreWeight,
 				markdown.TemplateHTML(defaultYSumMD, false),
 				nil),
-			markdown.TemplateHTML(singularDocMD, false),
+			markdown.TemplateHTML(dedupDocMD, false),
 			defaultOptions,
-			filter.Singular()))
+			filter.Dedup()))
 }

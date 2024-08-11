@@ -118,6 +118,8 @@ github.com/twitchyliquid64/golang-asm v0.15.1 h1:SU5vSMR7hnwNxj24w34ZyCi/FmDZTkS
 github.com/twitchyliquid64/golang-asm v0.15.1/go.mod h1:a1lVb/DtPvCB8fslRZhAngC2+aY1QWCk3Cedj/Gdt08=
 github.com/ugorji/go/codec v1.2.12 h1:9LC83zGrHhuUA9l16C9AHXAqEV/2wBQ4nkvumAE65EE=
 github.com/ugorji/go/codec v1.2.12/go.mod h1:UNopzCgEMSXjBc6AOMqYvWC1ktqTAfzJZUZgYf6w6lg=
+github.com/veqryn/slog-dedup v0.5.0 h1:2pc4va3q8p7Tor1SjVvi1ZbVK/oKNPgsqG15XFEt0iM=
+github.com/veqryn/slog-dedup v0.5.0/go.mod h1:/iQU008M3qFa5RovtfiHiODxJFvxZLjWRG/qf/zKFHw=
 github.com/vicanso/go-charts/v2 v2.6.9 h1:yHFshu0107+Nn6C5tnziSsVv0mBz6fITWwk+AAhA/A4=
 github.com/vicanso/go-charts/v2 v2.6.9/go.mod h1:Ii2KDI3udTG1wPtiTnntzjlUBJVJTqNscMzh3oYHzUk=
 github.com/wcharczuk/go-chart/v2 v2.1.1 h1:2u7na789qiD5WzccZsFz4MJWOJP72G+2kUuJoSNqWnE=
@@ -198,6 +200,8 @@ gopkg.in/check.v1 v1.0.0-20200227125254-8fa46927fb4f/go.mod h1:Co6ibVJAznAaIkqp8
 gopkg.in/yaml.v3 v3.0.0-20200313102051-9f266ea9e77c/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
 gopkg.in/yaml.v3 v3.0.1 h1:fxVm/GzAzEWqLHuvctI91KS9hhNmmWOoWu0XTYJS7CA=
 gopkg.in/yaml.v3 v3.0.1/go.mod h1:K4uyk7z7BCEPqu6E+C64Yfv1cQ7kz7rIZviUmN+EgEM=
+modernc.org/b/v2 v2.1.0 h1:kMD/G43EYnsFJI/0qK1F1X659XlSs41bp01MUDidHC0=
+modernc.org/b/v2 v2.1.0/go.mod h1:fQhHWDXrchyUSLjQYCslV/4uw04PW1LeiZ25D4SNmeo=
 nullprogram.com/x/optparse v1.0.0/go.mod h1:KdyPE+Igbe0jQUrVfMqDMeJQIJZEuyV7pjYmp6pbG50=
 rsc.io/pdf v0.1.1/go.mod h1:n8OzWcQ6Sp37PL01nO98y4iUCRdTGarVfzxY20ICaU4=
 snqk.dev/slog/meld v0.0.0-20240701183407-595424398869 h1:oENuFp6jR5CxguMaEDxva238yPL34RbKbRScgf91s3c=

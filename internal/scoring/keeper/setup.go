@@ -17,8 +17,8 @@ func Setup(bench *data.Benchmarks, warns *data.Warnings) error {
 	if err := setupReplAttr(); err != nil {
 		return fmt.Errorf("keeper.setupReplAttr: %w", err)
 	}
-	if err := setupSingular(); err != nil {
-		return fmt.Errorf("keeper.setupSingular: %w", err)
+	if err := setupDedup(); err != nil {
+		return fmt.Errorf("keeper.setupDedup: %w", err)
 	}
 	if err := setupSize(); err != nil {
 		return fmt.Errorf("keeper.setupSize: %w", err)
