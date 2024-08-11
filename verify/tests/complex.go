@@ -72,6 +72,10 @@ var tests = []string{
 // This in turn surfaced a bunch of new discrepancies between logger implementations,
 // resulting in several new warnings.
 func (suite *SlogTestSuite) TestComplexCases() {
+	if suite.skipTest(warning.SkipDedup) {
+		return
+	}
+
 	logger := suite.Logger(infra.SimpleOptions())
 	mismatches := make(map[string]string)
 	for _, test := range tests {

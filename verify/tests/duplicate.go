@@ -1,6 +1,9 @@
 package tests
 
-import "github.com/madkins23/go-slog/infra"
+import (
+	"github.com/madkins23/go-slog/infra"
+	"github.com/madkins23/go-slog/infra/warning"
+)
 
 // -----------------------------------------------------------------------------
 // Duplicate testing, which isn't currently regarded as an error.
@@ -15,7 +18,9 @@ func (suite *SlogTestSuite) TestAttributeDuplicate() {
 		"alpha", "one", "alpha", 2, "bravo", "hurrah",
 		"charlie", "brown", "charlie", 3, "charlie", 23.79)
 	logMap := suite.logMap()
-	suite.checkFieldCount(6, logMap)
+	if !suite.skipTest(warning.SkipDedup) {
+		suite.checkFieldCount(6, logMap)
+	}
 }
 
 // TestAttributeWithDuplicate tests whether duplicate attributes are logged properly
@@ -28,5 +33,7 @@ func (suite *SlogTestSuite) TestAttributeWithDuplicate() {
 		With("alpha", "one", "bravo", "hurrah", "charlie", "brown", "charlie", "jones").
 		Info(message, "alpha", 2, "charlie", 23.70)
 	logMap := suite.logMap()
-	suite.checkFieldCount(6, logMap)
+	if !suite.skipTest(warning.SkipDedup) {
+		suite.checkFieldCount(6, logMap)
+	}
 }

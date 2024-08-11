@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log/slog"
 
+	"github.com/madkins23/go-slog/infra/warning"
 	testJSON "github.com/madkins23/go-slog/internal/json"
 )
 
@@ -46,4 +47,17 @@ func (suite *SlogTestSuite) logMap() map[string]any {
 	}
 	suite.Require().NoError(err)
 	return results
+}
+
+// skipTest checks for the specified warning and if found on the suite
+// adds two warnings and returns true.
+// The calling test code is responsible for detecting the true response
+// and exiting the test routine.
+func (suite *SlogTestSuite) skipTest(w *warning.Warning) bool {
+	if suite.HasWarning(w) {
+		suite.AddWarning(w, "Skipping test", "")
+		suite.AddWarning(warning.SkippingTest, w.Name, "")
+		return true
+	}
+	return false
 }
