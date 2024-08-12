@@ -16,8 +16,8 @@ func TestDedup(t *testing.T) {
 	require.NotNil(t, filter)
 	assert.False(t, filter.Keep(madkinsflash.Name))
 	assert.True(t, filter.Keep(slogjson.Name))
-	assert.False(t, filter.Keep(veqryndedup.Name(veqryndedup.Append)))
-	assert.False(t, filter.Keep(veqryndedup.Name(veqryndedup.Ignore)))
-	assert.False(t, filter.Keep(veqryndedup.Name(veqryndedup.Increment)))
+	assert.True(t, filter.Keep(veqryndedup.Name(veqryndedup.Append)))
+	assert.True(t, filter.Keep(veqryndedup.Name(veqryndedup.Ignore)))
+	assert.True(t, filter.Keep(veqryndedup.Name(veqryndedup.Increment)))
 	assert.True(t, filter.Keep(veqryndedup.Name(veqryndedup.Overwrite)))
 }

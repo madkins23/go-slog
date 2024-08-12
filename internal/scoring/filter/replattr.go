@@ -2,7 +2,7 @@ package filter
 
 import (
 	"github.com/madkins23/go-slog/creator/madkinsflash"
-	"github.com/madkins23/go-slog/creator/madkinsreplattr"
+	"github.com/madkins23/go-slog/internal/scoring/group"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
@@ -14,7 +14,7 @@ func ReplAttr() score.Filter {
 	if replAttr == nil {
 		replAttr = score.NewIncludeFilter(
 			madkinsflash.Name,
-			madkinsreplattr.Name,
+			group.ReplAttr(),
 		)
 	}
 	return replAttr

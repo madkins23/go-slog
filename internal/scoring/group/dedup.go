@@ -8,17 +8,17 @@ import (
 
 // ----------------------------------------------------------------------------
 
-var dedupAll *score.Group
+var dedup *score.Group
 
-func DedupAll() *score.Group {
-	if dedupAll == nil {
-		dedupAll = score.NewFilterGroup(
+func Dedup() *score.Group {
+	if dedup == nil {
+		dedup = score.NewFilterGroup(
+			snqkmeld.Name,
 			veqryndedup.Name(veqryndedup.Append),
 			veqryndedup.Name(veqryndedup.Ignore),
 			veqryndedup.Name(veqryndedup.Increment),
 			veqryndedup.Name(veqryndedup.Overwrite),
-			snqkmeld.Name,
 		)
 	}
-	return dedupAll
+	return dedup
 }

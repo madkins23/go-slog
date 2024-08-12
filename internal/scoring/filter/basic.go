@@ -10,8 +10,8 @@ var basic score.Filter
 func Basic() score.Filter {
 	if basic == nil {
 		basic = score.NewExcludeFilter(
-			group.ReplAttrOnly(),
-			group.DedupAll(),
+			group.ReplAttr(),
+			group.Dedup(),
 		)
 	}
 	return basic

@@ -7,13 +7,13 @@ import (
 
 // ----------------------------------------------------------------------------
 
-var replAttrOnly *score.Group
+var replAttr *score.Group
 
-func ReplAttrOnly() *score.Group {
-	if replAttrOnly == nil {
-		replAttrOnly = score.NewFilterGroup(
+func ReplAttr() *score.Group {
+	if replAttr == nil {
+		replAttr = score.NewFilterGroup(
 			madkinsreplattr.Name,
 		)
 	}
-	return replAttrOnly
+	return replAttr
 }

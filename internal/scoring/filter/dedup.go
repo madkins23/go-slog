@@ -2,7 +2,7 @@ package filter
 
 import (
 	"github.com/madkins23/go-slog/creator/slogjson"
-	"github.com/madkins23/go-slog/creator/veqryndedup"
+	"github.com/madkins23/go-slog/internal/scoring/group"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
@@ -14,7 +14,7 @@ func Dedup() score.Filter {
 	if dedup == nil {
 		dedup = score.NewIncludeFilter(
 			slogjson.Name,
-			veqryndedup.Name(veqryndedup.Overwrite),
+			group.Dedup(),
 		)
 	}
 	return dedup
