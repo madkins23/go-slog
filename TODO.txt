@@ -5,6 +5,9 @@
 * Warning levels in top-level README.md
 * Discuss slog_madkins_replattr benchmark somewhere
 ? Default chart size on score page to smallest one that contains all items
+? Drop-down for scoring ... line between regular scores and tilde versions?
+  - no nested drop-downs w/o js/css
+  * <option disabled>──────────</option>
 ? Workflow keep-alive
   https://github.com/liskin/gh-workflow-keepalive
 ? Show complex definitions, log traces, and attribute groups on a web page
