@@ -146,7 +146,7 @@ func tableDefs() table.TableDef {
 	return table.TableDef{
 		Columns: []table.ColumnDef{
 			{ // Handler
-				Width:     20,
+				Width:     23,
 				AlignLeft: true,
 			},
 			{ // Runs
