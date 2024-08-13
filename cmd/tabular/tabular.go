@@ -94,7 +94,7 @@ func main() {
 			data.Runs.ShortName(), data.Nanos.ShortName(),
 			data.MemAllocs.ShortName(), data.MemBytes.ShortName(), data.MbPerSec.ShortName())
 		fmt.Println(tableMgr.SeparatorString(1))
-		handlerRecords := bench.HandlerRecords(test)
+		handlerRecords := bench.HandlerRecordsFor(test)
 		for _, handler := range bench.HandlerTags() {
 			handlerRecord := handlerRecords[handler]
 			if !handlerRecord.IsEmpty() {

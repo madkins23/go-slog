@@ -1,10 +1,9 @@
-package main
+package chart
 
 import (
 	"log/slog"
 	"net/http"
 	"strings"
-	"sync"
 
 	"github.com/gin-gonic/gin"
 	"github.com/vicanso/go-charts/v2"
@@ -12,13 +11,8 @@ import (
 	"github.com/madkins23/go-slog/internal/data"
 )
 
-var (
-	chartCache      = make(map[string][]byte)
-	chartCacheMutex sync.Mutex
-)
-
-// chartFunction generates an SVG chart for the current object tags.
-func chartFunction(c *gin.Context) {
+// Bar generates an SVG chart for the current object tags.
+func Bar(c *gin.Context, bench *data.Benchmarks) {
 	itemArg := strings.TrimSuffix(c.Param("item"), ".svg")
 	item, err := data.BenchItemsString(itemArg)
 	if err != nil {
@@ -28,16 +22,16 @@ func chartFunction(c *gin.Context) {
 	}
 	tag := c.Param("tag")
 	cacheKey := tag + ":" + item.String()
-	chartCacheMutex.Lock()
-	ch, found := chartCache[cacheKey]
-	chartCacheMutex.Unlock()
+	CacheMutex.Lock()
+	ch, found := Cache[cacheKey]
+	CacheMutex.Unlock()
 	if !found {
 		var labels []string
 		var values []float64
-		if records := bench.HandlerRecords(data.TestTag(tag)); records != nil {
-			labels, values = chartTest(records, item)
-		} else if records := bench.TestRecords(data.HandlerTag(tag)); records != nil {
-			labels, values = chartHandler(records, item)
+		if records := bench.HandlerRecordsFor(data.TestTag(tag)); records != nil {
+			labels, values = chartTest(bench, records, item)
+		} else if records := bench.TestRecordsFor(data.HandlerTag(tag)); records != nil {
+			labels, values = chartHandler(bench, records, item)
 		} else {
 			slog.Error("Neither handler nor benchmark records found", "fn", "chartFunction")
 			c.HTML(http.StatusBadRequest, "pageFunction", gin.H{
@@ -72,15 +66,15 @@ func chartFunction(c *gin.Context) {
 		if err != nil {
 			panic(err)
 		}
-		chartCacheMutex.Lock()
-		chartCache[cacheKey] = ch
-		chartCacheMutex.Unlock()
+		CacheMutex.Lock()
+		Cache[cacheKey] = ch
+		CacheMutex.Unlock()
 	}
 	c.Data(http.StatusOK, "image/svg+xml", ch)
 }
 
 // charTest returns labels and values for a Test chart.
-func chartTest(records data.HandlerRecords, item data.BenchItems) (labels []string, values []float64) {
+func chartTest(bench *data.Benchmarks, records data.HandlerRecords, item data.BenchItems) (labels []string, values []float64) {
 	labels = make([]string, 0, len(records))
 	values = make([]float64, 0, len(records))
 	for _, tag := range bench.HandlerTags() {
@@ -95,7 +89,7 @@ func chartTest(records data.HandlerRecords, item data.BenchItems) (labels []stri
 }
 
 // chartHandler returns labels and values for a Handler chart.
-func chartHandler(records data.TestRecords, item data.BenchItems) (labels []string, values []float64) {
+func chartHandler(bench *data.Benchmarks, records data.TestRecords, item data.BenchItems) (labels []string, values []float64) {
 	labels = make([]string, 0, len(records))
 	values = make([]float64, 0, len(records))
 	for _, tag := range bench.TestTags() {
@@ -107,4 +101,17 @@ func chartHandler(records data.TestRecords, item data.BenchItems) (labels []stri
 	reverse(labels)
 	reverse(values)
 	return
+}
+
+// -----------------------------------------------------------------------------
+
+// reverse an array.
+func reverse[T any](array []T) {
+	i := 0
+	j := len(array) - 1
+	for i < j {
+		array[i], array[j] = array[j], array[i]
+		i++
+		j--
+	}
 }

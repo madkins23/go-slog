@@ -66,6 +66,7 @@ import (
 	"github.com/madkins23/gin-utils/pkg/handler"
 	"github.com/madkins23/gin-utils/pkg/shutdown"
 
+	"github.com/madkins23/go-slog/cmd/server/chart"
 	ginslog "github.com/madkins23/go-slog/gin"
 	"github.com/madkins23/go-slog/infra/warning"
 	"github.com/madkins23/go-slog/internal/data"
@@ -134,11 +135,11 @@ func main() {
 	router.GET("/go-slog/test/:tag", pageFunction(pageTest))
 	router.GET("/go-slog/handler/:tag", pageFunction(pageHandler))
 	router.GET("/go-slog/scores/:keeper/summary.html", pageFunction(pageScores))
-	router.GET("/go-slog/scores/:keeper/:size/chart.svg", scoreFunction)
+	router.GET("/go-slog/scores/:keeper/:size/chart.svg", scoreChart)
 	router.GET("/go-slog/warnings.html", pageFunction(pageWarnings))
 	router.GET("/go-slog/guts.html", pageFunction(pageGuts))
 	router.GET("/go-slog/error.html", pageFunction(pageError))
-	router.GET("/go-slog/chart/:tag/:item", chartFunction)
+	router.GET("/go-slog/chart/:tag/:item", barChart)
 	router.GET("/go-slog/home.svg", svgFunction(home))
 	router.GET("/go-slog/scripts.js", textFunction(scripts))
 	router.GET("/go-slog/style.css", textFunction(css))
@@ -406,17 +407,6 @@ func functions() map[string]any {
 	}
 }
 
-// reverse an array.
-func reverse[T any](array []T) {
-	i := 0
-	j := len(array) - 1
-	for i < j {
-		array[i], array[j] = array[j], array[i]
-		i++
-		j--
-	}
-}
-
 // svgFunction returns a Gin handler function for generating an SVG image.
 // During execution of the handler function the SVG image will be generated from the specified string.
 func svgFunction(svg []byte) gin.HandlerFunc {
@@ -437,4 +427,14 @@ func textFunction(text string) gin.HandlerFunc {
 				"ErrorMessage": err.Error()})
 		}
 	}
+}
+
+// barChart generates an SVG chart for the current object tags.
+func barChart(c *gin.Context) {
+	chart.Bar(c, bench)
+}
+
+// scoreChart generates an SVG chart for the specified score data.
+func scoreChart(c *gin.Context) {
+	chart.Score(c, warns)
 }

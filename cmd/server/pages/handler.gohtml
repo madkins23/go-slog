@@ -54,7 +54,7 @@
                   <th>Bytes/Op</th>
                   <th>MB/Sec</th>
                 </tr>
-                {{ range $tag, $record := .Benchmarks.TestRecords .Handler }}
+                {{ range $tag, $record := .Benchmarks.TestRecordsFor .Handler }}
                   <tr>
                     <td class="fixed">{{ $.Benchmarks.TestName $tag }}</td>
                     <td class="number">{{ $.FixUint $record.Runs }}</td>

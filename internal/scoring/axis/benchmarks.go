@@ -61,7 +61,7 @@ func (b *Benchmarks) Setup(bench *data.Benchmarks, _ *data.Warnings) error {
 				bytesLow: math.MaxUint64,
 				nanosLow: math.MaxFloat64,
 			}
-			for _, records := range bench.HandlerRecords(test) {
+			for _, records := range bench.HandlerRecordsFor(test) {
 				if records.MemAllocsPerOp > aRange.allocHigh {
 					aRange.allocHigh = records.MemAllocsPerOp
 				}

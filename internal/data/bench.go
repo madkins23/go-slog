@@ -119,8 +119,8 @@ func (b *Benchmarks) HandlerName(handler HandlerTag) string {
 	}
 }
 
-// HandlerRecords returns a map of HandlerTag to TestRecord for the specified benchmark.
-func (b *Benchmarks) HandlerRecords(test TestTag) HandlerRecords {
+// HandlerRecordsFor returns a map of HandlerTag to TestRecord for the specified benchmark.
+func (b *Benchmarks) HandlerRecordsFor(test TestTag) HandlerRecords {
 	return b.byTest[test]
 }
 
@@ -147,8 +147,8 @@ func (b *Benchmarks) TestName(test TestTag) string {
 	}
 }
 
-// TestRecords returns a map of HandlerTag to TestRecord for the specified benchmark.
-func (b *Benchmarks) TestRecords(handler HandlerTag) TestRecords {
+// TestRecordsFor returns a map of HandlerTag to TestRecord for the specified benchmark.
+func (b *Benchmarks) TestRecordsFor(handler HandlerTag) TestRecords {
 	return b.ByHandler[handler]
 }
 
