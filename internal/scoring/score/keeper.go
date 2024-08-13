@@ -11,6 +11,8 @@ import (
 	"github.com/madkins23/go-slog/internal/test"
 )
 
+const specialChar = '+'
+
 type KeeperTag string
 
 type Keeper struct {
@@ -141,8 +143,6 @@ func AddKeeper(keeper *Keeper) error {
 func GetKeeper(tag KeeperTag) *Keeper {
 	return keepers[tag]
 }
-
-const specialChar = ':'
 
 func Keepers() []KeeperTag {
 	if keeperTags == nil {

@@ -9,7 +9,7 @@ import (
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
-const ReplAttrName = ":ReplAttr"
+const ReplAttrName = "+ReplAttr"
 
 var (
 	//go:embed doc/repl-attr-doc.md
