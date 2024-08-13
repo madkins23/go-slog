@@ -71,13 +71,13 @@ L 558 -9223372036854775257" style="stroke-width:0;stroke:none;fill:none"/><path 
 L 558 -9223372036854775257" style="stroke-width:0;stroke:none;fill:none"/><path  d="M 12 -9223372036854775257
 L 558 -9223372036854775257" style="stroke-width:0;stroke:none;fill:none"/><path  d="M 12 -9223372036854775257
 L 558 -9223372036854775257" style="stroke-width:0;stroke:none;fill:none"/><path  d="M 12 -9223372036854775257
-L 558 -9223372036854775257" style="stroke-width:0;stroke:none;fill:none"/><path  d="M 547 31
-L 613 98" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><path  d="M 558 99
-L 613 128" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><path  d="M 558 332
-L 613 157" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><path  d="M 547 333
-L 613 187" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><path  d="M 547 350
-L 613 217" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><path  d="M 547 350
-L 613 247" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><path  d="M 194 11
+L 558 -9223372036854775257" style="stroke-width:0;stroke:none;fill:none"/><path  d="M 547 32
+L 613 100" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><path  d="M 558 99
+L 613 129" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><path  d="M 547 336
+L 613 159" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><path  d="M 558 336
+L 613 189" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><path  d="M 547 353
+L 613 219" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><path  d="M 547 354
+L 613 249" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><path  d="M 194 11
 L 194 371
 L 558 371" style="stroke-width:1;stroke:rgba(255,0,127,0.2);fill:none"/><path  d="M 376 11
 L 376 191
@@ -93,40 +93,40 @@ L 549 180
 L 549 202
 L 496 202
 L 486 191
-Z" style="stroke-width:1;stroke:rgba(255,0,127,0.2);fill:rgba(255,255,255,1.0)"/><text x="501" y="197" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">Quarter</text><circle cx="547" cy="31" r="5" style="stroke-width:1;stroke:rgba(7,247,0,1.0);fill:rgba(7,247,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(7,247,0,1.0);fill:rgba(7,247,0,1.0)"/><circle cx="558" cy="99" r="5" style="stroke-width:1;stroke:rgba(19,225,0,1.0);fill:rgba(19,225,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(19,225,0,1.0);fill:rgba(19,225,0,1.0)"/><circle cx="558" cy="332" r="5" style="stroke-width:1;stroke:rgba(60,147,0,1.0);fill:rgba(60,147,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(60,147,0,1.0);fill:rgba(60,147,0,1.0)"/><circle cx="547" cy="333" r="5" style="stroke-width:1;stroke:rgba(63,147,0,1.0);fill:rgba(63,147,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(63,147,0,1.0);fill:rgba(63,147,0,1.0)"/><circle cx="547" cy="350" r="5" style="stroke-width:1;stroke:rgba(66,141,0,1.0);fill:rgba(66,141,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(66,141,0,1.0);fill:rgba(66,141,0,1.0)"/><circle cx="547" cy="350" r="5" style="stroke-width:1;stroke:rgba(66,141,0,1.0);fill:rgba(66,141,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(66,141,0,1.0);fill:rgba(66,141,0,1.0)"/><path  d="M 613 98
-L 623 87
-L 741 87
-L 741 109
-L 623 109
-L 613 98
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="628" y="104" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">slog/JSONHandler</text><path  d="M 613 128
-L 623 117
-L 695 117
-L 695 139
-L 623 139
-L 613 128
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="628" y="134" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">snqk/meld</text><path  d="M 613 157
-L 623 146
-L 772 146
-L 772 168
-L 623 168
-L 613 157
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="628" y="163" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Overwrite</text><path  d="M 613 187
-L 623 176
-L 754 176
-L 754 198
-L 623 198
-L 613 187
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="628" y="193" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Ignore</text><path  d="M 613 217
-L 623 206
-L 776 206
-L 776 228
-L 623 228
-L 613 217
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="628" y="223" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Increment</text><path  d="M 613 247
-L 623 236
-L 762 236
-L 762 258
-L 623 258
-L 613 247
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="628" y="253" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Append</text></svg>
+Z" style="stroke-width:1;stroke:rgba(255,0,127,0.2);fill:rgba(255,255,255,1.0)"/><text x="501" y="197" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">Quarter</text><circle cx="547" cy="32" r="5" style="stroke-width:1;stroke:rgba(7,246,0,1.0);fill:rgba(7,246,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(7,246,0,1.0);fill:rgba(7,246,0,1.0)"/><circle cx="558" cy="99" r="5" style="stroke-width:1;stroke:rgba(19,225,0,1.0);fill:rgba(19,225,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(19,225,0,1.0);fill:rgba(19,225,0,1.0)"/><circle cx="547" cy="336" r="5" style="stroke-width:1;stroke:rgba(64,146,0,1.0);fill:rgba(64,146,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(64,146,0,1.0);fill:rgba(64,146,0,1.0)"/><circle cx="558" cy="336" r="5" style="stroke-width:1;stroke:rgba(61,146,0,1.0);fill:rgba(61,146,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(61,146,0,1.0);fill:rgba(61,146,0,1.0)"/><circle cx="547" cy="353" r="5" style="stroke-width:1;stroke:rgba(66,140,0,1.0);fill:rgba(66,140,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(66,140,0,1.0);fill:rgba(66,140,0,1.0)"/><circle cx="547" cy="354" r="5" style="stroke-width:1;stroke:rgba(66,140,0,1.0);fill:rgba(66,140,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(66,140,0,1.0);fill:rgba(66,140,0,1.0)"/><path  d="M 613 100
+L 623 89
+L 741 89
+L 741 111
+L 623 111
+L 613 100
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="628" y="106" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">slog/JSONHandler</text><path  d="M 613 129
+L 623 118
+L 695 118
+L 695 140
+L 623 140
+L 613 129
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="628" y="135" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">snqk/meld</text><path  d="M 613 159
+L 623 148
+L 754 148
+L 754 170
+L 623 170
+L 613 159
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="628" y="165" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Ignore</text><path  d="M 613 189
+L 623 178
+L 772 178
+L 772 200
+L 623 200
+L 613 189
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="628" y="195" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Overwrite</text><path  d="M 613 219
+L 623 208
+L 776 208
+L 776 230
+L 623 230
+L 613 219
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="628" y="225" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Increment</text><path  d="M 613 249
+L 623 238
+L 762 238
+L 762 260
+L 623 260
+L 613 249
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="628" y="255" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Append</text></svg>
