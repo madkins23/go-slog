@@ -142,6 +142,8 @@ func GetKeeper(tag KeeperTag) *Keeper {
 	return keepers[tag]
 }
 
+const specialChar = ':'
+
 func Keepers() []KeeperTag {
 	if keeperTags == nil {
 		keeperTags = make([]KeeperTag, 0, len(keepers))
@@ -149,6 +151,13 @@ func Keepers() []KeeperTag {
 			keeperTags = append(keeperTags, tag)
 		}
 		sort.Slice(keeperTags, func(i, j int) bool {
+			if keeperTags[i][0] == specialChar {
+				if keeperTags[j][0] != specialChar {
+					return false
+				}
+			} else if keeperTags[j][0] == specialChar {
+				return true
+			}
 			return keeperTags[i] < keeperTags[j]
 		})
 	}

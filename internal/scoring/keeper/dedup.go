@@ -9,7 +9,7 @@ import (
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
-const SingleName = "~Dedup"
+const SingleName = ":Dedup"
 
 var (
 	//go:embed doc/dedup-doc.md
