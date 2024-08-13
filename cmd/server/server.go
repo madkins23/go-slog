@@ -12,7 +12,7 @@ The flags are:
 	-language value
 	    One or more language tags to be tried, defaults to US English.
 	-useWarnings
-	    Show warning instead of known errors
+	    Show warning instead of known errors, defaults true
 	-verify string
 	    Load verification data from path (optional)
 

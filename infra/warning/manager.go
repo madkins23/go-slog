@@ -17,9 +17,11 @@ import (
 // Warnings mechanism to trade test failure for warning list at end of tests.
 
 // useWarnings is the flag value for enabling warning instead of known errors.
-// Command line setting:
+// The default value for this flag is true.
+// In the rare event that warnings should be disabled
+// (resulting in actual errors in the test harness and no warning results) use:
 //
-//	go test ./... -args -useWarnings
+//	go test ./... -args -useWarnings=false
 //
 // This flag will automatically set WarnLevelCase.
 // Other behavior must be activated in specific handler test managers, for example:
@@ -27,7 +29,7 @@ import (
 //	sLogSuite := &test.SlogTestSuite{Creator: &SlogCreator{}}
 //	sLogSuite.WarnOnly(test.WarnMessageKey)
 //	suite.Run(t, slogSuite)
-var useWarnings = flag.Bool("useWarnings", false, "Show warning instead of known errors")
+var useWarnings = flag.Bool("useWarnings", true, "Show warning instead of known errors")
 
 // -----------------------------------------------------------------------------
 
@@ -115,7 +117,7 @@ func (mgr *Manager) WarnOnly(w *Warning) {
 // -----------------------------------------------------------------------------
 // Calls to be made during testing.
 
-// AddUnused adds a Unused warning to the results list.
+// AddUnused adds an Unused warning to the results list.
 // The warning added is Unused and the extra text is the name of the specified warning.
 func (mgr *Manager) AddUnused(w *Warning, logRecordJSON string) {
 	mgr.AddWarning(Unused, w.Name, logRecordJSON)

@@ -80,14 +80,11 @@ a global resource to the other tests ([described below](#testmain)).
 
 Run the handler verification tests installed in this repository with:
 ```shell
-go test -v ./verify -args -useWarnings
+go test -v ./verify
 ```
 
 On an operating system that supports `bash` scripts you can use
 the [`scripts/verify`](https://github.com/madkins23/go-slog/blob/main/scripts/verify) script.
-
-**Note**:  running `go test ./... -args -useWarnings` will fail as
-the other tests in the repository don't recognize the `-useWarnings` flag.
 
 #### Test Flags
 
@@ -96,9 +93,9 @@ There are two flags defined for testing the verification code:
   Sets an integer level for showing any `test.Debugf()` statements in the code.
 * `-useWarnings`  
   Activates the warning system (see [**Warnings**](#warnings)) below.
-  Without this flag the tests fail on errors in the usual manner.
-  When this flag is present tests succeed and warnings are presented
-  in the `go test` output.
+  As of 2024-08-13 this flag is set to `true` by default
+  so that all tests succeed and warnings are presented in the `go test` output.
+  When set to `false` the tests fail on errors in the usual manner.
 
 ## Creators
 
@@ -242,7 +239,8 @@ The test harness that drives verification has some limitations.
   limited number of handlers for which tests have been configured.
   If your handler comes up with a new error condition for which there are tests but no warning
   you can either fix your handler or file a ticket.
-* The `-useWarnings` flag tends to result in the results being buried in the normal `go test` output.
+* The `-useWarnings` flag (which is `true` by default)
+  tends to result in the results being buried in the normal `go test` output.
   This can be fixed by implementing a global [`TestMain()`](#testmain) function.
 * Warnings will only be visible when running `go test` if the `-v` flag is used.
 

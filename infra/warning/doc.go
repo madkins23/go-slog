@@ -29,7 +29,8 @@
 //   - In test code check the `WarningManager` for applicable warnings.
 //   - In warning-specific code use `AddWarning` to note the condition exists
 //     or `UnusedWarning` to note that the warning is redundant.
-//   - Run the tests with the `-useWarnings` flag to invoke warning code.
+//   - Run the tests with the `-useWarnings` flag set to true to invoke warning code.
+//     The `useWarnings` flag is turned on by default.
 //     Without this flag the `WarningManager` will never flag warning code
 //     and test assertions will raise conventional errors.
 package warning

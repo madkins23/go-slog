@@ -12,8 +12,8 @@ The flags are:
 	    Load benchmark data from path (optional)
 	-language value
 	    One or more language tags to be tried, defaults to US English.
-	-useWarnings
-	    Show warning instead of known errors
+	-useWarnings=<bool>
+	    Show warning instead of known errors, defaults true
 	-verify string
 	    Load verification data from path (optional)
 

@@ -14,11 +14,11 @@
 //
 // Run verification suite:
 //
-//	go test -v -args -useWarnings
+//	go test -v
 //
 // Run Benchmark suite:
 //
-//	go test -v -run=none -bench=. -args -useWarnings
+//	go test -v -run=none -bench=.
 package template
 
 import (
