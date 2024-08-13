@@ -16,7 +16,7 @@ const Name = "snqk/meld"
 // [snqk/meld]: https://github.com/snqk/slog-meld
 func Creator() infra.Creator {
 	return infra.NewCreator(Name, handlerFn, nil,
-		`^snqk/slog-meld^ provides a simple slog.Handler
+		`^snqk/slog-meld^ provides a simple ^slog.Handler^
 		designed to recursively merge and de-duplicate log attributes,
 		ensuring clean, concise, and informative log entries.`,
 		map[string]string{

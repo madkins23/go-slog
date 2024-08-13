@@ -36,7 +36,7 @@ func Name(mode Mode) string {
 // [veqryn/dedup]: https://github.com/veqryn/slog-dedup
 func Creator(mode Mode) infra.Creator {
 	return infra.NewCreator(Name(mode), handler(mode), nil,
-		`^veqryn/dedup^ provides a variety of slog.Handler options
+		`^veqryn/dedup^ provides a variety of ^slog.Handler^ options
 		for deduplicating the keys: overwriting, ignoring, appending, and incrementing.`,
 		map[string]string{
 			"veqryn/dedup": "https://github.com/veqryn/slog-dedup",
