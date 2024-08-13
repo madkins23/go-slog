@@ -21,12 +21,14 @@ require (
 	github.com/samber/slog-zerolog/v2 v2.7.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.9.0
+	github.com/veqryn/slog-dedup v0.5.0
 	github.com/vicanso/go-charts/v2 v2.6.9
 	github.com/wcharczuk/go-chart/v2 v2.1.1
 	go.mrchanchal.com/zaphandler v0.0.0-20230611140024-bd4fd80897ad
 	go.seankhliao.com/svcrunner/v3 v3.0.0-20231007180458-c5294d90b36c
 	go.uber.org/zap v1.27.0
 	golang.org/x/text v0.17.0
+	snqk.dev/slog/meld v0.0.0-20240701183407-595424398869
 )
 
 // This breaks phsym/zeroslog
@@ -60,11 +62,10 @@ require (
 	github.com/pascaldekloe/name v1.0.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
-	github.com/samber/lo v1.46.0 // indirect
+	github.com/samber/lo v1.47.0 // indirect
 	github.com/samber/slog-common v0.17.1 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.12 // indirect
-	github.com/veqryn/slog-dedup v0.5.0 // indirect
 	go.opentelemetry.io/otel v1.28.0 // indirect
 	go.opentelemetry.io/otel/trace v1.28.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
@@ -79,5 +80,4 @@ require (
 	google.golang.org/protobuf v1.34.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	modernc.org/b/v2 v2.1.0 // indirect
-	snqk.dev/slog/meld v0.0.0-20240701183407-595424398869 // indirect
 )

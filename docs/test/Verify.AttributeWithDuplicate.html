@@ -50,7 +50,17 @@
                       
                         <option value="SlogJSON" >slog/JSONHandler</option>
                       
+                        <option value="SnqkMeld" >snqk/meld</option>
+                      
                         <option value="SvcrunnerJsonlog" >svcrunner/jsonlog</option>
+                      
+                        <option value="VeqrynDedupAppend" >veqryn/dedup/Append</option>
+                      
+                        <option value="VeqrynDedupIgnore" >veqryn/dedup/Ignore</option>
+                      
+                        <option value="VeqrynDedupIncrement" >veqryn/dedup/Increment</option>
+                      
+                        <option value="VeqrynDedupOverwrite" >veqryn/dedup/Overwrite</option>
                       
                     </select>
                   </form>
@@ -117,6 +127,8 @@
                         <option value="Verify.AttributesWithNotEmpty" >Attributes With Not Empty</option>
                       
                         <option value="Verify.CanceledContext" >Canceled Context</option>
+                      
+                        <option value="Verify.ComplexCases" >Complex Cases</option>
                       
                         <option value="Verify.DefaultLevel" >Default Level</option>
                       
@@ -192,6 +204,10 @@
                         <option value="Simple" >Simple</option>
                       
                         <option value="Size" >Size</option>
+                      
+                        <option value="~Dedup" >~Dedup</option>
+                      
+                        <option value="~ReplAttr" >~ReplAttr</option>
                       
                     </select>
                   </form>
@@ -428,6 +444,185 @@ is currently expected in February 2024).</p>
                 </td>
               </tr>
              
+          
+            <tr>
+              <td colspan=5 class="level">Administrative</td>
+            </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  SkipDedup
+                </td>
+                <td class="extra">
+                  Test depends on dedup order
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SkipDedup-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="SkipDedup-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Some dedup tests return results that can't easily be tested.</p>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                          Veqryn Dedup Append
+                        </td>
+                        <td class="extra"><p>Skipping test</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="SkipDedup-Veqryn Dedup Append-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                          Veqryn Dedup Ignore
+                        </td>
+                        <td class="extra"><p>Skipping test</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="SkipDedup-Veqryn Dedup Ignore-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                          Veqryn Dedup Increment
+                        </td>
+                        <td class="extra"><p>Skipping test</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="SkipDedup-Veqryn Dedup Increment-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  SkippingTest
+                </td>
+                <td class="extra">
+                  Skipping test
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SkippingTest-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="SkippingTest-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>A test has been skipped, likely due to the specification of some other warning.</p>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                          Veqryn Dedup Append
+                        </td>
+                        <td class="extra"><p>SkipDedup</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="SkippingTest-Veqryn Dedup Append-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                          Veqryn Dedup Ignore
+                        </td>
+                        <td class="extra"><p>SkipDedup</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="SkippingTest-Veqryn Dedup Ignore-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                          Veqryn Dedup Increment
+                        </td>
+                        <td class="extra"><p>SkipDedup</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="SkippingTest-Veqryn Dedup Increment-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+             
            
 
               </table>
@@ -449,7 +644,7 @@ is currently expected in February 2024).</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-08-11 01:23:31 UTC</span>
+              <span class="fixed">2024-08-13 17:16:06 UTC</span>
             </div>
           </td>
           <td class="right">

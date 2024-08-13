@@ -47,7 +47,17 @@
                       
                         <option value="SlogJSON" >slog/JSONHandler</option>
                       
+                        <option value="SnqkMeld" >snqk/meld</option>
+                      
                         <option value="SvcrunnerJsonlog" >svcrunner/jsonlog</option>
+                      
+                        <option value="VeqrynDedupAppend" >veqryn/dedup/Append</option>
+                      
+                        <option value="VeqrynDedupIgnore" >veqryn/dedup/Ignore</option>
+                      
+                        <option value="VeqrynDedupIncrement" >veqryn/dedup/Increment</option>
+                      
+                        <option value="VeqrynDedupOverwrite" >veqryn/dedup/Overwrite</option>
                       
                     </select>
                   </form>
@@ -114,6 +124,8 @@
                         <option value="Verify.AttributesWithNotEmpty" >Attributes With Not Empty</option>
                       
                         <option value="Verify.CanceledContext" >Canceled Context</option>
+                      
+                        <option value="Verify.ComplexCases" >Complex Cases</option>
                       
                         <option value="Verify.DefaultLevel" >Default Level</option>
                       
@@ -190,6 +202,10 @@
                       
                         <option value="Size" >Size</option>
                       
+                        <option value="~Dedup" >~Dedup</option>
+                      
+                        <option value="~ReplAttr" >~ReplAttr</option>
+                      
                     </select>
                   </form>
                 </td>
@@ -262,26 +278,26 @@ is in the fastest ranks of <code>slog.Handler</code> implementations tested.</p>
                 
                   <tr>
                     <td class="fixed">Attributes</td>
-                    <td class="number">1,219,100</td>
-                    <td class="number">987.50</td>
+                    <td class="number">1,266,354</td>
+                    <td class="number">957.50</td>
                       <td class="number">2</td>
                      <td class="number">272</td>
-                    <td class="number">401.01</td>
+                    <td class="number">413.58</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Big Group</td>
-                    <td class="number">29,108</td>
-                    <td class="number">41,668.00</td>
+                    <td class="number">23,125</td>
+                    <td class="number">52,505.00</td>
                       <td class="number">1</td>
-                     <td class="number">57</td>
-                    <td class="number">654.53</td>
+                     <td class="number">48</td>
+                    <td class="number">667.50</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Disabled</td>
-                    <td class="number">322,627,123</td>
-                    <td class="number">3.72</td>
+                    <td class="number">297,960,063</td>
+                    <td class="number">4.03</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
                     <td class="number">0.00</td>
@@ -289,83 +305,83 @@ is in the fastest ranks of <code>slog.Handler</code> implementations tested.</p>
                 
                   <tr>
                     <td class="fixed">Key Values</td>
-                    <td class="number">1,000,000</td>
-                    <td class="number">1,016.00</td>
+                    <td class="number">1,208,504</td>
+                    <td class="number">1,006.00</td>
                       <td class="number">2</td>
                      <td class="number">272</td>
-                    <td class="number">389.91</td>
+                    <td class="number">393.53</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Logging</td>
-                    <td class="number">66,596</td>
-                    <td class="number">18,150.00</td>
+                    <td class="number">68,740</td>
+                    <td class="number">17,374.00</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">468.10</td>
+                    <td class="number">489.02</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple</td>
-                    <td class="number">5,748,302</td>
-                    <td class="number">208.70</td>
+                    <td class="number">5,866,933</td>
+                    <td class="number">204.60</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">369.04</td>
+                    <td class="number">376.36</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple Source</td>
-                    <td class="number">2,463,117</td>
-                    <td class="number">495.00</td>
+                    <td class="number">2,427,368</td>
+                    <td class="number">482.20</td>
                       <td class="number">4</td>
                      <td class="number">312</td>
-                    <td class="number">305.05</td>
+                    <td class="number">313.17</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Attributes</td>
-                    <td class="number">1,211,833</td>
-                    <td class="number">989.90</td>
+                    <td class="number">1,250,084</td>
+                    <td class="number">963.90</td>
                       <td class="number">2</td>
                      <td class="number">272</td>
-                    <td class="number">754.63</td>
+                    <td class="number">774.96</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Key Values</td>
                     <td class="number">1,000,000</td>
-                    <td class="number">1,050.00</td>
+                    <td class="number">1,036.00</td>
                       <td class="number">2</td>
                      <td class="number">272</td>
-                    <td class="number">711.13</td>
+                    <td class="number">721.31</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Simple</td>
-                    <td class="number">5,562,216</td>
-                    <td class="number">214.40</td>
+                    <td class="number">5,587,304</td>
+                    <td class="number">217.80</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
-                    <td class="number">1,996.15</td>
+                    <td class="number">1,965.26</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Attributes</td>
                     <td class="number">1,000,000</td>
-                    <td class="number">1,117.00</td>
+                    <td class="number">1,077.00</td>
                       <td class="number">3</td>
                      <td class="number">560</td>
-                    <td class="number">367.03</td>
+                    <td class="number">380.54</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Key Values</td>
                     <td class="number">1,000,000</td>
-                    <td class="number">1,171.00</td>
+                    <td class="number">1,135.00</td>
                       <td class="number">3</td>
                      <td class="number">560</td>
-                    <td class="number">350.13</td>
+                    <td class="number">361.23</td>
                   </tr>
                  
               </table>
@@ -466,7 +482,7 @@ is in the fastest ranks of <code>slog.Handler</code> implementations tested.</p>
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-08-11T01:23:21Z&#34;
+	&#34;time&#34;: &#34;2024-08-13T17:15:56Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -496,7 +512,7 @@ is in the fastest ranks of <code>slog.Handler</code> implementations tested.</p>
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-08-11T01:23:21Z&#34;
+	&#34;time&#34;: &#34;2024-08-13T17:15:56Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -527,7 +543,7 @@ is in the fastest ranks of <code>slog.Handler</code> implementations tested.</p>
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
 	&#34;second&#34;: 2,
-	&#34;time&#34;: &#34;2024-08-11T01:23:21Z&#34;
+	&#34;time&#34;: &#34;2024-08-13T17:15:56Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -594,7 +610,7 @@ is in the fastest ranks of <code>slog.Handler</code> implementations tested.</p>
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-08-11T01:23:21Z&#34;
+	&#34;time&#34;: &#34;2024-08-13T17:15:56Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -662,7 +678,7 @@ is in the fastest ranks of <code>slog.Handler</code> implementations tested.</p>
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
 	&#34;pi&#34;: 3.141592653589793,
-	&#34;time&#34;: &#34;2024-08-11T01:23:21Z&#34;
+	&#34;time&#34;: &#34;2024-08-13T17:15:56Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -793,7 +809,7 @@ This is the only warning that affects <code>TestSlogTest</code> and all of its e
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-08-11T01:23:21Z&#34;
+	&#34;time&#34;: &#34;2024-08-13T17:15:56Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1210,7 +1226,7 @@ However, documentation on implementing handler methods seems to suggest it is op
 	},
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-08-11T01:23:21Z&#34;
+	&#34;time&#34;: &#34;2024-08-13T17:15:56Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -1317,7 +1333,7 @@ to the <code>File</code> and <code>Line</code> fields of the source data group a
 	&#34;caller&#34;: &#34;/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:96&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-08-11T01:21:43Z&#34;
+	&#34;time&#34;: &#34;2024-08-13T17:12:58Z&#34;
 }</pre></td>
                       </tr>
                     
@@ -1345,7 +1361,7 @@ to the <code>File</code> and <code>Line</code> fields of the source data group a
 	&#34;caller&#34;: &#34;/opt/hostedtoolcache/go/1.22.6/x64/src/reflect/value.go:596&#34;,
 	&#34;level&#34;: &#34;info&#34;,
 	&#34;message&#34;: &#34;This is a message&#34;,
-	&#34;time&#34;: &#34;2024-08-11T01:23:21Z&#34;
+	&#34;time&#34;: &#34;2024-08-13T17:15:56Z&#34;
 }</pre></td>
                       </tr>
                      
@@ -1597,48 +1613,6 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Key Case
                         </td>
-                        <td class="extra"><p>'warn'</p></td>
-                        <td class="button">
-                          
-                        </td>
-                      </tr>
-                      <tr id="LevelCase-Key Case-log" style="background-color:antiquewhite;display:none;">
-                        <td class="indent"></td>
-                        <td colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                        
-                      
-                      <tr style="background-color:cornsilk;">
-                        <td colspan=2 class="name">
-                          
-                            Verify:
-                          
-                          Key Case
-                        </td>
-                        <td class="extra"><p>'error'</p></td>
-                        <td class="button">
-                          
-                        </td>
-                      </tr>
-                      <tr id="LevelCase-Key Case-log" style="background-color:cornsilk;display:none;">
-                        <td class="indent"></td>
-                        <td colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                        
-                      
-                      <tr style="background-color:antiquewhite;">
-                        <td colspan=2 class="name">
-                          
-                            Verify:
-                          
-                          Key Case
-                        </td>
                         <td class="extra"><p>'debug'</p></td>
                         <td class="button">
                           
@@ -1661,6 +1635,48 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           Key Case
                         </td>
                         <td class="extra"><p>'info'</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Key Case-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Key Case
+                        </td>
+                        <td class="extra"><p>'warn'</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Key Case-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Key Case
+                        </td>
+                        <td class="extra"><p>'error'</p></td>
                         <td class="button">
                           
                         </td>
@@ -1799,7 +1815,7 @@ may have fixed this as well in Go 1.21.</p>
                           
                           Log Attributes
                         </td>
-                        <td class="extra"><p>2024-08-11T01:23:21Z</p></td>
+                        <td class="extra"><p>2024-08-13T17:15:56Z</p></td>
                         <td class="button">
                           
                         </td>
@@ -1833,7 +1849,7 @@ may have fixed this as well in Go 1.21.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-08-11 01:23:31 UTC</span>
+              <span class="fixed">2024-08-13 17:16:06 UTC</span>
             </div>
           </td>
           <td class="right">

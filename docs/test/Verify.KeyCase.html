@@ -50,7 +50,17 @@
                       
                         <option value="SlogJSON" >slog/JSONHandler</option>
                       
+                        <option value="SnqkMeld" >snqk/meld</option>
+                      
                         <option value="SvcrunnerJsonlog" >svcrunner/jsonlog</option>
+                      
+                        <option value="VeqrynDedupAppend" >veqryn/dedup/Append</option>
+                      
+                        <option value="VeqrynDedupIgnore" >veqryn/dedup/Ignore</option>
+                      
+                        <option value="VeqrynDedupIncrement" >veqryn/dedup/Increment</option>
+                      
+                        <option value="VeqrynDedupOverwrite" >veqryn/dedup/Overwrite</option>
                       
                     </select>
                   </form>
@@ -117,6 +127,8 @@
                         <option value="Verify.AttributesWithNotEmpty" >Attributes With Not Empty</option>
                       
                         <option value="Verify.CanceledContext" >Canceled Context</option>
+                      
+                        <option value="Verify.ComplexCases" >Complex Cases</option>
                       
                         <option value="Verify.DefaultLevel" >Default Level</option>
                       
@@ -192,6 +204,10 @@
                         <option value="Simple" >Simple</option>
                       
                         <option value="Size" >Size</option>
+                      
+                        <option value="~Dedup" >~Dedup</option>
+                      
+                        <option value="~ReplAttr" >~ReplAttr</option>
                       
                     </select>
                   </form>
@@ -277,44 +293,6 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Chanchal Zap
                         </td>
-                        <td class="extra"><p>'warn'</p></td>
-                        <td class="button">
-                          
-                        </td>
-                      </tr>
-                      <tr id="LevelCase-Chanchal Zap-log" style="background-color:cornsilk;display:none;">
-                        <td class="indent"></td>
-                        <td colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                        
-                      
-                      <tr style="background-color:antiquewhite;">
-                        <td colspan=2 class="name">
-                          
-                          Chanchal Zap
-                        </td>
-                        <td class="extra"><p>'error'</p></td>
-                        <td class="button">
-                          
-                        </td>
-                      </tr>
-                      <tr id="LevelCase-Chanchal Zap-log" style="background-color:antiquewhite;display:none;">
-                        <td class="indent"></td>
-                        <td colspan=3 class="logLine"><pre></pre></td>
-                      </tr>
-                    
-                      
-                      
-                        
-                      
-                      <tr style="background-color:cornsilk;">
-                        <td colspan=2 class="name">
-                          
-                          Chanchal Zap
-                        </td>
                         <td class="extra"><p>'debug'</p></td>
                         <td class="button">
                           
@@ -351,9 +329,47 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                       <tr style="background-color:cornsilk;">
                         <td colspan=2 class="name">
                           
-                          Phsym Zerolog
+                          Chanchal Zap
                         </td>
                         <td class="extra"><p>'warn'</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Chanchal Zap-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                          Chanchal Zap
+                        </td>
+                        <td class="extra"><p>'error'</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="LevelCase-Chanchal Zap-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                          Phsym Zerolog
+                        </td>
+                        <td class="extra"><p>'debug'</p></td>
                         <td class="button">
                           
                         </td>
@@ -372,7 +388,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra"><p>'error'</p></td>
+                        <td class="extra"><p>'info'</p></td>
                         <td class="button">
                           
                         </td>
@@ -391,7 +407,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra"><p>'debug'</p></td>
+                        <td class="extra"><p>'warn'</p></td>
                         <td class="button">
                           
                         </td>
@@ -410,7 +426,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Phsym Zerolog
                         </td>
-                        <td class="extra"><p>'info'</p></td>
+                        <td class="extra"><p>'error'</p></td>
                         <td class="button">
                           
                         </td>
@@ -562,7 +578,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Samber Zerolog
                         </td>
-                        <td class="extra"><p>'info'</p></td>
+                        <td class="extra"><p>'debug'</p></td>
                         <td class="button">
                           
                         </td>
@@ -581,7 +597,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Samber Zerolog
                         </td>
-                        <td class="extra"><p>'warn'</p></td>
+                        <td class="extra"><p>'info'</p></td>
                         <td class="button">
                           
                         </td>
@@ -600,7 +616,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Samber Zerolog
                         </td>
-                        <td class="extra"><p>'error'</p></td>
+                        <td class="extra"><p>'warn'</p></td>
                         <td class="button">
                           
                         </td>
@@ -619,7 +635,7 @@ but <code>UnmarshalJSON()</code> will parse in a case-insensitive manner.</p>
                           
                           Samber Zerolog
                         </td>
-                        <td class="extra"><p>'debug'</p></td>
+                        <td class="extra"><p>'error'</p></td>
                         <td class="button">
                           
                         </td>
@@ -704,7 +720,7 @@ This is different from the LevelCase warning which is from the right level name 
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-08-11 01:23:31 UTC</span>
+              <span class="fixed">2024-08-13 17:16:06 UTC</span>
             </div>
           </td>
           <td class="right">

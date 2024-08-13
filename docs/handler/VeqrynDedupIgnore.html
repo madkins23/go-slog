@@ -1,0 +1,647 @@
+<html lang="en">
+<head>
+  <title>Benchmark Data</title>
+  <link rel="stylesheet" href="/go-slog/style.css">
+  <script src="/go-slog/scripts.js"></script>
+</head>
+
+<body>
+<div class="wrapper">
+  <div class="header">
+    
+        
+    <table class="header">
+        <tr>
+          <td>
+            
+              <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+            
+            <h2 class="home">Handler <span class="fixed">veqryn/dedup/Ignore</span></h2>
+          </td>
+          <td>
+            <table class="choice">
+              <tr>
+                <td class="right">Handlers</td>
+                <td colspan="3">
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="ChanchalZap" >chanchal/zaphandler</option>
+                      
+                        <option value="MadkinsFlash" >madkins/flash</option>
+                      
+                        <option value="MadkinsReplAttr" >madkins/replattr</option>
+                      
+                        <option value="MadkinsSloggy" >madkins/sloggy</option>
+                      
+                        <option value="PhsymZerolog" >phsym/zeroslog</option>
+                      
+                        <option value="PhusluSlog" >phuslu/slog</option>
+                      
+                        <option value="SamberLogrus" >samber/slog-logrus</option>
+                      
+                        <option value="SamberZap" >samber/slog-zap</option>
+                      
+                        <option value="SamberZerolog" >samber/slog-zerolog</option>
+                      
+                        <option value="SlogJSON" >slog/JSONHandler</option>
+                      
+                        <option value="SnqkMeld" >snqk/meld</option>
+                      
+                        <option value="SvcrunnerJsonlog" >svcrunner/jsonlog</option>
+                      
+                        <option value="VeqrynDedupAppend" >veqryn/dedup/Append</option>
+                      
+                        <option value="VeqrynDedupIgnore" selected>veqryn/dedup/Ignore</option>
+                      
+                        <option value="VeqrynDedupIncrement" >veqryn/dedup/Increment</option>
+                      
+                        <option value="VeqrynDedupOverwrite" >veqryn/dedup/Overwrite</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right">Bench Tests</td>
+                <td colspan="3">
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Bench.Attributes" >Attributes</option>
+                      
+                        <option value="Bench.BigGroup" >Big Group</option>
+                      
+                        <option value="Bench.Disabled" >Disabled</option>
+                      
+                        <option value="Bench.KeyValues" >Key Values</option>
+                      
+                        <option value="Bench.Logging" >Logging</option>
+                      
+                        <option value="Bench.Simple" >Simple</option>
+                      
+                        <option value="Bench.SimpleSource" >Simple Source</option>
+                      
+                        <option value="Bench.WithAttrsAttributes" >With Attrs Attributes</option>
+                      
+                        <option value="Bench.WithAttrsKeyValues" >With Attrs Key Values</option>
+                      
+                        <option value="Bench.WithAttrsSimple" >With Attrs Simple</option>
+                      
+                        <option value="Bench.WithGroupAttributes" >With Group Attributes</option>
+                      
+                        <option value="Bench.WithGroupKeyValues" >With Group Key Values</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right">Verify Tests</td>
+                <td colspan="3">
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Verify.AttributeDuplicate" >Attribute Duplicate</option>
+                      
+                        <option value="Verify.AttributeEmptyName" >Attribute Empty Name</option>
+                      
+                        <option value="Verify.AttributeWithDuplicate" >Attribute With Duplicate</option>
+                      
+                        <option value="Verify.AttributeWithEmpty" >Attribute With Empty</option>
+                      
+                        <option value="Verify.AttributeWithEmptyName" >Attribute With Empty Name</option>
+                      
+                        <option value="Verify.AttributesEmpty" >Attributes Empty</option>
+                      
+                        <option value="Verify.AttributesNotEmpty" >Attributes Not Empty</option>
+                      
+                        <option value="Verify.AttributesWithEmpty" >Attributes With Empty</option>
+                      
+                        <option value="Verify.AttributesWithNotEmpty" >Attributes With Not Empty</option>
+                      
+                        <option value="Verify.CanceledContext" >Canceled Context</option>
+                      
+                        <option value="Verify.ComplexCases" >Complex Cases</option>
+                      
+                        <option value="Verify.DefaultLevel" >Default Level</option>
+                      
+                        <option value="Verify.GroupDuration" >Group Duration</option>
+                      
+                        <option value="Verify.GroupInline" >Group Inline</option>
+                      
+                        <option value="Verify.GroupWithMulti" >Group With Multi</option>
+                      
+                        <option value="Verify.GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                      
+                        <option value="Verify.GroupWithTop" >Group With Top</option>
+                      
+                        <option value="Verify.KeyCase" >Key Case</option>
+                      
+                        <option value="Verify.Keys" >Keys</option>
+                      
+                        <option value="Verify.LevelConfigured" >Level Configured</option>
+                      
+                        <option value="Verify.LevelDifferent" >Level Different</option>
+                      
+                        <option value="Verify.LevelVar" >Level Var</option>
+                      
+                        <option value="Verify.LogAttributes" >Log Attributes</option>
+                      
+                        <option value="Verify.ReplaceAttr" >Replace Attr</option>
+                      
+                        <option value="Verify.ReplaceAttrBasic" >Replace Attr Basic</option>
+                      
+                        <option value="Verify.ReplaceAttrFnChangeKey" >Replace Attr Fn Change Key</option>
+                      
+                        <option value="Verify.ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                      
+                        <option value="Verify.ReplaceAttrFnMulti" >Replace Attr Fn Multi</option>
+                      
+                        <option value="Verify.ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
+                      
+                        <option value="Verify.ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                      
+                        <option value="Verify.ResolveGroup" >Resolve Group</option>
+                      
+                        <option value="Verify.ResolveGroupWith" >Resolve Group With</option>
+                      
+                        <option value="Verify.ResolveValuer" >Resolve Valuer</option>
+                      
+                        <option value="Verify.ResolveWith" >Resolve With</option>
+                      
+                        <option value="Verify.SlogTest" >Slog Test</option>
+                      
+                        <option value="Verify.SourceKey" >Source Key</option>
+                      
+                        <option value="Verify.WithGroupEmpty" >With Group Empty</option>
+                      
+                        <option value="Verify.WithGroupInline" >With Group Inline</option>
+                      
+                        <option value="Verify.ZeroPC" >Zero PC</option>
+                      
+                        <option value="Verify.ZeroTime" >Zero Time</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right"><label for="tag">Scoring</label></td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="scoreChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Default" >Default</option>
+                      
+                        <option value="Simple" >Simple</option>
+                      
+                        <option value="Size" >Size</option>
+                      
+                        <option value="~Dedup" >~Dedup</option>
+                      
+                        <option value="~ReplAttr" >~ReplAttr</option>
+                      
+                    </select>
+                  </form>
+                </td>
+                <td class="right"><label for="tag">Other</label></td>
+                <td class="right">
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="otherChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      <option value="index.html"    >Home</option>
+                      <option value="warnings.html" >Warnings</option>
+                      <option value="guts.html"     >Guts</option>
+                    </select>
+                  </form>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+    </table>
+
+  </div>
+  <div class="content">
+    <div>
+      <table class="top">
+        
+          
+            <tr class="summary-header">
+              <th style="width:70%">Summary</th>
+              <th style="width:30%">
+                
+                  Links
+                
+              </th>
+            </tr>
+            <tr class="summary">
+              <td>
+                <p><code>veqryn/dedup</code> provides a variety of slog.Handler options
+for deduplicating the keys: overwriting, ignoring, appending, and incrementing.</p>
+
+              </td>
+              
+                <td>
+                  
+                    <a href="https://github.com/veqryn/slog-dedup">veqryn/dedup</a><br/>
+                  
+                </td>
+              
+            </tr>
+            <tr><td colspan=2><hr/></td></tr>
+          
+        
+        
+          <tr class="title">
+            <td><h2>Benchmark Data</h2></td>
+          </tr>
+          <tr>
+            <td colspan=2>
+              <table class="data">
+                <tr>
+                  <th>Benchmark</th>
+                  <th>Runs</th>
+                  <th>Ns/Op</th>
+                  <th>Allocs/Op</th>
+                  <th>Bytes/Op</th>
+                  <th>MB/Sec</th>
+                </tr>
+                
+                  <tr>
+                    <td class="fixed">Attributes</td>
+                    <td class="number">184,206</td>
+                    <td class="number">5,701.00</td>
+                      <td class="number">41</td>
+                     <td class="number">9,726</td>
+                    <td class="number">73.14</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Big Group</td>
+                    <td class="number">824</td>
+                    <td class="number">1,340,402.00</td>
+                      <td class="number">9,299</td>
+                     <td class="number">3,122,797</td>
+                    <td class="number">26.15</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Disabled</td>
+                    <td class="number">275,483,343</td>
+                    <td class="number">4.37</td>
+                      <td class="number">0</td>
+                     <td class="number">0</td>
+                    <td class="number">0.00</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Key Values</td>
+                    <td class="number">174,582</td>
+                    <td class="number">5,838.00</td>
+                      <td class="number">41</td>
+                     <td class="number">9,727</td>
+                    <td class="number">71.43</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Logging</td>
+                    <td class="number">8,053</td>
+                    <td class="number">130,890.00</td>
+                      <td class="number">867</td>
+                     <td class="number">224,739</td>
+                    <td class="number">67.23</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Simple</td>
+                    <td class="number">2,394,082</td>
+                    <td class="number">502.80</td>
+                      <td class="number">6</td>
+                     <td class="number">280</td>
+                    <td class="number">165.09</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">Simple Source</td>
+                    <td class="number">1,000,000</td>
+                    <td class="number">1,105.00</td>
+                      <td class="number">12</td>
+                     <td class="number">848</td>
+                    <td class="number">250.65</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Attrs Attributes</td>
+                    <td class="number">121,124</td>
+                    <td class="number">8,554.00</td>
+                      <td class="number">61</td>
+                     <td class="number">14,071</td>
+                    <td class="number">76.45</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Attrs Key Values</td>
+                    <td class="number">124,060</td>
+                    <td class="number">8,531.00</td>
+                      <td class="number">61</td>
+                     <td class="number">14,075</td>
+                    <td class="number">76.66</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Attrs Simple</td>
+                    <td class="number">194,048</td>
+                    <td class="number">5,495.00</td>
+                      <td class="number">39</td>
+                     <td class="number">9,051</td>
+                    <td class="number">81.72</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Group Attributes</td>
+                    <td class="number">150,650</td>
+                    <td class="number">7,106.00</td>
+                      <td class="number">50</td>
+                     <td class="number">13,267</td>
+                    <td class="number">60.51</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">With Group Key Values</td>
+                    <td class="number">153,783</td>
+                    <td class="number">7,186.00</td>
+                      <td class="number">50</td>
+                     <td class="number">13,269</td>
+                    <td class="number">59.97</td>
+                  </tr>
+                 
+              </table>
+            </td>
+          </tr>
+          <tr><td colspan=2><hr/></td></tr>
+          <tr class="title"><td colspan=2><h2>Benchmark Charts</h2></td></tr>
+          <tr>
+            <td colspan=2 class="score">
+              <table class="charts">
+                <tr>
+                  <td><img src="/go-slog/chart/VeqrynDedupIgnore/Nanos.svg" alt="veqryn/dedup/Ignore Ns/Op" class="chart" /></td>
+                  <td><img src="/go-slog/chart/VeqrynDedupIgnore/MemAllocs.svg" alt="veqryn/dedup/Ignore Allocs/Op" class="chart" /></td>
+                </tr>
+                <tr>
+                  <td><img src="/go-slog/chart/VeqrynDedupIgnore/MemBytes.svg" alt="veqryn/dedup/Ignore Bytes/Op" class="chart" /></td>
+                  <td><img src="/go-slog/chart/VeqrynDedupIgnore/GbPerSec.svg" alt="veqryn/dedup/Ignore GB/Sec" class="chart" /></td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+         
+        
+          <tr><td colspan=2><hr/></td></tr>
+          <tr class="title">
+            <td><h2 >Warnings</h2></td>
+          </tr>
+          <tr>
+            <td colspan=2>
+              <table class="warning">
+                <tr>
+                  <td style="width:3%;"></td>
+                  <td style="width:3%;"></td>
+                  <td style="width:30%;"></td>
+                  <td style="width:58%;"></td>
+                  <td style="width:6%;"></td>
+                </tr>
+                
+                          
+          
+            <tr>
+              <td colspan=5 class="level">Administrative</td>
+            </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  SkipDedup
+                </td>
+                <td class="extra">
+                  Test depends on dedup order
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SkipDedup-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="SkipDedup-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>Some dedup tests return results that can't easily be tested.</p>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Attribute Duplicate
+                        </td>
+                        <td class="extra"><p>Skipping test</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="SkipDedup-Attribute Duplicate-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Attribute With Duplicate
+                        </td>
+                        <td class="extra"><p>Skipping test</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="SkipDedup-Attribute With Duplicate-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Complex Cases
+                        </td>
+                        <td class="extra"><p>Skipping test</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="SkipDedup-Complex Cases-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+            
+              <tr>
+                <td></td>
+                <td colspan=2 class="warning">
+                  SkippingTest
+                </td>
+                <td class="extra">
+                  Skipping test
+                </td>
+                <td class="center">
+                  
+                    <button type="button" title="Toggle Warning Description" onclick="toggleTableRow('SkippingTest-doc')">Doc</button>
+                  
+                </td>
+              </tr>
+              
+                <tr id="SkippingTest-doc" style="display:none;">
+                  <td></td>
+                  <td colspan=4 class="description"><p>A test has been skipped, likely due to the specification of some other warning.</p>
+</td>
+                </tr>
+              
+              <tr class="instance">
+                <td colspan=2></td>
+                <td colspan=3>
+                  <table class="instance">
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Attribute Duplicate
+                        </td>
+                        <td class="extra"><p>SkipDedup</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="SkippingTest-Attribute Duplicate-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:antiquewhite;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Attribute With Duplicate
+                        </td>
+                        <td class="extra"><p>SkipDedup</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="SkippingTest-Attribute With Duplicate-log" style="background-color:antiquewhite;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                    
+                      
+                      
+                        
+                      
+                      <tr style="background-color:cornsilk;">
+                        <td colspan=2 class="name">
+                          
+                            Verify:
+                          
+                          Complex Cases
+                        </td>
+                        <td class="extra"><p>SkipDedup</p></td>
+                        <td class="button">
+                          
+                        </td>
+                      </tr>
+                      <tr id="SkippingTest-Complex Cases-log" style="background-color:cornsilk;display:none;">
+                        <td class="indent"></td>
+                        <td colspan=3 class="logLine"><pre></pre></td>
+                      </tr>
+                     
+                  </table>
+                </td>
+              </tr>
+             
+           
+
+              </table>
+            </td>
+         
+      </table>
+    </div>
+  </div>
+  <div class="footer">
+        <table class="footer">
+        <tr>
+          <td>
+            <div class="hover-text">
+              <span class="tooltip-text">Code Repository</span>
+              <a href="https://github.com/madkins23/go-slog" target="_blank">Repository</a>
+            </div>
+          </td>
+          <td class="center">
+            <div class="hover-text">
+              <span class="tooltip-text">Date/time when this data was generated</span>
+              <span class="fixed">2024-08-13 17:16:06 UTC</span>
+            </div>
+          </td>
+          <td class="right">
+            <div class="hover-text">
+              <span class="tooltip-text">Code Documentation</span>
+              <a href="https://pkg.go.dev/github.com/madkins23/go-slog" target="_blank">Documentation</a>
+            </div>
+          </td>
+        </tr>
+    </table>
+
+  </div>
+</div>
+</body>
+</html>

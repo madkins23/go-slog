@@ -47,7 +47,17 @@
                       
                         <option value="SlogJSON" >slog/JSONHandler</option>
                       
+                        <option value="SnqkMeld" >snqk/meld</option>
+                      
                         <option value="SvcrunnerJsonlog" >svcrunner/jsonlog</option>
+                      
+                        <option value="VeqrynDedupAppend" >veqryn/dedup/Append</option>
+                      
+                        <option value="VeqrynDedupIgnore" >veqryn/dedup/Ignore</option>
+                      
+                        <option value="VeqrynDedupIncrement" >veqryn/dedup/Increment</option>
+                      
+                        <option value="VeqrynDedupOverwrite" >veqryn/dedup/Overwrite</option>
                       
                     </select>
                   </form>
@@ -114,6 +124,8 @@
                         <option value="Verify.AttributesWithNotEmpty" >Attributes With Not Empty</option>
                       
                         <option value="Verify.CanceledContext" >Canceled Context</option>
+                      
+                        <option value="Verify.ComplexCases" >Complex Cases</option>
                       
                         <option value="Verify.DefaultLevel" >Default Level</option>
                       
@@ -189,6 +201,10 @@
                         <option value="Simple" >Simple</option>
                       
                         <option value="Size" >Size</option>
+                      
+                        <option value="~Dedup" >~Dedup</option>
+                      
+                        <option value="~ReplAttr" >~ReplAttr</option>
                       
                     </select>
                   </form>
@@ -266,26 +282,26 @@ This is intended to measure the effect of <code>ReplaceAttr</code> usage on perf
                 
                   <tr>
                     <td class="fixed">Attributes</td>
-                    <td class="number">589,990</td>
-                    <td class="number">2,038.00</td>
+                    <td class="number">590,974</td>
+                    <td class="number">1,983.00</td>
                       <td class="number">6</td>
                      <td class="number">508</td>
-                    <td class="number">219.79</td>
+                    <td class="number">225.38</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Big Group</td>
-                    <td class="number">7,050</td>
-                    <td class="number">173,806.00</td>
+                    <td class="number">5,782</td>
+                    <td class="number">206,053.00</td>
                       <td class="number">17</td>
-                     <td class="number">153,189</td>
-                    <td class="number">179.33</td>
+                     <td class="number">153,188</td>
+                    <td class="number">194.36</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Disabled</td>
-                    <td class="number">321,699,634</td>
-                    <td class="number">7.71</td>
+                    <td class="number">319,482,038</td>
+                    <td class="number">3.78</td>
                       <td class="number">0</td>
                      <td class="number">0</td>
                     <td class="number">0.00</td>
@@ -293,83 +309,83 @@ This is intended to measure the effect of <code>ReplaceAttr</code> usage on perf
                 
                   <tr>
                     <td class="fixed">Key Values</td>
-                    <td class="number">544,162</td>
-                    <td class="number">2,082.00</td>
+                    <td class="number">595,602</td>
+                    <td class="number">2,019.00</td>
                       <td class="number">6</td>
                      <td class="number">508</td>
-                    <td class="number">215.18</td>
+                    <td class="number">221.39</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Logging</td>
-                    <td class="number">23,091</td>
-                    <td class="number">52,079.00</td>
+                    <td class="number">23,128</td>
+                    <td class="number">51,157.00</td>
                       <td class="number">204</td>
                      <td class="number">12,044</td>
-                    <td class="number">184.53</td>
+                    <td class="number">187.89</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple</td>
-                    <td class="number">1,931,654</td>
-                    <td class="number">624.30</td>
+                    <td class="number">1,924,179</td>
+                    <td class="number">623.90</td>
                       <td class="number">4</td>
                      <td class="number">236</td>
-                    <td class="number">140.96</td>
+                    <td class="number">141.05</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">Simple Source</td>
-                    <td class="number">1,000,000</td>
-                    <td class="number">1,155.00</td>
+                    <td class="number">982,520</td>
+                    <td class="number">1,143.00</td>
                       <td class="number">8</td>
                      <td class="number">712</td>
-                    <td class="number">245.89</td>
+                    <td class="number">247.54</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Attributes</td>
-                    <td class="number">589,742</td>
-                    <td class="number">2,039.00</td>
+                    <td class="number">608,742</td>
+                    <td class="number">1,987.00</td>
                       <td class="number">6</td>
                      <td class="number">508</td>
-                    <td class="number">411.95</td>
+                    <td class="number">421.81</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Key Values</td>
-                    <td class="number">571,333</td>
-                    <td class="number">2,068.00</td>
+                    <td class="number">582,834</td>
+                    <td class="number">2,043.00</td>
                       <td class="number">6</td>
                      <td class="number">508</td>
-                    <td class="number">406.16</td>
+                    <td class="number">409.74</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Attrs Simple</td>
-                    <td class="number">1,884,879</td>
-                    <td class="number">630.80</td>
+                    <td class="number">1,917,242</td>
+                    <td class="number">628.80</td>
                       <td class="number">4</td>
                      <td class="number">236</td>
-                    <td class="number">760.89</td>
+                    <td class="number">761.79</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Attributes</td>
-                    <td class="number">581,827</td>
-                    <td class="number">2,050.00</td>
+                    <td class="number">593,078</td>
+                    <td class="number">2,005.00</td>
                       <td class="number">6</td>
                      <td class="number">508</td>
-                    <td class="number">225.81</td>
+                    <td class="number">230.38</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">With Group Key Values</td>
-                    <td class="number">574,956</td>
-                    <td class="number">2,076.00</td>
+                    <td class="number">568,378</td>
+                    <td class="number">2,042.00</td>
                       <td class="number">6</td>
                      <td class="number">508</td>
-                    <td class="number">223.00</td>
+                    <td class="number">226.20</td>
                   </tr>
                  
               </table>
@@ -514,7 +530,7 @@ is currently expected in February 2024).</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-08-11 01:23:31 UTC</span>
+              <span class="fixed">2024-08-13 17:16:06 UTC</span>
             </div>
           </td>
           <td class="right">

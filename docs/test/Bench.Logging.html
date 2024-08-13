@@ -50,7 +50,17 @@
                       
                         <option value="SlogJSON" >slog/JSONHandler</option>
                       
+                        <option value="SnqkMeld" >snqk/meld</option>
+                      
                         <option value="SvcrunnerJsonlog" >svcrunner/jsonlog</option>
+                      
+                        <option value="VeqrynDedupAppend" >veqryn/dedup/Append</option>
+                      
+                        <option value="VeqrynDedupIgnore" >veqryn/dedup/Ignore</option>
+                      
+                        <option value="VeqrynDedupIncrement" >veqryn/dedup/Increment</option>
+                      
+                        <option value="VeqrynDedupOverwrite" >veqryn/dedup/Overwrite</option>
                       
                     </select>
                   </form>
@@ -117,6 +127,8 @@
                         <option value="Verify.AttributesWithNotEmpty" >Attributes With Not Empty</option>
                       
                         <option value="Verify.CanceledContext" >Canceled Context</option>
+                      
+                        <option value="Verify.ComplexCases" >Complex Cases</option>
                       
                         <option value="Verify.DefaultLevel" >Default Level</option>
                       
@@ -193,6 +205,10 @@
                       
                         <option value="Size" >Size</option>
                       
+                        <option value="~Dedup" >~Dedup</option>
+                      
+                        <option value="~ReplAttr" >~ReplAttr</option>
+                      
                     </select>
                   </form>
                 </td>
@@ -233,101 +249,146 @@
                 
                   <tr>
                     <td class="fixed">chanchal/zaphandler</td>
-                    <td class="number">38,564</td>
-                    <td class="number">33,006.00</td>
+                    <td class="number">36,302</td>
+                    <td class="number">33,803.00</td>
                     <td class="number">51</td>
-                    <td class="number">1,635</td>
-                    <td class="number">251.22</td>
+                    <td class="number">1,636</td>
+                    <td class="number">245.30</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">madkins/flash</td>
-                    <td class="number">32,308</td>
-                    <td class="number">34,253.00</td>
+                    <td class="number">36,164</td>
+                    <td class="number">33,110.00</td>
                     <td class="number">153</td>
                     <td class="number">11,840</td>
-                    <td class="number">280.71</td>
+                    <td class="number">290.12</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">madkins/replattr</td>
-                    <td class="number">23,091</td>
-                    <td class="number">52,079.00</td>
+                    <td class="number">23,128</td>
+                    <td class="number">51,157.00</td>
                     <td class="number">204</td>
                     <td class="number">12,044</td>
-                    <td class="number">184.53</td>
+                    <td class="number">187.89</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">madkins/sloggy</td>
-                    <td class="number">17,634</td>
-                    <td class="number">68,588.00</td>
+                    <td class="number">17,721</td>
+                    <td class="number">68,001.00</td>
                     <td class="number">1,865</td>
                     <td class="number">26,992</td>
-                    <td class="number">140.13</td>
+                    <td class="number">141.35</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">phsym/zeroslog</td>
-                    <td class="number">66,596</td>
-                    <td class="number">18,150.00</td>
+                    <td class="number">68,740</td>
+                    <td class="number">17,374.00</td>
                     <td class="number">0</td>
                     <td class="number">0</td>
-                    <td class="number">468.10</td>
+                    <td class="number">489.02</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">phuslu/slog</td>
-                    <td class="number">83,179</td>
-                    <td class="number">14,563.00</td>
+                    <td class="number">83,143</td>
+                    <td class="number">14,308.00</td>
                     <td class="number">0</td>
                     <td class="number">0</td>
-                    <td class="number">604.42</td>
+                    <td class="number">615.18</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-logrus</td>
-                    <td class="number">2,892</td>
-                    <td class="number">407,052.00</td>
+                    <td class="number">2,853</td>
+                    <td class="number">406,962.00</td>
                     <td class="number">2,857</td>
                     <td class="number">223,008</td>
-                    <td class="number">20.71</td>
+                    <td class="number">20.72</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-zap</td>
-                    <td class="number">9,904</td>
-                    <td class="number">121,288.00</td>
+                    <td class="number">9,520</td>
+                    <td class="number">119,556.00</td>
                     <td class="number">1,225</td>
-                    <td class="number">152,388</td>
-                    <td class="number">68.37</td>
+                    <td class="number">152,390</td>
+                    <td class="number">69.36</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">samber/slog-zerolog</td>
-                    <td class="number">12,495</td>
-                    <td class="number">95,770.00</td>
+                    <td class="number">12,474</td>
+                    <td class="number">95,397.00</td>
                     <td class="number">1,326</td>
                     <td class="number">111,446</td>
-                    <td class="number">88.71</td>
+                    <td class="number">89.06</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">slog/JSONHandler</td>
-                    <td class="number">45,111</td>
-                    <td class="number">27,161.00</td>
+                    <td class="number">42,475</td>
+                    <td class="number">30,468.00</td>
                     <td class="number">0</td>
                     <td class="number">0</td>
-                    <td class="number">323.96</td>
+                    <td class="number">288.82</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">snqk/meld</td>
+                    <td class="number">24,580</td>
+                    <td class="number">48,662.00</td>
+                    <td class="number">561</td>
+                    <td class="number">30,214</td>
+                    <td class="number">180.78</td>
                   </tr>
                 
                   <tr>
                     <td class="fixed">svcrunner/jsonlog</td>
-                    <td class="number">56,787</td>
-                    <td class="number">21,081.00</td>
+                    <td class="number">58,467</td>
+                    <td class="number">20,695.00</td>
                     <td class="number">0</td>
                     <td class="number">0</td>
-                    <td class="number">426.83</td>
+                    <td class="number">434.98</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">veqryn/dedup/Append</td>
+                    <td class="number">9,206</td>
+                    <td class="number">131,567.00</td>
+                    <td class="number">867</td>
+                    <td class="number">224,813</td>
+                    <td class="number">66.84</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">veqryn/dedup/Ignore</td>
+                    <td class="number">8,053</td>
+                    <td class="number">130,890.00</td>
+                    <td class="number">867</td>
+                    <td class="number">224,739</td>
+                    <td class="number">67.23</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">veqryn/dedup/Increment</td>
+                    <td class="number">9,156</td>
+                    <td class="number">130,846.00</td>
+                    <td class="number">867</td>
+                    <td class="number">224,743</td>
+                    <td class="number">67.23</td>
+                  </tr>
+                
+                  <tr>
+                    <td class="fixed">veqryn/dedup/Overwrite</td>
+                    <td class="number">7,794</td>
+                    <td class="number">130,585.00</td>
+                    <td class="number">867</td>
+                    <td class="number">224,698</td>
+                    <td class="number">67.34</td>
                   </tr>
                 
               </table>
@@ -366,7 +427,7 @@
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-08-11 01:23:31 UTC</span>
+              <span class="fixed">2024-08-13 17:16:06 UTC</span>
             </div>
           </td>
           <td class="right">
