@@ -1,9 +1,5 @@
 # TODO
 
-? Drop-down for scoring ... line between regular scores and tilde versions?
-  - no nested drop-downs w/o js/css
-  * <option disabled>──────────</option>
-
 * Make -useWarnings default to true, fix various doc to match
 * Warning levels in top-level README.md
 ? Default chart size on score page to smallest one that contains all items
