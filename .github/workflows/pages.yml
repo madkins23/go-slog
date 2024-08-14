@@ -25,14 +25,22 @@ jobs:
       - name: Install the latest versions of each library
         run: go get -u ./... && go mod tidy
 
+      - name: Remove previous documentation pages (except for doc.go)
+        run: |
+          rm -rf docs/*
+          git checkout docs/doc.go
+
       - name: Benchmark Go logging libraries
-        run: go test -bench=. bench/*.go > ${{ runner.temp }}/bench.txt
+        run: go test -bench=. bench/*.go > docs/bench.txt
 
       - name: Verify Go logging libraries
-        run: go test -v ./verify > ${{ runner.temp }}/verify.txt
+        run: go test -v ./verify > docs/verify.txt
+
+      - name: Run Tabular
+        run: go run cmd/tabular/tabular.go -bench=docs/bench.txt -verify=docs/verify.txt > docs/tabular.txt
 
       - name: Run Server & Get Pages
-        run: go run cmd/server/*.go -bench=${{ runner.temp }}/bench.txt -verify=${{ runner.temp }}/verify.txt & scripts/pages
+        run: go run cmd/server/*.go -bench=docs/bench.txt -verify=docs/verify.txt & scripts/pages
 
       - name: Commit Benchmark Results to Repo
         uses: EndBug/add-and-commit@v9
