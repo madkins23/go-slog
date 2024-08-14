@@ -1,6 +1,3 @@
-* Remove docs directory before refilling it (pages.yml)
-* Keep bench/verify results in docs directory instead of TMP
-
 # TODO
 
 * Multiple tables on score page:
