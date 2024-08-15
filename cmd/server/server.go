@@ -135,7 +135,7 @@ func main() {
 	router.GET("/go-slog/index.html", homePageFn)
 	router.GET("/go-slog/test/:tag", pageFunction(pageTest))
 	router.GET("/go-slog/handler/:tag", pageFunction(pageHandler))
-	router.GET("/go-slog/scores/:keeper/Summary.html", pageFunction(pageScores))
+	router.GET("/go-slog/scores/:keeper/summary.html", pageFunction(pageScores))
 	router.GET("/go-slog/scores/:keeper/:size/chart.svg", scoreChart)
 	router.GET("/go-slog/warnings.html", pageFunction(pageWarnings))
 	router.GET("/go-slog/guts.html", pageFunction(pageGuts))
