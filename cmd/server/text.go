@@ -59,9 +59,8 @@ func (tc *TextCache) HasText() bool {
 func (tc *TextCache) TextItem(path string) *TextItem {
 	var found bool
 	var item *TextItem
-	if item, found = tc.cache[path]; found && item != nil {
+	if item, found = tc.cache[path]; !found || item == nil {
 		slog.Error("Text not found", "Path", path)
-	} else {
 		item = &TextItem{
 			Path:    path,
 			Summary: "Text Not Found",
