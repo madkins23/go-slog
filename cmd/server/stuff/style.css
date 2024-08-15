@@ -312,6 +312,7 @@ table.score-title {
 table.scores {
     margin-left: auto;
     margin-right: auto;
+    width: 800px;
 }
 
 table.top {
