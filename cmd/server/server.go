@@ -181,7 +181,7 @@ var (
 		&TextItem{
 			Name:    "tabular.txt",
 			Path:    "docs/tabular.txt",
-			Summary: "Tabular command output file from processing bench.txt and verify.txt",
+			Summary: "Tabular command output file from processing `bench.txt` and `verify.txt`",
 		},
 	)
 

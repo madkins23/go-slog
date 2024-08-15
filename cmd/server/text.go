@@ -4,13 +4,14 @@ import (
 	"html/template"
 	"log/slog"
 	"os"
-	"sort"
+
+	"github.com/madkins23/go-slog/internal/markdown"
 )
 
 type TextItem struct {
 	Name    string
 	Path    string
-	Summary string
+	Summary template.HTML
 	Data    template.HTML
 }
 
@@ -44,8 +45,8 @@ func NewTextCache(items ...*TextItem) *TextCache {
 		} else {
 			slog.Warn("Loaded empty text file", "Path", item.Path)
 		}
+		item.Summary = markdown.TemplateHTML(string(item.Summary), false)
 	}
-	sort.Strings(tc.names)
 	for _, name := range tc.names {
 		tc.items = append(tc.items, tc.cache[name])
 	}

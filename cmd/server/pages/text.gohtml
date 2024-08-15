@@ -10,14 +10,8 @@
   <div class="header">
     {{ template "partHeader" dict "top" $ "title" (printf "Text File <span class=\"fixed\">%s</span>" $.Item.Name) }}
   </div>
-  <div class="content">
-    <div>
-      <table class="top">
-        <tr><th class="left">{{ $.Item.Summary }}</th></tr>
-        <tr class="text"><td>{{ $.Item.Data }}</td></tr>
-      </table>
-    </div>
-  </div>
+  <div class="text-summary">{{ $.Item.Summary }}</div>
+  <div class="text">{{ $.Item.Data }}</div>
   <div class="footer">
     {{ template "partFooter" $ }}
   </div>
