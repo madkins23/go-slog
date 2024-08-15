@@ -305,6 +305,10 @@ table.instance td.button {
     width: 7%;
 }
 
+table.score-title {
+    width: 100%;
+}
+
 table.scores {
     margin-left: auto;
     margin-right: auto;

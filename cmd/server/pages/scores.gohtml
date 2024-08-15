@@ -13,10 +13,69 @@
     <div class="content">
         <div>
             <table class="top">
-                <tr class="title"><td colspan=2><h2>Scores</h2></td></tr>
+                <tr class="title">
+                    <td colspan="2">
+                        <table class="score-title">
+                            <tr>
+                                <td><h2 id="table-title">Scores</h2></td>
+                                <td class="right">
+                                    <button id="score-table-button-scores" type="button" onclick="showDataTable(`scores`)">Scores</button>
+                                    <button id="score-table-button-speed" type="button" onclick="showDataTable(`speed`)">Speed</button>
+                                    <button id="score-table-button-memory" type="button" onclick="showDataTable(`memory`)">Memory</button>
+                                    <button id="score-table-button-warnings" type="button" onclick="showDataTable(`warnings`)">Warnings</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
                 <tr>
-                    <td colspan=2>
-                        <table class="data">
+                    <td colspan="2">
+                        <table class="data" id="score-table-scores">
+                            <tr>
+                                <th>Handler</th>
+                                <th>{{ $.Keeper.X.Name }}</th>
+                                <th>{{ $.Keeper.Y.Name }}</th>
+                            </tr>
+                            {{ range $tag := .Keeper.HandlerTags }}
+                                <tr>
+                                    <td><a href="/go-slog/handler/{{ $tag }}.html">{{ $.Benchmarks.HandlerName $tag }}</a></td>
+                                    <td class="number">{{ $.FixValue ($.Keeper.X.ScoreFor $tag) }}</td>
+                                    <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreFor $tag) }}</td>
+                                </tr>
+                            {{ end }}
+                        </table>
+                        <table class="data" id="score-table-speed">
+                            <tr><td colspan="3">Speed!</td></tr>
+                            <tr>
+                                <th>Handler</th>
+                                <th>{{ $.Keeper.X.Name }}</th>
+                                <th>{{ $.Keeper.Y.Name }}</th>
+                            </tr>
+                            {{ range $tag := .Keeper.HandlerTags }}
+                                <tr>
+                                    <td><a href="/go-slog/handler/{{ $tag }}.html">{{ $.Benchmarks.HandlerName $tag }}</a></td>
+                                    <td class="number">{{ $.FixValue ($.Keeper.X.ScoreFor $tag) }}</td>
+                                    <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreFor $tag) }}</td>
+                                </tr>
+                            {{ end }}
+                        </table>
+                        <table class="data" id="score-table-memory">
+                            <tr><td colspan="3">Memory!</td></tr>
+                            <tr>
+                                <th>Handler</th>
+                                <th>{{ $.Keeper.X.Name }}</th>
+                                <th>{{ $.Keeper.Y.Name }}</th>
+                            </tr>
+                            {{ range $tag := .Keeper.HandlerTags }}
+                                <tr>
+                                    <td><a href="/go-slog/handler/{{ $tag }}.html">{{ $.Benchmarks.HandlerName $tag }}</a></td>
+                                    <td class="number">{{ $.FixValue ($.Keeper.X.ScoreFor $tag) }}</td>
+                                    <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreFor $tag) }}</td>
+                                </tr>
+                            {{ end }}
+                        </table>
+                        <table class="data" id="score-table-warnings">
+                            <tr><td colspan="3">Warnings!</td></tr>
                             <tr>
                                 <th>Handler</th>
                                 <th>{{ $.Keeper.X.Name }}</th>
@@ -37,10 +96,10 @@
                         </p>
                     </td>
                 </tr>
-                <tr><td colspan=2><hr/></td></tr>
-                <tr class="title"><td colspan=2><h2>{{ .Keeper.ChartTitle }}</h2></td></tr>
+                <tr><td colspan="2"><hr/></td></tr>
+                <tr class="title"><td colspan="2"><h2>{{ .Keeper.ChartTitle }}</h2></td></tr>
                 <tr>
-                    <td colspan=2>
+                    <td colspan="2">
                         <table class="charts">
                             <colgroup>
                                 <col class="size-left" width="40%">
@@ -71,9 +130,9 @@
                         <p class="center">{{ .Keeper.ChartCaption }}</p>
                     </td>
                 </tr>
-                <tr><td colspan=2><hr/></td></tr>
+                <tr><td colspan="2"><hr/></td></tr>
                 <tr class="title">
-                    <td colspan=2>
+                    <td colspan="2">
                         <h2 id="scoring_algorithms">Scoring Algorithms</h2>
                     </td>
                 </tr>
@@ -122,12 +181,47 @@
 </div>
 <script>
     function scoreChartSize(size) {
-        for (let i = 0; i <= 4; i++) {
+        for (let i = 0; i < 4; i++) {
             document.getElementById(`score-chart-button-${i}`).disabled = i === size
             document.getElementById(`score-chart-image-${i}`).hidden = i !== size
         }
     }
     scoreChartSize(0);
+
+    const tables = [
+        {
+            "id": "scores",
+            "name": "Scores",
+        },
+        {
+            "id": "speed",
+            "name": "Speed",
+        },
+        {
+            "id": "memory",
+            "name": "Memory",
+        },
+        {
+            "id": "warnings",
+            "name": "Warnings",
+        }
+    ];
+    const numTables = tables.length;
+    function showDataTable(which) {
+        for (let i = 0; i < numTables; i++) {
+            const id = tables[i].id
+            let buttonDisabled = false
+            let tableMode = `none`
+            if (id === which) {
+                buttonDisabled = true
+                tableMode = `table`
+                document.getElementById(`table-title`).innerText = tables[i].name
+            }
+            document.getElementById(`score-table-button-`+id).disabled = buttonDisabled
+            displayTable('score-table-' +id, tableMode)
+        }
+    }
+    showDataTable("scores")
 </script>
 </body>
 </html>
