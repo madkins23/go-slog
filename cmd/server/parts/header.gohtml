@@ -73,7 +73,7 @@
                       {{ if $top.Text.HasText }}
                         <option disabled>──────────</option>
                           {{ range $top.Text.TextItems }}
-                            <option value="text/{{ .Name }}" {{ if eq .Name $top.Item.SafeName }}selected{{ end }}>{{ .Name }}</option>
+                            <option value="{{ .Name }}/text.html" {{ if eq .Name $top.Item.SafeName }}selected{{ end }}>{{ .Name }}</option>
                           {{ end }}
                       {{ end }}
                     </select>
