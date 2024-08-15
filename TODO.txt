@@ -1,7 +1,5 @@
 # TODO
 
-* Benchmark test output file
-  - 2024/08/13 14:06:08 WARN Verification Error err="mismatch WithAttrsAttributes:All: Any,group: %!w()\nmismatch WithAttrsAttributes:With: Any,group: %!w()"
 * Multiple tables on score page:
   - Current version ("scores")
   - speed
