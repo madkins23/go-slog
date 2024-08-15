@@ -401,11 +401,16 @@ func pageFunction(page pageType) gin.HandlerFunc {
 					tmplData.Handler = data.HandlerTag(tag)
 				}
 			}
-		case pageText:
-			if tag := c.Param("tag"); tag == "" {
+		case pageHome, pageText:
+			if tag := c.Param("tag"); tag != "" {
+				tmplData.Item = text.TextItem(tag)
+			} else if page == pageText {
 				slog.Error("No URL parameter", "tag", tag, "page", page)
 			} else {
-				tmplData.Item = text.TextItem(tag)
+				tmplData.Item = &TextItem{
+					Name:    "<noFile>",
+					Summary: "No text item",
+				}
 			}
 		case pageError:
 			tmplData.Errors = c.Errors.Errors()

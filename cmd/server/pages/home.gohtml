@@ -63,6 +63,16 @@
               <table>
                 <tr><td><a href="/go-slog/warnings.html">Warnings</a></td></tr>
                 <tr><td><a href="/go-slog/guts.html">Guts</a></td></tr>
+                {{ if .Text.HasText }}
+                  <tr><td><hr/></td></tr>
+                  {{ range .Text.TextItems }}
+                    {{ if eq .Name $.Item.SafeName }}
+                      <tr><td>{{ .Name }}</td></tr>
+                    {{ else }}
+                      <tr><td><a href="text/{{ .Name }}">{{ .Name }}</a></td></tr>
+                    {{ end }}
+                  {{ end }}
+                {{ end }}
               </table>
             </fieldset>
           </td>
