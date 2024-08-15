@@ -1,9 +1,8 @@
 #!/bin/bash
 
 # Run slog verification tests.
-# Save verification output to /tmp/go-slog/verify.txt.
+# Save verification output to docs/verify.txt.
 
 clear
-mkdir -p /tmp/go-slog
 go test -v ./verify                    | # Run verification tests  \
-   tee /tmp/go-slog/verify.txt           # Save benchmark output
+   tee docs/verify.txt                   # Save benchmark output

@@ -1,4 +1,4 @@
 // Package scripts contains various bash scripts used in development and testing.
 //
-// Scripts create and utilize /tmp/go-slog directory for data files.
+// Scripts utilize the docs subdirectory for data files.
 package scripts

@@ -1,13 +1,12 @@
 #!/bin/bash
 
 # Run slog benchmark tests.
-# Save benchmark output to /tmp/go-slog/bench.txt.
-# Run cmd/tabular on benchmark output and save results to /tmp/go-slog/bench.tbl.
+# Save benchmark output to docs/bench.txt.
+# Run cmd/tabular on benchmark output and save results to docs/tabular.txt.
 
 clear
-mkdir -p /tmp/go-slog
 go test -bench=. bench/*.go                    | # Run benchmark tests                \
    tee /dev/tty                                | # Show progress to user in real time \
-   tee /tmp/go-slog/bench.txt                  | # Save benchmark output              \
+   tee docs/bench.txt                          | # Save benchmark output              \
    go run cmd/tabular/tabular.go               | # Process JSON to table              \
-   tee /tmp/go-slog/bench.tbl                    # Save table to file
+   tee docs/tabular.txt                          # Save table to file
