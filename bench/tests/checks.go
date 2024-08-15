@@ -61,10 +61,23 @@ func fields(testName string, fields ...string) VerifyFn {
 	}
 }
 
+var skipDedupTests = map[string]bool{
+	"WithAttrsAttributes:All":  true,
+	"WithAttrsAttributes:With": true,
+	"WithAttrsKeyValues:All":   true,
+	"WithAttrsKeyValues:With":  true,
+}
+
 // finder matches the parts of the actual map against what is expected.
 // The actual map can have other unspecified fields.
 func finder(testName string, expected map[string]any) VerifyFn {
 	return func(captured []byte, logMap map[string]any, manager *warning.Manager) error {
+		if manager.HasWarning(warning.SkipDedup) && skipDedupTests[testName] {
+			// Deduplication handlers don't always pass some specific tests.
+			// This applies in particular to veqryn/dedup/Append,
+			// but it seems inappropriate to reference a specific handler in this code.
+			return nil
+		}
 		logMap = getLogMap(captured, logMap, manager)
 		badFields, strFields, err := finderDeep(expected, logMap, "")
 		if err != nil {

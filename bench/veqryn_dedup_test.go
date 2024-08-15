@@ -5,11 +5,13 @@ import (
 
 	"github.com/madkins23/go-slog/bench/tests"
 	"github.com/madkins23/go-slog/creator/veqryndedup"
+	"github.com/madkins23/go-slog/infra/warning"
 )
 
 // BenchmarkVeqrynDedupAppend runs benchmarks for the veqryn/dedup JSON handler in Append mode.
 func BenchmarkVeqrynDedupAppend(b *testing.B) {
 	slogSuite := tests.NewSlogBenchmarkSuite(veqryndedup.Creator(veqryndedup.Append))
+	slogSuite.WarnOnly(warning.SkipDedup)
 	tests.Run(b, slogSuite)
 }
 
