@@ -1,4 +1,244 @@
+<html lang="en">
+<head>
+  <title>Text File</title>
+  <link rel="stylesheet" href="/go-slog/style.css">
+  <script src="/go-slog/scripts.js"></script>
+</head>
 
+<body>
+<div class="wrapper">
+  <div class="header">
+        
+    <table class="header">
+        <tr>
+          <td>
+            
+              <a href="/go-slog/index.html"><img src="/go-slog/home.svg" alt="Home" class="home" /></a>
+            
+            <h2 class="home">Text File <span class="fixed">tabular.txt</span></h2>
+          </td>
+          <td>
+            <table class="choice">
+              <tr>
+                <td class="right">Handlers</td>
+                <td colspan="3">
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="hdlrChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="ChanchalZap" >chanchal/zaphandler</option>
+                      
+                        <option value="MadkinsFlash" >madkins/flash</option>
+                      
+                        <option value="MadkinsReplAttr" >madkins/replattr</option>
+                      
+                        <option value="MadkinsSloggy" >madkins/sloggy</option>
+                      
+                        <option value="PhsymZerolog" >phsym/zeroslog</option>
+                      
+                        <option value="PhusluSlog" >phuslu/slog</option>
+                      
+                        <option value="SamberLogrus" >samber/slog-logrus</option>
+                      
+                        <option value="SamberZap" >samber/slog-zap</option>
+                      
+                        <option value="SamberZerolog" >samber/slog-zerolog</option>
+                      
+                        <option value="SlogJSON" >slog/JSONHandler</option>
+                      
+                        <option value="SnqkMeld" >snqk/meld</option>
+                      
+                        <option value="SvcrunnerJsonlog" >svcrunner/jsonlog</option>
+                      
+                        <option value="VeqrynDedupAppend" >veqryn/dedup/Append</option>
+                      
+                        <option value="VeqrynDedupIgnore" >veqryn/dedup/Ignore</option>
+                      
+                        <option value="VeqrynDedupIncrement" >veqryn/dedup/Increment</option>
+                      
+                        <option value="VeqrynDedupOverwrite" >veqryn/dedup/Overwrite</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right">Bench Tests</td>
+                <td colspan="3">
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Bench.Attributes" >Attributes</option>
+                      
+                        <option value="Bench.BigGroup" >Big Group</option>
+                      
+                        <option value="Bench.Disabled" >Disabled</option>
+                      
+                        <option value="Bench.KeyValues" >Key Values</option>
+                      
+                        <option value="Bench.Logging" >Logging</option>
+                      
+                        <option value="Bench.Simple" >Simple</option>
+                      
+                        <option value="Bench.SimpleSource" >Simple Source</option>
+                      
+                        <option value="Bench.WithAttrsAttributes" >With Attrs Attributes</option>
+                      
+                        <option value="Bench.WithAttrsKeyValues" >With Attrs Key Values</option>
+                      
+                        <option value="Bench.WithAttrsSimple" >With Attrs Simple</option>
+                      
+                        <option value="Bench.WithGroupAttributes" >With Group Attributes</option>
+                      
+                        <option value="Bench.WithGroupKeyValues" >With Group Key Values</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right">Verify Tests</td>
+                <td colspan="3">
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="testChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Verify.AttributeDuplicate" >Attribute Duplicate</option>
+                      
+                        <option value="Verify.AttributeEmptyName" >Attribute Empty Name</option>
+                      
+                        <option value="Verify.AttributeWithDuplicate" >Attribute With Duplicate</option>
+                      
+                        <option value="Verify.AttributeWithEmpty" >Attribute With Empty</option>
+                      
+                        <option value="Verify.AttributeWithEmptyName" >Attribute With Empty Name</option>
+                      
+                        <option value="Verify.AttributesEmpty" >Attributes Empty</option>
+                      
+                        <option value="Verify.AttributesNotEmpty" >Attributes Not Empty</option>
+                      
+                        <option value="Verify.AttributesWithEmpty" >Attributes With Empty</option>
+                      
+                        <option value="Verify.AttributesWithNotEmpty" >Attributes With Not Empty</option>
+                      
+                        <option value="Verify.CanceledContext" >Canceled Context</option>
+                      
+                        <option value="Verify.ComplexCases" >Complex Cases</option>
+                      
+                        <option value="Verify.DefaultLevel" >Default Level</option>
+                      
+                        <option value="Verify.GroupDuration" >Group Duration</option>
+                      
+                        <option value="Verify.GroupInline" >Group Inline</option>
+                      
+                        <option value="Verify.GroupWithMulti" >Group With Multi</option>
+                      
+                        <option value="Verify.GroupWithMultiSubEmpty" >Group With Multi Sub Empty</option>
+                      
+                        <option value="Verify.GroupWithTop" >Group With Top</option>
+                      
+                        <option value="Verify.KeyCase" >Key Case</option>
+                      
+                        <option value="Verify.Keys" >Keys</option>
+                      
+                        <option value="Verify.LevelConfigured" >Level Configured</option>
+                      
+                        <option value="Verify.LevelDifferent" >Level Different</option>
+                      
+                        <option value="Verify.LevelVar" >Level Var</option>
+                      
+                        <option value="Verify.LogAttributes" >Log Attributes</option>
+                      
+                        <option value="Verify.ReplaceAttr" >Replace Attr</option>
+                      
+                        <option value="Verify.ReplaceAttrBasic" >Replace Attr Basic</option>
+                      
+                        <option value="Verify.ReplaceAttrFnChangeKey" >Replace Attr Fn Change Key</option>
+                      
+                        <option value="Verify.ReplaceAttrFnLevelCase" >Replace Attr Fn Level Case</option>
+                      
+                        <option value="Verify.ReplaceAttrFnMulti" >Replace Attr Fn Multi</option>
+                      
+                        <option value="Verify.ReplaceAttrFnRemoveEmptyKey" >Replace Attr Fn Remove Empty Key</option>
+                      
+                        <option value="Verify.ReplaceAttrFnRemoveTime" >Replace Attr Fn Remove Time</option>
+                      
+                        <option value="Verify.ResolveGroup" >Resolve Group</option>
+                      
+                        <option value="Verify.ResolveGroupWith" >Resolve Group With</option>
+                      
+                        <option value="Verify.ResolveValuer" >Resolve Valuer</option>
+                      
+                        <option value="Verify.ResolveWith" >Resolve With</option>
+                      
+                        <option value="Verify.SlogTest" >Slog Test</option>
+                      
+                        <option value="Verify.SourceKey" >Source Key</option>
+                      
+                        <option value="Verify.WithGroupEmpty" >With Group Empty</option>
+                      
+                        <option value="Verify.WithGroupInline" >With Group Inline</option>
+                      
+                        <option value="Verify.ZeroPC" >Zero PC</option>
+                      
+                        <option value="Verify.ZeroTime" >Zero Time</option>
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+              <tr>
+                <td class="right"><label for="tag">Scoring</label></td>
+                <td>
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="scoreChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      
+                        <option value="Default" >Default</option>
+                      
+                        <option value="Simple" >Simple</option>
+                      
+                        <option value="Size" >Size</option>
+                      
+                        <option value="&#43;Dedup" >&#43;Dedup</option>
+                      
+                        <option value="&#43;ReplAttr" >&#43;ReplAttr</option>
+                      
+                    </select>
+                  </form>
+                </td>
+                <td class="right"><label for="tag">Other</label></td>
+                <td class="right">
+                  <form class="choice">
+                    <select name="tag" id="tag" onchange="otherChoice(this.form);">
+                      <option value="" selected disabled hidden>- Choose -</option>
+                      <option value="index.html"    >Home</option>
+                      <option value="warnings.html" >Warnings</option>
+                      <option value="guts.html"     >Guts</option>
+                      
+                        <option disabled>──────────</option>
+                          
+                            <option value="text/bench.txt" >bench.txt</option>
+                          
+                            <option value="text/verify.txt" >verify.txt</option>
+                          
+                            <option value="text/tabular.txt" selected>tabular.txt</option>
+                          
+                      
+                    </select>
+                  </form>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+    </table>
+
+  </div>
+  <div class="text-summary"><p>Tabular command output file from processing <code>bench.txt</code> and <code>verify.txt</code></p>
+</div>
+  <div class="text">
 Benchmark Attributes
   ╔═════════════════════════╦═════════════╤═══════════════╤═════════════╤═════════════╤═════════════╗
   ║ Handler                 ║        Runs │         Ns/Op │   Allocs/Op │    Bytes/Op │      MB/Sec ║
@@ -764,3 +1004,32 @@ Warnings for veqryn/dedup/Increment:
 
 Warnings for veqryn/dedup/Overwrite:
 
+</div>
+  <div class="footer">
+        <table class="footer">
+        <tr>
+          <td>
+            <div class="hover-text">
+              <span class="tooltip-text">Code Repository</span>
+              <a href="https://github.com/madkins23/go-slog" target="_blank">Repository</a>
+            </div>
+          </td>
+          <td class="center">
+            <div class="hover-text">
+              <span class="tooltip-text">Date/time when this data was generated</span>
+              <span class="fixed">2024-08-15 16:01:58 UTC</span>
+            </div>
+          </td>
+          <td class="right">
+            <div class="hover-text">
+              <span class="tooltip-text">Code Documentation</span>
+              <a href="https://pkg.go.dev/github.com/madkins23/go-slog" target="_blank">Documentation</a>
+            </div>
+          </td>
+        </tr>
+    </table>
+
+  </div>
+</div>
+</body>
+</html>
