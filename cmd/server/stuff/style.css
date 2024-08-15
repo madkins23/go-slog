@@ -323,6 +323,14 @@ table.top tr.summary td li {
     font-family: monospace;
 }
 
+table.top tr.text td {
+    font-family: monospace;
+    background-color: #f1f1f1;
+    padding: 2px;
+    font-size: 105%;
+    white-space: pre-wrap;
+}
+
 table.top tr.title {
     vertical-align: baseline;
 }

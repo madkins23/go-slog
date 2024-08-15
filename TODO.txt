@@ -1,5 +1,10 @@
 # TODO
 
+* Show text files
+  * text.gohtml: how to mark text file selected?
+  * Horizontal scroll?
+  * Keep summary line in place for vertical scroll
+
 * Multiple tables on score page:
   - Current version ("scores")
   - speed

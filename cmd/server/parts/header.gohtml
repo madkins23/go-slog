@@ -67,9 +67,15 @@
                   <form class="choice">
                     <select name="tag" id="tag" onchange="otherChoice(this.form);">
                       <option value="" selected disabled hidden>- Choose -</option>
-                      <option value="index.html"    {{ if eq $top.Page "pageHome" }}selected{{ end}}>Home</option>
-                      <option value="warnings.html" {{ if eq $top.Page "pageWarnings" }}selected{{ end}}>Warnings</option>
-                      <option value="guts.html"     {{ if eq $top.Page "pageGuts" }}selected{{ end}}>Guts</option>
+                      <option value="index.html"    {{ if eq $top.Page "pageHome" }}selected{{ end }}>Home</option>
+                      <option value="warnings.html" {{ if eq $top.Page "pageWarnings" }}selected{{ end }}>Warnings</option>
+                      <option value="guts.html"     {{ if eq $top.Page "pageGuts" }}selected{{ end }}>Guts</option>
+                      {{ if $top.Text.HasText }}
+                        <option disabled>──────────</option>
+                          {{ range $top.Text.TextItems }}
+                            <option value="text/{{ .Name }}">{{ .Name }}</option>
+                          {{ end }}
+                      {{ end }}
                     </select>
                   </form>
                 </td>

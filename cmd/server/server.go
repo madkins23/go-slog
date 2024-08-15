@@ -8,13 +8,13 @@ server parses benchmark test and verification test output and displays it via we
 The flags are:
 
 	-bench string
-	    Load benchmark data from path (optional)
+	    Load benchmark Data from Path (optional)
 	-language value
 	    One or more language tags to be tried, defaults to US English.
 	-useWarnings
 	    Show warning instead of known errors, defaults true
 	-verify string
-	    Load verification data from path (optional)
+	    Load verification Data from Path (optional)
 
 The scripts/server script will run cmd/server,
 taking input from temporary files created by scripts/verify and scripts/bench.
@@ -87,6 +87,7 @@ const (
 	pageScores   = "pageScores"
 	pageWarnings = "pageWarnings"
 	pageGuts     = "pageGuts"
+	pageText     = "pageText"
 	pageError    = "pageError"
 
 	partFooter   = "partFooter"
@@ -134,10 +135,11 @@ func main() {
 	router.GET("/go-slog/index.html", homePageFn)
 	router.GET("/go-slog/test/:tag", pageFunction(pageTest))
 	router.GET("/go-slog/handler/:tag", pageFunction(pageHandler))
-	router.GET("/go-slog/scores/:keeper/summary.html", pageFunction(pageScores))
+	router.GET("/go-slog/scores/:keeper/Summary.html", pageFunction(pageScores))
 	router.GET("/go-slog/scores/:keeper/:size/chart.svg", scoreChart)
 	router.GET("/go-slog/warnings.html", pageFunction(pageWarnings))
 	router.GET("/go-slog/guts.html", pageFunction(pageGuts))
+	router.GET("/go-slog/text/:tag", pageFunction(pageText))
 	router.GET("/go-slog/error.html", pageFunction(pageError))
 	router.GET("/go-slog/chart/:tag/:item", barChart)
 	router.GET("/go-slog/home.svg", svgFunction(home))
@@ -163,8 +165,25 @@ func main() {
 var (
 	bench     = data.NewBenchmarks()
 	warns     = data.NewWarnings()
-	pages     = []pageType{pageHome, pageTest, pageHandler, pageScores, pageWarnings, pageGuts, pageError}
+	pages     = []pageType{pageHome, pageTest, pageHandler, pageScores, pageWarnings, pageGuts, pageText, pageError}
 	templates map[pageType]*template.Template
+	text      = NewTextCache(
+		&TextItem{
+			Name:    "bench.txt",
+			Path:    "docs/bench.txt",
+			Summary: "Output from running benchmark tests",
+		},
+		&TextItem{
+			Name:    "verify.txt",
+			Path:    "docs/verify.txt",
+			Summary: "Output from running verify tests",
+		},
+		&TextItem{
+			Name:    "tabular.txt",
+			Path:    "docs/tabular.txt",
+			Summary: "Output tabular command",
+		},
+	)
 
 	//go:embed pages/home.gohtml
 	tmplPageHome string
@@ -184,6 +203,9 @@ var (
 	//go:embed pages/guts.gohtml
 	tmplPageGuts string
 
+	//go:embed pages/text.gohtml
+	tmplPageText string
+
 	//go:embed pages/error.gohtml
 	tmplPageError string
 
@@ -200,14 +222,14 @@ var (
 	tmplPartWarnings string
 )
 
-// setup server data structures and templates.
+// setup server Data structures and templates.
 func setup() error {
 	if err := language.Setup(); err != nil {
 		return fmt.Errorf("language setup: %w", err)
 	}
 
 	if err := data.Setup(bench, warns); err != nil {
-		return fmt.Errorf("data setup: %w", err)
+		return fmt.Errorf("Data setup: %w", err)
 	}
 
 	if err := scoring.Setup(bench, warns); err != nil {
@@ -285,8 +307,16 @@ func setup() error {
 			if err == nil {
 				_, err = tmpl.New(partFooter).Parse(tmplPartFooter)
 			}
+		case pageText:
+			tmpl, err = tmpl.Parse(tmplPageText)
+			if err == nil {
+				_, err = tmpl.New(partHeader).Parse(tmplPartHeader)
+			}
+			if err == nil {
+				_, err = tmpl.New(partFooter).Parse(tmplPartFooter)
+			}
 		default:
-			return fmt.Errorf("unknown page name: %s", page)
+			return fmt.Errorf("unknown page Name: %s", page)
 		}
 		if err != nil {
 			return fmt.Errorf("parse template %s: %w", page, err)
@@ -299,7 +329,7 @@ func setup() error {
 
 // -----------------------------------------------------------------------------
 
-// templateData is all the data that will be available during template execution.
+// templateData is all the Data that will be available during template execution.
 type templateData struct {
 	*data.Benchmarks
 	*data.Warnings
@@ -310,6 +340,8 @@ type templateData struct {
 	Levels    []warning.Level
 	Printer   *message.Printer
 	Page      string
+	Text      *TextCache
+	Item      *TextItem
 	Timestamp string
 	Errors    []string
 }
@@ -334,8 +366,8 @@ func (pd *templateData) FixValue(number score.Value) string {
 
 // pageFunction returns a Gin handler function for generating an HTML page for the server.
 // During execution of the handler function,
-// URL parameter values will be read and appropriate object tags configured as template data.
-// The appropriate template will be executed using the template data to generate the HTML page.
+// URL parameter values will be read and appropriate object tags configured as template Data.
+// The appropriate template will be executed using the template Data to generate the HTML page.
 func pageFunction(page pageType) gin.HandlerFunc {
 	return func(c *gin.Context) {
 		tmplData := &templateData{
@@ -345,6 +377,7 @@ func pageFunction(page pageType) gin.HandlerFunc {
 			Levels:     warning.LevelOrder,
 			Printer:    language.Printer(),
 			Page:       string(page),
+			Text:       text,
 			Timestamp:  time.Now().Format(time.DateTime + " MST"),
 		}
 		tmplData.Keeper = score.GetKeeper(score.KeeperTag(c.Param("keeper")))
@@ -359,7 +392,7 @@ func pageFunction(page pageType) gin.HandlerFunc {
 			}
 		case pageTest, pageHandler:
 			if tag := c.Param("tag"); tag == "" {
-				slog.Error("No URL parameter", "param", "tag")
+				slog.Error("No URL parameter", "tag", tag, "page", page)
 			} else {
 				tag := strings.TrimSuffix(tag, ".html")
 				if page == pageTest {
@@ -367,6 +400,12 @@ func pageFunction(page pageType) gin.HandlerFunc {
 				} else if page == pageHandler {
 					tmplData.Handler = data.HandlerTag(tag)
 				}
+			}
+		case pageText:
+			if tag := c.Param("tag"); tag == "" {
+				slog.Error("No URL parameter", "tag", tag, "page", page)
+			} else {
+				tmplData.Item = text.TextItem(tag)
 			}
 		case pageError:
 			tmplData.Errors = c.Errors.Errors()
@@ -378,7 +417,7 @@ func pageFunction(page pageType) gin.HandlerFunc {
 			if page != pageError {
 				pageFunction(pageError)(c)
 			}
-		} else if _, err := io.Copy(c.Writer, &buf); err != nil {
+		} else if _, err = io.Copy(c.Writer, &buf); err != nil {
 			slog.Error("Error writing page", "err", err, "page", page)
 			_ = c.Error(err)
 		}
@@ -434,7 +473,7 @@ func barChart(c *gin.Context) {
 	chart.Bar(c, bench)
 }
 
-// scoreChart generates an SVG chart for the specified score data.
+// scoreChart generates an SVG chart for the specified score Data.
 func scoreChart(c *gin.Context) {
 	chart.Score(c, warns)
 }
