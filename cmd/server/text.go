@@ -14,6 +14,13 @@ type TextItem struct {
 	Data    template.HTML
 }
 
+func (ti *TextItem) SafeName() string {
+	if ti == nil {
+		return ""
+	}
+	return ti.Name
+}
+
 type TextCache struct {
 	cache map[string]*TextItem
 	items []*TextItem
