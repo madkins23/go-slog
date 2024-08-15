@@ -171,17 +171,17 @@ var (
 		&TextItem{
 			Name:    "bench.txt",
 			Path:    "docs/bench.txt",
-			Summary: "Output from running benchmark tests",
+			Summary: "Benchmark test output file",
 		},
 		&TextItem{
 			Name:    "verify.txt",
 			Path:    "docs/verify.txt",
-			Summary: "Output from running verify tests",
+			Summary: "Verify test output file",
 		},
 		&TextItem{
 			Name:    "tabular.txt",
 			Path:    "docs/tabular.txt",
-			Summary: "Output tabular command",
+			Summary: "Tabular command output file from processing bench.txt and verify.txt",
 		},
 	)
 
