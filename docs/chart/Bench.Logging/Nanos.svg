@@ -20,27 +20,27 @@ L 191 317" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path 
 L 191 338" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path  d="M 186 359
 L 191 359" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path  d="M 186 380
 L 191 380" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><path  d="M 191 45
-L 191 380" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><text x="36" y="62" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">chanchal/zaphandler</text><text x="82" y="82" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">madkins/flash</text><text x="66" y="103" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">madkins/replattr</text><text x="70" y="124" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">madkins/sloggy</text><text x="69" y="145" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">phsym/zeroslog</text><text x="99" y="166" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">phuslu/slog</text><text x="45" y="187" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">samber/slog-logrus</text><text x="64" y="208" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">samber/slog-zap</text><text x="37" y="229" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">samber/slog-zerolog</text><text x="52" y="250" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">slog/JSONHandler</text><text x="107" y="271" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">snqk/meld</text><text x="56" y="292" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">svcrunner/jsonlog</text><text x="27" y="313" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Append</text><text x="36" y="334" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Ignore</text><text x="10" y="355" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Increment</text><text x="14" y="376" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Overwrite</text><text x="187" y="405" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">0</text><text x="257" y="405" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">219.42k</text><text x="352" y="405" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">438.84k</text><path  d="M 222 45
+L 191 380" style="stroke-width:1;stroke:rgba(110,112,121,1.0);fill:none"/><text x="36" y="62" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">chanchal/zaphandler</text><text x="82" y="82" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">madkins/flash</text><text x="66" y="103" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">madkins/replattr</text><text x="70" y="124" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">madkins/sloggy</text><text x="69" y="145" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">phsym/zeroslog</text><text x="99" y="166" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">phuslu/slog</text><text x="45" y="187" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">samber/slog-logrus</text><text x="64" y="208" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">samber/slog-zap</text><text x="37" y="229" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">samber/slog-zerolog</text><text x="52" y="250" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">slog/JSONHandler</text><text x="107" y="271" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">snqk/meld</text><text x="56" y="292" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">svcrunner/jsonlog</text><text x="27" y="313" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Append</text><text x="36" y="334" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Ignore</text><text x="10" y="355" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Increment</text><text x="14" y="376" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">veqryn/dedup/Overwrite</text><text x="187" y="405" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">0</text><text x="257" y="405" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">219.36k</text><text x="352" y="405" style="stroke-width:0;stroke:none;fill:rgba(70,70,70,1.0);font-size:15.3px;font-family:'Roboto Medium',sans-serif">438.72k</text><path  d="M 222 45
 L 222 380" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 254 45
 L 254 380" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 285 45
 L 285 380" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 317 45
 L 317 380" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 348 45
 L 348 380" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 380 45
 L 380 380" style="stroke-width:1;stroke:rgba(224,230,242,1.0);fill:none"/><path  d="M 191 364
-L 250 364
-L 250 374
+L 251 364
+L 251 374
 L 191 374
 L 191 364" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/><path  d="M 191 343
 L 251 343
 L 251 353
 L 191 353
 L 191 343" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/><path  d="M 191 322
-L 247 322
-L 247 332
+L 251 322
+L 251 332
 L 191 332
 L 191 322" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/><path  d="M 191 301
-L 248 301
-L 248 311
+L 250 301
+L 250 311
 L 191 311
 L 191 301" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/><path  d="M 191 280
 L 200 280
@@ -75,8 +75,8 @@ L 198 133
 L 198 143
 L 191 143
 L 191 133" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/><path  d="M 191 112
-L 219 112
-L 219 122
+L 220 112
+L 220 122
 L 191 122
 L 191 112" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/><path  d="M 191 91
 L 213 91
@@ -87,7 +87,7 @@ L 205 70
 L 205 80
 L 191 80
 L 191 70" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/><path  d="M 191 50
-L 203 50
-L 203 60
+L 204 50
+L 204 60
 L 191 60
 L 191 50" style="stroke-width:0;stroke:none;fill:rgba(84,112,198,1.0)"/></svg>
