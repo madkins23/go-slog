@@ -1,0 +1,2450 @@
+=== RUN   TestVerifyChanchalZap
+:[ chanchal/zaphandler
+:: ^chanchal/zaphandler^ is a wrapper around the pre-existing ^uber-go/zap^ logging library.
+:> chanchal/zaphandler --> https://github.com/chanchal1987/zaphandler
+:> uber-go/zap --> https://pkg.go.dev/go.uber.org/zap
+:]
+=== RUN   TestVerifyChanchalZap/TestAnyMap
+=== RUN   TestVerifyChanchalZap/TestAttributeDuplicate
+=== RUN   TestVerifyChanchalZap/TestAttributeEmptyName
+=== RUN   TestVerifyChanchalZap/TestAttributeNil
+=== RUN   TestVerifyChanchalZap/TestAttributeWithDuplicate
+=== RUN   TestVerifyChanchalZap/TestAttributeWithEmpty
+=== RUN   TestVerifyChanchalZap/TestAttributeWithEmptyName
+=== RUN   TestVerifyChanchalZap/TestAttributeWithNil
+=== RUN   TestVerifyChanchalZap/TestAttributes
+=== RUN   TestVerifyChanchalZap/TestAttributesEmpty
+=== RUN   TestVerifyChanchalZap/TestAttributesNotEmpty
+=== RUN   TestVerifyChanchalZap/TestAttributesWith
+=== RUN   TestVerifyChanchalZap/TestAttributesWithEmpty
+=== RUN   TestVerifyChanchalZap/TestAttributesWithNotEmpty
+=== RUN   TestVerifyChanchalZap/TestCanceledContext
+=== RUN   TestVerifyChanchalZap/TestComplexCases
+=== RUN   TestVerifyChanchalZap/TestDefaultLevel
+=== RUN   TestVerifyChanchalZap/TestDerivedInvariantWith
+=== RUN   TestVerifyChanchalZap/TestDerivedInvariantWithGroup
+=== RUN   TestVerifyChanchalZap/TestDisabled
+=== RUN   TestVerifyChanchalZap/TestGroup
+=== RUN   TestVerifyChanchalZap/TestGroupDuration
+=== RUN   TestVerifyChanchalZap/TestGroupEmpty
+=== RUN   TestVerifyChanchalZap/TestGroupInline
+=== RUN   TestVerifyChanchalZap/TestGroupWith
+=== RUN   TestVerifyChanchalZap/TestGroupWithMulti
+=== RUN   TestVerifyChanchalZap/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifyChanchalZap/TestGroupWithTop
+=== RUN   TestVerifyChanchalZap/TestKeyCase
+=== RUN   TestVerifyChanchalZap/TestKeys
+=== RUN   TestVerifyChanchalZap/TestLevelConfigured
+=== RUN   TestVerifyChanchalZap/TestLevelDifferent
+=== RUN   TestVerifyChanchalZap/TestLevelVar
+=== RUN   TestVerifyChanchalZap/TestLogAttributes
+=== RUN   TestVerifyChanchalZap/TestReplaceAttr
+=== RUN   TestVerifyChanchalZap/TestReplaceAttrBasic
+=== RUN   TestVerifyChanchalZap/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifyChanchalZap/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifyChanchalZap/TestReplaceAttrFnMulti
+=== RUN   TestVerifyChanchalZap/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifyChanchalZap/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifyChanchalZap/TestReplaceAttrGroup
+=== RUN   TestVerifyChanchalZap/TestResolveGroup
+=== RUN   TestVerifyChanchalZap/TestResolveGroupWith
+=== RUN   TestVerifyChanchalZap/TestResolveValuer
+=== RUN   TestVerifyChanchalZap/TestResolveWith
+=== RUN   TestVerifyChanchalZap/TestSlogTest
+=== RUN   TestVerifyChanchalZap/TestSourceKey
+=== RUN   TestVerifyChanchalZap/TestStringEscape
+=== RUN   TestVerifyChanchalZap/TestTimestampFormat
+=== RUN   TestVerifyChanchalZap/TestWithGroupEmpty
+=== RUN   TestVerifyChanchalZap/TestWithGroupInline
+=== RUN   TestVerifyChanchalZap/TestZeroPC
+=== RUN   TestVerifyChanchalZap/TestZeroTime
+--- PASS: TestVerifyChanchalZap (0.01s)
+    --- PASS: TestVerifyChanchalZap/TestAnyMap (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestAttributeNil (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestAttributes (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestAttributesWith (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestCanceledContext (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestComplexCases (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestDisabled (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestGroup (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestGroupDuration (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestGroupInline (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestGroupWith (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestKeyCase (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestKeys (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestLevelVar (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestLogAttributes (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestResolveGroup (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestResolveValuer (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestResolveWith (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestSlogTest (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestSourceKey (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestStringEscape (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestZeroPC (0.00s)
+    --- PASS: TestVerifyChanchalZap/TestZeroTime (0.00s)
+=== RUN   TestVerifySlogJSON
+:[ slog/JSONHandler
+:: ^slog/JSONHandler^ is the JSON handler provided with the ^slog^ library.
+:: 		It is fast and as a part of the Go distribution it is used
+:: 		along with published documentation as a model for ^slog.Handler^ behavior.
+:> slog/JSONHandler --> https://pkg.go.dev/log/slog#JSONHandler
+:]
+=== RUN   TestVerifySlogJSON/TestAnyMap
+=== RUN   TestVerifySlogJSON/TestAttributeDuplicate
+=== RUN   TestVerifySlogJSON/TestAttributeEmptyName
+=== RUN   TestVerifySlogJSON/TestAttributeNil
+=== RUN   TestVerifySlogJSON/TestAttributeWithDuplicate
+=== RUN   TestVerifySlogJSON/TestAttributeWithEmpty
+=== RUN   TestVerifySlogJSON/TestAttributeWithEmptyName
+=== RUN   TestVerifySlogJSON/TestAttributeWithNil
+=== RUN   TestVerifySlogJSON/TestAttributes
+=== RUN   TestVerifySlogJSON/TestAttributesEmpty
+=== RUN   TestVerifySlogJSON/TestAttributesNotEmpty
+=== RUN   TestVerifySlogJSON/TestAttributesWith
+=== RUN   TestVerifySlogJSON/TestAttributesWithEmpty
+=== RUN   TestVerifySlogJSON/TestAttributesWithNotEmpty
+=== RUN   TestVerifySlogJSON/TestCanceledContext
+=== RUN   TestVerifySlogJSON/TestComplexCases
+=== RUN   TestVerifySlogJSON/TestDefaultLevel
+=== RUN   TestVerifySlogJSON/TestDerivedInvariantWith
+=== RUN   TestVerifySlogJSON/TestDerivedInvariantWithGroup
+=== RUN   TestVerifySlogJSON/TestDisabled
+=== RUN   TestVerifySlogJSON/TestGroup
+=== RUN   TestVerifySlogJSON/TestGroupDuration
+=== RUN   TestVerifySlogJSON/TestGroupEmpty
+=== RUN   TestVerifySlogJSON/TestGroupInline
+=== RUN   TestVerifySlogJSON/TestGroupWith
+=== RUN   TestVerifySlogJSON/TestGroupWithMulti
+=== RUN   TestVerifySlogJSON/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifySlogJSON/TestGroupWithTop
+=== RUN   TestVerifySlogJSON/TestKeyCase
+=== RUN   TestVerifySlogJSON/TestKeys
+=== RUN   TestVerifySlogJSON/TestLevelConfigured
+=== RUN   TestVerifySlogJSON/TestLevelDifferent
+=== RUN   TestVerifySlogJSON/TestLevelVar
+=== RUN   TestVerifySlogJSON/TestLogAttributes
+=== RUN   TestVerifySlogJSON/TestReplaceAttr
+=== RUN   TestVerifySlogJSON/TestReplaceAttrBasic
+=== RUN   TestVerifySlogJSON/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifySlogJSON/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifySlogJSON/TestReplaceAttrFnMulti
+=== RUN   TestVerifySlogJSON/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifySlogJSON/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifySlogJSON/TestReplaceAttrGroup
+=== RUN   TestVerifySlogJSON/TestResolveGroup
+=== RUN   TestVerifySlogJSON/TestResolveGroupWith
+=== RUN   TestVerifySlogJSON/TestResolveValuer
+=== RUN   TestVerifySlogJSON/TestResolveWith
+=== RUN   TestVerifySlogJSON/TestSlogTest
+=== RUN   TestVerifySlogJSON/TestSourceKey
+=== RUN   TestVerifySlogJSON/TestStringEscape
+=== RUN   TestVerifySlogJSON/TestTimestampFormat
+=== RUN   TestVerifySlogJSON/TestWithGroupEmpty
+=== RUN   TestVerifySlogJSON/TestWithGroupInline
+=== RUN   TestVerifySlogJSON/TestZeroPC
+=== RUN   TestVerifySlogJSON/TestZeroTime
+--- PASS: TestVerifySlogJSON (0.01s)
+    --- PASS: TestVerifySlogJSON/TestAnyMap (0.00s)
+    --- PASS: TestVerifySlogJSON/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifySlogJSON/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifySlogJSON/TestAttributeNil (0.00s)
+    --- PASS: TestVerifySlogJSON/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifySlogJSON/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifySlogJSON/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifySlogJSON/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifySlogJSON/TestAttributes (0.00s)
+    --- PASS: TestVerifySlogJSON/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifySlogJSON/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifySlogJSON/TestAttributesWith (0.00s)
+    --- PASS: TestVerifySlogJSON/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifySlogJSON/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifySlogJSON/TestCanceledContext (0.00s)
+    --- PASS: TestVerifySlogJSON/TestComplexCases (0.00s)
+    --- PASS: TestVerifySlogJSON/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifySlogJSON/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifySlogJSON/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifySlogJSON/TestDisabled (0.00s)
+    --- PASS: TestVerifySlogJSON/TestGroup (0.00s)
+    --- PASS: TestVerifySlogJSON/TestGroupDuration (0.00s)
+    --- PASS: TestVerifySlogJSON/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifySlogJSON/TestGroupInline (0.00s)
+    --- PASS: TestVerifySlogJSON/TestGroupWith (0.00s)
+    --- PASS: TestVerifySlogJSON/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifySlogJSON/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifySlogJSON/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifySlogJSON/TestKeyCase (0.00s)
+    --- PASS: TestVerifySlogJSON/TestKeys (0.00s)
+    --- PASS: TestVerifySlogJSON/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifySlogJSON/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifySlogJSON/TestLevelVar (0.00s)
+    --- PASS: TestVerifySlogJSON/TestLogAttributes (0.00s)
+    --- PASS: TestVerifySlogJSON/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifySlogJSON/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifySlogJSON/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifySlogJSON/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifySlogJSON/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifySlogJSON/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifySlogJSON/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifySlogJSON/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifySlogJSON/TestResolveGroup (0.00s)
+    --- PASS: TestVerifySlogJSON/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifySlogJSON/TestResolveValuer (0.00s)
+    --- PASS: TestVerifySlogJSON/TestResolveWith (0.00s)
+    --- PASS: TestVerifySlogJSON/TestSlogTest (0.00s)
+    --- PASS: TestVerifySlogJSON/TestSourceKey (0.00s)
+    --- PASS: TestVerifySlogJSON/TestStringEscape (0.00s)
+    --- PASS: TestVerifySlogJSON/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifySlogJSON/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifySlogJSON/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifySlogJSON/TestZeroPC (0.00s)
+    --- PASS: TestVerifySlogJSON/TestZeroTime (0.00s)
+=== RUN   TestVerifyMadkinsFlash
+:[ madkins/flash
+:: ^madkins/flash^ is a clone of
+:: 		the [^madkins/sloggy^ handler](/go-slog/handler/MadkinsSloggy.html)
+:: 		with numerous performance improvements.
+:: 		In addition, ^madkins/flash^ can be configured with ^flash.Extras^ options.
+:> madkins/sloggy --> https://pkg.go.dev/github.com/madkins23/go-slog/handlers/sloggy
+:> flash.Extras --> https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash#Extras
+:> madkins/flash --> https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash
+:]
+=== RUN   TestVerifyMadkinsFlash/TestAnyMap
+=== RUN   TestVerifyMadkinsFlash/TestAttributeDuplicate
+=== RUN   TestVerifyMadkinsFlash/TestAttributeEmptyName
+=== RUN   TestVerifyMadkinsFlash/TestAttributeNil
+=== RUN   TestVerifyMadkinsFlash/TestAttributeWithDuplicate
+=== RUN   TestVerifyMadkinsFlash/TestAttributeWithEmpty
+=== RUN   TestVerifyMadkinsFlash/TestAttributeWithEmptyName
+=== RUN   TestVerifyMadkinsFlash/TestAttributeWithNil
+=== RUN   TestVerifyMadkinsFlash/TestAttributes
+=== RUN   TestVerifyMadkinsFlash/TestAttributesEmpty
+=== RUN   TestVerifyMadkinsFlash/TestAttributesNotEmpty
+=== RUN   TestVerifyMadkinsFlash/TestAttributesWith
+=== RUN   TestVerifyMadkinsFlash/TestAttributesWithEmpty
+=== RUN   TestVerifyMadkinsFlash/TestAttributesWithNotEmpty
+=== RUN   TestVerifyMadkinsFlash/TestCanceledContext
+=== RUN   TestVerifyMadkinsFlash/TestComplexCases
+=== RUN   TestVerifyMadkinsFlash/TestDefaultLevel
+=== RUN   TestVerifyMadkinsFlash/TestDerivedInvariantWith
+=== RUN   TestVerifyMadkinsFlash/TestDerivedInvariantWithGroup
+=== RUN   TestVerifyMadkinsFlash/TestDisabled
+=== RUN   TestVerifyMadkinsFlash/TestGroup
+=== RUN   TestVerifyMadkinsFlash/TestGroupDuration
+=== RUN   TestVerifyMadkinsFlash/TestGroupEmpty
+=== RUN   TestVerifyMadkinsFlash/TestGroupInline
+=== RUN   TestVerifyMadkinsFlash/TestGroupWith
+=== RUN   TestVerifyMadkinsFlash/TestGroupWithMulti
+=== RUN   TestVerifyMadkinsFlash/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifyMadkinsFlash/TestGroupWithTop
+=== RUN   TestVerifyMadkinsFlash/TestKeyCase
+=== RUN   TestVerifyMadkinsFlash/TestKeys
+=== RUN   TestVerifyMadkinsFlash/TestLevelConfigured
+=== RUN   TestVerifyMadkinsFlash/TestLevelDifferent
+=== RUN   TestVerifyMadkinsFlash/TestLevelVar
+=== RUN   TestVerifyMadkinsFlash/TestLogAttributes
+=== RUN   TestVerifyMadkinsFlash/TestReplaceAttr
+=== RUN   TestVerifyMadkinsFlash/TestReplaceAttrBasic
+=== RUN   TestVerifyMadkinsFlash/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifyMadkinsFlash/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifyMadkinsFlash/TestReplaceAttrFnMulti
+=== RUN   TestVerifyMadkinsFlash/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifyMadkinsFlash/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifyMadkinsFlash/TestReplaceAttrGroup
+=== RUN   TestVerifyMadkinsFlash/TestResolveGroup
+=== RUN   TestVerifyMadkinsFlash/TestResolveGroupWith
+=== RUN   TestVerifyMadkinsFlash/TestResolveValuer
+=== RUN   TestVerifyMadkinsFlash/TestResolveWith
+=== RUN   TestVerifyMadkinsFlash/TestSlogTest
+=== RUN   TestVerifyMadkinsFlash/TestSourceKey
+=== RUN   TestVerifyMadkinsFlash/TestStringEscape
+=== RUN   TestVerifyMadkinsFlash/TestTimestampFormat
+=== RUN   TestVerifyMadkinsFlash/TestWithGroupEmpty
+=== RUN   TestVerifyMadkinsFlash/TestWithGroupInline
+=== RUN   TestVerifyMadkinsFlash/TestZeroPC
+=== RUN   TestVerifyMadkinsFlash/TestZeroTime
+--- PASS: TestVerifyMadkinsFlash (0.01s)
+    --- PASS: TestVerifyMadkinsFlash/TestAnyMap (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestAttributeNil (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestAttributes (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestAttributesWith (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestCanceledContext (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestComplexCases (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestDisabled (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestGroup (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestGroupDuration (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestGroupInline (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestGroupWith (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestKeyCase (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestKeys (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestLevelVar (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestLogAttributes (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestResolveGroup (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestResolveValuer (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestResolveWith (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestSlogTest (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestSourceKey (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestStringEscape (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestZeroPC (0.00s)
+    --- PASS: TestVerifyMadkinsFlash/TestZeroTime (0.00s)
+=== RUN   TestVerifyMadkinsReplAttr
+:[ madkins/replattr
+:: ^madkins/replattr^ is the [^madkins/flash^ handler](/go-slog/handler/MadkinsFlash.html)
+:: 		setup to test ^slog.HandlerOptions.ReplaceAttr^ performance.
+:: 		The ^madkins/flash^ handler is first configured to generate various warnings using ^flash.Extras^ options,
+:: 		then several ^ReplaceAttr^ functions are used to correct the aberrant behavior.
+:: 		This is intended to measure the effect of ^ReplaceAttr^ usage on performance by comparison with ^madkins/flash^
+:> madkins/flash --> https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash
+:> flash.Extras --> https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash#Extras
+:> madkinsreplattr.Creator --> https://github.com/madkins23/go-slog/blob/main/creator/madkinsreplattr/creator.go
+:]
+=== RUN   TestVerifyMadkinsReplAttr/TestAnyMap
+=== RUN   TestVerifyMadkinsReplAttr/TestAttributeDuplicate
+=== RUN   TestVerifyMadkinsReplAttr/TestAttributeEmptyName
+=== RUN   TestVerifyMadkinsReplAttr/TestAttributeNil
+=== RUN   TestVerifyMadkinsReplAttr/TestAttributeWithDuplicate
+=== RUN   TestVerifyMadkinsReplAttr/TestAttributeWithEmpty
+=== RUN   TestVerifyMadkinsReplAttr/TestAttributeWithEmptyName
+=== RUN   TestVerifyMadkinsReplAttr/TestAttributeWithNil
+=== RUN   TestVerifyMadkinsReplAttr/TestAttributes
+=== RUN   TestVerifyMadkinsReplAttr/TestAttributesEmpty
+=== RUN   TestVerifyMadkinsReplAttr/TestAttributesNotEmpty
+=== RUN   TestVerifyMadkinsReplAttr/TestAttributesWith
+=== RUN   TestVerifyMadkinsReplAttr/TestAttributesWithEmpty
+=== RUN   TestVerifyMadkinsReplAttr/TestAttributesWithNotEmpty
+=== RUN   TestVerifyMadkinsReplAttr/TestCanceledContext
+=== RUN   TestVerifyMadkinsReplAttr/TestComplexCases
+=== RUN   TestVerifyMadkinsReplAttr/TestDefaultLevel
+=== RUN   TestVerifyMadkinsReplAttr/TestDerivedInvariantWith
+=== RUN   TestVerifyMadkinsReplAttr/TestDerivedInvariantWithGroup
+=== RUN   TestVerifyMadkinsReplAttr/TestDisabled
+=== RUN   TestVerifyMadkinsReplAttr/TestGroup
+=== RUN   TestVerifyMadkinsReplAttr/TestGroupDuration
+=== RUN   TestVerifyMadkinsReplAttr/TestGroupEmpty
+=== RUN   TestVerifyMadkinsReplAttr/TestGroupInline
+=== RUN   TestVerifyMadkinsReplAttr/TestGroupWith
+=== RUN   TestVerifyMadkinsReplAttr/TestGroupWithMulti
+=== RUN   TestVerifyMadkinsReplAttr/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifyMadkinsReplAttr/TestGroupWithTop
+=== RUN   TestVerifyMadkinsReplAttr/TestKeyCase
+=== RUN   TestVerifyMadkinsReplAttr/TestKeys
+=== RUN   TestVerifyMadkinsReplAttr/TestLevelConfigured
+=== RUN   TestVerifyMadkinsReplAttr/TestLevelDifferent
+=== RUN   TestVerifyMadkinsReplAttr/TestLevelVar
+=== RUN   TestVerifyMadkinsReplAttr/TestLogAttributes
+=== RUN   TestVerifyMadkinsReplAttr/TestReplaceAttr
+=== RUN   TestVerifyMadkinsReplAttr/TestReplaceAttrBasic
+=== RUN   TestVerifyMadkinsReplAttr/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifyMadkinsReplAttr/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifyMadkinsReplAttr/TestReplaceAttrFnMulti
+=== RUN   TestVerifyMadkinsReplAttr/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifyMadkinsReplAttr/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifyMadkinsReplAttr/TestReplaceAttrGroup
+=== RUN   TestVerifyMadkinsReplAttr/TestResolveGroup
+=== RUN   TestVerifyMadkinsReplAttr/TestResolveGroupWith
+=== RUN   TestVerifyMadkinsReplAttr/TestResolveValuer
+=== RUN   TestVerifyMadkinsReplAttr/TestResolveWith
+=== RUN   TestVerifyMadkinsReplAttr/TestSlogTest
+=== RUN   TestVerifyMadkinsReplAttr/TestSourceKey
+=== RUN   TestVerifyMadkinsReplAttr/TestStringEscape
+=== RUN   TestVerifyMadkinsReplAttr/TestTimestampFormat
+=== RUN   TestVerifyMadkinsReplAttr/TestWithGroupEmpty
+=== RUN   TestVerifyMadkinsReplAttr/TestWithGroupInline
+=== RUN   TestVerifyMadkinsReplAttr/TestZeroPC
+=== RUN   TestVerifyMadkinsReplAttr/TestZeroTime
+--- PASS: TestVerifyMadkinsReplAttr (0.01s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestAnyMap (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestAttributeNil (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestAttributes (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestAttributesWith (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestCanceledContext (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestComplexCases (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestDisabled (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestGroup (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestGroupDuration (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestGroupInline (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestGroupWith (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestKeyCase (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestKeys (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestLevelVar (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestLogAttributes (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestResolveGroup (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestResolveValuer (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestResolveWith (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestSlogTest (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestSourceKey (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestStringEscape (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestZeroPC (0.00s)
+    --- PASS: TestVerifyMadkinsReplAttr/TestZeroTime (0.00s)
+=== RUN   TestVerifyMadkinsSloggy
+:[ madkins/sloggy
+:: ^madkins/sloggy^ is a new ^slog.Handler^ built from the ground up to generate JSON log records.
+:: 		While the performance isn't top-tier, this handler adheres faithfully to documented ^slog.Handler^
+:: 		and observed ^slog.JSONHandler^ behavior.
+:: 		The [^madkins/flash^ handler](/go-slog/handler/MadkinsFlash.html), derived from this one, has better performance.
+:> madkins/sloggy --> https://pkg.go.dev/github.com/madkins23/go-slog/handlers/sloggy
+:> madkins/flash --> https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash
+:]
+=== RUN   TestVerifyMadkinsSloggy/TestAnyMap
+=== RUN   TestVerifyMadkinsSloggy/TestAttributeDuplicate
+=== RUN   TestVerifyMadkinsSloggy/TestAttributeEmptyName
+=== RUN   TestVerifyMadkinsSloggy/TestAttributeNil
+=== RUN   TestVerifyMadkinsSloggy/TestAttributeWithDuplicate
+=== RUN   TestVerifyMadkinsSloggy/TestAttributeWithEmpty
+=== RUN   TestVerifyMadkinsSloggy/TestAttributeWithEmptyName
+=== RUN   TestVerifyMadkinsSloggy/TestAttributeWithNil
+=== RUN   TestVerifyMadkinsSloggy/TestAttributes
+=== RUN   TestVerifyMadkinsSloggy/TestAttributesEmpty
+=== RUN   TestVerifyMadkinsSloggy/TestAttributesNotEmpty
+=== RUN   TestVerifyMadkinsSloggy/TestAttributesWith
+=== RUN   TestVerifyMadkinsSloggy/TestAttributesWithEmpty
+=== RUN   TestVerifyMadkinsSloggy/TestAttributesWithNotEmpty
+=== RUN   TestVerifyMadkinsSloggy/TestCanceledContext
+=== RUN   TestVerifyMadkinsSloggy/TestComplexCases
+=== RUN   TestVerifyMadkinsSloggy/TestDefaultLevel
+=== RUN   TestVerifyMadkinsSloggy/TestDerivedInvariantWith
+=== RUN   TestVerifyMadkinsSloggy/TestDerivedInvariantWithGroup
+=== RUN   TestVerifyMadkinsSloggy/TestDisabled
+=== RUN   TestVerifyMadkinsSloggy/TestGroup
+=== RUN   TestVerifyMadkinsSloggy/TestGroupDuration
+=== RUN   TestVerifyMadkinsSloggy/TestGroupEmpty
+=== RUN   TestVerifyMadkinsSloggy/TestGroupInline
+=== RUN   TestVerifyMadkinsSloggy/TestGroupWith
+=== RUN   TestVerifyMadkinsSloggy/TestGroupWithMulti
+=== RUN   TestVerifyMadkinsSloggy/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifyMadkinsSloggy/TestGroupWithTop
+=== RUN   TestVerifyMadkinsSloggy/TestKeyCase
+=== RUN   TestVerifyMadkinsSloggy/TestKeys
+=== RUN   TestVerifyMadkinsSloggy/TestLevelConfigured
+=== RUN   TestVerifyMadkinsSloggy/TestLevelDifferent
+=== RUN   TestVerifyMadkinsSloggy/TestLevelVar
+=== RUN   TestVerifyMadkinsSloggy/TestLogAttributes
+=== RUN   TestVerifyMadkinsSloggy/TestReplaceAttr
+=== RUN   TestVerifyMadkinsSloggy/TestReplaceAttrBasic
+=== RUN   TestVerifyMadkinsSloggy/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifyMadkinsSloggy/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifyMadkinsSloggy/TestReplaceAttrFnMulti
+=== RUN   TestVerifyMadkinsSloggy/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifyMadkinsSloggy/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifyMadkinsSloggy/TestReplaceAttrGroup
+=== RUN   TestVerifyMadkinsSloggy/TestResolveGroup
+=== RUN   TestVerifyMadkinsSloggy/TestResolveGroupWith
+=== RUN   TestVerifyMadkinsSloggy/TestResolveValuer
+=== RUN   TestVerifyMadkinsSloggy/TestResolveWith
+=== RUN   TestVerifyMadkinsSloggy/TestSlogTest
+=== RUN   TestVerifyMadkinsSloggy/TestSourceKey
+=== RUN   TestVerifyMadkinsSloggy/TestStringEscape
+=== RUN   TestVerifyMadkinsSloggy/TestTimestampFormat
+=== RUN   TestVerifyMadkinsSloggy/TestWithGroupEmpty
+=== RUN   TestVerifyMadkinsSloggy/TestWithGroupInline
+=== RUN   TestVerifyMadkinsSloggy/TestZeroPC
+=== RUN   TestVerifyMadkinsSloggy/TestZeroTime
+--- PASS: TestVerifyMadkinsSloggy (0.01s)
+    --- PASS: TestVerifyMadkinsSloggy/TestAnyMap (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestAttributeNil (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestAttributes (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestAttributesWith (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestCanceledContext (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestComplexCases (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestDisabled (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestGroup (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestGroupDuration (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestGroupInline (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestGroupWith (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestKeyCase (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestKeys (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestLevelVar (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestLogAttributes (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestResolveGroup (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestResolveValuer (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestResolveWith (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestSlogTest (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestSourceKey (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestStringEscape (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestZeroPC (0.00s)
+    --- PASS: TestVerifyMadkinsSloggy/TestZeroTime (0.00s)
+=== RUN   TestVerifyPhsymZerolog
+:[ phsym/zeroslog
+:: ^phsym/zeroslog^ is a wrapper around the pre-existing ^rs/zerolog^ logging library.
+:: 		The ^phsym/zerolog^ handler, like the underlying ^rs/zerolog^ logging library,
+:: 		is in the fastest ranks of ^slog.Handler^ implementations tested.
+:> phsym/zeroslog --> https://pkg.go.dev/github.com/phsym/zeroslog
+:> rs/zerolog --> https://pkg.go.dev/github.com/rs/zerolog
+:]
+=== RUN   TestVerifyPhsymZerolog/TestAnyMap
+=== RUN   TestVerifyPhsymZerolog/TestAttributeDuplicate
+=== RUN   TestVerifyPhsymZerolog/TestAttributeEmptyName
+=== RUN   TestVerifyPhsymZerolog/TestAttributeNil
+=== RUN   TestVerifyPhsymZerolog/TestAttributeWithDuplicate
+=== RUN   TestVerifyPhsymZerolog/TestAttributeWithEmpty
+=== RUN   TestVerifyPhsymZerolog/TestAttributeWithEmptyName
+=== RUN   TestVerifyPhsymZerolog/TestAttributeWithNil
+=== RUN   TestVerifyPhsymZerolog/TestAttributes
+=== RUN   TestVerifyPhsymZerolog/TestAttributesEmpty
+=== RUN   TestVerifyPhsymZerolog/TestAttributesNotEmpty
+=== RUN   TestVerifyPhsymZerolog/TestAttributesWith
+=== RUN   TestVerifyPhsymZerolog/TestAttributesWithEmpty
+=== RUN   TestVerifyPhsymZerolog/TestAttributesWithNotEmpty
+=== RUN   TestVerifyPhsymZerolog/TestCanceledContext
+=== RUN   TestVerifyPhsymZerolog/TestComplexCases
+=== RUN   TestVerifyPhsymZerolog/TestDefaultLevel
+=== RUN   TestVerifyPhsymZerolog/TestDerivedInvariantWith
+=== RUN   TestVerifyPhsymZerolog/TestDerivedInvariantWithGroup
+=== RUN   TestVerifyPhsymZerolog/TestDisabled
+=== RUN   TestVerifyPhsymZerolog/TestGroup
+=== RUN   TestVerifyPhsymZerolog/TestGroupDuration
+=== RUN   TestVerifyPhsymZerolog/TestGroupEmpty
+=== RUN   TestVerifyPhsymZerolog/TestGroupInline
+=== RUN   TestVerifyPhsymZerolog/TestGroupWith
+=== RUN   TestVerifyPhsymZerolog/TestGroupWithMulti
+=== RUN   TestVerifyPhsymZerolog/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifyPhsymZerolog/TestGroupWithTop
+=== RUN   TestVerifyPhsymZerolog/TestKeyCase
+=== RUN   TestVerifyPhsymZerolog/TestKeys
+=== RUN   TestVerifyPhsymZerolog/TestLevelConfigured
+=== RUN   TestVerifyPhsymZerolog/TestLevelDifferent
+=== RUN   TestVerifyPhsymZerolog/TestLevelVar
+=== RUN   TestVerifyPhsymZerolog/TestLogAttributes
+=== RUN   TestVerifyPhsymZerolog/TestReplaceAttr
+=== RUN   TestVerifyPhsymZerolog/TestReplaceAttrBasic
+=== RUN   TestVerifyPhsymZerolog/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifyPhsymZerolog/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifyPhsymZerolog/TestReplaceAttrFnMulti
+=== RUN   TestVerifyPhsymZerolog/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifyPhsymZerolog/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifyPhsymZerolog/TestReplaceAttrGroup
+=== RUN   TestVerifyPhsymZerolog/TestResolveGroup
+=== RUN   TestVerifyPhsymZerolog/TestResolveGroupWith
+=== RUN   TestVerifyPhsymZerolog/TestResolveValuer
+=== RUN   TestVerifyPhsymZerolog/TestResolveWith
+=== RUN   TestVerifyPhsymZerolog/TestSlogTest
+=== RUN   TestVerifyPhsymZerolog/TestSourceKey
+=== RUN   TestVerifyPhsymZerolog/TestStringEscape
+=== RUN   TestVerifyPhsymZerolog/TestTimestampFormat
+=== RUN   TestVerifyPhsymZerolog/TestWithGroupEmpty
+=== RUN   TestVerifyPhsymZerolog/TestWithGroupInline
+=== RUN   TestVerifyPhsymZerolog/TestZeroPC
+=== RUN   TestVerifyPhsymZerolog/TestZeroTime
+--- PASS: TestVerifyPhsymZerolog (0.01s)
+    --- PASS: TestVerifyPhsymZerolog/TestAnyMap (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestAttributeNil (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestAttributes (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestAttributesWith (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestCanceledContext (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestComplexCases (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestDisabled (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestGroup (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestGroupDuration (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestGroupInline (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestGroupWith (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestKeyCase (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestKeys (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestLevelVar (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestLogAttributes (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestResolveGroup (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestResolveValuer (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestResolveWith (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestSlogTest (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestSourceKey (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestStringEscape (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestZeroPC (0.00s)
+    --- PASS: TestVerifyPhsymZerolog/TestZeroTime (0.00s)
+=== RUN   TestVerifyPhusluSlog
+:[ phuslu/slog
+:: ^phuslu/slog^ is a wrapper around the pre-existing ^phuslu/log^ logging library.
+:> phuslu/log --> https://github.com/phuslu/log
+:]
+=== RUN   TestVerifyPhusluSlog/TestAnyMap
+=== RUN   TestVerifyPhusluSlog/TestAttributeDuplicate
+=== RUN   TestVerifyPhusluSlog/TestAttributeEmptyName
+=== RUN   TestVerifyPhusluSlog/TestAttributeNil
+=== RUN   TestVerifyPhusluSlog/TestAttributeWithDuplicate
+=== RUN   TestVerifyPhusluSlog/TestAttributeWithEmpty
+=== RUN   TestVerifyPhusluSlog/TestAttributeWithEmptyName
+=== RUN   TestVerifyPhusluSlog/TestAttributeWithNil
+=== RUN   TestVerifyPhusluSlog/TestAttributes
+=== RUN   TestVerifyPhusluSlog/TestAttributesEmpty
+=== RUN   TestVerifyPhusluSlog/TestAttributesNotEmpty
+=== RUN   TestVerifyPhusluSlog/TestAttributesWith
+=== RUN   TestVerifyPhusluSlog/TestAttributesWithEmpty
+=== RUN   TestVerifyPhusluSlog/TestAttributesWithNotEmpty
+=== RUN   TestVerifyPhusluSlog/TestCanceledContext
+=== RUN   TestVerifyPhusluSlog/TestComplexCases
+=== RUN   TestVerifyPhusluSlog/TestDefaultLevel
+=== RUN   TestVerifyPhusluSlog/TestDerivedInvariantWith
+=== RUN   TestVerifyPhusluSlog/TestDerivedInvariantWithGroup
+=== RUN   TestVerifyPhusluSlog/TestDisabled
+=== RUN   TestVerifyPhusluSlog/TestGroup
+=== RUN   TestVerifyPhusluSlog/TestGroupDuration
+=== RUN   TestVerifyPhusluSlog/TestGroupEmpty
+=== RUN   TestVerifyPhusluSlog/TestGroupInline
+=== RUN   TestVerifyPhusluSlog/TestGroupWith
+=== RUN   TestVerifyPhusluSlog/TestGroupWithMulti
+=== RUN   TestVerifyPhusluSlog/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifyPhusluSlog/TestGroupWithTop
+=== RUN   TestVerifyPhusluSlog/TestKeyCase
+=== RUN   TestVerifyPhusluSlog/TestKeys
+=== RUN   TestVerifyPhusluSlog/TestLevelConfigured
+=== RUN   TestVerifyPhusluSlog/TestLevelDifferent
+=== RUN   TestVerifyPhusluSlog/TestLevelVar
+=== RUN   TestVerifyPhusluSlog/TestLogAttributes
+=== RUN   TestVerifyPhusluSlog/TestReplaceAttr
+=== RUN   TestVerifyPhusluSlog/TestReplaceAttrBasic
+=== RUN   TestVerifyPhusluSlog/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifyPhusluSlog/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifyPhusluSlog/TestReplaceAttrFnMulti
+=== RUN   TestVerifyPhusluSlog/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifyPhusluSlog/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifyPhusluSlog/TestReplaceAttrGroup
+=== RUN   TestVerifyPhusluSlog/TestResolveGroup
+=== RUN   TestVerifyPhusluSlog/TestResolveGroupWith
+=== RUN   TestVerifyPhusluSlog/TestResolveValuer
+=== RUN   TestVerifyPhusluSlog/TestResolveWith
+=== RUN   TestVerifyPhusluSlog/TestSlogTest
+=== RUN   TestVerifyPhusluSlog/TestSourceKey
+=== RUN   TestVerifyPhusluSlog/TestStringEscape
+=== RUN   TestVerifyPhusluSlog/TestTimestampFormat
+=== RUN   TestVerifyPhusluSlog/TestWithGroupEmpty
+=== RUN   TestVerifyPhusluSlog/TestWithGroupInline
+=== RUN   TestVerifyPhusluSlog/TestZeroPC
+=== RUN   TestVerifyPhusluSlog/TestZeroTime
+--- PASS: TestVerifyPhusluSlog (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestAnyMap (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestAttributeNil (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestAttributes (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestAttributesWith (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestCanceledContext (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestComplexCases (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestDisabled (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestGroup (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestGroupDuration (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestGroupInline (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestGroupWith (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestKeyCase (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestKeys (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestLevelVar (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestLogAttributes (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestResolveGroup (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestResolveValuer (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestResolveWith (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestSlogTest (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestSourceKey (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestStringEscape (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestZeroPC (0.00s)
+    --- PASS: TestVerifyPhusluSlog/TestZeroTime (0.00s)
+=== RUN   TestVerifySamberLogrus
+:[ samber/slog-logrus
+:: ^samber/slog-logrus^ is a wrapper around the pre-existing ^sirupsen/logrus^ logging library.
+:> samber/slog-logrus --> https://pkg.go.dev/github.com/samber/slog-logrus
+:> sirupsen/logrus --> https://pkg.go.dev/github.com/sirupsen/logrus
+:]
+=== RUN   TestVerifySamberLogrus/TestAnyMap
+=== RUN   TestVerifySamberLogrus/TestAttributeDuplicate
+=== RUN   TestVerifySamberLogrus/TestAttributeEmptyName
+=== RUN   TestVerifySamberLogrus/TestAttributeNil
+=== RUN   TestVerifySamberLogrus/TestAttributeWithDuplicate
+=== RUN   TestVerifySamberLogrus/TestAttributeWithEmpty
+=== RUN   TestVerifySamberLogrus/TestAttributeWithEmptyName
+=== RUN   TestVerifySamberLogrus/TestAttributeWithNil
+=== RUN   TestVerifySamberLogrus/TestAttributes
+=== RUN   TestVerifySamberLogrus/TestAttributesEmpty
+=== RUN   TestVerifySamberLogrus/TestAttributesNotEmpty
+=== RUN   TestVerifySamberLogrus/TestAttributesWith
+=== RUN   TestVerifySamberLogrus/TestAttributesWithEmpty
+=== RUN   TestVerifySamberLogrus/TestAttributesWithNotEmpty
+=== RUN   TestVerifySamberLogrus/TestCanceledContext
+=== RUN   TestVerifySamberLogrus/TestComplexCases
+=== RUN   TestVerifySamberLogrus/TestDefaultLevel
+=== RUN   TestVerifySamberLogrus/TestDerivedInvariantWith
+=== RUN   TestVerifySamberLogrus/TestDerivedInvariantWithGroup
+=== RUN   TestVerifySamberLogrus/TestDisabled
+=== RUN   TestVerifySamberLogrus/TestGroup
+=== RUN   TestVerifySamberLogrus/TestGroupDuration
+=== RUN   TestVerifySamberLogrus/TestGroupEmpty
+=== RUN   TestVerifySamberLogrus/TestGroupInline
+=== RUN   TestVerifySamberLogrus/TestGroupWith
+=== RUN   TestVerifySamberLogrus/TestGroupWithMulti
+=== RUN   TestVerifySamberLogrus/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifySamberLogrus/TestGroupWithTop
+=== RUN   TestVerifySamberLogrus/TestKeyCase
+=== RUN   TestVerifySamberLogrus/TestKeys
+=== RUN   TestVerifySamberLogrus/TestLevelConfigured
+=== RUN   TestVerifySamberLogrus/TestLevelDifferent
+=== RUN   TestVerifySamberLogrus/TestLevelVar
+=== RUN   TestVerifySamberLogrus/TestLogAttributes
+=== RUN   TestVerifySamberLogrus/TestReplaceAttr
+=== RUN   TestVerifySamberLogrus/TestReplaceAttrBasic
+=== RUN   TestVerifySamberLogrus/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifySamberLogrus/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifySamberLogrus/TestReplaceAttrFnMulti
+=== RUN   TestVerifySamberLogrus/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifySamberLogrus/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifySamberLogrus/TestReplaceAttrGroup
+=== RUN   TestVerifySamberLogrus/TestResolveGroup
+=== RUN   TestVerifySamberLogrus/TestResolveGroupWith
+=== RUN   TestVerifySamberLogrus/TestResolveValuer
+=== RUN   TestVerifySamberLogrus/TestResolveWith
+=== RUN   TestVerifySamberLogrus/TestSlogTest
+=== RUN   TestVerifySamberLogrus/TestSourceKey
+=== RUN   TestVerifySamberLogrus/TestStringEscape
+=== RUN   TestVerifySamberLogrus/TestTimestampFormat
+=== RUN   TestVerifySamberLogrus/TestWithGroupEmpty
+=== RUN   TestVerifySamberLogrus/TestWithGroupInline
+=== RUN   TestVerifySamberLogrus/TestZeroPC
+=== RUN   TestVerifySamberLogrus/TestZeroTime
+--- PASS: TestVerifySamberLogrus (0.01s)
+    --- PASS: TestVerifySamberLogrus/TestAnyMap (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestAttributeNil (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestAttributes (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestAttributesWith (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestCanceledContext (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestComplexCases (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestDisabled (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestGroup (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestGroupDuration (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestGroupInline (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestGroupWith (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestKeyCase (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestKeys (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestLevelVar (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestLogAttributes (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestResolveGroup (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestResolveValuer (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestResolveWith (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestSlogTest (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestSourceKey (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestStringEscape (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestZeroPC (0.00s)
+    --- PASS: TestVerifySamberLogrus/TestZeroTime (0.00s)
+=== RUN   TestVerifySamberZap
+:[ samber/slog-zap
+:: ^samber/slog-zap^ is a wrapper around the pre-existing ^uber-go/zap^ logging library.
+:> samber/slog-zap --> https://pkg.go.dev/github.com/samber/slog-zap
+:> uber-go/zap --> https://pkg.go.dev/go.uber.org/zap
+:]
+=== RUN   TestVerifySamberZap/TestAnyMap
+=== RUN   TestVerifySamberZap/TestAttributeDuplicate
+=== RUN   TestVerifySamberZap/TestAttributeEmptyName
+=== RUN   TestVerifySamberZap/TestAttributeNil
+=== RUN   TestVerifySamberZap/TestAttributeWithDuplicate
+=== RUN   TestVerifySamberZap/TestAttributeWithEmpty
+=== RUN   TestVerifySamberZap/TestAttributeWithEmptyName
+=== RUN   TestVerifySamberZap/TestAttributeWithNil
+=== RUN   TestVerifySamberZap/TestAttributes
+=== RUN   TestVerifySamberZap/TestAttributesEmpty
+=== RUN   TestVerifySamberZap/TestAttributesNotEmpty
+=== RUN   TestVerifySamberZap/TestAttributesWith
+=== RUN   TestVerifySamberZap/TestAttributesWithEmpty
+=== RUN   TestVerifySamberZap/TestAttributesWithNotEmpty
+=== RUN   TestVerifySamberZap/TestCanceledContext
+=== RUN   TestVerifySamberZap/TestComplexCases
+=== RUN   TestVerifySamberZap/TestDefaultLevel
+=== RUN   TestVerifySamberZap/TestDerivedInvariantWith
+=== RUN   TestVerifySamberZap/TestDerivedInvariantWithGroup
+=== RUN   TestVerifySamberZap/TestDisabled
+=== RUN   TestVerifySamberZap/TestGroup
+=== RUN   TestVerifySamberZap/TestGroupDuration
+=== RUN   TestVerifySamberZap/TestGroupEmpty
+=== RUN   TestVerifySamberZap/TestGroupInline
+=== RUN   TestVerifySamberZap/TestGroupWith
+=== RUN   TestVerifySamberZap/TestGroupWithMulti
+=== RUN   TestVerifySamberZap/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifySamberZap/TestGroupWithTop
+=== RUN   TestVerifySamberZap/TestKeyCase
+=== RUN   TestVerifySamberZap/TestKeys
+=== RUN   TestVerifySamberZap/TestLevelConfigured
+=== RUN   TestVerifySamberZap/TestLevelDifferent
+=== RUN   TestVerifySamberZap/TestLevelVar
+=== RUN   TestVerifySamberZap/TestLogAttributes
+=== RUN   TestVerifySamberZap/TestReplaceAttr
+=== RUN   TestVerifySamberZap/TestReplaceAttrBasic
+=== RUN   TestVerifySamberZap/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifySamberZap/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifySamberZap/TestReplaceAttrFnMulti
+=== RUN   TestVerifySamberZap/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifySamberZap/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifySamberZap/TestReplaceAttrGroup
+=== RUN   TestVerifySamberZap/TestResolveGroup
+=== RUN   TestVerifySamberZap/TestResolveGroupWith
+=== RUN   TestVerifySamberZap/TestResolveValuer
+=== RUN   TestVerifySamberZap/TestResolveWith
+=== RUN   TestVerifySamberZap/TestSlogTest
+=== RUN   TestVerifySamberZap/TestSourceKey
+=== RUN   TestVerifySamberZap/TestStringEscape
+=== RUN   TestVerifySamberZap/TestTimestampFormat
+=== RUN   TestVerifySamberZap/TestWithGroupEmpty
+=== RUN   TestVerifySamberZap/TestWithGroupInline
+=== RUN   TestVerifySamberZap/TestZeroPC
+=== RUN   TestVerifySamberZap/TestZeroTime
+--- PASS: TestVerifySamberZap (0.01s)
+    --- PASS: TestVerifySamberZap/TestAnyMap (0.00s)
+    --- PASS: TestVerifySamberZap/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifySamberZap/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifySamberZap/TestAttributeNil (0.00s)
+    --- PASS: TestVerifySamberZap/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifySamberZap/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifySamberZap/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifySamberZap/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifySamberZap/TestAttributes (0.00s)
+    --- PASS: TestVerifySamberZap/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifySamberZap/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifySamberZap/TestAttributesWith (0.00s)
+    --- PASS: TestVerifySamberZap/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifySamberZap/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifySamberZap/TestCanceledContext (0.00s)
+    --- PASS: TestVerifySamberZap/TestComplexCases (0.00s)
+    --- PASS: TestVerifySamberZap/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifySamberZap/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifySamberZap/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifySamberZap/TestDisabled (0.00s)
+    --- PASS: TestVerifySamberZap/TestGroup (0.00s)
+    --- PASS: TestVerifySamberZap/TestGroupDuration (0.00s)
+    --- PASS: TestVerifySamberZap/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifySamberZap/TestGroupInline (0.00s)
+    --- PASS: TestVerifySamberZap/TestGroupWith (0.00s)
+    --- PASS: TestVerifySamberZap/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifySamberZap/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifySamberZap/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifySamberZap/TestKeyCase (0.00s)
+    --- PASS: TestVerifySamberZap/TestKeys (0.00s)
+    --- PASS: TestVerifySamberZap/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifySamberZap/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifySamberZap/TestLevelVar (0.00s)
+    --- PASS: TestVerifySamberZap/TestLogAttributes (0.00s)
+    --- PASS: TestVerifySamberZap/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifySamberZap/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifySamberZap/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifySamberZap/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifySamberZap/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifySamberZap/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifySamberZap/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifySamberZap/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifySamberZap/TestResolveGroup (0.00s)
+    --- PASS: TestVerifySamberZap/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifySamberZap/TestResolveValuer (0.00s)
+    --- PASS: TestVerifySamberZap/TestResolveWith (0.00s)
+    --- PASS: TestVerifySamberZap/TestSlogTest (0.00s)
+    --- PASS: TestVerifySamberZap/TestSourceKey (0.00s)
+    --- PASS: TestVerifySamberZap/TestStringEscape (0.00s)
+    --- PASS: TestVerifySamberZap/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifySamberZap/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifySamberZap/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifySamberZap/TestZeroPC (0.00s)
+    --- PASS: TestVerifySamberZap/TestZeroTime (0.00s)
+=== RUN   TestVerifySamberZerolog
+:[ samber/slog-zerolog
+:: ^samber/slog-zerolog^ is a wrapper around the pre-existing ^rs/zerolog^ logging library.
+:> rs/zerolog --> https://github.com/rs/zerolog
+:> samber/slog-zerolog --> https://pkg.go.dev/github.com/samber/slog-zerolog
+:]
+=== RUN   TestVerifySamberZerolog/TestAnyMap
+=== RUN   TestVerifySamberZerolog/TestAttributeDuplicate
+=== RUN   TestVerifySamberZerolog/TestAttributeEmptyName
+=== RUN   TestVerifySamberZerolog/TestAttributeNil
+=== RUN   TestVerifySamberZerolog/TestAttributeWithDuplicate
+=== RUN   TestVerifySamberZerolog/TestAttributeWithEmpty
+=== RUN   TestVerifySamberZerolog/TestAttributeWithEmptyName
+=== RUN   TestVerifySamberZerolog/TestAttributeWithNil
+=== RUN   TestVerifySamberZerolog/TestAttributes
+=== RUN   TestVerifySamberZerolog/TestAttributesEmpty
+=== RUN   TestVerifySamberZerolog/TestAttributesNotEmpty
+=== RUN   TestVerifySamberZerolog/TestAttributesWith
+=== RUN   TestVerifySamberZerolog/TestAttributesWithEmpty
+=== RUN   TestVerifySamberZerolog/TestAttributesWithNotEmpty
+=== RUN   TestVerifySamberZerolog/TestCanceledContext
+=== RUN   TestVerifySamberZerolog/TestComplexCases
+=== RUN   TestVerifySamberZerolog/TestDefaultLevel
+=== RUN   TestVerifySamberZerolog/TestDerivedInvariantWith
+=== RUN   TestVerifySamberZerolog/TestDerivedInvariantWithGroup
+=== RUN   TestVerifySamberZerolog/TestDisabled
+=== RUN   TestVerifySamberZerolog/TestGroup
+=== RUN   TestVerifySamberZerolog/TestGroupDuration
+=== RUN   TestVerifySamberZerolog/TestGroupEmpty
+=== RUN   TestVerifySamberZerolog/TestGroupInline
+=== RUN   TestVerifySamberZerolog/TestGroupWith
+=== RUN   TestVerifySamberZerolog/TestGroupWithMulti
+=== RUN   TestVerifySamberZerolog/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifySamberZerolog/TestGroupWithTop
+=== RUN   TestVerifySamberZerolog/TestKeyCase
+=== RUN   TestVerifySamberZerolog/TestKeys
+=== RUN   TestVerifySamberZerolog/TestLevelConfigured
+=== RUN   TestVerifySamberZerolog/TestLevelDifferent
+=== RUN   TestVerifySamberZerolog/TestLevelVar
+=== RUN   TestVerifySamberZerolog/TestLogAttributes
+=== RUN   TestVerifySamberZerolog/TestReplaceAttr
+=== RUN   TestVerifySamberZerolog/TestReplaceAttrBasic
+=== RUN   TestVerifySamberZerolog/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifySamberZerolog/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifySamberZerolog/TestReplaceAttrFnMulti
+=== RUN   TestVerifySamberZerolog/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifySamberZerolog/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifySamberZerolog/TestReplaceAttrGroup
+=== RUN   TestVerifySamberZerolog/TestResolveGroup
+=== RUN   TestVerifySamberZerolog/TestResolveGroupWith
+=== RUN   TestVerifySamberZerolog/TestResolveValuer
+=== RUN   TestVerifySamberZerolog/TestResolveWith
+=== RUN   TestVerifySamberZerolog/TestSlogTest
+=== RUN   TestVerifySamberZerolog/TestSourceKey
+=== RUN   TestVerifySamberZerolog/TestStringEscape
+=== RUN   TestVerifySamberZerolog/TestTimestampFormat
+=== RUN   TestVerifySamberZerolog/TestWithGroupEmpty
+=== RUN   TestVerifySamberZerolog/TestWithGroupInline
+=== RUN   TestVerifySamberZerolog/TestZeroPC
+=== RUN   TestVerifySamberZerolog/TestZeroTime
+--- PASS: TestVerifySamberZerolog (0.01s)
+    --- PASS: TestVerifySamberZerolog/TestAnyMap (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestAttributeNil (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestAttributes (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestAttributesWith (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestCanceledContext (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestComplexCases (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestDisabled (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestGroup (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestGroupDuration (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestGroupInline (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestGroupWith (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestKeyCase (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestKeys (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestLevelVar (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestLogAttributes (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestResolveGroup (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestResolveValuer (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestResolveWith (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestSlogTest (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestSourceKey (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestStringEscape (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestZeroPC (0.00s)
+    --- PASS: TestVerifySamberZerolog/TestZeroTime (0.00s)
+=== RUN   TestVerifySvcrunnerJsonlog
+:[ svcrunner/jsonlog
+:: ^svcrunner/jsonlog^.
+:> svcrunner/jsonlog --> https://github.com/seankhliao/svcrunner/tree/main/jsonlog
+:]
+=== RUN   TestVerifySvcrunnerJsonlog/TestAnyMap
+=== RUN   TestVerifySvcrunnerJsonlog/TestAttributeDuplicate
+=== RUN   TestVerifySvcrunnerJsonlog/TestAttributeEmptyName
+=== RUN   TestVerifySvcrunnerJsonlog/TestAttributeNil
+=== RUN   TestVerifySvcrunnerJsonlog/TestAttributeWithDuplicate
+=== RUN   TestVerifySvcrunnerJsonlog/TestAttributeWithEmpty
+=== RUN   TestVerifySvcrunnerJsonlog/TestAttributeWithEmptyName
+=== RUN   TestVerifySvcrunnerJsonlog/TestAttributeWithNil
+=== RUN   TestVerifySvcrunnerJsonlog/TestAttributes
+=== RUN   TestVerifySvcrunnerJsonlog/TestAttributesEmpty
+=== RUN   TestVerifySvcrunnerJsonlog/TestAttributesNotEmpty
+=== RUN   TestVerifySvcrunnerJsonlog/TestAttributesWith
+=== RUN   TestVerifySvcrunnerJsonlog/TestAttributesWithEmpty
+=== RUN   TestVerifySvcrunnerJsonlog/TestAttributesWithNotEmpty
+=== RUN   TestVerifySvcrunnerJsonlog/TestCanceledContext
+=== RUN   TestVerifySvcrunnerJsonlog/TestComplexCases
+=== RUN   TestVerifySvcrunnerJsonlog/TestDefaultLevel
+=== RUN   TestVerifySvcrunnerJsonlog/TestDerivedInvariantWith
+=== RUN   TestVerifySvcrunnerJsonlog/TestDerivedInvariantWithGroup
+=== RUN   TestVerifySvcrunnerJsonlog/TestDisabled
+=== RUN   TestVerifySvcrunnerJsonlog/TestGroup
+=== RUN   TestVerifySvcrunnerJsonlog/TestGroupDuration
+=== RUN   TestVerifySvcrunnerJsonlog/TestGroupEmpty
+=== RUN   TestVerifySvcrunnerJsonlog/TestGroupInline
+=== RUN   TestVerifySvcrunnerJsonlog/TestGroupWith
+=== RUN   TestVerifySvcrunnerJsonlog/TestGroupWithMulti
+=== RUN   TestVerifySvcrunnerJsonlog/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifySvcrunnerJsonlog/TestGroupWithTop
+=== RUN   TestVerifySvcrunnerJsonlog/TestKeyCase
+=== RUN   TestVerifySvcrunnerJsonlog/TestKeys
+=== RUN   TestVerifySvcrunnerJsonlog/TestLevelConfigured
+=== RUN   TestVerifySvcrunnerJsonlog/TestLevelDifferent
+=== RUN   TestVerifySvcrunnerJsonlog/TestLevelVar
+=== RUN   TestVerifySvcrunnerJsonlog/TestLogAttributes
+=== RUN   TestVerifySvcrunnerJsonlog/TestReplaceAttr
+=== RUN   TestVerifySvcrunnerJsonlog/TestReplaceAttrBasic
+=== RUN   TestVerifySvcrunnerJsonlog/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifySvcrunnerJsonlog/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifySvcrunnerJsonlog/TestReplaceAttrFnMulti
+=== RUN   TestVerifySvcrunnerJsonlog/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifySvcrunnerJsonlog/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifySvcrunnerJsonlog/TestReplaceAttrGroup
+=== RUN   TestVerifySvcrunnerJsonlog/TestResolveGroup
+=== RUN   TestVerifySvcrunnerJsonlog/TestResolveGroupWith
+=== RUN   TestVerifySvcrunnerJsonlog/TestResolveValuer
+=== RUN   TestVerifySvcrunnerJsonlog/TestResolveWith
+=== RUN   TestVerifySvcrunnerJsonlog/TestSlogTest
+=== RUN   TestVerifySvcrunnerJsonlog/TestSourceKey
+=== RUN   TestVerifySvcrunnerJsonlog/TestStringEscape
+=== RUN   TestVerifySvcrunnerJsonlog/TestTimestampFormat
+=== RUN   TestVerifySvcrunnerJsonlog/TestWithGroupEmpty
+=== RUN   TestVerifySvcrunnerJsonlog/TestWithGroupInline
+=== RUN   TestVerifySvcrunnerJsonlog/TestZeroPC
+=== RUN   TestVerifySvcrunnerJsonlog/TestZeroTime
+--- PASS: TestVerifySvcrunnerJsonlog (0.01s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestAnyMap (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestAttributeNil (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestAttributes (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestAttributesWith (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestCanceledContext (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestComplexCases (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestDisabled (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestGroup (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestGroupDuration (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestGroupInline (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestGroupWith (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestKeyCase (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestKeys (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestLevelVar (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestLogAttributes (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestResolveGroup (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestResolveValuer (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestResolveWith (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestSlogTest (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestSourceKey (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestStringEscape (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestZeroPC (0.00s)
+    --- PASS: TestVerifySvcrunnerJsonlog/TestZeroTime (0.00s)
+=== RUN   TestVerifySnqkMeld
+:[ snqk/meld
+:: ^snqk/slog-meld^ provides a simple ^slog.Handler^
+:: 		designed to recursively merge and de-duplicate log attributes,
+:: 		ensuring clean, concise, and informative log entries.
+:> snqk/meld --> https://github.com/snqk/slog-meld
+:]
+=== RUN   TestVerifySnqkMeld/TestAnyMap
+=== RUN   TestVerifySnqkMeld/TestAttributeDuplicate
+=== RUN   TestVerifySnqkMeld/TestAttributeEmptyName
+=== RUN   TestVerifySnqkMeld/TestAttributeNil
+=== RUN   TestVerifySnqkMeld/TestAttributeWithDuplicate
+=== RUN   TestVerifySnqkMeld/TestAttributeWithEmpty
+=== RUN   TestVerifySnqkMeld/TestAttributeWithEmptyName
+=== RUN   TestVerifySnqkMeld/TestAttributeWithNil
+=== RUN   TestVerifySnqkMeld/TestAttributes
+=== RUN   TestVerifySnqkMeld/TestAttributesEmpty
+=== RUN   TestVerifySnqkMeld/TestAttributesNotEmpty
+=== RUN   TestVerifySnqkMeld/TestAttributesWith
+=== RUN   TestVerifySnqkMeld/TestAttributesWithEmpty
+=== RUN   TestVerifySnqkMeld/TestAttributesWithNotEmpty
+=== RUN   TestVerifySnqkMeld/TestCanceledContext
+=== RUN   TestVerifySnqkMeld/TestComplexCases
+=== RUN   TestVerifySnqkMeld/TestDefaultLevel
+=== RUN   TestVerifySnqkMeld/TestDerivedInvariantWith
+=== RUN   TestVerifySnqkMeld/TestDerivedInvariantWithGroup
+=== RUN   TestVerifySnqkMeld/TestDisabled
+=== RUN   TestVerifySnqkMeld/TestGroup
+=== RUN   TestVerifySnqkMeld/TestGroupDuration
+=== RUN   TestVerifySnqkMeld/TestGroupEmpty
+=== RUN   TestVerifySnqkMeld/TestGroupInline
+=== RUN   TestVerifySnqkMeld/TestGroupWith
+=== RUN   TestVerifySnqkMeld/TestGroupWithMulti
+=== RUN   TestVerifySnqkMeld/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifySnqkMeld/TestGroupWithTop
+=== RUN   TestVerifySnqkMeld/TestKeyCase
+=== RUN   TestVerifySnqkMeld/TestKeys
+=== RUN   TestVerifySnqkMeld/TestLevelConfigured
+=== RUN   TestVerifySnqkMeld/TestLevelDifferent
+=== RUN   TestVerifySnqkMeld/TestLevelVar
+=== RUN   TestVerifySnqkMeld/TestLogAttributes
+=== RUN   TestVerifySnqkMeld/TestReplaceAttr
+=== RUN   TestVerifySnqkMeld/TestReplaceAttrBasic
+=== RUN   TestVerifySnqkMeld/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifySnqkMeld/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifySnqkMeld/TestReplaceAttrFnMulti
+=== RUN   TestVerifySnqkMeld/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifySnqkMeld/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifySnqkMeld/TestReplaceAttrGroup
+=== RUN   TestVerifySnqkMeld/TestResolveGroup
+=== RUN   TestVerifySnqkMeld/TestResolveGroupWith
+=== RUN   TestVerifySnqkMeld/TestResolveValuer
+=== RUN   TestVerifySnqkMeld/TestResolveWith
+=== RUN   TestVerifySnqkMeld/TestSlogTest
+=== RUN   TestVerifySnqkMeld/TestSourceKey
+=== RUN   TestVerifySnqkMeld/TestStringEscape
+=== RUN   TestVerifySnqkMeld/TestTimestampFormat
+=== RUN   TestVerifySnqkMeld/TestWithGroupEmpty
+=== RUN   TestVerifySnqkMeld/TestWithGroupInline
+=== RUN   TestVerifySnqkMeld/TestZeroPC
+=== RUN   TestVerifySnqkMeld/TestZeroTime
+--- PASS: TestVerifySnqkMeld (0.01s)
+    --- PASS: TestVerifySnqkMeld/TestAnyMap (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestAttributeNil (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestAttributes (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestAttributesWith (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestCanceledContext (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestComplexCases (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestDisabled (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestGroup (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestGroupDuration (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestGroupInline (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestGroupWith (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestKeyCase (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestKeys (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestLevelVar (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestLogAttributes (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestResolveGroup (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestResolveValuer (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestResolveWith (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestSlogTest (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestSourceKey (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestStringEscape (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestZeroPC (0.00s)
+    --- PASS: TestVerifySnqkMeld/TestZeroTime (0.00s)
+=== RUN   TestVerifyVeqrynDedupGroup
+:[ veqryn/dedup/Append
+:: ^veqryn/dedup^ provides a variety of ^slog.Handler^ options
+:: 		for deduplicating the keys: overwriting, ignoring, appending, and incrementing.
+:> veqryn/dedup --> https://github.com/veqryn/slog-dedup
+:]
+=== RUN   TestVerifyVeqrynDedupGroup/TestAnyMap
+=== RUN   TestVerifyVeqrynDedupGroup/TestAttributeDuplicate
+=== RUN   TestVerifyVeqrynDedupGroup/TestAttributeEmptyName
+=== RUN   TestVerifyVeqrynDedupGroup/TestAttributeNil
+=== RUN   TestVerifyVeqrynDedupGroup/TestAttributeWithDuplicate
+=== RUN   TestVerifyVeqrynDedupGroup/TestAttributeWithEmpty
+=== RUN   TestVerifyVeqrynDedupGroup/TestAttributeWithEmptyName
+=== RUN   TestVerifyVeqrynDedupGroup/TestAttributeWithNil
+=== RUN   TestVerifyVeqrynDedupGroup/TestAttributes
+=== RUN   TestVerifyVeqrynDedupGroup/TestAttributesEmpty
+=== RUN   TestVerifyVeqrynDedupGroup/TestAttributesNotEmpty
+=== RUN   TestVerifyVeqrynDedupGroup/TestAttributesWith
+=== RUN   TestVerifyVeqrynDedupGroup/TestAttributesWithEmpty
+=== RUN   TestVerifyVeqrynDedupGroup/TestAttributesWithNotEmpty
+=== RUN   TestVerifyVeqrynDedupGroup/TestCanceledContext
+=== RUN   TestVerifyVeqrynDedupGroup/TestComplexCases
+=== RUN   TestVerifyVeqrynDedupGroup/TestDefaultLevel
+=== RUN   TestVerifyVeqrynDedupGroup/TestDerivedInvariantWith
+=== RUN   TestVerifyVeqrynDedupGroup/TestDerivedInvariantWithGroup
+=== RUN   TestVerifyVeqrynDedupGroup/TestDisabled
+=== RUN   TestVerifyVeqrynDedupGroup/TestGroup
+=== RUN   TestVerifyVeqrynDedupGroup/TestGroupDuration
+=== RUN   TestVerifyVeqrynDedupGroup/TestGroupEmpty
+=== RUN   TestVerifyVeqrynDedupGroup/TestGroupInline
+=== RUN   TestVerifyVeqrynDedupGroup/TestGroupWith
+=== RUN   TestVerifyVeqrynDedupGroup/TestGroupWithMulti
+=== RUN   TestVerifyVeqrynDedupGroup/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifyVeqrynDedupGroup/TestGroupWithTop
+=== RUN   TestVerifyVeqrynDedupGroup/TestKeyCase
+=== RUN   TestVerifyVeqrynDedupGroup/TestKeys
+=== RUN   TestVerifyVeqrynDedupGroup/TestLevelConfigured
+=== RUN   TestVerifyVeqrynDedupGroup/TestLevelDifferent
+=== RUN   TestVerifyVeqrynDedupGroup/TestLevelVar
+=== RUN   TestVerifyVeqrynDedupGroup/TestLogAttributes
+=== RUN   TestVerifyVeqrynDedupGroup/TestReplaceAttr
+=== RUN   TestVerifyVeqrynDedupGroup/TestReplaceAttrBasic
+=== RUN   TestVerifyVeqrynDedupGroup/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifyVeqrynDedupGroup/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifyVeqrynDedupGroup/TestReplaceAttrFnMulti
+=== RUN   TestVerifyVeqrynDedupGroup/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifyVeqrynDedupGroup/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifyVeqrynDedupGroup/TestReplaceAttrGroup
+=== RUN   TestVerifyVeqrynDedupGroup/TestResolveGroup
+=== RUN   TestVerifyVeqrynDedupGroup/TestResolveGroupWith
+=== RUN   TestVerifyVeqrynDedupGroup/TestResolveValuer
+=== RUN   TestVerifyVeqrynDedupGroup/TestResolveWith
+=== RUN   TestVerifyVeqrynDedupGroup/TestSlogTest
+=== RUN   TestVerifyVeqrynDedupGroup/TestSourceKey
+=== RUN   TestVerifyVeqrynDedupGroup/TestStringEscape
+=== RUN   TestVerifyVeqrynDedupGroup/TestTimestampFormat
+=== RUN   TestVerifyVeqrynDedupGroup/TestWithGroupEmpty
+=== RUN   TestVerifyVeqrynDedupGroup/TestWithGroupInline
+=== RUN   TestVerifyVeqrynDedupGroup/TestZeroPC
+=== RUN   TestVerifyVeqrynDedupGroup/TestZeroTime
+--- PASS: TestVerifyVeqrynDedupGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestAnyMap (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestAttributeNil (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestAttributes (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestAttributesWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestCanceledContext (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestComplexCases (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestDisabled (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestGroupDuration (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestGroupInline (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestGroupWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestKeyCase (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestKeys (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestLevelVar (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestLogAttributes (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestResolveGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestResolveValuer (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestResolveWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestSlogTest (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestSourceKey (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestStringEscape (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestZeroPC (0.00s)
+    --- PASS: TestVerifyVeqrynDedupGroup/TestZeroTime (0.00s)
+=== RUN   TestVerifyVeqrynDedupIgnore
+:[ veqryn/dedup/Ignore
+:: ^veqryn/dedup^ provides a variety of ^slog.Handler^ options
+:: 		for deduplicating the keys: overwriting, ignoring, appending, and incrementing.
+:> veqryn/dedup --> https://github.com/veqryn/slog-dedup
+:]
+=== RUN   TestVerifyVeqrynDedupIgnore/TestAnyMap
+=== RUN   TestVerifyVeqrynDedupIgnore/TestAttributeDuplicate
+=== RUN   TestVerifyVeqrynDedupIgnore/TestAttributeEmptyName
+=== RUN   TestVerifyVeqrynDedupIgnore/TestAttributeNil
+=== RUN   TestVerifyVeqrynDedupIgnore/TestAttributeWithDuplicate
+=== RUN   TestVerifyVeqrynDedupIgnore/TestAttributeWithEmpty
+=== RUN   TestVerifyVeqrynDedupIgnore/TestAttributeWithEmptyName
+=== RUN   TestVerifyVeqrynDedupIgnore/TestAttributeWithNil
+=== RUN   TestVerifyVeqrynDedupIgnore/TestAttributes
+=== RUN   TestVerifyVeqrynDedupIgnore/TestAttributesEmpty
+=== RUN   TestVerifyVeqrynDedupIgnore/TestAttributesNotEmpty
+=== RUN   TestVerifyVeqrynDedupIgnore/TestAttributesWith
+=== RUN   TestVerifyVeqrynDedupIgnore/TestAttributesWithEmpty
+=== RUN   TestVerifyVeqrynDedupIgnore/TestAttributesWithNotEmpty
+=== RUN   TestVerifyVeqrynDedupIgnore/TestCanceledContext
+=== RUN   TestVerifyVeqrynDedupIgnore/TestComplexCases
+=== RUN   TestVerifyVeqrynDedupIgnore/TestDefaultLevel
+=== RUN   TestVerifyVeqrynDedupIgnore/TestDerivedInvariantWith
+=== RUN   TestVerifyVeqrynDedupIgnore/TestDerivedInvariantWithGroup
+=== RUN   TestVerifyVeqrynDedupIgnore/TestDisabled
+=== RUN   TestVerifyVeqrynDedupIgnore/TestGroup
+=== RUN   TestVerifyVeqrynDedupIgnore/TestGroupDuration
+=== RUN   TestVerifyVeqrynDedupIgnore/TestGroupEmpty
+=== RUN   TestVerifyVeqrynDedupIgnore/TestGroupInline
+=== RUN   TestVerifyVeqrynDedupIgnore/TestGroupWith
+=== RUN   TestVerifyVeqrynDedupIgnore/TestGroupWithMulti
+=== RUN   TestVerifyVeqrynDedupIgnore/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifyVeqrynDedupIgnore/TestGroupWithTop
+=== RUN   TestVerifyVeqrynDedupIgnore/TestKeyCase
+=== RUN   TestVerifyVeqrynDedupIgnore/TestKeys
+=== RUN   TestVerifyVeqrynDedupIgnore/TestLevelConfigured
+=== RUN   TestVerifyVeqrynDedupIgnore/TestLevelDifferent
+=== RUN   TestVerifyVeqrynDedupIgnore/TestLevelVar
+=== RUN   TestVerifyVeqrynDedupIgnore/TestLogAttributes
+=== RUN   TestVerifyVeqrynDedupIgnore/TestReplaceAttr
+=== RUN   TestVerifyVeqrynDedupIgnore/TestReplaceAttrBasic
+=== RUN   TestVerifyVeqrynDedupIgnore/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifyVeqrynDedupIgnore/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifyVeqrynDedupIgnore/TestReplaceAttrFnMulti
+=== RUN   TestVerifyVeqrynDedupIgnore/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifyVeqrynDedupIgnore/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifyVeqrynDedupIgnore/TestReplaceAttrGroup
+=== RUN   TestVerifyVeqrynDedupIgnore/TestResolveGroup
+=== RUN   TestVerifyVeqrynDedupIgnore/TestResolveGroupWith
+=== RUN   TestVerifyVeqrynDedupIgnore/TestResolveValuer
+=== RUN   TestVerifyVeqrynDedupIgnore/TestResolveWith
+=== RUN   TestVerifyVeqrynDedupIgnore/TestSlogTest
+=== RUN   TestVerifyVeqrynDedupIgnore/TestSourceKey
+=== RUN   TestVerifyVeqrynDedupIgnore/TestStringEscape
+=== RUN   TestVerifyVeqrynDedupIgnore/TestTimestampFormat
+=== RUN   TestVerifyVeqrynDedupIgnore/TestWithGroupEmpty
+=== RUN   TestVerifyVeqrynDedupIgnore/TestWithGroupInline
+=== RUN   TestVerifyVeqrynDedupIgnore/TestZeroPC
+=== RUN   TestVerifyVeqrynDedupIgnore/TestZeroTime
+--- PASS: TestVerifyVeqrynDedupIgnore (0.01s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestAnyMap (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestAttributeNil (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestAttributes (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestAttributesWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestCanceledContext (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestComplexCases (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestDisabled (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestGroupDuration (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestGroupInline (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestGroupWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestKeyCase (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestKeys (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestLevelVar (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestLogAttributes (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestResolveGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestResolveValuer (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestResolveWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestSlogTest (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestSourceKey (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestStringEscape (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestZeroPC (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIgnore/TestZeroTime (0.00s)
+=== RUN   TestVerifyVeqrynDedupIncr
+:[ veqryn/dedup/Increment
+:: ^veqryn/dedup^ provides a variety of ^slog.Handler^ options
+:: 		for deduplicating the keys: overwriting, ignoring, appending, and incrementing.
+:> veqryn/dedup --> https://github.com/veqryn/slog-dedup
+:]
+=== RUN   TestVerifyVeqrynDedupIncr/TestAnyMap
+=== RUN   TestVerifyVeqrynDedupIncr/TestAttributeDuplicate
+=== RUN   TestVerifyVeqrynDedupIncr/TestAttributeEmptyName
+=== RUN   TestVerifyVeqrynDedupIncr/TestAttributeNil
+=== RUN   TestVerifyVeqrynDedupIncr/TestAttributeWithDuplicate
+=== RUN   TestVerifyVeqrynDedupIncr/TestAttributeWithEmpty
+=== RUN   TestVerifyVeqrynDedupIncr/TestAttributeWithEmptyName
+=== RUN   TestVerifyVeqrynDedupIncr/TestAttributeWithNil
+=== RUN   TestVerifyVeqrynDedupIncr/TestAttributes
+=== RUN   TestVerifyVeqrynDedupIncr/TestAttributesEmpty
+=== RUN   TestVerifyVeqrynDedupIncr/TestAttributesNotEmpty
+=== RUN   TestVerifyVeqrynDedupIncr/TestAttributesWith
+=== RUN   TestVerifyVeqrynDedupIncr/TestAttributesWithEmpty
+=== RUN   TestVerifyVeqrynDedupIncr/TestAttributesWithNotEmpty
+=== RUN   TestVerifyVeqrynDedupIncr/TestCanceledContext
+=== RUN   TestVerifyVeqrynDedupIncr/TestComplexCases
+=== RUN   TestVerifyVeqrynDedupIncr/TestDefaultLevel
+=== RUN   TestVerifyVeqrynDedupIncr/TestDerivedInvariantWith
+=== RUN   TestVerifyVeqrynDedupIncr/TestDerivedInvariantWithGroup
+=== RUN   TestVerifyVeqrynDedupIncr/TestDisabled
+=== RUN   TestVerifyVeqrynDedupIncr/TestGroup
+=== RUN   TestVerifyVeqrynDedupIncr/TestGroupDuration
+=== RUN   TestVerifyVeqrynDedupIncr/TestGroupEmpty
+=== RUN   TestVerifyVeqrynDedupIncr/TestGroupInline
+=== RUN   TestVerifyVeqrynDedupIncr/TestGroupWith
+=== RUN   TestVerifyVeqrynDedupIncr/TestGroupWithMulti
+=== RUN   TestVerifyVeqrynDedupIncr/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifyVeqrynDedupIncr/TestGroupWithTop
+=== RUN   TestVerifyVeqrynDedupIncr/TestKeyCase
+=== RUN   TestVerifyVeqrynDedupIncr/TestKeys
+=== RUN   TestVerifyVeqrynDedupIncr/TestLevelConfigured
+=== RUN   TestVerifyVeqrynDedupIncr/TestLevelDifferent
+=== RUN   TestVerifyVeqrynDedupIncr/TestLevelVar
+=== RUN   TestVerifyVeqrynDedupIncr/TestLogAttributes
+=== RUN   TestVerifyVeqrynDedupIncr/TestReplaceAttr
+=== RUN   TestVerifyVeqrynDedupIncr/TestReplaceAttrBasic
+=== RUN   TestVerifyVeqrynDedupIncr/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifyVeqrynDedupIncr/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifyVeqrynDedupIncr/TestReplaceAttrFnMulti
+=== RUN   TestVerifyVeqrynDedupIncr/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifyVeqrynDedupIncr/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifyVeqrynDedupIncr/TestReplaceAttrGroup
+=== RUN   TestVerifyVeqrynDedupIncr/TestResolveGroup
+=== RUN   TestVerifyVeqrynDedupIncr/TestResolveGroupWith
+=== RUN   TestVerifyVeqrynDedupIncr/TestResolveValuer
+=== RUN   TestVerifyVeqrynDedupIncr/TestResolveWith
+=== RUN   TestVerifyVeqrynDedupIncr/TestSlogTest
+=== RUN   TestVerifyVeqrynDedupIncr/TestSourceKey
+=== RUN   TestVerifyVeqrynDedupIncr/TestStringEscape
+=== RUN   TestVerifyVeqrynDedupIncr/TestTimestampFormat
+=== RUN   TestVerifyVeqrynDedupIncr/TestWithGroupEmpty
+=== RUN   TestVerifyVeqrynDedupIncr/TestWithGroupInline
+=== RUN   TestVerifyVeqrynDedupIncr/TestZeroPC
+=== RUN   TestVerifyVeqrynDedupIncr/TestZeroTime
+--- PASS: TestVerifyVeqrynDedupIncr (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestAnyMap (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestAttributeNil (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestAttributes (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestAttributesWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestCanceledContext (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestComplexCases (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestDisabled (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestGroupDuration (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestGroupInline (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestGroupWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestKeyCase (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestKeys (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestLevelVar (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestLogAttributes (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestResolveGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestResolveValuer (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestResolveWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestSlogTest (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestSourceKey (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestStringEscape (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestZeroPC (0.00s)
+    --- PASS: TestVerifyVeqrynDedupIncr/TestZeroTime (0.00s)
+=== RUN   TestVerifyVeqrynDedupOverwrite
+:[ veqryn/dedup/Overwrite
+:: ^veqryn/dedup^ provides a variety of ^slog.Handler^ options
+:: 		for deduplicating the keys: overwriting, ignoring, appending, and incrementing.
+:> veqryn/dedup --> https://github.com/veqryn/slog-dedup
+:]
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestAnyMap
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestAttributeDuplicate
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestAttributeEmptyName
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestAttributeNil
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestAttributeWithDuplicate
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestAttributeWithEmpty
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestAttributeWithEmptyName
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestAttributeWithNil
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestAttributes
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestAttributesEmpty
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestAttributesNotEmpty
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestAttributesWith
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestAttributesWithEmpty
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestAttributesWithNotEmpty
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestCanceledContext
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestComplexCases
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestDefaultLevel
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestDerivedInvariantWith
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestDerivedInvariantWithGroup
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestDisabled
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestGroup
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestGroupDuration
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestGroupEmpty
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestGroupInline
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestGroupWith
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestGroupWithMulti
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestGroupWithMultiSubEmpty
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestGroupWithTop
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestKeyCase
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestKeys
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestLevelConfigured
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestLevelDifferent
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestLevelVar
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestLogAttributes
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestReplaceAttr
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestReplaceAttrBasic
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestReplaceAttrFnChangeKey
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestReplaceAttrFnLevelCase
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestReplaceAttrFnMulti
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestReplaceAttrFnRemoveEmptyKey
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestReplaceAttrFnRemoveTime
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestReplaceAttrGroup
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestResolveGroup
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestResolveGroupWith
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestResolveValuer
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestResolveWith
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestSlogTest
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestSourceKey
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestStringEscape
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestTimestampFormat
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestWithGroupEmpty
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestWithGroupInline
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestZeroPC
+=== RUN   TestVerifyVeqrynDedupOverwrite/TestZeroTime
+--- PASS: TestVerifyVeqrynDedupOverwrite (0.01s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestAnyMap (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestAttributeDuplicate (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestAttributeEmptyName (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestAttributeNil (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestAttributeWithDuplicate (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestAttributeWithEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestAttributeWithEmptyName (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestAttributeWithNil (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestAttributes (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestAttributesEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestAttributesNotEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestAttributesWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestAttributesWithEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestAttributesWithNotEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestCanceledContext (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestComplexCases (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestDefaultLevel (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestDerivedInvariantWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestDerivedInvariantWithGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestDisabled (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestGroupDuration (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestGroupEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestGroupInline (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestGroupWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestGroupWithMulti (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestGroupWithMultiSubEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestGroupWithTop (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestKeyCase (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestKeys (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestLevelConfigured (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestLevelDifferent (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestLevelVar (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestLogAttributes (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestReplaceAttr (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestReplaceAttrBasic (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestReplaceAttrFnChangeKey (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestReplaceAttrFnLevelCase (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestReplaceAttrFnMulti (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestReplaceAttrFnRemoveEmptyKey (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestReplaceAttrFnRemoveTime (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestReplaceAttrGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestResolveGroup (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestResolveGroupWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestResolveValuer (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestResolveWith (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestSlogTest (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestSourceKey (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestStringEscape (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestTimestampFormat (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestWithGroupEmpty (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestWithGroupInline (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestZeroPC (0.00s)
+    --- PASS: TestVerifyVeqrynDedupOverwrite/TestZeroTime (0.00s)
+PASS
+
+Warnings for chanchal/zaphandler:
+  Required
+     1 [SlogTest] Failure of embedded slog/slogtest
+         TestSlogTest: missing key "c": a Handler should handle multiple WithGroup and WithAttr calls (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:146)
+           +missing key "c": a Handler should not output groups if there are no attributes (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:161)
+     1 [WithGroupEmpty] Empty WithGroup() logged
+         TestWithGroupEmpty: too many fields, found field 'group1', value is group, length: 0
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message","group1":{}}
+  Implied
+     1 [CanceledContext] Canceled context blocks logging
+         TestCanceledContext
+     8 [LevelMath] Log levels are not properly treated as integers
+         TestDefaultLevel: INFO+1 is not enabled when WARN is set
+         TestDefaultLevel: INFO+1 is not enabled when WARN is set
+         TestLevelConfigured: 1  is not enabled when INFO is set
+         TestLevelConfigured: 1  is not enabled when INFO is set
+         TestLevelDifferent: 5  is not enabled when WARN is set
+         TestLevelDifferent: 5  is not enabled when WARN is set
+         TestLevelVar: INFO+1  is not enabled when INFO is set
+         TestLevelVar: 5  is not enabled when WARN is enabled
+     3 [NoReplAttr] HandlerOptions.ReplaceAttr not available
+         TestReplaceAttr: too many attributes: 6, alpha == beta, change still exists, remove still exists
+         TestReplaceAttrBasic: too many attributes: 4
+           +time field still exists
+           +msg field still exists
+           +source == <nil>
+         TestReplaceAttrFnRemoveEmptyKey
+     3 [NoReplAttrBasic] HandlerOptions.ReplaceAttr not available for basic fields
+         TestReplaceAttrFnLevelCase: level value not null
+         TestReplaceAttrFnMulti
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message","alpha":"omega","pi":3.141592653589793,"alpha":"omega","goober":"snoofus","e":2.718281828459045,"alpha":"omega","gibbering":"lunatic","phi":1.618033988749895,"group":{}}
+         TestReplaceAttrFnRemoveTime: time value not empty string
+     1 [SourceCaller] Source data logged as 'caller' instead of 'source'
+         TestSourceKey: reflect/value.go:596
+           {"level":"info","time":"2024-08-15T16:01:47Z","caller":"reflect/value.go:596","msg":"This is a message"}
+     2 [WithGroup] WithGroup doesn't embed following attributes into group
+         TestGroupWithMulti
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message","first":"one","second":2,"third":"3","group":{"subGroup":{"fourth":"forth","pi":3.141592653589793}}}
+         TestGroupWithMultiSubEmpty
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message","first":"one","second":2,"third":"3","group":{}}
+  Suggested
+     2 [Duplicates] Duplicate field(s) found
+         TestAttributeDuplicate: map[alpha:2 charlie:3]
+         TestAttributeWithDuplicate: map[alpha:2 charlie:3]
+     1 [DurationSeconds] slog.Duration() logs seconds instead of nanoseconds
+         TestLogAttributes
+     1 [GroupWithTop] ^WithGroup().With()^ ends up at top level of log record instead of in the group
+         TestGroupWithTop
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message","key":"value","group":{}}
+    10 [LevelCase] Log level in lowercase
+         TestCanceledContext: 'info'
+         TestCanceledContext: 'info'
+         TestKeyCase: 'debug'
+         TestKeyCase: 'info'
+         TestKeyCase: 'warn'
+         TestKeyCase: 'error'
+         TestKeys: 'info'
+         TestSourceKey: 'info'
+         TestZeroPC: 'info'
+         TestZeroTime: 'info'
+     1 [TimeMillis] slog.Time() logs milliseconds instead of nanoseconds
+         TestLogAttributes: 2024-08-15T16:01:47Z
+
+Warnings for madkins/flash:
+  Suggested
+     2 [Duplicates] Duplicate field(s) found
+         TestAttributeDuplicate: map[alpha:2 charlie:3]
+         TestAttributeWithDuplicate: map[alpha:2 charlie:3]
+
+Warnings for madkins/replattr:
+  Suggested
+     2 [Duplicates] Duplicate field(s) found
+         TestAttributeDuplicate: map[alpha:2 charlie:3]
+         TestAttributeWithDuplicate: map[alpha:2 charlie:3]
+
+Warnings for madkins/sloggy:
+  Suggested
+     2 [Duplicates] Duplicate field(s) found
+         TestAttributeDuplicate: map[alpha:2 charlie:3]
+         TestAttributeWithDuplicate: map[alpha:2 charlie:3]
+
+Warnings for phsym/zeroslog:
+  Required
+     3 [EmptyAttributes] Empty attribute(s) logged ("":null)
+         TestAttributeWithEmpty
+           {"level":"info","":null,"first":"one","pi":3.141592653589793,"time":"2024-08-15T16:01:47Z","message":"This is a message"}
+         TestAttributesEmpty
+           {"level":"info","first":"one","":null,"pi":3.141592653589793,"time":"2024-08-15T16:01:47Z","message":"This is a message"}
+         TestAttributesWithEmpty
+           {"level":"info","first":"one","second":2,"":null,"pi":3.141592653589793,"time":"2024-08-15T16:01:47Z","message":"This is a message"}
+     1 [GroupEmpty] Empty (sub)group(s) logged
+         TestGroupWithMultiSubEmpty: found 'subGroup' group
+           {"level":"info","first":"one","group":{"second":2,"third":"3","subGroup":{}},"time":"2024-08-15T16:01:47Z","message":"This is a message"}
+     1 [GroupInline] Group with empty key does not inline subfields
+         TestGroupInline
+           {"level":"info","first":"one","":{"second":2,"third":"3","fourth":"forth"},"pi":3.141592653589793,"time":"2024-08-15T16:01:47Z","message":"This is a message"}
+     1 [SlogTest] Failure of embedded slog/slogtest
+         TestSlogTest: missing key "msg": this test expects slog.TimeKey, slog.LevelKey and slog.MessageKey (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:39)
+           +unexpected key "": a Handler should ignore an empty Attr (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:61)
+           +unexpected key "time": a Handler should ignore a zero Record.Time (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:73)
+           +missing key "c": a Handler should inline the Attrs of a group with an empty key (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:119)
+           +missing key "msg": a Handler should handle the WithGroup method (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:132)
+           +missing key "msg": a Handler should handle multiple WithGroup and WithAttr calls (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:146)
+           +missing key "msg": a Handler should not output groups if there are no attributes (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:161)
+           +unexpected key "H": a Handler should not output groups if there are no attributes (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:161)
+     1 [WithGroupEmpty] Empty WithGroup() logged
+         TestWithGroupEmpty: too many fields, found field 'group1', value is group, length: 1
+           {"level":"info","group1":{"group2":{}},"time":"2024-08-15T16:01:47Z","message":"This is a message"}
+     1 [ZeroTime] Zero time is logged
+         TestZeroTime: 0001-01-01T00:00:00Z
+           {"level":"info","time":"0001-01-01T00:00:00Z","message":"This is a message"}
+  Implied
+     7 [MessageKey] Wrong message key (should be 'msg')
+         TestCanceledContext: `message`
+         TestCanceledContext: `message`
+         TestCanceledContext: `message`
+         TestKeys: `message`
+         TestSourceKey: `message`
+         TestZeroPC: `message`
+         TestZeroTime: `message`
+     7 [NoReplAttr] HandlerOptions.ReplaceAttr not available
+         TestReplaceAttr: too many attributes: 6, alpha == beta, change still exists, remove still exists
+         TestReplaceAttrBasic: too many attributes: 4
+           +time field still exists
+           +message field still exists
+           +source == <nil>
+         TestReplaceAttrFnChangeKey: too few attributes: 3
+           +no message key
+           +message not string
+         TestReplaceAttrFnLevelCase: level value not null
+         TestReplaceAttrFnMulti
+           {"level":"info","group":{"alpha":"omega","pi":3.141592653589793,"subGroup":{"alpha":"omega","goober":"snoofus","e":2.718281828459045,"oneMore":{"alpha":"omega","gibbering":"lunatic","phi":1.618033988749895}}},"time":"2024-08-15T16:01:47Z","message":"This is a message"}
+         TestReplaceAttrFnRemoveEmptyKey
+         TestReplaceAttrFnRemoveTime: time value not empty string
+     1 [SourceCaller] Source data logged as 'caller' instead of 'source'
+         TestSourceKey: /opt/hostedtoolcache/go/1.22.6/x64/src/reflect/value.go:596
+           {"level":"info","caller":"/opt/hostedtoolcache/go/1.22.6/x64/src/reflect/value.go:596","time":"2024-08-15T16:01:47Z","message":"This is a message"}
+  Suggested
+     2 [Duplicates] Duplicate field(s) found
+         TestAttributeDuplicate: map[alpha:2 charlie:3]
+         TestAttributeWithDuplicate: map[alpha:2 charlie:3]
+     1 [DurationMillis] slog.Duration() logs milliseconds instead of nanoseconds
+         TestLogAttributes
+    11 [LevelCase] Log level in lowercase
+         TestCanceledContext: 'info'
+         TestCanceledContext: 'info'
+         TestCanceledContext: 'info'
+         TestKeyCase: 'info'
+         TestKeyCase: 'warn'
+         TestKeyCase: 'error'
+         TestKeyCase: 'debug'
+         TestKeys: 'info'
+         TestSourceKey: 'info'
+         TestZeroPC: 'info'
+         TestZeroTime: 'info'
+     1 [TimeMillis] slog.Time() logs milliseconds instead of nanoseconds
+         TestLogAttributes: 2024-08-15T16:01:47Z
+
+Warnings for phuslu/slog:
+  Suggested
+     2 [Duplicates] Duplicate field(s) found
+         TestAttributeDuplicate: map[alpha:2 charlie:3]
+         TestAttributeWithDuplicate: map[alpha:2 charlie:3]
+
+Warnings for samber/slog-logrus:
+  Required
+     4 [Resolver] LogValuer objects are not resolved
+         TestResolveGroup
+           {"group":{"hidden":{},"pi":3.141592653589793},"level":"info","msg":"This is a message","time":"2024-08-15T16:01:47Z"}
+         TestResolveGroupWith
+           {"group":{"hidden":{},"pi":3.141592653589793},"level":"info","msg":"This is a message","time":"2024-08-15T16:01:47Z"}
+         TestResolveValuer
+           {"hidden":{},"level":"info","msg":"This is a message","time":"2024-08-15T16:01:47Z"}
+         TestResolveWith
+           {"hidden":{},"level":"info","msg":"This is a message","time":"2024-08-15T16:01:47Z"}
+     1 [SlogTest] Failure of embedded slog/slogtest
+         TestSlogTest: unexpected key "time": a Handler should ignore a zero Record.Time (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:73)
+           +missing key "c": a Handler should inline the Attrs of a group with an empty key (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:119)
+           +"k": got map[string]interface {}{}, want "replaced": a Handler should call Resolve on attribute values (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:176)
+           +"b": got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:184)
+           +"k": got map[string]interface {}{}, want "replaced": a Handler should call Resolve on attribute values from WithAttrs (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:198)
+           +"b": got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups from WithAttrs (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:207)
+     1 [ZeroTime] Zero time is logged
+         TestZeroTime: 2024-08-15T16:01:47Z
+           {"level":"info","msg":"This is a message","time":"2024-08-15T16:01:47Z"}
+  Implied
+     5 [NoReplAttrBasic] HandlerOptions.ReplaceAttr not available for basic fields
+         TestReplaceAttrBasic: too many attributes: 4
+           +time field still exists
+           +msg field still exists
+           +source == map[file:/home/runner/work/go-slog/go-slog/verify/tests/replace.go function:github.com/madkins23/go-slog/verify/tests.(*SlogTestSuite).TestReplaceAttrBasic line:89]
+         TestReplaceAttrFnLevelCase: level value not null
+         TestReplaceAttrFnMulti
+           {"group":{"alpha":"OMEGA","pi":3.141592653589793,"subGroup":{"e":2.718281828459045,"goober":"snoofus","la la la":"omega","oneMore":{"alpha":"omega","gibbering":"moontic","phi":1.618033988749895}}},"level":"info","msg":"This is a message","time":"2024-08-15T16:01:47Z"}
+         TestReplaceAttrFnRemoveEmptyKey
+         TestReplaceAttrFnRemoveTime: time value not empty string
+  Suggested
+    10 [LevelCase] Log level in lowercase
+         TestCanceledContext: 'info'
+         TestCanceledContext: 'info'
+         TestCanceledContext: 'info'
+         TestKeyCase: 'info'
+         TestKeyCase: 'error'
+         TestKeyCase: 'debug'
+         TestKeys: 'info'
+         TestSourceKey: 'info'
+         TestZeroPC: 'info'
+         TestZeroTime: 'info'
+     1 [LevelWrong] Log level is incorrect
+         TestKeyCase: should be 'WARN', not 'warning'
+     4 [NoEmptyName] Attributes with empty names are not logged
+         TestAttributeEmptyName
+           {"first":"one","level":"info","msg":"This is a message","pi":3.141592653589793,"time":"2024-08-15T16:01:47Z"}
+         TestAttributeWithEmptyName
+           {"first":"one","level":"info","msg":"This is a message","pi":3.141592653589793,"time":"2024-08-15T16:01:47Z"}
+         TestAttributesNotEmpty
+           {"first":"one","level":"info","msg":"This is a message","pi":3.141592653589793,"time":"2024-08-15T16:01:47Z"}
+         TestAttributesWithNotEmpty
+           {"first":"one","level":"info","msg":"This is a message","pi":3.141592653589793,"second":2,"time":"2024-08-15T16:01:47Z"}
+  Administrative
+     3 [Unused] Unused Warnings(s)
+         TestGroupInline: GroupInline
+         TestWithGroupInline: GroupInline
+         TestZeroPC: ZeroPC
+
+Warnings for samber/slog-zap:
+  Required
+     4 [Resolver] LogValuer objects are not resolved
+         TestResolveGroup
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message","group":{"hidden":{},"pi":3.141592653589793}}
+         TestResolveGroupWith
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message","group":{"hidden":{},"pi":3.141592653589793}}
+         TestResolveValuer
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message","hidden":{}}
+         TestResolveWith
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message","hidden":{}}
+     1 [SlogTest] Failure of embedded slog/slogtest
+         TestSlogTest: unexpected key "time": a Handler should ignore a zero Record.Time (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:73)
+           +missing key "c": a Handler should inline the Attrs of a group with an empty key (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:119)
+           +"k": got "<replace(replaced)>", want "replaced": a Handler should call Resolve on attribute values (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:176)
+           +"b": got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:184)
+           +"k": got "<replace(replaced)>", want "replaced": a Handler should call Resolve on attribute values from WithAttrs (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:198)
+           +"b": got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups from WithAttrs (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:207)
+     1 [ZeroPC] SourceKey logged for zero PC
+         TestZeroPC: non-standard key 'caller'
+           {"level":"info","time":"2024-08-15T16:01:47Z","caller":":0","msg":"This is a message"}
+     1 [ZeroTime] Zero time is logged
+         TestZeroTime: 2024-08-15T16:01:47Z
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message"}
+  Implied
+     5 [NoReplAttrBasic] HandlerOptions.ReplaceAttr not available for basic fields
+         TestReplaceAttrBasic: too many attributes: 4
+           +time field still exists
+           +msg field still exists
+           +source == <nil>
+         TestReplaceAttrFnLevelCase: level value not null
+         TestReplaceAttrFnMulti
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message","group":{"alpha":"OMEGA","pi":3.141592653589793,"subGroup":{"e":2.718281828459045,"goober":"snoofus","la la la":"omega","oneMore":{"alpha":"omega","gibbering":"moontic","phi":1.618033988749895}}}}
+         TestReplaceAttrFnRemoveEmptyKey
+         TestReplaceAttrFnRemoveTime: time value not empty string
+     1 [SourceCaller] Source data logged as 'caller' instead of 'source'
+         TestSourceKey: reflect/value.go:596
+           {"level":"info","time":"2024-08-15T16:01:47Z","caller":"reflect/value.go:596","msg":"This is a message"}
+  Suggested
+     1 [DurationSeconds] slog.Duration() logs seconds instead of nanoseconds
+         TestLogAttributes
+     1 [GroupDuration] 
+         TestGroupDuration: 29002.000000 != 29002000000000.000000
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message","group":{"inner":29002000000000},"outer":29002}
+    11 [LevelCase] Log level in lowercase
+         TestCanceledContext: 'info'
+         TestCanceledContext: 'info'
+         TestCanceledContext: 'info'
+         TestKeyCase: 'debug'
+         TestKeyCase: 'info'
+         TestKeyCase: 'warn'
+         TestKeyCase: 'error'
+         TestKeys: 'info'
+         TestSourceKey: 'info'
+         TestZeroPC: 'info'
+         TestZeroTime: 'info'
+     4 [NoEmptyName] Attributes with empty names are not logged
+         TestAttributeEmptyName
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message","first":"one","pi":3.141592653589793}
+         TestAttributeWithEmptyName
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message","first":"one","pi":3.141592653589793}
+         TestAttributesNotEmpty
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message","pi":3.141592653589793,"first":"one"}
+         TestAttributesWithNotEmpty
+           {"level":"info","time":"2024-08-15T16:01:47Z","msg":"This is a message","first":"one","second":2,"pi":3.141592653589793}
+     1 [TimeMillis] slog.Time() logs milliseconds instead of nanoseconds
+         TestLogAttributes: 2024-08-15T16:01:47Z
+  Administrative
+     2 [Unused] Unused Warnings(s)
+         TestGroupInline: GroupInline
+         TestWithGroupInline: GroupInline
+
+Warnings for samber/slog-zerolog:
+  Required
+     4 [Resolver] LogValuer objects are not resolved
+         TestResolveGroup
+           {"level":"info","time":"2024-08-15T16:01:47Z","group":{"hidden":{},"pi":3.141592653589793},"message":"This is a message"}
+         TestResolveGroupWith
+           {"level":"info","time":"2024-08-15T16:01:47Z","group":{"hidden":{},"pi":3.141592653589793},"message":"This is a message"}
+         TestResolveValuer
+           {"level":"info","time":"2024-08-15T16:01:47Z","hidden":{},"message":"This is a message"}
+         TestResolveWith
+           {"level":"info","time":"2024-08-15T16:01:47Z","hidden":{},"message":"This is a message"}
+     1 [SlogTest] Failure of embedded slog/slogtest
+         TestSlogTest: missing key "msg": this test expects slog.TimeKey, slog.LevelKey and slog.MessageKey (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:39)
+           +unexpected key "time": a Handler should ignore a zero Record.Time (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:73)
+           +missing key "c": a Handler should inline the Attrs of a group with an empty key (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:119)
+           +missing key "msg": a Handler should handle the WithGroup method (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:132)
+           +missing key "msg": a Handler should handle multiple WithGroup and WithAttr calls (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:146)
+           +missing key "msg": a Handler should not output groups if there are no attributes (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:161)
+           +"k": got map[string]interface {}{}, want "replaced": a Handler should call Resolve on attribute values (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:176)
+           +"b": got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:184)
+           +"k": got map[string]interface {}{}, want "replaced": a Handler should call Resolve on attribute values from WithAttrs (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:198)
+           +"b": got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups from WithAttrs (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:207)
+     1 [ZeroTime] Zero time is logged
+         TestZeroTime: 0001-01-01T00:00:00Z
+           {"level":"info","time":"0001-01-01T00:00:00Z","message":"This is a message"}
+  Implied
+     2 [DefaultLevel] Handler doesn't default to slog.LevelInfo
+         TestDefaultLevel: defaultlevel is 'DEBUG'
+         TestDefaultLevel: defaultlevel with AddSource is 'DEBUG'
+     7 [MessageKey] Wrong message key (should be 'msg')
+         TestCanceledContext: `message`
+         TestCanceledContext: `message`
+         TestCanceledContext: `message`
+         TestKeys: `message`
+         TestSourceKey: `message`
+         TestZeroPC: `message`
+         TestZeroTime: `message`
+     6 [NoReplAttrBasic] HandlerOptions.ReplaceAttr not available for basic fields
+         TestReplaceAttrBasic: too many attributes: 4
+           +time field still exists
+           +message field still exists
+           +source == map[file:/home/runner/work/go-slog/go-slog/verify/tests/replace.go function:github.com/madkins23/go-slog/verify/tests.(*SlogTestSuite).TestReplaceAttrBasic line:89]
+         TestReplaceAttrFnChangeKey: too few attributes: 3
+           +no message key
+           +message not string
+         TestReplaceAttrFnLevelCase: level value not null
+         TestReplaceAttrFnMulti
+           {"level":"info","time":"2024-08-15T16:01:47Z","group":{"alpha":"OMEGA","pi":3.141592653589793,"subGroup":{"e":2.718281828459045,"goober":"snoofus","la la la":"omega","oneMore":{"alpha":"omega","gibbering":"moontic","phi":1.618033988749895}}},"message":"This is a message"}
+         TestReplaceAttrFnRemoveEmptyKey
+         TestReplaceAttrFnRemoveTime: time value not empty string
+  Suggested
+     1 [DurationMillis] slog.Duration() logs milliseconds instead of nanoseconds
+         TestLogAttributes
+     1 [GroupDuration] 
+         TestGroupDuration: 29002000.000000 != 29002000000000.000000
+           {"level":"info","time":"2024-08-15T16:01:47Z","group":{"inner":29002000000000},"outer":29002000,"message":"This is a message"}
+    11 [LevelCase] Log level in lowercase
+         TestCanceledContext: 'info'
+         TestCanceledContext: 'info'
+         TestCanceledContext: 'info'
+         TestKeyCase: 'debug'
+         TestKeyCase: 'info'
+         TestKeyCase: 'warn'
+         TestKeyCase: 'error'
+         TestKeys: 'info'
+         TestSourceKey: 'info'
+         TestZeroPC: 'info'
+         TestZeroTime: 'info'
+     4 [NoEmptyName] Attributes with empty names are not logged
+         TestAttributeEmptyName
+           {"level":"info","time":"2024-08-15T16:01:47Z","first":"one","pi":3.141592653589793,"message":"This is a message"}
+         TestAttributeWithEmptyName
+           {"level":"info","time":"2024-08-15T16:01:47Z","first":"one","pi":3.141592653589793,"message":"This is a message"}
+         TestAttributesNotEmpty
+           {"level":"info","time":"2024-08-15T16:01:47Z","first":"one","pi":3.141592653589793,"message":"This is a message"}
+         TestAttributesWithNotEmpty
+           {"level":"info","time":"2024-08-15T16:01:47Z","first":"one","pi":3.141592653589793,"second":2,"message":"This is a message"}
+     1 [TimeMillis] slog.Time() logs milliseconds instead of nanoseconds
+         TestLogAttributes: 2024-08-15T16:01:47Z
+  Administrative
+     3 [Unused] Unused Warnings(s)
+         TestGroupInline: GroupInline
+         TestWithGroupInline: GroupInline
+         TestZeroPC: ZeroPC
+
+Warnings for slog/JSONHandler:
+  Suggested
+     2 [Duplicates] Duplicate field(s) found
+         TestAttributeDuplicate: map[alpha:2 charlie:3]
+         TestAttributeWithDuplicate: map[alpha:2 charlie:3]
+
+Warnings for snqk/meld:
+  None
+
+Warnings for svcrunner/jsonlog:
+  Required
+     1 [LevelVar] Unable to change level during execution via LevelVar
+         TestLevelVar: level not changed
+     1 [SlogTest] Failure of embedded slog/slogtest
+         TestSlogTest: missing key "msg": this test expects slog.TimeKey, slog.LevelKey and slog.MessageKey (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:39)
+           +missing key "msg": a Handler should handle the WithGroup method (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:132)
+           +missing key "msg": a Handler should handle multiple WithGroup and WithAttr calls (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:146)
+           +missing key "msg": a Handler should not output groups if there are no attributes (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:161)
+  Implied
+     7 [MessageKey] Wrong message key (should be 'msg')
+         TestCanceledContext: `message`
+         TestCanceledContext: `message`
+         TestCanceledContext: `message`
+         TestKeys: `message`
+         TestSourceKey: `message`
+         TestZeroPC: `message`
+         TestZeroTime: `message`
+     7 [NoReplAttr] HandlerOptions.ReplaceAttr not available
+         TestReplaceAttr: too many attributes: 6, alpha == beta, change still exists, remove still exists
+         TestReplaceAttrBasic: time field still exists
+           +message field still exists
+           +source == <nil>
+         TestReplaceAttrFnChangeKey: too few attributes: 3
+           +no message key
+           +message not string
+         TestReplaceAttrFnLevelCase: level value not null
+         TestReplaceAttrFnMulti
+           {"time":"2024-08-15T16:01:47.711267078Z","level":"INFO","message":"This is a message","group":{"alpha":"omega","pi":3.141592653589793,"subGroup":{"alpha":"omega","goober":"snoofus","e":2.718281828459045,"oneMore":{"alpha":"omega","gibbering":"lunatic","phi":1.618033988749895}}}}
+         TestReplaceAttrFnRemoveEmptyKey
+         TestReplaceAttrFnRemoveTime: time value not empty string
+     1 [SourceKey] Source data not logged when AddSource flag set
+         TestSourceKey: no 'source' key
+           {"time":"2024-08-15T16:01:47.711974079Z","level":"INFO","message":"This is a message"}
+  Suggested
+     2 [Duplicates] Duplicate field(s) found
+         TestAttributeDuplicate: map[alpha:2 charlie:3]
+         TestAttributeWithDuplicate: map[alpha:2 charlie:3]
+     2 [DurationString] slog.Duration() logs a string representation instead of nanoseconds
+         TestGroupDuration: 8h3m22s
+           {"time":"2024-08-15T16:01:47.710131487Z","level":"INFO","message":"This is a message","outer":"8h3m22s","group":{"inner":"8h3m22s"}}
+         TestLogAttributes: 1m0s
+           {"time":"2024-08-15T16:01:47.710896706Z","level":"INFO","message":"This is a message","when":"2024-08-15T16:01:47.710894132Z","howLong":"1m0s","goober":"snoofus","boolean":true,"pi":3.141592653589793,"skidoo":23,"minus":-64,"unsigned":79,"any":["alpha","omega"]}
+     4 [NoEmptyName] Attributes with empty names are not logged
+         TestAttributeEmptyName
+           {"time":"2024-08-15T16:01:47.708080445Z","level":"INFO","message":"This is a message","first":"one","pi":3.141592653589793}
+         TestAttributeWithEmptyName
+           {"time":"2024-08-15T16:01:47.708354497Z","level":"INFO","message":"This is a message","first":"one","pi":3.141592653589793}
+         TestAttributesNotEmpty
+           {"time":"2024-08-15T16:01:47.708614403Z","level":"INFO","message":"This is a message","first":"one","pi":3.141592653589793}
+         TestAttributesWithNotEmpty
+           {"time":"2024-08-15T16:01:47.708809988Z","level":"INFO","message":"This is a message","first":"one","second":2,"pi":3.141592653589793}
+
+Warnings for veqryn/dedup/Append:
+  Administrative
+     3 [SkipDedup] Test depends on dedup order
+         TestAttributeDuplicate: Skipping test
+         TestAttributeWithDuplicate: Skipping test
+         TestComplexCases: Skipping test
+     3 [SkippingTest] Skipping test
+         TestAttributeDuplicate: SkipDedup
+         TestAttributeWithDuplicate: SkipDedup
+         TestComplexCases: SkipDedup
+
+Warnings for veqryn/dedup/Ignore:
+  Administrative
+     3 [SkipDedup] Test depends on dedup order
+         TestAttributeDuplicate: Skipping test
+         TestAttributeWithDuplicate: Skipping test
+         TestComplexCases: Skipping test
+     3 [SkippingTest] Skipping test
+         TestAttributeDuplicate: SkipDedup
+         TestAttributeWithDuplicate: SkipDedup
+         TestComplexCases: SkipDedup
+
+Warnings for veqryn/dedup/Increment:
+  Administrative
+     3 [SkipDedup] Test depends on dedup order
+         TestAttributeDuplicate: Skipping test
+         TestAttributeWithDuplicate: Skipping test
+         TestComplexCases: Skipping test
+     3 [SkippingTest] Skipping test
+         TestAttributeDuplicate: SkipDedup
+         TestAttributeWithDuplicate: SkipDedup
+         TestComplexCases: SkipDedup
+
+Warnings for veqryn/dedup/Overwrite:
+  None
+
+ Handlers by warning:
+  Required
+    [EmptyAttributes] Empty attribute(s) logged ("":null)
+      phsym/zeroslog
+    [GroupEmpty] Empty (sub)group(s) logged
+      phsym/zeroslog
+    [GroupInline] Group with empty key does not inline subfields
+      phsym/zeroslog
+    [LevelVar] Unable to change level during execution via LevelVar
+      svcrunner/jsonlog
+    [Resolver] LogValuer objects are not resolved
+      samber/slog-logrus
+      samber/slog-zap
+      samber/slog-zerolog
+    [SlogTest] Failure of embedded slog/slogtest
+      phsym/zeroslog
+      samber/slog-logrus
+      samber/slog-zap
+      samber/slog-zerolog
+      svcrunner/jsonlog
+      chanchal/zaphandler
+    [WithGroupEmpty] Empty WithGroup() logged
+      chanchal/zaphandler
+      phsym/zeroslog
+    [ZeroPC] SourceKey logged for zero PC
+      samber/slog-zap
+    [ZeroTime] Zero time is logged
+      phsym/zeroslog
+      samber/slog-logrus
+      samber/slog-zap
+      samber/slog-zerolog
+  Implied
+    [CanceledContext] Canceled context blocks logging
+      chanchal/zaphandler
+    [DefaultLevel] Handler doesn't default to slog.LevelInfo
+      samber/slog-zerolog
+    [LevelMath] Log levels are not properly treated as integers
+      chanchal/zaphandler
+    [MessageKey] Wrong message key (should be 'msg')
+      phsym/zeroslog
+      samber/slog-zerolog
+      svcrunner/jsonlog
+    [NoReplAttr] HandlerOptions.ReplaceAttr not available
+      chanchal/zaphandler
+      phsym/zeroslog
+      svcrunner/jsonlog
+    [NoReplAttrBasic] HandlerOptions.ReplaceAttr not available for basic fields
+      samber/slog-logrus
+      samber/slog-zap
+      samber/slog-zerolog
+      chanchal/zaphandler
+    [SourceCaller] Source data logged as 'caller' instead of 'source'
+      chanchal/zaphandler
+      phsym/zeroslog
+      samber/slog-zap
+    [SourceKey] Source data not logged when AddSource flag set
+      svcrunner/jsonlog
+    [WithGroup] WithGroup doesn't embed following attributes into group
+      chanchal/zaphandler
+  Suggested
+    [Duplicates] Duplicate field(s) found
+      phsym/zeroslog
+      phuslu/slog
+      slog/JSONHandler
+      svcrunner/jsonlog
+      chanchal/zaphandler
+      madkins/flash
+      madkins/replattr
+      madkins/sloggy
+    [DurationMillis] slog.Duration() logs milliseconds instead of nanoseconds
+      phsym/zeroslog
+      samber/slog-zerolog
+    [DurationSeconds] slog.Duration() logs seconds instead of nanoseconds
+      chanchal/zaphandler
+      samber/slog-zap
+    [DurationString] slog.Duration() logs a string representation instead of nanoseconds
+      svcrunner/jsonlog
+    [GroupDuration] 
+      samber/slog-zerolog
+      samber/slog-zap
+    [GroupWithTop] ^WithGroup().With()^ ends up at top level of log record instead of in the group
+      chanchal/zaphandler
+    [LevelCase] Log level in lowercase
+      samber/slog-zap
+      samber/slog-zerolog
+      chanchal/zaphandler
+      phsym/zeroslog
+      samber/slog-logrus
+    [LevelWrong] Log level is incorrect
+      samber/slog-logrus
+    [NoEmptyName] Attributes with empty names are not logged
+      samber/slog-logrus
+      samber/slog-zap
+      samber/slog-zerolog
+      svcrunner/jsonlog
+    [TimeMillis] slog.Time() logs milliseconds instead of nanoseconds
+      samber/slog-zap
+      samber/slog-zerolog
+      chanchal/zaphandler
+      phsym/zeroslog
+  Administrative
+    [SkipDedup] Test depends on dedup order
+      veqryn/dedup/Ignore
+      veqryn/dedup/Increment
+      veqryn/dedup/Append
+    [SkippingTest] Skipping test
+      veqryn/dedup/Append
+      veqryn/dedup/Ignore
+      veqryn/dedup/Increment
+    [Unused] Unused Warnings(s)
+      samber/slog-logrus
+      samber/slog-zap
+      samber/slog-zerolog
+ok  	github.com/madkins23/go-slog/verify	(cached)
