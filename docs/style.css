@@ -21,11 +21,13 @@ button:disabled {
     background-color: #1b9f9f;
 }
 
-div.wrapper {
+div.content {
+    flex: 1;
+    overflow: auto !important;
+}
+
+div.content > div {
     height: 100%;
-    width: 1000px;
-    display: flex;
-    flex-direction: column;
 }
 
 div.header {
@@ -44,13 +46,26 @@ div.footer {
     bottom: 0;
 }
 
-div.content {
+div.text {
     flex: 1;
     overflow: auto !important;
+    font-family: monospace;
+    background-color: #f1f1f1;
+    padding: 2px;
+    white-space: pre;
+    border-style: inset;
+    text-wrap: none;
 }
 
-div.content > div {
+div.text-summary {
+    font-weight: bold;
+}
+
+div.wrapper {
     height: 100%;
+    width: 1000px;
+    display: flex;
+    flex-direction: column;
 }
 
 fieldset {
