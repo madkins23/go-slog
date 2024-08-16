@@ -136,15 +136,20 @@ table.data caption {
     font-weight: bold;
 }
 
+table.data td {
+    background-color: lightslategray;
+    outline: 2px inset darkgray;
+    outline-offset: -2px;
+}
+
 table.data td, th {
     margin: 5px;
     padding: 5px;
 }
 
-table.data td {
-    background-color: lightslategray;
-    outline: 2px inset darkgray;
-    outline-offset: -2px;
+table.data th.vertical {
+    writing-mode: vertical-lr;
+    /* switch to sideways-?? when commonly available */
 }
 
 table.debug {
@@ -309,10 +314,10 @@ table.score-title {
     width: 100%;
 }
 
-table.scores {
+table.score-buttons {
     margin-left: auto;
     margin-right: auto;
-    width: 800px;
+    width: 100%;
 }
 
 table.top {

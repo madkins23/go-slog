@@ -24,7 +24,7 @@ var (
 )
 
 var defaultOptions = &score.KeeperOptions{
-	ChartTitle: "Speed vs. Functionality",
+	Title: "Speed vs. Functionality",
 	ChartCaption: `
 		Higher numbers are better on both axes. The "good" zone is the upper right and the "bad" zone is the lower left.<br/>
 		The top is fast, the bottom is slow. Left is more warnings, right is less.`,

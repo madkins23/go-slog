@@ -354,8 +354,12 @@ func (pd *templateData) FixUint(number uint64) string {
 
 // FixFloat converts a float64 into a string using the language printer.
 // This will apply the proper decimal and numeric separators.
-func (pd *templateData) FixFloat(number float64) string {
-	return pd.Printer.Sprintf("%0.2f", number)
+func (pd *templateData) FixFloat(number float64, extra ...uint8) string {
+	var digits uint8 = 2
+	if len(extra) > 0 {
+		digits = extra[0]
+	}
+	return pd.Printer.Sprintf("%0.*f", digits, number)
 }
 
 // FixValue converts a score.Value into a string using the language printer.
@@ -432,6 +436,9 @@ func pageFunction(page pageType) gin.HandlerFunc {
 // functions returns required template functions.
 func functions() map[string]any {
 	return map[string]any{
+		"div": func(a, b float64) float64 {
+			return a / b
+		},
 		"mod": func(a, b int) int {
 			return a % b
 		},

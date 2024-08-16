@@ -1,10 +1,5 @@
 # TODO
 
-* Multiple tables on score page:
-  - Current version ("scores")
-  - speed
-  - memory
-  - warnings
 ? Workflow keep-alive
   https://github.com/liskin/gh-workflow-keepalive
 ? Default chart size on score page to smallest one that contains all items

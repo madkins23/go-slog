@@ -25,12 +25,12 @@ type Keeper struct {
 }
 
 type KeeperOptions struct {
-	ChartCaption, ChartTitle template.HTML
+	ChartCaption, Title template.HTML
 }
 
 const (
 	noChartCaption = "No chart caption yet!!!"
-	noChartTitle   = "No chart title yet!!!"
+	noKeeperTitle  = "No keeper title yet!!!"
 )
 
 func NewKeeper(tag KeeperTag, x, y Axis, doc template.HTML, options *KeeperOptions, filter Filter) *Keeper {
@@ -47,8 +47,8 @@ func NewKeeper(tag KeeperTag, x, y Axis, doc template.HTML, options *KeeperOptio
 	if k.KeeperOptions.ChartCaption == "" {
 		k.KeeperOptions.ChartCaption = noChartCaption
 	}
-	if k.KeeperOptions.ChartTitle == "" {
-		k.KeeperOptions.ChartTitle = noChartTitle
+	if k.KeeperOptions.Title == "" {
+		k.KeeperOptions.Title = noKeeperTitle
 	}
 	return k
 }
@@ -89,7 +89,7 @@ func (k *Keeper) ChartCaption() template.HTML {
 }
 
 func (k *Keeper) ChartTitle() template.HTML {
-	return k.KeeperOptions.ChartTitle
+	return k.KeeperOptions.Title
 }
 
 // Summary returns documentation related to the current scorekeeper object.

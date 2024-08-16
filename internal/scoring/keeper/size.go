@@ -24,7 +24,7 @@ var (
 )
 
 var sizeOptions = &score.KeeperOptions{
-	ChartTitle: "Large vs Small",
+	Title: "Large vs Small",
 	ChartCaption: `
 		Higher numbers are better on both axes. The "good" zone is the upper right and the "bad" zone is the lower left.`,
 }
