@@ -55,9 +55,12 @@
                         {{/* Score Keeper Data Table: MICROS / Operation */}}
                         <table class="data" id="score-table-micros">
                             <tr>
-                                <th>Handler</th>
+                                <th>
+                                    <div class="corner-top-right">Tests →</div>
+                                    <div class="corner-bottom-left">↓Handlers</div>
+                                </th>
                                 {{ range $test := .Benchmarks.TestTags }}
-                                    <th>{{ $test.Name }}</th>
+                                    <td class="center">{{ $test.Name }}</td>
                                 {{ end }}
                             </tr>
                             {{ range $hdlr := .Keeper.HandlerTags }}
@@ -74,9 +77,12 @@
                         {{/* Score Keeper Data Table: Memory ALLOCS */}}
                         <table class="data" id="score-table-allocs">
                             <tr>
-                                <th class="bottom">Handler</th>
+                                <th>
+                                    <div class="corner-top-right">Tests →</div>
+                                    <div class="corner-bottom-left">↓Handlers</div>
+                                </th>
                                 {{ range $test := .Benchmarks.TestTags }}
-                                    <th>{{ $test.Name }}</th>
+                                    <td class="center">{{ $test.Name }}</td>
                                 {{ end }}
                             </tr>
                             {{ range $hdlr := .Keeper.HandlerTags }}
@@ -93,9 +99,12 @@
                         {{/* Score Keeper Data Table: Memory BYTES */}}
                         <table class="data" id="score-table-bytes">
                             <tr>
-                                <th class="bottom">Handler</th>
+                                <th>
+                                    <div class="corner-top-right">Tests →</div>
+                                    <div class="corner-bottom-left">↓Handlers</div>
+                                </th>
                                 {{ range $test := .Benchmarks.TestTags }}
-                                    <th>{{ $test.Name }}</th>
+                                    <td class="center">{{ $test.Name }}</td>
                                 {{ end }}
                             </tr>
                             {{ range $hdlr := .Keeper.HandlerTags }}
