@@ -239,10 +239,32 @@
     <div class="content">
         <div>
             <table class="top">
-                <tr class="title"><td colspan=2><h2>Scores</h2></td></tr>
+                <tr class="title"><td colspan="2"><h2>Speed vs. Functionality</h2></td></tr>
+
+                
+
+                
+                <tr class="title">
+                    <td colspan="2">
+                        <table class="score-buttons">
+                            <tr>
+                                <td>
+                                    <button id="score-button-scores" type="button" onclick="showDataTable(`scores`)">Scores</button>
+                                </td>
+                                <td class="right">
+                                    <button id="score-button-micros" type="button" onclick="showDataTable(`micros`)">Micros</button>
+                                    Memory:
+                                    <button id="score-button-allocs" type="button" onclick="showDataTable(`allocs`)">Allocs</button>
+                                    <button id="score-button-bytes" type="button" onclick="showDataTable(`bytes`)">Bytes</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
                 <tr>
-                    <td colspan=2>
-                        <table class="data">
+                    <td colspan="2">
+                        
+                        <table class="data" id="score-table-scores">
                             <tr>
                                 <th>Handler</th>
                                 <th>Warnings</th>
@@ -252,51 +274,902 @@
                                 <tr>
                                     <td><a href="/go-slog/handler/SlogJSON.html">slog/JSONHandler</a></td>
                                     <td class="number">98.47</td>
-                                    <td class="number">97.08</td>
+                                    <td class="number">96.81</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/SnqkMeld.html">snqk/meld</a></td>
                                     <td class="number">100.00</td>
-                                    <td class="number">87.65</td>
+                                    <td class="number">87.03</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/VeqrynDedupAppend.html">veqryn/dedup/Append</a></td>
                                     <td class="number">98.47</td>
-                                    <td class="number">52.42</td>
+                                    <td class="number">52.68</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/VeqrynDedupIgnore.html">veqryn/dedup/Ignore</a></td>
                                     <td class="number">98.47</td>
-                                    <td class="number">54.93</td>
+                                    <td class="number">55.01</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/VeqrynDedupIncrement.html">veqryn/dedup/Increment</a></td>
                                     <td class="number">98.47</td>
-                                    <td class="number">52.53</td>
+                                    <td class="number">52.65</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/VeqrynDedupOverwrite.html">veqryn/dedup/Overwrite</a></td>
                                     <td class="number">100.00</td>
-                                    <td class="number">54.80</td>
+                                    <td class="number">54.64</td>
                                 </tr>
                             
                         </table>
-                        <p class="center">
-                            Numbers are on scale of <span class="fixed">0..100</span>.
-                            Metrics algorithms completely made up out of thin air.
-                            See notes <a href="#scoring_algorithms">below</a> for details.
-                        </p>
+                        
+                        <table class="data" id="score-table-micros">
+                            <tr>
+                                <th>Handler</th>
+                                
+                                    <th>Attributes</th>
+                                
+                                    <th>Big Group</th>
+                                
+                                    <th>Disabled</th>
+                                
+                                    <th>Key Values</th>
+                                
+                                    <th>Logging</th>
+                                
+                                    <th>Simple</th>
+                                
+                                    <th>Simple Source</th>
+                                
+                                    <th>With Attrs Attributes</th>
+                                
+                                    <th>With Attrs Key Values</th>
+                                
+                                    <th>With Attrs Simple</th>
+                                
+                                    <th>With Group Attributes</th>
+                                
+                                    <th>With Group Key Values</th>
+                                
+                            </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SlogJSON.html">slog/JSONHandler</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">1.437</td>
+                                    
+                                        
+                                        <td class="number">84.834</td>
+                                    
+                                        
+                                        <td class="number">0.004</td>
+                                    
+                                        
+                                        <td class="number">1.477</td>
+                                    
+                                        
+                                        <td class="number">26.002</td>
+                                    
+                                        
+                                        <td class="number">0.320</td>
+                                    
+                                        
+                                        <td class="number">0.823</td>
+                                    
+                                        
+                                        <td class="number">1.436</td>
+                                    
+                                        
+                                        <td class="number">1.484</td>
+                                    
+                                        
+                                        <td class="number">0.315</td>
+                                    
+                                        
+                                        <td class="number">1.493</td>
+                                    
+                                        
+                                        <td class="number">1.495</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SnqkMeld.html">snqk/meld</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">2.556</td>
+                                    
+                                        
+                                        <td class="number">304.037</td>
+                                    
+                                        
+                                        <td class="number">0.004</td>
+                                    
+                                        
+                                        <td class="number">2.617</td>
+                                    
+                                        
+                                        <td class="number">48.445</td>
+                                    
+                                        
+                                        <td class="number">0.325</td>
+                                    
+                                        
+                                        <td class="number">0.873</td>
+                                    
+                                        
+                                        <td class="number">3.589</td>
+                                    
+                                        
+                                        <td class="number">3.680</td>
+                                    
+                                        
+                                        <td class="number">1.689</td>
+                                    
+                                        
+                                        <td class="number">2.569</td>
+                                    
+                                        
+                                        <td class="number">2.629</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupAppend.html">veqryn/dedup/Append</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">6.032</td>
+                                    
+                                        
+                                        <td class="number">876.257</td>
+                                    
+                                        
+                                        <td class="number">0.004</td>
+                                    
+                                        
+                                        <td class="number">5.938</td>
+                                    
+                                        
+                                        <td class="number">136.096</td>
+                                    
+                                        
+                                        <td class="number">0.491</td>
+                                    
+                                        
+                                        <td class="number">1.069</td>
+                                    
+                                        
+                                        <td class="number">11.815</td>
+                                    
+                                        
+                                        <td class="number">11.277</td>
+                                    
+                                        
+                                        <td class="number">5.714</td>
+                                    
+                                        
+                                        <td class="number">7.459</td>
+                                    
+                                        
+                                        <td class="number">7.240</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupIgnore.html">veqryn/dedup/Ignore</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">5.872</td>
+                                    
+                                        
+                                        <td class="number">883.905</td>
+                                    
+                                        
+                                        <td class="number">0.004</td>
+                                    
+                                        
+                                        <td class="number">5.992</td>
+                                    
+                                        
+                                        <td class="number">136.391</td>
+                                    
+                                        
+                                        <td class="number">0.488</td>
+                                    
+                                        
+                                        <td class="number">1.085</td>
+                                    
+                                        
+                                        <td class="number">8.979</td>
+                                    
+                                        
+                                        <td class="number">9.006</td>
+                                    
+                                        
+                                        <td class="number">5.865</td>
+                                    
+                                        
+                                        <td class="number">7.365</td>
+                                    
+                                        
+                                        <td class="number">7.358</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupIncrement.html">veqryn/dedup/Increment</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">6.179</td>
+                                    
+                                        
+                                        <td class="number">1,003.212</td>
+                                    
+                                        
+                                        <td class="number">0.004</td>
+                                    
+                                        
+                                        <td class="number">6.511</td>
+                                    
+                                        
+                                        <td class="number">132.987</td>
+                                    
+                                        
+                                        <td class="number">0.490</td>
+                                    
+                                        
+                                        <td class="number">1.073</td>
+                                    
+                                        
+                                        <td class="number">11.173</td>
+                                    
+                                        
+                                        <td class="number">11.289</td>
+                                    
+                                        
+                                        <td class="number">5.768</td>
+                                    
+                                        
+                                        <td class="number">7.516</td>
+                                    
+                                        
+                                        <td class="number">7.901</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupOverwrite.html">veqryn/dedup/Overwrite</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">5.932</td>
+                                    
+                                        
+                                        <td class="number">898.057</td>
+                                    
+                                        
+                                        <td class="number">0.004</td>
+                                    
+                                        
+                                        <td class="number">6.014</td>
+                                    
+                                        
+                                        <td class="number">136.833</td>
+                                    
+                                        
+                                        <td class="number">0.483</td>
+                                    
+                                        
+                                        <td class="number">1.085</td>
+                                    
+                                        
+                                        <td class="number">8.946</td>
+                                    
+                                        
+                                        <td class="number">9.224</td>
+                                    
+                                        
+                                        <td class="number">5.964</td>
+                                    
+                                        
+                                        <td class="number">7.594</td>
+                                    
+                                        
+                                        <td class="number">7.949</td>
+                                    
+                                </tr>
+                            
+                        </table>
+                        
+                        <table class="data" id="score-table-allocs">
+                            <tr>
+                                <th class="bottom">Handler</th>
+                                
+                                    <th>Attributes</th>
+                                
+                                    <th>Big Group</th>
+                                
+                                    <th>Disabled</th>
+                                
+                                    <th>Key Values</th>
+                                
+                                    <th>Logging</th>
+                                
+                                    <th>Simple</th>
+                                
+                                    <th>Simple Source</th>
+                                
+                                    <th>With Attrs Attributes</th>
+                                
+                                    <th>With Attrs Key Values</th>
+                                
+                                    <th>With Attrs Simple</th>
+                                
+                                    <th>With Group Attributes</th>
+                                
+                                    <th>With Group Key Values</th>
+                                
+                            </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SlogJSON.html">slog/JSONHandler</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">14</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SnqkMeld.html">snqk/meld</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">31</td>
+                                    
+                                        
+                                        <td class="number">4348</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">31</td>
+                                    
+                                        
+                                        <td class="number">561</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">38</td>
+                                    
+                                        
+                                        <td class="number">38</td>
+                                    
+                                        
+                                        <td class="number">8</td>
+                                    
+                                        
+                                        <td class="number">34</td>
+                                    
+                                        
+                                        <td class="number">34</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupAppend.html">veqryn/dedup/Append</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">41</td>
+                                    
+                                        
+                                        <td class="number">6099</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">41</td>
+                                    
+                                        
+                                        <td class="number">867</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">12</td>
+                                    
+                                        
+                                        <td class="number">100</td>
+                                    
+                                        
+                                        <td class="number">100</td>
+                                    
+                                        
+                                        <td class="number">39</td>
+                                    
+                                        
+                                        <td class="number">50</td>
+                                    
+                                        
+                                        <td class="number">50</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupIgnore.html">veqryn/dedup/Ignore</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">41</td>
+                                    
+                                        
+                                        <td class="number">6099</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">41</td>
+                                    
+                                        
+                                        <td class="number">867</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">12</td>
+                                    
+                                        
+                                        <td class="number">61</td>
+                                    
+                                        
+                                        <td class="number">61</td>
+                                    
+                                        
+                                        <td class="number">39</td>
+                                    
+                                        
+                                        <td class="number">50</td>
+                                    
+                                        
+                                        <td class="number">50</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupIncrement.html">veqryn/dedup/Increment</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">41</td>
+                                    
+                                        
+                                        <td class="number">6532</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">41</td>
+                                    
+                                        
+                                        <td class="number">867</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">12</td>
+                                    
+                                        
+                                        <td class="number">74</td>
+                                    
+                                        
+                                        <td class="number">74</td>
+                                    
+                                        
+                                        <td class="number">39</td>
+                                    
+                                        
+                                        <td class="number">50</td>
+                                    
+                                        
+                                        <td class="number">50</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupOverwrite.html">veqryn/dedup/Overwrite</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">41</td>
+                                    
+                                        
+                                        <td class="number">6099</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">41</td>
+                                    
+                                        
+                                        <td class="number">867</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">12</td>
+                                    
+                                        
+                                        <td class="number">63</td>
+                                    
+                                        
+                                        <td class="number">63</td>
+                                    
+                                        
+                                        <td class="number">39</td>
+                                    
+                                        
+                                        <td class="number">50</td>
+                                    
+                                        
+                                        <td class="number">50</td>
+                                    
+                                </tr>
+                            
+                        </table>
+                        
+                        <table class="data" id="score-table-bytes">
+                            <tr>
+                                <th class="bottom">Handler</th>
+                                
+                                    <th>Attributes</th>
+                                
+                                    <th>Big Group</th>
+                                
+                                    <th>Disabled</th>
+                                
+                                    <th>Key Values</th>
+                                
+                                    <th>Logging</th>
+                                
+                                    <th>Simple</th>
+                                
+                                    <th>Simple Source</th>
+                                
+                                    <th>With Attrs Attributes</th>
+                                
+                                    <th>With Attrs Key Values</th>
+                                
+                                    <th>With Attrs Simple</th>
+                                
+                                    <th>With Group Attributes</th>
+                                
+                                    <th>With Group Key Values</th>
+                                
+                            </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SlogJSON.html">slog/JSONHandler</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">472</td>
+                                    
+                                        
+                                        <td class="number">112994</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">472</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">568</td>
+                                    
+                                        
+                                        <td class="number">472</td>
+                                    
+                                        
+                                        <td class="number">472</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">472</td>
+                                    
+                                        
+                                        <td class="number">472</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SnqkMeld.html">snqk/meld</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">2186</td>
+                                    
+                                        
+                                        <td class="number">326453</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">2186</td>
+                                    
+                                        
+                                        <td class="number">30215</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">568</td>
+                                    
+                                        
+                                        <td class="number">3363</td>
+                                    
+                                        
+                                        <td class="number">3363</td>
+                                    
+                                        
+                                        <td class="number">1001</td>
+                                    
+                                        
+                                        <td class="number">2074</td>
+                                    
+                                        
+                                        <td class="number">2074</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupAppend.html">veqryn/dedup/Append</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">9725</td>
+                                    
+                                        
+                                        <td class="number">2055781</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">9724</td>
+                                    
+                                        
+                                        <td class="number">224829</td>
+                                    
+                                        
+                                        <td class="number">280</td>
+                                    
+                                        
+                                        <td class="number">848</td>
+                                    
+                                        
+                                        <td class="number">16467</td>
+                                    
+                                        
+                                        <td class="number">16467</td>
+                                    
+                                        
+                                        <td class="number">9049</td>
+                                    
+                                        
+                                        <td class="number">13268</td>
+                                    
+                                        
+                                        <td class="number">13275</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupIgnore.html">veqryn/dedup/Ignore</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">9726</td>
+                                    
+                                        
+                                        <td class="number">2056319</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">9724</td>
+                                    
+                                        
+                                        <td class="number">224753</td>
+                                    
+                                        
+                                        <td class="number">280</td>
+                                    
+                                        
+                                        <td class="number">848</td>
+                                    
+                                        
+                                        <td class="number">14072</td>
+                                    
+                                        
+                                        <td class="number">14076</td>
+                                    
+                                        
+                                        <td class="number">9051</td>
+                                    
+                                        
+                                        <td class="number">13268</td>
+                                    
+                                        
+                                        <td class="number">13272</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupIncrement.html">veqryn/dedup/Increment</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">9728</td>
+                                    
+                                        
+                                        <td class="number">2138794</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">9731</td>
+                                    
+                                        
+                                        <td class="number">224697</td>
+                                    
+                                        
+                                        <td class="number">280</td>
+                                    
+                                        
+                                        <td class="number">848</td>
+                                    
+                                        
+                                        <td class="number">15322</td>
+                                    
+                                        
+                                        <td class="number">15321</td>
+                                    
+                                        
+                                        <td class="number">9053</td>
+                                    
+                                        
+                                        <td class="number">13285</td>
+                                    
+                                        
+                                        <td class="number">13285</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupOverwrite.html">veqryn/dedup/Overwrite</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">9723</td>
+                                    
+                                        
+                                        <td class="number">2056419</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">9729</td>
+                                    
+                                        
+                                        <td class="number">224776</td>
+                                    
+                                        
+                                        <td class="number">280</td>
+                                    
+                                        
+                                        <td class="number">848</td>
+                                    
+                                        
+                                        <td class="number">14171</td>
+                                    
+                                        
+                                        <td class="number">14169</td>
+                                    
+                                        
+                                        <td class="number">9048</td>
+                                    
+                                        
+                                        <td class="number">13269</td>
+                                    
+                                        
+                                        <td class="number">13267</td>
+                                    
+                                </tr>
+                            
+                        </table>
+                        <p class="center" id="score-table-caption"></p>
                     </td>
                 </tr>
-                <tr><td colspan=2><hr/></td></tr>
-                <tr class="title"><td colspan=2><h2>Speed vs. Functionality</h2></td></tr>
+                <tr><td colspan="2"><hr/></td></tr>
+
+                
+
+                <tr class="title"><td colspan="2"><h2>Score Visualization</h2></td></tr>
                 <tr>
-                    <td colspan=2>
+                    <td colspan="2">
                         <table class="charts">
                             <colgroup>
                                 <col class="size-left" width="40%">
@@ -304,11 +1177,11 @@
                                 <col class="size-right" width="40%">
                             </colgroup>
                             <tr>
-                                <td class="button">
+                                <td>
                                     <button id="score-chart-button-0" type="button" onclick="scoreChartSize(0)">Full Size</button>
                                 </td>
                                 <td class="center">&larr; Chart Size &rarr;</td>
-                                <td class="button right">
+                                <td class="right">
                                     Top Right:
                                     <button id="score-chart-button-1" type="button" onclick="scoreChartSize(1)">3/4</button>
                                     <button id="score-chart-button-2" type="button" onclick="scoreChartSize(2)">Half</button>
@@ -329,9 +1202,12 @@
 		The top is fast, the bottom is slow. Left is more warnings, right is less.</p>
                     </td>
                 </tr>
-                <tr><td colspan=2><hr/></td></tr>
+                <tr><td colspan="2"><hr/></td></tr>
+
+                
+
                 <tr class="title">
-                    <td colspan=2>
+                    <td colspan="2">
                         <h2 id="scoring_algorithms">Scoring Algorithms</h2>
                     </td>
                 </tr>
@@ -450,7 +1326,7 @@ which are applied to the several specific benchmark result values.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-08-15 17:01:31 UTC</span>
+              <span class="fixed">2024-08-16 17:05:11 UTC</span>
             </div>
           </td>
           <td class="right">
@@ -466,12 +1342,55 @@ which are applied to the several specific benchmark result values.</p>
 </div>
 <script>
     function scoreChartSize(size) {
-        for (let i = 0; i <= 4; i++) {
+        for (let i = 0; i < 4; i++) {
             document.getElementById(`score-chart-button-${i}`).disabled = i === size
             document.getElementById(`score-chart-image-${i}`).hidden = i !== size
         }
     }
     scoreChartSize(0);
+
+    const tables = [
+        {
+            "ID":      "scores",
+            "Name":    "Scores",
+            "Caption":
+                "Scores are on scale of <code>0..100</code>. Higher is better.<br/>" +
+                "Metrics algorithms completely made up out of thin air.<br/>" +
+                "See <a href='#scoring_algorithms'>notes below</a> for details."
+        },
+        {
+            "ID":      "micros",
+            "Name":    "Micros",
+            "Caption": "Numbers represent microseconds per operation. Lower is better",
+        },
+        {
+            "ID":      "allocs",
+            "Name":    "Allocs",
+            "Caption": "Numbers represent number of memory allocations per operation. Lower is better.",
+        },
+        {
+            "ID":      "bytes",
+            "Name":    "Bytes",
+            "Caption": "Numbers represent bytes of memory allocated per operation. Lower is better.",
+        }
+    ]
+    function showDataTable(which) {
+        document.getElementById(`score-table-caption`).innerHTML = ''
+        for (const table of tables) {
+            let buttonDisabled = false
+            let tableMode = `none`
+            if (which === table.ID) {
+                buttonDisabled = true
+                if (table.Caption !== undefined) {
+                    document.getElementById(`score-table-caption`).innerHTML = table.Caption
+                }
+                tableMode = `table`
+            }
+            document.getElementById(`score-button-`+table.ID).disabled = buttonDisabled
+            displayTable('score-table-' +table.ID, tableMode)
+        }
+    }
+    showDataTable("scores")
 </script>
 </body>
 </html>

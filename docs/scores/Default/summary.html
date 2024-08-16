@@ -239,10 +239,32 @@
     <div class="content">
         <div>
             <table class="top">
-                <tr class="title"><td colspan=2><h2>Scores</h2></td></tr>
+                <tr class="title"><td colspan="2"><h2>Speed vs. Functionality</h2></td></tr>
+
+                
+
+                
+                <tr class="title">
+                    <td colspan="2">
+                        <table class="score-buttons">
+                            <tr>
+                                <td>
+                                    <button id="score-button-scores" type="button" onclick="showDataTable(`scores`)">Scores</button>
+                                </td>
+                                <td class="right">
+                                    <button id="score-button-micros" type="button" onclick="showDataTable(`micros`)">Micros</button>
+                                    Memory:
+                                    <button id="score-button-allocs" type="button" onclick="showDataTable(`allocs`)">Allocs</button>
+                                    <button id="score-button-bytes" type="button" onclick="showDataTable(`bytes`)">Bytes</button>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
                 <tr>
-                    <td colspan=2>
-                        <table class="data">
+                    <td colspan="2">
+                        
+                        <table class="data" id="score-table-scores">
                             <tr>
                                 <th>Handler</th>
                                 <th>Warnings</th>
@@ -252,25 +274,25 @@
                                 <tr>
                                     <td><a href="/go-slog/handler/ChanchalZap.html">chanchal/zaphandler</a></td>
                                     <td class="number">61.83</td>
-                                    <td class="number">88.99</td>
+                                    <td class="number">88.97</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/MadkinsFlash.html">madkins/flash</a></td>
                                     <td class="number">98.47</td>
-                                    <td class="number">95.54</td>
+                                    <td class="number">95.45</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/MadkinsSloggy.html">madkins/sloggy</a></td>
                                     <td class="number">98.47</td>
-                                    <td class="number">83.99</td>
+                                    <td class="number">83.93</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/PhsymZerolog.html">phsym/zeroslog</a></td>
                                     <td class="number">48.09</td>
-                                    <td class="number">98.77</td>
+                                    <td class="number">98.74</td>
                                 </tr>
                             
                                 <tr>
@@ -282,45 +304,1400 @@
                                 <tr>
                                     <td><a href="/go-slog/handler/SamberLogrus.html">samber/slog-logrus</a></td>
                                     <td class="number">73.28</td>
-                                    <td class="number">10.77</td>
+                                    <td class="number">11.16</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/SamberZap.html">samber/slog-zap</a></td>
                                     <td class="number">61.07</td>
-                                    <td class="number">55.18</td>
+                                    <td class="number">54.41</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/SamberZerolog.html">samber/slog-zerolog</a></td>
                                     <td class="number">64.12</td>
-                                    <td class="number">56.18</td>
+                                    <td class="number">55.59</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/SlogJSON.html">slog/JSONHandler</a></td>
                                     <td class="number">98.47</td>
-                                    <td class="number">97.08</td>
+                                    <td class="number">96.81</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/SvcrunnerJsonlog.html">svcrunner/jsonlog</a></td>
                                     <td class="number">74.05</td>
-                                    <td class="number">98.83</td>
+                                    <td class="number">98.78</td>
                                 </tr>
                             
                         </table>
-                        <p class="center">
-                            Numbers are on scale of <span class="fixed">0..100</span>.
-                            Metrics algorithms completely made up out of thin air.
-                            See notes <a href="#scoring_algorithms">below</a> for details.
-                        </p>
+                        
+                        <table class="data" id="score-table-micros">
+                            <tr>
+                                <th>Handler</th>
+                                
+                                    <th>Attributes</th>
+                                
+                                    <th>Big Group</th>
+                                
+                                    <th>Disabled</th>
+                                
+                                    <th>Key Values</th>
+                                
+                                    <th>Logging</th>
+                                
+                                    <th>Simple</th>
+                                
+                                    <th>Simple Source</th>
+                                
+                                    <th>With Attrs Attributes</th>
+                                
+                                    <th>With Attrs Key Values</th>
+                                
+                                    <th>With Attrs Simple</th>
+                                
+                                    <th>With Group Attributes</th>
+                                
+                                    <th>With Group Key Values</th>
+                                
+                            </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/ChanchalZap.html">chanchal/zaphandler</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">1.459</td>
+                                    
+                                        
+                                        <td class="number">52.002</td>
+                                    
+                                        
+                                        <td class="number">0.029</td>
+                                    
+                                        
+                                        <td class="number">1.488</td>
+                                    
+                                        
+                                        <td class="number">33.648</td>
+                                    
+                                        
+                                        <td class="number">0.374</td>
+                                    
+                                        
+                                        <td class="number">0.613</td>
+                                    
+                                        
+                                        <td class="number">1.467</td>
+                                    
+                                        
+                                        <td class="number">1.522</td>
+                                    
+                                        
+                                        <td class="number">0.391</td>
+                                    
+                                        
+                                        <td class="number">1.515</td>
+                                    
+                                        
+                                        <td class="number">1.564</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/MadkinsFlash.html">madkins/flash</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">1.365</td>
+                                    
+                                        
+                                        <td class="number">78.363</td>
+                                    
+                                        
+                                        <td class="number">0.004</td>
+                                    
+                                        
+                                        <td class="number">1.408</td>
+                                    
+                                        
+                                        <td class="number">33.978</td>
+                                    
+                                        
+                                        <td class="number">0.452</td>
+                                    
+                                        
+                                        <td class="number">1.015</td>
+                                    
+                                        
+                                        <td class="number">1.410</td>
+                                    
+                                        
+                                        <td class="number">1.462</td>
+                                    
+                                        
+                                        <td class="number">0.467</td>
+                                    
+                                        
+                                        <td class="number">1.400</td>
+                                    
+                                        
+                                        <td class="number">1.448</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/MadkinsSloggy.html">madkins/sloggy</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">2.805</td>
+                                    
+                                        
+                                        <td class="number">150.157</td>
+                                    
+                                        
+                                        <td class="number">0.004</td>
+                                    
+                                        
+                                        <td class="number">2.870</td>
+                                    
+                                        
+                                        <td class="number">68.054</td>
+                                    
+                                        
+                                        <td class="number">0.694</td>
+                                    
+                                        
+                                        <td class="number">1.743</td>
+                                    
+                                        
+                                        <td class="number">2.803</td>
+                                    
+                                        
+                                        <td class="number">2.881</td>
+                                    
+                                        
+                                        <td class="number">0.689</td>
+                                    
+                                        
+                                        <td class="number">2.812</td>
+                                    
+                                        
+                                        <td class="number">2.875</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/PhsymZerolog.html">phsym/zeroslog</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">0.971</td>
+                                    
+                                        
+                                        <td class="number">36.190</td>
+                                    
+                                        
+                                        <td class="number">0.004</td>
+                                    
+                                        
+                                        <td class="number">1.020</td>
+                                    
+                                        
+                                        <td class="number">17.931</td>
+                                    
+                                        
+                                        <td class="number">0.206</td>
+                                    
+                                        
+                                        <td class="number">0.497</td>
+                                    
+                                        
+                                        <td class="number">0.980</td>
+                                    
+                                        
+                                        <td class="number">1.060</td>
+                                    
+                                        
+                                        <td class="number">0.211</td>
+                                    
+                                        
+                                        <td class="number">1.108</td>
+                                    
+                                        
+                                        <td class="number">1.166</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/PhusluSlog.html">phuslu/slog</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">0.887</td>
+                                    
+                                        
+                                        <td class="number">23.059</td>
+                                    
+                                        
+                                        <td class="number">0.003</td>
+                                    
+                                        
+                                        <td class="number">0.929</td>
+                                    
+                                        
+                                        <td class="number">14.577</td>
+                                    
+                                        
+                                        <td class="number">0.157</td>
+                                    
+                                        
+                                        <td class="number">0.206</td>
+                                    
+                                        
+                                        <td class="number">0.899</td>
+                                    
+                                        
+                                        <td class="number">0.939</td>
+                                    
+                                        
+                                        <td class="number">0.164</td>
+                                    
+                                        
+                                        <td class="number">0.890</td>
+                                    
+                                        
+                                        <td class="number">0.940</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SamberLogrus.html">samber/slog-logrus</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">18.061</td>
+                                    
+                                        
+                                        <td class="number">778.252</td>
+                                    
+                                        
+                                        <td class="number">0.004</td>
+                                    
+                                        
+                                        <td class="number">18.111</td>
+                                    
+                                        
+                                        <td class="number">406.919</td>
+                                    
+                                        
+                                        <td class="number">3.194</td>
+                                    
+                                        
+                                        <td class="number">7.410</td>
+                                    
+                                        
+                                        <td class="number">26.870</td>
+                                    
+                                        
+                                        <td class="number">27.000</td>
+                                    
+                                        
+                                        <td class="number">17.307</td>
+                                    
+                                        
+                                        <td class="number">21.128</td>
+                                    
+                                        
+                                        <td class="number">21.272</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SamberZap.html">samber/slog-zap</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">6.610</td>
+                                    
+                                        
+                                        <td class="number">653.078</td>
+                                    
+                                        
+                                        <td class="number">0.004</td>
+                                    
+                                        
+                                        <td class="number">6.554</td>
+                                    
+                                        
+                                        <td class="number">116.965</td>
+                                    
+                                        
+                                        <td class="number">0.468</td>
+                                    
+                                        
+                                        <td class="number">0.724</td>
+                                    
+                                        
+                                        <td class="number">11.163</td>
+                                    
+                                        
+                                        <td class="number">11.919</td>
+                                    
+                                        
+                                        <td class="number">5.905</td>
+                                    
+                                        
+                                        <td class="number">12.104</td>
+                                    
+                                        
+                                        <td class="number">12.062</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SamberZerolog.html">samber/slog-zerolog</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">5.731</td>
+                                    
+                                        
+                                        <td class="number">660.164</td>
+                                    
+                                        
+                                        <td class="number">0.004</td>
+                                    
+                                        
+                                        <td class="number">5.570</td>
+                                    
+                                        
+                                        <td class="number">94.417</td>
+                                    
+                                        
+                                        <td class="number">0.383</td>
+                                    
+                                        
+                                        <td class="number">2.506</td>
+                                    
+                                        
+                                        <td class="number">9.580</td>
+                                    
+                                        
+                                        <td class="number">9.585</td>
+                                    
+                                        
+                                        <td class="number">4.966</td>
+                                    
+                                        
+                                        <td class="number">11.720</td>
+                                    
+                                        
+                                        <td class="number">11.878</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SlogJSON.html">slog/JSONHandler</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">1.437</td>
+                                    
+                                        
+                                        <td class="number">84.834</td>
+                                    
+                                        
+                                        <td class="number">0.004</td>
+                                    
+                                        
+                                        <td class="number">1.477</td>
+                                    
+                                        
+                                        <td class="number">26.002</td>
+                                    
+                                        
+                                        <td class="number">0.320</td>
+                                    
+                                        
+                                        <td class="number">0.823</td>
+                                    
+                                        
+                                        <td class="number">1.436</td>
+                                    
+                                        
+                                        <td class="number">1.484</td>
+                                    
+                                        
+                                        <td class="number">0.315</td>
+                                    
+                                        
+                                        <td class="number">1.493</td>
+                                    
+                                        
+                                        <td class="number">1.495</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SvcrunnerJsonlog.html">svcrunner/jsonlog</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">1.080</td>
+                                    
+                                        
+                                        <td class="number">84.792</td>
+                                    
+                                        
+                                        <td class="number">0.003</td>
+                                    
+                                        
+                                        <td class="number">1.141</td>
+                                    
+                                        
+                                        <td class="number">20.946</td>
+                                    
+                                        
+                                        <td class="number">0.251</td>
+                                    
+                                        
+                                        <td class="number">0.252</td>
+                                    
+                                        
+                                        <td class="number">1.109</td>
+                                    
+                                        
+                                        <td class="number">1.155</td>
+                                    
+                                        
+                                        <td class="number">0.339</td>
+                                    
+                                        
+                                        <td class="number">1.097</td>
+                                    
+                                        
+                                        <td class="number">1.231</td>
+                                    
+                                </tr>
+                            
+                        </table>
+                        
+                        <table class="data" id="score-table-allocs">
+                            <tr>
+                                <th class="bottom">Handler</th>
+                                
+                                    <th>Attributes</th>
+                                
+                                    <th>Big Group</th>
+                                
+                                    <th>Disabled</th>
+                                
+                                    <th>Key Values</th>
+                                
+                                    <th>Logging</th>
+                                
+                                    <th>Simple</th>
+                                
+                                    <th>Simple Source</th>
+                                
+                                    <th>With Attrs Attributes</th>
+                                
+                                    <th>With Attrs Key Values</th>
+                                
+                                    <th>With Attrs Simple</th>
+                                
+                                    <th>With Group Attributes</th>
+                                
+                                    <th>With Group Key Values</th>
+                                
+                            </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/ChanchalZap.html">chanchal/zaphandler</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">5</td>
+                                    
+                                        
+                                        <td class="number">469</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">5</td>
+                                    
+                                        
+                                        <td class="number">51</td>
+                                    
+                                        
+                                        <td class="number">1</td>
+                                    
+                                        
+                                        <td class="number">3</td>
+                                    
+                                        
+                                        <td class="number">5</td>
+                                    
+                                        
+                                        <td class="number">5</td>
+                                    
+                                        
+                                        <td class="number">1</td>
+                                    
+                                        
+                                        <td class="number">7</td>
+                                    
+                                        
+                                        <td class="number">7</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/MadkinsFlash.html">madkins/flash</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">5</td>
+                                    
+                                        
+                                        <td class="number">15</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">5</td>
+                                    
+                                        
+                                        <td class="number">153</td>
+                                    
+                                        
+                                        <td class="number">3</td>
+                                    
+                                        
+                                        <td class="number">7</td>
+                                    
+                                        
+                                        <td class="number">5</td>
+                                    
+                                        
+                                        <td class="number">5</td>
+                                    
+                                        
+                                        <td class="number">3</td>
+                                    
+                                        
+                                        <td class="number">5</td>
+                                    
+                                        
+                                        <td class="number">5</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/MadkinsSloggy.html">madkins/sloggy</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">64</td>
+                                    
+                                        
+                                        <td class="number">5152</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">64</td>
+                                    
+                                        
+                                        <td class="number">1865</td>
+                                    
+                                        
+                                        <td class="number">14</td>
+                                    
+                                        
+                                        <td class="number">30</td>
+                                    
+                                        
+                                        <td class="number">64</td>
+                                    
+                                        
+                                        <td class="number">64</td>
+                                    
+                                        
+                                        <td class="number">14</td>
+                                    
+                                        
+                                        <td class="number">64</td>
+                                    
+                                        
+                                        <td class="number">64</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/PhsymZerolog.html">phsym/zeroslog</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">2</td>
+                                    
+                                        
+                                        <td class="number">1</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">2</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">4</td>
+                                    
+                                        
+                                        <td class="number">2</td>
+                                    
+                                        
+                                        <td class="number">2</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">3</td>
+                                    
+                                        
+                                        <td class="number">3</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/PhusluSlog.html">phuslu/slog</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">1</td>
+                                    
+                                        
+                                        <td class="number">1</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">1</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">1</td>
+                                    
+                                        
+                                        <td class="number">1</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">1</td>
+                                    
+                                        
+                                        <td class="number">1</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SamberLogrus.html">samber/slog-logrus</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">98</td>
+                                    
+                                        
+                                        <td class="number">8834</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">98</td>
+                                    
+                                        
+                                        <td class="number">2857</td>
+                                    
+                                        
+                                        <td class="number">26</td>
+                                    
+                                        
+                                        <td class="number">63</td>
+                                    
+                                        
+                                        <td class="number">140</td>
+                                    
+                                        
+                                        <td class="number">140</td>
+                                    
+                                        
+                                        <td class="number">93</td>
+                                    
+                                        
+                                        <td class="number">172</td>
+                                    
+                                        
+                                        <td class="number">172</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SamberZap.html">samber/slog-zap</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">54</td>
+                                    
+                                        
+                                        <td class="number">8812</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">54</td>
+                                    
+                                        
+                                        <td class="number">1225</td>
+                                    
+                                        
+                                        <td class="number">2</td>
+                                    
+                                        
+                                        <td class="number">5</td>
+                                    
+                                        
+                                        <td class="number">79</td>
+                                    
+                                        
+                                        <td class="number">79</td>
+                                    
+                                        
+                                        <td class="number">49</td>
+                                    
+                                        
+                                        <td class="number">146</td>
+                                    
+                                        
+                                        <td class="number">146</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SamberZerolog.html">samber/slog-zerolog</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">62</td>
+                                    
+                                        
+                                        <td class="number">8809</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">62</td>
+                                    
+                                        
+                                        <td class="number">1326</td>
+                                    
+                                        
+                                        <td class="number">2</td>
+                                    
+                                        
+                                        <td class="number">38</td>
+                                    
+                                        
+                                        <td class="number">94</td>
+                                    
+                                        
+                                        <td class="number">94</td>
+                                    
+                                        
+                                        <td class="number">57</td>
+                                    
+                                        
+                                        <td class="number">147</td>
+                                    
+                                        
+                                        <td class="number">147</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SlogJSON.html">slog/JSONHandler</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">14</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                        
+                                        <td class="number">6</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SvcrunnerJsonlog.html">svcrunner/jsonlog</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">3</td>
+                                    
+                                        
+                                        <td class="number">17</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">3</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">4</td>
+                                    
+                                        
+                                        <td class="number">4</td>
+                                    
+                                        
+                                        <td class="number">1</td>
+                                    
+                                        
+                                        <td class="number">4</td>
+                                    
+                                        
+                                        <td class="number">4</td>
+                                    
+                                </tr>
+                            
+                        </table>
+                        
+                        <table class="data" id="score-table-bytes">
+                            <tr>
+                                <th class="bottom">Handler</th>
+                                
+                                    <th>Attributes</th>
+                                
+                                    <th>Big Group</th>
+                                
+                                    <th>Disabled</th>
+                                
+                                    <th>Key Values</th>
+                                
+                                    <th>Logging</th>
+                                
+                                    <th>Simple</th>
+                                
+                                    <th>Simple Source</th>
+                                
+                                    <th>With Attrs Attributes</th>
+                                
+                                    <th>With Attrs Key Values</th>
+                                
+                                    <th>With Attrs Simple</th>
+                                
+                                    <th>With Group Attributes</th>
+                                
+                                    <th>With Group Key Values</th>
+                                
+                            </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/ChanchalZap.html">chanchal/zaphandler</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">416</td>
+                                    
+                                        
+                                        <td class="number">11360</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">417</td>
+                                    
+                                        
+                                        <td class="number">1635</td>
+                                    
+                                        
+                                        <td class="number">32</td>
+                                    
+                                        
+                                        <td class="number">280</td>
+                                    
+                                        
+                                        <td class="number">417</td>
+                                    
+                                        
+                                        <td class="number">417</td>
+                                    
+                                        
+                                        <td class="number">32</td>
+                                    
+                                        
+                                        <td class="number">505</td>
+                                    
+                                        
+                                        <td class="number">505</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/MadkinsFlash.html">madkins/flash</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">504</td>
+                                    
+                                        
+                                        <td class="number">112210</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">504</td>
+                                    
+                                        
+                                        <td class="number">11840</td>
+                                    
+                                        
+                                        <td class="number">232</td>
+                                    
+                                        
+                                        <td class="number">704</td>
+                                    
+                                        
+                                        <td class="number">504</td>
+                                    
+                                        
+                                        <td class="number">504</td>
+                                    
+                                        
+                                        <td class="number">232</td>
+                                    
+                                        
+                                        <td class="number">504</td>
+                                    
+                                        
+                                        <td class="number">504</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/MadkinsSloggy.html">madkins/sloggy</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">1384</td>
+                                    
+                                        
+                                        <td class="number">54488</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">1384</td>
+                                    
+                                        
+                                        <td class="number">26992</td>
+                                    
+                                        
+                                        <td class="number">240</td>
+                                    
+                                        
+                                        <td class="number">1280</td>
+                                    
+                                        
+                                        <td class="number">1384</td>
+                                    
+                                        
+                                        <td class="number">1384</td>
+                                    
+                                        
+                                        <td class="number">240</td>
+                                    
+                                        
+                                        <td class="number">1384</td>
+                                    
+                                        
+                                        <td class="number">1384</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/PhsymZerolog.html">phsym/zeroslog</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">272</td>
+                                    
+                                        
+                                        <td class="number">48</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">272</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">312</td>
+                                    
+                                        
+                                        <td class="number">272</td>
+                                    
+                                        
+                                        <td class="number">272</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">560</td>
+                                    
+                                        
+                                        <td class="number">560</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/PhusluSlog.html">phuslu/slog</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">240</td>
+                                    
+                                        
+                                        <td class="number">48</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">240</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">240</td>
+                                    
+                                        
+                                        <td class="number">240</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">240</td>
+                                    
+                                        
+                                        <td class="number">240</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SamberLogrus.html">samber/slog-logrus</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">9946</td>
+                                    
+                                        
+                                        <td class="number">574766</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">9945</td>
+                                    
+                                        
+                                        <td class="number">222997</td>
+                                    
+                                        
+                                        <td class="number">1481</td>
+                                    
+                                        
+                                        <td class="number">4277</td>
+                                    
+                                        
+                                        <td class="number">16884</td>
+                                    
+                                        
+                                        <td class="number">16885</td>
+                                    
+                                        
+                                        <td class="number">8841</td>
+                                    
+                                        
+                                        <td class="number">16216</td>
+                                    
+                                        
+                                        <td class="number">16216</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SamberZap.html">samber/slog-zap</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">8090</td>
+                                    
+                                        
+                                        <td class="number">578549</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">8089</td>
+                                    
+                                        
+                                        <td class="number">152382</td>
+                                    
+                                        
+                                        <td class="number">336</td>
+                                    
+                                        
+                                        <td class="number">592</td>
+                                    
+                                        
+                                        <td class="number">15435</td>
+                                    
+                                        
+                                        <td class="number">15437</td>
+                                    
+                                        
+                                        <td class="number">6983</td>
+                                    
+                                        
+                                        <td class="number">14605</td>
+                                    
+                                        
+                                        <td class="number">14606</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SamberZerolog.html">samber/slog-zerolog</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">6287</td>
+                                    
+                                        
+                                        <td class="number">605009</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">6288</td>
+                                    
+                                        
+                                        <td class="number">111443</td>
+                                    
+                                        
+                                        <td class="number">336</td>
+                                    
+                                        
+                                        <td class="number">2715</td>
+                                    
+                                        
+                                        <td class="number">11596</td>
+                                    
+                                        
+                                        <td class="number">11595</td>
+                                    
+                                        
+                                        <td class="number">5182</td>
+                                    
+                                        
+                                        <td class="number">14779</td>
+                                    
+                                        
+                                        <td class="number">14779</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SlogJSON.html">slog/JSONHandler</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">472</td>
+                                    
+                                        
+                                        <td class="number">112994</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">472</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">568</td>
+                                    
+                                        
+                                        <td class="number">472</td>
+                                    
+                                        
+                                        <td class="number">472</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">472</td>
+                                    
+                                        
+                                        <td class="number">472</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SvcrunnerJsonlog.html">svcrunner/jsonlog</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">280</td>
+                                    
+                                        
+                                        <td class="number">136705</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">280</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">0</td>
+                                    
+                                        
+                                        <td class="number">288</td>
+                                    
+                                        
+                                        <td class="number">288</td>
+                                    
+                                        
+                                        <td class="number">8</td>
+                                    
+                                        
+                                        <td class="number">296</td>
+                                    
+                                        
+                                        <td class="number">296</td>
+                                    
+                                </tr>
+                            
+                        </table>
+                        <p class="center" id="score-table-caption"></p>
                     </td>
                 </tr>
-                <tr><td colspan=2><hr/></td></tr>
-                <tr class="title"><td colspan=2><h2>Speed vs. Functionality</h2></td></tr>
+                <tr><td colspan="2"><hr/></td></tr>
+
+                
+
+                <tr class="title"><td colspan="2"><h2>Score Visualization</h2></td></tr>
                 <tr>
-                    <td colspan=2>
+                    <td colspan="2">
                         <table class="charts">
                             <colgroup>
                                 <col class="size-left" width="40%">
@@ -328,11 +1705,11 @@
                                 <col class="size-right" width="40%">
                             </colgroup>
                             <tr>
-                                <td class="button">
+                                <td>
                                     <button id="score-chart-button-0" type="button" onclick="scoreChartSize(0)">Full Size</button>
                                 </td>
                                 <td class="center">&larr; Chart Size &rarr;</td>
-                                <td class="button right">
+                                <td class="right">
                                     Top Right:
                                     <button id="score-chart-button-1" type="button" onclick="scoreChartSize(1)">3/4</button>
                                     <button id="score-chart-button-2" type="button" onclick="scoreChartSize(2)">Half</button>
@@ -353,9 +1730,12 @@
 		The top is fast, the bottom is slow. Left is more warnings, right is less.</p>
                     </td>
                 </tr>
-                <tr><td colspan=2><hr/></td></tr>
+                <tr><td colspan="2"><hr/></td></tr>
+
+                
+
                 <tr class="title">
-                    <td colspan=2>
+                    <td colspan="2">
                         <h2 id="scoring_algorithms">Scoring Algorithms</h2>
                     </td>
                 </tr>
@@ -475,7 +1855,7 @@ which are applied to the several specific benchmark result values.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-08-15 17:01:31 UTC</span>
+              <span class="fixed">2024-08-16 17:05:11 UTC</span>
             </div>
           </td>
           <td class="right">
@@ -491,12 +1871,55 @@ which are applied to the several specific benchmark result values.</p>
 </div>
 <script>
     function scoreChartSize(size) {
-        for (let i = 0; i <= 4; i++) {
+        for (let i = 0; i < 4; i++) {
             document.getElementById(`score-chart-button-${i}`).disabled = i === size
             document.getElementById(`score-chart-image-${i}`).hidden = i !== size
         }
     }
     scoreChartSize(0);
+
+    const tables = [
+        {
+            "ID":      "scores",
+            "Name":    "Scores",
+            "Caption":
+                "Scores are on scale of <code>0..100</code>. Higher is better.<br/>" +
+                "Metrics algorithms completely made up out of thin air.<br/>" +
+                "See <a href='#scoring_algorithms'>notes below</a> for details."
+        },
+        {
+            "ID":      "micros",
+            "Name":    "Micros",
+            "Caption": "Numbers represent microseconds per operation. Lower is better",
+        },
+        {
+            "ID":      "allocs",
+            "Name":    "Allocs",
+            "Caption": "Numbers represent number of memory allocations per operation. Lower is better.",
+        },
+        {
+            "ID":      "bytes",
+            "Name":    "Bytes",
+            "Caption": "Numbers represent bytes of memory allocated per operation. Lower is better.",
+        }
+    ]
+    function showDataTable(which) {
+        document.getElementById(`score-table-caption`).innerHTML = ''
+        for (const table of tables) {
+            let buttonDisabled = false
+            let tableMode = `none`
+            if (which === table.ID) {
+                buttonDisabled = true
+                if (table.Caption !== undefined) {
+                    document.getElementById(`score-table-caption`).innerHTML = table.Caption
+                }
+                tableMode = `table`
+            }
+            document.getElementById(`score-button-`+table.ID).disabled = buttonDisabled
+            displayTable('score-table-' +table.ID, tableMode)
+        }
+    }
+    showDataTable("scores")
 </script>
 </body>
 </html>

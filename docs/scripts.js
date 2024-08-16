@@ -1,3 +1,8 @@
+function displayTable(id, display) {
+    let elem = document.getElementById(id);
+    elem.style.display = display;
+}
+
 function hdlrChoice(form) {
     window.location.href = "/go-slog/handler/" + form.tag.value + ".html";
     return true;
