@@ -14,7 +14,7 @@ require (
 	github.com/madkins23/go-utils v1.44.0
 	github.com/phsym/console-slog v0.3.1
 	github.com/phsym/zeroslog v0.1.0
-	github.com/phuslu/log v1.0.107
+	github.com/phuslu/log v1.0.108
 	github.com/rs/zerolog v1.31.0
 	github.com/samber/slog-logrus/v2 v2.5.0
 	github.com/samber/slog-zap/v2 v2.6.0
