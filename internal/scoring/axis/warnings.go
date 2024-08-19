@@ -3,6 +3,7 @@ package axis
 import (
 	_ "embed"
 	"html/template"
+	"log/slog"
 	"strconv"
 
 	"github.com/madkins23/go-slog/infra/warning"
@@ -86,6 +87,11 @@ func (w *Warnings) Name() string {
 
 func (w *Warnings) ScoreFor(handler data.HandlerTag) score.Value {
 	return w.ScoreForType(handler, score.Original)
+}
+
+func (w *Warnings) ScoreForTest(handler data.HandlerTag, test data.TestTag) score.Value {
+	slog.Warn("made up data", "func", "ScoreForTest", "handler", handler, "test", test)
+	return 0.0
 }
 
 func (w *Warnings) ScoreForType(handler data.HandlerTag, _ score.Type) score.Value {

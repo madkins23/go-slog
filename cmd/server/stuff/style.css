@@ -147,6 +147,20 @@ table.data td, th {
     padding: 5px;
 }
 
+table.data td.test-name-header {
+    vertical-align: bottom;
+    text-align: center;
+    font-family: monospace;
+}
+
+table.data td.test-name-header span {
+    -ms-writing-mode: tb-rl;
+    -webkit-writing-mode: vertical-rl;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+    white-space: nowrap;
+}
+
 table.debug {
     margin: 5px;
     padding: 5px;

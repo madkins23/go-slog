@@ -28,6 +28,7 @@
                             <tr>
                                 <td>
                                     <button id="score-button-scores" type="button" onclick="showDataTable(`scores`)">Scores</button>
+                                    <button id="score-button-details" type="button" onclick="showDataTable(`details`)">Details</button>
                                 </td>
                                 <td class="right">
                                     <button id="score-button-micros" type="button" onclick="showDataTable(`micros`)">Micros</button>
@@ -56,6 +57,27 @@
                                 </tr>
                             {{ end }}
                         </table>
+                        {{/* Score Keeper Data Table: DETAILS */}}
+                        <table class="data" id="score-table-details">
+                            <tr>
+                                <th>Handler</th>
+                                {{ range $test := .Benchmarks.TestTags }}
+                                    <td class="test-name-header"><span>{{ $test.Name }}</span></td>
+                                {{ end }}
+                                <th>{{ $.Keeper.X.Name }}</th>
+                                <th>{{ $.Keeper.Y.Name }}</th>
+                            </tr>
+                            {{ range $hdlr := .Keeper.HandlerTags }}
+                                <tr>
+                                    <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
+                                    {{ range $test := $.Benchmarks.TestTags }}
+                                        <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreForTest $hdlr $test) 2 }}</td>
+                                    {{ end }}
+                                    <td class="number">{{ $.FixValue ($.Keeper.X.ScoreFor $hdlr) 2 }}</td>
+                                    <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreFor $hdlr) 2 }}</td>
+                                </tr>
+                            {{ end }}
+                        </table>
                         {{/* Score Keeper Data Table: MICROS / Operation */}}
                         <table class="data" id="score-table-micros">
                             <tr>
@@ -64,7 +86,7 @@
                                     <div class="corner-bottom-left">↓Handlers</div>
                                 </th>
                                 {{ range $test := .Benchmarks.TestTags }}
-                                    <td class="center">{{ $test.Name }}</td>
+                                    <td class="test-name-header"><span>{{ $test.Name }}</span></td>
                                 {{ end }}
                                 {{ range $scoreType := $scoresByData }}
                                     <th>{{ $scoreType.ColHeader }}</th>
@@ -92,7 +114,10 @@
                                     <div class="corner-bottom-left">↓Handlers</div>
                                 </th>
                                 {{ range $test := .Benchmarks.TestTags }}
-                                    <td class="center">{{ $test.Name }}</td>
+                                    <td class="test-name-header"><span>{{ $test.Name }}</span></td>
+                                {{ end }}
+                                {{ range $scoreType := $scoresByData }}
+                                    <th class="center">{{ $scoreType.ColHeader }}</th>
                                 {{ end }}
                             </tr>
                             {{ range $hdlr := .Keeper.HandlerTags }}
@@ -101,7 +126,10 @@
                                     {{ $testMap := $.Benchmarks.TestRecordsFor $hdlr }}
                                     {{ range $test := $.Benchmarks.TestTags }}
                                         {{ $data := index $testMap $test }}
-                                        <td class="number">{{ $data.MemAllocsPerOp }}</td>
+                                        <td class="number">{{ $.FixUint $data.MemAllocsPerOp }}</td>
+                                    {{ end }}
+                                    {{ range $scoreType := $scoresByData }}
+                                        <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreForType $hdlr $scoreType) 2 }}</td>
                                     {{ end }}
                                 </tr>
                             {{ end }}
@@ -114,7 +142,10 @@
                                     <div class="corner-bottom-left">↓Handlers</div>
                                 </th>
                                 {{ range $test := .Benchmarks.TestTags }}
-                                    <td class="center">{{ $test.Name }}</td>
+                                    <td class="test-name-header"><span>{{ $test.Name }}</span></td>
+                                {{ end }}
+                                {{ range $scoreType := $scoresByData }}
+                                    <th class="center">{{ $scoreType.ColHeader }}</th>
                                 {{ end }}
                             </tr>
                             {{ range $hdlr := .Keeper.HandlerTags }}
@@ -123,7 +154,10 @@
                                     {{ $testMap := $.Benchmarks.TestRecordsFor $hdlr }}
                                     {{ range $test := $.Benchmarks.TestTags }}
                                         {{ $data := index $testMap $test }}
-                                        <td class="number">{{ $data.MemBytesPerOp }}</td>
+                                        <td class="number">{{ $.FixUint $data.MemBytesPerOp }}</td>
+                                    {{ end }}
+                                    {{ range $scoreType := $scoresByData }}
+                                        <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreForType $hdlr $scoreType) 2 }}</td>
                                     {{ end }}
                                 </tr>
                             {{ end }}
@@ -237,6 +271,10 @@
                 "Scores are on scale of <code>0..100</code>. Higher is better.<br/>" +
                 "Metrics algorithms completely made up out of thin air.<br/>" +
                 "See <a href='#scoring_algorithms'>notes below</a> for details."
+        },
+        {
+            "ID":   "details",
+            "Name": "Details"
         },
         {
             "ID":      "micros",

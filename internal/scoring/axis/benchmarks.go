@@ -171,7 +171,7 @@ func (b *Benchmarks) Setup(bench *data.Benchmarks, _ *data.Warnings) error {
 				// Score 1: Refactored original algorithm
 				handlerData.rollupOverTests.add(handlerData.byTest[test].average())
 
-				// TODO: remove
+				// TODO: remove?
 				if !fuzzyEqual(collect, handlerData.byTest[test].Value) {
 					slog.Error("collect comparison", "Original", collect, "by Test", handlerData.byTest[test].Value)
 				}
@@ -199,7 +199,7 @@ func (b *Benchmarks) Setup(bench *data.Benchmarks, _ *data.Warnings) error {
 		}
 		handlerData.scores[score.ByData] = handlerData.rollupOverData.average()
 
-		// TODO: remove
+		// TODO: remove?
 		if !fuzzyEqual(total.Round(), handlerData.rollupOverTests.Value) {
 			slog.Error("total comparison",
 				"Original", total.Round(),
@@ -236,6 +236,10 @@ func (b *Benchmarks) Name() string {
 
 func (b *Benchmarks) ScoreFor(handler data.HandlerTag) score.Value {
 	return b.ScoreForType(handler, score.Original)
+}
+
+func (b *Benchmarks) ScoreForTest(handler data.HandlerTag, test data.TestTag) score.Value {
+	return b.handlerData[handler].byTest[test].average()
 }
 
 func (b *Benchmarks) ScoreForType(handler data.HandlerTag, scoreType score.Type) score.Value {
