@@ -36,10 +36,10 @@
                   <tr>
                     <td class="fixed">{{ $.Benchmarks.HandlerName $tag }}</td>
                     <td class="number">{{ $.FixUint $record.Runs }}</td>
-                    <td class="number">{{ $.FixFloat $record.NanosPerOp }}</td>
+                    <td class="number">{{ $.FixFloat $record.NanosPerOp 2 }}</td>
                     <td class="number">{{ $.FixUint $record.MemAllocsPerOp }}</td>
                     <td class="number">{{ $.FixUint $record.MemBytesPerOp }}</td>
-                    <td class="number">{{ $.FixFloat $record.MbPerSec }}</td>
+                    <td class="number">{{ $.FixFloat $record.MbPerSec 2 }}</td>
                   </tr>
                 {{ end }}
               </table>

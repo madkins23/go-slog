@@ -47,8 +47,8 @@
                             {{ range $hdlr := .Keeper.HandlerTags }}
                                 <tr>
                                     <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
-                                    <td class="number">{{ $.FixValue ($.Keeper.X.ScoreFor $hdlr) }}</td>
-                                    <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreFor $hdlr) }}</td>
+                                    <td class="number">{{ $.FixValue ($.Keeper.X.ScoreFor $hdlr) 2 }}</td>
+                                    <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreFor $hdlr) 2 }}</td>
                                 </tr>
                             {{ end }}
                         </table>
