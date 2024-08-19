@@ -48,7 +48,7 @@ var simpleWarningScoreWeight = map[warning.Level]uint{
 }
 
 // simpleScoreWeight has the multipliers for different benchmark values.
-var simpleBenchmarkScoreWeight = map[axis.BenchValue]uint{
+var simpleBenchmarkScoreWeight = map[axis.BenchWeight]uint{
 	axis.Allocations: 1,
 	axis.Nanoseconds: 2,
 }

@@ -35,7 +35,7 @@ func TestSetup(t *testing.T) {
 	}
 }
 
-var defaultBenchmarkScoreWeight = map[BenchValue]uint{
+var defaultBenchmarkScoreWeight = map[BenchWeight]uint{
 	Allocations: 1,
 	AllocBytes:  2,
 	Nanoseconds: 3,

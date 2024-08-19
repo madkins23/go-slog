@@ -14,10 +14,14 @@
         <div>
             <table class="top">
                 <tr class="title"><td colspan="2"><h2>{{ .Keeper.Title }}</h2></td></tr>
+                {{ $scoresByData := scoreList "ByData" "ByTest" "Original" }}
+                {{ $scoresByTest := scoreList "Original" "ByTest" "ByData" }}
 
                 {{/* Score Keeper Data Tables */}}
 
+
                 {{/* Score Keeper Data Table Choices */}}
+
                 <tr class="title">
                     <td colspan="2">
                         <table class="score-buttons">
@@ -62,6 +66,9 @@
                                 {{ range $test := .Benchmarks.TestTags }}
                                     <td class="center">{{ $test.Name }}</td>
                                 {{ end }}
+                                {{ range $scoreType := $scoresByData }}
+                                    <th>{{ $scoreType.ColHeader }}</th>
+                                {{ end }}
                             </tr>
                             {{ range $hdlr := .Keeper.HandlerTags }}
                                 <tr>
@@ -70,6 +77,9 @@
                                     {{ range $test := $.Benchmarks.TestTags }}
                                         {{ $data := index $testMap $test }}
                                         <td class="number">{{ $.FixFloat (div $data.NanosPerOp 1000.0) 3 }}</td>
+                                    {{ end }}
+                                    {{ range $scoreType := $scoresByData }}
+                                        <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreForType $hdlr $scoreType) 2 }}</td>
                                     {{ end }}
                                 </tr>
                             {{ end }}

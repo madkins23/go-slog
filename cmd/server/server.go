@@ -448,6 +448,11 @@ func functions() map[string]any {
 			}
 			return dict
 		},
+		"scoreList": func(name ...string) []score.Type {
+			result := score.ScoreList(name...)
+			slog.Info("scoreList", "result", result)
+			return result
+		},
 		"unescape": func(s string) template.HTML {
 			return template.HTML(s)
 		},

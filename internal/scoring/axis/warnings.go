@@ -85,6 +85,11 @@ func (w *Warnings) Name() string {
 }
 
 func (w *Warnings) ScoreFor(handler data.HandlerTag) score.Value {
+	return w.ScoreForType(handler, score.Original)
+}
+
+func (w *Warnings) ScoreForType(handler data.HandlerTag, _ score.Type) score.Value {
+	// Always returns the original score object.
 	return w.warnScores[handler]
 }
 

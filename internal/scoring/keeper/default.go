@@ -57,7 +57,7 @@ var defaultWarningScoreWeight = map[warning.Level]uint{
 }
 
 // benchScoreWeight has the multipliers for different benchmark values.
-var defaultBenchmarkScoreWeight = map[axis.BenchValue]uint{
+var defaultBenchmarkScoreWeight = map[axis.BenchWeight]uint{
 	axis.Allocations: 1,
 	axis.AllocBytes:  2,
 	axis.Nanoseconds: 3,
