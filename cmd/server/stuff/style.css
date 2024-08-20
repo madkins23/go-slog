@@ -132,8 +132,18 @@ table.data {
     margin-right: auto;
 }
 
+table.data th.axis-box label {
+    text-align: right;
+    float: left;
+}
+
+table.data th.axis-box input {
+    margin-left: 16px;
+    float: right;
+}
+
 table.data caption {
-    font-weight: bold;
+    caption-side:bottom
 }
 
 table.data td {

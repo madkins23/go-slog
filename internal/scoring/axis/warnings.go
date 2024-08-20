@@ -13,6 +13,8 @@ import (
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
+const WarningsType = "Warnings"
+
 var (
 	//go:embed doc/warn-doc.md
 	warnDocMD   string
@@ -112,4 +114,8 @@ func (w *Warnings) Exhibits() []score.Exhibit {
 
 func (w *Warnings) Documentation() template.HTML {
 	return warnDocHTML
+}
+
+func (w *Warnings) Type() string {
+	return WarningsType
 }

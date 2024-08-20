@@ -449,7 +449,7 @@ func functions() map[string]any {
 			return dict
 		},
 		"scoreList": func(name ...string) []score.Type {
-			result := score.ScoreList(name...)
+			result := score.List(name...)
 			slog.Info("scoreList", "result", result)
 			return result
 		},

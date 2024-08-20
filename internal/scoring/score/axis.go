@@ -38,6 +38,7 @@ type Axis interface {
 	Summary() template.HTML
 	Exhibits() []Exhibit
 	Documentation() template.HTML
+	Type() string
 }
 
 type Value float64
@@ -47,7 +48,7 @@ func (v Value) Round() Value {
 	return Value(math.Round(float64(v)*rounder) / rounder)
 }
 
-func ScoreList(typeName ...string) []Type {
+func List(typeName ...string) []Type {
 	result := make([]Type, 0, len(typeName))
 	for _, name := range typeName {
 		if st, err := TypeString(name); err != nil {

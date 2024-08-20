@@ -111,6 +111,10 @@ func (k *Keeper) Overview() template.HTML {
 	return overviewHTML
 }
 
+func (k *Keeper) Axes() map[string]Axis {
+	return map[string]Axis{"X": k.x, "Y": k.y}
+}
+
 func (k *Keeper) X() Axis {
 	return k.x
 }
