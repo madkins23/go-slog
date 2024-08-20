@@ -32,6 +32,7 @@ func (t Type) ColHeader() string {
 type Axis interface {
 	Setup(bench *data.Benchmarks, warns *data.Warnings) error
 	Name() string
+	HasTest(test data.TestTag) bool
 	ScoreFor(handler data.HandlerTag) Value
 	ScoreForTest(handler data.HandlerTag, test data.TestTag) Value
 	ScoreForType(handler data.HandlerTag, which Type) Value

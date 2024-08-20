@@ -146,6 +146,17 @@ func (b *Benchmarks) Name() string {
 	return "Benchmarks"
 }
 
+func (b *Benchmarks) HasTest(test data.TestTag) bool {
+	for _, hdlr := range b.handlerData {
+		if average := hdlr.ByTest(test); average != nil {
+			if average.Count > 0 {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 func (b *Benchmarks) ScoreFor(handler data.HandlerTag) score.Value {
 	return b.ScoreForType(handler, score.Original)
 }

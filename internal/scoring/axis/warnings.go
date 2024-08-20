@@ -87,6 +87,10 @@ func (w *Warnings) Name() string {
 	return "Warnings"
 }
 
+func (w *Warnings) HasTest(_ data.TestTag) bool {
+	return true
+}
+
 func (w *Warnings) ScoreFor(handler data.HandlerTag) score.Value {
 	return w.ScoreForType(handler, score.Original)
 }
