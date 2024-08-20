@@ -240,16 +240,21 @@
         <div>
             <table class="top">
                 <tr class="title"><td colspan="2"><h2>Speed vs. Functionality</h2></td></tr>
-
+                
                 
 
                 
+
+
+                
+
                 <tr class="title">
                     <td colspan="2">
                         <table class="score-buttons">
                             <tr>
                                 <td>
                                     <button id="score-button-scores" type="button" onclick="showDataTable(`scores`)">Scores</button>
+                                    <button id="score-button-details" type="button" onclick="showDataTable(`details`)">Details</button>
                                 </td>
                                 <td class="right">
                                     <button id="score-button-micros" type="button" onclick="showDataTable(`micros`)">Micros</button>
@@ -274,68 +279,298 @@
                                 <tr>
                                     <td><a href="/go-slog/handler/SlogJSON.html">slog/JSONHandler</a></td>
                                     <td class="number">98.47</td>
-                                    <td class="number">96.94</td>
+                                    <td class="number">97.05</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/SnqkMeld.html">snqk/meld</a></td>
                                     <td class="number">100.00</td>
-                                    <td class="number">87.70</td>
+                                    <td class="number">87.77</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/VeqrynDedupAppend.html">veqryn/dedup/Append</a></td>
                                     <td class="number">98.47</td>
-                                    <td class="number">52.59</td>
+                                    <td class="number">52.37</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/VeqrynDedupIgnore.html">veqryn/dedup/Ignore</a></td>
                                     <td class="number">98.47</td>
-                                    <td class="number">54.99</td>
+                                    <td class="number">55.08</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/VeqrynDedupIncrement.html">veqryn/dedup/Increment</a></td>
                                     <td class="number">98.47</td>
-                                    <td class="number">52.50</td>
+                                    <td class="number">52.38</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/VeqrynDedupOverwrite.html">veqryn/dedup/Overwrite</a></td>
                                     <td class="number">100.00</td>
-                                    <td class="number">54.93</td>
+                                    <td class="number">54.66</td>
+                                </tr>
+                            
+                        </table>
+                        
+                        <table class="data" id="score-table-details">
+                            <tr>
+                                <th>Handler</th>
+                                
+                                    <td class="test-name-header"><span>Attributes</span></td>
+                                
+                                    <td class="test-name-header"><span>Big Group</span></td>
+                                
+                                    <td class="test-name-header"><span>Disabled</span></td>
+                                
+                                    <td class="test-name-header"><span>Key Values</span></td>
+                                
+                                    <td class="test-name-header"><span>Logging</span></td>
+                                
+                                    <td class="test-name-header"><span>Simple</span></td>
+                                
+                                    <td class="test-name-header"><span>Simple Source</span></td>
+                                
+                                    <td class="test-name-header"><span>With Attrs Attributes</span></td>
+                                
+                                    <td class="test-name-header"><span>With Attrs Key Values</span></td>
+                                
+                                    <td class="test-name-header"><span>With Attrs Simple</span></td>
+                                
+                                    <td class="test-name-header"><span>With Group Attributes</span></td>
+                                
+                                    <td class="test-name-header"><span>With Group Key Values</span></td>
+                                
+                                <th>Warnings</th>
+                                <th>Benchmarks</th>
+                            </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SlogJSON.html">slog/JSONHandler</a></td>
+                                    
+                                        <td class="number">96.90</td>
+                                    
+                                        <td class="number">98.08</td>
+                                    
+                                        <td class="number">97.05</td>
+                                    
+                                        <td class="number">96.65</td>
+                                    
+                                        <td class="number">97.87</td>
+                                    
+                                        <td class="number">97.55</td>
+                                    
+                                        <td class="number">89.80</td>
+                                    
+                                        <td class="number">97.89</td>
+                                    
+                                        <td class="number">97.91</td>
+                                    
+                                        <td class="number">99.62</td>
+                                    
+                                        <td class="number">97.60</td>
+                                    
+                                        <td class="number">97.73</td>
+                                    
+                                    <td class="number">98.47</td>
+                                    <td class="number">97.05</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SnqkMeld.html">snqk/meld</a></td>
+                                    
+                                        <td class="number">83.69</td>
+                                    
+                                        <td class="number">79.32</td>
+                                    
+                                        <td class="number">94.68</td>
+                                    
+                                        <td class="number">83.45</td>
+                                    
+                                        <td class="number">88.22</td>
+                                    
+                                        <td class="number">97.40</td>
+                                    
+                                        <td class="number">89.49</td>
+                                    
+                                        <td class="number">84.39</td>
+                                    
+                                        <td class="number">84.30</td>
+                                    
+                                        <td class="number">90.48</td>
+                                    
+                                        <td class="number">88.95</td>
+                                    
+                                        <td class="number">88.90</td>
+                                    
+                                    <td class="number">100.00</td>
+                                    <td class="number">87.77</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupAppend.html">veqryn/dedup/Append</a></td>
+                                    
+                                        <td class="number">45.84</td>
+                                    
+                                        <td class="number">12.00</td>
+                                    
+                                        <td class="number">94.67</td>
+                                    
+                                        <td class="number">45.69</td>
+                                    
+                                        <td class="number">45.40</td>
+                                    
+                                        <td class="number">84.38</td>
+                                    
+                                        <td class="number">84.38</td>
+                                    
+                                        <td class="number">35.70</td>
+                                    
+                                        <td class="number">34.99</td>
+                                    
+                                        <td class="number">43.07</td>
+                                    
+                                        <td class="number">51.19</td>
+                                    
+                                        <td class="number">51.16</td>
+                                    
+                                    <td class="number">98.47</td>
+                                    <td class="number">52.37</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupIgnore.html">veqryn/dedup/Ignore</a></td>
+                                    
+                                        <td class="number">45.82</td>
+                                    
+                                        <td class="number">10.58</td>
+                                    
+                                        <td class="number">94.66</td>
+                                    
+                                        <td class="number">46.05</td>
+                                    
+                                        <td class="number">46.98</td>
+                                    
+                                        <td class="number">84.51</td>
+                                    
+                                        <td class="number">84.39</td>
+                                    
+                                        <td class="number">50.52</td>
+                                    
+                                        <td class="number">50.50</td>
+                                    
+                                        <td class="number">44.02</td>
+                                    
+                                        <td class="number">51.71</td>
+                                    
+                                        <td class="number">51.28</td>
+                                    
+                                    <td class="number">98.47</td>
+                                    <td class="number">55.08</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupIncrement.html">veqryn/dedup/Increment</a></td>
+                                    
+                                        <td class="number">44.84</td>
+                                    
+                                        <td class="number">4.57</td>
+                                    
+                                        <td class="number">94.66</td>
+                                    
+                                        <td class="number">44.55</td>
+                                    
+                                        <td class="number">46.35</td>
+                                    
+                                        <td class="number">84.37</td>
+                                    
+                                        <td class="number">84.36</td>
+                                    
+                                        <td class="number">41.56</td>
+                                    
+                                        <td class="number">41.25</td>
+                                    
+                                        <td class="number">42.12</td>
+                                    
+                                        <td class="number">50.01</td>
+                                    
+                                        <td class="number">49.93</td>
+                                    
+                                    <td class="number">98.47</td>
+                                    <td class="number">52.38</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupOverwrite.html">veqryn/dedup/Overwrite</a></td>
+                                    
+                                        <td class="number">46.01</td>
+                                    
+                                        <td class="number">10.92</td>
+                                    
+                                        <td class="number">94.66</td>
+                                    
+                                        <td class="number">45.62</td>
+                                    
+                                        <td class="number">46.38</td>
+                                    
+                                        <td class="number">84.49</td>
+                                    
+                                        <td class="number">84.45</td>
+                                    
+                                        <td class="number">49.00</td>
+                                    
+                                        <td class="number">48.99</td>
+                                    
+                                        <td class="number">43.14</td>
+                                    
+                                        <td class="number">51.39</td>
+                                    
+                                        <td class="number">50.89</td>
+                                    
+                                    <td class="number">100.00</td>
+                                    <td class="number">54.66</td>
                                 </tr>
                             
                         </table>
                         
                         <table class="data" id="score-table-micros">
                             <tr>
-                                <th>Handler</th>
+                                <th>
+                                    <div class="corner-top-right">Tests →</div>
+                                    <div class="corner-bottom-left">↓Handlers</div>
+                                </th>
                                 
-                                    <th>Attributes</th>
+                                    <td class="test-name-header"><span>Attributes</span></td>
                                 
-                                    <th>Big Group</th>
+                                    <td class="test-name-header"><span>Big Group</span></td>
                                 
-                                    <th>Disabled</th>
+                                    <td class="test-name-header"><span>Disabled</span></td>
                                 
-                                    <th>Key Values</th>
+                                    <td class="test-name-header"><span>Key Values</span></td>
                                 
-                                    <th>Logging</th>
+                                    <td class="test-name-header"><span>Logging</span></td>
                                 
-                                    <th>Simple</th>
+                                    <td class="test-name-header"><span>Simple</span></td>
                                 
-                                    <th>Simple Source</th>
+                                    <td class="test-name-header"><span>Simple Source</span></td>
                                 
-                                    <th>With Attrs Attributes</th>
+                                    <td class="test-name-header"><span>With Attrs Attributes</span></td>
                                 
-                                    <th>With Attrs Key Values</th>
+                                    <td class="test-name-header"><span>With Attrs Key Values</span></td>
                                 
-                                    <th>With Attrs Simple</th>
+                                    <td class="test-name-header"><span>With Attrs Simple</span></td>
                                 
-                                    <th>With Group Attributes</th>
+                                    <td class="test-name-header"><span>With Group Attributes</span></td>
                                 
-                                    <th>With Group Key Values</th>
+                                    <td class="test-name-header"><span>With Group Key Values</span></td>
+                                
+                                
+                                    <th>by Data</th>
+                                
+                                    <th>by Test</th>
+                                
+                                    <th>Original</th>
                                 
                             </tr>
                             
@@ -344,40 +579,47 @@
                                     
                                     
                                         
-                                        <td class="number">1.459</td>
+                                        <td class="number">1.411</td>
                                     
                                         
-                                        <td class="number">3.918</td>
+                                        <td class="number">20.801</td>
                                     
                                         
                                         <td class="number">0.004</td>
                                     
                                         
-                                        <td class="number">1.516</td>
+                                        <td class="number">1.504</td>
                                     
                                         
-                                        <td class="number">28.619</td>
+                                        <td class="number">31.791</td>
                                     
                                         
-                                        <td class="number">0.307</td>
+                                        <td class="number">0.308</td>
                                     
                                         
-                                        <td class="number">0.833</td>
+                                        <td class="number">0.824</td>
                                     
                                         
-                                        <td class="number">1.491</td>
+                                        <td class="number">1.458</td>
                                     
                                         
-                                        <td class="number">1.521</td>
+                                        <td class="number">1.472</td>
                                     
                                         
-                                        <td class="number">0.319</td>
+                                        <td class="number">0.297</td>
                                     
                                         
-                                        <td class="number">1.452</td>
+                                        <td class="number">1.463</td>
                                     
                                         
-                                        <td class="number">1.529</td>
+                                        <td class="number">1.466</td>
+                                    
+                                    
+                                        <td class="number">97.08</td>
+                                    
+                                        <td class="number">97.05</td>
+                                    
+                                        <td class="number">97.05</td>
                                     
                                 </tr>
                             
@@ -386,40 +628,47 @@
                                     
                                     
                                         
-                                        <td class="number">2.474</td>
+                                        <td class="number">2.478</td>
                                     
                                         
-                                        <td class="number">10.109</td>
+                                        <td class="number">66.134</td>
                                     
                                         
                                         <td class="number">0.004</td>
                                     
                                         
-                                        <td class="number">2.533</td>
+                                        <td class="number">2.544</td>
                                     
                                         
-                                        <td class="number">47.722</td>
+                                        <td class="number">47.169</td>
                                     
                                         
-                                        <td class="number">0.323</td>
+                                        <td class="number">0.318</td>
                                     
                                         
-                                        <td class="number">0.875</td>
+                                        <td class="number">0.870</td>
                                     
                                         
-                                        <td class="number">3.457</td>
+                                        <td class="number">3.514</td>
                                     
                                         
-                                        <td class="number">3.592</td>
+                                        <td class="number">3.556</td>
                                     
                                         
-                                        <td class="number">1.709</td>
+                                        <td class="number">1.688</td>
                                     
                                         
-                                        <td class="number">2.533</td>
+                                        <td class="number">2.500</td>
                                     
                                         
-                                        <td class="number">2.563</td>
+                                        <td class="number">2.572</td>
+                                    
+                                    
+                                        <td class="number">87.31</td>
+                                    
+                                        <td class="number">87.77</td>
+                                    
+                                        <td class="number">87.77</td>
                                     
                                 </tr>
                             
@@ -428,40 +677,47 @@
                                     
                                     
                                         
-                                        <td class="number">5.884</td>
+                                        <td class="number">6.102</td>
                                     
                                         
-                                        <td class="number">44.901</td>
+                                        <td class="number">292.518</td>
                                     
                                         
                                         <td class="number">0.004</td>
                                     
                                         
-                                        <td class="number">5.971</td>
+                                        <td class="number">6.034</td>
                                     
                                         
-                                        <td class="number">133.594</td>
+                                        <td class="number">145.802</td>
                                     
                                         
-                                        <td class="number">0.487</td>
+                                        <td class="number">0.492</td>
                                     
                                         
-                                        <td class="number">1.051</td>
+                                        <td class="number">1.067</td>
                                     
                                         
-                                        <td class="number">11.148</td>
+                                        <td class="number">11.477</td>
                                     
                                         
-                                        <td class="number">11.319</td>
+                                        <td class="number">11.730</td>
                                     
                                         
-                                        <td class="number">5.551</td>
+                                        <td class="number">5.915</td>
                                     
                                         
-                                        <td class="number">7.384</td>
+                                        <td class="number">7.649</td>
                                     
                                         
-                                        <td class="number">7.279</td>
+                                        <td class="number">7.710</td>
+                                    
+                                    
+                                        <td class="number">49.76</td>
+                                    
+                                        <td class="number">52.37</td>
+                                    
+                                        <td class="number">52.37</td>
                                     
                                 </tr>
                             
@@ -470,94 +726,10 @@
                                     
                                     
                                         
-                                        <td class="number">5.826</td>
+                                        <td class="number">6.109</td>
                                     
                                         
-                                        <td class="number">44.295</td>
-                                    
-                                        
-                                        <td class="number">0.004</td>
-                                    
-                                        
-                                        <td class="number">5.887</td>
-                                    
-                                        
-                                        <td class="number">131.754</td>
-                                    
-                                        
-                                        <td class="number">0.507</td>
-                                    
-                                        
-                                        <td class="number">1.069</td>
-                                    
-                                        
-                                        <td class="number">8.654</td>
-                                    
-                                        
-                                        <td class="number">8.684</td>
-                                    
-                                        
-                                        <td class="number">5.619</td>
-                                    
-                                        
-                                        <td class="number">7.333</td>
-                                    
-                                        
-                                        <td class="number">7.648</td>
-                                    
-                                </tr>
-                            
-                                <tr>
-                                    <td><a href="/go-slog/handler/VeqrynDedupIncrement.html">veqryn/dedup/Increment</a></td>
-                                    
-                                    
-                                        
-                                        <td class="number">6.512</td>
-                                    
-                                        
-                                        <td class="number">51.038</td>
-                                    
-                                        
-                                        <td class="number">0.004</td>
-                                    
-                                        
-                                        <td class="number">6.206</td>
-                                    
-                                        
-                                        <td class="number">132.856</td>
-                                    
-                                        
-                                        <td class="number">0.493</td>
-                                    
-                                        
-                                        <td class="number">1.068</td>
-                                    
-                                        
-                                        <td class="number">11.059</td>
-                                    
-                                        
-                                        <td class="number">11.218</td>
-                                    
-                                        
-                                        <td class="number">5.909</td>
-                                    
-                                        
-                                        <td class="number">7.687</td>
-                                    
-                                        
-                                        <td class="number">7.662</td>
-                                    
-                                </tr>
-                            
-                                <tr>
-                                    <td><a href="/go-slog/handler/VeqrynDedupOverwrite.html">veqryn/dedup/Overwrite</a></td>
-                                    
-                                    
-                                        
-                                        <td class="number">5.789</td>
-                                    
-                                        
-                                        <td class="number">45.138</td>
+                                        <td class="number">301.804</td>
                                     
                                         
                                         <td class="number">0.004</td>
@@ -566,28 +738,133 @@
                                         <td class="number">5.911</td>
                                     
                                         
-                                        <td class="number">131.993</td>
+                                        <td class="number">133.033</td>
                                     
                                         
-                                        <td class="number">0.495</td>
+                                        <td class="number">0.484</td>
                                     
                                         
-                                        <td class="number">1.051</td>
+                                        <td class="number">1.065</td>
                                     
                                         
-                                        <td class="number">8.723</td>
+                                        <td class="number">8.641</td>
                                     
                                         
-                                        <td class="number">8.952</td>
+                                        <td class="number">8.572</td>
                                     
                                         
-                                        <td class="number">5.505</td>
+                                        <td class="number">5.584</td>
                                     
                                         
-                                        <td class="number">7.282</td>
+                                        <td class="number">7.439</td>
                                     
                                         
-                                        <td class="number">7.244</td>
+                                        <td class="number">7.653</td>
+                                    
+                                    
+                                        <td class="number">52.62</td>
+                                    
+                                        <td class="number">55.08</td>
+                                    
+                                        <td class="number">55.08</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupIncrement.html">veqryn/dedup/Increment</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">6.447</td>
+                                    
+                                        
+                                        <td class="number">331.862</td>
+                                    
+                                        
+                                        <td class="number">0.004</td>
+                                    
+                                        
+                                        <td class="number">6.425</td>
+                                    
+                                        
+                                        <td class="number">138.129</td>
+                                    
+                                        
+                                        <td class="number">0.493</td>
+                                    
+                                        
+                                        <td class="number">1.070</td>
+                                    
+                                        
+                                        <td class="number">11.242</td>
+                                    
+                                        
+                                        <td class="number">11.284</td>
+                                    
+                                        
+                                        <td class="number">6.239</td>
+                                    
+                                        
+                                        <td class="number">8.106</td>
+                                    
+                                        
+                                        <td class="number">8.183</td>
+                                    
+                                    
+                                        <td class="number">49.84</td>
+                                    
+                                        <td class="number">52.38</td>
+                                    
+                                        <td class="number">52.38</td>
+                                    
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/VeqrynDedupOverwrite.html">veqryn/dedup/Overwrite</a></td>
+                                    
+                                    
+                                        
+                                        <td class="number">6.042</td>
+                                    
+                                        
+                                        <td class="number">299.473</td>
+                                    
+                                        
+                                        <td class="number">0.004</td>
+                                    
+                                        
+                                        <td class="number">6.057</td>
+                                    
+                                        
+                                        <td class="number">137.849</td>
+                                    
+                                        
+                                        <td class="number">0.486</td>
+                                    
+                                        
+                                        <td class="number">1.057</td>
+                                    
+                                        
+                                        <td class="number">9.217</td>
+                                    
+                                        
+                                        <td class="number">9.136</td>
+                                    
+                                        
+                                        <td class="number">5.891</td>
+                                    
+                                        
+                                        <td class="number">7.564</td>
+                                    
+                                        
+                                        <td class="number">7.814</td>
+                                    
+                                    
+                                        <td class="number">52.19</td>
+                                    
+                                        <td class="number">54.66</td>
+                                    
+                                        <td class="number">54.66</td>
                                     
                                 </tr>
                             
@@ -595,31 +872,41 @@
                         
                         <table class="data" id="score-table-allocs">
                             <tr>
-                                <th class="bottom">Handler</th>
+                                <th>
+                                    <div class="corner-top-right">Tests →</div>
+                                    <div class="corner-bottom-left">↓Handlers</div>
+                                </th>
                                 
-                                    <th>Attributes</th>
+                                    <td class="test-name-header"><span>Attributes</span></td>
                                 
-                                    <th>Big Group</th>
+                                    <td class="test-name-header"><span>Big Group</span></td>
                                 
-                                    <th>Disabled</th>
+                                    <td class="test-name-header"><span>Disabled</span></td>
                                 
-                                    <th>Key Values</th>
+                                    <td class="test-name-header"><span>Key Values</span></td>
                                 
-                                    <th>Logging</th>
+                                    <td class="test-name-header"><span>Logging</span></td>
                                 
-                                    <th>Simple</th>
+                                    <td class="test-name-header"><span>Simple</span></td>
                                 
-                                    <th>Simple Source</th>
+                                    <td class="test-name-header"><span>Simple Source</span></td>
                                 
-                                    <th>With Attrs Attributes</th>
+                                    <td class="test-name-header"><span>With Attrs Attributes</span></td>
                                 
-                                    <th>With Attrs Key Values</th>
+                                    <td class="test-name-header"><span>With Attrs Key Values</span></td>
                                 
-                                    <th>With Attrs Simple</th>
+                                    <td class="test-name-header"><span>With Attrs Simple</span></td>
                                 
-                                    <th>With Group Attributes</th>
+                                    <td class="test-name-header"><span>With Group Attributes</span></td>
                                 
-                                    <th>With Group Key Values</th>
+                                    <td class="test-name-header"><span>With Group Key Values</span></td>
+                                
+                                
+                                    <th class="center">by Data</th>
+                                
+                                    <th class="center">by Test</th>
+                                
+                                    <th class="center">Original</th>
                                 
                             </tr>
                             
@@ -663,6 +950,13 @@
                                         
                                         <td class="number">6</td>
                                     
+                                    
+                                        <td class="number">97.08</td>
+                                    
+                                        <td class="number">97.05</td>
+                                    
+                                        <td class="number">97.05</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -673,7 +967,7 @@
                                         <td class="number">31</td>
                                     
                                         
-                                        <td class="number">215</td>
+                                        <td class="number">1,413</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -705,6 +999,13 @@
                                         
                                         <td class="number">34</td>
                                     
+                                    
+                                        <td class="number">87.31</td>
+                                    
+                                        <td class="number">87.77</td>
+                                    
+                                        <td class="number">87.77</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -715,7 +1016,7 @@
                                         <td class="number">41</td>
                                     
                                         
-                                        <td class="number">312</td>
+                                        <td class="number">1,990</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -746,6 +1047,13 @@
                                     
                                         
                                         <td class="number">50</td>
+                                    
+                                    
+                                        <td class="number">49.76</td>
+                                    
+                                        <td class="number">52.37</td>
+                                    
+                                        <td class="number">52.37</td>
                                     
                                 </tr>
                             
@@ -757,7 +1065,7 @@
                                         <td class="number">41</td>
                                     
                                         
-                                        <td class="number">312</td>
+                                        <td class="number">1,990</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -788,6 +1096,13 @@
                                     
                                         
                                         <td class="number">50</td>
+                                    
+                                    
+                                        <td class="number">52.62</td>
+                                    
+                                        <td class="number">55.08</td>
+                                    
+                                        <td class="number">55.08</td>
                                     
                                 </tr>
                             
@@ -799,7 +1114,7 @@
                                         <td class="number">41</td>
                                     
                                         
-                                        <td class="number">319</td>
+                                        <td class="number">2,097</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -830,6 +1145,13 @@
                                     
                                         
                                         <td class="number">50</td>
+                                    
+                                    
+                                        <td class="number">49.84</td>
+                                    
+                                        <td class="number">52.38</td>
+                                    
+                                        <td class="number">52.38</td>
                                     
                                 </tr>
                             
@@ -841,7 +1163,7 @@
                                         <td class="number">41</td>
                                     
                                         
-                                        <td class="number">312</td>
+                                        <td class="number">1,990</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -873,37 +1195,54 @@
                                         
                                         <td class="number">50</td>
                                     
+                                    
+                                        <td class="number">52.19</td>
+                                    
+                                        <td class="number">54.66</td>
+                                    
+                                        <td class="number">54.66</td>
+                                    
                                 </tr>
                             
                         </table>
                         
                         <table class="data" id="score-table-bytes">
                             <tr>
-                                <th class="bottom">Handler</th>
+                                <th>
+                                    <div class="corner-top-right">Tests →</div>
+                                    <div class="corner-bottom-left">↓Handlers</div>
+                                </th>
                                 
-                                    <th>Attributes</th>
+                                    <td class="test-name-header"><span>Attributes</span></td>
                                 
-                                    <th>Big Group</th>
+                                    <td class="test-name-header"><span>Big Group</span></td>
                                 
-                                    <th>Disabled</th>
+                                    <td class="test-name-header"><span>Disabled</span></td>
                                 
-                                    <th>Key Values</th>
+                                    <td class="test-name-header"><span>Key Values</span></td>
                                 
-                                    <th>Logging</th>
+                                    <td class="test-name-header"><span>Logging</span></td>
                                 
-                                    <th>Simple</th>
+                                    <td class="test-name-header"><span>Simple</span></td>
                                 
-                                    <th>Simple Source</th>
+                                    <td class="test-name-header"><span>Simple Source</span></td>
                                 
-                                    <th>With Attrs Attributes</th>
+                                    <td class="test-name-header"><span>With Attrs Attributes</span></td>
                                 
-                                    <th>With Attrs Key Values</th>
+                                    <td class="test-name-header"><span>With Attrs Key Values</span></td>
                                 
-                                    <th>With Attrs Simple</th>
+                                    <td class="test-name-header"><span>With Attrs Simple</span></td>
                                 
-                                    <th>With Group Attributes</th>
+                                    <td class="test-name-header"><span>With Group Attributes</span></td>
                                 
-                                    <th>With Group Key Values</th>
+                                    <td class="test-name-header"><span>With Group Key Values</span></td>
+                                
+                                
+                                    <th class="center">by Data</th>
+                                
+                                    <th class="center">by Test</th>
+                                
+                                    <th class="center">Original</th>
                                 
                             </tr>
                             
@@ -947,6 +1286,13 @@
                                         
                                         <td class="number">472</td>
                                     
+                                    
+                                        <td class="number">97.08</td>
+                                    
+                                        <td class="number">97.05</td>
+                                    
+                                        <td class="number">97.05</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -954,19 +1300,19 @@
                                     
                                     
                                         
-                                        <td class="number">2186</td>
+                                        <td class="number">2,186</td>
                                     
                                         
-                                        <td class="number">10412</td>
+                                        <td class="number">70,252</td>
                                     
                                         
                                         <td class="number">0</td>
                                     
                                         
-                                        <td class="number">2186</td>
+                                        <td class="number">2,186</td>
                                     
                                         
-                                        <td class="number">30213</td>
+                                        <td class="number">30,213</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -975,19 +1321,26 @@
                                         <td class="number">568</td>
                                     
                                         
-                                        <td class="number">3363</td>
+                                        <td class="number">3,363</td>
                                     
                                         
-                                        <td class="number">3363</td>
+                                        <td class="number">3,363</td>
                                     
                                         
-                                        <td class="number">1001</td>
+                                        <td class="number">1,001</td>
                                     
                                         
-                                        <td class="number">2074</td>
+                                        <td class="number">2,074</td>
                                     
                                         
-                                        <td class="number">2074</td>
+                                        <td class="number">2,074</td>
+                                    
+                                    
+                                        <td class="number">87.31</td>
+                                    
+                                        <td class="number">87.77</td>
+                                    
+                                        <td class="number">87.77</td>
                                     
                                 </tr>
                             
@@ -996,19 +1349,19 @@
                                     
                                     
                                         
-                                        <td class="number">9722</td>
+                                        <td class="number">9,723</td>
                                     
                                         
-                                        <td class="number">99151</td>
+                                        <td class="number">635,759</td>
                                     
                                         
                                         <td class="number">0</td>
                                     
                                         
-                                        <td class="number">9723</td>
+                                        <td class="number">9,723</td>
                                     
                                         
-                                        <td class="number">224751</td>
+                                        <td class="number">224,825</td>
                                     
                                         
                                         <td class="number">280</td>
@@ -1017,19 +1370,26 @@
                                         <td class="number">848</td>
                                     
                                         
-                                        <td class="number">16466</td>
+                                        <td class="number">16,466</td>
                                     
                                         
-                                        <td class="number">16463</td>
+                                        <td class="number">16,468</td>
                                     
                                         
-                                        <td class="number">9051</td>
+                                        <td class="number">9,050</td>
                                     
                                         
-                                        <td class="number">13270</td>
+                                        <td class="number">13,270</td>
                                     
                                         
-                                        <td class="number">13272</td>
+                                        <td class="number">13,266</td>
+                                    
+                                    
+                                        <td class="number">49.76</td>
+                                    
+                                        <td class="number">52.37</td>
+                                    
+                                        <td class="number">52.37</td>
                                     
                                 </tr>
                             
@@ -1038,19 +1398,19 @@
                                     
                                     
                                         
-                                        <td class="number">9722</td>
+                                        <td class="number">9,724</td>
                                     
                                         
-                                        <td class="number">99063</td>
+                                        <td class="number">635,553</td>
                                     
                                         
                                         <td class="number">0</td>
                                     
                                         
-                                        <td class="number">9723</td>
+                                        <td class="number">9,723</td>
                                     
                                         
-                                        <td class="number">224885</td>
+                                        <td class="number">224,798</td>
                                     
                                         
                                         <td class="number">280</td>
@@ -1059,19 +1419,26 @@
                                         <td class="number">848</td>
                                     
                                         
-                                        <td class="number">14071</td>
+                                        <td class="number">14,074</td>
                                     
                                         
-                                        <td class="number">14072</td>
+                                        <td class="number">14,073</td>
                                     
                                         
-                                        <td class="number">9050</td>
+                                        <td class="number">9,051</td>
                                     
                                         
-                                        <td class="number">13273</td>
+                                        <td class="number">13,272</td>
                                     
                                         
-                                        <td class="number">13273</td>
+                                        <td class="number">13,273</td>
+                                    
+                                    
+                                        <td class="number">52.62</td>
+                                    
+                                        <td class="number">55.08</td>
+                                    
+                                        <td class="number">55.08</td>
                                     
                                 </tr>
                             
@@ -1080,19 +1447,19 @@
                                     
                                     
                                         
-                                        <td class="number">9729</td>
+                                        <td class="number">9,730</td>
                                     
                                         
-                                        <td class="number">99814</td>
+                                        <td class="number">650,052</td>
                                     
                                         
                                         <td class="number">0</td>
                                     
                                         
-                                        <td class="number">9728</td>
+                                        <td class="number">9,726</td>
                                     
                                         
-                                        <td class="number">224778</td>
+                                        <td class="number">224,828</td>
                                     
                                         
                                         <td class="number">280</td>
@@ -1101,19 +1468,26 @@
                                         <td class="number">848</td>
                                     
                                         
-                                        <td class="number">15319</td>
+                                        <td class="number">15,319</td>
                                     
                                         
-                                        <td class="number">15326</td>
+                                        <td class="number">15,323</td>
                                     
                                         
-                                        <td class="number">9051</td>
+                                        <td class="number">9,055</td>
                                     
                                         
-                                        <td class="number">13289</td>
+                                        <td class="number">13,290</td>
                                     
                                         
-                                        <td class="number">13284</td>
+                                        <td class="number">13,288</td>
+                                    
+                                    
+                                        <td class="number">49.84</td>
+                                    
+                                        <td class="number">52.38</td>
+                                    
+                                        <td class="number">52.38</td>
                                     
                                 </tr>
                             
@@ -1122,19 +1496,19 @@
                                     
                                     
                                         
-                                        <td class="number">9724</td>
+                                        <td class="number">9,722</td>
                                     
                                         
-                                        <td class="number">99108</td>
+                                        <td class="number">635,839</td>
                                     
                                         
                                         <td class="number">0</td>
                                     
                                         
-                                        <td class="number">9724</td>
+                                        <td class="number">9,725</td>
                                     
                                         
-                                        <td class="number">224774</td>
+                                        <td class="number">224,869</td>
                                     
                                         
                                         <td class="number">280</td>
@@ -1143,19 +1517,26 @@
                                         <td class="number">848</td>
                                     
                                         
-                                        <td class="number">14166</td>
+                                        <td class="number">14,170</td>
                                     
                                         
-                                        <td class="number">14169</td>
+                                        <td class="number">14,168</td>
                                     
                                         
-                                        <td class="number">9050</td>
+                                        <td class="number">9,049</td>
                                     
                                         
-                                        <td class="number">13271</td>
+                                        <td class="number">13,272</td>
                                     
                                         
-                                        <td class="number">13275</td>
+                                        <td class="number">13,269</td>
+                                    
+                                    
+                                        <td class="number">52.19</td>
+                                    
+                                        <td class="number">54.66</td>
+                                    
+                                        <td class="number">54.66</td>
                                     
                                 </tr>
                             
@@ -1326,7 +1707,7 @@ which are applied to the several specific benchmark result values.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-08-18 01:23:55 UTC</span>
+              <span class="fixed">2024-08-20 17:15:01 UTC</span>
             </div>
           </td>
           <td class="right">
@@ -1357,6 +1738,10 @@ which are applied to the several specific benchmark result values.</p>
                 "Scores are on scale of <code>0..100</code>. Higher is better.<br/>" +
                 "Metrics algorithms completely made up out of thin air.<br/>" +
                 "See <a href='#scoring_algorithms'>notes below</a> for details."
+        },
+        {
+            "ID":   "details",
+            "Name": "Details"
         },
         {
             "ID":      "micros",

@@ -240,16 +240,21 @@
         <div>
             <table class="top">
                 <tr class="title"><td colspan="2"><h2>Large vs Small</h2></td></tr>
-
+                
                 
 
                 
+
+
+                
+
                 <tr class="title">
                     <td colspan="2">
                         <table class="score-buttons">
                             <tr>
                                 <td>
                                     <button id="score-button-scores" type="button" onclick="showDataTable(`scores`)">Scores</button>
+                                    <button id="score-button-details" type="button" onclick="showDataTable(`details`)">Details</button>
                                 </td>
                                 <td class="right">
                                     <button id="score-button-micros" type="button" onclick="showDataTable(`micros`)">Micros</button>
@@ -273,26 +278,26 @@
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/ChanchalZap.html">chanchal/zaphandler</a></td>
-                                    <td class="number">97.36</td>
-                                    <td class="number">87.27</td>
+                                    <td class="number">97.42</td>
+                                    <td class="number">87.32</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/MadkinsFlash.html">madkins/flash</a></td>
-                                    <td class="number">96.13</td>
-                                    <td class="number">95.64</td>
+                                    <td class="number">95.39</td>
+                                    <td class="number">95.65</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/MadkinsSloggy.html">madkins/sloggy</a></td>
-                                    <td class="number">80.55</td>
-                                    <td class="number">84.60</td>
+                                    <td class="number">80.78</td>
+                                    <td class="number">84.70</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/PhsymZerolog.html">phsym/zeroslog</a></td>
-                                    <td class="number">99.44</td>
-                                    <td class="number">98.62</td>
+                                    <td class="number">99.50</td>
+                                    <td class="number">98.61</td>
                                 </tr>
                             
                                 <tr>
@@ -303,63 +308,417 @@
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/SamberLogrus.html">samber/slog-logrus</a></td>
-                                    <td class="number">12.02</td>
-                                    <td class="number">9.75</td>
+                                    <td class="number">15.55</td>
+                                    <td class="number">9.78</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/SamberZap.html">samber/slog-zap</a></td>
-                                    <td class="number">53.23</td>
-                                    <td class="number">55.66</td>
+                                    <td class="number">52.48</td>
+                                    <td class="number">55.84</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/SamberZerolog.html">samber/slog-zerolog</a></td>
-                                    <td class="number">57.45</td>
-                                    <td class="number">56.23</td>
+                                    <td class="number">56.11</td>
+                                    <td class="number">56.43</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/SlogJSON.html">slog/JSONHandler</a></td>
-                                    <td class="number">97.81</td>
-                                    <td class="number">96.76</td>
+                                    <td class="number">97.97</td>
+                                    <td class="number">96.87</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/SvcrunnerJsonlog.html">svcrunner/jsonlog</a></td>
-                                    <td class="number">97.95</td>
-                                    <td class="number">99.18</td>
+                                    <td class="number">97.11</td>
+                                    <td class="number">99.19</td>
+                                </tr>
+                            
+                        </table>
+                        
+                        <table class="data" id="score-table-details">
+                            <tr>
+                                <th>Handler</th>
+                                
+                                    <td class="test-name-header"><span>Attributes</span></td>
+                                
+                                    <td class="test-name-header"><span>Big Group</span></td>
+                                
+                                    <td class="test-name-header"><span>Disabled</span></td>
+                                
+                                    <td class="test-name-header"><span>Key Values</span></td>
+                                
+                                    <td class="test-name-header"><span>Logging</span></td>
+                                
+                                    <td class="test-name-header"><span>Simple</span></td>
+                                
+                                    <td class="test-name-header"><span>Simple Source</span></td>
+                                
+                                    <td class="test-name-header"><span>With Attrs Attributes</span></td>
+                                
+                                    <td class="test-name-header"><span>With Attrs Key Values</span></td>
+                                
+                                    <td class="test-name-header"><span>With Attrs Simple</span></td>
+                                
+                                    <td class="test-name-header"><span>With Group Attributes</span></td>
+                                
+                                    <td class="test-name-header"><span>With Group Key Values</span></td>
+                                
+                                <th>Large</th>
+                                <th>Small</th>
+                            </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/ChanchalZap.html">chanchal/zaphandler</a></td>
+                                    
+                                        <td class="number">97.19</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">0.00</td>
+                                    
+                                        <td class="number">97.01</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">95.02</td>
+                                    
+                                        <td class="number">94.32</td>
+                                    
+                                        <td class="number">98.08</td>
+                                    
+                                        <td class="number">98.05</td>
+                                    
+                                        <td class="number">98.99</td>
+                                    
+                                        <td class="number">97.26</td>
+                                    
+                                        <td class="number">97.30</td>
+                                    
+                                    <td class="number">97.42</td>
+                                    <td class="number">87.32</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/MadkinsFlash.html">madkins/flash</a></td>
+                                    
+                                        <td class="number">97.10</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">97.03</td>
+                                    
+                                        <td class="number">96.95</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">88.11</td>
+                                    
+                                        <td class="number">87.89</td>
+                                    
+                                        <td class="number">98.00</td>
+                                    
+                                        <td class="number">98.06</td>
+                                    
+                                        <td class="number">97.75</td>
+                                    
+                                        <td class="number">97.78</td>
+                                    
+                                        <td class="number">97.81</td>
+                                    
+                                    <td class="number">95.39</td>
+                                    <td class="number">95.65</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/MadkinsSloggy.html">madkins/sloggy</a></td>
+                                    
+                                        <td class="number">79.94</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">97.04</td>
+                                    
+                                        <td class="number">79.67</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">76.97</td>
+                                    
+                                        <td class="number">71.85</td>
+                                    
+                                        <td class="number">86.57</td>
+                                    
+                                        <td class="number">86.51</td>
+                                    
+                                        <td class="number">95.06</td>
+                                    
+                                        <td class="number">86.63</td>
+                                    
+                                        <td class="number">86.78</td>
+                                    
+                                    <td class="number">80.78</td>
+                                    <td class="number">84.70</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/PhsymZerolog.html">phsym/zeroslog</a></td>
+                                    
+                                        <td class="number">99.52</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">97.05</td>
+                                    
+                                        <td class="number">99.47</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">99.24</td>
+                                    
+                                        <td class="number">94.51</td>
+                                    
+                                        <td class="number">99.64</td>
+                                    
+                                        <td class="number">99.61</td>
+                                    
+                                        <td class="number">99.87</td>
+                                    
+                                        <td class="number">98.56</td>
+                                    
+                                        <td class="number">98.59</td>
+                                    
+                                    <td class="number">99.50</td>
+                                    <td class="number">98.61</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/PhusluSlog.html">phuslu/slog</a></td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                    <td class="number">100.00</td>
+                                    <td class="number">100.00</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SamberLogrus.html">samber/slog-logrus</a></td>
+                                    
+                                        <td class="number">0.00</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">97.03</td>
+                                    
+                                        <td class="number">0.00</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">0.00</td>
+                                    
+                                        <td class="number">0.00</td>
+                                    
+                                        <td class="number">0.00</td>
+                                    
+                                        <td class="number">0.00</td>
+                                    
+                                        <td class="number">0.80</td>
+                                    
+                                        <td class="number">0.00</td>
+                                    
+                                        <td class="number">0.00</td>
+                                    
+                                    <td class="number">15.55</td>
+                                    <td class="number">9.78</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SamberZap.html">samber/slog-zap</a></td>
+                                    
+                                        <td class="number">48.86</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">97.06</td>
+                                    
+                                        <td class="number">48.27</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">86.34</td>
+                                    
+                                        <td class="number">90.71</td>
+                                    
+                                        <td class="number">41.42</td>
+                                    
+                                        <td class="number">41.13</td>
+                                    
+                                        <td class="number">49.24</td>
+                                    
+                                        <td class="number">29.22</td>
+                                    
+                                        <td class="number">26.12</td>
+                                    
+                                    <td class="number">52.48</td>
+                                    <td class="number">55.84</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SamberZerolog.html">samber/slog-zerolog</a></td>
+                                    
+                                        <td class="number">56.02</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">97.05</td>
+                                    
+                                        <td class="number">55.81</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">87.73</td>
+                                    
+                                        <td class="number">53.44</td>
+                                    
+                                        <td class="number">50.44</td>
+                                    
+                                        <td class="number">49.85</td>
+                                    
+                                        <td class="number">57.15</td>
+                                    
+                                        <td class="number">28.56</td>
+                                    
+                                        <td class="number">28.20</td>
+                                    
+                                    <td class="number">56.11</td>
+                                    <td class="number">56.43</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SlogJSON.html">slog/JSONHandler</a></td>
+                                    
+                                        <td class="number">96.90</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">97.05</td>
+                                    
+                                        <td class="number">96.65</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">97.55</td>
+                                    
+                                        <td class="number">89.80</td>
+                                    
+                                        <td class="number">97.89</td>
+                                    
+                                        <td class="number">97.91</td>
+                                    
+                                        <td class="number">99.62</td>
+                                    
+                                        <td class="number">97.60</td>
+                                    
+                                        <td class="number">97.73</td>
+                                    
+                                    <td class="number">97.97</td>
+                                    <td class="number">96.87</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/SvcrunnerJsonlog.html">svcrunner/jsonlog</a></td>
+                                    
+                                        <td class="number">99.00</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">98.92</td>
+                                    
+                                        <td class="number">NaN</td>
+                                    
+                                        <td class="number">98.52</td>
+                                    
+                                        <td class="number">99.69</td>
+                                    
+                                        <td class="number">99.18</td>
+                                    
+                                        <td class="number">99.15</td>
+                                    
+                                        <td class="number">99.26</td>
+                                    
+                                        <td class="number">99.05</td>
+                                    
+                                        <td class="number">99.11</td>
+                                    
+                                    <td class="number">97.11</td>
+                                    <td class="number">99.19</td>
                                 </tr>
                             
                         </table>
                         
                         <table class="data" id="score-table-micros">
                             <tr>
-                                <th>Handler</th>
+                                <th>
+                                    <div class="corner-top-right">Tests →</div>
+                                    <div class="corner-bottom-left">↓Handlers</div>
+                                </th>
                                 
-                                    <th>Attributes</th>
+                                    <td class="test-name-header"><span>Attributes</span></td>
                                 
-                                    <th>Big Group</th>
+                                    <td class="test-name-header"><span>Big Group</span></td>
                                 
-                                    <th>Disabled</th>
+                                    <td class="test-name-header"><span>Disabled</span></td>
                                 
-                                    <th>Key Values</th>
+                                    <td class="test-name-header"><span>Key Values</span></td>
                                 
-                                    <th>Logging</th>
+                                    <td class="test-name-header"><span>Logging</span></td>
                                 
-                                    <th>Simple</th>
+                                    <td class="test-name-header"><span>Simple</span></td>
                                 
-                                    <th>Simple Source</th>
+                                    <td class="test-name-header"><span>Simple Source</span></td>
                                 
-                                    <th>With Attrs Attributes</th>
+                                    <td class="test-name-header"><span>With Attrs Attributes</span></td>
                                 
-                                    <th>With Attrs Key Values</th>
+                                    <td class="test-name-header"><span>With Attrs Key Values</span></td>
                                 
-                                    <th>With Attrs Simple</th>
+                                    <td class="test-name-header"><span>With Attrs Simple</span></td>
                                 
-                                    <th>With Group Attributes</th>
+                                    <td class="test-name-header"><span>With Group Attributes</span></td>
                                 
-                                    <th>With Group Key Values</th>
+                                    <td class="test-name-header"><span>With Group Key Values</span></td>
+                                
+                                
+                                    <th>by Data</th>
+                                
+                                    <th>by Test</th>
+                                
+                                    <th>Original</th>
                                 
                             </tr>
                             
@@ -368,40 +727,47 @@
                                     
                                     
                                         
-                                        <td class="number">1.469</td>
+                                        <td class="number">1.435</td>
                                     
                                         
-                                        <td class="number">2.975</td>
+                                        <td class="number">18.864</td>
                                     
                                         
                                         <td class="number">0.029</td>
                                     
                                         
-                                        <td class="number">1.493</td>
+                                        <td class="number">1.505</td>
                                     
                                         
-                                        <td class="number">30.532</td>
+                                        <td class="number">30.157</td>
                                     
                                         
-                                        <td class="number">0.382</td>
+                                        <td class="number">0.380</td>
                                     
                                         
-                                        <td class="number">0.637</td>
+                                        <td class="number">0.606</td>
                                     
                                         
-                                        <td class="number">1.448</td>
+                                        <td class="number">1.483</td>
                                     
                                         
-                                        <td class="number">1.496</td>
+                                        <td class="number">1.518</td>
                                     
                                         
-                                        <td class="number">0.393</td>
+                                        <td class="number">0.412</td>
                                     
                                         
-                                        <td class="number">1.504</td>
+                                        <td class="number">1.532</td>
                                     
                                         
-                                        <td class="number">1.559</td>
+                                        <td class="number">1.572</td>
+                                    
+                                    
+                                        <td class="number">92.20</td>
+                                    
+                                        <td class="number">87.32</td>
+                                    
+                                        <td class="number">87.32</td>
                                     
                                 </tr>
                             
@@ -410,40 +776,47 @@
                                     
                                     
                                         
-                                        <td class="number">1.344</td>
+                                        <td class="number">1.361</td>
                                     
                                         
-                                        <td class="number">3.235</td>
+                                        <td class="number">24.019</td>
                                     
                                         
                                         <td class="number">0.004</td>
                                     
                                         
-                                        <td class="number">1.395</td>
+                                        <td class="number">1.425</td>
                                     
                                         
-                                        <td class="number">33.703</td>
+                                        <td class="number">34.024</td>
                                     
                                         
-                                        <td class="number">0.445</td>
+                                        <td class="number">0.449</td>
                                     
                                         
-                                        <td class="number">0.903</td>
+                                        <td class="number">0.910</td>
                                     
                                         
-                                        <td class="number">1.362</td>
+                                        <td class="number">1.430</td>
                                     
                                         
-                                        <td class="number">1.411</td>
+                                        <td class="number">1.421</td>
                                     
                                         
-                                        <td class="number">0.460</td>
+                                        <td class="number">0.462</td>
                                     
                                         
-                                        <td class="number">1.401</td>
+                                        <td class="number">1.403</td>
                                     
                                         
-                                        <td class="number">1.427</td>
+                                        <td class="number">1.447</td>
+                                    
+                                    
+                                        <td class="number">95.54</td>
+                                    
+                                        <td class="number">95.65</td>
+                                    
+                                        <td class="number">95.65</td>
                                     
                                 </tr>
                             
@@ -452,40 +825,47 @@
                                     
                                     
                                         
-                                        <td class="number">2.769</td>
+                                        <td class="number">2.776</td>
                                     
                                         
-                                        <td class="number">8.096</td>
+                                        <td class="number">49.330</td>
                                     
                                         
                                         <td class="number">0.004</td>
                                     
                                         
-                                        <td class="number">2.804</td>
+                                        <td class="number">2.839</td>
                                     
                                         
-                                        <td class="number">67.088</td>
+                                        <td class="number">67.765</td>
                                     
                                         
-                                        <td class="number">0.683</td>
+                                        <td class="number">0.686</td>
                                     
                                         
-                                        <td class="number">1.685</td>
+                                        <td class="number">1.715</td>
+                                    
+                                        
+                                        <td class="number">2.805</td>
+                                    
+                                        
+                                        <td class="number">2.839</td>
+                                    
+                                        
+                                        <td class="number">0.702</td>
                                     
                                         
                                         <td class="number">2.835</td>
                                     
                                         
-                                        <td class="number">2.814</td>
+                                        <td class="number">2.826</td>
                                     
-                                        
-                                        <td class="number">0.697</td>
                                     
-                                        
-                                        <td class="number">2.783</td>
+                                        <td class="number">83.72</td>
                                     
-                                        
-                                        <td class="number">2.840</td>
+                                        <td class="number">84.70</td>
+                                    
+                                        <td class="number">84.70</td>
                                     
                                 </tr>
                             
@@ -494,40 +874,47 @@
                                     
                                     
                                         
-                                        <td class="number">0.972</td>
+                                        <td class="number">0.971</td>
                                     
                                         
-                                        <td class="number">2.045</td>
+                                        <td class="number">12.170</td>
                                     
                                         
                                         <td class="number">0.004</td>
                                     
                                         
-                                        <td class="number">1.011</td>
+                                        <td class="number">1.010</td>
                                     
                                         
-                                        <td class="number">17.762</td>
+                                        <td class="number">17.882</td>
                                     
                                         
-                                        <td class="number">0.204</td>
+                                        <td class="number">0.206</td>
                                     
                                         
-                                        <td class="number">0.486</td>
+                                        <td class="number">0.501</td>
                                     
                                         
-                                        <td class="number">0.984</td>
+                                        <td class="number">0.996</td>
                                     
                                         
-                                        <td class="number">1.027</td>
+                                        <td class="number">1.044</td>
                                     
                                         
-                                        <td class="number">0.210</td>
+                                        <td class="number">0.211</td>
                                     
                                         
-                                        <td class="number">1.092</td>
+                                        <td class="number">1.123</td>
                                     
                                         
-                                        <td class="number">1.144</td>
+                                        <td class="number">1.165</td>
+                                    
+                                    
+                                        <td class="number">98.68</td>
+                                    
+                                        <td class="number">98.61</td>
+                                    
+                                        <td class="number">98.61</td>
                                     
                                 </tr>
                             
@@ -536,40 +923,47 @@
                                     
                                     
                                         
-                                        <td class="number">0.887</td>
+                                        <td class="number">0.899</td>
                                     
                                         
-                                        <td class="number">1.354</td>
+                                        <td class="number">8.347</td>
                                     
                                         
                                         <td class="number">0.003</td>
                                     
                                         
-                                        <td class="number">0.942</td>
+                                        <td class="number">0.923</td>
                                     
                                         
-                                        <td class="number">14.453</td>
+                                        <td class="number">14.535</td>
                                     
                                         
-                                        <td class="number">0.158</td>
+                                        <td class="number">0.160</td>
                                     
                                         
-                                        <td class="number">0.206</td>
+                                        <td class="number">0.208</td>
                                     
                                         
-                                        <td class="number">0.890</td>
+                                        <td class="number">0.904</td>
                                     
                                         
-                                        <td class="number">0.948</td>
+                                        <td class="number">0.935</td>
                                     
                                         
                                         <td class="number">0.166</td>
                                     
                                         
-                                        <td class="number">0.890</td>
+                                        <td class="number">0.891</td>
                                     
                                         
-                                        <td class="number">0.952</td>
+                                        <td class="number">0.948</td>
+                                    
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">100.00</td>
                                     
                                 </tr>
                             
@@ -578,40 +972,47 @@
                                     
                                     
                                         
-                                        <td class="number">17.616</td>
+                                        <td class="number">18.572</td>
                                     
                                         
-                                        <td class="number">51.489</td>
+                                        <td class="number">288.024</td>
                                     
                                         
                                         <td class="number">0.004</td>
                                     
                                         
-                                        <td class="number">17.671</td>
+                                        <td class="number">18.120</td>
                                     
                                         
-                                        <td class="number">403.006</td>
+                                        <td class="number">419.351</td>
                                     
                                         
-                                        <td class="number">3.154</td>
+                                        <td class="number">3.200</td>
                                     
                                         
-                                        <td class="number">7.282</td>
+                                        <td class="number">7.567</td>
                                     
                                         
-                                        <td class="number">26.588</td>
+                                        <td class="number">27.428</td>
                                     
                                         
-                                        <td class="number">26.554</td>
+                                        <td class="number">27.082</td>
                                     
                                         
-                                        <td class="number">17.014</td>
+                                        <td class="number">17.457</td>
                                     
                                         
-                                        <td class="number">20.457</td>
+                                        <td class="number">20.948</td>
                                     
                                         
-                                        <td class="number">20.497</td>
+                                        <td class="number">20.972</td>
+                                    
+                                    
+                                        <td class="number">4.94</td>
+                                    
+                                        <td class="number">9.78</td>
+                                    
+                                        <td class="number">9.78</td>
                                     
                                 </tr>
                             
@@ -620,40 +1021,47 @@
                                     
                                     
                                         
-                                        <td class="number">6.168</td>
+                                        <td class="number">6.228</td>
                                     
                                         
-                                        <td class="number">27.209</td>
+                                        <td class="number">184.440</td>
                                     
                                         
                                         <td class="number">0.004</td>
                                     
                                         
-                                        <td class="number">6.281</td>
+                                        <td class="number">6.311</td>
                                     
                                         
-                                        <td class="number">117.578</td>
+                                        <td class="number">114.627</td>
                                     
                                         
-                                        <td class="number">0.488</td>
+                                        <td class="number">0.453</td>
                                     
                                         
-                                        <td class="number">0.698</td>
+                                        <td class="number">0.701</td>
                                     
                                         
-                                        <td class="number">10.970</td>
+                                        <td class="number">10.876</td>
                                     
                                         
-                                        <td class="number">10.902</td>
+                                        <td class="number">10.918</td>
                                     
                                         
-                                        <td class="number">5.677</td>
+                                        <td class="number">5.793</td>
                                     
                                         
-                                        <td class="number">11.566</td>
+                                        <td class="number">11.590</td>
                                     
                                         
-                                        <td class="number">11.856</td>
+                                        <td class="number">12.874</td>
+                                    
+                                    
+                                        <td class="number">52.77</td>
+                                    
+                                        <td class="number">55.84</td>
+                                    
+                                        <td class="number">55.84</td>
                                     
                                 </tr>
                             
@@ -662,40 +1070,47 @@
                                     
                                     
                                         
-                                        <td class="number">5.345</td>
+                                        <td class="number">5.399</td>
                                     
                                         
-                                        <td class="number">27.151</td>
+                                        <td class="number">185.678</td>
                                     
                                         
                                         <td class="number">0.004</td>
                                     
                                         
-                                        <td class="number">5.409</td>
+                                        <td class="number">5.373</td>
                                     
                                         
-                                        <td class="number">92.087</td>
+                                        <td class="number">95.299</td>
                                     
                                         
-                                        <td class="number">0.372</td>
+                                        <td class="number">0.368</td>
                                     
                                         
-                                        <td class="number">2.399</td>
+                                        <td class="number">2.466</td>
                                     
                                         
-                                        <td class="number">9.391</td>
+                                        <td class="number">9.219</td>
                                     
                                         
-                                        <td class="number">9.325</td>
+                                        <td class="number">9.438</td>
                                     
                                         
-                                        <td class="number">4.826</td>
+                                        <td class="number">4.854</td>
                                     
                                         
-                                        <td class="number">11.349</td>
+                                        <td class="number">11.668</td>
                                     
                                         
-                                        <td class="number">11.405</td>
+                                        <td class="number">11.854</td>
+                                    
+                                    
+                                        <td class="number">53.36</td>
+                                    
+                                        <td class="number">56.43</td>
+                                    
+                                        <td class="number">56.43</td>
                                     
                                 </tr>
                             
@@ -704,40 +1119,47 @@
                                     
                                     
                                         
-                                        <td class="number">1.459</td>
+                                        <td class="number">1.411</td>
                                     
                                         
-                                        <td class="number">3.918</td>
+                                        <td class="number">20.801</td>
                                     
                                         
                                         <td class="number">0.004</td>
                                     
                                         
-                                        <td class="number">1.516</td>
+                                        <td class="number">1.504</td>
                                     
                                         
-                                        <td class="number">28.619</td>
+                                        <td class="number">31.791</td>
                                     
                                         
-                                        <td class="number">0.307</td>
+                                        <td class="number">0.308</td>
                                     
                                         
-                                        <td class="number">0.833</td>
+                                        <td class="number">0.824</td>
                                     
                                         
-                                        <td class="number">1.491</td>
+                                        <td class="number">1.458</td>
                                     
                                         
-                                        <td class="number">1.521</td>
+                                        <td class="number">1.472</td>
                                     
                                         
-                                        <td class="number">0.319</td>
+                                        <td class="number">0.297</td>
                                     
                                         
-                                        <td class="number">1.452</td>
+                                        <td class="number">1.463</td>
                                     
                                         
-                                        <td class="number">1.529</td>
+                                        <td class="number">1.466</td>
+                                    
+                                    
+                                        <td class="number">96.87</td>
+                                    
+                                        <td class="number">96.87</td>
+                                    
+                                        <td class="number">96.87</td>
                                     
                                 </tr>
                             
@@ -746,40 +1168,47 @@
                                     
                                     
                                         
-                                        <td class="number">1.065</td>
+                                        <td class="number">1.081</td>
                                     
                                         
-                                        <td class="number">3.363</td>
+                                        <td class="number">26.597</td>
                                     
                                         
                                         <td class="number">0.003</td>
                                     
                                         
-                                        <td class="number">1.122</td>
+                                        <td class="number">1.128</td>
                                     
                                         
-                                        <td class="number">20.860</td>
+                                        <td class="number">20.887</td>
                                     
                                         
-                                        <td class="number">0.246</td>
+                                        <td class="number">0.250</td>
                                     
                                         
-                                        <td class="number">0.263</td>
+                                        <td class="number">0.253</td>
                                     
                                         
-                                        <td class="number">1.095</td>
+                                        <td class="number">1.097</td>
                                     
                                         
-                                        <td class="number">1.144</td>
+                                        <td class="number">1.141</td>
                                     
                                         
-                                        <td class="number">0.335</td>
+                                        <td class="number">0.350</td>
                                     
                                         
-                                        <td class="number">1.123</td>
+                                        <td class="number">1.108</td>
                                     
                                         
-                                        <td class="number">1.140</td>
+                                        <td class="number">1.141</td>
+                                    
+                                    
+                                        <td class="number">99.16</td>
+                                    
+                                        <td class="number">99.19</td>
+                                    
+                                        <td class="number">99.19</td>
                                     
                                 </tr>
                             
@@ -787,31 +1216,41 @@
                         
                         <table class="data" id="score-table-allocs">
                             <tr>
-                                <th class="bottom">Handler</th>
+                                <th>
+                                    <div class="corner-top-right">Tests →</div>
+                                    <div class="corner-bottom-left">↓Handlers</div>
+                                </th>
                                 
-                                    <th>Attributes</th>
+                                    <td class="test-name-header"><span>Attributes</span></td>
                                 
-                                    <th>Big Group</th>
+                                    <td class="test-name-header"><span>Big Group</span></td>
                                 
-                                    <th>Disabled</th>
+                                    <td class="test-name-header"><span>Disabled</span></td>
                                 
-                                    <th>Key Values</th>
+                                    <td class="test-name-header"><span>Key Values</span></td>
                                 
-                                    <th>Logging</th>
+                                    <td class="test-name-header"><span>Logging</span></td>
                                 
-                                    <th>Simple</th>
+                                    <td class="test-name-header"><span>Simple</span></td>
                                 
-                                    <th>Simple Source</th>
+                                    <td class="test-name-header"><span>Simple Source</span></td>
                                 
-                                    <th>With Attrs Attributes</th>
+                                    <td class="test-name-header"><span>With Attrs Attributes</span></td>
                                 
-                                    <th>With Attrs Key Values</th>
+                                    <td class="test-name-header"><span>With Attrs Key Values</span></td>
                                 
-                                    <th>With Attrs Simple</th>
+                                    <td class="test-name-header"><span>With Attrs Simple</span></td>
                                 
-                                    <th>With Group Attributes</th>
+                                    <td class="test-name-header"><span>With Group Attributes</span></td>
                                 
-                                    <th>With Group Key Values</th>
+                                    <td class="test-name-header"><span>With Group Key Values</span></td>
+                                
+                                
+                                    <th class="center">by Data</th>
+                                
+                                    <th class="center">by Test</th>
+                                
+                                    <th class="center">Original</th>
                                 
                             </tr>
                             
@@ -823,7 +1262,7 @@
                                         <td class="number">5</td>
                                     
                                         
-                                        <td class="number">25</td>
+                                        <td class="number">154</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -855,6 +1294,13 @@
                                         
                                         <td class="number">7</td>
                                     
+                                    
+                                        <td class="number">92.20</td>
+                                    
+                                        <td class="number">87.32</td>
+                                    
+                                        <td class="number">87.32</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -865,7 +1311,7 @@
                                         <td class="number">5</td>
                                     
                                         
-                                        <td class="number">5</td>
+                                        <td class="number">11</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -897,6 +1343,13 @@
                                         
                                         <td class="number">5</td>
                                     
+                                    
+                                        <td class="number">95.54</td>
+                                    
+                                        <td class="number">95.65</td>
+                                    
+                                        <td class="number">95.65</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -907,7 +1360,7 @@
                                         <td class="number">64</td>
                                     
                                         
-                                        <td class="number">268</td>
+                                        <td class="number">1,687</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -916,7 +1369,7 @@
                                         <td class="number">64</td>
                                     
                                         
-                                        <td class="number">1865</td>
+                                        <td class="number">1,865</td>
                                     
                                         
                                         <td class="number">14</td>
@@ -938,6 +1391,13 @@
                                     
                                         
                                         <td class="number">64</td>
+                                    
+                                    
+                                        <td class="number">83.72</td>
+                                    
+                                        <td class="number">84.70</td>
+                                    
+                                        <td class="number">84.70</td>
                                     
                                 </tr>
                             
@@ -981,6 +1441,13 @@
                                         
                                         <td class="number">3</td>
                                     
+                                    
+                                        <td class="number">98.68</td>
+                                    
+                                        <td class="number">98.61</td>
+                                    
+                                        <td class="number">98.61</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -1023,6 +1490,13 @@
                                         
                                         <td class="number">1</td>
                                     
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -1033,7 +1507,7 @@
                                         <td class="number">98</td>
                                     
                                         
-                                        <td class="number">466</td>
+                                        <td class="number">2,889</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -1042,7 +1516,7 @@
                                         <td class="number">98</td>
                                     
                                         
-                                        <td class="number">2857</td>
+                                        <td class="number">2,857</td>
                                     
                                         
                                         <td class="number">26</td>
@@ -1065,6 +1539,13 @@
                                         
                                         <td class="number">172</td>
                                     
+                                    
+                                        <td class="number">4.94</td>
+                                    
+                                        <td class="number">9.78</td>
+                                    
+                                        <td class="number">9.78</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -1075,7 +1556,7 @@
                                         <td class="number">54</td>
                                     
                                         
-                                        <td class="number">440</td>
+                                        <td class="number">2,864</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -1084,7 +1565,7 @@
                                         <td class="number">54</td>
                                     
                                         
-                                        <td class="number">1224</td>
+                                        <td class="number">1,224</td>
                                     
                                         
                                         <td class="number">2</td>
@@ -1107,6 +1588,13 @@
                                         
                                         <td class="number">146</td>
                                     
+                                    
+                                        <td class="number">52.77</td>
+                                    
+                                        <td class="number">55.84</td>
+                                    
+                                        <td class="number">55.84</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -1117,7 +1605,7 @@
                                         <td class="number">62</td>
                                     
                                         
-                                        <td class="number">441</td>
+                                        <td class="number">2,864</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -1126,7 +1614,7 @@
                                         <td class="number">62</td>
                                     
                                         
-                                        <td class="number">1326</td>
+                                        <td class="number">1,326</td>
                                     
                                         
                                         <td class="number">2</td>
@@ -1148,6 +1636,13 @@
                                     
                                         
                                         <td class="number">147</td>
+                                    
+                                    
+                                        <td class="number">53.36</td>
+                                    
+                                        <td class="number">56.43</td>
+                                    
+                                        <td class="number">56.43</td>
                                     
                                 </tr>
                             
@@ -1191,6 +1686,13 @@
                                         
                                         <td class="number">6</td>
                                     
+                                    
+                                        <td class="number">96.87</td>
+                                    
+                                        <td class="number">96.87</td>
+                                    
+                                        <td class="number">96.87</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -1201,7 +1703,7 @@
                                         <td class="number">3</td>
                                     
                                         
-                                        <td class="number">7</td>
+                                        <td class="number">13</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -1233,37 +1735,54 @@
                                         
                                         <td class="number">4</td>
                                     
+                                    
+                                        <td class="number">99.16</td>
+                                    
+                                        <td class="number">99.19</td>
+                                    
+                                        <td class="number">99.19</td>
+                                    
                                 </tr>
                             
                         </table>
                         
                         <table class="data" id="score-table-bytes">
                             <tr>
-                                <th class="bottom">Handler</th>
+                                <th>
+                                    <div class="corner-top-right">Tests →</div>
+                                    <div class="corner-bottom-left">↓Handlers</div>
+                                </th>
                                 
-                                    <th>Attributes</th>
+                                    <td class="test-name-header"><span>Attributes</span></td>
                                 
-                                    <th>Big Group</th>
+                                    <td class="test-name-header"><span>Big Group</span></td>
                                 
-                                    <th>Disabled</th>
+                                    <td class="test-name-header"><span>Disabled</span></td>
                                 
-                                    <th>Key Values</th>
+                                    <td class="test-name-header"><span>Key Values</span></td>
                                 
-                                    <th>Logging</th>
+                                    <td class="test-name-header"><span>Logging</span></td>
                                 
-                                    <th>Simple</th>
+                                    <td class="test-name-header"><span>Simple</span></td>
                                 
-                                    <th>Simple Source</th>
+                                    <td class="test-name-header"><span>Simple Source</span></td>
                                 
-                                    <th>With Attrs Attributes</th>
+                                    <td class="test-name-header"><span>With Attrs Attributes</span></td>
                                 
-                                    <th>With Attrs Key Values</th>
+                                    <td class="test-name-header"><span>With Attrs Key Values</span></td>
                                 
-                                    <th>With Attrs Simple</th>
+                                    <td class="test-name-header"><span>With Attrs Simple</span></td>
                                 
-                                    <th>With Group Attributes</th>
+                                    <td class="test-name-header"><span>With Group Attributes</span></td>
                                 
-                                    <th>With Group Key Values</th>
+                                    <td class="test-name-header"><span>With Group Key Values</span></td>
+                                
+                                
+                                    <th class="center">by Data</th>
+                                
+                                    <th class="center">by Test</th>
+                                
+                                    <th class="center">Original</th>
                                 
                             </tr>
                             
@@ -1275,16 +1794,16 @@
                                         <td class="number">416</td>
                                     
                                         
-                                        <td class="number">633</td>
+                                        <td class="number">3,742</td>
                                     
                                         
                                         <td class="number">0</td>
                                     
                                         
-                                        <td class="number">416</td>
+                                        <td class="number">417</td>
                                     
                                         
-                                        <td class="number">1635</td>
+                                        <td class="number">1,635</td>
                                     
                                         
                                         <td class="number">32</td>
@@ -1307,6 +1826,13 @@
                                         
                                         <td class="number">505</td>
                                     
+                                    
+                                        <td class="number">92.20</td>
+                                    
+                                        <td class="number">87.32</td>
+                                    
+                                        <td class="number">87.32</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -1317,7 +1843,7 @@
                                         <td class="number">504</td>
                                     
                                         
-                                        <td class="number">1816</td>
+                                        <td class="number">33,065</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -1326,7 +1852,7 @@
                                         <td class="number">504</td>
                                     
                                         
-                                        <td class="number">11839</td>
+                                        <td class="number">11,840</td>
                                     
                                         
                                         <td class="number">232</td>
@@ -1349,6 +1875,13 @@
                                         
                                         <td class="number">504</td>
                                     
+                                    
+                                        <td class="number">95.54</td>
+                                    
+                                        <td class="number">95.65</td>
+                                    
+                                        <td class="number">95.65</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -1356,40 +1889,47 @@
                                     
                                     
                                         
-                                        <td class="number">1384</td>
+                                        <td class="number">1,384</td>
                                     
                                         
-                                        <td class="number">2928</td>
+                                        <td class="number">17,936</td>
                                     
                                         
                                         <td class="number">0</td>
                                     
                                         
-                                        <td class="number">1384</td>
+                                        <td class="number">1,384</td>
                                     
                                         
-                                        <td class="number">26992</td>
-                                    
-                                        
-                                        <td class="number">240</td>
-                                    
-                                        
-                                        <td class="number">1280</td>
-                                    
-                                        
-                                        <td class="number">1384</td>
-                                    
-                                        
-                                        <td class="number">1384</td>
+                                        <td class="number">26,992</td>
                                     
                                         
                                         <td class="number">240</td>
                                     
                                         
-                                        <td class="number">1384</td>
+                                        <td class="number">1,280</td>
                                     
                                         
-                                        <td class="number">1384</td>
+                                        <td class="number">1,384</td>
+                                    
+                                        
+                                        <td class="number">1,384</td>
+                                    
+                                        
+                                        <td class="number">240</td>
+                                    
+                                        
+                                        <td class="number">1,384</td>
+                                    
+                                        
+                                        <td class="number">1,384</td>
+                                    
+                                    
+                                        <td class="number">83.72</td>
+                                    
+                                        <td class="number">84.70</td>
+                                    
+                                        <td class="number">84.70</td>
                                     
                                 </tr>
                             
@@ -1433,6 +1973,13 @@
                                         
                                         <td class="number">560</td>
                                     
+                                    
+                                        <td class="number">98.68</td>
+                                    
+                                        <td class="number">98.61</td>
+                                    
+                                        <td class="number">98.61</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -1475,6 +2022,13 @@
                                         
                                         <td class="number">240</td>
                                     
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
+                                        <td class="number">100.00</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -1482,40 +2036,47 @@
                                     
                                     
                                         
-                                        <td class="number">9946</td>
+                                        <td class="number">9,946</td>
                                     
                                         
-                                        <td class="number">28674</td>
+                                        <td class="number">181,044</td>
                                     
                                         
                                         <td class="number">0</td>
                                     
                                         
-                                        <td class="number">9945</td>
+                                        <td class="number">9,944</td>
                                     
                                         
-                                        <td class="number">222994</td>
+                                        <td class="number">222,997</td>
                                     
                                         
-                                        <td class="number">1481</td>
+                                        <td class="number">1,481</td>
                                     
                                         
-                                        <td class="number">4277</td>
+                                        <td class="number">4,277</td>
                                     
                                         
-                                        <td class="number">16884</td>
+                                        <td class="number">16,885</td>
                                     
                                         
-                                        <td class="number">16880</td>
+                                        <td class="number">16,885</td>
                                     
                                         
-                                        <td class="number">8840</td>
+                                        <td class="number">8,839</td>
                                     
                                         
-                                        <td class="number">16213</td>
+                                        <td class="number">16,214</td>
                                     
                                         
-                                        <td class="number">16214</td>
+                                        <td class="number">16,213</td>
+                                    
+                                    
+                                        <td class="number">4.94</td>
+                                    
+                                        <td class="number">9.78</td>
+                                    
+                                        <td class="number">9.78</td>
                                     
                                 </tr>
                             
@@ -1524,19 +2085,19 @@
                                     
                                     
                                         
-                                        <td class="number">8088</td>
+                                        <td class="number">8,089</td>
                                     
                                         
-                                        <td class="number">27052</td>
+                                        <td class="number">179,651</td>
                                     
                                         
                                         <td class="number">0</td>
                                     
                                         
-                                        <td class="number">8089</td>
+                                        <td class="number">8,089</td>
                                     
                                         
-                                        <td class="number">152371</td>
+                                        <td class="number">152,369</td>
                                     
                                         
                                         <td class="number">336</td>
@@ -1545,19 +2106,26 @@
                                         <td class="number">592</td>
                                     
                                         
-                                        <td class="number">15435</td>
+                                        <td class="number">15,435</td>
                                     
                                         
-                                        <td class="number">15432</td>
+                                        <td class="number">15,434</td>
                                     
                                         
-                                        <td class="number">6982</td>
+                                        <td class="number">6,982</td>
                                     
                                         
-                                        <td class="number">14603</td>
+                                        <td class="number">14,603</td>
                                     
                                         
-                                        <td class="number">14603</td>
+                                        <td class="number">14,601</td>
+                                    
+                                    
+                                        <td class="number">52.77</td>
+                                    
+                                        <td class="number">55.84</td>
+                                    
+                                        <td class="number">55.84</td>
                                     
                                 </tr>
                             
@@ -1566,40 +2134,47 @@
                                     
                                     
                                         
-                                        <td class="number">6287</td>
+                                        <td class="number">6,287</td>
                                     
                                         
-                                        <td class="number">28054</td>
+                                        <td class="number">187,673</td>
                                     
                                         
                                         <td class="number">0</td>
                                     
                                         
-                                        <td class="number">6288</td>
+                                        <td class="number">6,287</td>
                                     
                                         
-                                        <td class="number">111442</td>
+                                        <td class="number">111,443</td>
                                     
                                         
                                         <td class="number">336</td>
                                     
                                         
-                                        <td class="number">2715</td>
+                                        <td class="number">2,715</td>
                                     
                                         
-                                        <td class="number">11594</td>
+                                        <td class="number">11,594</td>
                                     
                                         
-                                        <td class="number">11595</td>
+                                        <td class="number">11,595</td>
                                     
                                         
-                                        <td class="number">5182</td>
+                                        <td class="number">5,182</td>
                                     
                                         
-                                        <td class="number">14778</td>
+                                        <td class="number">14,779</td>
                                     
                                         
-                                        <td class="number">14778</td>
+                                        <td class="number">14,779</td>
+                                    
+                                    
+                                        <td class="number">53.36</td>
+                                    
+                                        <td class="number">56.43</td>
+                                    
+                                        <td class="number">56.43</td>
                                     
                                 </tr>
                             
@@ -1643,6 +2218,13 @@
                                         
                                         <td class="number">472</td>
                                     
+                                    
+                                        <td class="number">96.87</td>
+                                    
+                                        <td class="number">96.87</td>
+                                    
+                                        <td class="number">96.87</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -1653,7 +2235,7 @@
                                         <td class="number">280</td>
                                     
                                         
-                                        <td class="number">3241</td>
+                                        <td class="number">41,152</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -1684,6 +2266,13 @@
                                     
                                         
                                         <td class="number">296</td>
+                                    
+                                    
+                                        <td class="number">99.16</td>
+                                    
+                                        <td class="number">99.19</td>
+                                    
+                                        <td class="number">99.19</td>
                                     
                                 </tr>
                             
@@ -1879,7 +2468,7 @@ minus the one shown in the <code>Excluded</code> list to the right.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-08-18 01:23:55 UTC</span>
+              <span class="fixed">2024-08-20 17:15:01 UTC</span>
             </div>
           </td>
           <td class="right">
@@ -1910,6 +2499,10 @@ minus the one shown in the <code>Excluded</code> list to the right.</p>
                 "Scores are on scale of <code>0..100</code>. Higher is better.<br/>" +
                 "Metrics algorithms completely made up out of thin air.<br/>" +
                 "See <a href='#scoring_algorithms'>notes below</a> for details."
+        },
+        {
+            "ID":   "details",
+            "Name": "Details"
         },
         {
             "ID":      "micros",

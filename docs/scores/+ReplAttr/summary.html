@@ -240,16 +240,21 @@
         <div>
             <table class="top">
                 <tr class="title"><td colspan="2"><h2>Speed vs. Functionality</h2></td></tr>
-
+                
                 
 
                 
+
+
+                
+
                 <tr class="title">
                     <td colspan="2">
                         <table class="score-buttons">
                             <tr>
                                 <td>
                                     <button id="score-button-scores" type="button" onclick="showDataTable(`scores`)">Scores</button>
+                                    <button id="score-button-details" type="button" onclick="showDataTable(`details`)">Details</button>
                                 </td>
                                 <td class="right">
                                     <button id="score-button-micros" type="button" onclick="showDataTable(`micros`)">Micros</button>
@@ -274,44 +279,150 @@
                                 <tr>
                                     <td><a href="/go-slog/handler/MadkinsFlash.html">madkins/flash</a></td>
                                     <td class="number">98.47</td>
-                                    <td class="number">95.73</td>
+                                    <td class="number">95.60</td>
                                 </tr>
                             
                                 <tr>
                                     <td><a href="/go-slog/handler/MadkinsReplAttr.html">madkins/replattr</a></td>
                                     <td class="number">98.47</td>
-                                    <td class="number">93.78</td>
+                                    <td class="number">93.72</td>
+                                </tr>
+                            
+                        </table>
+                        
+                        <table class="data" id="score-table-details">
+                            <tr>
+                                <th>Handler</th>
+                                
+                                    <td class="test-name-header"><span>Attributes</span></td>
+                                
+                                    <td class="test-name-header"><span>Big Group</span></td>
+                                
+                                    <td class="test-name-header"><span>Disabled</span></td>
+                                
+                                    <td class="test-name-header"><span>Key Values</span></td>
+                                
+                                    <td class="test-name-header"><span>Logging</span></td>
+                                
+                                    <td class="test-name-header"><span>Simple</span></td>
+                                
+                                    <td class="test-name-header"><span>Simple Source</span></td>
+                                
+                                    <td class="test-name-header"><span>With Attrs Attributes</span></td>
+                                
+                                    <td class="test-name-header"><span>With Attrs Key Values</span></td>
+                                
+                                    <td class="test-name-header"><span>With Attrs Simple</span></td>
+                                
+                                    <td class="test-name-header"><span>With Group Attributes</span></td>
+                                
+                                    <td class="test-name-header"><span>With Group Key Values</span></td>
+                                
+                                <th>Warnings</th>
+                                <th>Benchmarks</th>
+                            </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/MadkinsFlash.html">madkins/flash</a></td>
+                                    
+                                        <td class="number">97.10</td>
+                                    
+                                        <td class="number">95.83</td>
+                                    
+                                        <td class="number">97.03</td>
+                                    
+                                        <td class="number">96.95</td>
+                                    
+                                        <td class="number">94.95</td>
+                                    
+                                        <td class="number">88.11</td>
+                                    
+                                        <td class="number">87.89</td>
+                                    
+                                        <td class="number">98.00</td>
+                                    
+                                        <td class="number">98.06</td>
+                                    
+                                        <td class="number">97.75</td>
+                                    
+                                        <td class="number">97.78</td>
+                                    
+                                        <td class="number">97.81</td>
+                                    
+                                    <td class="number">98.47</td>
+                                    <td class="number">95.60</td>
+                                </tr>
+                            
+                                <tr>
+                                    <td><a href="/go-slog/handler/MadkinsReplAttr.html">madkins/replattr</a></td>
+                                    
+                                        <td class="number">95.02</td>
+                                    
+                                        <td class="number">92.23</td>
+                                    
+                                        <td class="number">97.05</td>
+                                    
+                                        <td class="number">94.88</td>
+                                    
+                                        <td class="number">92.37</td>
+                                    
+                                        <td class="number">84.44</td>
+                                    
+                                        <td class="number">86.00</td>
+                                    
+                                        <td class="number">96.73</td>
+                                    
+                                        <td class="number">96.69</td>
+                                    
+                                        <td class="number">97.05</td>
+                                    
+                                        <td class="number">96.06</td>
+                                    
+                                        <td class="number">96.08</td>
+                                    
+                                    <td class="number">98.47</td>
+                                    <td class="number">93.72</td>
                                 </tr>
                             
                         </table>
                         
                         <table class="data" id="score-table-micros">
                             <tr>
-                                <th>Handler</th>
+                                <th>
+                                    <div class="corner-top-right">Tests →</div>
+                                    <div class="corner-bottom-left">↓Handlers</div>
+                                </th>
                                 
-                                    <th>Attributes</th>
+                                    <td class="test-name-header"><span>Attributes</span></td>
                                 
-                                    <th>Big Group</th>
+                                    <td class="test-name-header"><span>Big Group</span></td>
                                 
-                                    <th>Disabled</th>
+                                    <td class="test-name-header"><span>Disabled</span></td>
                                 
-                                    <th>Key Values</th>
+                                    <td class="test-name-header"><span>Key Values</span></td>
                                 
-                                    <th>Logging</th>
+                                    <td class="test-name-header"><span>Logging</span></td>
                                 
-                                    <th>Simple</th>
+                                    <td class="test-name-header"><span>Simple</span></td>
                                 
-                                    <th>Simple Source</th>
+                                    <td class="test-name-header"><span>Simple Source</span></td>
                                 
-                                    <th>With Attrs Attributes</th>
+                                    <td class="test-name-header"><span>With Attrs Attributes</span></td>
                                 
-                                    <th>With Attrs Key Values</th>
+                                    <td class="test-name-header"><span>With Attrs Key Values</span></td>
                                 
-                                    <th>With Attrs Simple</th>
+                                    <td class="test-name-header"><span>With Attrs Simple</span></td>
                                 
-                                    <th>With Group Attributes</th>
+                                    <td class="test-name-header"><span>With Group Attributes</span></td>
                                 
-                                    <th>With Group Key Values</th>
+                                    <td class="test-name-header"><span>With Group Key Values</span></td>
+                                
+                                
+                                    <th>by Data</th>
+                                
+                                    <th>by Test</th>
+                                
+                                    <th>Original</th>
                                 
                             </tr>
                             
@@ -320,40 +431,47 @@
                                     
                                     
                                         
-                                        <td class="number">1.344</td>
+                                        <td class="number">1.361</td>
                                     
                                         
-                                        <td class="number">3.235</td>
+                                        <td class="number">24.019</td>
                                     
                                         
                                         <td class="number">0.004</td>
                                     
                                         
-                                        <td class="number">1.395</td>
+                                        <td class="number">1.425</td>
                                     
                                         
-                                        <td class="number">33.703</td>
+                                        <td class="number">34.024</td>
                                     
                                         
-                                        <td class="number">0.445</td>
+                                        <td class="number">0.449</td>
                                     
                                         
-                                        <td class="number">0.903</td>
+                                        <td class="number">0.910</td>
                                     
                                         
-                                        <td class="number">1.362</td>
+                                        <td class="number">1.430</td>
                                     
                                         
-                                        <td class="number">1.411</td>
+                                        <td class="number">1.421</td>
                                     
                                         
-                                        <td class="number">0.460</td>
+                                        <td class="number">0.462</td>
                                     
                                         
-                                        <td class="number">1.401</td>
+                                        <td class="number">1.403</td>
                                     
                                         
-                                        <td class="number">1.427</td>
+                                        <td class="number">1.447</td>
+                                    
+                                    
+                                        <td class="number">95.52</td>
+                                    
+                                        <td class="number">95.60</td>
+                                    
+                                        <td class="number">95.60</td>
                                     
                                 </tr>
                             
@@ -362,40 +480,47 @@
                                     
                                     
                                         
-                                        <td class="number">2.025</td>
+                                        <td class="number">2.031</td>
                                     
                                         
-                                        <td class="number">6.798</td>
+                                        <td class="number">47.254</td>
                                     
                                         
                                         <td class="number">0.004</td>
                                     
                                         
-                                        <td class="number">2.059</td>
+                                        <td class="number">2.073</td>
                                     
                                         
-                                        <td class="number">51.729</td>
+                                        <td class="number">52.199</td>
                                     
                                         
-                                        <td class="number">0.620</td>
+                                        <td class="number">0.627</td>
                                     
                                         
-                                        <td class="number">1.121</td>
+                                        <td class="number">1.140</td>
                                     
                                         
-                                        <td class="number">2.022</td>
+                                        <td class="number">2.036</td>
                                     
                                         
-                                        <td class="number">2.065</td>
+                                        <td class="number">2.072</td>
                                     
                                         
-                                        <td class="number">0.623</td>
+                                        <td class="number">0.637</td>
                                     
                                         
-                                        <td class="number">2.048</td>
+                                        <td class="number">2.050</td>
                                     
                                         
-                                        <td class="number">2.137</td>
+                                        <td class="number">2.099</td>
+                                    
+                                    
+                                        <td class="number">93.61</td>
+                                    
+                                        <td class="number">93.72</td>
+                                    
+                                        <td class="number">93.72</td>
                                     
                                 </tr>
                             
@@ -403,31 +528,41 @@
                         
                         <table class="data" id="score-table-allocs">
                             <tr>
-                                <th class="bottom">Handler</th>
+                                <th>
+                                    <div class="corner-top-right">Tests →</div>
+                                    <div class="corner-bottom-left">↓Handlers</div>
+                                </th>
                                 
-                                    <th>Attributes</th>
+                                    <td class="test-name-header"><span>Attributes</span></td>
                                 
-                                    <th>Big Group</th>
+                                    <td class="test-name-header"><span>Big Group</span></td>
                                 
-                                    <th>Disabled</th>
+                                    <td class="test-name-header"><span>Disabled</span></td>
                                 
-                                    <th>Key Values</th>
+                                    <td class="test-name-header"><span>Key Values</span></td>
                                 
-                                    <th>Logging</th>
+                                    <td class="test-name-header"><span>Logging</span></td>
                                 
-                                    <th>Simple</th>
+                                    <td class="test-name-header"><span>Simple</span></td>
                                 
-                                    <th>Simple Source</th>
+                                    <td class="test-name-header"><span>Simple Source</span></td>
                                 
-                                    <th>With Attrs Attributes</th>
+                                    <td class="test-name-header"><span>With Attrs Attributes</span></td>
                                 
-                                    <th>With Attrs Key Values</th>
+                                    <td class="test-name-header"><span>With Attrs Key Values</span></td>
                                 
-                                    <th>With Attrs Simple</th>
+                                    <td class="test-name-header"><span>With Attrs Simple</span></td>
                                 
-                                    <th>With Group Attributes</th>
+                                    <td class="test-name-header"><span>With Group Attributes</span></td>
                                 
-                                    <th>With Group Key Values</th>
+                                    <td class="test-name-header"><span>With Group Key Values</span></td>
+                                
+                                
+                                    <th class="center">by Data</th>
+                                
+                                    <th class="center">by Test</th>
+                                
+                                    <th class="center">Original</th>
                                 
                             </tr>
                             
@@ -439,7 +574,7 @@
                                         <td class="number">5</td>
                                     
                                         
-                                        <td class="number">5</td>
+                                        <td class="number">11</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -471,6 +606,13 @@
                                         
                                         <td class="number">5</td>
                                     
+                                    
+                                        <td class="number">95.52</td>
+                                    
+                                        <td class="number">95.60</td>
+                                    
+                                        <td class="number">95.60</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -481,7 +623,7 @@
                                         <td class="number">6</td>
                                     
                                         
-                                        <td class="number">6</td>
+                                        <td class="number">12</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -513,37 +655,54 @@
                                         
                                         <td class="number">6</td>
                                     
+                                    
+                                        <td class="number">93.61</td>
+                                    
+                                        <td class="number">93.72</td>
+                                    
+                                        <td class="number">93.72</td>
+                                    
                                 </tr>
                             
                         </table>
                         
                         <table class="data" id="score-table-bytes">
                             <tr>
-                                <th class="bottom">Handler</th>
+                                <th>
+                                    <div class="corner-top-right">Tests →</div>
+                                    <div class="corner-bottom-left">↓Handlers</div>
+                                </th>
                                 
-                                    <th>Attributes</th>
+                                    <td class="test-name-header"><span>Attributes</span></td>
                                 
-                                    <th>Big Group</th>
+                                    <td class="test-name-header"><span>Big Group</span></td>
                                 
-                                    <th>Disabled</th>
+                                    <td class="test-name-header"><span>Disabled</span></td>
                                 
-                                    <th>Key Values</th>
+                                    <td class="test-name-header"><span>Key Values</span></td>
                                 
-                                    <th>Logging</th>
+                                    <td class="test-name-header"><span>Logging</span></td>
                                 
-                                    <th>Simple</th>
+                                    <td class="test-name-header"><span>Simple</span></td>
                                 
-                                    <th>Simple Source</th>
+                                    <td class="test-name-header"><span>Simple Source</span></td>
                                 
-                                    <th>With Attrs Attributes</th>
+                                    <td class="test-name-header"><span>With Attrs Attributes</span></td>
                                 
-                                    <th>With Attrs Key Values</th>
+                                    <td class="test-name-header"><span>With Attrs Key Values</span></td>
                                 
-                                    <th>With Attrs Simple</th>
+                                    <td class="test-name-header"><span>With Attrs Simple</span></td>
                                 
-                                    <th>With Group Attributes</th>
+                                    <td class="test-name-header"><span>With Group Attributes</span></td>
                                 
-                                    <th>With Group Key Values</th>
+                                    <td class="test-name-header"><span>With Group Key Values</span></td>
+                                
+                                
+                                    <th class="center">by Data</th>
+                                
+                                    <th class="center">by Test</th>
+                                
+                                    <th class="center">Original</th>
                                 
                             </tr>
                             
@@ -555,7 +714,7 @@
                                         <td class="number">504</td>
                                     
                                         
-                                        <td class="number">1816</td>
+                                        <td class="number">33,065</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -564,7 +723,7 @@
                                         <td class="number">504</td>
                                     
                                         
-                                        <td class="number">11839</td>
+                                        <td class="number">11,840</td>
                                     
                                         
                                         <td class="number">232</td>
@@ -587,6 +746,13 @@
                                         
                                         <td class="number">504</td>
                                     
+                                    
+                                        <td class="number">95.52</td>
+                                    
+                                        <td class="number">95.60</td>
+                                    
+                                        <td class="number">95.60</td>
+                                    
                                 </tr>
                             
                                 <tr>
@@ -597,7 +763,7 @@
                                         <td class="number">508</td>
                                     
                                         
-                                        <td class="number">1820</td>
+                                        <td class="number">33,067</td>
                                     
                                         
                                         <td class="number">0</td>
@@ -606,7 +772,7 @@
                                         <td class="number">508</td>
                                     
                                         
-                                        <td class="number">12043</td>
+                                        <td class="number">12,043</td>
                                     
                                         
                                         <td class="number">236</td>
@@ -628,6 +794,13 @@
                                     
                                         
                                         <td class="number">508</td>
+                                    
+                                    
+                                        <td class="number">93.61</td>
+                                    
+                                        <td class="number">93.72</td>
+                                    
+                                        <td class="number">93.72</td>
                                     
                                 </tr>
                             
@@ -802,7 +975,7 @@ which are applied to the several specific benchmark result values.</p>
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text">Date/time when this data was generated</span>
-              <span class="fixed">2024-08-18 01:23:55 UTC</span>
+              <span class="fixed">2024-08-20 17:15:01 UTC</span>
             </div>
           </td>
           <td class="right">
@@ -833,6 +1006,10 @@ which are applied to the several specific benchmark result values.</p>
                 "Scores are on scale of <code>0..100</code>. Higher is better.<br/>" +
                 "Metrics algorithms completely made up out of thin air.<br/>" +
                 "See <a href='#scoring_algorithms'>notes below</a> for details."
+        },
+        {
+            "ID":   "details",
+            "Name": "Details"
         },
         {
             "ID":      "micros",
