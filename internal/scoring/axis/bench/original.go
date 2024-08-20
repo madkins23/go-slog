@@ -151,6 +151,6 @@ func (o *Original) Score() score.Value {
 // -----------------------------------------------------------------------------
 
 func fuzzyEqual(a, b score.Value) bool {
-	const epsilon = 0.000000001
+	const epsilon = 0.00000001
 	return math.Abs(float64(a-b)) < epsilon
 }

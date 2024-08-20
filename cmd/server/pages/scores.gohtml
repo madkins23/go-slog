@@ -19,43 +19,24 @@
 
                 {{/* Score Keeper Data Tables */}}
 
-                {{/* Score Keeper Data Table Choices */}}
-                <tr class="title">
-                    <td colspan="2">
-                        <table class="score-buttons">
-                            <tr>
-                                <td>
-                                    <button id="score-button-scores" type="button" onclick="showDataTable(`scores`)">Scores</button>
-                                    <button id="score-button-details" type="button" onclick="showDataTable(`details`)">Details</button>
-                                </td>
-                                <td class="right">
-                                    <button id="score-button-micros" type="button" onclick="showDataTable(`micros`)">Micros</button>
-                                    Memory:
-                                    <button id="score-button-allocs" type="button" onclick="showDataTable(`allocs`)">Allocs</button>
-                                    <button id="score-button-bytes" type="button" onclick="showDataTable(`bytes`)">Bytes</button>
-                                </td>
-                            </tr>
-                        </table>
-                    </td>
-                </tr>
                 {{/* Score Keeper Data Table: SCORES */}}
                 <tr>
                     <td colspan="2">
                         <table class="data" id="score-table-scores">
                             <caption>
                                 Scores are on scale of <code>0..100</code>. Higher is better.<br/>
-                                Metrics algorithms completely made up out of thin air.<br/>"
+                                Metrics algorithms completely made up out of thin air.<br/>
                                 See <a href='#scoring_algorithms'>notes below</a> for details.
                             </caption>
                             <tr>
                                 <th>Handler</th>
                                 <th class="axis-box">
-                                    <label for="score-button-X">{{ $.Keeper.X.Name }}</label>
-                                    <input id="score-button-X" type="checkbox" onclick="toggleAxisData('X')"/>
+                                    <label for="score-checkbox-X">{{ $.Keeper.X.Name }}</label>
+                                    <input id="score-checkbox-X" type="checkbox" onclick="axisDisplay('X')"/>
                                 </th>
                                 <th class="axis-box">
-                                    <label for="score-button-Y">{{ $.Keeper.Y.Name }}</label>
-                                    <input id="score-button-Y" type="checkbox" onclick="toggleAxisData('Y')"/>
+                                    <label for="score-checkbox-Y">{{ $.Keeper.Y.Name }}</label>
+                                    <input id="score-checkbox-Y" type="checkbox" onclick="axisDisplay('Y')"/>
                                 </th>
                             </tr>
                             {{ range $hdlr := .Keeper.HandlerTags }}
@@ -68,131 +49,156 @@
                         </table>
                     </td>
                 </tr>
-                <tr>
-                    <td colspan="2">
-                        {{ range $which, $axis := $.Keeper.Axes }}
-                            <div id="score-div-{{ $which }}" style="display:none">
-                                <h3>{{ $which }} Axis: <code>{{ $axis.Name }}</code></h3>
-                                {{ if eq $axis.Type "Benchmarks" }}
-                                    <p>Is Benchmarks</p>
-                                    {{/* Score Keeper Data Table: DETAILS */}}
-                                    <table class="data" id="score-table-details">
-                                        <tr>
-                                            <th>Handler</th>
-                                            {{ range $test := $.Benchmarks.TestTags }}
-                                                <td class="test-name-header"><span>{{ $test.Name }}</span></td>
-                                            {{ end }}
-                                            <th>{{ $.Keeper.X.Name }}</th>
-                                            <th>{{ $.Keeper.Y.Name }}</th>
-                                        </tr>
-                                        {{ range $hdlr := $.Keeper.HandlerTags }}
-                                            <tr>
-                                                <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
-                                                {{ range $test := $.Benchmarks.TestTags }}
-                                                    <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreForTest $hdlr $test) 2 }}</td>
-                                                {{ end }}
-                                                <td class="number">{{ $.FixValue ($.Keeper.X.ScoreFor $hdlr) 2 }}</td>
-                                                <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreFor $hdlr) 2 }}</td>
-                                            </tr>
+
+                {{ range $which, $axis := $.Keeper.Axes }}
+                    <tr class="axis-data-{{ $which }}" style="display:none"><td colspan="2"><hr class="thin"/></td></tr>
+                    <tr class="axis-data-{{ $which }}" style="display:none">
+                        <td colspan="2">
+                            <h3>{{ $which }} Axis: <code>{{ $axis.Name }}</code></h3>
+                        </td>
+                    </tr>
+                    {{/* Score Keeper Data Table Choices */}}
+                    {{ if eq $axis.Type "Benchmarks" }}
+                        <tr class="axis-data-{{ $which }} title" style="display:none">
+                            <td colspan="2">
+                                <table class="score-buttons">
+                                    <tr>
+                                        <td>
+                                            <button id="score-button-{{ $which }}-details" type="button" onclick="showDataTable('{{ $which }}', `details`)" disabled>Details</button>
+                                        </td>
+                                        <td class="right">
+                                            <button id="score-button-{{ $which }}-micros" type="button" onclick="showDataTable('{{ $which }}', `micros`)">Micros</button>
+                                            Memory:
+                                            <button id="score-button-{{ $which }}-allocs" type="button" onclick="showDataTable('{{ $which }}', `allocs`)">Allocs</button>
+                                            <button id="score-button-{{ $which }}-bytes" type="button" onclick="showDataTable('{{ $which }}', `bytes`)">Bytes</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr class="axis-data-{{ $which }}" style="display:none">
+                            <td colspan="2">
+                                {{/* Score Keeper Data Table: DETAILS */}}
+                                <table class="data" id="score-table-{{ $which }}-details">
+                                    <tr>
+                                        <th>
+                                            <div class="corner-top-right">Tests →</div>
+                                            <div class="corner-bottom-left">↓Handlers</div>
+                                        </th>
+                                        {{ range $test := $.Benchmarks.TestTags }}
+                                            <td class="test-name-header"><span>{{ $test.Name }}</span></td>
                                         {{ end }}
-                                    </table>
-                                    {{/* Score Keeper Data Table: MICROS / Operation */}}
-                                    <table class="data" id="score-table-micros">
-                                        <caption>Numbers represent microseconds per operation. Lower is better</caption>
+                                        {{ range $scoreType := $scoresByTest }}
+                                            <th>{{ $scoreType.ColHeader }}</th>
+                                        {{ end }}
+                                    </tr>
+                                    {{ range $hdlr := $.Keeper.HandlerTags }}
                                         <tr>
-                                            <th>
-                                                <div class="corner-top-right">Tests →</div>
-                                                <div class="corner-bottom-left">↓Handlers</div>
-                                            </th>
+                                            <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
                                             {{ range $test := $.Benchmarks.TestTags }}
-                                                <td class="test-name-header"><span>{{ $test.Name }}</span></td>
+                                                <td class="number">{{ $.FixValue ($axis.ScoreForTest $hdlr $test) 2 }}</td>
+                                            {{ end }}
+                                            {{ range $scoreType := $scoresByTest }}
+                                                <td class="number">{{ $.FixValue ($axis.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                            {{end}}
+                                        </tr>
+                                    {{ end }}
+                                </table>
+                                {{/* Score Keeper Data Table: MICROS / Operation */}}
+                                <table class="data" id="score-table-{{ $which }}-micros" style="display:none">
+                                    <caption>Numbers represent microseconds per operation. Lower is better</caption>
+                                    <tr>
+                                        <th>
+                                            <div class="corner-top-right">Tests →</div>
+                                            <div class="corner-bottom-left">↓Handlers</div>
+                                        </th>
+                                        {{ range $test := $.Benchmarks.TestTags }}
+                                            <td class="test-name-header"><span>{{ $test.Name }}</span></td>
+                                        {{ end }}
+                                        {{ range $scoreType := $scoresByData }}
+                                            <th>{{ $scoreType.ColHeader }}</th>
+                                        {{ end }}
+                                    </tr>
+                                    {{ range $hdlr := $.Keeper.HandlerTags }}
+                                        <tr>
+                                            <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
+                                            {{ $testMap := $.Benchmarks.TestRecordsFor $hdlr }}
+                                            {{ range $test := $.Benchmarks.TestTags }}
+                                                {{ $data := index $testMap $test }}
+                                                <td class="number">{{ $.FixFloat (div $data.NanosPerOp 1000.0) 3 }}</td>
                                             {{ end }}
                                             {{ range $scoreType := $scoresByData }}
-                                                <th>{{ $scoreType.ColHeader }}</th>
+                                                <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreForType $hdlr $scoreType) 2 }}</td>
                                             {{ end }}
                                         </tr>
-                                        {{ range $hdlr := $.Keeper.HandlerTags }}
-                                            <tr>
-                                                <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
-                                                {{ $testMap := $.Benchmarks.TestRecordsFor $hdlr }}
-                                                {{ range $test := $.Benchmarks.TestTags }}
-                                                    {{ $data := index $testMap $test }}
-                                                    <td class="number">{{ $.FixFloat (div $data.NanosPerOp 1000.0) 3 }}</td>
-                                                {{ end }}
-                                                {{ range $scoreType := $scoresByData }}
-                                                    <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreForType $hdlr $scoreType) 2 }}</td>
-                                                {{ end }}
-                                            </tr>
+                                    {{ end }}
+                                </table>
+                                {{/* Score Keeper Data Table: Memory ALLOCS */}}
+                                <table class="data" id="score-table-{{ $which }}-allocs" style="display:none">
+                                    <caption>Numbers represent number of memory allocations per operation. Lower is better.</caption>
+                                    <tr>
+                                        <th>
+                                            <div class="corner-top-right">Tests →</div>
+                                            <div class="corner-bottom-left">↓Handlers</div>
+                                        </th>
+                                        {{ range $test := $.Benchmarks.TestTags }}
+                                            <td class="test-name-header"><span>{{ $test.Name }}</span></td>
                                         {{ end }}
-                                    </table>
-                                    {{/* Score Keeper Data Table: Memory ALLOCS */}}
-                                    <table class="data" id="score-table-allocs">
-                                        <caption>Numbers represent number of memory allocations per operation. Lower is better.</caption>
+                                        {{ range $scoreType := $scoresByData }}
+                                            <th class="center">{{ $scoreType.ColHeader }}</th>
+                                        {{ end }}
+                                    </tr>
+                                    {{ range $hdlr := $.Keeper.HandlerTags }}
                                         <tr>
-                                            <th>
-                                                <div class="corner-top-right">Tests →</div>
-                                                <div class="corner-bottom-left">↓Handlers</div>
-                                            </th>
+                                            <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
+                                            {{ $testMap := $.Benchmarks.TestRecordsFor $hdlr }}
                                             {{ range $test := $.Benchmarks.TestTags }}
-                                                <td class="test-name-header"><span>{{ $test.Name }}</span></td>
+                                                {{ $data := index $testMap $test }}
+                                                <td class="number">{{ $.FixUint $data.MemAllocsPerOp }}</td>
                                             {{ end }}
                                             {{ range $scoreType := $scoresByData }}
-                                                <th class="center">{{ $scoreType.ColHeader }}</th>
+                                                <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreForType $hdlr $scoreType) 2 }}</td>
                                             {{ end }}
                                         </tr>
-                                        {{ range $hdlr := $.Keeper.HandlerTags }}
-                                            <tr>
-                                                <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
-                                                {{ $testMap := $.Benchmarks.TestRecordsFor $hdlr }}
-                                                {{ range $test := $.Benchmarks.TestTags }}
-                                                    {{ $data := index $testMap $test }}
-                                                    <td class="number">{{ $.FixUint $data.MemAllocsPerOp }}</td>
-                                                {{ end }}
-                                                {{ range $scoreType := $scoresByData }}
-                                                    <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreForType $hdlr $scoreType) 2 }}</td>
-                                                {{ end }}
-                                            </tr>
+                                    {{ end }}
+                                </table>
+                                {{/* Score Keeper Data Table: Memory BYTES */}}
+                                <table class="data" id="score-table-{{ $which }}-bytes" style="display:none">
+                                    <caption>Numbers represent bytes of memory allocated per operation. Lower is better.</caption>
+                                    <tr>
+                                        <th>
+                                            <div class="corner-top-right">Tests →</div>
+                                            <div class="corner-bottom-left">↓Handlers</div>
+                                        </th>
+                                        {{ range $test := $.Benchmarks.TestTags }}
+                                            <td class="test-name-header"><span>{{ $test.Name }}</span></td>
                                         {{ end }}
-                                    </table>
-                                    {{/* Score Keeper Data Table: Memory BYTES */}}
-                                    <table class="data" id="score-table-bytes">
-                                        <caption>Numbers represent bytes of memory allocated per operation. Lower is better.</caption>
+                                        {{ range $scoreType := $scoresByData }}
+                                            <th class="center">{{ $scoreType.ColHeader }}</th>
+                                        {{ end }}
+                                    </tr>
+                                    {{ range $hdlr := $.Keeper.HandlerTags }}
                                         <tr>
-                                            <th>
-                                                <div class="corner-top-right">Tests →</div>
-                                                <div class="corner-bottom-left">↓Handlers</div>
-                                            </th>
+                                            <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
+                                            {{ $testMap := $.Benchmarks.TestRecordsFor $hdlr }}
                                             {{ range $test := $.Benchmarks.TestTags }}
-                                                <td class="test-name-header"><span>{{ $test.Name }}</span></td>
+                                                {{ $data := index $testMap $test }}
+                                                <td class="number">{{ $.FixUint $data.MemBytesPerOp }}</td>
                                             {{ end }}
                                             {{ range $scoreType := $scoresByData }}
-                                                <th class="center">{{ $scoreType.ColHeader }}</th>
+                                                <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreForType $hdlr $scoreType) 2 }}</td>
                                             {{ end }}
                                         </tr>
-                                        {{ range $hdlr := $.Keeper.HandlerTags }}
-                                            <tr>
-                                                <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
-                                                {{ $testMap := $.Benchmarks.TestRecordsFor $hdlr }}
-                                                {{ range $test := $.Benchmarks.TestTags }}
-                                                    {{ $data := index $testMap $test }}
-                                                    <td class="number">{{ $.FixUint $data.MemBytesPerOp }}</td>
-                                                {{ end }}
-                                                {{ range $scoreType := $scoresByData }}
-                                                    <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreForType $hdlr $scoreType) 2 }}</td>
-                                                {{ end }}
-                                            </tr>
-                                        {{ end }}
-                                    </table>
-                                {{ else if eq $axis.Type "Warnings" }}
-                                    <p>Is Warnings</p>
-                                {{ else }}
-                                    <p class="center">No data for {{ $axis.Type }} axis.</p>
-                                {{ end }}
-                            </div>
-                        {{ end }}
-                        <p class="center" id="score-table-caption"></p>
-                    </td>
-                </tr>
+                                    {{ end }}
+                                </table>
+                            </td>
+                        </tr>
+                    {{ else if eq $axis.Type "Warnings" }}
+                        <tr class="axis-data-{{ $which }}" style="display:none"><td colspan="2" class="attention">TBD:  Warnings</td></tr>
+                    {{ else }}
+                        <tr class="axis-data-{{ $which }}" style="display:none"><td colspan="2" class="attention">No data for {{ $axis.Type }} axis.</td></tr>
+                    {{ end }}
+                {{ end }}
                 <tr><td colspan="2"><hr/></td></tr>
 
                 {{/* Score Keeper Charts */}}
@@ -283,6 +289,14 @@
     </div>
 </div>
 <script>
+    function axisDisplay(which) {
+        let show = document.getElementById(`score-checkbox-` + which).checked ? "table-row" : "none"
+        let rows = document.getElementsByClassName('axis-data-' + which)
+        for (let row in rows) {
+            rows[row].style.display = show
+        }
+    }
+
     function scoreChartSize(size) {
         for (let i = 0; i < 4; i++) {
             document.getElementById(`score-chart-button-${i}`).disabled = i === size
@@ -291,30 +305,25 @@
     }
     scoreChartSize(0);
 
-    const tables = [
-        // {
-        //     "ID":      "scores",
-        //     "Name":    "Scores",
-        //     "Static":   true,
-        // },
-        {
-            "ID":   "details",
-            "Name": "Details"
-        },
-        {
-            "ID":      "micros",
-            "Name":    "Micros",
-        },
-        {
-            "ID":      "allocs",
-            "Name":    "Allocs",
-        },
-        {
-            "ID":      "bytes",
-            "Name":    "Bytes",
-        }
-    ]
-    function showDataTable(which) {
+    function showDataTable(axis, which) {
+        const tables = [
+            {
+                "ID":   "details",
+                "Name": "Details"
+            },
+            {
+                "ID":      "micros",
+                "Name":    "Micros",
+            },
+            {
+                "ID":      "allocs",
+                "Name":    "Allocs",
+            },
+            {
+                "ID":      "bytes",
+                "Name":    "Bytes",
+            }
+        ]
         for (const table of tables) {
             let buttonDisabled = false
             let tableMode = `none`
@@ -322,19 +331,12 @@
                 buttonDisabled = true
                 tableMode = `table`
             }
-            document.getElementById(`score-button-`+table.ID).disabled = buttonDisabled
-            displayTable('score-table-' +table.ID, tableMode)
+            document.getElementById(`score-button-`+axis+'-'+table.ID).disabled = buttonDisabled
+            displayTable('score-table-' + axis + '-' + table.ID, tableMode)
         }
     }
-    showDataTable("scores")
-
-    function toggleAxisData(which) {
-        let axisDiv = document.getElementById(`score-div-` + which)
-        let axisDsp = axisDiv.style.display
-        let axisBtn = document.getElementById(`score-button-` + which)
-        axisBtn.style.backgroundColor = axisDsp === "none" ? "gray" : ""
-        axisDiv.style.display = axisDsp === "none" ? "block" : "none"
-    }
+    showDataTable('X', 'details')
+    showDataTable('Y', 'details')
 </script>
 </body>
 </html>

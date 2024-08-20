@@ -506,6 +506,12 @@ table.warning-data td, th {
     /*right:0;*/
 }
 
+.attention {
+    font-size: 120%;
+    font-weight: bold;
+    color: darkred;
+}
+
 .fixed {
     font-family: monospace;
 }
