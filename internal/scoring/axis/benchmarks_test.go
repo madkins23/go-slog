@@ -9,6 +9,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/madkins23/go-slog/internal/data"
+	"github.com/madkins23/go-slog/internal/scoring/axis/bench"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
@@ -35,8 +36,8 @@ func TestSetup(t *testing.T) {
 	}
 }
 
-var defaultBenchmarkScoreWeight = map[BenchWeight]uint{
-	Allocations: 1,
-	AllocBytes:  2,
-	Nanoseconds: 3,
+var defaultBenchmarkScoreWeight = map[bench.Weight]uint{
+	bench.Allocations: 1,
+	bench.AllocBytes:  2,
+	bench.Nanoseconds: 3,
 }

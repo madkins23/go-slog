@@ -6,6 +6,7 @@ import (
 	"github.com/madkins23/go-slog/infra/warning"
 	"github.com/madkins23/go-slog/internal/markdown"
 	"github.com/madkins23/go-slog/internal/scoring/axis"
+	"github.com/madkins23/go-slog/internal/scoring/axis/bench"
 	"github.com/madkins23/go-slog/internal/scoring/filter"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
@@ -57,8 +58,8 @@ var defaultWarningScoreWeight = map[warning.Level]uint{
 }
 
 // benchScoreWeight has the multipliers for different benchmark values.
-var defaultBenchmarkScoreWeight = map[axis.BenchWeight]uint{
-	axis.Allocations: 1,
-	axis.AllocBytes:  2,
-	axis.Nanoseconds: 3,
+var defaultBenchmarkScoreWeight = map[bench.Weight]uint{
+	bench.Allocations: 1,
+	bench.AllocBytes:  2,
+	bench.Nanoseconds: 3,
 }
