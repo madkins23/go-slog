@@ -278,6 +278,14 @@ type Levels struct {
 	levels []*dataLevel
 }
 
+func (l *Levels) LevelCount(level warning.Level) uint64 {
+	if lvl, ok := l.lookup[level.String()]; ok {
+		return lvl.Count()
+	} else {
+		return 0
+	}
+}
+
 func (l *Levels) Levels() []*dataLevel {
 	if len(l.levels) < 1 {
 		l.levels = make([]*dataLevel, 0, len(warning.LevelOrder))
@@ -310,8 +318,16 @@ type dataLevel struct {
 	warnings []*dataWarning
 }
 
+func (l *dataLevel) Count() uint64 {
+	return uint64(len(l.warnings))
+}
+
 func (l *dataLevel) Name() string {
 	return l.Level.String()
+}
+
+func (l *dataLevel) String() string {
+	return fmt.Sprintf("Level:%s=%d", l.Name(), len(l.warnings))
 }
 
 func (l *dataLevel) Warnings() []*dataWarning {
