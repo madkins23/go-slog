@@ -30,26 +30,26 @@
                             </caption>
                             <tr>
                                 <th>Handler</th>
-                                <th class="axis-box">
-                                    <label for="score-checkbox-X">{{ $.Keeper.X.Name }}</label>
-                                    <input id="score-checkbox-X" type="checkbox" onclick="axisDisplay('X')"/>
-                                </th>
-                                <th class="axis-box">
-                                    <label for="score-checkbox-Y">{{ $.Keeper.Y.Name }}</label>
-                                    <input id="score-checkbox-Y" type="checkbox" onclick="axisDisplay('Y')"/>
-                                </th>
+                                {{ range $which, $axis := $.Keeper.Axes }}
+                                    <th class="axis-box">
+                                        <label for="score-checkbox-{{ $which }}">{{ $axis.Name }}</label>
+                                        <input id="score-checkbox-{{ $which }}" type="checkbox" onclick="axisDisplay('{{ $which }}')"/>
+                                    </th>
+                                {{ end }}
                             </tr>
                             {{ range $hdlr := .Keeper.HandlerTags }}
                                 <tr>
                                     <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
-                                    <td class="number">{{ $.FixValue ($.Keeper.X.ScoreFor $hdlr) 2 }}</td>
-                                    <td class="number">{{ $.FixValue ($.Keeper.Y.ScoreFor $hdlr) 2 }}</td>
+                                    {{ range $which, $axis := $.Keeper.Axes }}
+                                        <td class="number">{{ $.FixValue ($axis.ScoreFor $hdlr) 2 }}</td>
+                                    {{ end }}
                                 </tr>
                             {{ end }}
                         </table>
                     </td>
                 </tr>
 
+                {{/* Show data for X and Y axis */}}
                 {{ range $which, $axis := $.Keeper.Axes }}
                     <tr class="axis-data-{{ $which }}" style="display:none"><td colspan="2"><hr class="thin"/></td></tr>
                     <tr class="axis-data-{{ $which }}" style="display:none">
@@ -308,30 +308,20 @@
                         {{ .Keeper.Summary }}
                     </td>
                 </tr>
-                <tr><td colspan="2"><hr class="thin"/></td></tr>
-                <tr>
-                    <td class="top">
-                        <h3 class="doc">X Axis: <span class="fixed">{{ .Keeper.X.Name }}</span></h3>
-                        {{ .Keeper.X.Summary }}
-                    </td>
-                    <td class="top">
-                        {{ range $exhibit := .Keeper.X.Exhibits }}
-                            {{ $exhibit.HTML $exhibit }}
-                        {{ end }}
-                    </td>
-                </tr>
-                <tr><td colspan="2"><hr class="thin"/></td></tr>
-                <tr>
-                    <td class="top">
-                        <h3 class="doc">Y Axis: <span class="fixed">{{ .Keeper.Y.Name }}</span></h3>
-                        {{ .Keeper.Y.Summary }}
-                    </td>
-                    <td class="top">
-                        {{ range $exhibit := .Keeper.Y.Exhibits }}
-                            {{ $exhibit.HTML $exhibit }}
-                        {{ end }}
-                    </td>
-                </tr>
+                {{ range $which, $axis := $.Keeper.Axes }}
+                    <tr><td colspan="2"><hr class="thin"/></td></tr>
+                    <tr>
+                        <td class="top">
+                            <h3 class="doc">{{ $which }} Axis: <span class="fixed">{{ $axis.Name }}</span></h3>
+                            {{ $axis.Summary }}
+                        </td>
+                        <td class="top">
+                            {{ range $exhibit := $axis.Exhibits }}
+                                {{ $exhibit.HTML $exhibit }}
+                            {{ end }}
+                        </td>
+                    </tr>
+                {{ end }}
             </table>
         </div>
     </div>

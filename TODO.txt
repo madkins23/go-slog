@@ -1,5 +1,15 @@
 # TODO
 
+* Tables
+  * cmd/server/chart/score.go still has keeper x/y references
+  * Are warning numbers correct?
+    - Stash then on something like benchmark numbers
+  * Documentation for tables
+  * Documentation for refactored code
+  ? Tooltips over checkboxes
+  ? Table/Axis captions
+  ? Table/Axis documentation
+
 ? Workflow keep-alive
   https://github.com/liskin/gh-workflow-keepalive
 ? Default chart size on score page to smallest one that contains all items
