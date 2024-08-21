@@ -268,7 +268,10 @@ Handlers that have been investigated and found wanting:
   * [`galecore/xslog`](https://github.com/galecore/xslog)
   * [`evanphx/go-hclog-slog`](https://github.com/evanphx/go-hclog-slog)
 
-* The [`go-logr/zerologr`](https://github.com/go-logr/zerologr) presents some challenges:
+* The [`trim21/slog`](https://github.com/trim21/zerolog-as-slog-handler)
+  handler is documented as "immature".
+
+* The [`go-logr/zerologr`](https://github.com/go-logr/zerologr) handler presents some challenges:
   * Wraps `go-logr/logr` around a `rs/zerolog` logger (not a handler),  
     then wraps _another_ layer (`zerologr.LogSink`) around that to return a `slog.Handler`.
   * Doesn't support `slog.HandlerOptions` directly.
