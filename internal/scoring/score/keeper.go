@@ -8,7 +8,6 @@ import (
 
 	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/markdown"
-	"github.com/madkins23/go-slog/internal/test"
 )
 
 const specialChar = '+'
@@ -131,7 +130,6 @@ var (
 )
 
 func AddKeeper(keeper *Keeper) error {
-	test.Debugf(1, ">>> AddKeeper(%s)", keeper.Tag())
 	if keepers == nil {
 		keepers = make(map[KeeperTag]*Keeper)
 	}

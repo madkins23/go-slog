@@ -143,7 +143,12 @@ table.data th.axis-box input {
 }
 
 table.data caption {
-    caption-side:bottom
+    caption-side:bottom;
+    font-weight: bold;
+}
+
+table.data caption.exhibit {
+    caption-side:top
 }
 
 table.data td {

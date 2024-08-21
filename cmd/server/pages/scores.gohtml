@@ -318,11 +318,20 @@
                         <td class="top">
                             <h3 class="doc">{{ $which }} Axis: <span class="fixed">{{ $axis.Name }}</span></h3>
                             {{ $axis.Summary }}
+                            <div id="axis-{{$which}}-doc" style="display:none">
+                                <h4>Documentation</h4>
+                                {{ $axis.Documentation }}
+                            </div>
+                            <button type="button" onclick="toggleElement('axis-{{$which}}-doc', 'block')">Documentation</button>
                         </td>
                         <td class="top">
                             {{ range $exhibit := $axis.Exhibits }}
                                 {{ $exhibit.HTML $exhibit }}
                             {{ end }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
                         </td>
                     </tr>
                 {{ end }}

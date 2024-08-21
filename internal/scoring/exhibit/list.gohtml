@@ -1,5 +1,5 @@
 <table class="data exhibit-list">
-    {{ if .HasCaption }}<caption>{{ .Caption }}</caption>{{ end }}
+    {{ if .HasCaption }}<caption class="exhibit">{{ .Caption }}</caption>{{ end }}
     {{ range .Items }}
         <tr><td>{{ . }}</td></tr>
     {{ end }}
