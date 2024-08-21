@@ -14,8 +14,8 @@
         <div>
             <table class="top">
                 <tr class="title"><td colspan="2"><h2>{{ .Keeper.Title }}</h2></td></tr>
-                {{ $scoresByData  := scoreList "ByData" "ByTest" }}
-                {{ $scoresByTest  := scoreList "ByTest" "ByData" }}
+                {{ $scoresByData  := scoreList "Default" "ByData" "ByTest" }}
+                {{ $scoresByTest  := scoreList "Default" "ByTest" "ByData" }}
                 {{ $scoresDefault := scoreList "Default" }}
 
                 {{/* Score Keeper Data Tables */}}
@@ -95,7 +95,7 @@
                                             {{ end }}
                                         {{ end }}
                                         {{ range $scoreType := $scoresByTest }}
-                                            <th>{{ $scoreType.ColHeader }}</th>
+                                            <th {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
                                         {{ end }}
                                     </tr>
                                     {{ range $hdlr := $.Keeper.HandlerTags }}
@@ -126,7 +126,7 @@
                                             {{ end }}
                                         {{ end }}
                                         {{ range $scoreType := $scoresByData }}
-                                            <th>{{ $scoreType.ColHeader }}</th>
+                                            <th {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
                                         {{ end }}
                                     </tr>
                                     {{ range $hdlr := $.Keeper.HandlerTags }}
@@ -159,7 +159,7 @@
                                             {{ end }}
                                         {{ end }}
                                         {{ range $scoreType := $scoresByData }}
-                                            <th class="center">{{ $scoreType.ColHeader }}</th>
+                                            <th class="center" {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
                                         {{ end }}
                                     </tr>
                                     {{ range $hdlr := $.Keeper.HandlerTags }}
@@ -192,7 +192,7 @@
                                             {{ end }}
                                         {{ end }}
                                         {{ range $scoreType := $scoresByData }}
-                                            <th class="center">{{ $scoreType.ColHeader }}</th>
+                                            <th class="center" {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
                                         {{ end }}
                                     </tr>
                                     {{ range $hdlr := $.Keeper.HandlerTags }}

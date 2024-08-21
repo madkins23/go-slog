@@ -123,6 +123,8 @@ func (b *Benchmarks) Setup(benchMarks *data.Benchmarks, _ *data.Warnings) error 
 		}
 		handlerData.SetScore(score.ByData, handlerData.Rollup(bench.OverData).Average())
 		original.CheckTotal(handlerData)
+		handlerData.SetScore(score.Default,
+			(handlerData.Score(score.ByData)+handlerData.Score(score.ByTest))/2.0)
 	}
 	rows := make([][]string, 0, len(b.benchWeight))
 	for _, weight := range bench.WeightOrder {
@@ -167,9 +169,6 @@ func (b *Benchmarks) ScoreForTest(handler data.HandlerTag, test data.TestTag) sc
 }
 
 func (b *Benchmarks) ScoreForType(handler data.HandlerTag, scoreType score.Type) score.Value {
-	if scoreType == score.Default {
-		scoreType = score.Original
-	}
 	return b.handlerData[handler].Score(scoreType)
 }
 
