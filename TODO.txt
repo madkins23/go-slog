@@ -1,8 +1,9 @@
 # TODO
 
 * Tables
-  ? Table/Axis captions
-  ? Table/Axis documentation
+  ? Multi-button Warning table
+    ? Details would show handler/test scores?
+    ? Table for each level showing handler/test counts?
 
 ? Workflow keep-alive
   https://github.com/liskin/gh-workflow-keepalive
