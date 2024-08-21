@@ -158,7 +158,7 @@ func (b *Benchmarks) HasTest(test data.TestTag) bool {
 }
 
 func (b *Benchmarks) ScoreFor(handler data.HandlerTag) score.Value {
-	return b.ScoreForType(handler, score.Original)
+	return b.ScoreForType(handler, score.Default)
 }
 
 func (b *Benchmarks) ScoreForTest(handler data.HandlerTag, test data.TestTag) score.Value {
@@ -166,6 +166,9 @@ func (b *Benchmarks) ScoreForTest(handler data.HandlerTag, test data.TestTag) sc
 }
 
 func (b *Benchmarks) ScoreForType(handler data.HandlerTag, scoreType score.Type) score.Value {
+	if scoreType == score.Default {
+		scoreType = score.Original
+	}
 	return b.handlerData[handler].Score(scoreType)
 }
 

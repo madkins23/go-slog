@@ -39,11 +39,12 @@ func NewWarnings(levelWeight map[warning.Level]uint, summaryHTML template.HTML) 
 	return &Warnings{
 		levelWeight: levelWeight,
 		summaryHTML: summaryHTML,
+		warnScores:  make(map[data.HandlerTag]score.Value),
 	}
 }
 
 func (w *Warnings) Setup(_ *data.Benchmarks, warns *data.Warnings) error {
-	var maxScore uint
+	var totalScore uint
 	for _, level := range warning.LevelOrder {
 		var count uint
 		for _, warn := range warning.WarningsForLevel(level) {
@@ -53,7 +54,7 @@ func (w *Warnings) Setup(_ *data.Benchmarks, warns *data.Warnings) error {
 				}
 			}
 		}
-		maxScore += w.levelWeight[level] * count
+		totalScore += w.levelWeight[level] * count
 	}
 	testScores := make(map[data.HandlerTag]uint)
 	for _, hdlr := range warns.HandlerTags() {
@@ -63,14 +64,13 @@ func (w *Warnings) Setup(_ *data.Benchmarks, warns *data.Warnings) error {
 		}
 		testScores[hdlr] = scoreWork
 	}
-	// The range for warning scores is zero to maxScore.
-	w.warnScores = make(map[data.HandlerTag]score.Value)
+	// The range for warning scores is zero to totalScore.
 	for _, hdlr := range warns.HandlerTags() {
-		if maxScore == 0 {
+		if totalScore == 0 {
 			// If we're all the same (the score range is essentially zero) we all get 100%.
 			w.warnScores[hdlr] = 100.0
 		} else {
-			w.warnScores[hdlr] = 100.0 * score.Value(maxScore-testScores[hdlr]) / score.Value(maxScore)
+			w.warnScores[hdlr] = 100.0 * score.Value(totalScore-testScores[hdlr]) / score.Value(totalScore)
 		}
 	}
 	rows := make([][]string, 0, len(w.levelWeight))
@@ -92,7 +92,7 @@ func (w *Warnings) HasTest(_ data.TestTag) bool {
 }
 
 func (w *Warnings) ScoreFor(handler data.HandlerTag) score.Value {
-	return w.ScoreForType(handler, score.Original)
+	return w.ScoreForType(handler, score.Default)
 }
 
 func (w *Warnings) ScoreForTest(handler data.HandlerTag, test data.TestTag) score.Value {
@@ -100,8 +100,10 @@ func (w *Warnings) ScoreForTest(handler data.HandlerTag, test data.TestTag) scor
 	return 0.0
 }
 
-func (w *Warnings) ScoreForType(handler data.HandlerTag, _ score.Type) score.Value {
-	// Always returns the original score object.
+func (w *Warnings) ScoreForType(handler data.HandlerTag, scoreType score.Type) score.Value {
+	if scoreType == score.Default {
+		scoreType = score.Original
+	}
 	return w.warnScores[handler]
 }
 

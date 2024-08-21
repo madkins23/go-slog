@@ -14,12 +14,14 @@ import (
 type Type uint8
 
 const (
-	ByData Type = iota
+	Default Type = iota
+	ByData
 	Original
 	ByTest
 )
 
 var colNames = map[Type]string{
+	Default:  "Score",
 	ByData:   "by Data",
 	ByTest:   "by Test",
 	Original: "Original",

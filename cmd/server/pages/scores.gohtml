@@ -14,8 +14,9 @@
         <div>
             <table class="top">
                 <tr class="title"><td colspan="2"><h2>{{ .Keeper.Title }}</h2></td></tr>
-                {{ $scoresByData := scoreList "ByData" "ByTest" }}
-                {{ $scoresByTest := scoreList "ByTest" "ByData" }}
+                {{ $scoresByData  := scoreList "ByData" "ByTest" }}
+                {{ $scoresByTest  := scoreList "ByTest" "ByData" }}
+                {{ $scoresDefault := scoreList "Default" }}
 
                 {{/* Score Keeper Data Tables */}}
 
@@ -225,7 +226,7 @@
                                         {{ range $level := $.Levels }}
                                             <td class="fixed"><span>{{ $level.String }}</span></td>
                                         {{ end }}
-                                        {{ range $scoreType := $scoresByData }}
+                                        {{ range $scoreType := $scoresDefault }}
                                             <th class="center">{{ $scoreType.ColHeader }}</th>
                                         {{ end }}
                                     </tr>
@@ -233,10 +234,10 @@
                                         <tr>
                                             <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
                                             {{ range $level := $.Levels }}
-                                                {{ $levels := $.Warnings.ForHandler $hdlr }}
-                                                <td class="number">{{ $.FixUint ($levels.LevelCount $level) }}</td>
+                                                {{ $value := $axis.ScoreFor $hdlr }}
+                                                <td class="number">{{ $.FixValue $value.Round 2 }}</td>
                                             {{ end }}
-                                            {{ range $scoreType := $scoresByData }}
+                                            {{ range $scoreType := $scoresDefault }}
                                                 <td class="number">{{ $.FixValue ($axis.ScoreForType $hdlr $scoreType) 2 }}</td>
                                             {{ end }}
                                         </tr>

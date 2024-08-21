@@ -7,11 +7,11 @@ import (
 	"strings"
 )
 
-const _TypeName = "ByDataOriginalByTest"
+const _TypeName = "DefaultByDataOriginalByTest"
 
-var _TypeIndex = [...]uint8{0, 6, 14, 20}
+var _TypeIndex = [...]uint8{0, 7, 13, 21, 27}
 
-const _TypeLowerName = "bydataoriginalbytest"
+const _TypeLowerName = "defaultbydataoriginalbytest"
 
 func (i Type) String() string {
 	if i >= Type(len(_TypeIndex)-1) {
@@ -24,26 +24,30 @@ func (i Type) String() string {
 // Re-run the stringer command to generate them again.
 func _TypeNoOp() {
 	var x [1]struct{}
-	_ = x[ByData-(0)]
-	_ = x[Original-(1)]
-	_ = x[ByTest-(2)]
+	_ = x[Default-(0)]
+	_ = x[ByData-(1)]
+	_ = x[Original-(2)]
+	_ = x[ByTest-(3)]
 }
 
-var _TypeValues = []Type{ByData, Original, ByTest}
+var _TypeValues = []Type{Default, ByData, Original, ByTest}
 
 var _TypeNameToValueMap = map[string]Type{
-	_TypeName[0:6]:        ByData,
-	_TypeLowerName[0:6]:   ByData,
-	_TypeName[6:14]:       Original,
-	_TypeLowerName[6:14]:  Original,
-	_TypeName[14:20]:      ByTest,
-	_TypeLowerName[14:20]: ByTest,
+	_TypeName[0:7]:        Default,
+	_TypeLowerName[0:7]:   Default,
+	_TypeName[7:13]:       ByData,
+	_TypeLowerName[7:13]:  ByData,
+	_TypeName[13:21]:      Original,
+	_TypeLowerName[13:21]: Original,
+	_TypeName[21:27]:      ByTest,
+	_TypeLowerName[21:27]: ByTest,
 }
 
 var _TypeNames = []string{
-	_TypeName[0:6],
-	_TypeName[6:14],
-	_TypeName[14:20],
+	_TypeName[0:7],
+	_TypeName[7:13],
+	_TypeName[13:21],
+	_TypeName[21:27],
 }
 
 // TypeString retrieves an enum value from the enum constants string name.
