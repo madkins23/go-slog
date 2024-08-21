@@ -33,8 +33,11 @@
                                 <th>Handler</th>
                                 {{ range $which, $axis := $.Keeper.Axes }}
                                     <th class="axis-box">
-                                        <label for="score-checkbox-{{ $which }}">{{ $axis.Name }}</label>
-                                        <input id="score-checkbox-{{ $which }}" type="checkbox" onclick="axisDisplay('{{ $which }}')"/>
+                                        <div class="hover-text">
+                                            <span class="tooltip-text" style="width:150px">Check box to see details</span>
+                                            <label for="score-checkbox-{{ $which }}">{{ $axis.Name }}</label>
+                                            <input id="score-checkbox-{{ $which }}" type="checkbox" onclick="axisDisplay('{{ $which }}')"/>
+                                        </div>
                                     </th>
                                 {{ end }}
                             </tr>

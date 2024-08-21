@@ -9,6 +9,7 @@ import (
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
+// testRange contains the high and low values for the three benchmark numbers.
 type testRange struct {
 	allocLow, allocHigh uint64
 	bytesLow, bytesHigh uint64
@@ -30,6 +31,10 @@ func (tr *testRange) String(bv Weight) string {
 
 // -----------------------------------------------------------------------------
 
+// Original contains the original benchmark score calculations.
+// The newer calculations work differently (more efficiently).
+// This code was kept so that the calculations could be compared.
+// In the fullness of time it may be removed.
 type Original struct {
 	bench          *data.Benchmarks
 	count, tests   uint
@@ -39,6 +44,7 @@ type Original struct {
 	weight         map[Weight]uint
 }
 
+// NewOriginal returns a new Original object.
 func NewOriginal(bench *data.Benchmarks, tagMap map[data.TestTag]bool, weights map[Weight]uint) *Original {
 	return &Original{
 		bench:    bench,
@@ -68,6 +74,9 @@ func (o *Original) HandlerTest(test data.TestTag, record data.TestRecord) {
 	o.tests++
 }
 
+// CheckRanges checks the ranges contained in this Original object to the ranges
+// calculated by the newer algorithm.
+// If any of the ranges differ by too much an error is logged.
 func (o *Original) CheckRanges(ranges map[data.TestTag]map[Weight]Range) {
 	for test := range ranges {
 		if o.testTags[test] {
@@ -84,6 +93,8 @@ func (o *Original) CheckRanges(ranges map[data.TestTag]map[Weight]Range) {
 	}
 }
 
+// CheckTest checks the data for the specified handler and test agains the HandlerData.
+// If the values differ by too much an error is logged.
 func (o *Original) CheckTest(handlerData *HandlerData, test data.TestTag) {
 	if !fuzzyEqual(o.collect, handlerData.byTest[test].Value) {
 		slog.Error("collect comparison", "Original", o.collect, "by Test", handlerData.byTest[test].Value)
@@ -93,6 +104,9 @@ func (o *Original) CheckTest(handlerData *HandlerData, test data.TestTag) {
 	}
 }
 
+// CheckTotal checks the calculated score value for a handler
+// against the value from the original calculation.
+// If the values differ by too much an error is logged.
 func (o *Original) CheckTotal(handlerData *HandlerData) {
 	if !fuzzyEqual(o.total.Round(), handlerData.Rollup(OverTests).Value) {
 		slog.Error("total comparison",

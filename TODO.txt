@@ -1,10 +1,6 @@
 # TODO
 
 * Tables
-  * Documentation for tables
-  * Documentation for refactored code
-  * cmd/server/chart/score.go still has keeper x/y references
-  ? Tooltips over checkboxes
   ? Table/Axis captions
   ? Table/Axis documentation
 

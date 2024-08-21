@@ -59,6 +59,7 @@ func (b *Benchmarks) Setup(benchMarks *data.Benchmarks, _ *data.Warnings) error 
 	testTags := b.testTagMap(benchMarks.TestTags())
 	// Calculate data ranges
 	// Score 0: Original
+	// Do original calculation and newer calculations and compare them for error.
 	original := bench.NewOriginal(benchMarks, testTags, b.benchWeight)
 	// Calculate test ranges used in calculating scores.
 	original.MakeRanges()
