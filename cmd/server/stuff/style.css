@@ -146,11 +146,6 @@ table.data caption {
     caption-side:bottom;
 }
 
-table.data caption.exhibit {
-    caption-side:top;
-    font-weight: bold;
-}
-
 table.data td {
     background-color: lightslategray;
     outline: 2px inset darkgray;
