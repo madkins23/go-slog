@@ -19,6 +19,7 @@ type Keeper struct {
 	x, y     Axis
 	filter   Filter
 	handlers []data.HandlerTag
+	tests    []data.TestTag
 	doc      template.HTML
 	KeeperOptions
 }
@@ -60,9 +61,17 @@ func (k *Keeper) Setup(bench *data.Benchmarks, warns *data.Warnings) error {
 		return fmt.Errorf("initialize y: %w", err)
 	}
 	k.handlers = make([]data.HandlerTag, 0)
-	for _, tag := range bench.HandlerTags() {
-		if k.filter == nil || k.filter.Keep(warns.HandlerName(tag)) {
-			k.handlers = append(k.handlers, tag)
+	k.tests = make([]data.TestTag, 0)
+	for _, hdlr := range bench.HandlerTags() {
+		if k.filter == nil || k.filter.Keep(warns.HandlerName(hdlr)) {
+			k.handlers = append(k.handlers, hdlr)
+		}
+	}
+	for _, test := range bench.TestTags() {
+		if bench.HasTest(test) {
+			if k.filter == nil || k.filter.Keep(warns.TestName(test)) {
+				k.tests = append(k.tests, test)
+			}
 		}
 	}
 	return nil
@@ -81,6 +90,10 @@ func (k *Keeper) Tag() KeeperTag {
 
 func (k *Keeper) HandlerTags() []data.HandlerTag {
 	return k.handlers
+}
+
+func (k *Keeper) TestTags() []data.TestTag {
+	return k.tests
 }
 
 func (k *Keeper) ChartCaption() template.HTML {
