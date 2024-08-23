@@ -20,9 +20,9 @@
 
                 {{/* Score Keeper Data Tables */}}
 
-                {{/* Score Keeper Data Table: SCORES */}}
                 <tr>
                     <td colspan="2">
+                        {{/* Score Keeper Data Table: SCORES */}}
                         <table class="data" id="score-table-scores">
                             <caption>
                                 Scores are on scale of <code>0..100</code>. Higher is better.<br/>
@@ -61,10 +61,10 @@
                             <h3>{{ $which }} Axis: <code>{{ $axis.Name }}</code></h3>
                         </td>
                     </tr>
-                    {{/* Score Keeper Data Table Choices */}}
                     {{ if eq $axis.Type "Benchmarks" }}
                         <tr class="axis-data-{{ $which }} title" style="display:none">
                             <td colspan="2">
+                                {{/* Score Keeper Data Table Choices */}}
                                 <table class="score-buttons">
                                     <tr>
                                         <td>
@@ -219,12 +219,64 @@
                             </td>
                         </tr>
                     {{ else if eq $axis.Type "Warnings" }}
-                        {{/* Score Keeper Data Table: WARNINGS */}}
+                        <tr class="axis-data-{{ $which }} title" style="display:none">
+                            <td colspan="2">
+                                {{/* Score Keeper Data Table Choices */}}
+                                <table class="score-buttons">
+                                    <tr>
+                                        <td>
+                                            <button id="warn-button-{{ $which }}-details" type="button" onclick="showWarningTable('{{ $which }}', `details`)" disabled>Details</button>
+                                            <button id="warn-button-{{ $which }}-levels" type="button" onclick="showWarningTable('{{ $which }}', `levels`)" disabled>Levels</button>
+                                        </td>
+                                        <td class="right">
+                                            <button id="warn-button-{{ $which }}-micros" type="button" onclick="showWarningTable('{{ $which }}', `micros`)">Micros</button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
                         <tr class="axis-data-{{ $which }}" style="display:none">
                             <td colspan="2">
-                                <table class="data" id="score-table-warnings">
+                                {{/* Score Keeper Warning Table: DETAILS */}}
+                                <table class="data" id="warn-table-{{ $which }}-details">
                                     <caption>
                                         Warnings are collected for the various warnings levels.
+                                    </caption>
+                                    <tr>
+                                        <th>
+                                            <div class="corner-top-right">Tests →</div>
+                                            <div class="corner-bottom-left">↓Handlers</div>
+                                        </th>
+                                        {{ range $test := $.Benchmarks.TestTags }}
+                                            {{ if $axis.HasTest $test }}
+                                                <td class="test-name-header"><span>{{ $test.Name }}</span></td>
+                                            {{ end }}
+                                        {{ end }}
+                                        {{ range $scoreType := $scoresByData }}
+                                            <th {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
+                                        {{ end }}
+                                    </tr>
+                                    {{ range $hdlr := $.Keeper.HandlerTags }}
+                                    <tr>
+                                        <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
+                                        {{ $testMap := $.Benchmarks.TestRecordsFor $hdlr }}
+                                        {{ range $test := $.Benchmarks.TestTags }}
+                                            {{ if $axis.HasTest $test }}
+                                                {{ $data := index $testMap $test }}
+                                                <td class="number">{{ $.FixFloat (div $data.NanosPerOp 1000.0) 3 }}</td>
+                                            {{ end }}
+                                        {{ end }}
+                                        {{ range $scoreType := $scoresByData }}
+                                            <td class="number">{{ $.FixValue ($axis.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                        {{ end }}
+                                    </tr>
+                                    {{ end }}
+                                </table>
+                                {{/* Score Keeper Warning Table: LEVELS */}}
+                                <table class="data" id="warn-table-{{ $which }}-levels" style="display:none">
+                                    <caption>
+                                        Counts of unique warnings for handler per level,<br/>
+                                        not the total number of warning instances.
                                     </caption>
                                     <tr>
                                         <th>
@@ -246,6 +298,39 @@
                                                 <td class="number">{{ $.FixValue $value.Round 2 }}</td>
                                             {{ end }}
                                             {{ range $scoreType := $scoresDefault }}
+                                                <td class="number">{{ $.FixValue ($axis.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                            {{ end }}
+                                        </tr>
+                                    {{ end }}
+                                </table>
+                                {{/* Score Keeper Data Table: MICROS / Operation */}}
+                                <table class="data" id="warn-table-{{ $which }}-micros" style="display:none">
+                                    <caption>Numbers represent microseconds per operation. Lower is better</caption>
+                                    <tr>
+                                        <th>
+                                            <div class="corner-top-right">Tests →</div>
+                                            <div class="corner-bottom-left">↓Handlers</div>
+                                        </th>
+                                        {{ range $test := $.Benchmarks.TestTags }}
+                                            {{ if $axis.HasTest $test }}
+                                                <td class="test-name-header"><span>{{ $test.Name }}</span></td>
+                                            {{ end }}
+                                        {{ end }}
+                                        {{ range $scoreType := $scoresByData }}
+                                            <th {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
+                                        {{ end }}
+                                    </tr>
+                                    {{ range $hdlr := $.Keeper.HandlerTags }}
+                                        <tr>
+                                            <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
+                                            {{ $testMap := $.Benchmarks.TestRecordsFor $hdlr }}
+                                            {{ range $test := $.Benchmarks.TestTags }}
+                                                {{ if $axis.HasTest $test }}
+                                                    {{ $data := index $testMap $test }}
+                                                    <td class="number">{{ $.FixFloat (div $data.NanosPerOp 1000.0) 3 }}</td>
+                                                {{ end }}
+                                            {{ end }}
+                                            {{ range $scoreType := $scoresByData }}
                                                 <td class="number">{{ $.FixValue ($axis.ScoreForType $hdlr $scoreType) 2 }}</td>
                                             {{ end }}
                                         </tr>
@@ -390,12 +475,47 @@
                 buttonDisabled = true
                 tableMode = `table`
             }
-            document.getElementById(`score-button-`+axis+'-'+table.ID).disabled = buttonDisabled
-            displayTable('score-table-' + axis + '-' + table.ID, tableMode)
+            let button = document.getElementById(`score-button-`+axis+'-'+table.ID)
+            if (button != null) {
+                button.disabled = buttonDisabled
+                displayTable('score-table-' + axis + '-' + table.ID, tableMode)
+            }
         }
     }
     showDataTable('X', 'details')
     showDataTable('Y', 'details')
+
+    function showWarningTable(axis, which) {
+        const tables = [
+            {
+                "ID":   "details",
+                "Name": "Details"
+            },
+            {
+                "ID":   "levels",
+                "Name": "Levels"
+            },
+            {
+                "ID":      "micros",
+                "Name":    "Micros",
+            }
+        ]
+        for (const table of tables) {
+            let buttonDisabled = false
+            let tableMode = `none`
+            if (which === table.ID) {
+                buttonDisabled = true
+                tableMode = `table`
+            }
+            let button = document.getElementById('warn-button-' + axis + '-' + table.ID)
+            if (button != null) {
+                button.disabled = buttonDisabled
+                displayTable('warn-table-' + axis + '-' + table.ID, tableMode)
+            }
+        }
+    }
+    showWarningTable('X', 'details')
+    showWarningTable('Y', 'details')
 </script>
 </body>
 </html>
