@@ -7,7 +7,6 @@ type Type uint8
 
 const (
 	Default Type = iota
-	SubScore
 	ByData
 	Original
 	ByTest
@@ -15,7 +14,6 @@ const (
 
 var colNames = map[Type]string{
 	Default:  "Score",
-	SubScore: "SubScore",
 	ByData:   "by Data",
 	ByTest:   "by Test",
 	Original: "Original",
