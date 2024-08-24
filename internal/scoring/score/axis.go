@@ -8,29 +8,6 @@ import (
 	"github.com/madkins23/go-slog/internal/data"
 )
 
-// -----------------------------------------------------------------------------
-
-//go:generate go run github.com/dmarkham/enumer -type=Type
-type Type uint8
-
-const (
-	Default Type = iota
-	ByData
-	Original
-	ByTest
-)
-
-var colNames = map[Type]string{
-	Default:  "Score",
-	ByData:   "by Data",
-	ByTest:   "by Test",
-	Original: "Original",
-}
-
-func (t Type) ColHeader() string {
-	return colNames[t]
-}
-
 type Axis interface {
 	Setup(bench *data.Benchmarks, warns *data.Warnings) error
 	Name() string
@@ -44,12 +21,43 @@ type Axis interface {
 	Type() string
 }
 
+// -----------------------------------------------------------------------------
+
 type Value float64
 
 func (v Value) Round() Value {
 	const rounder = 1_000_000_000.0
 	return Value(math.Round(float64(v)*rounder) / rounder)
 }
+
+// -----------------------------------------------------------------------------
+
+type AxisCore struct {
+	exhibits    []Exhibit
+	summaryHTML template.HTML
+}
+
+func (ac *AxisCore) SetSummary(summary template.HTML) {
+	ac.summaryHTML = summary
+}
+
+func (ac *AxisCore) Summary() template.HTML {
+	return ac.summaryHTML
+}
+
+func (ac *AxisCore) AddExhibit(exhibit Exhibit) {
+	if ac.exhibits == nil {
+		ac.exhibits = make([]Exhibit, 0, 2)
+	}
+	ac.exhibits = append(ac.exhibits, exhibit)
+}
+
+func (ac *AxisCore) Exhibits() []Exhibit {
+	// TODO: Should be OK if this just returns nil but maybe not.
+	return ac.exhibits
+}
+
+// -----------------------------------------------------------------------------
 
 func List(typeName ...string) []Type {
 	result := make([]Type, 0, len(typeName))

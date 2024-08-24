@@ -15,36 +15,36 @@ const (
 )
 
 type HandlerData struct {
-	byTest        map[data.TestTag]*Average
+	byTest        map[data.TestTag]*score.Average
 	originalScore score.Value
 	scores        map[score.Type]score.Value
-	subScore      map[Weight]*Average
-	rollup        map[RollOver]*Average
+	subScore      map[Weight]*score.Average
+	rollup        map[RollOver]*score.Average
 }
 
 func NewHandlerData() *HandlerData {
 	hd := &HandlerData{
-		byTest:   make(map[data.TestTag]*Average),
+		byTest:   make(map[data.TestTag]*score.Average),
 		scores:   make(map[score.Type]score.Value),
-		subScore: make(map[Weight]*Average),
-		rollup:   make(map[RollOver]*Average),
+		subScore: make(map[Weight]*score.Average),
+		rollup:   make(map[RollOver]*score.Average),
 	}
 	for _, weight := range WeightOrder {
-		hd.subScore[weight] = &Average{}
+		hd.subScore[weight] = &score.Average{}
 	}
 	return hd
 }
 
-func (hd *HandlerData) ByTest(test data.TestTag) *Average {
+func (hd *HandlerData) ByTest(test data.TestTag) *score.Average {
 	if hd.byTest[test] == nil {
-		hd.byTest[test] = &Average{}
+		hd.byTest[test] = &score.Average{}
 	}
 	return hd.byTest[test]
 }
 
-func (hd *HandlerData) Rollup(over RollOver) *Average {
+func (hd *HandlerData) Rollup(over RollOver) *score.Average {
 	if hd.rollup[over] == nil {
-		hd.rollup[over] = &Average{}
+		hd.rollup[over] = &score.Average{}
 	}
 	return hd.rollup[over]
 }
@@ -57,9 +57,9 @@ func (hd *HandlerData) SetScore(scoreType score.Type, value score.Value) {
 	hd.scores[scoreType] = value
 }
 
-func (hd *HandlerData) SubScore(weight Weight) *Average {
+func (hd *HandlerData) SubScore(weight Weight) *score.Average {
 	if hd.subScore[weight] == nil {
-		hd.subScore[weight] = &Average{}
+		hd.subScore[weight] = &score.Average{}
 	}
 	return hd.subScore[weight]
 }
