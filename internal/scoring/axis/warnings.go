@@ -9,6 +9,7 @@ import (
 	"github.com/madkins23/go-slog/infra/warning"
 	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/markdown"
+	"github.com/madkins23/go-slog/internal/scoring/axis/warn"
 	"github.com/madkins23/go-slog/internal/scoring/exhibit"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
@@ -29,26 +30,28 @@ func setupWarnings() error {
 var _ score.Axis = &Warnings{}
 
 type Warnings struct {
+	score.AxisCore
+	handlerData map[data.HandlerTag]*warn.HandlerData
 	levelWeight map[warning.Level]uint
-	warnScores  map[data.HandlerTag]score.Value
-	exhibits    []score.Exhibit
-	summaryHTML template.HTML
+
+	warnScores map[data.HandlerTag]score.Value
 }
 
 func NewWarnings(levelWeight map[warning.Level]uint, summaryHTML template.HTML) score.Axis {
-	return &Warnings{
+	w := &Warnings{
 		levelWeight: levelWeight,
-		summaryHTML: summaryHTML,
 		warnScores:  make(map[data.HandlerTag]score.Value),
 	}
+	w.SetSummary(summaryHTML)
+	return w
 }
 
 func (w *Warnings) Setup(_ *data.Benchmarks, warns *data.Warnings) error {
 	var totalScore uint
 	for _, level := range warning.LevelOrder {
 		var count uint
-		for _, warn := range warning.WarningsForLevel(level) {
-			if wx, found := warns.ByWarning[warn.Name]; found {
+		for _, wrn := range warning.WarningsForLevel(level) {
+			if wx, found := warns.ByWarning[wrn.Name]; found {
 				if len(wx.Count) > 0 {
 					count++
 				}
@@ -79,7 +82,7 @@ func (w *Warnings) Setup(_ *data.Benchmarks, warns *data.Warnings) error {
 			rows = append(rows, []string{level.String(), strconv.Itoa(int(value))})
 		}
 	}
-	w.exhibits = []score.Exhibit{exhibit.NewTable("", []string{"Level", "Weight"}, rows)}
+	w.AddExhibit(exhibit.NewTable("", []string{"Level", "Weight"}, rows))
 	return nil
 }
 
@@ -105,17 +108,6 @@ func (w *Warnings) ScoreForType(handler data.HandlerTag, scoreType score.Type) s
 		scoreType = score.Original
 	}
 	return w.warnScores[handler]
-}
-
-func (w *Warnings) Summary() template.HTML {
-	return w.summaryHTML
-}
-
-func (w *Warnings) Exhibits() []score.Exhibit {
-	if w.exhibits == nil {
-		// TODO: Need some exhibits!
-	}
-	return w.exhibits
 }
 
 func (w *Warnings) Documentation() template.HTML {
