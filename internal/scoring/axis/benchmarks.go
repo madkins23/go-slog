@@ -105,7 +105,6 @@ func (b *Benchmarks) Setup(benchMarks *data.Benchmarks, _ *data.Warnings) error 
 						// Score 1: Refactored original algorithm
 						handlerData.ByTest(test).AddMultiple(ranged, b.benchWeight[weight])
 						// Score 2: Newer algorithm rollup over BenchWeight subs
-						handlerData.Score(score.SubScore)
 						handlerData.SubScore(weight).Add(ranged)
 					}
 				}

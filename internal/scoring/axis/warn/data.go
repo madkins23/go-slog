@@ -11,7 +11,6 @@ type HandlerData struct {
 	subScore map[warning.Level]*score.Average
 
 	//byTest        map[data.TestTag]*Average
-	//originalScore score.Value
 	//scores        map[score.Type]score.Value
 	//subScore      map[Weight]*Average
 	//rollup        map[RollOver]*Average

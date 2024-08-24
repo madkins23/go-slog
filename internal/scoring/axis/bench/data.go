@@ -15,11 +15,10 @@ const (
 )
 
 type HandlerData struct {
-	byTest        map[data.TestTag]*score.Average
-	originalScore score.Value
-	scores        map[score.Type]score.Value
-	subScore      map[Weight]*score.Average
-	rollup        map[RollOver]*score.Average
+	byTest   map[data.TestTag]*score.Average
+	scores   map[score.Type]score.Value
+	subScore map[Weight]*score.Average
+	rollup   map[RollOver]*score.Average
 }
 
 func NewHandlerData() *HandlerData {
