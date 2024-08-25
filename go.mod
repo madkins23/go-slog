@@ -23,7 +23,7 @@ require (
 	github.com/stretchr/testify v1.9.0
 	github.com/veqryn/slog-dedup v0.5.0
 	github.com/vicanso/go-charts/v2 v2.6.10
-	github.com/wcharczuk/go-chart/v2 v2.1.1
+	github.com/wcharczuk/go-chart/v2 v2.1.2
 	go.mrchanchal.com/zaphandler v0.0.0-20230611140024-bd4fd80897ad
 	go.seankhliao.com/svcrunner/v3 v3.0.0-20231007180458-c5294d90b36c
 	go.uber.org/zap v1.27.0
@@ -38,7 +38,6 @@ exclude github.com/rs/zerolog v1.32.0
 exclude github.com/rs/zerolog v1.33.0
 
 require (
-	github.com/blend/go-sdk v1.20220411.3 // indirect
 	github.com/bytedance/sonic v1.12.1 // indirect
 	github.com/bytedance/sonic/loader v0.2.0 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
@@ -60,14 +59,14 @@ require (
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/pascaldekloe/name v1.0.1 // indirect
-	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
+	github.com/pelletier/go-toml/v2 v2.2.3 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/samber/lo v1.47.0 // indirect
 	github.com/samber/slog-common v0.17.1 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.12 // indirect
-	go.opentelemetry.io/otel v1.28.0 // indirect
-	go.opentelemetry.io/otel/trace v1.28.0 // indirect
+	go.opentelemetry.io/otel v1.29.0 // indirect
+	go.opentelemetry.io/otel/trace v1.29.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.9.0 // indirect
 	golang.org/x/crypto v0.26.0 // indirect
