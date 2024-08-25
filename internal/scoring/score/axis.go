@@ -18,7 +18,6 @@ type Axis interface {
 	Summary() template.HTML
 	Exhibits() []Exhibit
 	Documentation() template.HTML
-	Type() string
 }
 
 // -----------------------------------------------------------------------------

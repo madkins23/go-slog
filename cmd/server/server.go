@@ -72,6 +72,7 @@ import (
 	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/language"
 	"github.com/madkins23/go-slog/internal/scoring"
+	"github.com/madkins23/go-slog/internal/scoring/axis"
 	"github.com/madkins23/go-slog/internal/scoring/keeper"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
@@ -447,6 +448,18 @@ func functions() map[string]any {
 				}
 			}
 			return dict
+		},
+		"isBenchmarkAxis": func(a score.Axis) *axis.Benchmarks {
+			if b, ok := a.(*axis.Benchmarks); ok {
+				return b
+			}
+			return nil
+		},
+		"isWarningAxis": func(a score.Axis) *axis.Warnings {
+			if w, ok := a.(*axis.Warnings); ok {
+				return w
+			}
+			return nil
 		},
 		"scoreList": func(name ...string) []score.Type {
 			result := score.List(name...)

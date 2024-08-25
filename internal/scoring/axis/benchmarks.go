@@ -12,8 +12,6 @@ import (
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
-const BenchmarksType = "Benchmarks"
-
 var (
 	//go:embed doc/bench-doc.md
 	benchDocMD   string
@@ -182,10 +180,6 @@ func (b *Benchmarks) Exhibits() []score.Exhibit {
 
 func (b *Benchmarks) Documentation() template.HTML {
 	return benchDocHTML
-}
-
-func (b *Benchmarks) Type() string {
-	return BenchmarksType
 }
 
 // -----------------------------------------------------------------------------
