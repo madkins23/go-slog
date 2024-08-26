@@ -8,18 +8,13 @@ import (
 
 type HandlerData struct {
 	*common.HandlerData
-	byLevel  map[warning.Level]*score.Average
-	subScore map[warning.Level]*score.Average
+	byLevel map[warning.Level]*score.Average
 }
 
 func NewHandlerData() *HandlerData {
 	hd := &HandlerData{
 		HandlerData: common.NewHandlerData(),
 		byLevel:     make(map[warning.Level]*score.Average),
-		subScore:    make(map[warning.Level]*score.Average),
-	}
-	for _, level := range warning.LevelOrder {
-		hd.subScore[level] = &score.Average{}
 	}
 	return hd
 }
@@ -29,13 +24,6 @@ func (hd *HandlerData) ByLevel(level warning.Level) *score.Average {
 		hd.byLevel[level] = &score.Average{}
 	}
 	return hd.byLevel[level]
-}
-
-func (hd *HandlerData) SubScore(level warning.Level) *score.Average {
-	if hd.subScore[level] == nil {
-		hd.subScore[level] = &score.Average{}
-	}
-	return hd.subScore[level]
 }
 
 /*

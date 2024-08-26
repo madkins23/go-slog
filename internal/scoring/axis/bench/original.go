@@ -97,7 +97,7 @@ func (o *Original) CheckRanges(ranges map[data.TestTag]map[Weight]common.Range) 
 // CheckTest checks the data for the specified handler and test agains the HandlerData.
 // If the values differ by too much an error is logged.
 func (o *Original) CheckTest(handlerData *HandlerData, test data.TestTag) {
-	if !fuzzyEqual(o.collect, handlerData.ByTest(test).Value) {
+	if !common.FuzzyEqual(o.collect, handlerData.ByTest(test).Value) {
 		slog.Error("collect comparison", "Original", o.collect, "by Test", handlerData.ByTest(test).Value)
 	}
 	if o.count != handlerData.ByTest(test).Count {
@@ -109,7 +109,7 @@ func (o *Original) CheckTest(handlerData *HandlerData, test data.TestTag) {
 // against the value from the original calculation.
 // If the values differ by too much an error is logged.
 func (o *Original) CheckTotal(handlerData *HandlerData) {
-	if !fuzzyEqual(o.total.Round(), handlerData.Rollup(OverTests).Value) {
+	if !common.FuzzyEqual(o.total.Round(), handlerData.Rollup(OverTests).Value) {
 		slog.Error("total comparison",
 			"Original", o.total.Round(),
 			"by Test", handlerData.Rollup(OverTests).Value)
@@ -161,11 +161,4 @@ func (o *Original) ResetForHandler() {
 
 func (o *Original) Score() score.Value {
 	return o.total.Round() / score.Value(o.tests)
-}
-
-// -----------------------------------------------------------------------------
-
-func fuzzyEqual(a, b score.Value) bool {
-	const epsilon = 0.00000001
-	return math.Abs(float64(a-b)) < epsilon
 }

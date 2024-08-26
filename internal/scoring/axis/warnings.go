@@ -15,6 +15,8 @@ import (
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
+const defaultScoreType = score.Original
+
 var (
 	//go:embed doc/warn-doc.md
 	warnDocMD   string
@@ -44,43 +46,17 @@ func NewWarnings(levelWeight map[warning.Level]uint, summaryHTML template.HTML) 
 }
 
 func (w *Warnings) Setup(_ *data.Benchmarks, warns *data.Warnings) error {
+	testTags := w.testTagMap(warns.TestTags())
+	// Calculate data ranges
+	// Do original calculation and newer calculations and compare them for error.
+	original := warn.NewOriginal(warns, testTags, w.levelWeight)
+	// Calculate test ranges used in calculating scores.
+	original.MakeMaxScore()
+
 	// Ranges for warning numbers are simple,
 	// they go from 0 to the maximum number of unique warnings per level.
+	var maxScore uint
 	ranges := make(map[warning.Level]common.Range)
-	for _, level := range warning.LevelOrder {
-		ranges[level] = &common.RangeUint64{}
-		ranges[level].AddValueUint64(uint64(len(level.Warnings())))
-	}
-
-	// Pre-create HandlerData records.
-	for _, hdlr := range warns.HandlerTags() {
-		if w.handlerData[hdlr] == nil {
-			w.handlerData[hdlr] = warn.NewHandlerData()
-		}
-	}
-
-	// Get handler/level data.
-	for _, hdlr := range warns.HandlerTags() {
-		hdlrData := w.handlerData[hdlr]
-		levels := warns.ForHandler(hdlr)
-		for _, level := range levels.Levels() {
-			slog.Info("ByLevel", "hdlr", hdlr, "level", level.String(), "count", level.Count())
-			hdlrData.ByLevel(level.Level).Add(ranges[level.Level].RangedValue(float64(level.Count())))
-		}
-	}
-
-	////////////////////////////////////////////////////////////////////////
-
-	testScores := make(map[data.HandlerTag]uint)
-	for _, hdlr := range warns.HandlerTags() {
-		var scoreWork uint
-		for _, level := range warns.ByHandler[hdlr].Levels() {
-			scoreWork += w.levelWeight[level.Level] * uint(len(level.Warnings()))
-		}
-		testScores[hdlr] = scoreWork
-	}
-
-	var totalScore uint
 	for _, level := range warning.LevelOrder {
 		var count uint
 		for _, wrn := range warning.WarningsForLevel(level) {
@@ -90,22 +66,33 @@ func (w *Warnings) Setup(_ *data.Benchmarks, warns *data.Warnings) error {
 				}
 			}
 		}
-
-		totalScore += w.levelWeight[level] * count
+		ranges[level] = &common.RangeUint64{}
+		ranges[level].AddValueUint64(uint64(count))
+		maxScore += w.levelWeight[level] * count
 	}
-
+	original.CheckMaxScore(maxScore)
+	original.MakeWarnScores()
 	for _, hdlr := range warns.HandlerTags() {
-		hdlrData := w.handlerData[hdlr]
-		// The range for warning scores is zero to totalScore.
-		if totalScore == 0 {
-			// If we're all the same (the score range is essentially zero) we all get 100%.
-			// This should never happen.
-			hdlrData.SetScore(score.Original, 100.0)
-		} else {
-			hdlrData.SetScore(score.Original, 100.0*score.Value(totalScore-testScores[hdlr])/score.Value(totalScore))
+		if w.handlerData[hdlr] == nil {
+			w.handlerData[hdlr] = warn.NewHandlerData()
 		}
+		hdlrData := w.handlerData[hdlr]
+		// Get handler/level data.
+		levels := warns.ForHandler(hdlr)
+		var a score.Average
+		for _, level := range levels.Levels() {
+			count := level.Count()
+			ranged := ranges[level.Level].RangedValue(float64(count))
+			hdlrData.ByLevel(level.Level).Add(ranged)
+			slog.Info("by Level", "hdlr", hdlr, "level", level, "count", count, "ranged", ranged, "after", hdlrData.ByLevel(level.Level).Average())
+			a.AddMultiple(ranged, w.levelWeight[level.Level])
+		}
+		hdlrData.SetScore(score.ByData, a.Average())
+		hdlrData.SetScore(score.Default, hdlrData.Score(score.ByData))
+		hdlrData.SetScore(score.Original, original.Score(hdlr))
 	}
-
+	original.CheckByDataScores(w.handlerData)
+	// Create Exhibits.
 	rows := make([][]string, 0, len(w.levelWeight))
 	for _, level := range warning.LevelOrder {
 		if value, found := w.levelWeight[level]; found {
@@ -133,17 +120,30 @@ func (w *Warnings) ScoreForLevel(handler data.HandlerTag, level warning.Level) *
 }
 
 func (w *Warnings) ScoreForTest(handler data.HandlerTag, test data.TestTag) score.Value {
-	slog.Warn("made up data", "func", "ScoreForTest", "handler", handler, "test", test)
-	return 0.0
+	return w.handlerData[handler].ByTest(test).Average()
 }
 
 func (w *Warnings) ScoreForType(handler data.HandlerTag, scoreType score.Type) score.Value {
 	if scoreType == score.Default {
-		scoreType = score.Original
+		scoreType = defaultScoreType
 	}
 	return w.handlerData[handler].Score(scoreType)
 }
 
 func (w *Warnings) Documentation() template.HTML {
 	return warnDocHTML
+}
+
+// -----------------------------------------------------------------------------
+
+// testTagMap returns a map from data.TestTag to bool
+// in order to track which tests are in the scoring for this axis.
+// The allTags argument specifies the list of all possible tests.
+// Currently (2024-08-26) the map includes allTags tests with no modification.
+func (w *Warnings) testTagMap(allTags []data.TestTag) map[data.TestTag]bool {
+	ttm := make(map[data.TestTag]bool)
+	for _, test := range allTags {
+		ttm[test] = true
+	}
+	return ttm
 }

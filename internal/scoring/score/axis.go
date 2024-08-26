@@ -2,7 +2,6 @@ package score
 
 import (
 	"html/template"
-	"log/slog"
 	"math"
 
 	"github.com/madkins23/go-slog/internal/data"
@@ -54,18 +53,4 @@ func (ac *AxisCore) AddExhibit(exhibit Exhibit) {
 func (ac *AxisCore) Exhibits() []Exhibit {
 	// TODO: Should be OK if this just returns nil but maybe not.
 	return ac.exhibits
-}
-
-// -----------------------------------------------------------------------------
-
-func List(typeName ...string) []Type {
-	result := make([]Type, 0, len(typeName))
-	for _, name := range typeName {
-		if st, err := TypeString(name); err != nil {
-			slog.Error("convert name to score type", "name", name, "err", err)
-		} else {
-			result = append(result, st)
-		}
-	}
-	return result
 }

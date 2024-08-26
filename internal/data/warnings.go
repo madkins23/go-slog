@@ -140,6 +140,11 @@ func (w *Warnings) TestName(test TestTag) string {
 	}
 }
 
+// TestRecordsFor returns a map of HandlerTag to TestRecord for the specified benchmark.
+func (w *Warnings) TestRecordsFor(handler HandlerTag) *Levels {
+	return w.ByHandler[handler]
+}
+
 // TestTags returns an array of all handler names sorted alphabetically.
 func (w *Warnings) TestTags() []TestTag {
 	if len(w.tests) < 1 {
@@ -319,7 +324,7 @@ type dataLevel struct {
 }
 
 func (l *dataLevel) Count() uint64 {
-	return uint64(len(l.warnings))
+	return uint64(len(l.Warnings()))
 }
 
 func (l *dataLevel) Name() string {

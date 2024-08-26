@@ -14,8 +14,8 @@
         <div>
             <table class="top">
                 <tr class="title"><td colspan="2"><h2>{{ .Keeper.Title }}</h2></td></tr>
-                {{ $scoresByData  := scoreList "Default" "ByData" "ByTest" }}
-                {{ $scoresByTest  := scoreList "Default" "ByTest" "ByData" }}
+                {{ $scoresByData  := scoreList "ByData" "Original" "ByTest" "Default" }}
+                {{ $scoresByTest  := scoreList "ByTest" "ByData" "Default" }}
                 {{ $scoresDefault := scoreList "Default" }}
 
                 {{/* Score Keeper Data Tables */}}
@@ -262,11 +262,9 @@
                                     {{ range $hdlr := $.Keeper.HandlerTags }}
                                     <tr>
                                         <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
-                                        {{ $testMap := $.Benchmarks.TestRecordsFor $hdlr }}
                                         {{ range $test := $.Benchmarks.TestTags }}
                                             {{ if $w.HasTest $test }}
-                                                {{ $data := index $testMap $test }}
-                                                <td class="number">{{ $.FixFloat (div $data.NanosPerOp 1000.0) 3 }}</td>
+                                                <td class="number">{{ $.FixValue ($w.ScoreForTest $hdlr $test) 3 }}</td>
                                             {{ end }}
                                         {{ end }}
                                         {{ range $scoreType := $scoresByData }}
@@ -290,7 +288,7 @@
                                         {{ range $level := $.Levels }}
                                             <td class="fixed"><span>{{ $level.String }}</span></td>
                                         {{ end }}
-                                        {{ range $scoreType := $scoresByTest }}
+                                        {{ range $scoreType := $scoresByData }}
                                             <th class="center" {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
                                         {{ end }}
                                     </tr>
@@ -299,9 +297,9 @@
                                             <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
                                             {{ range $level := $.Levels }}
                                                 {{ $value := $w.ScoreForLevel $hdlr $level }}
-                                                <td class="number">{{ $.FixValue $value.Average.Round 2 }}</td>
+                                                <td class="number">{{ $.FixValue $value.Average100.Round 2 }}</td>
                                             {{ end }}
-                                            {{ range $scoreType := $scoresByTest }}
+                                            {{ range $scoreType := $scoresByData }}
                                                 <td class="number">{{ $.FixValue ($w.ScoreForType $hdlr $scoreType) 2 }}</td>
                                             {{ end }}
                                         </tr>
