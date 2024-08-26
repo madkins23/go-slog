@@ -1,7 +1,7 @@
 package bench
 
 import (
-	"github.com/madkins23/go-slog/internal/data"
+	"github.com/madkins23/go-slog/internal/scoring/axis/common"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
@@ -15,18 +15,16 @@ const (
 )
 
 type HandlerData struct {
-	byTest   map[data.TestTag]*score.Average
-	scores   map[score.Type]score.Value
+	*common.HandlerData
 	subScore map[Weight]*score.Average
 	rollup   map[RollOver]*score.Average
 }
 
 func NewHandlerData() *HandlerData {
 	hd := &HandlerData{
-		byTest:   make(map[data.TestTag]*score.Average),
-		scores:   make(map[score.Type]score.Value),
-		subScore: make(map[Weight]*score.Average),
-		rollup:   make(map[RollOver]*score.Average),
+		HandlerData: common.NewHandlerData(),
+		subScore:    make(map[Weight]*score.Average),
+		rollup:      make(map[RollOver]*score.Average),
 	}
 	for _, weight := range WeightOrder {
 		hd.subScore[weight] = &score.Average{}
@@ -34,26 +32,11 @@ func NewHandlerData() *HandlerData {
 	return hd
 }
 
-func (hd *HandlerData) ByTest(test data.TestTag) *score.Average {
-	if hd.byTest[test] == nil {
-		hd.byTest[test] = &score.Average{}
-	}
-	return hd.byTest[test]
-}
-
 func (hd *HandlerData) Rollup(over RollOver) *score.Average {
 	if hd.rollup[over] == nil {
 		hd.rollup[over] = &score.Average{}
 	}
 	return hd.rollup[over]
-}
-
-func (hd *HandlerData) Score(scoreType score.Type) score.Value {
-	return hd.scores[scoreType]
-}
-
-func (hd *HandlerData) SetScore(scoreType score.Type, value score.Value) {
-	hd.scores[scoreType] = value
 }
 
 func (hd *HandlerData) SubScore(weight Weight) *score.Average {

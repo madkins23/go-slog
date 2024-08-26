@@ -463,7 +463,6 @@ func functions() map[string]any {
 		},
 		"scoreList": func(name ...string) []score.Type {
 			result := score.List(name...)
-			slog.Info("scoreList", "result", result)
 			return result
 		},
 		"unescape": func(s string) template.HTML {

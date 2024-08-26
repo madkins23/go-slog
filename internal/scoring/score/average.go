@@ -20,5 +20,8 @@ func (ba *Average) AddMultiple(v Value, multiple uint) *Average {
 }
 
 func (ba *Average) Average() Value {
-	return ba.Value.Round() / Value(ba.Count)
+	if ba.Count > 0 {
+		return ba.Value.Round() / Value(ba.Count)
+	}
+	return 100
 }

@@ -6,6 +6,7 @@ import (
 	"math"
 
 	"github.com/madkins23/go-slog/internal/data"
+	"github.com/madkins23/go-slog/internal/scoring/axis/common"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
@@ -77,7 +78,7 @@ func (o *Original) HandlerTest(test data.TestTag, record data.TestRecord) {
 // CheckRanges checks the ranges contained in this Original object to the ranges
 // calculated by the newer algorithm.
 // If any of the ranges differ by too much an error is logged.
-func (o *Original) CheckRanges(ranges map[data.TestTag]map[Weight]Range) {
+func (o *Original) CheckRanges(ranges map[data.TestTag]map[Weight]common.Range) {
 	for test := range ranges {
 		if o.testTags[test] {
 			for _, weight := range WeightOrder {
@@ -96,11 +97,11 @@ func (o *Original) CheckRanges(ranges map[data.TestTag]map[Weight]Range) {
 // CheckTest checks the data for the specified handler and test agains the HandlerData.
 // If the values differ by too much an error is logged.
 func (o *Original) CheckTest(handlerData *HandlerData, test data.TestTag) {
-	if !fuzzyEqual(o.collect, handlerData.byTest[test].Value) {
-		slog.Error("collect comparison", "Original", o.collect, "by Test", handlerData.byTest[test].Value)
+	if !fuzzyEqual(o.collect, handlerData.ByTest(test).Value) {
+		slog.Error("collect comparison", "Original", o.collect, "by Test", handlerData.ByTest(test).Value)
 	}
-	if o.count != handlerData.byTest[test].Count {
-		slog.Error("count comparison", "Original", o.count, "by Test", handlerData.byTest[test].Count)
+	if o.count != handlerData.ByTest(test).Count {
+		slog.Error("count comparison", "Original", o.count, "by Test", handlerData.ByTest(test).Count)
 	}
 }
 

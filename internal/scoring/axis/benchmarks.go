@@ -8,6 +8,7 @@ import (
 	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/markdown"
 	"github.com/madkins23/go-slog/internal/scoring/axis/bench"
+	"github.com/madkins23/go-slog/internal/scoring/axis/common"
 	"github.com/madkins23/go-slog/internal/scoring/exhibit"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
@@ -62,14 +63,14 @@ func (b *Benchmarks) Setup(benchMarks *data.Benchmarks, _ *data.Warnings) error 
 	// Calculate test ranges used in calculating scores.
 	original.MakeRanges()
 	// Score 1 & 2
-	ranges := make(map[data.TestTag]map[bench.Weight]bench.Range)
+	ranges := make(map[data.TestTag]map[bench.Weight]common.Range)
 	for _, test := range benchMarks.TestTags() {
 		if testTags[test] {
 			// Score 1 & 2
-			ranges[test] = map[bench.Weight]bench.Range{
-				bench.Nanoseconds: bench.NewRangeFloat64(),
-				bench.Allocations: bench.NewRangeUint64(),
-				bench.AllocBytes:  bench.NewRangeUint64(),
+			ranges[test] = map[bench.Weight]common.Range{
+				bench.Nanoseconds: common.NewRangeFloat64(),
+				bench.Allocations: common.NewRangeUint64(),
+				bench.AllocBytes:  common.NewRangeUint64(),
 			}
 			for _, records := range benchMarks.HandlerRecordsFor(test) {
 				ranges[test][bench.Nanoseconds].AddValueFloat64(records.NanosPerOp)
@@ -87,8 +88,8 @@ func (b *Benchmarks) Setup(benchMarks *data.Benchmarks, _ *data.Warnings) error 
 		// Score 1 & 2
 		handlerData := b.handlerData[handler]
 		if handlerData == nil {
-			handlerData = bench.NewHandlerData()
-			b.handlerData[handler] = handlerData
+			b.handlerData[handler] = bench.NewHandlerData()
+			handlerData = b.handlerData[handler]
 		}
 		for test, record := range benchMarks.ByHandler[handler] {
 			if testTags[test] {
