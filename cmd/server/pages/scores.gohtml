@@ -101,7 +101,17 @@
                                             {{ end }}
                                         {{ end }}
                                         {{ range $scoreType := $scoresByTest }}
-                                            <th {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
+                                            {{ if eq $scoreType.ColHeader "Score" }}
+                                                <th>
+                                                    <div class="hover-text">
+                                                        <span class="tooltip-text" style="width:150px;top:-50px">Check box to see detail score columns</span>
+                                                        <label for="score-checkbox-{{ $which }}-details">Score</label>
+                                                        <input id="score-checkbox-{{ $which }}-details" type="checkbox" onclick="showScoreColumns('{{ $which }}', 'details')"/>
+                                                    </div>
+                                                </th>
+                                            {{ else }}
+                                                <td class="score-column-{{ $which }}-details" style="display:none;">{{ $scoreType.ColHeader }}</td>
+                                            {{ end }}
                                         {{ end }}
                                     </tr>
                                     {{ range $hdlr := $.Keeper.HandlerTags }}
@@ -113,7 +123,11 @@
                                                 {{ end }}
                                             {{ end }}
                                             {{ range $scoreType := $scoresByTest }}
-                                                <td class="number">{{ $.FixValue ($b.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ if eq $scoreType.ColHeader "Score" }}
+                                                    <td class="number">{{ $.FixValue ($b.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ else }}
+                                                    <td class="number score-column-{{ $which }}-details" style="display:none;">{{ $.FixValue ($b.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ end }}
                                             {{end}}
                                         </tr>
                                     {{ end }}
@@ -256,7 +270,7 @@
                                             <td class="number">{{ $level.String }}</td>
                                         {{ end }}
                                         {{ range $scoreType := $scoresJustData }}
-                                            <th class="center" {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
+                                            <th {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
                                         {{ end }}
                                     </tr>
                                     {{ range $hdlr := $.Keeper.HandlerTags }}
@@ -478,6 +492,18 @@
     }
     showWarningTable('X', 'details')
     showWarningTable('Y', 'details')
+
+    function showScoreColumns(axis, which) {
+        let button = document.getElementById(`score-checkbox-`+axis+'-'+which)
+        if (button != null) {
+            const elements = document.getElementsByClassName('score-column-' + axis + '-' + which)
+            const mode = button.checked ? "table-cell" : "none"
+            for (let el in elements) {
+                // elements[el].display = mode
+                elements[el].style.display = mode
+            }
+        }
+    }
 </script>
 </body>
 </html>

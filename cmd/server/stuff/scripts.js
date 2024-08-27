@@ -20,8 +20,6 @@ function scoreChoice(form) {
     return true;
 }
 function toggleTableRow(id) {
-    // let elem = document.getElementById(id);
-    // elem.style.display = elem.style.display === "none" ? "table-row" : "none";
     toggleElement(id, "table-row")
 }
 function toggleElement(id, on) {
