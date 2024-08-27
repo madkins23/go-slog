@@ -24,7 +24,10 @@ var colNames = map[Type]string{
 }
 
 func (t Type) ColHeader() string {
-	return colNames[t]
+	if hdr, found := colNames[t]; found {
+		return hdr
+	}
+	return "Unknown:" + t.String()
 }
 
 // -----------------------------------------------------------------------------

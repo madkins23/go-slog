@@ -147,7 +147,17 @@
                                             {{ end }}
                                         {{ end }}
                                         {{ range $scoreType := $scoresByData }}
-                                            <th {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
+                                            {{ if eq $scoreType.ColHeader "Score" }}
+                                                <th>
+                                                    <div class="hover-text">
+                                                        <span class="tooltip-text" style="width:150px;top:-50px">Check box to see detail score columns</span>
+                                                        <label for="score-checkbox-{{ $which }}-micros">Score</label>
+                                                        <input id="score-checkbox-{{ $which }}-micros" type="checkbox" onclick="showScoreColumns('{{ $which }}', 'micros')"/>
+                                                    </div>
+                                                </th>
+                                            {{ else }}
+                                                <td class="score-column-{{ $which }}-micros" style="display:none;">{{ $scoreType.ColHeader }}</td>
+                                            {{ end }}
                                         {{ end }}
                                     </tr>
                                     {{ range $hdlr := $.Keeper.HandlerTags }}
@@ -161,7 +171,11 @@
                                                 {{ end }}
                                             {{ end }}
                                             {{ range $scoreType := $scoresByData }}
-                                                <td class="number">{{ $.FixValue ($b.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ if eq $scoreType.ColHeader "Score" }}
+                                                    <td class="number">{{ $.FixValue ($b.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ else }}
+                                                    <td class="number score-column-{{ $which }}-micros" style="display:none;">{{ $.FixValue ($b.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ end }}
                                             {{ end }}
                                         </tr>
                                     {{ end }}
@@ -181,7 +195,17 @@
                                             {{ end }}
                                         {{ end }}
                                         {{ range $scoreType := $scoresByData }}
-                                            <th class="center" {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
+                                            {{ if eq $scoreType.ColHeader "Score" }}
+                                                <th>
+                                                    <div class="hover-text">
+                                                        <span class="tooltip-text" style="width:150px;top:-50px">Check box to see detail score columns</span>
+                                                        <label for="score-checkbox-{{ $which }}-allocs">Score</label>
+                                                        <input id="score-checkbox-{{ $which }}-allocs" type="checkbox" onclick="showScoreColumns('{{ $which }}', 'allocs')"/>
+                                                    </div>
+                                                </th>
+                                            {{ else }}
+                                                <td class="score-column-{{ $which }}-allocs" style="display:none;">{{ $scoreType.ColHeader }}</td>
+                                            {{ end }}
                                         {{ end }}
                                     </tr>
                                     {{ range $hdlr := $.Keeper.HandlerTags }}
@@ -195,7 +219,11 @@
                                                 {{ end }}
                                             {{ end }}
                                             {{ range $scoreType := $scoresByData }}
-                                                <td class="number">{{ $.FixValue ($b.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ if eq $scoreType.ColHeader "Score" }}
+                                                    <td class="number">{{ $.FixValue ($b.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ else }}
+                                                    <td class="number score-column-{{ $which }}-allocs" style="display:none;">{{ $.FixValue ($b.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ end }}
                                             {{ end }}
                                         </tr>
                                     {{ end }}
@@ -215,7 +243,17 @@
                                             {{ end }}
                                         {{ end }}
                                         {{ range $scoreType := $scoresByData }}
-                                            <th class="center" {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
+                                            {{ if eq $scoreType.ColHeader "Score" }}
+                                                <th>
+                                                    <div class="hover-text">
+                                                        <span class="tooltip-text" style="width:150px;top:-50px">Check box to see detail score columns</span>
+                                                        <label for="score-checkbox-{{ $which }}-bytes">Score</label>
+                                                        <input id="score-checkbox-{{ $which }}-bytes" type="checkbox" onclick="showScoreColumns('{{ $which }}', 'bytes')"/>
+                                                    </div>
+                                                </th>
+                                            {{ else }}
+                                                <td class="score-column-{{ $which }}-bytes" style="display:none;">{{ $scoreType.ColHeader }}</td>
+                                            {{ end }}
                                         {{ end }}
                                     </tr>
                                     {{ range $hdlr := $.Keeper.HandlerTags }}
@@ -229,7 +267,11 @@
                                                 {{ end }}
                                             {{ end }}
                                             {{ range $scoreType := $scoresByData }}
-                                                <td class="number">{{ $.FixValue ($b.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ if eq $scoreType.ColHeader "Score" }}
+                                                    <td class="number">{{ $.FixValue ($b.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ else }}
+                                                    <td class="number score-column-{{ $which }}-bytes" style="display:none;">{{ $.FixValue ($b.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ end }}
                                             {{ end }}
                                         </tr>
                                     {{ end }}
@@ -269,8 +311,18 @@
                                         {{ range $level := $.Levels }}
                                             <td class="number">{{ $level.String }}</td>
                                         {{ end }}
-                                        {{ range $scoreType := $scoresJustData }}
-                                            <th {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
+                                        {{ range $scoreType := $scoresByData }}
+                                            {{ if eq $scoreType.ColHeader "Score" }}
+                                                <th>
+                                                    <div class="hover-text">
+                                                        <span class="tooltip-text" style="width:150px;top:-50px">Check box to see detail score columns</span>
+                                                        <label for="score-checkbox-{{ $which }}-details">Score</label>
+                                                        <input id="score-checkbox-{{ $which }}-details" type="checkbox" onclick="showScoreColumns('{{ $which }}', 'details')"/>
+                                                    </div>
+                                                </th>
+                                            {{ else }}
+                                                <td class="score-column-{{ $which }}-details" style="display:none;">{{ $scoreType.ColHeader }}</td>
+                                            {{ end }}
                                         {{ end }}
                                     </tr>
                                     {{ range $hdlr := $.Keeper.HandlerTags }}
@@ -279,8 +331,12 @@
                                             {{ range $level := $.Levels }}
                                                 <td class="number">{{ $.FixValue ($w.ScoreForLevel $hdlr $level) 2 }}</td>
                                             {{ end }}
-                                            {{ range $scoreType := $scoresJustData }}
-                                                <td class="number">{{ $.FixValue ($w.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                            {{ range $scoreType := $scoresByData }}
+                                                {{ if eq $scoreType.ColHeader "Score" }}
+                                                    <td class="number">{{ $.FixValue ($w.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ else }}
+                                                    <td class="number score-column-{{ $which }}-details" style="display:none;">{{ $.FixValue ($w.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ end }}
                                             {{ end }}
                                         </tr>
                                     {{ end }}
@@ -300,8 +356,18 @@
                                         {{ range $level := $.Levels }}
                                             <td class="fixed"><span>{{ $level.String }}</span></td>
                                         {{ end }}
-                                        {{ range $scoreType := $scoresJustData }}
-                                            <th {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
+                                        {{ range $scoreType := $scoresByData }}
+                                            {{ if eq $scoreType.ColHeader "Score" }}
+                                                <th>
+                                                    <div class="hover-text">
+                                                        <span class="tooltip-text" style="width:150px;top:-50px">Check box to see detail score columns</span>
+                                                        <label for="score-checkbox-{{ $which }}-counts">Score</label>
+                                                        <input id="score-checkbox-{{ $which }}-counts" type="checkbox" onclick="showScoreColumns('{{ $which }}', 'counts')"/>
+                                                    </div>
+                                                </th>
+                                            {{ else }}
+                                                <td class="score-column-{{ $which }}-counts" style="display:none;">{{ $scoreType.ColHeader }}</td>
+                                            {{ end }}
                                         {{ end }}
                                     </tr>
                                     {{ range $hdlr := $.Keeper.HandlerTags }}
@@ -310,8 +376,12 @@
                                             {{ range $level := $.Levels }}
                                                 <td class="number">{{ $.FixValue ($w.CountForLevel $hdlr $level) 0 }}</td>
                                             {{ end }}
-                                            {{ range $scoreType := $scoresJustData }}
-                                                <td class="number">{{ $.FixValue ($w.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                            {{ range $scoreType := $scoresByData }}
+                                                {{ if eq $scoreType.ColHeader "Score" }}
+                                                    <td class="number">{{ $.FixValue ($w.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ else }}
+                                                    <td class="number score-column-{{ $which }}-counts" style="display:none;">{{ $.FixValue ($w.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                                {{ end }}
                                             {{ end }}
                                         </tr>
                                     {{ end }}

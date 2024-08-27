@@ -1,15 +1,5 @@
 # TODO
 
-* Tables
-  * Take out "Details" and replace with "Levels"
-    . Warnings per test makes no sense, only warnings per handler
-    ? Some other form of "Details" perhaps?
-  ? Checkbox on 'Scores' header to show other detailed score columns
-  ? Hover text with details for some table scores?
-  ? Multi-button Warning table
-    ? Details would show handler/test scores?
-    ? Table for each level showing handler/test counts?
-
 ? Workflow keep-alive
   https://github.com/liskin/gh-workflow-keepalive
 ? Default chart size on score page to smallest one that contains all items
