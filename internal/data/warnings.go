@@ -178,8 +178,8 @@ func (w *Warnings) findHandler(handler HandlerTag, level warning.Level, warningN
 	levels, ok := w.ByHandler[handler]
 	if !ok {
 		levels = &Levels{
-			lookup: make(map[string]*dataLevel),
-			levels: make([]*dataLevel, 0),
+			lookup: make(map[string]*DataLevel),
+			levels: make([]*DataLevel, 0),
 		}
 		w.ByHandler[handler] = levels
 	}
@@ -190,8 +190,8 @@ func (w *Warnings) findTest(test TestTag, level warning.Level, warningName strin
 	levels, ok := w.byTest[test]
 	if !ok {
 		levels = &Levels{
-			lookup: make(map[string]*dataLevel),
-			levels: make([]*dataLevel, 0),
+			lookup: make(map[string]*DataLevel),
+			levels: make([]*DataLevel, 0),
 		}
 		w.byTest[test] = levels
 	}
@@ -279,8 +279,12 @@ func (wd *WarningData) HasUsage() bool {
 // -----------------------------------------------------------------------------
 
 type Levels struct {
-	lookup map[string]*dataLevel
-	levels []*dataLevel
+	lookup map[string]*DataLevel
+	levels []*DataLevel
+}
+
+func (l *Levels) Level(level warning.Level) *DataLevel {
+	return l.lookup[level.String()]
 }
 
 func (l *Levels) LevelCount(level warning.Level) uint64 {
@@ -291,9 +295,9 @@ func (l *Levels) LevelCount(level warning.Level) uint64 {
 	}
 }
 
-func (l *Levels) Levels() []*dataLevel {
+func (l *Levels) Levels() []*DataLevel {
 	if len(l.levels) < 1 {
-		l.levels = make([]*dataLevel, 0, len(warning.LevelOrder))
+		l.levels = make([]*DataLevel, 0, len(warning.LevelOrder))
 		for _, lvl := range warning.LevelOrder {
 			if lv, ok := l.lookup[lvl.String()]; ok {
 				l.levels = append(l.levels, lv)
@@ -306,7 +310,7 @@ func (l *Levels) Levels() []*dataLevel {
 func (l *Levels) findLevel(lvl warning.Level, warningName string) *dataWarning {
 	lv, ok := l.lookup[lvl.String()]
 	if !ok {
-		lv = &dataLevel{
+		lv = &DataLevel{
 			Level:  lvl,
 			lookup: make(map[string]*dataWarning),
 		}
@@ -317,25 +321,25 @@ func (l *Levels) findLevel(lvl warning.Level, warningName string) *dataWarning {
 
 // -----------------------------------------------------------------------------
 
-type dataLevel struct {
+type DataLevel struct {
 	Level    warning.Level
 	lookup   map[string]*dataWarning
 	warnings []*dataWarning
 }
 
-func (l *dataLevel) Count() uint64 {
+func (l *DataLevel) Count() uint64 {
 	return uint64(len(l.Warnings()))
 }
 
-func (l *dataLevel) Name() string {
+func (l *DataLevel) Name() string {
 	return l.Level.String()
 }
 
-func (l *dataLevel) String() string {
+func (l *DataLevel) String() string {
 	return fmt.Sprintf("Level:%s=%d", l.Name(), len(l.warnings))
 }
 
-func (l *dataLevel) Warnings() []*dataWarning {
+func (l *DataLevel) Warnings() []*dataWarning {
 	if l.warnings == nil {
 		l.warnings = make([]*dataWarning, 0, len(l.lookup))
 		for _, w := range l.lookup {
@@ -348,7 +352,7 @@ func (l *dataLevel) Warnings() []*dataWarning {
 	return l.warnings
 }
 
-func (l *dataLevel) findWarningGroup(warningName string) *dataWarning {
+func (l *DataLevel) findWarningGroup(warningName string) *dataWarning {
 	grp, ok := l.lookup[warningName]
 	if !ok {
 		grp = &dataWarning{

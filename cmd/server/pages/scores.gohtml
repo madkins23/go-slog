@@ -15,6 +15,7 @@
             <table class="top">
                 <tr class="title"><td colspan="2"><h2>{{ .Keeper.Title }}</h2></td></tr>
                 {{ $scoresByData  := scoreList "ByData" "Original" "ByTest" "Default" }}
+                {{ $scoresJustData := scoreList "ByData" "Original" "Default" }}
                 {{ $scoresByTest  := scoreList "ByTest" "ByData" "Default" }}
                 {{ $scoresDefault := scoreList "Default" }}
 
@@ -229,10 +230,9 @@
                                     <tr>
                                         <td>
                                             <button id="warn-button-{{ $which }}-details" type="button" onclick="showWarningTable('{{ $which }}', `details`)" disabled>Details</button>
-                                            <button id="warn-button-{{ $which }}-levels" type="button" onclick="showWarningTable('{{ $which }}', `levels`)" disabled>Levels</button>
                                         </td>
                                         <td class="right">
-                                            <button id="warn-button-{{ $which }}-micros" type="button" onclick="showWarningTable('{{ $which }}', `micros`)">Micros</button>
+                                            <button id="warn-button-{{ $which }}-levels" type="button" onclick="showWarningTable('{{ $which }}', `levels`)">Levels</button>
                                         </td>
                                     </tr>
                                 </table>
@@ -247,30 +247,26 @@
                                     </caption>
                                     <tr>
                                         <th>
-                                            <div class="corner-top-right">Tests →</div>
+                                            <div class="corner-top-right">Levels →</div>
                                             <div class="corner-bottom-left">↓Handlers</div>
                                         </th>
-                                        {{ range $test := $.Benchmarks.TestTags }}
-                                            {{ if $w.HasTest $test }}
-                                                <td class="test-name-header"><span>{{ $test.Name }}</span></td>
-                                            {{ end }}
+                                        {{ range $level := $.Levels }}
+                                            <td class="number">{{ $level.String }}</td>
                                         {{ end }}
-                                        {{ range $scoreType := $scoresByData }}
-                                            <th {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
+                                        {{ range $scoreType := $scoresJustData }}
+                                            <th class="center" {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
                                         {{ end }}
                                     </tr>
                                     {{ range $hdlr := $.Keeper.HandlerTags }}
-                                    <tr>
-                                        <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
-                                        {{ range $test := $.Benchmarks.TestTags }}
-                                            {{ if $w.HasTest $test }}
-                                                <td class="number">{{ $.FixValue ($w.ScoreForTest $hdlr $test) 3 }}</td>
+                                        <tr>
+                                            <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
+                                            {{ range $level := $.Levels }}
+                                                <td class="number">{{ $.FixValue ($w.ScoreForLevel $hdlr $level) 2 }}</td>
                                             {{ end }}
-                                        {{ end }}
-                                        {{ range $scoreType := $scoresByData }}
-                                            <td class="number">{{ $.FixValue ($w.ScoreForType $hdlr $scoreType) 2 }}</td>
-                                        {{ end }}
-                                    </tr>
+                                            {{ range $scoreType := $scoresJustData }}
+                                                <td class="number">{{ $.FixValue ($w.ScoreForType $hdlr $scoreType) 2 }}</td>
+                                            {{ end }}
+                                        </tr>
                                     {{ end }}
                                 </table>
 
@@ -288,52 +284,17 @@
                                         {{ range $level := $.Levels }}
                                             <td class="fixed"><span>{{ $level.String }}</span></td>
                                         {{ end }}
-                                        {{ range $scoreType := $scoresByData }}
-                                            <th class="center" {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
-                                        {{ end }}
-                                    </tr>
-                                    {{ range $hdlr := $.Keeper.HandlerTags }}
-                                        <tr>
-                                            <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
-                                            {{ range $level := $.Levels }}
-                                                {{ $value := $w.ScoreForLevel $hdlr $level }}
-                                                <td class="number">{{ $.FixValue $value.Average100.Round 2 }}</td>
-                                            {{ end }}
-                                            {{ range $scoreType := $scoresByData }}
-                                                <td class="number">{{ $.FixValue ($w.ScoreForType $hdlr $scoreType) 2 }}</td>
-                                            {{ end }}
-                                        </tr>
-                                    {{ end }}
-                                </table>
-
-                                {{/* Score Keeper Data Table: MICROS / Operation */}}
-                                <table class="data" id="warn-table-{{ $which }}-micros" style="display:none">
-                                    <caption>Numbers represent microseconds per operation. Lower is better</caption>
-                                    <tr>
-                                        <th>
-                                            <div class="corner-top-right">Tests →</div>
-                                            <div class="corner-bottom-left">↓Handlers</div>
-                                        </th>
-                                        {{ range $test := $.Benchmarks.TestTags }}
-                                            {{ if $w.HasTest $test }}
-                                                <td class="test-name-header"><span>{{ $test.Name }}</span></td>
-                                            {{ end }}
-                                        {{ end }}
-                                        {{ range $scoreType := $scoresByData }}
+                                        {{ range $scoreType := $scoresJustData }}
                                             <th {{ if not (eq $scoreType.ColHeader "Score") }}style="font-weight:normal"{{ end }}>{{ $scoreType.ColHeader }}</th>
                                         {{ end }}
                                     </tr>
                                     {{ range $hdlr := $.Keeper.HandlerTags }}
                                         <tr>
                                             <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
-                                            {{ $testMap := $.Benchmarks.TestRecordsFor $hdlr }}
-                                            {{ range $test := $.Benchmarks.TestTags }}
-                                                {{ if $w.HasTest $test }}
-                                                    {{ $data := index $testMap $test }}
-                                                    <td class="number">{{ $.FixFloat (div $data.NanosPerOp 1000.0) 3 }}</td>
-                                                {{ end }}
+                                            {{ range $level := $.Levels }}
+                                                <td class="number">{{ $.FixValue ($w.ScoreForLevel $hdlr $level) 2 }}</td>
                                             {{ end }}
-                                            {{ range $scoreType := $scoresByData }}
+                                            {{ range $scoreType := $scoresJustData }}
                                                 <td class="number">{{ $.FixValue ($w.ScoreForType $hdlr $scoreType) 2 }}</td>
                                             {{ end }}
                                         </tr>
@@ -497,10 +458,6 @@
             {
                 "ID":   "levels",
                 "Name": "Levels"
-            },
-            {
-                "ID":      "micros",
-                "Name":    "Micros",
             }
         ]
         for (const table of tables) {

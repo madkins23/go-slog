@@ -1,6 +1,10 @@
 # TODO
 
 * Tables
+  * Take out "Details" and replace with "Levels"
+    - Warnings per test makes no sense, only warnings per handler
+    ? Some other form of "Details" perhaps?
+  ? Hover text with details for some table scores?
   ? Multi-button Warning table
     ? Details would show handler/test scores?
     ? Table for each level showing handler/test counts?

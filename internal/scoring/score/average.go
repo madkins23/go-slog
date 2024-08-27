@@ -22,15 +22,11 @@ func (ba *Average) AddMultiple(v Value, multiple uint) *Average {
 }
 
 func (ba *Average) Average() Value {
-	if ba.Count > 0 {
-		return ba.Value.Round() / Value(ba.Count)
+	if ba.Count > 1 {
+		return ba.Value / Value(ba.Count)
+	}
+	if ba.Count == 1 {
+		return ba.Value
 	}
 	return Value(math.NaN())
-}
-
-func (ba *Average) Average100() Value {
-	if ba.Count > 0 {
-		return ba.Value.Round() / Value(ba.Count)
-	}
-	return 100
 }

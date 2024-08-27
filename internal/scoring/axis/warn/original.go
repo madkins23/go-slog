@@ -29,8 +29,7 @@ type Original struct {
 // NewOriginal returns a new Original object.
 func NewOriginal(warns *data.Warnings, tagMap map[data.TestTag]bool, levels map[warning.Level]uint) *Original {
 	return &Original{
-		warns: warns,
-		//ranges:   make(map[data.TestTag]*testRange),
+		warns:      warns,
 		testTags:   tagMap,
 		weight:     levels,
 		testScores: make(map[data.HandlerTag]uint),
@@ -88,7 +87,7 @@ func (o *Original) CheckByDataScores(handlerData map[data.HandlerTag]*HandlerDat
 	for _, hdlr := range o.warns.HandlerTags() {
 		original := o.warnScores[hdlr]
 		byData := handlerData[hdlr].Score(score.ByData)
-		if !common.FuzzyEqual(original, byData) {
+		if !common.PercentEqual(original, byData) {
 			slog.Error("warn score comparison", "Original", original, "by Data", byData)
 		}
 	}

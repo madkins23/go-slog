@@ -1,6 +1,8 @@
 package warn
 
 import (
+	"fmt"
+
 	"github.com/madkins23/go-slog/infra/warning"
 	"github.com/madkins23/go-slog/internal/scoring/axis/common"
 	"github.com/madkins23/go-slog/internal/scoring/score"
@@ -8,13 +10,15 @@ import (
 
 type HandlerData struct {
 	*common.HandlerData
-	byLevel map[warning.Level]*score.Average
+	byLevel    map[warning.Level]*score.Average
+	byLevelLog map[warning.Level][]string
 }
 
 func NewHandlerData() *HandlerData {
 	hd := &HandlerData{
 		HandlerData: common.NewHandlerData(),
 		byLevel:     make(map[warning.Level]*score.Average),
+		byLevelLog:  make(map[warning.Level][]string),
 	}
 	return hd
 }
@@ -24,6 +28,20 @@ func (hd *HandlerData) ByLevel(level warning.Level) *score.Average {
 		hd.byLevel[level] = &score.Average{}
 	}
 	return hd.byLevel[level]
+}
+
+func (hd *HandlerData) LevelLog(level warning.Level) []string {
+	if hd.byLevelLog[level] == nil {
+		return []string{}
+	}
+	return hd.byLevelLog[level]
+}
+
+func (hd *HandlerData) LevelLogLine(level warning.Level, format string, args ...any) {
+	if hd.byLevelLog[level] == nil {
+		hd.byLevelLog[level] = make([]string, 0, 3)
+	}
+	hd.byLevelLog[level] = append(hd.byLevelLog[level], fmt.Sprintf(format, args...))
 }
 
 /*

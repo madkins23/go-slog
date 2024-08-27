@@ -3,7 +3,6 @@ package axis
 import (
 	_ "embed"
 	"html/template"
-	"log/slog"
 	"strconv"
 
 	"github.com/madkins23/go-slog/infra/warning"
@@ -14,8 +13,6 @@ import (
 	"github.com/madkins23/go-slog/internal/scoring/exhibit"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
-
-const defaultScoreType = score.Original
 
 var (
 	//go:embed doc/warn-doc.md
@@ -79,15 +76,22 @@ func (w *Warnings) Setup(_ *data.Benchmarks, warns *data.Warnings) error {
 		hdlrData := w.handlerData[hdlr]
 		// Get handler/level data.
 		levels := warns.ForHandler(hdlr)
-		var a score.Average
-		for _, level := range levels.Levels() {
-			count := level.Count()
-			ranged := ranges[level.Level].RangedValue(float64(count))
-			hdlrData.ByLevel(level.Level).Add(ranged)
-			slog.Info("by Level", "hdlr", hdlr, "level", level, "count", count, "ranged", ranged, "after", hdlrData.ByLevel(level.Level).Average())
-			a.AddMultiple(ranged, w.levelWeight[level.Level])
+		var byData score.Average
+
+		for _, level := range warning.LevelOrder {
+			var ranged score.Value
+			dataLevel := levels.Level(level)
+			if dataLevel == nil {
+				ranged = 100.0
+			} else {
+				count := dataLevel.Count()
+				ranged = ranges[dataLevel.Level].RangedValue(float64(count))
+			}
+			hdlrData.ByLevel(level).Add(ranged)
+			byData.AddMultiple(hdlrData.ByLevel(level).Average(), w.levelWeight[level])
 		}
-		hdlrData.SetScore(score.ByData, a.Average())
+		// Set the scores.
+		hdlrData.SetScore(score.ByData, byData.Average())
 		hdlrData.SetScore(score.Default, hdlrData.Score(score.ByData))
 		hdlrData.SetScore(score.Original, original.Score(hdlr))
 	}
@@ -111,22 +115,34 @@ func (w *Warnings) HasTest(_ data.TestTag) bool {
 	return true
 }
 
+func (w *Warnings) LevelLog(handler data.HandlerTag, level warning.Level) []string {
+	if hdlrData, found := w.handlerData[handler]; found {
+		return hdlrData.LevelLog(level)
+	}
+	return []string{"No handler data for handler " + string(handler)}
+}
+
 func (w *Warnings) ScoreFor(handler data.HandlerTag) score.Value {
 	return w.ScoreForType(handler, score.Default)
 }
 
-func (w *Warnings) ScoreForLevel(handler data.HandlerTag, level warning.Level) *score.Average {
-	return w.handlerData[handler].ByLevel(level)
+func (w *Warnings) ScoreForLevel(handler data.HandlerTag, level warning.Level) score.Value {
+	result := w.handlerData[handler].ByLevel(level)
+	if result.Count > 0 {
+		return result.Average()
+	}
+	return 100
 }
 
 func (w *Warnings) ScoreForTest(handler data.HandlerTag, test data.TestTag) score.Value {
-	return w.handlerData[handler].ByTest(test).Average()
+	result := w.handlerData[handler].ByTest(test)
+	if result.Count > 0 {
+		return result.Average()
+	}
+	return 100
 }
 
 func (w *Warnings) ScoreForType(handler data.HandlerTag, scoreType score.Type) score.Value {
-	if scoreType == score.Default {
-		scoreType = defaultScoreType
-	}
 	return w.handlerData[handler].Score(scoreType)
 }
 
