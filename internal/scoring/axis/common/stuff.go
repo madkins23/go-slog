@@ -6,7 +6,14 @@ import (
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
 
+const epsilon = 0.00000001
 const percent = 5.0
+
+// -----------------------------------------------------------------------------
+
+func FuzzyEqual(a, b score.Value) bool {
+	return math.Abs(float64(a-b)) < epsilon
+}
 
 // -----------------------------------------------------------------------------
 

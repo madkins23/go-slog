@@ -87,8 +87,8 @@
                                 <table class="data" id="score-table-{{ $which }}-details">
                                     <caption>
                                         Numbers are scores for specific handler/test cases.<br/>
-                                        Scores are comprised of benchmark speed and memory usage data
-                                        mapped onto a <code>0..100</code> range.
+                                        Scores are comprised of benchmark speed and memory usage data<br/>
+                                        mapped onto a <code>0..100</code> range. Higher is better.
                                     </caption>
                                     <tr>
                                         <th>
@@ -232,7 +232,7 @@
                                             <button id="warn-button-{{ $which }}-details" type="button" onclick="showWarningTable('{{ $which }}', `details`)" disabled>Details</button>
                                         </td>
                                         <td class="right">
-                                            <button id="warn-button-{{ $which }}-levels" type="button" onclick="showWarningTable('{{ $which }}', `levels`)">Levels</button>
+                                            <button id="warn-button-{{ $which }}-counts" type="button" onclick="showWarningTable('{{ $which }}', `counts`)">Counts</button>
                                         </td>
                                     </tr>
                                 </table>
@@ -243,7 +243,9 @@
                                 {{/* Score Keeper Warning Table: DETAILS */}}
                                 <table class="data" id="warn-table-{{ $which }}-details">
                                     <caption>
-                                        Warnings are collected for the various warnings levels.
+                                        Numbers are scores for specific handler/warning level cases.<br/>
+                                        Scores are comprised of warnings counts per warning levels<br/>
+                                        mapped onto a 0..100 range. Higher is better.
                                     </caption>
                                     <tr>
                                         <th>
@@ -270,11 +272,11 @@
                                     {{ end }}
                                 </table>
 
-                                {{/* Score Keeper Warning Table: LEVELS */}}
-                                <table class="data" id="warn-table-{{ $which }}-levels" style="display:none">
+                                {{/* Score Keeper Warning Table: COUNTS */}}
+                                <table class="data" id="warn-table-{{ $which }}-counts" style="display:none">
                                     <caption>
-                                        Counts of unique warnings for handler per level,<br/>
-                                        not the total number of warning instances.
+                                        Counts of <em>unique</em> warnings for handler / level<br/>
+                                        (not the total number of warning instances). Lower is better.
                                     </caption>
                                     <tr>
                                         <th>
@@ -292,7 +294,7 @@
                                         <tr>
                                             <td><a href="/go-slog/handler/{{ $hdlr }}.html">{{ $.Benchmarks.HandlerName $hdlr }}</a></td>
                                             {{ range $level := $.Levels }}
-                                                <td class="number">{{ $.FixValue ($w.ScoreForLevel $hdlr $level) 2 }}</td>
+                                                <td class="number">{{ $.FixValue ($w.CountForLevel $hdlr $level) 0 }}</td>
                                             {{ end }}
                                             {{ range $scoreType := $scoresJustData }}
                                                 <td class="number">{{ $.FixValue ($w.ScoreForType $hdlr $scoreType) 2 }}</td>
@@ -456,8 +458,8 @@
                 "Name": "Details"
             },
             {
-                "ID":   "levels",
-                "Name": "Levels"
+                "ID":   "counts",
+                "Name": "Counts"
             }
         ]
         for (const table of tables) {

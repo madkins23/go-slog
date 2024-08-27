@@ -84,8 +84,8 @@ func (w *Warnings) Setup(_ *data.Benchmarks, warns *data.Warnings) error {
 			if dataLevel == nil {
 				ranged = 100.0
 			} else {
-				count := dataLevel.Count()
-				ranged = ranges[dataLevel.Level].RangedValue(float64(count))
+				hdlrData.SetCountFor(level, dataLevel.Count())
+				ranged = ranges[dataLevel.Level].RangedValue(float64(hdlrData.CountFor(level)))
 			}
 			hdlrData.ByLevel(level).Add(ranged)
 			byData.AddMultiple(hdlrData.ByLevel(level).Average(), w.levelWeight[level])
@@ -115,11 +115,8 @@ func (w *Warnings) HasTest(_ data.TestTag) bool {
 	return true
 }
 
-func (w *Warnings) LevelLog(handler data.HandlerTag, level warning.Level) []string {
-	if hdlrData, found := w.handlerData[handler]; found {
-		return hdlrData.LevelLog(level)
-	}
-	return []string{"No handler data for handler " + string(handler)}
+func (w *Warnings) CountForLevel(handler data.HandlerTag, level warning.Level) score.Value {
+	return score.Value(w.handlerData[handler].CountFor(level))
 }
 
 func (w *Warnings) ScoreFor(handler data.HandlerTag) score.Value {
