@@ -14,9 +14,8 @@
         <div>
             <table class="top">
                 <tr class="title"><td colspan="2"><h2>{{ .Keeper.Title }}</h2></td></tr>
-                {{ $scoresByData  := scoreList "ByData" "Original" "ByTest" "Default" }}
-                {{ $scoresJustData := scoreList "ByData" "Original" "Default" }}
-                {{ $scoresByTest  := scoreList "ByTest" "ByData" "Default" }}
+                {{ $scoresByData  := scoreList "Default" "ByData" "Original" "ByTest" }}
+                {{ $scoresByTest  := scoreList "Default" "ByTest" "ByData" }}
                 {{ $scoresDefault := scoreList "Default" }}
 
                 {{/* Score Keeper Data Tables */}}
