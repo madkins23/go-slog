@@ -2,9 +2,6 @@
 
 * Tables
   - Document multiple score columns
-  - Make charts optional in some places
-    - default on for test page
-    - default off for handler page
 
 ? Workflow keep-alive
   https://github.com/liskin/gh-workflow-keepalive

@@ -34,7 +34,7 @@
                                 {{ range $which, $axis := $.Keeper.Axes }}
                                     <th class="axis-box">
                                         <div class="hover-text">
-                                            <span class="tooltip-text" style="width:150px">Check box to see details</span>
+                                            <span class="tooltip-text tooltip-score-checkbox-offset" style="width:150px">Check box to see details</span>
                                             <label for="score-checkbox-{{ $which }}">{{ $axis.Name }}</label>
                                             <input id="score-checkbox-{{ $which }}" type="checkbox" onclick="axisDisplay('{{ $which }}')"/>
                                         </div>
@@ -103,7 +103,7 @@
                                             {{ if eq $scoreType.ColHeader "Score" }}
                                                 <th>
                                                     <div class="hover-text">
-                                                        <span class="tooltip-text" style="width:150px;top:-50px">Check box to see detail score columns</span>
+                                                        <span class="tooltip-text tooltip-score-header-offset">Check box to see detail score columns</span>
                                                         <label for="score-checkbox-{{ $which }}-details">Score</label>
                                                         <input id="score-checkbox-{{ $which }}-details" type="checkbox" onclick="showScoreColumns('{{ $which }}', 'details')"/>
                                                     </div>
@@ -149,7 +149,7 @@
                                             {{ if eq $scoreType.ColHeader "Score" }}
                                                 <th>
                                                     <div class="hover-text">
-                                                        <span class="tooltip-text" style="width:150px;top:-50px">Check box to see detail score columns</span>
+                                                        <span class="tooltip-text tooltip-score-header-offset">Check box to see detail score columns</span>
                                                         <label for="score-checkbox-{{ $which }}-micros">Score</label>
                                                         <input id="score-checkbox-{{ $which }}-micros" type="checkbox" onclick="showScoreColumns('{{ $which }}', 'micros')"/>
                                                     </div>
@@ -197,7 +197,7 @@
                                             {{ if eq $scoreType.ColHeader "Score" }}
                                                 <th>
                                                     <div class="hover-text">
-                                                        <span class="tooltip-text" style="width:150px;top:-50px">Check box to see detail score columns</span>
+                                                        <span class="tooltip-text tooltip-score-header-offset">Check box to see detail score columns</span>
                                                         <label for="score-checkbox-{{ $which }}-allocs">Score</label>
                                                         <input id="score-checkbox-{{ $which }}-allocs" type="checkbox" onclick="showScoreColumns('{{ $which }}', 'allocs')"/>
                                                     </div>
@@ -245,7 +245,7 @@
                                             {{ if eq $scoreType.ColHeader "Score" }}
                                                 <th>
                                                     <div class="hover-text">
-                                                        <span class="tooltip-text" style="width:150px;top:-50px">Check box to see detail score columns</span>
+                                                        <span class="tooltip-text tooltip-score-header-offset">Check box to see detail score columns</span>
                                                         <label for="score-checkbox-{{ $which }}-bytes">Score</label>
                                                         <input id="score-checkbox-{{ $which }}-bytes" type="checkbox" onclick="showScoreColumns('{{ $which }}', 'bytes')"/>
                                                     </div>
@@ -314,7 +314,7 @@
                                             {{ if eq $scoreType.ColHeader "Score" }}
                                                 <th>
                                                     <div class="hover-text">
-                                                        <span class="tooltip-text" style="width:150px;top:-50px">Check box to see detail score columns</span>
+                                                        <span class="tooltip-text tooltip-score-header-offset">Check box to see detail score columns</span>
                                                         <label for="score-checkbox-{{ $which }}-details">Score</label>
                                                         <input id="score-checkbox-{{ $which }}-details" type="checkbox" onclick="showScoreColumns('{{ $which }}', 'details')"/>
                                                     </div>
@@ -359,7 +359,7 @@
                                             {{ if eq $scoreType.ColHeader "Score" }}
                                                 <th>
                                                     <div class="hover-text">
-                                                        <span class="tooltip-text" style="width:150px;top:-50px">Check box to see detail score columns</span>
+                                                        <span class="tooltip-text tooltip-score-header-offset">Check box to see detail score columns</span>
                                                         <label for="score-checkbox-{{ $which }}-counts">Score</label>
                                                         <input id="score-checkbox-{{ $which }}-counts" type="checkbox" onclick="showScoreColumns('{{ $which }}', 'counts')"/>
                                                     </div>

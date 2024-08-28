@@ -26,3 +26,12 @@ function toggleElement(id, on) {
     let elem = document.getElementById(id);
     elem.style.display = elem.style.display === "none" ? on : "none";
 }
+function checkboxElement(id, on) {
+    let button = document.getElementById(id + '-checkbox')
+    if (button != null) {
+        const element = document.getElementById(id)
+        if (element != null) {
+            element.style.display = button.checked ? on : "none"
+        }
+    }
+}
