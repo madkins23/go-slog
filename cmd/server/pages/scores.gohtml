@@ -494,7 +494,7 @@
             document.getElementById(`score-chart-image-${i}`).hidden = i !== size
         }
     }
-    scoreChartSize(0);
+    scoreChartSize({{ $.ChartSize }});
 
     function showDataTable(axis, which) {
         const tables = [
@@ -566,7 +566,6 @@
             const elements = document.getElementsByClassName('score-column-' + axis + '-' + which)
             const mode = button.checked ? "table-cell" : "none"
             for (let el in elements) {
-                // elements[el].display = mode
                 elements[el].style.display = mode
             }
         }

@@ -347,6 +347,10 @@ type templateData struct {
 	Errors    []string
 }
 
+func (pd *templateData) ChartSize() uint8 {
+	return chart.SmallestChartSize(pd.Keeper)
+}
+
 // FixUint converts a uint64 into a string using the language printer.
 // This will apply the proper numeric separators.
 func (pd *templateData) FixUint(number uint64) string {

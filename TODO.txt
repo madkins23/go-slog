@@ -1,8 +1,9 @@
 # TODO
 
+* Scores
+  * Look carefully at all score charts / pages
 ? Workflow keep-alive
   https://github.com/liskin/gh-workflow-keepalive
-? Default chart size on score page to smallest one that contains all items
 * Warning levels in top-level README.md
 ? Show complex definitions, log traces, and attribute groups on a web page
 * Use json.Expect and reflect.DeepEqual()/assert.Equal() more often
