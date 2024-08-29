@@ -14,9 +14,8 @@
         <div>
             <table class="top">
                 <tr class="title"><td colspan="2"><h2>{{ .Keeper.Title }}</h2></td></tr>
-                {{ $scoresByData  := scoreList "Default" "ByData" "Original" "ByTest" }}
-                {{ $scoresByTest  := scoreList "Default" "ByTest" "ByData" }}
-                {{ $scoresDefault := scoreList "Default" }}
+                {{ $scoresByData  := scoreList "Default" "ByData" "ByTest" "Original" }}
+                {{ $scoresByTest  := scoreList "Default" "ByTest" "ByData" "Original" }}
 
                 {{/* Score Keeper Data Tables */}}
 
@@ -458,7 +457,6 @@
                             <h3 class="doc">{{ $which }} Axis: <span class="fixed">{{ $axis.Name }}</span></h3>
                             {{ $axis.Summary }}
                             <div id="axis-{{$which}}-doc" style="display:none">
-                                <h4>Documentation</h4>
                                 {{ $axis.Documentation }}
                             </div>
                             <button type="button" onclick="toggleElement('axis-{{$which}}-doc', 'block')">Documentation</button>

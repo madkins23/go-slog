@@ -2,6 +2,8 @@ Handler benchmarks are scored based on several metrics on each of various tests.
 Metrics are worth different amounts depending on what they are.
 The weights applied during this process are shown on the right.
 
+#### Source Data
+
 Each combination of handler and test results in a single line of test output:
 
 ```
@@ -16,6 +18,8 @@ From this line we get:
 * memory bytes allocated per operation (`24 B/op`),
 * separate memory allocations per operation (`1 allocs/op`), and
 * estimated logging throughput per second (`284.33 MB/s`).
+
+#### Benchmark Algorithm
 
 For each handler/test combination (single line or test results)
 we use one or more of the following three data items:
@@ -34,7 +38,7 @@ for each test
             track the highest and lowest value for the test over all handlers
 ```
 
-Then the test scores are calculated:
+Then the test scores are calculated (this is the `Original` calculation):
 
 ```
 for each handler
@@ -50,3 +54,22 @@ for each handler
 
 Where the `weight(result)` comes from the predefined table shown above and to the right.
 There is currently no weighting by test, all tests are considered equal.
+
+#### Scores
+
+Multiple scores are generated for each handler.
+The _main_ (or "default") score is shown in the data tables
+with the column header **Score** with an associated checkbox.
+The checkbox can be used to show several other "score" columns, as follows:
+
+* `Default` (**Score**)  
+  This is the score that is shown in the overall chart
+  at the top of the page in the column labeled **Benchmarks**.
+  The default score is the average of the `By Test` and `By Data` scores.
+* `By Test`  
+  This score is calculated by rolling up scores calculated per test.
+* `By Data`  
+  This score is calculated by rolling up scores calculated per data item.
+* `Original`  
+  This is the "original" score which has been overtaken by newer code.
+  The `Original` score is within 5% of `by Data` value.
