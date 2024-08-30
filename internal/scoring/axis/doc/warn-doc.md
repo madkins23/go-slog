@@ -54,10 +54,8 @@ The checkbox can be used to show several other "score" columns, as follows:
   This is the score that is shown in the overall chart
   at the top of the page in the column labeled **Warnings**.
   The default score is the same as the `By Data` score.
-* `By Test`  
-  This score is calculated by rolling up scores calculated per test.
 * `By Data`  
-  This score is calculated by rolling up scores calculated per data item.
+  This score is calculated by rolling up scores calculated per warning level.
 * `Original`  
   This is the "original" score which has been overtaken by newer code.
   The `Original` score is within 5% of `by Data` value.

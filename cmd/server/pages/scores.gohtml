@@ -15,6 +15,7 @@
             <table class="top">
                 <tr class="title"><td colspan="2"><h2>{{ .Keeper.Title }}</h2></td></tr>
                 {{ $scoresByData  := scoreList "Default" "ByData" "ByTest" "Original" }}
+                {{ $scoresNoTest  := scoreList "Default" "ByData" "Original" }}
                 {{ $scoresByTest  := scoreList "Default" "ByTest" "ByData" "Original" }}
 
                 {{/* Score Keeper Data Tables */}}
@@ -108,7 +109,9 @@
                                                     </div>
                                                 </th>
                                             {{ else }}
-                                                <td class="score-column-{{ $which }}-details" style="display:none;">{{ $scoreType.ColHeader }}</td>
+                                                <td class="score-column-{{ $which }}-details test-name-header" style="display:none;">
+                                                    <span>{{ $scoreType.ColHeader }}</span>
+                                                </td>
                                             {{ end }}
                                         {{ end }}
                                     </tr>
@@ -154,7 +157,9 @@
                                                     </div>
                                                 </th>
                                             {{ else }}
-                                                <td class="score-column-{{ $which }}-micros" style="display:none;">{{ $scoreType.ColHeader }}</td>
+                                                <td class="score-column-{{ $which }}-micros test-name-header" style="display:none;">
+                                                    <span>{{ $scoreType.ColHeader }}</span>
+                                                </td>
                                             {{ end }}
                                         {{ end }}
                                     </tr>
@@ -202,7 +207,9 @@
                                                     </div>
                                                 </th>
                                             {{ else }}
-                                                <td class="score-column-{{ $which }}-allocs" style="display:none;">{{ $scoreType.ColHeader }}</td>
+                                                <td class="score-column-{{ $which }}-allocs test-name-header" style="display:none;">
+                                                    <span>{{ $scoreType.ColHeader }}</span>
+                                                </td>
                                             {{ end }}
                                         {{ end }}
                                     </tr>
@@ -250,7 +257,9 @@
                                                     </div>
                                                 </th>
                                             {{ else }}
-                                                <td class="score-column-{{ $which }}-bytes" style="display:none;">{{ $scoreType.ColHeader }}</td>
+                                                <td class="score-column-{{ $which }}-bytes test-name-header" style="display:none;">
+                                                    <span>{{ $scoreType.ColHeader }}</span>
+                                                </td>
                                             {{ end }}
                                         {{ end }}
                                     </tr>
@@ -309,7 +318,7 @@
                                         {{ range $level := $.Levels }}
                                             <td class="number">{{ $level.String }}</td>
                                         {{ end }}
-                                        {{ range $scoreType := $scoresByData }}
+                                        {{ range $scoreType := $scoresNoTest }}
                                             {{ if eq $scoreType.ColHeader "Score" }}
                                                 <th>
                                                     <div class="hover-text">
@@ -329,7 +338,7 @@
                                             {{ range $level := $.Levels }}
                                                 <td class="number">{{ $.FixValue ($w.ScoreForLevel $hdlr $level) 2 }}</td>
                                             {{ end }}
-                                            {{ range $scoreType := $scoresByData }}
+                                            {{ range $scoreType := $scoresNoTest }}
                                                 {{ if eq $scoreType.ColHeader "Score" }}
                                                     <td class="number">{{ $.FixValue ($w.ScoreForType $hdlr $scoreType) 2 }}</td>
                                                 {{ else }}
@@ -354,7 +363,7 @@
                                         {{ range $level := $.Levels }}
                                             <td class="fixed"><span>{{ $level.String }}</span></td>
                                         {{ end }}
-                                        {{ range $scoreType := $scoresByData }}
+                                        {{ range $scoreType := $scoresNoTest }}
                                             {{ if eq $scoreType.ColHeader "Score" }}
                                                 <th>
                                                     <div class="hover-text">
@@ -374,7 +383,7 @@
                                             {{ range $level := $.Levels }}
                                                 <td class="number">{{ $.FixValue ($w.CountForLevel $hdlr $level) 0 }}</td>
                                             {{ end }}
-                                            {{ range $scoreType := $scoresByData }}
+                                            {{ range $scoreType := $scoresNoTest }}
                                                 {{ if eq $scoreType.ColHeader "Score" }}
                                                     <td class="number">{{ $.FixValue ($w.ScoreForType $hdlr $scoreType) 2 }}</td>
                                                 {{ else }}
