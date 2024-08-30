@@ -235,9 +235,9 @@
 :: 		the [^madkins/sloggy^ handler](/go-slog/handler/MadkinsSloggy.html)
 :: 		with numerous performance improvements.
 :: 		In addition, ^madkins/flash^ can be configured with ^flash.Extras^ options.
-:> flash.Extras --> https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash#Extras
 :> madkins/flash --> https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash
 :> madkins/sloggy --> https://pkg.go.dev/github.com/madkins23/go-slog/handlers/sloggy
+:> flash.Extras --> https://pkg.go.dev/github.com/madkins23/go-slog/handlers/flash#Extras
 :]
 === RUN   TestVerifyMadkinsFlash/TestAnyMap
 === RUN   TestVerifyMadkinsFlash/TestAttributeDuplicate
@@ -293,7 +293,7 @@
 === RUN   TestVerifyMadkinsFlash/TestWithGroupInline
 === RUN   TestVerifyMadkinsFlash/TestZeroPC
 === RUN   TestVerifyMadkinsFlash/TestZeroTime
---- PASS: TestVerifyMadkinsFlash (0.00s)
+--- PASS: TestVerifyMadkinsFlash (0.01s)
     --- PASS: TestVerifyMadkinsFlash/TestAnyMap (0.00s)
     --- PASS: TestVerifyMadkinsFlash/TestAttributeDuplicate (0.00s)
     --- PASS: TestVerifyMadkinsFlash/TestAttributeEmptyName (0.00s)
@@ -1050,8 +1050,8 @@
 === RUN   TestVerifySamberZerolog
 :[ samber/slog-zerolog
 :: ^samber/slog-zerolog^ is a wrapper around the pre-existing ^rs/zerolog^ logging library.
-:> samber/slog-zerolog --> https://pkg.go.dev/github.com/samber/slog-zerolog
 :> rs/zerolog --> https://github.com/rs/zerolog
+:> samber/slog-zerolog --> https://pkg.go.dev/github.com/samber/slog-zerolog
 :]
 === RUN   TestVerifySamberZerolog/TestAnyMap
 === RUN   TestVerifySamberZerolog/TestAttributeDuplicate
@@ -1452,7 +1452,7 @@
 === RUN   TestVerifyVeqrynDedupGroup/TestWithGroupInline
 === RUN   TestVerifyVeqrynDedupGroup/TestZeroPC
 === RUN   TestVerifyVeqrynDedupGroup/TestZeroTime
---- PASS: TestVerifyVeqrynDedupGroup (0.01s)
+--- PASS: TestVerifyVeqrynDedupGroup (0.00s)
     --- PASS: TestVerifyVeqrynDedupGroup/TestAnyMap (0.00s)
     --- PASS: TestVerifyVeqrynDedupGroup/TestAttributeDuplicate (0.00s)
     --- PASS: TestVerifyVeqrynDedupGroup/TestAttributeEmptyName (0.00s)
@@ -1567,7 +1567,7 @@
 === RUN   TestVerifyVeqrynDedupIgnore/TestWithGroupInline
 === RUN   TestVerifyVeqrynDedupIgnore/TestZeroPC
 === RUN   TestVerifyVeqrynDedupIgnore/TestZeroTime
---- PASS: TestVerifyVeqrynDedupIgnore (0.00s)
+--- PASS: TestVerifyVeqrynDedupIgnore (0.01s)
     --- PASS: TestVerifyVeqrynDedupIgnore/TestAnyMap (0.00s)
     --- PASS: TestVerifyVeqrynDedupIgnore/TestAttributeDuplicate (0.00s)
     --- PASS: TestVerifyVeqrynDedupIgnore/TestAttributeEmptyName (0.00s)
@@ -1861,7 +1861,7 @@ Warnings for chanchal/zaphandler:
            +missing key "c": a Handler should not output groups if there are no attributes (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:161)
      1 [WithGroupEmpty] Empty WithGroup() logged
          TestWithGroupEmpty: too many fields, found field 'group1', value is group, length: 0
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message","group1":{}}
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message","group1":{}}
   Implied
      1 [CanceledContext] Canceled context blocks logging
          TestCanceledContext
@@ -1884,16 +1884,16 @@ Warnings for chanchal/zaphandler:
      3 [NoReplAttrBasic] HandlerOptions.ReplaceAttr not available for basic fields
          TestReplaceAttrFnLevelCase: level value not null
          TestReplaceAttrFnMulti
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message","alpha":"omega","pi":3.141592653589793,"alpha":"omega","goober":"snoofus","e":2.718281828459045,"alpha":"omega","gibbering":"lunatic","phi":1.618033988749895,"group":{}}
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message","alpha":"omega","pi":3.141592653589793,"alpha":"omega","goober":"snoofus","e":2.718281828459045,"alpha":"omega","gibbering":"lunatic","phi":1.618033988749895,"group":{}}
          TestReplaceAttrFnRemoveTime: time value not empty string
      1 [SourceCaller] Source data logged as 'caller' instead of 'source'
          TestSourceKey: reflect/value.go:596
-           {"level":"info","time":"2024-08-25T01:25:43Z","caller":"reflect/value.go:596","msg":"This is a message"}
+           {"level":"info","time":"2024-08-30T14:28:30Z","caller":"reflect/value.go:596","msg":"This is a message"}
      2 [WithGroup] WithGroup doesn't embed following attributes into group
          TestGroupWithMulti
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message","first":"one","second":2,"third":"3","group":{"subGroup":{"fourth":"forth","pi":3.141592653589793}}}
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message","first":"one","second":2,"third":"3","group":{"subGroup":{"fourth":"forth","pi":3.141592653589793}}}
          TestGroupWithMultiSubEmpty
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message","first":"one","second":2,"third":"3","group":{}}
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message","first":"one","second":2,"third":"3","group":{}}
   Suggested
      2 [Duplicates] Duplicate field(s) found
          TestAttributeDuplicate: map[alpha:2 charlie:3]
@@ -1902,7 +1902,7 @@ Warnings for chanchal/zaphandler:
          TestLogAttributes
      1 [GroupWithTop] ^WithGroup().With()^ ends up at top level of log record instead of in the group
          TestGroupWithTop
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message","key":"value","group":{}}
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message","key":"value","group":{}}
     10 [LevelCase] Log level in lowercase
          TestCanceledContext: 'info'
          TestCanceledContext: 'info'
@@ -1915,7 +1915,7 @@ Warnings for chanchal/zaphandler:
          TestZeroPC: 'info'
          TestZeroTime: 'info'
      1 [TimeMillis] slog.Time() logs milliseconds instead of nanoseconds
-         TestLogAttributes: 2024-08-25T01:25:43Z
+         TestLogAttributes: 2024-08-30T14:28:30Z
 
 Warnings for madkins/flash:
   Suggested
@@ -1939,17 +1939,17 @@ Warnings for phsym/zeroslog:
   Required
      3 [EmptyAttributes] Empty attribute(s) logged ("":null)
          TestAttributeWithEmpty
-           {"level":"info","":null,"first":"one","pi":3.141592653589793,"time":"2024-08-25T01:25:43Z","message":"This is a message"}
+           {"level":"info","":null,"first":"one","pi":3.141592653589793,"time":"2024-08-30T14:28:30Z","message":"This is a message"}
          TestAttributesEmpty
-           {"level":"info","first":"one","":null,"pi":3.141592653589793,"time":"2024-08-25T01:25:43Z","message":"This is a message"}
+           {"level":"info","first":"one","":null,"pi":3.141592653589793,"time":"2024-08-30T14:28:30Z","message":"This is a message"}
          TestAttributesWithEmpty
-           {"level":"info","first":"one","second":2,"":null,"pi":3.141592653589793,"time":"2024-08-25T01:25:43Z","message":"This is a message"}
+           {"level":"info","first":"one","second":2,"":null,"pi":3.141592653589793,"time":"2024-08-30T14:28:30Z","message":"This is a message"}
      1 [GroupEmpty] Empty (sub)group(s) logged
          TestGroupWithMultiSubEmpty: found 'subGroup' group
-           {"level":"info","first":"one","group":{"second":2,"third":"3","subGroup":{}},"time":"2024-08-25T01:25:43Z","message":"This is a message"}
+           {"level":"info","first":"one","group":{"second":2,"third":"3","subGroup":{}},"time":"2024-08-30T14:28:30Z","message":"This is a message"}
      1 [GroupInline] Group with empty key does not inline subfields
          TestGroupInline
-           {"level":"info","first":"one","":{"second":2,"third":"3","fourth":"forth"},"pi":3.141592653589793,"time":"2024-08-25T01:25:43Z","message":"This is a message"}
+           {"level":"info","first":"one","":{"second":2,"third":"3","fourth":"forth"},"pi":3.141592653589793,"time":"2024-08-30T14:28:30Z","message":"This is a message"}
      1 [SlogTest] Failure of embedded slog/slogtest
          TestSlogTest: missing key "msg": this test expects slog.TimeKey, slog.LevelKey and slog.MessageKey (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:39)
            +unexpected key "": a Handler should ignore an empty Attr (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:61)
@@ -1961,7 +1961,7 @@ Warnings for phsym/zeroslog:
            +unexpected key "H": a Handler should not output groups if there are no attributes (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:161)
      1 [WithGroupEmpty] Empty WithGroup() logged
          TestWithGroupEmpty: too many fields, found field 'group1', value is group, length: 1
-           {"level":"info","group1":{"group2":{}},"time":"2024-08-25T01:25:43Z","message":"This is a message"}
+           {"level":"info","group1":{"group2":{}},"time":"2024-08-30T14:28:30Z","message":"This is a message"}
      1 [ZeroTime] Zero time is logged
          TestZeroTime: 0001-01-01T00:00:00Z
            {"level":"info","time":"0001-01-01T00:00:00Z","message":"This is a message"}
@@ -1985,12 +1985,12 @@ Warnings for phsym/zeroslog:
            +message not string
          TestReplaceAttrFnLevelCase: level value not null
          TestReplaceAttrFnMulti
-           {"level":"info","group":{"alpha":"omega","pi":3.141592653589793,"subGroup":{"alpha":"omega","goober":"snoofus","e":2.718281828459045,"oneMore":{"alpha":"omega","gibbering":"lunatic","phi":1.618033988749895}}},"time":"2024-08-25T01:25:43Z","message":"This is a message"}
+           {"level":"info","group":{"alpha":"omega","pi":3.141592653589793,"subGroup":{"alpha":"omega","goober":"snoofus","e":2.718281828459045,"oneMore":{"alpha":"omega","gibbering":"lunatic","phi":1.618033988749895}}},"time":"2024-08-30T14:28:30Z","message":"This is a message"}
          TestReplaceAttrFnRemoveEmptyKey
          TestReplaceAttrFnRemoveTime: time value not empty string
      1 [SourceCaller] Source data logged as 'caller' instead of 'source'
          TestSourceKey: /opt/hostedtoolcache/go/1.22.6/x64/src/reflect/value.go:596
-           {"level":"info","caller":"/opt/hostedtoolcache/go/1.22.6/x64/src/reflect/value.go:596","time":"2024-08-25T01:25:43Z","message":"This is a message"}
+           {"level":"info","caller":"/opt/hostedtoolcache/go/1.22.6/x64/src/reflect/value.go:596","time":"2024-08-30T14:28:30Z","message":"This is a message"}
   Suggested
      2 [Duplicates] Duplicate field(s) found
          TestAttributeDuplicate: map[alpha:2 charlie:3]
@@ -2010,7 +2010,7 @@ Warnings for phsym/zeroslog:
          TestZeroPC: 'info'
          TestZeroTime: 'info'
      1 [TimeMillis] slog.Time() logs milliseconds instead of nanoseconds
-         TestLogAttributes: 2024-08-25T01:25:43Z
+         TestLogAttributes: 2024-08-30T14:28:30Z
 
 Warnings for phuslu/slog:
   Suggested
@@ -2022,13 +2022,13 @@ Warnings for samber/slog-logrus:
   Required
      4 [Resolver] LogValuer objects are not resolved
          TestResolveGroup
-           {"group":{"hidden":{},"pi":3.141592653589793},"level":"info","msg":"This is a message","time":"2024-08-25T01:25:43Z"}
+           {"group":{"hidden":{},"pi":3.141592653589793},"level":"info","msg":"This is a message","time":"2024-08-30T14:28:30Z"}
          TestResolveGroupWith
-           {"group":{"hidden":{},"pi":3.141592653589793},"level":"info","msg":"This is a message","time":"2024-08-25T01:25:43Z"}
+           {"group":{"hidden":{},"pi":3.141592653589793},"level":"info","msg":"This is a message","time":"2024-08-30T14:28:30Z"}
          TestResolveValuer
-           {"hidden":{},"level":"info","msg":"This is a message","time":"2024-08-25T01:25:43Z"}
+           {"hidden":{},"level":"info","msg":"This is a message","time":"2024-08-30T14:28:30Z"}
          TestResolveWith
-           {"hidden":{},"level":"info","msg":"This is a message","time":"2024-08-25T01:25:43Z"}
+           {"hidden":{},"level":"info","msg":"This is a message","time":"2024-08-30T14:28:30Z"}
      1 [SlogTest] Failure of embedded slog/slogtest
          TestSlogTest: unexpected key "time": a Handler should ignore a zero Record.Time (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:73)
            +missing key "c": a Handler should inline the Attrs of a group with an empty key (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:119)
@@ -2037,8 +2037,8 @@ Warnings for samber/slog-logrus:
            +"k": got map[string]interface {}{}, want "replaced": a Handler should call Resolve on attribute values from WithAttrs (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:198)
            +"b": got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups from WithAttrs (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:207)
      1 [ZeroTime] Zero time is logged
-         TestZeroTime: 2024-08-25T01:25:43Z
-           {"level":"info","msg":"This is a message","time":"2024-08-25T01:25:43Z"}
+         TestZeroTime: 2024-08-30T14:28:30Z
+           {"level":"info","msg":"This is a message","time":"2024-08-30T14:28:30Z"}
   Implied
      5 [NoReplAttrBasic] HandlerOptions.ReplaceAttr not available for basic fields
          TestReplaceAttrBasic: too many attributes: 4
@@ -2047,7 +2047,7 @@ Warnings for samber/slog-logrus:
            +source == map[file:/home/runner/work/go-slog/go-slog/verify/tests/replace.go function:github.com/madkins23/go-slog/verify/tests.(*SlogTestSuite).TestReplaceAttrBasic line:89]
          TestReplaceAttrFnLevelCase: level value not null
          TestReplaceAttrFnMulti
-           {"group":{"alpha":"OMEGA","pi":3.141592653589793,"subGroup":{"e":2.718281828459045,"goober":"snoofus","la la la":"omega","oneMore":{"alpha":"omega","gibbering":"moontic","phi":1.618033988749895}}},"level":"info","msg":"This is a message","time":"2024-08-25T01:25:43Z"}
+           {"group":{"alpha":"OMEGA","pi":3.141592653589793,"subGroup":{"e":2.718281828459045,"goober":"snoofus","la la la":"omega","oneMore":{"alpha":"omega","gibbering":"moontic","phi":1.618033988749895}}},"level":"info","msg":"This is a message","time":"2024-08-30T14:28:30Z"}
          TestReplaceAttrFnRemoveEmptyKey
          TestReplaceAttrFnRemoveTime: time value not empty string
   Suggested
@@ -2066,13 +2066,13 @@ Warnings for samber/slog-logrus:
          TestKeyCase: should be 'WARN', not 'warning'
      4 [NoEmptyName] Attributes with empty names are not logged
          TestAttributeEmptyName
-           {"first":"one","level":"info","msg":"This is a message","pi":3.141592653589793,"time":"2024-08-25T01:25:43Z"}
+           {"first":"one","level":"info","msg":"This is a message","pi":3.141592653589793,"time":"2024-08-30T14:28:30Z"}
          TestAttributeWithEmptyName
-           {"first":"one","level":"info","msg":"This is a message","pi":3.141592653589793,"time":"2024-08-25T01:25:43Z"}
+           {"first":"one","level":"info","msg":"This is a message","pi":3.141592653589793,"time":"2024-08-30T14:28:30Z"}
          TestAttributesNotEmpty
-           {"first":"one","level":"info","msg":"This is a message","pi":3.141592653589793,"time":"2024-08-25T01:25:43Z"}
+           {"first":"one","level":"info","msg":"This is a message","pi":3.141592653589793,"time":"2024-08-30T14:28:30Z"}
          TestAttributesWithNotEmpty
-           {"first":"one","level":"info","msg":"This is a message","pi":3.141592653589793,"second":2,"time":"2024-08-25T01:25:43Z"}
+           {"first":"one","level":"info","msg":"This is a message","pi":3.141592653589793,"second":2,"time":"2024-08-30T14:28:30Z"}
   Administrative
      3 [Unused] Unused Warnings(s)
          TestGroupInline: GroupInline
@@ -2083,13 +2083,13 @@ Warnings for samber/slog-zap:
   Required
      4 [Resolver] LogValuer objects are not resolved
          TestResolveGroup
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message","group":{"hidden":{},"pi":3.141592653589793}}
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message","group":{"hidden":{},"pi":3.141592653589793}}
          TestResolveGroupWith
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message","group":{"hidden":{},"pi":3.141592653589793}}
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message","group":{"hidden":{},"pi":3.141592653589793}}
          TestResolveValuer
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message","hidden":{}}
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message","hidden":{}}
          TestResolveWith
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message","hidden":{}}
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message","hidden":{}}
      1 [SlogTest] Failure of embedded slog/slogtest
          TestSlogTest: unexpected key "time": a Handler should ignore a zero Record.Time (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:73)
            +missing key "c": a Handler should inline the Attrs of a group with an empty key (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:119)
@@ -2099,10 +2099,10 @@ Warnings for samber/slog-zap:
            +"b": got map[string]interface {}{}, want "v2": a Handler should call Resolve on attribute values in groups from WithAttrs (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:207)
      1 [ZeroPC] SourceKey logged for zero PC
          TestZeroPC: non-standard key 'caller'
-           {"level":"info","time":"2024-08-25T01:25:43Z","caller":":0","msg":"This is a message"}
+           {"level":"info","time":"2024-08-30T14:28:30Z","caller":":0","msg":"This is a message"}
      1 [ZeroTime] Zero time is logged
-         TestZeroTime: 2024-08-25T01:25:43Z
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message"}
+         TestZeroTime: 2024-08-30T14:28:30Z
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message"}
   Implied
      5 [NoReplAttrBasic] HandlerOptions.ReplaceAttr not available for basic fields
          TestReplaceAttrBasic: too many attributes: 4
@@ -2111,18 +2111,18 @@ Warnings for samber/slog-zap:
            +source == <nil>
          TestReplaceAttrFnLevelCase: level value not null
          TestReplaceAttrFnMulti
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message","group":{"alpha":"OMEGA","pi":3.141592653589793,"subGroup":{"e":2.718281828459045,"goober":"snoofus","la la la":"omega","oneMore":{"alpha":"omega","gibbering":"moontic","phi":1.618033988749895}}}}
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message","group":{"alpha":"OMEGA","pi":3.141592653589793,"subGroup":{"e":2.718281828459045,"goober":"snoofus","la la la":"omega","oneMore":{"alpha":"omega","gibbering":"moontic","phi":1.618033988749895}}}}
          TestReplaceAttrFnRemoveEmptyKey
          TestReplaceAttrFnRemoveTime: time value not empty string
      1 [SourceCaller] Source data logged as 'caller' instead of 'source'
          TestSourceKey: reflect/value.go:596
-           {"level":"info","time":"2024-08-25T01:25:43Z","caller":"reflect/value.go:596","msg":"This is a message"}
+           {"level":"info","time":"2024-08-30T14:28:30Z","caller":"reflect/value.go:596","msg":"This is a message"}
   Suggested
      1 [DurationSeconds] slog.Duration() logs seconds instead of nanoseconds
          TestLogAttributes
      1 [GroupDuration] 
          TestGroupDuration: 29002.000000 != 29002000000000.000000
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message","outer":29002,"group":{"inner":29002000000000}}
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message","group":{"inner":29002000000000},"outer":29002}
     11 [LevelCase] Log level in lowercase
          TestCanceledContext: 'info'
          TestCanceledContext: 'info'
@@ -2137,15 +2137,15 @@ Warnings for samber/slog-zap:
          TestZeroTime: 'info'
      4 [NoEmptyName] Attributes with empty names are not logged
          TestAttributeEmptyName
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message","first":"one","pi":3.141592653589793}
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message","first":"one","pi":3.141592653589793}
          TestAttributeWithEmptyName
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message","first":"one","pi":3.141592653589793}
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message","first":"one","pi":3.141592653589793}
          TestAttributesNotEmpty
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message","first":"one","pi":3.141592653589793}
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message","pi":3.141592653589793,"first":"one"}
          TestAttributesWithNotEmpty
-           {"level":"info","time":"2024-08-25T01:25:43Z","msg":"This is a message","pi":3.141592653589793,"first":"one","second":2}
+           {"level":"info","time":"2024-08-30T14:28:30Z","msg":"This is a message","first":"one","second":2,"pi":3.141592653589793}
      1 [TimeMillis] slog.Time() logs milliseconds instead of nanoseconds
-         TestLogAttributes: 2024-08-25T01:25:43Z
+         TestLogAttributes: 2024-08-30T14:28:30Z
   Administrative
      2 [Unused] Unused Warnings(s)
          TestGroupInline: GroupInline
@@ -2155,13 +2155,13 @@ Warnings for samber/slog-zerolog:
   Required
      4 [Resolver] LogValuer objects are not resolved
          TestResolveGroup
-           {"level":"info","time":"2024-08-25T01:25:43Z","group":{"hidden":{},"pi":3.141592653589793},"message":"This is a message"}
+           {"level":"info","time":"2024-08-30T14:28:30Z","group":{"hidden":{},"pi":3.141592653589793},"message":"This is a message"}
          TestResolveGroupWith
-           {"level":"info","time":"2024-08-25T01:25:43Z","group":{"hidden":{},"pi":3.141592653589793},"message":"This is a message"}
+           {"level":"info","time":"2024-08-30T14:28:30Z","group":{"hidden":{},"pi":3.141592653589793},"message":"This is a message"}
          TestResolveValuer
-           {"level":"info","time":"2024-08-25T01:25:43Z","hidden":{},"message":"This is a message"}
+           {"level":"info","time":"2024-08-30T14:28:30Z","hidden":{},"message":"This is a message"}
          TestResolveWith
-           {"level":"info","time":"2024-08-25T01:25:43Z","hidden":{},"message":"This is a message"}
+           {"level":"info","time":"2024-08-30T14:28:30Z","hidden":{},"message":"This is a message"}
      1 [SlogTest] Failure of embedded slog/slogtest
          TestSlogTest: missing key "msg": this test expects slog.TimeKey, slog.LevelKey and slog.MessageKey (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:39)
            +unexpected key "time": a Handler should ignore a zero Record.Time (/opt/hostedtoolcache/go/1.22.6/x64/src/testing/slogtest/slogtest.go:73)
@@ -2198,7 +2198,7 @@ Warnings for samber/slog-zerolog:
            +message not string
          TestReplaceAttrFnLevelCase: level value not null
          TestReplaceAttrFnMulti
-           {"level":"info","time":"2024-08-25T01:25:43Z","group":{"alpha":"OMEGA","pi":3.141592653589793,"subGroup":{"e":2.718281828459045,"goober":"snoofus","la la la":"omega","oneMore":{"alpha":"omega","gibbering":"moontic","phi":1.618033988749895}}},"message":"This is a message"}
+           {"level":"info","time":"2024-08-30T14:28:30Z","group":{"alpha":"OMEGA","pi":3.141592653589793,"subGroup":{"e":2.718281828459045,"goober":"snoofus","la la la":"omega","oneMore":{"alpha":"omega","gibbering":"moontic","phi":1.618033988749895}}},"message":"This is a message"}
          TestReplaceAttrFnRemoveEmptyKey
          TestReplaceAttrFnRemoveTime: time value not empty string
   Suggested
@@ -2206,7 +2206,7 @@ Warnings for samber/slog-zerolog:
          TestLogAttributes
      1 [GroupDuration] 
          TestGroupDuration: 29002000.000000 != 29002000000000.000000
-           {"level":"info","time":"2024-08-25T01:25:43Z","group":{"inner":29002000000000},"outer":29002000,"message":"This is a message"}
+           {"level":"info","time":"2024-08-30T14:28:30Z","group":{"inner":29002000000000},"outer":29002000,"message":"This is a message"}
     11 [LevelCase] Log level in lowercase
          TestCanceledContext: 'info'
          TestCanceledContext: 'info'
@@ -2221,15 +2221,15 @@ Warnings for samber/slog-zerolog:
          TestZeroTime: 'info'
      4 [NoEmptyName] Attributes with empty names are not logged
          TestAttributeEmptyName
-           {"level":"info","time":"2024-08-25T01:25:43Z","first":"one","pi":3.141592653589793,"message":"This is a message"}
+           {"level":"info","time":"2024-08-30T14:28:30Z","first":"one","pi":3.141592653589793,"message":"This is a message"}
          TestAttributeWithEmptyName
-           {"level":"info","time":"2024-08-25T01:25:43Z","first":"one","pi":3.141592653589793,"message":"This is a message"}
+           {"level":"info","time":"2024-08-30T14:28:30Z","first":"one","pi":3.141592653589793,"message":"This is a message"}
          TestAttributesNotEmpty
-           {"level":"info","time":"2024-08-25T01:25:43Z","first":"one","pi":3.141592653589793,"message":"This is a message"}
+           {"level":"info","time":"2024-08-30T14:28:30Z","first":"one","pi":3.141592653589793,"message":"This is a message"}
          TestAttributesWithNotEmpty
-           {"level":"info","time":"2024-08-25T01:25:43Z","first":"one","pi":3.141592653589793,"second":2,"message":"This is a message"}
+           {"level":"info","time":"2024-08-30T14:28:30Z","first":"one","pi":3.141592653589793,"second":2,"message":"This is a message"}
      1 [TimeMillis] slog.Time() logs milliseconds instead of nanoseconds
-         TestLogAttributes: 2024-08-25T01:25:43Z
+         TestLogAttributes: 2024-08-30T14:28:30Z
   Administrative
      3 [Unused] Unused Warnings(s)
          TestGroupInline: GroupInline
@@ -2273,30 +2273,30 @@ Warnings for svcrunner/jsonlog:
            +message not string
          TestReplaceAttrFnLevelCase: level value not null
          TestReplaceAttrFnMulti
-           {"time":"2024-08-25T01:25:43.297589435Z","level":"INFO","message":"This is a message","group":{"alpha":"omega","pi":3.141592653589793,"subGroup":{"alpha":"omega","goober":"snoofus","e":2.718281828459045,"oneMore":{"alpha":"omega","gibbering":"lunatic","phi":1.618033988749895}}}}
+           {"time":"2024-08-30T14:28:30.711956985Z","level":"INFO","message":"This is a message","group":{"alpha":"omega","pi":3.141592653589793,"subGroup":{"alpha":"omega","goober":"snoofus","e":2.718281828459045,"oneMore":{"alpha":"omega","gibbering":"lunatic","phi":1.618033988749895}}}}
          TestReplaceAttrFnRemoveEmptyKey
          TestReplaceAttrFnRemoveTime: time value not empty string
      1 [SourceKey] Source data not logged when AddSource flag set
          TestSourceKey: no 'source' key
-           {"time":"2024-08-25T01:25:43.298335389Z","level":"INFO","message":"This is a message"}
+           {"time":"2024-08-30T14:28:30.712682113Z","level":"INFO","message":"This is a message"}
   Suggested
      2 [Duplicates] Duplicate field(s) found
          TestAttributeDuplicate: map[alpha:2 charlie:3]
          TestAttributeWithDuplicate: map[alpha:2 charlie:3]
      2 [DurationString] slog.Duration() logs a string representation instead of nanoseconds
          TestGroupDuration: 8h3m22s
-           {"time":"2024-08-25T01:25:43.296322919Z","level":"INFO","message":"This is a message","outer":"8h3m22s","group":{"inner":"8h3m22s"}}
+           {"time":"2024-08-30T14:28:30.710783268Z","level":"INFO","message":"This is a message","outer":"8h3m22s","group":{"inner":"8h3m22s"}}
          TestLogAttributes: 1m0s
-           {"time":"2024-08-25T01:25:43.297169711Z","level":"INFO","message":"This is a message","when":"2024-08-25T01:25:43.297167216Z","howLong":"1m0s","goober":"snoofus","boolean":true,"pi":3.141592653589793,"skidoo":23,"minus":-64,"unsigned":79,"any":["alpha","omega"]}
+           {"time":"2024-08-30T14:28:30.711561995Z","level":"INFO","message":"This is a message","when":"2024-08-30T14:28:30.711559851Z","howLong":"1m0s","goober":"snoofus","boolean":true,"pi":3.141592653589793,"skidoo":23,"minus":-64,"unsigned":79,"any":["alpha","omega"]}
      4 [NoEmptyName] Attributes with empty names are not logged
          TestAttributeEmptyName
-           {"time":"2024-08-25T01:25:43.294125823Z","level":"INFO","message":"This is a message","first":"one","pi":3.141592653589793}
+           {"time":"2024-08-30T14:28:30.708641337Z","level":"INFO","message":"This is a message","first":"one","pi":3.141592653589793}
          TestAttributeWithEmptyName
-           {"time":"2024-08-25T01:25:43.294423599Z","level":"INFO","message":"This is a message","first":"one","pi":3.141592653589793}
+           {"time":"2024-08-30T14:28:30.70893671Z","level":"INFO","message":"This is a message","first":"one","pi":3.141592653589793}
          TestAttributesNotEmpty
-           {"time":"2024-08-25T01:25:43.294720905Z","level":"INFO","message":"This is a message","first":"one","pi":3.141592653589793}
+           {"time":"2024-08-30T14:28:30.70922491Z","level":"INFO","message":"This is a message","first":"one","pi":3.141592653589793}
          TestAttributesWithNotEmpty
-           {"time":"2024-08-25T01:25:43.294934765Z","level":"INFO","message":"This is a message","first":"one","second":2,"pi":3.141592653589793}
+           {"time":"2024-08-30T14:28:30.70945993Z","level":"INFO","message":"This is a message","first":"one","second":2,"pi":3.141592653589793}
 
 Warnings for veqryn/dedup/Append:
   Administrative
@@ -2345,26 +2345,26 @@ Warnings for veqryn/dedup/Overwrite:
     [LevelVar] Unable to change level during execution via LevelVar
       svcrunner/jsonlog
     [Resolver] LogValuer objects are not resolved
-      samber/slog-zap
       samber/slog-zerolog
       samber/slog-logrus
+      samber/slog-zap
     [SlogTest] Failure of embedded slog/slogtest
+      samber/slog-logrus
       samber/slog-zap
       samber/slog-zerolog
       svcrunner/jsonlog
       chanchal/zaphandler
       phsym/zeroslog
-      samber/slog-logrus
     [WithGroupEmpty] Empty WithGroup() logged
       chanchal/zaphandler
       phsym/zeroslog
     [ZeroPC] SourceKey logged for zero PC
       samber/slog-zap
     [ZeroTime] Zero time is logged
-      phsym/zeroslog
       samber/slog-logrus
       samber/slog-zap
       samber/slog-zerolog
+      phsym/zeroslog
   Implied
     [CanceledContext] Canceled context blocks logging
       chanchal/zaphandler
@@ -2381,21 +2381,20 @@ Warnings for veqryn/dedup/Overwrite:
       svcrunner/jsonlog
       chanchal/zaphandler
     [NoReplAttrBasic] HandlerOptions.ReplaceAttr not available for basic fields
-      samber/slog-zap
       samber/slog-zerolog
       chanchal/zaphandler
       samber/slog-logrus
+      samber/slog-zap
     [SourceCaller] Source data logged as 'caller' instead of 'source'
-      chanchal/zaphandler
       phsym/zeroslog
       samber/slog-zap
+      chanchal/zaphandler
     [SourceKey] Source data not logged when AddSource flag set
       svcrunner/jsonlog
     [WithGroup] WithGroup doesn't embed following attributes into group
       chanchal/zaphandler
   Suggested
     [Duplicates] Duplicate field(s) found
-      phuslu/slog
       slog/JSONHandler
       svcrunner/jsonlog
       chanchal/zaphandler
@@ -2403,9 +2402,10 @@ Warnings for veqryn/dedup/Overwrite:
       madkins/replattr
       madkins/sloggy
       phsym/zeroslog
+      phuslu/slog
     [DurationMillis] slog.Duration() logs milliseconds instead of nanoseconds
-      phsym/zeroslog
       samber/slog-zerolog
+      phsym/zeroslog
     [DurationSeconds] slog.Duration() logs seconds instead of nanoseconds
       chanchal/zaphandler
       samber/slog-zap
@@ -2430,15 +2430,15 @@ Warnings for veqryn/dedup/Overwrite:
       samber/slog-zerolog
       svcrunner/jsonlog
     [TimeMillis] slog.Time() logs milliseconds instead of nanoseconds
-      chanchal/zaphandler
       phsym/zeroslog
       samber/slog-zap
       samber/slog-zerolog
+      chanchal/zaphandler
   Administrative
     [SkipDedup] Test depends on dedup order
+      veqryn/dedup/Append
       veqryn/dedup/Ignore
       veqryn/dedup/Increment
-      veqryn/dedup/Append
     [SkippingTest] Skipping test
       veqryn/dedup/Append
       veqryn/dedup/Ignore
@@ -2447,4 +2447,4 @@ Warnings for veqryn/dedup/Overwrite:
       samber/slog-logrus
       samber/slog-zap
       samber/slog-zerolog
-ok  	github.com/madkins23/go-slog/verify	0.097s
+ok  	github.com/madkins23/go-slog/verify	0.099s

@@ -91,32 +91,39 @@ L 593 -9223372036854775257" style="stroke-width:0;stroke:rgba(255,255,255,0.0);f
 L 593 -9223372036854775257" style="stroke-width:0;stroke:rgba(255,255,255,0.0);fill:none"/><path  d="M 12 -9223372036854775257
 L 593 -9223372036854775257" style="stroke-width:0;stroke:rgba(255,255,255,0.0);fill:none"/><path  d="M 12 -9223372036854775257
 L 593 -9223372036854775257" style="stroke-width:0;stroke:rgba(255,255,255,0.0);fill:none"/><path  d="M 12 -9223372036854775257
-L 593 -9223372036854775257" style="stroke-width:0;stroke:rgba(255,255,255,0.0);fill:none"/><path  d="M 558 11
-L 652 52" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:rgba(255,255,255,0.0)"/><path  d="M 558 82
-L 652 112" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:rgba(255,255,255,0.0)"/><path  d="M 558 108
-L 652 173" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:rgba(255,255,255,0.0)"/><path  d="M 558 357
-L 652 233" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:rgba(255,255,255,0.0)"/><circle cx="558" cy="11" r="5" style="stroke-width:1;stroke:rgba(7,243,0,1.0);fill:rgba(7,243,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(7,243,0,1.0);fill:rgba(7,243,0,1.0)"/><circle cx="558" cy="82" r="5" style="stroke-width:1;stroke:rgba(24,228,0,1.0);fill:rgba(24,228,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(24,228,0,1.0);fill:rgba(24,228,0,1.0)"/><circle cx="558" cy="108" r="5" style="stroke-width:1;stroke:rgba(30,220,0,1.0);fill:rgba(30,220,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(30,220,0,1.0);fill:rgba(30,220,0,1.0)"/><circle cx="558" cy="357" r="5" style="stroke-width:1;stroke:rgba(73,138,0,1.0);fill:rgba(73,138,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(73,138,0,1.0);fill:rgba(73,138,0,1.0)"/><path  d="M 652 52
-L 662 41
-L 740 41
-L 740 63
-L 662 63
-L 652 52
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="667" y="58" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">phuslu/slog</text><path  d="M 652 112
-L 662 101
-L 780 101
-L 780 123
-L 662 123
-L 652 112
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="667" y="118" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">slog/JSONHandler</text><path  d="M 652 173
-L 662 162
-L 755 162
-L 755 184
-L 662 184
-L 652 173
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="667" y="179" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">madkins/flash</text><path  d="M 652 233
-L 662 222
-L 764 222
-L 764 244
-L 662 244
-L 652 233
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="667" y="239" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">madkins/sloggy</text></svg>
+L 593 -9223372036854775257" style="stroke-width:0;stroke:rgba(255,255,255,0.0);fill:none"/><path  d="M 563 11
+L 652 26" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:rgba(255,255,255,0.0)"/><path  d="M 19 35
+L 652 86" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:rgba(255,255,255,0.0)"/><path  d="M 563 81
+L 652 147" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:rgba(255,255,255,0.0)"/><path  d="M 563 107
+L 652 207" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:rgba(255,255,255,0.0)"/><path  d="M 563 365
+L 652 268" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:rgba(255,255,255,0.0)"/><circle cx="563" cy="11" r="5" style="stroke-width:1;stroke:rgba(6,245,0,1.0);fill:rgba(6,245,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(6,245,0,1.0);fill:rgba(6,245,0,1.0)"/><circle cx="19" cy="35" r="5" style="stroke-width:1;stroke:rgba(82,76,0,1.0);fill:rgba(82,76,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(82,76,0,1.0);fill:rgba(82,76,0,1.0)"/><circle cx="563" cy="81" r="5" style="stroke-width:1;stroke:rgba(23,229,0,1.0);fill:rgba(23,229,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(23,229,0,1.0);fill:rgba(23,229,0,1.0)"/><circle cx="563" cy="107" r="5" style="stroke-width:1;stroke:rgba(29,221,0,1.0);fill:rgba(29,221,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(29,221,0,1.0);fill:rgba(29,221,0,1.0)"/><circle cx="563" cy="365" r="5" style="stroke-width:1;stroke:rgba(73,136,0,1.0);fill:rgba(73,136,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(73,136,0,1.0);fill:rgba(73,136,0,1.0)"/><path  d="M 652 26
+L 662 15
+L 740 15
+L 740 37
+L 662 37
+L 652 26
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="667" y="32" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">phuslu/slog</text><path  d="M 652 86
+L 662 75
+L 776 75
+L 776 97
+L 662 97
+L 652 86
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="667" y="92" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">svcrunner/jsonlog</text><path  d="M 652 147
+L 662 136
+L 780 136
+L 780 158
+L 662 158
+L 652 147
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="667" y="153" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">slog/JSONHandler</text><path  d="M 652 207
+L 662 196
+L 755 196
+L 755 218
+L 662 218
+L 652 207
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="667" y="213" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">madkins/flash</text><path  d="M 652 268
+L 662 257
+L 764 257
+L 764 279
+L 662 279
+L 652 268
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="667" y="274" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">madkins/sloggy</text></svg>
