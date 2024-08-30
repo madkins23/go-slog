@@ -72,6 +72,7 @@ import (
 	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/language"
 	"github.com/madkins23/go-slog/internal/scoring"
+	"github.com/madkins23/go-slog/internal/scoring/axis"
 	"github.com/madkins23/go-slog/internal/scoring/keeper"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
@@ -346,6 +347,10 @@ type templateData struct {
 	Errors    []string
 }
 
+func (pd *templateData) ChartSize() uint8 {
+	return chart.SmallestChartSize(pd.Keeper)
+}
+
 // FixUint converts a uint64 into a string using the language printer.
 // This will apply the proper numeric separators.
 func (pd *templateData) FixUint(number uint64) string {
@@ -448,9 +453,20 @@ func functions() map[string]any {
 			}
 			return dict
 		},
+		"isBenchmarkAxis": func(a score.Axis) *axis.Benchmarks {
+			if b, ok := a.(*axis.Benchmarks); ok {
+				return b
+			}
+			return nil
+		},
+		"isWarningAxis": func(a score.Axis) *axis.Warnings {
+			if w, ok := a.(*axis.Warnings); ok {
+				return w
+			}
+			return nil
+		},
 		"scoreList": func(name ...string) []score.Type {
-			result := score.ScoreList(name...)
-			slog.Info("scoreList", "result", result)
+			result := score.List(name...)
 			return result
 		},
 		"unescape": func(s string) template.HTML {

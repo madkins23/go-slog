@@ -132,8 +132,18 @@ table.data {
     margin-right: auto;
 }
 
+table.data th.axis-box label {
+    text-align: right;
+    float: left;
+}
+
+table.data th.axis-box input {
+    margin-left: 16px;
+    float: right;
+}
+
 table.data caption {
-    font-weight: bold;
+    caption-side:bottom;
 }
 
 table.data td {
@@ -496,6 +506,12 @@ table.warning-data td, th {
     /*right:0;*/
 }
 
+.attention {
+    font-size: 120%;
+    font-weight: bold;
+    color: darkred;
+}
+
 .fixed {
     font-family: monospace;
 }
@@ -519,14 +535,36 @@ table.warning-data td, th {
     font-size: 12px;
     position: absolute;
     z-index: 1;
-    width: 100px;
     line-height: 0;
 }
 
 .hover-text:hover .tooltip-text {
-    left: -40px;
-    top: -40px;
     line-height: normal;
     padding: 10px 15px 10px 15px;
     visibility: visible;
+}
+
+.hover-text:hover .tooltip-score-checkbox-offset {
+    left: -40px;
+    top: -40px;
+    width: 150px;
+}
+
+.hover-text:hover .tooltip-score-header-offset {
+    left: -40px;
+    top: -50px;
+    width: 200px;
+}
+
+.hover-text:hover .tooltip-chart-checkbox-offset {
+    left: -0px;
+    top: -50px;
+    width: 150px;
+}
+
+.hover-text label.charts {
+    /* Duplicate H2 settings */
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 0.83em 0;
 }

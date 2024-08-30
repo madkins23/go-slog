@@ -149,8 +149,8 @@ func (w *Warnings) ParseWarningData(in io.Reader, source string, lookup map[stri
 		if ptnNone.Match(line) {
 			// Minimal amount of data to support score chart.
 			w.ByHandler[handler] = &Levels{
-				lookup: make(map[string]*dataLevel),
-				levels: make([]*dataLevel, 0),
+				lookup: make(map[string]*DataLevel),
+				levels: make([]*DataLevel, 0),
 			}
 			continue
 		}

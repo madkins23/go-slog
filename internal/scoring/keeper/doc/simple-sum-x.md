@@ -1,4 +1,5 @@
-The X-axis for the default scoring chart shows the score derived from verification warnings.
+The X-axis for the `Simple` scoring chart shows the score derived from verification warnings
+with simpler axis weights.
 
-The generated warnings are weighted according to the table to the right
-which are applied to the warning levels for the generated warnings.
+The score is calculated using the score weights shown to the right
+which are applied to the warning levels during calculation.

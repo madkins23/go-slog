@@ -1,4 +1,4 @@
-package bench
+package common
 
 import (
 	"fmt"

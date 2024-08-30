@@ -219,6 +219,20 @@ func newChartData(keeper *score.Keeper, warns *data.Warnings, size *sizeData) *s
 	return cd
 }
 
+func SmallestChartSize(keeper *score.Keeper) uint8 {
+	smallest := 0
+	for sz := 1; sz < len(sizes); sz++ {
+		for _, hdlr := range keeper.HandlerTags() {
+			if keeper.Y().ScoreFor(hdlr) < sizes[sz].low.y ||
+				keeper.X().ScoreFor(hdlr) < sizes[sz].low.x {
+				return uint8(smallest)
+			}
+		}
+		smallest = sz
+	}
+	return uint8(smallest)
+}
+
 // generate a chart.Chart object which is
 // a scatter plot of handler benchmark vs. warning scores.
 func (cd *scoreChartData) generate() chart.Chart {

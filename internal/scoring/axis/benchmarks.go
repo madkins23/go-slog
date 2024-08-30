@@ -8,6 +8,7 @@ import (
 	"github.com/madkins23/go-slog/internal/data"
 	"github.com/madkins23/go-slog/internal/markdown"
 	"github.com/madkins23/go-slog/internal/scoring/axis/bench"
+	"github.com/madkins23/go-slog/internal/scoring/axis/common"
 	"github.com/madkins23/go-slog/internal/scoring/exhibit"
 	"github.com/madkins23/go-slog/internal/scoring/score"
 )
@@ -56,19 +57,18 @@ func NewBenchmarks(benchWeight map[bench.Weight]uint, summaryHTML template.HTML,
 func (b *Benchmarks) Setup(benchMarks *data.Benchmarks, _ *data.Warnings) error {
 	testTags := b.testTagMap(benchMarks.TestTags())
 	// Calculate data ranges
-	// Score 0: Original
+	// Do original calculation and newer calculations and compare them for error.
 	original := bench.NewOriginal(benchMarks, testTags, b.benchWeight)
-	// Calculate test ranges used in calculating scores.
 	original.MakeRanges()
-	// Score 1 & 2
-	ranges := make(map[data.TestTag]map[bench.Weight]bench.Range)
+	// Data ranges for newer calculations.
+	ranges := make(map[data.TestTag]map[bench.Weight]common.Range)
 	for _, test := range benchMarks.TestTags() {
 		if testTags[test] {
-			// Score 1 & 2
-			ranges[test] = map[bench.Weight]bench.Range{
-				bench.Nanoseconds: bench.NewRangeFloat64(),
-				bench.Allocations: bench.NewRangeUint64(),
-				bench.AllocBytes:  bench.NewRangeUint64(),
+			// Data ranges for newer calculations.
+			ranges[test] = map[bench.Weight]common.Range{
+				bench.Nanoseconds: common.NewRangeFloat64(),
+				bench.Allocations: common.NewRangeUint64(),
+				bench.AllocBytes:  common.NewRangeUint64(),
 			}
 			for _, records := range benchMarks.HandlerRecordsFor(test) {
 				ranges[test][bench.Nanoseconds].AddValueFloat64(records.NanosPerOp)
@@ -81,46 +81,49 @@ func (b *Benchmarks) Setup(benchMarks *data.Benchmarks, _ *data.Warnings) error 
 
 	// Calculate scores using test ranges.
 	for _, handler := range benchMarks.HandlerTags() {
-		// Score 0: Original
+		// Original calculation.
 		original.ResetForHandler()
-		// Score 1 & 2
+		// Data ranges for newer calculations.
 		handlerData := b.handlerData[handler]
 		if handlerData == nil {
-			handlerData = bench.NewHandlerData()
-			b.handlerData[handler] = handlerData
+			b.handlerData[handler] = bench.NewHandlerData()
+			handlerData = b.handlerData[handler]
 		}
 		for test, record := range benchMarks.ByHandler[handler] {
 			if testTags[test] {
-				// Score 0: Original
+				// Original calculation.
 				original.HandlerTest(test, record)
-				// Score 1 & 2
+				// Data ranges for newer calculations.
 				rngTest := ranges[test]
 				for _, weight := range bench.WeightOrder {
 					rngTestWeight := rngTest[weight]
 					if length := rngTestWeight.Length(); length > 0 {
 						ranged := rngTestWeight.RangedValue(record.ItemValue(weight.Item()))
-						// Score 1: Refactored original algorithm
+						// Refactored original algorithm for byTest
 						handlerData.ByTest(test).AddMultiple(ranged, b.benchWeight[weight])
-						// Score 2: Newer algorithm rollup over BenchWeight subs
+						// Newer algorithm rollup over BenchWeight subs
 						handlerData.SubScore(weight).Add(ranged)
 					}
 				}
-				// Score 1: Refactored original algorithm
+				// Newer algorithm.
 				handlerData.Rollup(bench.OverTests).Add(handlerData.ByTest(test).Average())
 				original.CheckTest(handlerData, test)
 			}
 		}
-		// Score 0: Original
+		// Original calculation.
 		handlerData.SetScore(score.Original, original.Score())
-		// Score 1: Refactored original algorithm
+		// Refactored original algorithm for byTest
 		handlerData.SetScore(score.ByTest, handlerData.Rollup(bench.OverTests).Average())
-		// Score 2: Newer algorithm rollup over BenchWeight subs
+		// Newer algorithm rollup over BenchWeight subs
 		for _, weight := range bench.WeightOrder {
 			handlerData.Rollup(bench.OverData).AddMultiple(handlerData.SubScore(weight).Average(), b.benchWeight[weight])
 		}
 		handlerData.SetScore(score.ByData, handlerData.Rollup(bench.OverData).Average())
 		original.CheckTotal(handlerData)
+		handlerData.SetScore(score.Default,
+			(handlerData.Score(score.ByData)+handlerData.Score(score.ByTest))/2.0)
 	}
+	// Create Exhibits.
 	rows := make([][]string, 0, len(b.benchWeight))
 	for _, weight := range bench.WeightOrder {
 		if value, found := b.benchWeight[weight]; found {
@@ -144,8 +147,19 @@ func (b *Benchmarks) Name() string {
 	return "Benchmarks"
 }
 
+func (b *Benchmarks) HasTest(test data.TestTag) bool {
+	for _, hdlr := range b.handlerData {
+		if average := hdlr.ByTest(test); average != nil {
+			if average.Count > 0 {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 func (b *Benchmarks) ScoreFor(handler data.HandlerTag) score.Value {
-	return b.ScoreForType(handler, score.Original)
+	return b.ScoreForType(handler, score.Default)
 }
 
 func (b *Benchmarks) ScoreForTest(handler data.HandlerTag, test data.TestTag) score.Value {
@@ -170,6 +184,10 @@ func (b *Benchmarks) Documentation() template.HTML {
 
 // -----------------------------------------------------------------------------
 
+// testTagMap returns a map from data.TestTag to bool
+// in order to track which tests are in the scoring for this axis.
+// The allTags argument specifies the list of all possible tests.
+// Options IncludeTests and ExcludeTests modify this list.
 func (b *Benchmarks) testTagMap(allTags []data.TestTag) map[data.TestTag]bool {
 	include := b.IncludeTests
 	if include == nil {

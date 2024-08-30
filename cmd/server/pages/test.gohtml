@@ -46,8 +46,16 @@
             </td>
           </tr>
           <tr><td colspan=2><hr/></td></tr>
-          <tr><td colspan=2 class="title"><h2>Benchmark Charts</h2></td></tr>
-          <tr>
+          <tr class="title">
+            <td colspan=2>
+              <div class="hover-text">
+                <span class="tooltip-text tooltip-chart-checkbox-offset">Check box to see charts</span>
+                <label for="chart-checkbox" class="charts">Benchmark Charts</label>
+                <input id="chart-checkbox" type="checkbox" checked="checked" onclick="checkboxElement('chart', 'table-row')"/>
+              </div>
+            </td>
+          </tr>
+          <tr id="chart">
             <td colspan=2 class="score">
               <table class="charts">
                 <tr>
@@ -89,6 +97,9 @@
   <div class="footer">
     {{ template "partFooter" $ }}
   </div>
+  <script>
+    checkboxElement('chart', 'table-row')
+  </script>
 </div>
 </body>
 </html>
