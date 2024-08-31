@@ -45,6 +45,7 @@ exclude github.com/wcharczuk/go-chart/v2 v2.1.2
 exclude github.com/rs/zerolog v1.33.0
 
 require (
+	github.com/blend/go-sdk v1.20240719.1 // indirect
 	github.com/bytedance/sonic v1.12.2 // indirect
 	github.com/bytedance/sonic/loader v0.2.0 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
