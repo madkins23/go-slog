@@ -55,6 +55,7 @@ func Bar(c *gin.Context, bench *data.Benchmarks) {
 				Bottom: 10,
 				Left:   10,
 			}),
+			charts.SVGTypeOption(),
 			func(opt *charts.ChartOption) {
 				opt.BarWidth = barWidth
 			},

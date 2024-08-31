@@ -23,7 +23,7 @@ require (
 	github.com/stretchr/testify v1.9.0
 	github.com/veqryn/slog-dedup v0.5.0
 	github.com/vicanso/go-charts/v2 v2.6.10
-	github.com/wcharczuk/go-chart/v2 v2.1.2
+	github.com/wcharczuk/go-chart/v2 v2.1.1
 	go.mrchanchal.com/zaphandler v0.0.0-20230611140024-bd4fd80897ad
 	go.seankhliao.com/svcrunner/v3 v3.0.0-20231007180458-c5294d90b36c
 	go.uber.org/zap v1.27.0
@@ -33,6 +33,13 @@ require (
 
 // This breaks phsym/zeroslog
 exclude github.com/rs/zerolog v1.32.0
+
+// Changed
+// - c.w.Write([]byte(fmt.Sprintf(`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="%d" height="%d">\n`, c.width, c.height)))
+// + c.w.Write([]byte(fmt.Sprintf(`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 %d %d">`, c.width, c.height)))
+// which broke size in Chrome on Linux.
+// Older version still not correct, should be BOTH viewBox and width/height.
+exclude github.com/wcharczuk/go-chart/v2 v2.1.2
 
 // TODO: Remove this when phsym/zeroslog merges PR#6
 exclude github.com/rs/zerolog v1.33.0
