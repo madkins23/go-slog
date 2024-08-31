@@ -562,6 +562,12 @@ table.warning-data td, th {
     width: 150px;
 }
 
+.hover-text:hover .tooltip-footer-link-offset {
+    left: -40px;
+    top: -40px;
+    width: 125px;
+}
+
 .hover-text label.charts {
     /* Duplicate H2 settings */
     font-size: 1.5em;
