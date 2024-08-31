@@ -12,7 +12,6 @@ const (
 	ByData
 	Original
 	ByTest
-	SubScore
 )
 
 var colNames = map[Type]string{
@@ -20,7 +19,6 @@ var colNames = map[Type]string{
 	ByData:   "by Data",
 	ByTest:   "by Test",
 	Original: "Original",
-	SubScore: "Sub",
 }
 
 func (t Type) ColHeader() string {
