@@ -242,224 +242,224 @@
 goos: linux
 goarch: amd64
 cpu: AMD EPYC 7763 64-Core Processor                
-BenchmarkChanchalZap/BenchmarkAttributes-4         	  795139	      1518 ns/op	 256.25 MB/s	     416 B/op	       5 allocs/op
-BenchmarkChanchalZap/BenchmarkBigGroup-4           	   82401	     14912 ns/op	 431.95 MB/s	    3209 B/op	     132 allocs/op
-BenchmarkChanchalZap/BenchmarkDisabled-4           	40742341	        29.48 ns/op	       0 B/op	       0 allocs/op
-BenchmarkChanchalZap/BenchmarkKeyValues-4          	  788305	      1485 ns/op	 261.90 MB/s	     417 B/op	       5 allocs/op
-BenchmarkChanchalZap/BenchmarkLogging-4            	   40131	     30322 ns/op	 273.46 MB/s	    1635 B/op	      51 allocs/op
-BenchmarkChanchalZap/BenchmarkSimple-4             	 3142826	       374.6 ns/op	 194.85 MB/s	      32 B/op	       1 allocs/op
-2024/09/01 01:36:39 WARN Verification Error err="Implied [SourceCaller] Source data logged as 'caller' instead of 'source': tests/benchmarks.go:96"
-BenchmarkChanchalZap/BenchmarkSimpleSource-4       	 1922372	       658.7 ns/op	 162.44 MB/s	     280 B/op	       3 allocs/op
-BenchmarkChanchalZap/BenchmarkWithAttrsAttributes-4         	  821694	      1461 ns/op	 504.52 MB/s	     417 B/op	       5 allocs/op
-BenchmarkChanchalZap/BenchmarkWithAttrsKeyValues-4          	  782152	      1528 ns/op	 482.19 MB/s	     417 B/op	       5 allocs/op
-BenchmarkChanchalZap/BenchmarkWithAttrsSimple-4             	 3112165	       386.8 ns/op	1088.51 MB/s	      32 B/op	       1 allocs/op
-BenchmarkChanchalZap/BenchmarkWithGroupAttributes-4         	  755234	      1522 ns/op	 264.80 MB/s	     505 B/op	       7 allocs/op
-BenchmarkChanchalZap/BenchmarkWithGroupKeyValues-4          	  747718	      1596 ns/op	 252.55 MB/s	     505 B/op	       7 allocs/op
+BenchmarkChanchalZap/BenchmarkAttributes-4         	  808815	      1431 ns/op	 271.76 MB/s	     416 B/op	       5 allocs/op
+BenchmarkChanchalZap/BenchmarkBigGroup-4           	   67996	     17372 ns/op	 447.91 MB/s	    3887 B/op	     160 allocs/op
+BenchmarkChanchalZap/BenchmarkDisabled-4           	41321223	        29.00 ns/op	       0 B/op	       0 allocs/op
+BenchmarkChanchalZap/BenchmarkKeyValues-4          	  782890	      1489 ns/op	 261.24 MB/s	     416 B/op	       5 allocs/op
+BenchmarkChanchalZap/BenchmarkLogging-4            	   39604	     30265 ns/op	 273.98 MB/s	    1635 B/op	      51 allocs/op
+BenchmarkChanchalZap/BenchmarkSimple-4             	 3140790	       378.9 ns/op	 192.66 MB/s	      32 B/op	       1 allocs/op
+2024/09/08 01:25:14 WARN Verification Error err="Implied [SourceCaller] Source data logged as 'caller' instead of 'source': tests/benchmarks.go:96"
+BenchmarkChanchalZap/BenchmarkSimpleSource-4       	 2006306	       673.2 ns/op	 158.95 MB/s	     280 B/op	       3 allocs/op
+BenchmarkChanchalZap/BenchmarkWithAttrsAttributes-4         	  821028	      1448 ns/op	 508.95 MB/s	     417 B/op	       5 allocs/op
+BenchmarkChanchalZap/BenchmarkWithAttrsKeyValues-4          	  713533	      1518 ns/op	 485.50 MB/s	     417 B/op	       5 allocs/op
+BenchmarkChanchalZap/BenchmarkWithAttrsSimple-4             	 2798835	       384.7 ns/op	1094.47 MB/s	      32 B/op	       1 allocs/op
+BenchmarkChanchalZap/BenchmarkWithGroupAttributes-4         	  784886	      1515 ns/op	 266.04 MB/s	     505 B/op	       7 allocs/op
+BenchmarkChanchalZap/BenchmarkWithGroupKeyValues-4          	  767409	      1553 ns/op	 259.43 MB/s	     505 B/op	       7 allocs/op
 # Handler[SlogJSON]="slog/JSONHandler"
-BenchmarkSlogJSON/BenchmarkAttributes-4                     	  791802	      1443 ns/op	 289.64 MB/s	     472 B/op	       6 allocs/op
-BenchmarkSlogJSON/BenchmarkBigGroup-4                       	   83491	     14439 ns/op	 446.78 MB/s	      48 B/op	       1 allocs/op
-BenchmarkSlogJSON/BenchmarkDisabled-4                       	322348118	         3.723 ns/op	       0 B/op	       0 allocs/op
-BenchmarkSlogJSON/BenchmarkKeyValues-4                      	  834662	      1515 ns/op	 275.28 MB/s	     472 B/op	       6 allocs/op
-BenchmarkSlogJSON/BenchmarkLogging-4                        	   38545	     31001 ns/op	 283.70 MB/s	       0 B/op	       0 allocs/op
-BenchmarkSlogJSON/BenchmarkSimple-4                         	 3966438	       302.1 ns/op	 274.70 MB/s	       0 B/op	       0 allocs/op
-BenchmarkSlogJSON/BenchmarkSimpleSource-4                   	 1428033	       825.5 ns/op	 335.56 MB/s	     568 B/op	       6 allocs/op
-BenchmarkSlogJSON/BenchmarkWithAttrsAttributes-4            	  772414	      1422 ns/op	 551.95 MB/s	     472 B/op	       6 allocs/op
-BenchmarkSlogJSON/BenchmarkWithAttrsKeyValues-4             	  844233	      1546 ns/op	 507.87 MB/s	     472 B/op	       6 allocs/op
-BenchmarkSlogJSON/BenchmarkWithAttrsSimple-4                	 3835629	       316.9 ns/op	1419.95 MB/s	       0 B/op	       0 allocs/op
-BenchmarkSlogJSON/BenchmarkWithGroupAttributes-4            	  847578	      1473 ns/op	 293.19 MB/s	     472 B/op	       6 allocs/op
-BenchmarkSlogJSON/BenchmarkWithGroupKeyValues-4             	  829172	      1653 ns/op	 261.37 MB/s	     472 B/op	       6 allocs/op
+BenchmarkSlogJSON/BenchmarkAttributes-4                     	  683430	      1466 ns/op	 285.22 MB/s	     472 B/op	       6 allocs/op
+BenchmarkSlogJSON/BenchmarkBigGroup-4                       	   57238	     18490 ns/op	 421.30 MB/s	      48 B/op	       1 allocs/op
+BenchmarkSlogJSON/BenchmarkDisabled-4                       	321850568	         3.729 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSlogJSON/BenchmarkKeyValues-4                      	  780060	      1481 ns/op	 282.28 MB/s	     472 B/op	       6 allocs/op
+BenchmarkSlogJSON/BenchmarkLogging-4                        	   45842	     26541 ns/op	 331.45 MB/s	       0 B/op	       0 allocs/op
+BenchmarkSlogJSON/BenchmarkSimple-4                         	 4073708	       288.5 ns/op	 287.66 MB/s	       0 B/op	       0 allocs/op
+BenchmarkSlogJSON/BenchmarkSimpleSource-4                   	 1450275	       827.8 ns/op	 334.62 MB/s	     568 B/op	       6 allocs/op
+BenchmarkSlogJSON/BenchmarkWithAttrsAttributes-4            	  784951	      1457 ns/op	 538.81 MB/s	     472 B/op	       6 allocs/op
+BenchmarkSlogJSON/BenchmarkWithAttrsKeyValues-4             	  787310	      1516 ns/op	 517.85 MB/s	     472 B/op	       6 allocs/op
+BenchmarkSlogJSON/BenchmarkWithAttrsSimple-4                	 3628004	       315.5 ns/op	1426.26 MB/s	       0 B/op	       0 allocs/op
+BenchmarkSlogJSON/BenchmarkWithGroupAttributes-4            	  858909	      1457 ns/op	 296.40 MB/s	     472 B/op	       6 allocs/op
+BenchmarkSlogJSON/BenchmarkWithGroupKeyValues-4             	  790758	      1525 ns/op	 283.29 MB/s	     472 B/op	       6 allocs/op
 # Handler[MadkinsFlash]="madkins/flash"
-BenchmarkMadkinsFlash/BenchmarkAttributes-4                 	  875337	      1351 ns/op	 331.70 MB/s	     504 B/op	       5 allocs/op
-BenchmarkMadkinsFlash/BenchmarkBigGroup-4                   	   56173	     21853 ns/op	 337.08 MB/s	   33064 B/op	      11 allocs/op
-BenchmarkMadkinsFlash/BenchmarkDisabled-4                   	322790502	         3.727 ns/op	       0 B/op	       0 allocs/op
-BenchmarkMadkinsFlash/BenchmarkKeyValues-4                  	  761487	      1399 ns/op	 320.31 MB/s	     504 B/op	       5 allocs/op
-BenchmarkMadkinsFlash/BenchmarkLogging-4                    	   35216	     34023 ns/op	 282.60 MB/s	   11840 B/op	     153 allocs/op
-BenchmarkMadkinsFlash/BenchmarkSimple-4                     	 2697913	       454.3 ns/op	 191.52 MB/s	     232 B/op	       3 allocs/op
-BenchmarkMadkinsFlash/BenchmarkSimpleSource-4               	 1334419	       900.7 ns/op	 315.31 MB/s	     704 B/op	       7 allocs/op
-BenchmarkMadkinsFlash/BenchmarkWithAttrsAttributes-4        	  835197	      1367 ns/op	 614.46 MB/s	     504 B/op	       5 allocs/op
-BenchmarkMadkinsFlash/BenchmarkWithAttrsKeyValues-4         	  854701	      1417 ns/op	 592.25 MB/s	     504 B/op	       5 allocs/op
-BenchmarkMadkinsFlash/BenchmarkWithAttrsSimple-4            	 2615760	       456.1 ns/op	1052.33 MB/s	     232 B/op	       3 allocs/op
-BenchmarkMadkinsFlash/BenchmarkWithGroupAttributes-4        	  863156	      1385 ns/op	 334.35 MB/s	     504 B/op	       5 allocs/op
-BenchmarkMadkinsFlash/BenchmarkWithGroupKeyValues-4         	  800386	      1428 ns/op	 324.16 MB/s	     504 B/op	       5 allocs/op
+BenchmarkMadkinsFlash/BenchmarkAttributes-4                 	  878793	      1477 ns/op	 303.36 MB/s	     504 B/op	       5 allocs/op
+BenchmarkMadkinsFlash/BenchmarkBigGroup-4                   	   43423	     24503 ns/op	 363.30 MB/s	   33064 B/op	      11 allocs/op
+BenchmarkMadkinsFlash/BenchmarkDisabled-4                   	322677405	         3.724 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMadkinsFlash/BenchmarkKeyValues-4                  	  731259	      1403 ns/op	 319.24 MB/s	     504 B/op	       5 allocs/op
+BenchmarkMadkinsFlash/BenchmarkLogging-4                    	   35686	     34059 ns/op	 282.19 MB/s	   11840 B/op	     153 allocs/op
+BenchmarkMadkinsFlash/BenchmarkSimple-4                     	 2674443	       448.0 ns/op	 196.45 MB/s	     232 B/op	       3 allocs/op
+BenchmarkMadkinsFlash/BenchmarkSimpleSource-4               	 1299422	       920.1 ns/op	 308.67 MB/s	     704 B/op	       7 allocs/op
+BenchmarkMadkinsFlash/BenchmarkWithAttrsAttributes-4        	  879811	      1411 ns/op	 595.31 MB/s	     504 B/op	       5 allocs/op
+BenchmarkMadkinsFlash/BenchmarkWithAttrsKeyValues-4         	  808318	      1421 ns/op	 591.31 MB/s	     504 B/op	       5 allocs/op
+BenchmarkMadkinsFlash/BenchmarkWithAttrsSimple-4            	 2612202	       459.0 ns/op	1045.66 MB/s	     232 B/op	       3 allocs/op
+BenchmarkMadkinsFlash/BenchmarkWithGroupAttributes-4        	  872179	      1388 ns/op	 333.64 MB/s	     504 B/op	       5 allocs/op
+BenchmarkMadkinsFlash/BenchmarkWithGroupKeyValues-4         	  826608	      1442 ns/op	 320.99 MB/s	     504 B/op	       5 allocs/op
 # Handler[MadkinsReplAttr]="madkins/replattr"
-BenchmarkMadkinsReplAttr/BenchmarkAttributes-4              	  605038	      1994 ns/op	 224.63 MB/s	     508 B/op	       6 allocs/op
-BenchmarkMadkinsReplAttr/BenchmarkBigGroup-4                	   29971	     40323 ns/op	 182.67 MB/s	   33068 B/op	      12 allocs/op
-BenchmarkMadkinsReplAttr/BenchmarkDisabled-4                	322225148	         3.719 ns/op	       0 B/op	       0 allocs/op
-BenchmarkMadkinsReplAttr/BenchmarkKeyValues-4               	  554920	      2044 ns/op	 219.16 MB/s	     508 B/op	       6 allocs/op
-BenchmarkMadkinsReplAttr/BenchmarkLogging-4                 	   23385	     52143 ns/op	 184.40 MB/s	   12043 B/op	     204 allocs/op
-BenchmarkMadkinsReplAttr/BenchmarkSimple-4                  	 1937653	       621.1 ns/op	 141.68 MB/s	     236 B/op	       4 allocs/op
-BenchmarkMadkinsReplAttr/BenchmarkSimpleSource-4            	 1000000	      1133 ns/op	 250.71 MB/s	     712 B/op	       8 allocs/op
-BenchmarkMadkinsReplAttr/BenchmarkWithAttrsAttributes-4     	  563565	      2017 ns/op	 416.38 MB/s	     508 B/op	       6 allocs/op
-BenchmarkMadkinsReplAttr/BenchmarkWithAttrsKeyValues-4      	  585140	      2071 ns/op	 405.61 MB/s	     508 B/op	       6 allocs/op
-BenchmarkMadkinsReplAttr/BenchmarkWithAttrsSimple-4         	 1854775	       627.0 ns/op	 763.91 MB/s	     236 B/op	       4 allocs/op
-BenchmarkMadkinsReplAttr/BenchmarkWithGroupAttributes-4     	  599384	      2025 ns/op	 228.63 MB/s	     508 B/op	       6 allocs/op
-BenchmarkMadkinsReplAttr/BenchmarkWithGroupKeyValues-4      	  546775	      2077 ns/op	 222.88 MB/s	     508 B/op	       6 allocs/op
+BenchmarkMadkinsReplAttr/BenchmarkAttributes-4              	  596985	      2005 ns/op	 223.43 MB/s	     508 B/op	       6 allocs/op
+BenchmarkMadkinsReplAttr/BenchmarkBigGroup-4                	   24614	     46882 ns/op	 189.88 MB/s	   33067 B/op	      12 allocs/op
+BenchmarkMadkinsReplAttr/BenchmarkDisabled-4                	321946836	         3.722 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMadkinsReplAttr/BenchmarkKeyValues-4               	  584679	      2065 ns/op	 216.46 MB/s	     508 B/op	       6 allocs/op
+BenchmarkMadkinsReplAttr/BenchmarkLogging-4                 	   23121	     51917 ns/op	 185.14 MB/s	   12043 B/op	     204 allocs/op
+BenchmarkMadkinsReplAttr/BenchmarkSimple-4                  	 1935980	       616.4 ns/op	 142.76 MB/s	     236 B/op	       4 allocs/op
+BenchmarkMadkinsReplAttr/BenchmarkSimpleSource-4            	 1000000	      1142 ns/op	 248.59 MB/s	     712 B/op	       8 allocs/op
+BenchmarkMadkinsReplAttr/BenchmarkWithAttrsAttributes-4     	  579616	      2014 ns/op	 417.13 MB/s	     508 B/op	       6 allocs/op
+BenchmarkMadkinsReplAttr/BenchmarkWithAttrsKeyValues-4      	  570496	      2059 ns/op	 407.91 MB/s	     508 B/op	       6 allocs/op
+BenchmarkMadkinsReplAttr/BenchmarkWithAttrsSimple-4         	 1905834	       634.0 ns/op	 757.11 MB/s	     236 B/op	       4 allocs/op
+BenchmarkMadkinsReplAttr/BenchmarkWithGroupAttributes-4     	  585488	      2025 ns/op	 228.67 MB/s	     508 B/op	       6 allocs/op
+BenchmarkMadkinsReplAttr/BenchmarkWithGroupKeyValues-4      	  567405	      2096 ns/op	 220.94 MB/s	     508 B/op	       6 allocs/op
 # Handler[MadkinsSloggy]="madkins/sloggy"
-BenchmarkMadkinsSloggy/BenchmarkAttributes-4                	  420152	      2790 ns/op	 160.91 MB/s	    1384 B/op	      64 allocs/op
-BenchmarkMadkinsSloggy/BenchmarkBigGroup-4                  	   28700	     42172 ns/op	 174.69 MB/s	   15416 B/op	    1445 allocs/op
-BenchmarkMadkinsSloggy/BenchmarkDisabled-4                  	322699016	         3.724 ns/op	       0 B/op	       0 allocs/op
-BenchmarkMadkinsSloggy/BenchmarkKeyValues-4                 	  423985	      2848 ns/op	 157.68 MB/s	    1384 B/op	      64 allocs/op
-BenchmarkMadkinsSloggy/BenchmarkLogging-4                   	   17673	     67456 ns/op	 142.54 MB/s	   26992 B/op	    1865 allocs/op
-BenchmarkMadkinsSloggy/BenchmarkSimple-4                    	 1769005	       688.0 ns/op	 129.36 MB/s	     240 B/op	      14 allocs/op
-BenchmarkMadkinsSloggy/BenchmarkSimpleSource-4              	  675547	      1728 ns/op	 164.96 MB/s	    1280 B/op	      30 allocs/op
-BenchmarkMadkinsSloggy/BenchmarkWithAttrsAttributes-4       	  428572	      2787 ns/op	 301.74 MB/s	    1384 B/op	      64 allocs/op
-BenchmarkMadkinsSloggy/BenchmarkWithAttrsKeyValues-4        	  411980	      2826 ns/op	 297.59 MB/s	    1384 B/op	      64 allocs/op
-BenchmarkMadkinsSloggy/BenchmarkWithAttrsSimple-4           	 1724938	       706.7 ns/op	 680.64 MB/s	     240 B/op	      14 allocs/op
-BenchmarkMadkinsSloggy/BenchmarkWithGroupAttributes-4       	  430069	      2787 ns/op	 166.47 MB/s	    1384 B/op	      64 allocs/op
-BenchmarkMadkinsSloggy/BenchmarkWithGroupKeyValues-4        	  424140	      2854 ns/op	 162.58 MB/s	    1384 B/op	      64 allocs/op
+BenchmarkMadkinsSloggy/BenchmarkAttributes-4                	  430122	      2816 ns/op	 159.44 MB/s	    1384 B/op	      64 allocs/op
+BenchmarkMadkinsSloggy/BenchmarkBigGroup-4                  	   23707	     51104 ns/op	 174.21 MB/s	   18568 B/op	    1753 allocs/op
+BenchmarkMadkinsSloggy/BenchmarkDisabled-4                  	321391018	         3.760 ns/op	       0 B/op	       0 allocs/op
+BenchmarkMadkinsSloggy/BenchmarkKeyValues-4                 	  424642	      2859 ns/op	 157.02 MB/s	    1384 B/op	      64 allocs/op
+BenchmarkMadkinsSloggy/BenchmarkLogging-4                   	   17784	     67426 ns/op	 142.57 MB/s	   26992 B/op	    1865 allocs/op
+BenchmarkMadkinsSloggy/BenchmarkSimple-4                    	 1740781	       683.8 ns/op	 130.16 MB/s	     240 B/op	      14 allocs/op
+BenchmarkMadkinsSloggy/BenchmarkSimpleSource-4              	  715015	      1707 ns/op	 166.41 MB/s	    1280 B/op	      30 allocs/op
+BenchmarkMadkinsSloggy/BenchmarkWithAttrsAttributes-4       	  428840	      2789 ns/op	 301.59 MB/s	    1384 B/op	      64 allocs/op
+BenchmarkMadkinsSloggy/BenchmarkWithAttrsKeyValues-4        	  415578	      2850 ns/op	 295.09 MB/s	    1384 B/op	      64 allocs/op
+BenchmarkMadkinsSloggy/BenchmarkWithAttrsSimple-4           	 1738048	       688.7 ns/op	 698.45 MB/s	     240 B/op	      14 allocs/op
+BenchmarkMadkinsSloggy/BenchmarkWithGroupAttributes-4       	  407803	      2838 ns/op	 163.52 MB/s	    1384 B/op	      64 allocs/op
+BenchmarkMadkinsSloggy/BenchmarkWithGroupKeyValues-4        	  368347	      3006 ns/op	 154.34 MB/s	    1384 B/op	      64 allocs/op
 # Handler[PhsymZerolog]="phsym/zeroslog"
-BenchmarkPhsymZerolog/BenchmarkAttributes-4                 	 1241886	       964.9 ns/op	 410.40 MB/s	     272 B/op	       2 allocs/op
-BenchmarkPhsymZerolog/BenchmarkBigGroup-4                   	  119646	     10189 ns/op	 632.55 MB/s	      48 B/op	       1 allocs/op
-BenchmarkPhsymZerolog/BenchmarkDisabled-4                   	322282285	         3.727 ns/op	       0 B/op	       0 allocs/op
-BenchmarkPhsymZerolog/BenchmarkKeyValues-4                  	 1000000	      1011 ns/op	 391.58 MB/s	     272 B/op	       2 allocs/op
-BenchmarkPhsymZerolog/BenchmarkLogging-4                    	   67778	     17891 ns/op	 474.86 MB/s	       0 B/op	       0 allocs/op
-BenchmarkPhsymZerolog/BenchmarkSimple-4                     	 5920639	       201.1 ns/op	 382.96 MB/s	       0 B/op	       0 allocs/op
-2024/09/01 01:38:06 WARN Verification Error err="Implied [SourceCaller] Source data logged as 'caller' instead of 'source': /home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:96"
-BenchmarkPhsymZerolog/BenchmarkSimpleSource-4               	 2471898	       495.3 ns/op	 304.88 MB/s	     312 B/op	       4 allocs/op
-BenchmarkPhsymZerolog/BenchmarkWithAttrsAttributes-4        	 1220013	       975.0 ns/op	 766.17 MB/s	     272 B/op	       2 allocs/op
-BenchmarkPhsymZerolog/BenchmarkWithAttrsKeyValues-4         	 1000000	      1021 ns/op	 731.60 MB/s	     272 B/op	       2 allocs/op
-BenchmarkPhsymZerolog/BenchmarkWithAttrsSimple-4            	 5696534	       211.7 ns/op	2021.92 MB/s	       0 B/op	       0 allocs/op
-BenchmarkPhsymZerolog/BenchmarkWithGroupAttributes-4        	 1000000	      1122 ns/op	 365.40 MB/s	     560 B/op	       3 allocs/op
-BenchmarkPhsymZerolog/BenchmarkWithGroupKeyValues-4         	 1000000	      1144 ns/op	 358.37 MB/s	     560 B/op	       3 allocs/op
+BenchmarkPhsymZerolog/BenchmarkAttributes-4                 	 1251519	       963.1 ns/op	 411.16 MB/s	     272 B/op	       2 allocs/op
+BenchmarkPhsymZerolog/BenchmarkBigGroup-4                   	   98462	     12353 ns/op	 630.19 MB/s	      48 B/op	       1 allocs/op
+BenchmarkPhsymZerolog/BenchmarkDisabled-4                   	321855091	         4.612 ns/op	       0 B/op	       0 allocs/op
+BenchmarkPhsymZerolog/BenchmarkKeyValues-4                  	 1000000	      1014 ns/op	 390.52 MB/s	     272 B/op	       2 allocs/op
+BenchmarkPhsymZerolog/BenchmarkLogging-4                    	   67712	     17911 ns/op	 474.35 MB/s	       0 B/op	       0 allocs/op
+BenchmarkPhsymZerolog/BenchmarkSimple-4                     	 5763549	       206.4 ns/op	 373.13 MB/s	       0 B/op	       0 allocs/op
+2024/09/08 01:26:40 WARN Verification Error err="Implied [SourceCaller] Source data logged as 'caller' instead of 'source': /home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:96"
+BenchmarkPhsymZerolog/BenchmarkSimpleSource-4               	 2482592	       502.1 ns/op	 300.76 MB/s	     312 B/op	       4 allocs/op
+BenchmarkPhsymZerolog/BenchmarkWithAttrsAttributes-4        	 1226436	       970.6 ns/op	 769.63 MB/s	     272 B/op	       2 allocs/op
+BenchmarkPhsymZerolog/BenchmarkWithAttrsKeyValues-4         	 1000000	      1027 ns/op	 727.27 MB/s	     272 B/op	       2 allocs/op
+BenchmarkPhsymZerolog/BenchmarkWithAttrsSimple-4            	 5612925	       213.5 ns/op	2005.10 MB/s	       0 B/op	       0 allocs/op
+BenchmarkPhsymZerolog/BenchmarkWithGroupAttributes-4        	 1000000	      1104 ns/op	 371.50 MB/s	     560 B/op	       3 allocs/op
+BenchmarkPhsymZerolog/BenchmarkWithGroupKeyValues-4         	 1000000	      1137 ns/op	 360.49 MB/s	     560 B/op	       3 allocs/op
 # Handler[PhusluSlog]="phuslu/slog"
-BenchmarkPhusluSlog/BenchmarkAttributes-4                   	 1354218	       883.4 ns/op	 490.18 MB/s	     240 B/op	       1 allocs/op
-BenchmarkPhusluSlog/BenchmarkBigGroup-4                     	  182745	      6566 ns/op	 982.55 MB/s	      48 B/op	       1 allocs/op
-BenchmarkPhusluSlog/BenchmarkDisabled-4                     	406233903	         2.946 ns/op	       0 B/op	       0 allocs/op
-BenchmarkPhusluSlog/BenchmarkKeyValues-4                    	 1287826	       931.2 ns/op	 464.99 MB/s	     240 B/op	       1 allocs/op
-BenchmarkPhusluSlog/BenchmarkLogging-4                      	   83000	     14430 ns/op	 609.98 MB/s	       0 B/op	       0 allocs/op
-BenchmarkPhusluSlog/BenchmarkSimple-4                       	 7549280	       158.7 ns/op	 523.09 MB/s	       0 B/op	       0 allocs/op
-BenchmarkPhusluSlog/BenchmarkSimpleSource-4                 	 5853454	       203.9 ns/op	1358.32 MB/s	       0 B/op	       0 allocs/op
-BenchmarkPhusluSlog/BenchmarkWithAttrsAttributes-4          	 1321354	       904.0 ns/op	 901.51 MB/s	     240 B/op	       1 allocs/op
-BenchmarkPhusluSlog/BenchmarkWithAttrsKeyValues-4           	 1275361	       957.0 ns/op	 851.61 MB/s	     240 B/op	       1 allocs/op
-BenchmarkPhusluSlog/BenchmarkWithAttrsSimple-4              	 7235071	       169.3 ns/op	2746.99 MB/s	       0 B/op	       0 allocs/op
-BenchmarkPhusluSlog/BenchmarkWithGroupAttributes-4          	 1350160	       892.3 ns/op	 500.97 MB/s	     240 B/op	       1 allocs/op
-BenchmarkPhusluSlog/BenchmarkWithGroupKeyValues-4           	 1279832	       945.6 ns/op	 472.71 MB/s	     240 B/op	       1 allocs/op
+BenchmarkPhusluSlog/BenchmarkAttributes-4                   	 1370360	       888.9 ns/op	 487.11 MB/s	     240 B/op	       1 allocs/op
+BenchmarkPhusluSlog/BenchmarkBigGroup-4                     	  151218	      8037 ns/op	 969.39 MB/s	      48 B/op	       1 allocs/op
+BenchmarkPhusluSlog/BenchmarkDisabled-4                     	407440970	         2.947 ns/op	       0 B/op	       0 allocs/op
+BenchmarkPhusluSlog/BenchmarkKeyValues-4                    	 1291945	       928.7 ns/op	 466.23 MB/s	     240 B/op	       1 allocs/op
+BenchmarkPhusluSlog/BenchmarkLogging-4                      	   83486	     14208 ns/op	 619.49 MB/s	       0 B/op	       0 allocs/op
+BenchmarkPhusluSlog/BenchmarkSimple-4                       	 7670241	       155.1 ns/op	 535.30 MB/s	       0 B/op	       0 allocs/op
+BenchmarkPhusluSlog/BenchmarkSimpleSource-4                 	 5944935	       203.5 ns/op	1361.14 MB/s	       0 B/op	       0 allocs/op
+BenchmarkPhusluSlog/BenchmarkWithAttrsAttributes-4          	 1355179	       889.3 ns/op	 916.45 MB/s	     240 B/op	       1 allocs/op
+BenchmarkPhusluSlog/BenchmarkWithAttrsKeyValues-4           	 1287008	       943.3 ns/op	 863.95 MB/s	     240 B/op	       1 allocs/op
+BenchmarkPhusluSlog/BenchmarkWithAttrsSimple-4              	 7317069	       163.7 ns/op	2839.93 MB/s	       0 B/op	       0 allocs/op
+BenchmarkPhusluSlog/BenchmarkWithGroupAttributes-4          	 1339641	       901.9 ns/op	 495.64 MB/s	     240 B/op	       1 allocs/op
+BenchmarkPhusluSlog/BenchmarkWithGroupKeyValues-4           	 1216526	       939.2 ns/op	 475.96 MB/s	     240 B/op	       1 allocs/op
 # Handler[SamberLogrus]="samber/slog-logrus"
-BenchmarkSamberLogrus/BenchmarkAttributes-4                 	   66614	     17644 ns/op	  23.12 MB/s	    9945 B/op	      98 allocs/op
-BenchmarkSamberLogrus/BenchmarkBigGroup-4                   	    4270	    265951 ns/op	  24.22 MB/s	  156209 B/op	    2481 allocs/op
-BenchmarkSamberLogrus/BenchmarkDisabled-4                   	322133558	         3.720 ns/op	       0 B/op	       0 allocs/op
-BenchmarkSamberLogrus/BenchmarkKeyValues-4                  	   68035	     17580 ns/op	  23.21 MB/s	    9945 B/op	      98 allocs/op
-BenchmarkSamberLogrus/BenchmarkLogging-4                    	    2918	    400528 ns/op	  21.05 MB/s	  222994 B/op	    2857 allocs/op
-BenchmarkSamberLogrus/BenchmarkSimple-4                     	  367868	      3148 ns/op	  23.19 MB/s	    1481 B/op	      26 allocs/op
-BenchmarkSamberLogrus/BenchmarkSimpleSource-4               	  164738	      7224 ns/op	  36.96 MB/s	    4277 B/op	      63 allocs/op
-BenchmarkSamberLogrus/BenchmarkWithAttrsAttributes-4        	   45165	     26514 ns/op	  24.36 MB/s	   16882 B/op	     140 allocs/op
-BenchmarkSamberLogrus/BenchmarkWithAttrsKeyValues-4         	   45308	     26699 ns/op	  24.20 MB/s	   16882 B/op	     140 allocs/op
-BenchmarkSamberLogrus/BenchmarkWithAttrsSimple-4            	   70315	     17003 ns/op	  25.88 MB/s	    8841 B/op	      93 allocs/op
-BenchmarkSamberLogrus/BenchmarkWithGroupAttributes-4        	   57213	     20430 ns/op	  18.50 MB/s	   16214 B/op	     172 allocs/op
-BenchmarkSamberLogrus/BenchmarkWithGroupKeyValues-4         	   56961	     20814 ns/op	  18.16 MB/s	   16214 B/op	     172 allocs/op
+BenchmarkSamberLogrus/BenchmarkAttributes-4                 	   65626	     18012 ns/op	  22.65 MB/s	    9946 B/op	      98 allocs/op
+BenchmarkSamberLogrus/BenchmarkBigGroup-4                   	    3974	    290419 ns/op	  26.79 MB/s	  188883 B/op	    3009 allocs/op
+BenchmarkSamberLogrus/BenchmarkDisabled-4                   	322699424	         3.724 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSamberLogrus/BenchmarkKeyValues-4                  	   66895	     17712 ns/op	  23.03 MB/s	    9946 B/op	      98 allocs/op
+BenchmarkSamberLogrus/BenchmarkLogging-4                    	    2884	    406958 ns/op	  20.72 MB/s	  222990 B/op	    2857 allocs/op
+BenchmarkSamberLogrus/BenchmarkSimple-4                     	  372462	      3156 ns/op	  23.13 MB/s	    1481 B/op	      26 allocs/op
+BenchmarkSamberLogrus/BenchmarkSimpleSource-4               	  163202	      7345 ns/op	  36.35 MB/s	    4277 B/op	      63 allocs/op
+BenchmarkSamberLogrus/BenchmarkWithAttrsAttributes-4        	   44464	     26738 ns/op	  24.16 MB/s	   16883 B/op	     140 allocs/op
+BenchmarkSamberLogrus/BenchmarkWithAttrsKeyValues-4         	   44839	     26792 ns/op	  24.11 MB/s	   16878 B/op	     140 allocs/op
+BenchmarkSamberLogrus/BenchmarkWithAttrsSimple-4            	   69014	     17288 ns/op	  25.45 MB/s	    8839 B/op	      93 allocs/op
+BenchmarkSamberLogrus/BenchmarkWithGroupAttributes-4        	   57631	     20579 ns/op	  18.37 MB/s	   16214 B/op	     172 allocs/op
+BenchmarkSamberLogrus/BenchmarkWithGroupKeyValues-4         	   57321	     20679 ns/op	  18.28 MB/s	   16215 B/op	     172 allocs/op
 # Handler[SamberZap]="samber/slog-zap"
-BenchmarkSamberZap/BenchmarkAttributes-4                    	  190538	      6085 ns/op	  63.93 MB/s	    8089 B/op	      54 allocs/op
-BenchmarkSamberZap/BenchmarkBigGroup-4                      	    7941	    157903 ns/op	  40.79 MB/s	  154675 B/op	    2455 allocs/op
-BenchmarkSamberZap/BenchmarkDisabled-4                      	322898996	         3.725 ns/op	       0 B/op	       0 allocs/op
-BenchmarkSamberZap/BenchmarkKeyValues-4                     	  194223	      6321 ns/op	  61.54 MB/s	    8089 B/op	      54 allocs/op
-BenchmarkSamberZap/BenchmarkLogging-4                       	   10000	    115404 ns/op	  71.85 MB/s	  152374 B/op	    1224 allocs/op
-BenchmarkSamberZap/BenchmarkSimple-4                        	 2551915	       466.9 ns/op	 156.33 MB/s	     336 B/op	       2 allocs/op
-2024/09/01 01:39:00 WARN Verification Error err="Implied [SourceCaller] Source data logged as 'caller' instead of 'source': tests/benchmarks.go:96"
-BenchmarkSamberZap/BenchmarkSimpleSource-4                  	 1677638	       767.9 ns/op	 139.34 MB/s	     592 B/op	       5 allocs/op
-BenchmarkSamberZap/BenchmarkWithAttrsAttributes-4           	  112665	     10778 ns/op	  56.41 MB/s	   15435 B/op	      79 allocs/op
-BenchmarkSamberZap/BenchmarkWithAttrsKeyValues-4            	  110628	     10883 ns/op	  55.87 MB/s	   15434 B/op	      79 allocs/op
-BenchmarkSamberZap/BenchmarkWithAttrsSimple-4               	  217189	      5615 ns/op	  74.98 MB/s	    6983 B/op	      49 allocs/op
-BenchmarkSamberZap/BenchmarkWithGroupAttributes-4           	  105954	     11503 ns/op	  32.86 MB/s	   14604 B/op	     146 allocs/op
-BenchmarkSamberZap/BenchmarkWithGroupKeyValues-4            	  103056	     11428 ns/op	  33.08 MB/s	   14602 B/op	     146 allocs/op
+BenchmarkSamberZap/BenchmarkAttributes-4                    	  191514	      6283 ns/op	  61.91 MB/s	    8089 B/op	      54 allocs/op
+BenchmarkSamberZap/BenchmarkBigGroup-4                      	    6283	    190769 ns/op	  40.79 MB/s	  187464 B/op	    2984 allocs/op
+BenchmarkSamberZap/BenchmarkDisabled-4                      	321735442	         3.735 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSamberZap/BenchmarkKeyValues-4                     	  192796	      6458 ns/op	  60.23 MB/s	    8089 B/op	      54 allocs/op
+BenchmarkSamberZap/BenchmarkLogging-4                       	   10000	    118347 ns/op	  70.07 MB/s	  152379 B/op	    1224 allocs/op
+BenchmarkSamberZap/BenchmarkSimple-4                        	 2593376	       464.6 ns/op	 157.13 MB/s	     336 B/op	       2 allocs/op
+2024/09/08 01:27:34 WARN Verification Error err="Implied [SourceCaller] Source data logged as 'caller' instead of 'source': tests/benchmarks.go:96"
+BenchmarkSamberZap/BenchmarkSimpleSource-4                  	 1673360	       721.1 ns/op	 148.38 MB/s	     592 B/op	       5 allocs/op
+BenchmarkSamberZap/BenchmarkWithAttrsAttributes-4           	  112269	     11052 ns/op	  55.01 MB/s	   15435 B/op	      79 allocs/op
+BenchmarkSamberZap/BenchmarkWithAttrsKeyValues-4            	  106778	     11313 ns/op	  53.75 MB/s	   15434 B/op	      79 allocs/op
+BenchmarkSamberZap/BenchmarkWithAttrsSimple-4               	  213099	      5850 ns/op	  71.96 MB/s	    6983 B/op	      49 allocs/op
+BenchmarkSamberZap/BenchmarkWithGroupAttributes-4           	  104164	     12029 ns/op	  31.42 MB/s	   14604 B/op	     146 allocs/op
+BenchmarkSamberZap/BenchmarkWithGroupKeyValues-4            	   98310	     11840 ns/op	  31.93 MB/s	   14604 B/op	     146 allocs/op
 # Handler[SamberZerolog]="samber/slog-zerolog"
-BenchmarkSamberZerolog/BenchmarkAttributes-4                	  214536	      5380 ns/op	  73.61 MB/s	    6287 B/op	      62 allocs/op
-BenchmarkSamberZerolog/BenchmarkBigGroup-4                  	    7881	    157295 ns/op	  40.97 MB/s	  161062 B/op	    2455 allocs/op
-BenchmarkSamberZerolog/BenchmarkDisabled-4                  	321811890	         3.795 ns/op	       0 B/op	       0 allocs/op
-BenchmarkSamberZerolog/BenchmarkKeyValues-4                 	  204908	      5405 ns/op	  73.26 MB/s	    6287 B/op	      62 allocs/op
-BenchmarkSamberZerolog/BenchmarkLogging-4                   	   13222	     92589 ns/op	  91.76 MB/s	  111443 B/op	    1326 allocs/op
-BenchmarkSamberZerolog/BenchmarkSimple-4                    	 3270853	       376.5 ns/op	 204.54 MB/s	     336 B/op	       2 allocs/op
-BenchmarkSamberZerolog/BenchmarkSimpleSource-4              	  491270	      2410 ns/op	 112.44 MB/s	    2715 B/op	      38 allocs/op
-BenchmarkSamberZerolog/BenchmarkWithAttrsAttributes-4       	  125266	      9300 ns/op	  66.45 MB/s	   11595 B/op	      94 allocs/op
-BenchmarkSamberZerolog/BenchmarkWithAttrsKeyValues-4        	  125452	      9251 ns/op	  66.80 MB/s	   11595 B/op	      94 allocs/op
-BenchmarkSamberZerolog/BenchmarkWithAttrsSimple-4           	  234321	      4801 ns/op	  89.15 MB/s	    5182 B/op	      57 allocs/op
-BenchmarkSamberZerolog/BenchmarkWithGroupAttributes-4       	  108727	     11469 ns/op	  33.31 MB/s	   14778 B/op	     147 allocs/op
-BenchmarkSamberZerolog/BenchmarkWithGroupKeyValues-4        	  111560	     11288 ns/op	  33.84 MB/s	   14779 B/op	     147 allocs/op
+BenchmarkSamberZerolog/BenchmarkAttributes-4                	  218944	      5392 ns/op	  73.44 MB/s	    6287 B/op	      62 allocs/op
+BenchmarkSamberZerolog/BenchmarkBigGroup-4                  	    5798	    193266 ns/op	  40.28 MB/s	  195474 B/op	    2984 allocs/op
+BenchmarkSamberZerolog/BenchmarkDisabled-4                  	322652451	         3.728 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSamberZerolog/BenchmarkKeyValues-4                 	  217474	      5617 ns/op	  70.50 MB/s	    6287 B/op	      62 allocs/op
+BenchmarkSamberZerolog/BenchmarkLogging-4                   	   12906	     92774 ns/op	  91.58 MB/s	  111442 B/op	    1326 allocs/op
+BenchmarkSamberZerolog/BenchmarkSimple-4                    	 3203107	       368.1 ns/op	 209.20 MB/s	     336 B/op	       2 allocs/op
+BenchmarkSamberZerolog/BenchmarkSimpleSource-4              	  506734	      2448 ns/op	 110.71 MB/s	    2715 B/op	      38 allocs/op
+BenchmarkSamberZerolog/BenchmarkWithAttrsAttributes-4       	  131098	      9180 ns/op	  67.32 MB/s	   11597 B/op	      94 allocs/op
+BenchmarkSamberZerolog/BenchmarkWithAttrsKeyValues-4        	  134611	      9362 ns/op	  66.01 MB/s	   11594 B/op	      94 allocs/op
+BenchmarkSamberZerolog/BenchmarkWithAttrsSimple-4           	  249236	      4864 ns/op	  87.99 MB/s	    5182 B/op	      57 allocs/op
+BenchmarkSamberZerolog/BenchmarkWithGroupAttributes-4       	  104618	     11635 ns/op	  32.83 MB/s	   14779 B/op	     147 allocs/op
+BenchmarkSamberZerolog/BenchmarkWithGroupKeyValues-4        	  101764	     11552 ns/op	  33.07 MB/s	   14779 B/op	     147 allocs/op
 # Handler[SvcrunnerJsonlog]="svcrunner/jsonlog"
-BenchmarkSvcrunnerJsonlog/BenchmarkAttributes-4             	  969656	      1038 ns/op	 401.89 MB/s	     280 B/op	       3 allocs/op
-BenchmarkSvcrunnerJsonlog/BenchmarkBigGroup-4               	   57726	     20283 ns/op	 318.25 MB/s	   30009 B/op	      12 allocs/op
-BenchmarkSvcrunnerJsonlog/BenchmarkDisabled-4               	407054289	         2.946 ns/op	       0 B/op	       0 allocs/op
-BenchmarkSvcrunnerJsonlog/BenchmarkKeyValues-4              	 1000000	      1092 ns/op	 381.78 MB/s	     280 B/op	       3 allocs/op
-BenchmarkSvcrunnerJsonlog/BenchmarkLogging-4                	   60288	     20249 ns/op	 444.52 MB/s	       0 B/op	       0 allocs/op
-BenchmarkSvcrunnerJsonlog/BenchmarkSimple-4                 	 4902556	       241.0 ns/op	 361.06 MB/s	       0 B/op	       0 allocs/op
-2024/09/01 01:39:33 WARN Verification Error err="Implied [SourceKey] Source data not logged when AddSource flag set: no 'source' key"
-BenchmarkSvcrunnerJsonlog/BenchmarkSimpleSource-4           	 4930780	       244.8 ns/op	 355.39 MB/s	       0 B/op	       0 allocs/op
-BenchmarkSvcrunnerJsonlog/BenchmarkWithAttrsAttributes-4    	 1000000	      1060 ns/op	 735.00 MB/s	     288 B/op	       4 allocs/op
-BenchmarkSvcrunnerJsonlog/BenchmarkWithAttrsKeyValues-4     	  985231	      1115 ns/op	 698.86 MB/s	     288 B/op	       4 allocs/op
-BenchmarkSvcrunnerJsonlog/BenchmarkWithAttrsSimple-4        	 3892648	       305.5 ns/op	1469.85 MB/s	       8 B/op	       1 allocs/op
-BenchmarkSvcrunnerJsonlog/BenchmarkWithGroupAttributes-4    	 1000000	      1083 ns/op	 397.95 MB/s	     296 B/op	       4 allocs/op
-BenchmarkSvcrunnerJsonlog/BenchmarkWithGroupKeyValues-4     	 1000000	      1130 ns/op	 380.62 MB/s	     296 B/op	       4 allocs/op
+BenchmarkSvcrunnerJsonlog/BenchmarkAttributes-4             	  991771	      1050 ns/op	 397.17 MB/s	     280 B/op	       3 allocs/op
+BenchmarkSvcrunnerJsonlog/BenchmarkBigGroup-4               	   46815	     26171 ns/op	 297.84 MB/s	   41152 B/op	      13 allocs/op
+BenchmarkSvcrunnerJsonlog/BenchmarkDisabled-4               	407784026	         3.374 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSvcrunnerJsonlog/BenchmarkKeyValues-4              	 1000000	      1097 ns/op	 379.32 MB/s	     280 B/op	       3 allocs/op
+BenchmarkSvcrunnerJsonlog/BenchmarkLogging-4                	   59628	     20249 ns/op	 444.62 MB/s	       0 B/op	       0 allocs/op
+BenchmarkSvcrunnerJsonlog/BenchmarkSimple-4                 	 4949662	       257.3 ns/op	 338.12 MB/s	       0 B/op	       0 allocs/op
+2024/09/08 01:28:08 WARN Verification Error err="Implied [SourceKey] Source data not logged when AddSource flag set: no 'source' key"
+BenchmarkSvcrunnerJsonlog/BenchmarkSimpleSource-4           	 4703218	       258.4 ns/op	 336.68 MB/s	       0 B/op	       0 allocs/op
+BenchmarkSvcrunnerJsonlog/BenchmarkWithAttrsAttributes-4    	 1000000	      1082 ns/op	 719.99 MB/s	     288 B/op	       4 allocs/op
+BenchmarkSvcrunnerJsonlog/BenchmarkWithAttrsKeyValues-4     	 1000000	      1126 ns/op	 691.60 MB/s	     288 B/op	       4 allocs/op
+BenchmarkSvcrunnerJsonlog/BenchmarkWithAttrsSimple-4        	 3684808	       333.6 ns/op	1345.74 MB/s	       8 B/op	       1 allocs/op
+BenchmarkSvcrunnerJsonlog/BenchmarkWithGroupAttributes-4    	 1000000	      1087 ns/op	 396.46 MB/s	     296 B/op	       4 allocs/op
+BenchmarkSvcrunnerJsonlog/BenchmarkWithGroupKeyValues-4     	 1000000	      1124 ns/op	 383.60 MB/s	     296 B/op	       4 allocs/op
 # Handler[SnqkMeld]="snqk/meld"
-BenchmarkSnqkMeld/BenchmarkAttributes-4                     	  505167	      2488 ns/op	 167.58 MB/s	    2186 B/op	      31 allocs/op
-BenchmarkSnqkMeld/BenchmarkBigGroup-4                       	   21594	     57828 ns/op	 111.55 MB/s	   59989 B/op	    1211 allocs/op
-BenchmarkSnqkMeld/BenchmarkDisabled-4                       	250410207	         4.343 ns/op	       0 B/op	       0 allocs/op
-BenchmarkSnqkMeld/BenchmarkKeyValues-4                      	  472026	      2524 ns/op	 165.59 MB/s	    2186 B/op	      31 allocs/op
-BenchmarkSnqkMeld/BenchmarkLogging-4                        	   25612	     47584 ns/op	 184.89 MB/s	   30214 B/op	     561 allocs/op
-BenchmarkSnqkMeld/BenchmarkSimple-4                         	 3722698	       321.4 ns/op	 258.22 MB/s	       0 B/op	       0 allocs/op
-BenchmarkSnqkMeld/BenchmarkSimpleSource-4                   	 1390675	       875.7 ns/op	 316.33 MB/s	     568 B/op	       6 allocs/op
-BenchmarkSnqkMeld/BenchmarkWithAttrsAttributes-4            	  328752	      3499 ns/op	 187.17 MB/s	    3363 B/op	      38 allocs/op
-BenchmarkSnqkMeld/BenchmarkWithAttrsKeyValues-4             	  304012	      3568 ns/op	 183.87 MB/s	    3363 B/op	      38 allocs/op
-BenchmarkSnqkMeld/BenchmarkWithAttrsSimple-4                	  721680	      1721 ns/op	 261.53 MB/s	    1001 B/op	       8 allocs/op
-BenchmarkSnqkMeld/BenchmarkWithGroupAttributes-4            	  484434	      2484 ns/op	 173.90 MB/s	    2074 B/op	      34 allocs/op
-BenchmarkSnqkMeld/BenchmarkWithGroupKeyValues-4             	  453159	      2558 ns/op	 168.90 MB/s	    2074 B/op	      34 allocs/op
+BenchmarkSnqkMeld/BenchmarkAttributes-4                     	  413755	      2503 ns/op	 167.00 MB/s	    2186 B/op	      31 allocs/op
+BenchmarkSnqkMeld/BenchmarkBigGroup-4                       	   17473	     70026 ns/op	 111.26 MB/s	   73090 B/op	    1469 allocs/op
+BenchmarkSnqkMeld/BenchmarkDisabled-4                       	276024697	         4.345 ns/op	       0 B/op	       0 allocs/op
+BenchmarkSnqkMeld/BenchmarkKeyValues-4                      	  466633	      2777 ns/op	 150.54 MB/s	    2186 B/op	      31 allocs/op
+BenchmarkSnqkMeld/BenchmarkLogging-4                        	   25118	     48150 ns/op	 182.66 MB/s	   30214 B/op	     561 allocs/op
+BenchmarkSnqkMeld/BenchmarkSimple-4                         	 3848719	       311.8 ns/op	 266.17 MB/s	       0 B/op	       0 allocs/op
+BenchmarkSnqkMeld/BenchmarkSimpleSource-4                   	 1399206	       883.5 ns/op	 313.54 MB/s	     568 B/op	       6 allocs/op
+BenchmarkSnqkMeld/BenchmarkWithAttrsAttributes-4            	  334350	      3553 ns/op	 184.65 MB/s	    3363 B/op	      38 allocs/op
+BenchmarkSnqkMeld/BenchmarkWithAttrsKeyValues-4             	  320144	      3621 ns/op	 181.18 MB/s	    3363 B/op	      38 allocs/op
+BenchmarkSnqkMeld/BenchmarkWithAttrsSimple-4                	  650652	      1720 ns/op	 261.61 MB/s	    1001 B/op	       8 allocs/op
+BenchmarkSnqkMeld/BenchmarkWithGroupAttributes-4            	  469759	      2556 ns/op	 168.99 MB/s	    2074 B/op	      34 allocs/op
+BenchmarkSnqkMeld/BenchmarkWithGroupKeyValues-4             	  478660	      2585 ns/op	 167.13 MB/s	    2074 B/op	      34 allocs/op
 # Handler[VeqrynDedupAppend]="veqryn/dedup/Append"
-BenchmarkVeqrynDedupAppend/BenchmarkAttributes-4            	  176761	      5896 ns/op	  70.90 MB/s	    9721 B/op	      41 allocs/op
-BenchmarkVeqrynDedupAppend/BenchmarkBigGroup-4              	    4932	    239107 ns/op	  26.98 MB/s	  544251 B/op	    1704 allocs/op
-BenchmarkVeqrynDedupAppend/BenchmarkDisabled-4              	276199052	         4.358 ns/op	       0 B/op	       0 allocs/op
-BenchmarkVeqrynDedupAppend/BenchmarkKeyValues-4             	  173044	      5906 ns/op	  70.77 MB/s	    9722 B/op	      41 allocs/op
-BenchmarkVeqrynDedupAppend/BenchmarkLogging-4               	    9220	    127936 ns/op	  68.73 MB/s	  224808 B/op	     867 allocs/op
-BenchmarkVeqrynDedupAppend/BenchmarkSimple-4                	 2397831	       485.4 ns/op	 170.99 MB/s	     280 B/op	       6 allocs/op
-BenchmarkVeqrynDedupAppend/BenchmarkSimpleSource-4          	 1000000	      1050 ns/op	 263.69 MB/s	     848 B/op	      12 allocs/op
-BenchmarkVeqrynDedupAppend/BenchmarkWithAttrsAttributes-4   	   99987	     10825 ns/op	  62.82 MB/s	   16469 B/op	     100 allocs/op
-BenchmarkVeqrynDedupAppend/BenchmarkWithAttrsKeyValues-4    	  101918	     11191 ns/op	  60.85 MB/s	   16461 B/op	     100 allocs/op
-BenchmarkVeqrynDedupAppend/BenchmarkWithAttrsSimple-4       	  184670	      5579 ns/op	  80.66 MB/s	    9047 B/op	      39 allocs/op
-BenchmarkVeqrynDedupAppend/BenchmarkWithGroupAttributes-4   	  151834	      7177 ns/op	  60.19 MB/s	   13269 B/op	      50 allocs/op
-BenchmarkVeqrynDedupAppend/BenchmarkWithGroupKeyValues-4    	  143679	      7148 ns/op	  60.44 MB/s	   13275 B/op	      50 allocs/op
+BenchmarkVeqrynDedupAppend/BenchmarkAttributes-4            	  213447	      5689 ns/op	  73.47 MB/s	    9724 B/op	      41 allocs/op
+BenchmarkVeqrynDedupAppend/BenchmarkBigGroup-4              	    3454	    294533 ns/op	  26.45 MB/s	  659978 B/op	    2068 allocs/op
+BenchmarkVeqrynDedupAppend/BenchmarkDisabled-4              	275421375	         4.346 ns/op	       0 B/op	       0 allocs/op
+BenchmarkVeqrynDedupAppend/BenchmarkKeyValues-4             	  177854	      5853 ns/op	  71.42 MB/s	    9724 B/op	      41 allocs/op
+BenchmarkVeqrynDedupAppend/BenchmarkLogging-4               	    9358	    129488 ns/op	  67.96 MB/s	  224776 B/op	     867 allocs/op
+BenchmarkVeqrynDedupAppend/BenchmarkSimple-4                	 2440143	       502.7 ns/op	 165.12 MB/s	     280 B/op	       6 allocs/op
+BenchmarkVeqrynDedupAppend/BenchmarkSimpleSource-4          	 1000000	      1062 ns/op	 260.80 MB/s	     848 B/op	      12 allocs/op
+BenchmarkVeqrynDedupAppend/BenchmarkWithAttrsAttributes-4   	  100736	     10926 ns/op	  62.33 MB/s	   16464 B/op	     100 allocs/op
+BenchmarkVeqrynDedupAppend/BenchmarkWithAttrsKeyValues-4    	   95755	     11315 ns/op	  60.19 MB/s	   16470 B/op	     100 allocs/op
+BenchmarkVeqrynDedupAppend/BenchmarkWithAttrsSimple-4       	  192799	      5526 ns/op	  81.44 MB/s	    9050 B/op	      39 allocs/op
+BenchmarkVeqrynDedupAppend/BenchmarkWithGroupAttributes-4   	  149994	      7110 ns/op	  60.76 MB/s	   13270 B/op	      50 allocs/op
+BenchmarkVeqrynDedupAppend/BenchmarkWithGroupKeyValues-4    	  153230	      7303 ns/op	  59.15 MB/s	   13273 B/op	      50 allocs/op
 # Handler[VeqrynDedupIgnore]="veqryn/dedup/Ignore"
-BenchmarkVeqrynDedupIgnore/BenchmarkAttributes-4            	  175922	      5722 ns/op	  73.05 MB/s	    9725 B/op	      41 allocs/op
-BenchmarkVeqrynDedupIgnore/BenchmarkBigGroup-4              	    4963	    241042 ns/op	  26.76 MB/s	  544292 B/op	    1704 allocs/op
-BenchmarkVeqrynDedupIgnore/BenchmarkDisabled-4              	276456354	         4.344 ns/op	       0 B/op	       0 allocs/op
-BenchmarkVeqrynDedupIgnore/BenchmarkKeyValues-4             	  177306	      5833 ns/op	  71.67 MB/s	    9728 B/op	      41 allocs/op
-BenchmarkVeqrynDedupIgnore/BenchmarkLogging-4               	    9216	    130534 ns/op	  67.41 MB/s	  224797 B/op	     867 allocs/op
-BenchmarkVeqrynDedupIgnore/BenchmarkSimple-4                	 2467827	       491.1 ns/op	 166.98 MB/s	     280 B/op	       6 allocs/op
-BenchmarkVeqrynDedupIgnore/BenchmarkSimpleSource-4          	 1000000	      1061 ns/op	 261.07 MB/s	     848 B/op	      12 allocs/op
-BenchmarkVeqrynDedupIgnore/BenchmarkWithAttrsAttributes-4   	  124399	      8401 ns/op	  78.08 MB/s	   14072 B/op	      61 allocs/op
-BenchmarkVeqrynDedupIgnore/BenchmarkWithAttrsKeyValues-4    	  125563	      8574 ns/op	  76.51 MB/s	   14072 B/op	      61 allocs/op
-BenchmarkVeqrynDedupIgnore/BenchmarkWithAttrsSimple-4       	  187008	      5523 ns/op	  81.48 MB/s	    9050 B/op	      39 allocs/op
-BenchmarkVeqrynDedupIgnore/BenchmarkWithGroupAttributes-4   	  148556	      7204 ns/op	  59.96 MB/s	   13271 B/op	      50 allocs/op
-BenchmarkVeqrynDedupIgnore/BenchmarkWithGroupKeyValues-4    	  139401	      7236 ns/op	  59.70 MB/s	   13273 B/op	      50 allocs/op
+BenchmarkVeqrynDedupIgnore/BenchmarkAttributes-4            	  170149	      5881 ns/op	  70.74 MB/s	    9725 B/op	      41 allocs/op
+BenchmarkVeqrynDedupIgnore/BenchmarkBigGroup-4              	    4040	    296388 ns/op	  26.29 MB/s	  660149 B/op	    2068 allocs/op
+BenchmarkVeqrynDedupIgnore/BenchmarkDisabled-4              	275678380	         4.445 ns/op	       0 B/op	       0 allocs/op
+BenchmarkVeqrynDedupIgnore/BenchmarkKeyValues-4             	  179517	      5761 ns/op	  72.56 MB/s	    9726 B/op	      41 allocs/op
+BenchmarkVeqrynDedupIgnore/BenchmarkLogging-4               	    9340	    127618 ns/op	  68.89 MB/s	  224813 B/op	     867 allocs/op
+BenchmarkVeqrynDedupIgnore/BenchmarkSimple-4                	 2424067	       490.0 ns/op	 167.35 MB/s	     280 B/op	       6 allocs/op
+BenchmarkVeqrynDedupIgnore/BenchmarkSimpleSource-4          	 1000000	      1052 ns/op	 263.38 MB/s	     848 B/op	      12 allocs/op
+BenchmarkVeqrynDedupIgnore/BenchmarkWithAttrsAttributes-4   	  124040	      8416 ns/op	  77.95 MB/s	   14074 B/op	      61 allocs/op
+BenchmarkVeqrynDedupIgnore/BenchmarkWithAttrsKeyValues-4    	  129318	      8491 ns/op	  77.26 MB/s	   14074 B/op	      61 allocs/op
+BenchmarkVeqrynDedupIgnore/BenchmarkWithAttrsSimple-4       	  194468	      5454 ns/op	  82.50 MB/s	    9051 B/op	      39 allocs/op
+BenchmarkVeqrynDedupIgnore/BenchmarkWithGroupAttributes-4   	  143540	      7006 ns/op	  61.66 MB/s	   13274 B/op	      50 allocs/op
+BenchmarkVeqrynDedupIgnore/BenchmarkWithGroupKeyValues-4    	  152086	      7028 ns/op	  61.47 MB/s	   13270 B/op	      50 allocs/op
 # Handler[VeqrynDedupIncrement]="veqryn/dedup/Increment"
-BenchmarkVeqrynDedupIncrement/BenchmarkAttributes-4         	  178170	      6047 ns/op	  69.12 MB/s	    9727 B/op	      41 allocs/op
-BenchmarkVeqrynDedupIncrement/BenchmarkBigGroup-4           	    3830	    262630 ns/op	  24.56 MB/s	  555282 B/op	    1789 allocs/op
-BenchmarkVeqrynDedupIncrement/BenchmarkDisabled-4           	275866156	         4.347 ns/op	       0 B/op	       0 allocs/op
-BenchmarkVeqrynDedupIncrement/BenchmarkKeyValues-4          	  166453	      6183 ns/op	  67.61 MB/s	    9729 B/op	      41 allocs/op
-BenchmarkVeqrynDedupIncrement/BenchmarkLogging-4            	    7688	    130774 ns/op	  67.22 MB/s	  224737 B/op	     867 allocs/op
-BenchmarkVeqrynDedupIncrement/BenchmarkSimple-4             	 2477406	       489.3 ns/op	 169.62 MB/s	     280 B/op	       6 allocs/op
-BenchmarkVeqrynDedupIncrement/BenchmarkSimpleSource-4       	 1000000	      1071 ns/op	 258.54 MB/s	     848 B/op	      12 allocs/op
-BenchmarkVeqrynDedupIncrement/BenchmarkWithAttrsAttributes-4         	   99074	     10939 ns/op	  72.59 MB/s	   15321 B/op	      74 allocs/op
-BenchmarkVeqrynDedupIncrement/BenchmarkWithAttrsKeyValues-4          	  100009	     11098 ns/op	  71.55 MB/s	   15323 B/op	      74 allocs/op
-BenchmarkVeqrynDedupIncrement/BenchmarkWithAttrsSimple-4             	  181154	      5893 ns/op	  76.36 MB/s	    9051 B/op	      39 allocs/op
-BenchmarkVeqrynDedupIncrement/BenchmarkWithGroupAttributes-4         	  134953	      7543 ns/op	  57.14 MB/s	   13286 B/op	      50 allocs/op
-BenchmarkVeqrynDedupIncrement/BenchmarkWithGroupKeyValues-4          	  141378	      7737 ns/op	  55.84 MB/s	   13284 B/op	      50 allocs/op
+BenchmarkVeqrynDedupIncrement/BenchmarkAttributes-4         	  175830	      5950 ns/op	  70.25 MB/s	    9728 B/op	      41 allocs/op
+BenchmarkVeqrynDedupIncrement/BenchmarkBigGroup-4           	    3186	    314640 ns/op	  24.76 MB/s	  675194 B/op	    2177 allocs/op
+BenchmarkVeqrynDedupIncrement/BenchmarkDisabled-4           	276183252	         4.366 ns/op	       0 B/op	       0 allocs/op
+BenchmarkVeqrynDedupIncrement/BenchmarkKeyValues-4          	  195838	      6051 ns/op	  69.08 MB/s	    9727 B/op	      41 allocs/op
+BenchmarkVeqrynDedupIncrement/BenchmarkLogging-4            	    9224	    129207 ns/op	  68.07 MB/s	  224684 B/op	     867 allocs/op
+BenchmarkVeqrynDedupIncrement/BenchmarkSimple-4             	 2474211	       494.8 ns/op	 167.75 MB/s	     280 B/op	       6 allocs/op
+BenchmarkVeqrynDedupIncrement/BenchmarkSimpleSource-4       	 1000000	      1070 ns/op	 258.84 MB/s	     848 B/op	      12 allocs/op
+BenchmarkVeqrynDedupIncrement/BenchmarkWithAttrsAttributes-4         	   96100	     11048 ns/op	  71.87 MB/s	   15323 B/op	      74 allocs/op
+BenchmarkVeqrynDedupIncrement/BenchmarkWithAttrsKeyValues-4          	   99500	     11056 ns/op	  71.81 MB/s	   15323 B/op	      74 allocs/op
+BenchmarkVeqrynDedupIncrement/BenchmarkWithAttrsSimple-4             	  207849	      5744 ns/op	  78.34 MB/s	    9051 B/op	      39 allocs/op
+BenchmarkVeqrynDedupIncrement/BenchmarkWithGroupAttributes-4         	  138338	      7465 ns/op	  57.87 MB/s	   13284 B/op	      50 allocs/op
+BenchmarkVeqrynDedupIncrement/BenchmarkWithGroupKeyValues-4          	  143302	      7452 ns/op	  57.97 MB/s	   13289 B/op	      50 allocs/op
 # Handler[VeqrynDedupOverwrite]="veqryn/dedup/Overwrite"
-BenchmarkVeqrynDedupOverwrite/BenchmarkAttributes-4                  	  177423	      5696 ns/op	  73.39 MB/s	    9723 B/op	      41 allocs/op
-BenchmarkVeqrynDedupOverwrite/BenchmarkBigGroup-4                    	    4971	    238970 ns/op	  26.99 MB/s	  544145 B/op	    1704 allocs/op
-BenchmarkVeqrynDedupOverwrite/BenchmarkDisabled-4                    	276427281	         4.345 ns/op	       0 B/op	       0 allocs/op
-BenchmarkVeqrynDedupOverwrite/BenchmarkKeyValues-4                   	  205650	      5805 ns/op	  72.00 MB/s	    9726 B/op	      41 allocs/op
-BenchmarkVeqrynDedupOverwrite/BenchmarkLogging-4                     	    9190	    128937 ns/op	  68.25 MB/s	  224852 B/op	     867 allocs/op
-BenchmarkVeqrynDedupOverwrite/BenchmarkSimple-4                      	 2451823	       493.6 ns/op	 168.15 MB/s	     280 B/op	       6 allocs/op
-BenchmarkVeqrynDedupOverwrite/BenchmarkSimpleSource-4                	  981430	      1047 ns/op	 264.58 MB/s	     848 B/op	      12 allocs/op
-BenchmarkVeqrynDedupOverwrite/BenchmarkWithAttrsAttributes-4         	  123729	      8622 ns/op	  75.97 MB/s	   14165 B/op	      63 allocs/op
-BenchmarkVeqrynDedupOverwrite/BenchmarkWithAttrsKeyValues-4          	  125944	      8754 ns/op	  74.93 MB/s	   14166 B/op	      63 allocs/op
-BenchmarkVeqrynDedupOverwrite/BenchmarkWithAttrsSimple-4             	  194263	      5522 ns/op	  81.49 MB/s	    9049 B/op	      39 allocs/op
-BenchmarkVeqrynDedupOverwrite/BenchmarkWithGroupAttributes-4         	  147378	      7262 ns/op	  59.49 MB/s	   13273 B/op	      50 allocs/op
-BenchmarkVeqrynDedupOverwrite/BenchmarkWithGroupKeyValues-4          	  153142	      7071 ns/op	  61.10 MB/s	   13269 B/op	      50 allocs/op
+BenchmarkVeqrynDedupOverwrite/BenchmarkAttributes-4                  	  190696	      5753 ns/op	  72.65 MB/s	    9722 B/op	      41 allocs/op
+BenchmarkVeqrynDedupOverwrite/BenchmarkBigGroup-4                    	    4148	    289786 ns/op	  26.89 MB/s	  660233 B/op	    2068 allocs/op
+BenchmarkVeqrynDedupOverwrite/BenchmarkDisabled-4                    	276443406	         4.360 ns/op	       0 B/op	       0 allocs/op
+BenchmarkVeqrynDedupOverwrite/BenchmarkKeyValues-4                   	  183591	      5668 ns/op	  73.75 MB/s	    9726 B/op	      41 allocs/op
+BenchmarkVeqrynDedupOverwrite/BenchmarkLogging-4                     	    9284	    128396 ns/op	  68.54 MB/s	  224837 B/op	     867 allocs/op
+BenchmarkVeqrynDedupOverwrite/BenchmarkSimple-4                      	 2431004	       491.6 ns/op	 168.84 MB/s	     280 B/op	       6 allocs/op
+BenchmarkVeqrynDedupOverwrite/BenchmarkSimpleSource-4                	 1000000	      1070 ns/op	 258.90 MB/s	     848 B/op	      12 allocs/op
+BenchmarkVeqrynDedupOverwrite/BenchmarkWithAttrsAttributes-4         	  123709	      8422 ns/op	  77.89 MB/s	   14171 B/op	      63 allocs/op
+BenchmarkVeqrynDedupOverwrite/BenchmarkWithAttrsKeyValues-4          	  130812	      8524 ns/op	  76.96 MB/s	   14170 B/op	      63 allocs/op
+BenchmarkVeqrynDedupOverwrite/BenchmarkWithAttrsSimple-4             	  188462	      5424 ns/op	  82.97 MB/s	    9051 B/op	      39 allocs/op
+BenchmarkVeqrynDedupOverwrite/BenchmarkWithGroupAttributes-4         	  148634	      7231 ns/op	  59.75 MB/s	   13272 B/op	      50 allocs/op
+BenchmarkVeqrynDedupOverwrite/BenchmarkWithGroupKeyValues-4          	  151759	      7126 ns/op	  60.63 MB/s	   13272 B/op	      50 allocs/op
 PASS
 # 
 # Warnings for chanchal/zaphandler:
 #   Implied
 #      1 [SourceCaller] Source data logged as 'caller' instead of 'source'
 #          SimpleSource: tests/benchmarks.go:96
-#            {"level":"info","time":"2024-09-01T01:36:39Z","caller":"tests/benchmarks.go:96","msg":"This is a message"}
+#            {"level":"info","time":"2024-09-08T01:25:14Z","caller":"tests/benchmarks.go:96","msg":"This is a message"}
 # 
 # Warnings for madkins/flash:
 #   None
@@ -474,7 +474,7 @@ PASS
 #   Implied
 #      1 [SourceCaller] Source data logged as 'caller' instead of 'source'
 #          SimpleSource: /home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:96
-#            {"level":"info","caller":"/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:96","time":"2024-09-01T01:38:06Z","message":"This is a message"}
+#            {"level":"info","caller":"/home/runner/work/go-slog/go-slog/bench/tests/benchmarks.go:96","time":"2024-09-08T01:26:40Z","message":"This is a message"}
 # 
 # Warnings for phuslu/slog:
 #   None
@@ -486,7 +486,7 @@ PASS
 #   Implied
 #      1 [SourceCaller] Source data logged as 'caller' instead of 'source'
 #          SimpleSource: tests/benchmarks.go:96
-#            {"level":"info","time":"2024-09-01T01:39:00Z","caller":"tests/benchmarks.go:96","msg":"This is a message"}
+#            {"level":"info","time":"2024-09-08T01:27:34Z","caller":"tests/benchmarks.go:96","msg":"This is a message"}
 # 
 # Warnings for samber/slog-zerolog:
 #   None
@@ -501,7 +501,7 @@ PASS
 #   Implied
 #      1 [SourceKey] Source data not logged when AddSource flag set
 #          SimpleSource: no 'source' key
-#            {"time":"2024-09-01T01:39:33.494880876Z","level":"INFO","message":"This is a message"}
+#            {"time":"2024-09-08T01:28:08.167792043Z","level":"INFO","message":"This is a message"}
 # 
 # Warnings for veqryn/dedup/Append:
 #   None
@@ -518,12 +518,12 @@ PASS
 #  Handlers by warning:
 #   Implied
 #     [SourceCaller] Source data logged as 'caller' instead of 'source'
-#       chanchal/zaphandler
 #       phsym/zeroslog
 #       samber/slog-zap
+#       chanchal/zaphandler
 #     [SourceKey] Source data not logged when AddSource flag set
 #       svcrunner/jsonlog
-ok  	command-line-arguments	272.622s
+ok  	command-line-arguments	275.893s
 </div>
   <div class="footer">
         <table class="footer">
@@ -537,7 +537,7 @@ ok  	command-line-arguments	272.622s
           <td class="center">
             <div class="hover-text">
               <span class="tooltip-text tooltip-footer-link-offset" style="width:200px">Date/time when this data was generated</span>
-              <span class="fixed">2024-09-01 01:41:09 UTC</span>
+              <span class="fixed">2024-09-08 01:29:54 UTC</span>
             </div>
           </td>
           <td class="right">
