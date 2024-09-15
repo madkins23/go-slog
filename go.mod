@@ -14,7 +14,7 @@ require (
 	github.com/madkins23/go-utils v1.44.0
 	github.com/phsym/console-slog v0.3.1
 	github.com/phsym/zeroslog v0.1.0
-	github.com/phuslu/log v1.0.110
+	github.com/phuslu/log v1.0.111
 	github.com/rs/zerolog v1.31.0
 	github.com/samber/slog-logrus/v2 v2.5.0
 	github.com/samber/slog-zap/v2 v2.6.0
@@ -56,7 +56,7 @@ require (
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
-	github.com/go-playground/validator/v10 v10.22.0 // indirect
+	github.com/go-playground/validator/v10 v10.22.1 // indirect
 	github.com/goccy/go-json v0.10.3 // indirect
 	github.com/golang/freetype v0.0.0-20170609003504-e2365dfdc4a0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
@@ -73,8 +73,8 @@ require (
 	github.com/samber/slog-common v0.17.1 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.12 // indirect
-	go.opentelemetry.io/otel v1.29.0 // indirect
-	go.opentelemetry.io/otel/trace v1.29.0 // indirect
+	go.opentelemetry.io/otel v1.30.0 // indirect
+	go.opentelemetry.io/otel/trace v1.30.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.10.0 // indirect
 	golang.org/x/crypto v0.27.0 // indirect
@@ -83,7 +83,7 @@ require (
 	golang.org/x/net v0.29.0 // indirect
 	golang.org/x/sync v0.8.0 // indirect
 	golang.org/x/sys v0.25.0 // indirect
-	golang.org/x/tools v0.24.0 // indirect
+	golang.org/x/tools v0.25.0 // indirect
 	google.golang.org/protobuf v1.34.2 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	modernc.org/b/v2 v2.1.0 // indirect
