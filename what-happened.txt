@@ -1,0 +1,24 @@
+go-slog/docs/chart/Bench.Simple/GbPerSec.svg
+
+2023-08-18
+  wcharczuk/go-chart tagged 2.1.1
+
+2023-10-03
+  Repository wcharczuk/go-chart (used by vicanso/go-charts)
+  - c.w.Write([]byte(fmt.Sprintf(`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="%d" height="%d">\n`, c.width, c.height)))
+  + c.w.Write([]byte(fmt.Sprintf(`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 %d %d">`, c.width, c.height)))
+
+2024-08-15
+  vicanso/go-charts tagged 2.6.10
+
+2024-08-20
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="420">
+
+2024-08-23
+  vicanso/go-charts  archived by the owner
+  wcharczuk/go-chart archived by the owner
+  wcharczuk/go-chart tagged 2.1.2
+
+2024-08-24
+  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 400 420">
+
