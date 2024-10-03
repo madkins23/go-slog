@@ -9,13 +9,13 @@ require (
 	github.com/fatih/camelcase v1.0.0
 	github.com/gertd/go-pluralize v0.2.1
 	github.com/gin-gonic/gin v1.10.0
-	github.com/gomarkdown/markdown v0.0.0-20240730141124-034f12af3bf6
+	github.com/gomarkdown/markdown v0.0.0-20240930133441-72d49d9543d8
 	github.com/madkins23/gin-utils v1.4.1
 	github.com/madkins23/go-utils v1.44.0
 	github.com/phsym/console-slog v0.3.1
-	github.com/phsym/zeroslog v0.1.0
-	github.com/phuslu/log v1.0.111
-	github.com/rs/zerolog v1.31.0
+	github.com/phsym/zeroslog v0.2.0
+	github.com/phuslu/log v1.0.112
+	github.com/rs/zerolog v1.33.0
 	github.com/samber/slog-logrus/v2 v2.5.0
 	github.com/samber/slog-zap/v2 v2.6.0
 	github.com/samber/slog-zerolog/v2 v2.7.0
@@ -32,7 +32,7 @@ require (
 )
 
 // This breaks phsym/zeroslog
-exclude github.com/rs/zerolog v1.32.0
+// TODO: Remove? exclude github.com/rs/zerolog v1.32.0
 
 // Changed
 // - c.w.Write([]byte(fmt.Sprintf(`<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="%d" height="%d">\n`, c.width, c.height)))
@@ -42,11 +42,11 @@ exclude github.com/rs/zerolog v1.32.0
 exclude github.com/wcharczuk/go-chart/v2 v2.1.2
 
 // TODO: Remove this when phsym/zeroslog merges PR#6
-exclude github.com/rs/zerolog v1.33.0
+// TODO: Remove? exclude github.com/rs/zerolog v1.33.0
 
 require (
 	github.com/blend/go-sdk v1.20240719.1 // indirect
-	github.com/bytedance/sonic v1.12.2 // indirect
+	github.com/bytedance/sonic v1.12.3 // indirect
 	github.com/bytedance/sonic/loader v0.2.0 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
 	github.com/cloudwego/iasm v0.2.0 // indirect
