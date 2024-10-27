@@ -14,7 +14,7 @@ require (
 	github.com/madkins23/go-utils v1.44.0
 	github.com/phsym/console-slog v0.3.1
 	github.com/phsym/zeroslog v0.2.0
-	github.com/phuslu/log v1.0.112
+	github.com/phuslu/log v1.0.113
 	github.com/rs/zerolog v1.33.0
 	github.com/samber/slog-logrus/v2 v2.5.0
 	github.com/samber/slog-zap/v2 v2.6.0
@@ -47,7 +47,7 @@ exclude github.com/wcharczuk/go-chart/v2 v2.1.2
 require (
 	github.com/blend/go-sdk v1.20240719.1 // indirect
 	github.com/bytedance/sonic v1.12.3 // indirect
-	github.com/bytedance/sonic/loader v0.2.0 // indirect
+	github.com/bytedance/sonic/loader v0.2.1 // indirect
 	github.com/cloudwego/base64x v0.1.4 // indirect
 	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
