@@ -20,7 +20,7 @@ require (
 	github.com/samber/slog-zap/v2 v2.6.0
 	github.com/samber/slog-zerolog/v2 v2.7.1
 	github.com/sirupsen/logrus v1.9.3
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 	github.com/veqryn/slog-dedup v0.5.0
 	github.com/vicanso/go-charts/v2 v2.6.10
 	github.com/wcharczuk/go-chart/v2 v2.1.1
@@ -52,7 +52,7 @@ require (
 	github.com/cloudwego/iasm v0.2.0 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
-	github.com/gabriel-vasile/mimetype v1.4.6 // indirect
+	github.com/gabriel-vasile/mimetype v1.4.7 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/go-playground/locales v0.14.1 // indirect
 	github.com/go-playground/universal-translator v0.18.1 // indirect
