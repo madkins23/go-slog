@@ -92,17 +92,17 @@ L 593 -9223372036854775257" style="stroke-width:0;stroke:none;fill:none"/><path 
 L 593 -9223372036854775257" style="stroke-width:0;stroke:none;fill:none"/><path  d="M 12 -9223372036854775257
 L 593 -9223372036854775257" style="stroke-width:0;stroke:none;fill:none"/><path  d="M 12 -9223372036854775257
 L 593 -9223372036854775257" style="stroke-width:0;stroke:none;fill:none"/><path  d="M 563 81
-L 652 121" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><path  d="M 593 303
-L 652 181" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><circle cx="563" cy="81" r="5" style="stroke-width:1;stroke:rgba(23,229,0,1.0);fill:rgba(23,229,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(23,229,0,1.0);fill:rgba(23,229,0,1.0)"/><circle cx="593" cy="303" r="5" style="stroke-width:1;stroke:rgba(56,157,0,1.0);fill:rgba(56,157,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(56,157,0,1.0);fill:rgba(56,157,0,1.0)"/><path  d="M 652 121
-L 662 110
-L 780 110
-L 780 132
-L 662 132
-L 652 121
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="667" y="127" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">slog/JSONHandler</text><path  d="M 652 181
-L 662 170
-L 734 170
-L 734 192
-L 662 192
-L 652 181
-Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="667" y="187" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">snqk/meld</text></svg>
+L 652 119" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><path  d="M 593 300
+L 652 180" style="stroke-width:1;stroke:rgba(63,63,63,0.2);fill:none"/><circle cx="563" cy="81" r="5" style="stroke-width:1;stroke:rgba(23,229,0,1.0);fill:rgba(23,229,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(23,229,0,1.0);fill:rgba(23,229,0,1.0)"/><circle cx="593" cy="300" r="5" style="stroke-width:1;stroke:rgba(56,158,0,1.0);fill:rgba(56,158,0,1.0)"/><path  d="" style="stroke-width:1;stroke:rgba(56,158,0,1.0);fill:rgba(56,158,0,1.0)"/><path  d="M 652 119
+L 662 108
+L 780 108
+L 780 130
+L 662 130
+L 652 119
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="667" y="125" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">slog/JSONHandler</text><path  d="M 652 180
+L 662 169
+L 734 169
+L 734 191
+L 662 191
+L 652 180
+Z" style="stroke-width:1;stroke:rgba(63,127,255,1.0);fill:rgba(255,255,255,1.0)"/><text x="667" y="186" style="stroke-width:0;stroke:none;fill:rgba(51,51,51,1.0);font-size:12.8px;font-family:'Roboto Medium',sans-serif">snqk/meld</text></svg>
