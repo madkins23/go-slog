@@ -1,6 +1,8 @@
 # go-slog
 Tools and testing for `log/slog` (hereafter just `slog`) handlers.
 
+> 📝 Author has brain cancer and will archive this project pretty soon. -- 2025-01-28
+
 [Recent benchmark data](https://madkins23.github.io/go-slog/index.html)
 is available via [GitHub Pages](https://pages.github.com/).
 
